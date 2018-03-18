@@ -1,4 +1,5 @@
-image: atlassian/default-image:latest
+#image: atlassian/default-image:latest
+image: samueldebruyn/debian-git
 
 pipelines:
   custom: # Pipelines that are triggered manually
