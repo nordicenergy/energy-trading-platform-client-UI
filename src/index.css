@@ -1,0 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: helvetica, sans-serif;
+
+    /* Color Schema */
+    --fromColor: #47d179;
+    --toColor: #30acc1;
+}
