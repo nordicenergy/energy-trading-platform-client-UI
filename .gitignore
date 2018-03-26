@@ -3,12 +3,15 @@
 
 # testing
 /coverage
+jest_*
 
 # production
 /build
 
 # misc
+firefox_root
 .idea
+.parentlock
 .DS_Store
 .env.local
 .env.development.local

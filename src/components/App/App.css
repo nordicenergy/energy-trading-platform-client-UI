@@ -1,0 +1,32 @@
+.app {
+    text-align: center;
+}
+
+.app-logo {
+    animation: app-logo-spin infinite 20s linear;
+    height: 5rem;
+}
+
+.app-header {
+    background: linear-gradient(to right, var(--fromColor), var(--toColor));
+    height: 10rem;
+    padding: 1.5rem;
+    color: white;
+}
+
+.app-title {
+    font-size: 1.5em;
+}
+
+.app-intro {
+    font-size: large;
+}
+
+@keyframes app-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
