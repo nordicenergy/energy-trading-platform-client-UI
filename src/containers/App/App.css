@@ -3,15 +3,17 @@
 }
 
 .app-logo {
-    animation: app-logo-spin infinite 20s linear;
     height: 5rem;
+
+    animation: app-logo-spin infinite 20s linear;
 }
 
 .app-header {
-    background: linear-gradient(to right, var(--fromColor), var(--toColor));
     height: 10rem;
     padding: 1.5rem;
+
     color: white;
+    background: linear-gradient(to right, var(--fromColor), var(--toColor));
 }
 
 .app-title {

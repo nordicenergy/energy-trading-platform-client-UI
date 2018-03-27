@@ -1,12 +1,13 @@
 import React from 'react';
 import App from '../App';
-import { mount } from 'enzyme';
+import { shallowWithIntl } from '../../../services/intlTestHelper';
 
 function renderComponent(context = {}) {
-    return mount(<App context={context} />);
+    return shallowWithIntl(<App context={context} />);
 }
 
 describe('Main <App /> Component', () => {
+
     it(`should contains following controls:
         - <div> with class "app";
         - <img> with class "app-logo"
