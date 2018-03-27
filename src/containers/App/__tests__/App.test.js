@@ -7,7 +7,6 @@ function renderComponent(context = {}) {
 }
 
 describe('Main <App /> Component', () => {
-
     it(`should contains following controls:
         - <div> with class "app";
         - <img> with class "app-logo"
