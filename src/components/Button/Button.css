@@ -1,0 +1,12 @@
+.button {
+    width: 15rem;
+    height: 3rem;
+
+    color: white;
+    border: none;
+    border-radius: 0.2rem;
+    background: #1e577b;
+    box-shadow: 0.2rem 0.2rem 0.5rem gray;
+
+    font-weight: bold;
+}

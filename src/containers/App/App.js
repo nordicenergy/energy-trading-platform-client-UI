@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+
+import { Button } from '../../components/index';
 import logo from './logo.svg';
 import './App.css';
 
@@ -18,8 +21,12 @@ class App extends React.Component {
                     </h1>
                 </header>
                 <p className="app-intro">
-                    To get started, edit <code>src/App.js</code> and save to
-                    reload.
+                    <Button>
+                        <FormattedMessage
+                            id="app.loginBtn"
+                            defaultMessage="Login"
+                        />
+                    </Button>
                 </p>
                 {/*<button id="openTest" onClick={() => this.openTestPage()}>*/}
                 {/*Open Test Page*/}

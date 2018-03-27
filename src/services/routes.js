@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { Test, App } from '../components';
+import { Test, App } from '../containers';
 
 export const Routes = () => (
     <div>

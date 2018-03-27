@@ -2,19 +2,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { store } from './store';
-import './index.css';
+import { addLocaleData, IntlProvider } from 'react-intl';
+import enLocaleData from 'react-intl/locale-data/en';
 
+import { store } from './store';
+import messagesEn from './services/translations/en.json';
 import { Routes } from './services/routes';
 import configureAxios from './services/axios';
 import registerServiceWorker from './services/registerServiceWorker';
 
+/* Core common styles */
+import './index.css';
+
 function bootstrap() {
+    addLocaleData(enLocaleData);
+    const defaultLocale = 'en';
+
+    const messages = { en: messagesEn };
+
     ReactDOM.render(
         <Provider store={store}>
-            <Router>
-                <Routes />
-            </Router>
+            <IntlProvider
+                locale={defaultLocale}
+                messages={messages[defaultLocale]}
+            >
+                <Router>
+                    <Routes />
+                </Router>
+            </IntlProvider>
         </Provider>,
         document.getElementById('root')
     );

@@ -6,6 +6,7 @@
         "axios": "0.18.0",
         "react": "16.2.0",
         "react-dom": "16.2.0",
+        "react-intl": "2.4.0",
         "react-redux": "5.0.7",
         "react-router-dom": "4.2.2",
         "react-scripts": "1.1.1",
@@ -16,6 +17,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom --coverage src/setupTests.js src/**/*",
         "format": "./node_modules/.bin/prettier --single-quote --write 'src/**/*.{js,jsx,json,css}'",
+        "styleguide": "styleguidist server",
+        "styleguide:build": "styleguidist build",
         "eject": "react-scripts eject"
     },
     "devDependencies": {
@@ -23,10 +26,19 @@
         "enzyme-adapter-react-16": "1.1.1",
         "pre-commit": "1.2.2",
         "prettier": "1.11.1",
+        "react-styleguidist": "6.5.3",
         "react-test-renderer": "16.2.0"
     },
     "pre-commit": [
         "format",
         "test"
-    ]
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git@bitbucket.org:lition/frontend.git"
+    },
+    "engines": {
+        "node": ">=6.6.0",
+        "npm": ">=3.10.8"
+    }
 }
