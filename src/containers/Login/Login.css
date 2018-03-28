@@ -1,0 +1,34 @@
+.login-page {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.login-form-container {
+    display: inherit;
+    align-items: center;
+    justify-content: center;
+    flex: 1.4;
+}
+
+.login-logo-container {
+    flex: 1;
+    display: inherit;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(10deg, var(--fromColor), var(--toColor));
+}
+
+.login-logo {
+    height: 5rem;
+    animation: logo-spin infinite 20s linear;
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

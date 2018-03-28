@@ -1,10 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { Test, App } from '../containers';
+import { Test, App, Login } from '../containers';
 
 export const Routes = () => (
-    <div>
+    <div id="routes">
         <Route path="/" component={App} />
+        <Route path="/login" component={Login} />
         <Route path="/testRoute" component={Test} />
     </div>
 );
