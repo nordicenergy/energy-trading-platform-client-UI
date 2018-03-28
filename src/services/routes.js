@@ -4,7 +4,7 @@ import { Test, App, Login } from '../containers';
 
 export const Routes = () => (
     <div id="routes">
-        <Route path="/" component={App} />
+        <Route exact path="/" component={App} />
         <Route path="/login" component={Login} />
         <Route path="/testRoute" component={Test} />
     </div>

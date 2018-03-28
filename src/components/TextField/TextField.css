@@ -1,0 +1,54 @@
+.text-field {
+    width: 100%;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 100%;
+    height: 2.625em;
+    border-bottom: 0.125rem solid #e3e6e8;
+}
+
+.input-wrapper .label,
+.input-wrapper .input {
+    position: relative;
+    bottom: -0.125rem;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.input-wrapper .label {
+    max-width: 34%;
+    font-weight: 700;
+    font-size: 0.875em;
+    line-height: 3em;
+}
+
+.input-wrapper .input {
+    max-width: 66%;
+    outline: none;
+    border: none;
+    background: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.125em;
+}
+
+.input-wrapper .input:focus {
+    background: transparent linear-gradient(to right, #4fd279, #38acc0)
+        no-repeat 0 100%;
+    background-size: 100% 3px;
+}
+
+.helper-text {
+    margin: 4px 0 0;
+    padding-left: 34%;
+    font-weight: 700;
+    font-size: 0.75em;
+}

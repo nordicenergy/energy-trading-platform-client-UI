@@ -1,0 +1,17 @@
+.login-form {
+    width: 100%;
+    font-size: 1rem;
+}
+
+.username-field {
+    margin-bottom: 3rem;
+}
+
+.password-field {
+    margin-bottom: 2.375rem;
+}
+
+.reset-password-link {
+    color: inherit;
+    text-decoration: none;
+}
