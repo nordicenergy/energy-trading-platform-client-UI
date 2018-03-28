@@ -54,6 +54,36 @@ describe('<LoginForm /> component', () => {
         expect(component.find('Button')).toHaveLength(1);
     });
 
+    it('should update state if username field value change', () => {
+        const component = renderComponent();
+
+        component
+            .find('TextField.username-field')
+            .props()
+            .onChange({
+                currentTarget: {
+                    name: 'username',
+                    value: 'test'
+                }
+            });
+        expect(component.state().username).toBe('test');
+    });
+
+    it('should update state if password field value change', () => {
+        const component = renderComponent();
+
+        component
+            .find('TextField.password-field')
+            .props()
+            .onChange({
+                currentTarget: {
+                    name: 'password',
+                    value: 'test'
+                }
+            });
+        expect(component.state().password).toBe('test');
+    });
+
     it('should call onForgotPasswordLinkClick callback when forgot password link button was clicked', () => {
         const component = renderComponent({}, mount);
 
