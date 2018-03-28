@@ -7,7 +7,12 @@ function renderComponent({
     notifications = [],
     onLogoutButtonClickHandler = () => {}
 }) {
-    return mount(<Header notifications={notifications} onLogoutButtonClickHandler={onLogoutButtonClickHandler} />);
+    return mount(
+        <Header
+            notifications={notifications}
+            onLogoutButtonClickHandler={onLogoutButtonClickHandler}
+        />
+    );
 }
 
 describe('<Header /> Component', () => {
@@ -25,14 +30,22 @@ describe('<Header /> Component', () => {
         const component = renderComponent({
             onLogoutButtonClickHandler
         });
-        component.find('HeaderButton').at(1).find('button').simulate('click');
+        component
+            .find('HeaderButton')
+            .at(1)
+            .find('button')
+            .simulate('click');
         expect(onLogoutButtonClickHandler).toHaveBeenCalled();
     });
 
     it('should call logout method after clicking on logout button', () => {
         const component = renderComponent({});
         Header.prototype.logout = jest.fn();
-        component.find('HeaderButton').at(1).find('button').simulate('click');
+        component
+            .find('HeaderButton')
+            .at(1)
+            .find('button')
+            .simulate('click');
         expect(Header.prototype.logout).toHaveBeenCalled();
     });
 });

@@ -6,9 +6,14 @@ function renderComponent({
     icon = 'icon',
     hasIndicator = false,
     onClickHandler = () => {}
-
 }) {
-    return mount(<HeaderButton icon={icon} hasIndicator={hasIndicator} onClickHandler={onClickHandler}/>);
+    return mount(
+        <HeaderButton
+            icon={icon}
+            hasIndicator={hasIndicator}
+            onClickHandler={onClickHandler}
+        />
+    );
 }
 
 describe('<HeaderButton /> Component', () => {
@@ -21,9 +26,17 @@ describe('<HeaderButton /> Component', () => {
         });
         expect(component.find('div.header-button-container').length).toBe(1);
         expect(component.find('button.header-button').length).toBe(1);
-        expect(component.find('span.header-button-icon-container').length).toBe(1);
+        expect(component.find('span.header-button-icon-container').length).toBe(
+            1
+        );
         expect(component.find('span.header-button-indicator').length).toBe(0);
-        expect(component.find('span.header-button-icon-container').at(0).text().includes('icon')).toBe(true);
+        expect(
+            component
+                .find('span.header-button-icon-container')
+                .at(0)
+                .text()
+                .includes('icon')
+        ).toBe(true);
     });
 
     it('should display indicator', () => {

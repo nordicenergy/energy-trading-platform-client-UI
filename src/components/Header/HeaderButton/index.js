@@ -1,3 +1,3 @@
-import HeaderButton from './HeaderButton.js'
+import HeaderButton from './HeaderButton.js';
 
 export default HeaderButton;

@@ -2,8 +2,8 @@
     position: relative;
     width: 6.94rem;
     height: 4.5rem;
-    border-left: 0.06rem solid #1E577B;
-    background-color: #051A2D;
+    border-left: 0.06rem solid #1e577b;
+    background-color: #051a2d;
 }
 
 .header-button {
@@ -34,5 +34,5 @@
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background-color: #48D376;
+    background-color: #48d376;
 }

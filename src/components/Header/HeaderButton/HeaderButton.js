@@ -6,12 +6,12 @@ const HeaderButton = ({ children, hasIndicator, onClickHandler, icon }) => (
     <div className="header-button-container">
         <button className="header-button" onClick={onClickHandler}>
             <span className="header-button-icon-container">
-                { icon }
-                { hasIndicator && <span className="header-button-indicator" /> }
+                {icon}
+                {hasIndicator && <span className="header-button-indicator" />}
             </span>
         </button>
-            { children }
-        </div>
+        {children}
+    </div>
 );
 
 HeaderButton.propTypes = {
