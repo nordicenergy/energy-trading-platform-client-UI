@@ -1,12 +1,16 @@
 .button {
-    width: 15rem;
-    height: 3rem;
-
-    color: white;
+    margin: 0;
+    padding: 0;
+    min-width: 18.125rem;
+    height: 3.5rem;
     border: none;
-    border-radius: 0.2rem;
-    background: #1e577b;
-    box-shadow: 0.2rem 0.2rem 0.5rem gray;
+    border-radius: 0.25rem;
+    background: #40c56a;
+    color: #fff;
+    text-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
 
-    font-weight: bold;
+    appearance: none;
 }

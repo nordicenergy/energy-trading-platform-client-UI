@@ -1,7 +1,10 @@
+@import 'fonts.css';
+@import '~normalize.css/normalize.css';
+
 body {
     margin: 0;
     padding: 0;
-    font-family: helvetica, sans-serif;
+    font-family: 'Artegra Sans Alt', Helvetica, sans-serif;
 
     /* Color Schema */
     --fromColor: #2c6177;
