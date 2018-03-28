@@ -6,6 +6,10 @@ body {
     /* Color Schema */
     --fromColor: #2c6177;
     --toColor: #041a2d;
+
+    --barColor: #051a2d;
+    --activeColor: #30acc1;
+    --navigateTextColor: #1e577b;
 }
 
 body,
