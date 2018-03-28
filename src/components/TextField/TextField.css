@@ -41,9 +41,11 @@
 }
 
 .input-wrapper .input:focus {
-    background: transparent linear-gradient(to right, #4fd279, #38acc0)
-        no-repeat 0 100%;
-    background-size: 100% 2px;
+    background-color: transparent;
+    background-image: linear-gradient(to right, #4fd279, #38acc0);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 3px;
 }
 
 .helper-text {
