@@ -1,5 +1,6 @@
 import React from 'react';
 import App from '../App';
+import Header from '../../../components/Header';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 
 function renderComponent(context = {}) {
@@ -9,21 +10,12 @@ function renderComponent(context = {}) {
 describe('Main <App /> Component', () => {
     it(`should contains following controls:
         - <div> with class "app";
-        - <img> with class "app-logo"
-        - <h1> with class "app-title"
-        - <p> with class "app-intro"`, done => {
+        - <Header> component"`, done => {
         const component = renderComponent();
         const text = component.debug();
 
         expect(text.includes('div className="app"')).toEqual(true);
-        expect(
-            text.includes('img') && text.includes(' className="app-title"')
-        ).toEqual(true);
-        expect(text.includes('h1 className="app-title"')).toEqual(true);
-        expect(text.includes('p className="app-intro"')).toEqual(true);
-        // expect(
-        //     text.includes('button') && text.includes('Open Test Page')
-        // ).toEqual(true);
+        expect(component.find('Header')).toHaveLength(1);
 
         done();
     });

@@ -2,24 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
+import Header from '../../components/Header';
 import { Button } from '../../components/index';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends React.Component {
-    // openTestPage() {
-    //     this.context.router.history.push('/testRoute');
-    // }
-
     render() {
         return (
             <div className="app">
-                <header className="app-header">
-                    <img src={logo} className="app-logo" alt="logo" />
-                    <h1 className="app-title">
-                        Welcome to Lition front-end app
-                    </h1>
-                </header>
+                <Header
+                    onLogoutButtonClickHandler={() => () => {}}
+                    notifications={[]}
+                />
                 <p className="app-intro">
                     <Button>
                         <FormattedMessage
@@ -28,9 +22,6 @@ class App extends React.Component {
                         />
                     </Button>
                 </p>
-                {/*<button id="openTest" onClick={() => this.openTestPage()}>*/}
-                {/*Open Test Page*/}
-                {/*</button>*/}
             </div>
         );
     }
