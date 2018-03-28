@@ -1,0 +1,60 @@
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 20.5rem;
+
+    color: var(--navigateTextColor);
+    background: white;
+
+    cursor: pointer;
+}
+
+.active {
+    color: white;
+    background: var(--activeColor);
+}
+
+.menu-item-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+
+    color: white;
+    background: var(--barColor);
+
+    font-size: 1.5rem;
+    line-height: 1em;
+    text-align: center;
+}
+
+.menu-item-label {
+    position: relative;
+
+    padding-left: 2em;
+
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.4em;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.active .menu-item-label::before {
+    --hypotenuseHalf: 0.5rem;
+
+    position: absolute;
+    left: 0;
+    top: calc(50% - var(--hypotenuseHalf));
+
+    width: 0;
+    height: 0;
+    border-top: var(--hypotenuseHalf) solid transparent;
+    border-left: var(--hypotenuseHalf) solid white;
+    border-bottom: var(--hypotenuseHalf) solid transparent;
+
+    content: '';
+}
