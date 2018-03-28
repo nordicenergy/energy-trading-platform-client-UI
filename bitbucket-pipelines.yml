@@ -14,7 +14,7 @@ pipelines:
           - npm install
           - npm test
           - npm run build
-          - scp build/* ec2-user@aws1.lition.io:/var/www/html
+          - rsync -a build/ ec2-user@aws1.lition.io:/var/www/html
           - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd
   branches: # Automated triggers on commits to branches
     master: # -- When committing to mast branch
@@ -23,5 +23,5 @@ pipelines:
           - npm install
           - npm test
           - npm run build
-          - scp build/* ec2-user@aws1.lition.io:/var/www/html
+          - rsync -a build/ ec2-user@aws1.lition.io:/var/www/html
           - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd          
