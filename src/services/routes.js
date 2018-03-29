@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import {
     Test,
     App,
@@ -11,8 +11,8 @@ import {
     Profile
 } from '../containers';
 
-export const Routes = () => (
-    <div id="routes">
+const AppLayout = () => (
+    <div id="app-layout">
         <App>
             <Route exact path="/" component={Overview} />
             <Route path="/documents" component={Documents} />
@@ -20,7 +20,15 @@ export const Routes = () => (
             <Route path="/trading" component={Trading} />
             <Route path="/profile" component={Profile} />
         </App>
-        <Route path="/login" component={Login} />
-        <Route path="/testRoute" component={Test} />
+    </div>
+);
+
+export const Routes = () => (
+    <div id="routes">
+        <Switch>
+            <Route path='/login' component={ Login } />
+            <Route path='/' component={ AppLayout } />
+            <Route path="/testRoute" component={Test} />
+        </Switch>
     </div>
 );

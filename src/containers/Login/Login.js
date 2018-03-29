@@ -34,7 +34,11 @@ export class Login extends React.Component {
     }
 
     sendCredentials(user, password) {
+        const { history } = this.props;
+
         performLogin(user, password);
+        history.push('/');
+
     }
 
     openResetPasswordPage() {
