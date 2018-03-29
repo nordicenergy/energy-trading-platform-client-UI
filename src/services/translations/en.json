@@ -4,8 +4,16 @@
     "app.loginPage.passwordField": "Password",
     "app.loginPage.forgotPasswordLink": "Forgot your password?",
     "app.loginPage.loginButton": "Login",
+
     "app.restorePasswordPage.formTitle": "Restore password",
     "app.restorePasswordPage.emailField": "Enter Your Email",
     "app.restorePasswordPage.sendButton": "Send",
-    "app.restorePasswordPage.loginLink": "Login"
+    "app.restorePasswordPage.loginLink": "Login",
+
+    "app.menuBar.overview": "Overview",
+    "app.menuBar.documents": "My Documents",
+    "app.menuBar.submitMetric": "Submit Metric Readings",
+    "app.menuBar.trading": "Trading",
+    "app.menuBar.profile": "Profile"
+
 }

@@ -1,1 +1,8 @@
-/* TODO: TBD, nothing  */
+.overview-navigation-cards {
+    display: flex;
+    justify-content: center;
+}
+
+.overview-navigation-cards .nav-card-container {
+    margin: 1rem;
+}

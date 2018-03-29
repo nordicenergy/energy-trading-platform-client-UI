@@ -1,5 +1,4 @@
 .menu-side-bar {
-    --menuIconSize: 4.5rem;
     --borderWidth: 0.06rem;
     --borderOnLightColor: #e7eaed;
     --borderOnDarkColor: #2c3d4d;
@@ -19,4 +18,15 @@
 
 .menu-side-bar .menu-item-icon {
     border-bottom: var(--borderWidth) solid var(--borderOnDarkColor);
+}
+
+/* TODO remake to mobile-first, move values to common variables */
+@media screen and (max-width: 768px) {
+    .menu-side-bar {
+        width: 4.5rem;
+    }
+
+    .menu-side-bar .menu-item-label {
+        display: none;
+    }
 }
