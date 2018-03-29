@@ -5,4 +5,12 @@ import Logo from './Logo';
 import Illustration from './Illustration';
 import { MenuSideBar, MenuItem } from './MenuSideBar';
 
-export { Button, TextField, LoginForm, Logo, Illustration, MenuSideBar, MenuItem };
+export {
+    Button,
+    TextField,
+    LoginForm,
+    Logo,
+    Illustration,
+    MenuSideBar,
+    MenuItem
+};
