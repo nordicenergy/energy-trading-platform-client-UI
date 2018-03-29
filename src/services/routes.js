@@ -1,11 +1,34 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { Test, App, Login } from '../containers';
+import { Route, Switch } from 'react-router-dom';
+import {
+    Test,
+    App,
+    Login,
+    Overview,
+    Documents,
+    SubmitMeter,
+    Trading,
+    Profile
+} from '../containers';
+
+const AppLayout = () => (
+    <div id="app-layout">
+        <App>
+            <Route exact path="/" component={Overview} />
+            <Route path="/documents" component={Documents} />
+            <Route path="/submit_meter" component={SubmitMeter} />
+            <Route path="/trading" component={Trading} />
+            <Route path="/profile" component={Profile} />
+        </App>
+    </div>
+);
 
 export const Routes = () => (
     <div id="routes">
-        <Route exact path="/" component={App} />
-        <Route path="/login" component={Login} />
-        <Route path="/testRoute" component={Test} />
+        <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/" component={AppLayout} />
+            <Route path="/testRoute" component={Test} />
+        </Switch>
     </div>
 );

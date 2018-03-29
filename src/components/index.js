@@ -5,6 +5,7 @@ import Logo from './Logo';
 import Header from './Header/Header';
 import HeaderButton from './Header/HeaderButton';
 import Illustration from './Illustration';
+import { MenuSideBar, MenuItem } from './MenuSideBar';
 
 export {
     Button,
@@ -12,6 +13,8 @@ export {
     LoginForm,
     Logo,
     Illustration,
+    MenuSideBar,
+    MenuItem,
     Header,
     HeaderButton
 };

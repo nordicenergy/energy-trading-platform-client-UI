@@ -18,7 +18,8 @@ body {
 body,
 html,
 #root,
-#routes {
+#routes,
+#app-layout {
     width: 100%;
     height: 100%;
 }
