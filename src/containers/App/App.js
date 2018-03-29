@@ -35,15 +35,31 @@ class App extends React.Component {
         // const { formatMessage } = this.context.intl;
 
         const items = [
-            { id: '', icon: 'faHome', label: messages.documents.defaultMessage },
-            { id: 'documents', icon: 'faBook', label: messages.documents.defaultMessage },
+            {
+                id: '',
+                icon: 'faHome',
+                label: messages.documents.defaultMessage
+            },
+            {
+                id: 'documents',
+                icon: 'faBook',
+                label: messages.documents.defaultMessage
+            },
             {
                 id: 'submit_meter',
                 icon: 'faCalculator',
                 label: messages.submitMetric.defaultMessage
             },
-            { id: 'trading', icon: 'faChartBar', label: messages.trading.defaultMessage },
-            { id: 'profile', icon: 'faUser', label: messages.profile.defaultMessage }
+            {
+                id: 'trading',
+                icon: 'faChartBar',
+                label: messages.trading.defaultMessage
+            },
+            {
+                id: 'profile',
+                icon: 'faUser',
+                label: messages.profile.defaultMessage
+            }
         ];
 
         return (
