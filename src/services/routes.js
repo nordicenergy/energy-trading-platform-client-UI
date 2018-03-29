@@ -26,8 +26,8 @@ const AppLayout = () => (
 export const Routes = () => (
     <div id="routes">
         <Switch>
-            <Route path='/login' component={ Login } />
-            <Route path='/' component={ AppLayout } />
+            <Route path="/login" component={Login} />
+            <Route path="/" component={AppLayout} />
             <Route path="/testRoute" component={Test} />
         </Switch>
     </div>

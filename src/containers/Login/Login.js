@@ -38,7 +38,6 @@ export class Login extends React.Component {
 
         performLogin(user, password);
         history.push('/');
-
     }
 
     openResetPasswordPage() {
