@@ -1,9 +1,9 @@
 # Lition Frontend
 
-This is the Frontend website that connects to the Lition backend API as specified in `https://app.swaggerhub.com/apis/rlohwasser/css`
+This is the Frontend website that connects to the Lition backend API as specified in `https://lition.atlassian.net/wiki/spaces/LIT/pages/6160385/Application+Backend+API+Specification+Version+0.1`
 
 After every commit to the master branch the latest version is pushed to the testing server, reachable at
-`http://dev.lition-energie.de/fe`
+`https://aws1.lition.io`
 
 Deployments to the production server are done manually by Richard
 
