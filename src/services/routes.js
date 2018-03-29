@@ -4,6 +4,7 @@ import {
     Test,
     App,
     Login,
+    RestorePassword,
     Overview,
     Documents,
     SubmitMeter,
@@ -27,6 +28,7 @@ export const Routes = () => (
     <div id="routes">
         <Switch>
             <Route path="/login" component={Login} />
+            <Route path="/restore-password" component={RestorePassword} />
             <Route path="/" component={AppLayout} />
             <Route path="/testRoute" component={Test} />
         </Switch>

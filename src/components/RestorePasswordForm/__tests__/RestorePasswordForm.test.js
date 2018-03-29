@@ -47,7 +47,9 @@ describe('<RestorePasswordForm /> component', () => {
         - login link`, () => {
         const component = renderComponent();
 
-        expect(component.find('h3.restore-password-form-title')).toHaveLength(1);
+        expect(component.find('h3.restore-password-form-title')).toHaveLength(
+            1
+        );
         expect(component.find('TextField.email-field')).toHaveLength(1);
         expect(component.find('Button')).toHaveLength(1);
         expect(component.find('a.login-link')).toHaveLength(1);
