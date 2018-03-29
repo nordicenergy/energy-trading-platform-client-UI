@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MenuSideBar } from '../../components';
+import { MenuSideBar, Header } from '../../components';
 import './App.css';
 
 class App extends React.Component {
@@ -23,6 +23,10 @@ class App extends React.Component {
 
         return (
             <div className="app">
+                <Header
+                    onLogoutButtonClickHandler={() => () => {}}
+                    notifications={[]}
+                />
                 <div className="menu-container">
                     <MenuSideBar
                         items={items}
