@@ -1,3 +1,15 @@
 .app {
+    display: flex;
+    height: 100%;
+}
+
+.app main {
+    width: 100%;
+    color: var(--navigateTextColor);
     text-align: center;
+}
+
+.menu-container {
+    width: auto;
+    height: 100%;
 }
