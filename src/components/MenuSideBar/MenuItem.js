@@ -22,7 +22,9 @@ const MenuItem = props => {
             <div className="menu-item-icon">
                 <FontAwesomeIcon icon={icons[icon]} />
             </div>
-            <div className="menu-item-label">{label}</div>
+            <div className="menu-item-label">
+                <span>{label}</span>
+            </div>
         </div>
     );
 };
