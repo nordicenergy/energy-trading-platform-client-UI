@@ -1,12 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { Button } from '../../components/index';
+import { defineMessages } from 'react-intl';
+import { LoginForm, Logo, Illustration } from '../../components';
 import { performLogin } from '../../action_performers/users';
-
-import logo from './logo.svg';
 import './Login.css';
+
+const messages = defineMessages({
+    usernameField: {
+        id: 'app.loginPage.usernameField',
+        defaultMessage: 'Username'
+    },
+    passwordField: {
+        id: 'app.loginPage.passwordField',
+        defaultMessage: 'Password'
+    },
+    forgotPasswordLink: {
+        id: 'app.loginPage.forgotPasswordLink',
+        defaultMessage: 'Forgot your password?'
+    },
+    loginButton: {
+        id: 'app.loginPage.loginButton',
+        defaultMessage: 'Login'
+    }
+});
 
 export class Login extends React.Component {
     static mapStateToProps(state) {
@@ -20,31 +37,46 @@ export class Login extends React.Component {
         performLogin(user, password);
     }
 
+    openResetPasswordPage() {
+        const { history } = this.props;
+        history.push('/reset-password');
+    }
+
     render() {
         return (
-            <div className="login-page">
-                <section className="login-form-container">
-                    <form>
-                        {/* TODO Replace by login form component */}
-                        <Button onClick={() => this.sendCredentials()}>
-                            <FormattedMessage
-                                id="app.loginBtn"
-                                defaultMessage="Login"
-                            />
-                        </Button>
-                    </form>
-                </section>
-                <section className="login-logo-container">
-                    {/* TODO Replace by logo area component */}
-                    <img src={logo} className="login-logo" alt="logo" />
-                </section>
+            <div className="login-container">
+                <div className="login-container-layout">
+                    <div className="login-container-hero">
+                        <Logo className="logo--login" />
+                        <Illustration className="illustration--login" />
+                    </div>
+                    <div className="login-container-form">
+                        <LoginForm
+                            labels={messages}
+                            onForgotPasswordLinkClick={() => {
+                                this.openResetPasswordPage();
+                            }}
+                            onSubmit={({ username, password }) => {
+                                this.sendCredentials(username, password);
+                            }}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
-Login.contextTypes = {
-    router: PropTypes.object
+Login.propTypes = {
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+    }).isRequired,
+    loading: PropTypes.bool,
+    data: PropTypes.shape({})
+};
+LoginForm.defaultProps = {
+    loading: false,
+    data: {}
 };
 
 export default connect(Login.mapStateToProps)(Login);
