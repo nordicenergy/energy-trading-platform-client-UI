@@ -1,5 +1,4 @@
-#image: atlassian/default-image:latest 
-image: samueldebruyn/debian-git
+image: node:9.9
 
 pipelines:
   custom: # Pipelines that are triggered manually
@@ -7,20 +6,22 @@ pipelines:
     - step:
         script:
           - apt-get update
-          - apt-get -qq install git-ftp
-          - git ftp init --user $FTP_USERNAME --passwd $FTP_PASSWORD ftp://$FTP_HOST
+          - npm install
     deploy-all: # -- Deploys all files from the selected commit
     - step:
         deployment: test
         script:
-          - apt-get update
-          - apt-get -qq install git-ftp
-          - git ftp push --user $FTP_USERNAME --passwd $FTP_PASSWORD ftp://$FTP_HOST --all
-
+          - npm install
+          - npm test
+          - npm run build
+          - scp -r build/* ec2-user@aws1.lition.io:/var/www/html
+          - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd
   branches: # Automated triggers on commits to branches
     master: # -- When committing to mast branch
     - step:
         script:
-          - apt-get update
-          - apt-get -qq install git-ftp
-          - git ftp push --user $FTP_USERNAME --passwd $FTP_PASSWORD ftp://$FTP_HOST
+          - npm install
+          - npm test
+          - npm run build
+          - scp -r build/* ec2-user@aws1.lition.io:/var/www/html
+          - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd          

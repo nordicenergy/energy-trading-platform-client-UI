@@ -1,0 +1,13 @@
+.menu-side-bar {
+    --borderWidth: 0.06rem;
+    --borderColor: #e7eaed;
+}
+
+.menu-side-bar .menu-item {
+    border-right: var(--borderWidth) solid var(--borderColor);
+    border-top: var(--borderWidth) solid var(--borderColor);
+}
+
+.menu-side-bar:last-child {
+    border-bottom: var(--borderWidth) solid var(--borderColor);
+}

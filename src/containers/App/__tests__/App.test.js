@@ -19,17 +19,4 @@ describe('Main <App /> Component', () => {
 
         done();
     });
-
-    // it('should provide possibility navigate to test page', done => {
-    //     App.prototype.openTestPage = jest.fn();
-    //     const component = renderComponent();
-    //
-    //     component
-    //         .find('button')
-    //         .at(0)
-    //         .simulate('click');
-    //     expect(App.prototype.openTestPage.mock.calls.length).toEqual(1);
-    //
-    //     done();
-    // });
 });

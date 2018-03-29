@@ -1,9 +1,24 @@
+@import 'fonts.css';
+@import '~normalize.css/normalize.css';
+
 body {
     margin: 0;
     padding: 0;
-    font-family: helvetica, sans-serif;
+    font-family: 'Artegra Sans Alt', Helvetica, sans-serif;
 
     /* Color Schema */
-    --fromColor: #47d179;
-    --toColor: #30acc1;
+    --fromColor: #2c6177;
+    --toColor: #041a2d;
+
+    --barColor: #051a2d;
+    --activeColor: #30acc1;
+    --navigateTextColor: #1e577b;
+}
+
+body,
+html,
+#root,
+#routes {
+    width: 100%;
+    height: 100%;
 }
