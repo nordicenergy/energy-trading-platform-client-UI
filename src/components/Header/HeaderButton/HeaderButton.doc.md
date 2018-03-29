@@ -1,11 +1,11 @@
 HeaderButton example:
 
 ```js
-<HeaderButton icon={'ICON'}/>
+<HeaderButton icon={'faBell'}/>
 ```
 
 HeaderButton example with indicator:
 
 ```js
-<HeaderButton icon={'ICON'} hasIndicator={true}/>
+<HeaderButton icon={'faBell'} hasIndicator={true}/>
 ```

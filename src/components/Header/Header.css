@@ -9,3 +9,10 @@
 .header-buttons {
     display: flex;
 }
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 1.375rem;
+}
