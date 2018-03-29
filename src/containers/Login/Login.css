@@ -1,34 +1,71 @@
-.login-page {
-    height: 100%;
+.login-container,
+.login-container-layout,
+.login-container-hero,
+.login-container-form {
+    box-sizing: border-box;
     width: 100%;
+}
+
+.login-container {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: #051a2d;
+}
+
+.login-container-layout {
+    padding: 5.75rem 1rem 1rem;
+}
+
+.login-container-hero {
     display: flex;
-}
-
-.login-form-container {
-    display: inherit;
     align-items: center;
-    justify-content: center;
-    flex: 1.4;
+    flex-direction: column;
 }
 
-.login-logo-container {
-    flex: 1;
-    display: inherit;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(10deg, var(--fromColor), var(--toColor));
+.logo--login {
+    margin-bottom: 3.5rem;
 }
 
-.login-logo {
-    height: 5rem;
-    animation: logo-spin infinite 20s linear;
+.illustration--login {
+    display: none;
 }
 
-@keyframes logo-spin {
-    from {
-        transform: rotate(0deg);
+@media (min-width: 768px) {
+    .login-container-layout {
+        padding-right: 2rem;
+        padding-left: 2rem;
     }
-    to {
-        transform: rotate(360deg);
+}
+
+@media (min-width: 1024px) {
+    .login-container-layout {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 2rem;
+        padding-left: 2rem;
+        max-width: 86rem;
+    }
+
+    .login-container-form {
+        margin-right: 3rem;
+        max-width: 33rem;
+    }
+
+    .logo--login {
+        margin-left: -3rem;
+    }
+
+    .illustration--login {
+        display: block;
+    }
+}
+
+@media (min-width: 1360px) {
+    .login-container-form {
+        margin-left: 7rem;
     }
 }

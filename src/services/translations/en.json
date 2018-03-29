@@ -1,3 +1,7 @@
 {
-    "app.loginBtn": "Login"
+    "app.loginBtn": "Login",
+    "app.loginPage.usernameField": "Username",
+    "app.loginPage.passwordField": "Password",
+    "app.loginPage.forgotPasswordLink": "Forgot your password?",
+    "app.loginPage.loginButton": "Login"
 }
