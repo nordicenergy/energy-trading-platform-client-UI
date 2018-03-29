@@ -4,9 +4,9 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/fontawesome-free-solid';
 import TextField from '../TextField';
 import Button from '../Button';
-import './ResetPasswordForm.css';
+import './RestorePasswordForm.css';
 
-class ResetPasswordForm extends Component {
+class RestorePasswordForm extends Component {
     constructor(props) {
         super(props);
         this.state = { email: '' };
@@ -38,8 +38,8 @@ class ResetPasswordForm extends Component {
         const { email } = this.state;
 
         return (
-            <div className="reset-password-form">
-                <h3 className="reset-password-form-title">
+            <div className="restore-password-form">
+                <h3 className="restore-password-form-title">
                     {labels.formTitle.defaultMessage}
                 </h3>
                 <form onSubmit={event => this.handleSubmit(event)}>
@@ -51,7 +51,7 @@ class ResetPasswordForm extends Component {
                         value={email}
                         onChange={event => this.handleChange(event)}
                     />
-                    <div className="reset-password-form-actions">
+                    <div className="restore-password-form-actions">
                         <Button>{labels.sendButton.defaultMessage}</Button>
                         <a
                             className="login-link"
@@ -78,7 +78,7 @@ const MessageDescriptor = PropTypes.shape({
     defaultMessage: PropTypes.string
 });
 
-ResetPasswordForm.propTypes = {
+RestorePasswordForm.propTypes = {
     labels: PropTypes.shape({
         formTitle: MessageDescriptor,
         emailField: MessageDescriptor,
@@ -89,4 +89,4 @@ ResetPasswordForm.propTypes = {
     onLoginLinkClick: PropTypes.func.isRequired
 };
 
-export default ResetPasswordForm;
+export default RestorePasswordForm;

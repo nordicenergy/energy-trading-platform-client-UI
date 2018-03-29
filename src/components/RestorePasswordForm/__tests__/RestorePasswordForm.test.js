@@ -1,22 +1,22 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ResetPasswordForm from '../ResetPasswordForm';
+import RestorePasswordForm from '../RestorePasswordForm';
 
 const labelsMock = {
     formTitle: {
-        id: 'resetPasswordForm.doc.formTitle',
+        id: 'restorePasswordForm.test.formTitle',
         defaultMessage: 'Restore password'
     },
     emailField: {
-        id: 'resetPasswordForm.doc.emailField',
+        id: 'restorePasswordForm.test.emailField',
         defaultMessage: 'Enter Your Email'
     },
     sendButton: {
-        id: 'resetPasswordForm.doc.sendButton',
+        id: 'restorePasswordForm.test.sendButton',
         defaultMessage: 'Send'
     },
     loginLink: {
-        id: 'resetPasswordForm.doc.loginLink',
+        id: 'restorePasswordForm.test.loginLink',
         defaultMessage: 'Login'
     }
 };
@@ -31,7 +31,7 @@ function renderComponent(
     mountFn = shallow
 ) {
     return mountFn(
-        <ResetPasswordForm
+        <RestorePasswordForm
             labels={labels}
             onSubmit={onSubmit}
             onLoginLinkClick={onLoginLinkClick}
@@ -39,7 +39,7 @@ function renderComponent(
     );
 }
 
-describe('<ResetPasswordForm /> component', () => {
+describe('<RestorePasswordForm /> component', () => {
     it(`should renders:
         - form title
         - email field
@@ -47,7 +47,7 @@ describe('<ResetPasswordForm /> component', () => {
         - login link`, () => {
         const component = renderComponent();
 
-        expect(component.find('h3.reset-password-form-title')).toHaveLength(1);
+        expect(component.find('h3.restore-password-form-title')).toHaveLength(1);
         expect(component.find('TextField.email-field')).toHaveLength(1);
         expect(component.find('Button')).toHaveLength(1);
         expect(component.find('a.login-link')).toHaveLength(1);

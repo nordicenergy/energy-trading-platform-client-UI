@@ -1,7 +1,7 @@
 import Button from './Button';
 import TextField from './TextField';
 import LoginForm from './LoginForm';
-import ResetPasswordForm from './ResetPasswordForm';
+import RestorePasswordForm from './RestorePasswordForm';
 import Logo from './Logo';
 import Header from './Header/Header';
 import HeaderButton from './Header/HeaderButton';
@@ -12,7 +12,7 @@ export {
     Button,
     TextField,
     LoginForm,
-    ResetPasswordForm,
+    RestorePasswordForm,
     Logo,
     Illustration,
     MenuSideBar,

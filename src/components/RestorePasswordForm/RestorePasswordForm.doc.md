@@ -1,4 +1,4 @@
-### ResetPasswordForm component:
+### RestorePasswordForm component:
 
 ```jsx
 const wrapperStyles = {
@@ -7,25 +7,25 @@ const wrapperStyles = {
 };
 const labels = {
     formTitle: {
-        id: 'resetPasswordForm.doc.formTitle',
+        id: 'restorePasswordForm.doc.formTitle',
         defaultMessage: 'Restore password'
     },
     emailField: {
-        id: 'resetPasswordForm.doc.emailField',
+        id: 'restorePasswordForm.doc.emailField',
         defaultMessage: 'Enter Your Email'
     },
     sendButton: {
-        id: 'resetPasswordForm.doc.sendButton',
+        id: 'restorePasswordForm.doc.sendButton',
         defaultMessage: 'Send'
     },
     loginLink: {
-        id: 'resetPasswordForm.doc.loginLink',
+        id: 'restorePasswordForm.doc.loginLink',
         defaultMessage: 'Login'
     }
 };
 
 <div style={wrapperStyles}>
-    <ResetPasswordForm
+    <RestorePasswordForm
         labels={labels}
         onSubmit={email => console.log('send:', email)}
         onLoginLinkClick={() => console.log('login link was clicked')}
