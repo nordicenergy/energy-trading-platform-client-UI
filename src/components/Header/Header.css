@@ -1,18 +1,13 @@
 .header-desktop {
     width: 100%;
-    box-shadow: 0 0.25rem 2rem 0 rgba(217, 224, 229, 0.5);
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-left: 1.375rem;
     background-color: #051a2d;
+    box-sizing: border-box;
 }
 
 .header-buttons {
     display: flex;
-}
-
-.logo-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 1.375rem;
 }

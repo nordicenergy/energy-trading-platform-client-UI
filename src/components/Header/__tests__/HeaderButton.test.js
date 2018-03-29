@@ -30,7 +30,7 @@ describe('<HeaderButton /> Component', () => {
         expect(component.find('span.header-button-icon-container').length).toBe(
             1
         );
-        expect(component.find('span.header-button-indicator').length).toBe(0);
+        expect(component.find('span.has-indicator').length).toBe(0);
         expect(component.find(FontAwesomeIcon).length).toBe(1);
     });
 
@@ -38,7 +38,7 @@ describe('<HeaderButton /> Component', () => {
         const component = renderComponent({
             hasIndicator: true
         });
-        expect(component.find('span.header-button-indicator').length).toBe(1);
+        expect(component.find('span.has-indicator').length).toBe(1);
     });
 
     it('should handle onClick event', () => {

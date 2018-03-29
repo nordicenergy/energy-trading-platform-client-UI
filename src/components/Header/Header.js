@@ -19,10 +19,8 @@ class Header extends React.Component {
     render() {
         return (
             <header className="header-desktop">
-                <div className="logo-container">
-                    <Logo size="small" />
-                </div>
-                <div className="header-buttons">
+                <Logo size="small" />
+                <nav className="header-buttons">
                     <HeaderButton
                         hasIndicator={
                             this.props.notifications &&
@@ -35,7 +33,7 @@ class Header extends React.Component {
                         icon={'faSignOutAlt'}
                         onClickHandler={() => this.logout()}
                     />
-                </div>
+                </nav>
             </header>
         );
     }

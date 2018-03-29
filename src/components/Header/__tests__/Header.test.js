@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Header';
 import HeaderButton from '../HeaderButton';
+import Logo from '../../Logo';
 import { mount } from 'enzyme';
 
 function renderComponent({
@@ -18,10 +19,12 @@ function renderComponent({
 describe('<Header /> Component', () => {
     it(`should contains following controls:
         - <header> with class "header-desktop";
+        - <Logo> component;
         - 2 <HeaderButton> components`, () => {
         const component = renderComponent({});
 
         expect(component.find('HeaderButton').length).toBe(2);
+        expect(component.find('Logo').length).toBe(1);
         expect(component.find('header.header-desktop').length).toBe(1);
     });
 

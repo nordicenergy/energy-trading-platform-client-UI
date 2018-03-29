@@ -26,7 +26,8 @@
     position: relative;
 }
 
-.header-button-indicator {
+.has-indicator::after {
+    content: '';
     position: absolute;
     top: -0.5rem;
     right: -0.5rem;
