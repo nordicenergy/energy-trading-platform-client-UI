@@ -37,14 +37,14 @@ describe('<Login /> Container', () => {
         expect(props.login).toEqual(stateMock.Users.login.data);
     });
 
-    it('should opens reset password page after forgot password link was clicked', () => {
+    it('should opens restore password page after forgot password link was clicked', () => {
         const component = renderComponent();
 
         component
             .find('LoginForm')
             .props()
             .onForgotPasswordLinkClick();
-        expect(historyMock.push).toHaveBeenCalledWith('/reset-password');
+        expect(historyMock.push).toHaveBeenCalledWith('/restore-password');
     });
 
     it('should calls performLogin after form was submitted', () => {

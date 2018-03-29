@@ -42,7 +42,7 @@ export class Login extends React.Component {
 
     openResetPasswordPage() {
         const { history } = this.props;
-        history.push('/reset-password');
+        history.push('/restore-password');
     }
 
     render() {
@@ -77,7 +77,7 @@ Login.propTypes = {
     loading: PropTypes.bool,
     data: PropTypes.shape({})
 };
-LoginForm.defaultProps = {
+Login.defaultProps = {
     loading: false,
     data: {}
 };
