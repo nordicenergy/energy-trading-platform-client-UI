@@ -33,7 +33,7 @@ const NavigationCard = ({ title, type, onCardClickHandler }) => {
 NavigationCard.propTypes = {
     title: PropTypes.string,
     type: PropTypes.oneOf(['buyEnergy', 'myProducer', 'sellEnergy']),
-    onCardClickHandler: PropTypes.func
+    onCardClickHandler: PropTypes.func.isRequired
 };
 
 export default NavigationCard;
