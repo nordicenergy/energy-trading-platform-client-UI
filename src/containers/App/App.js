@@ -24,16 +24,18 @@ class App extends React.Component {
         return (
             <div className="app">
                 <Header
-                    onLogoutButtonClickHandler={() => () => {}}
+                    onLogoutButtonClickHandler={() => this.navigateTo('login')}
                     notifications={[]}
                 />
-                <div className="menu-container">
-                    <MenuSideBar
-                        items={items}
-                        onSelect={id => this.navigateTo(id)}
-                    />
+                <div className="content">
+                    <div className="menu-container">
+                        <MenuSideBar
+                            items={items}
+                            onSelect={id => this.navigateTo(id)}
+                        />
+                    </div>
+                    <main>{this.props.children}</main>
                 </div>
-                <main>{this.props.children}</main>
             </div>
         );
     }
