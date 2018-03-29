@@ -1,9 +1,15 @@
-.menu-item {
+.menu-item,
+.menu-item-icon,
+.menu-item-label {
     display: flex;
     align-items: center;
+}
+
+.menu-item {
+    --menuIconSize: 4.5rem;
+
     justify-content: flex-start;
     width: 100%;
-    min-width: 20.5rem;
 
     color: var(--navigateTextColor);
     background: white;
@@ -11,17 +17,22 @@
     cursor: pointer;
 }
 
+/* TODO temporary solution for demo */
+.menu-item:hover {
+    opacity: 0.7;
+    transition: 0.2s ease-in;
+}
+
 .active {
     color: white;
     background: var(--activeColor);
+    transition: 0.4s ease-in;
 }
 
 .menu-item-icon {
-    display: flex;
     justify-content: center;
-    align-items: center;
-    width: 4.5rem;
-    height: 4.5rem;
+    width: var(--menuIconSize);
+    height: var(--menuIconSize);
 
     color: white;
     background: var(--barColor);
@@ -31,16 +42,29 @@
     text-align: center;
 }
 
+/* TODO temporary solution for demo */
+.menu-item:hover .menu-item-icon {
+    font-size: 1.7rem;
+    transition: 0.2s;
+}
+
 .menu-item-label {
     position: relative;
 
-    padding-left: 2em;
+    justify-content: flex-start;
+    width: calc(100% - var(--menuIconSize));
+    height: var(--menuIconSize);
 
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 1.4em;
     text-align: left;
     text-transform: uppercase;
+}
+
+.menu-item-label span {
+    padding-left: 2rem;
+    padding-top: 0.25rem;
 }
 
 .active .menu-item-label::before {

@@ -1,13 +1,22 @@
 .menu-side-bar {
+    --menuIconSize: 4.5rem;
     --borderWidth: 0.06rem;
-    --borderColor: #e7eaed;
+    --borderOnLightColor: #e7eaed;
+    --borderOnDarkColor: #2c3d4d;
+
+    width: 20.5rem;
+    height: calc(100% - var(--borderWidth));
+
+    background: transparent
+        linear-gradient(to right, var(--barColor), var(--barColor)) no-repeat;
+    background-size: var(--menuIconSize) 100%;
+    border-right: var(--borderWidth) solid var(--borderOnLightColor);
 }
 
-.menu-side-bar .menu-item {
-    border-right: var(--borderWidth) solid var(--borderColor);
-    border-top: var(--borderWidth) solid var(--borderColor);
+.menu-side-bar .menu-item-label {
+    border-bottom: var(--borderWidth) solid var(--borderOnLightColor);
 }
 
-.menu-side-bar:last-child {
-    border-bottom: var(--borderWidth) solid var(--borderColor);
+.menu-side-bar .menu-item-icon {
+    border-bottom: var(--borderWidth) solid var(--borderOnDarkColor);
 }
