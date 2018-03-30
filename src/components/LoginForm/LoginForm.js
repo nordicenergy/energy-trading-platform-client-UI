@@ -62,7 +62,7 @@ class LoginForm extends Component {
                     }
                     onChange={event => this.handleChange(event)}
                 />
-                <Button>{labels.loginButton.defaultMessage}</Button>
+                <Button type="success">{labels.loginButton.defaultMessage}</Button>
             </form>
         );
     }

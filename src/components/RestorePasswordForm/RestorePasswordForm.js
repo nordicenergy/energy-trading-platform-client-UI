@@ -52,7 +52,7 @@ class RestorePasswordForm extends Component {
                         onChange={event => this.handleChange(event)}
                     />
                     <div className="restore-password-form-actions">
-                        <Button>{labels.sendButton.defaultMessage}</Button>
+                        <Button type="success">{labels.sendButton}</Button>
                         <a
                             className="login-link"
                             href="/login"
