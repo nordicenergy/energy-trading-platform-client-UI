@@ -1,16 +1,50 @@
+/* TODO: redefine box-shadow property */
+
 .button {
+    overflow: hidden;
+    box-sizing: border-box;
     margin: 0;
-    padding: 0;
-    min-width: 18.125rem;
+    padding: 0 1rem;
+    min-width: 18rem;
+    max-width: 100%;
     height: 3.5rem;
     border: none;
     border-radius: 0.25rem;
-    background: #40c56a;
-    color: #fff;
-    text-shadow: 0 0.5px 0.5px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+    color: white;
+    text-overflow: ellipsis;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
     font-weight: 600;
     font-size: 1.125rem;
+    line-height: 3.5rem;
     cursor: pointer;
+    transition: background 200ms;
 
     appearance: none;
+}
+
+.button.button-primary {
+    background: #1e567a;
+}
+
+.button.button-success {
+    background: #40c56a;
+}
+
+.button:hover {
+    background: #2771ab;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.button:disabled {
+    cursor: not-allowed;
+}
+
+.button.button-primary:disabled {
+    background: #769cb1;
+}
+
+.button.button-success:disabled {
+    background: #80dea8;
 }

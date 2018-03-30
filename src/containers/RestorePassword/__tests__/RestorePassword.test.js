@@ -5,13 +5,14 @@ import { shallowWithIntl } from '../../../services/intlTestHelper';
 const historyMock = {
     push: jest.fn()
 };
-function renderComponent({ history = historyMock } = {}, context = {}) {
-    return shallowWithIntl(
-        <RestorePassword history={history} context={context} />
-    );
+const routerMock = {
+    history: historyMock
+};
+function renderComponent(props = {}, context = { router: routerMock }) {
+    return shallowWithIntl(<RestorePassword {...props} />, { context });
 }
 
-describe('<Login /> Container', () => {
+describe('<RestorePassword /> Container', () => {
     it(`should renders with:
         - restore password form
         - logo

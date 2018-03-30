@@ -39,14 +39,14 @@ class LoginForm extends Component {
             >
                 <TextField
                     className="username-field"
-                    label={labels.usernameField.defaultMessage}
+                    label={labels.usernameField}
                     type="text"
                     name="username"
                     onChange={event => this.handleChange(event)}
                 />
                 <TextField
                     className="password-field"
-                    label={labels.passwordField.defaultMessage}
+                    label={labels.passwordField}
                     type="password"
                     name="password"
                     helperText={
@@ -57,27 +57,23 @@ class LoginForm extends Component {
                                 this.handleForgotPasswordLinkClick(event);
                             }}
                         >
-                            {labels.forgotPasswordLink.defaultMessage}
+                            {labels.forgotPasswordLink}
                         </a>
                     }
                     onChange={event => this.handleChange(event)}
                 />
-                <Button>{labels.loginButton.defaultMessage}</Button>
+                <Button type="success">{labels.loginButton}</Button>
             </form>
         );
     }
 }
 
-const MessageDescriptor = PropTypes.shape({
-    id: PropTypes.string,
-    defaultMessage: PropTypes.string
-});
 LoginForm.propTypes = {
     labels: PropTypes.shape({
-        usernameField: MessageDescriptor,
-        passwordField: MessageDescriptor,
-        resetPasswordLink: MessageDescriptor,
-        loginButton: MessageDescriptor
+        usernameField: PropTypes.string,
+        passwordField: PropTypes.string,
+        resetPasswordLink: PropTypes.string,
+        loginButton: PropTypes.string
     }),
     onForgotPasswordLinkClick: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired

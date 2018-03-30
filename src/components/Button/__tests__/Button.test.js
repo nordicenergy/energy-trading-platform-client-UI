@@ -1,21 +1,23 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import Button from '../Button';
-import { mount } from 'enzyme';
 
-function renderComponent() {
-    return mount(<Button>Test</Button>);
+function renderComponent(props = {}, mountFn = shallow) {
+    return mountFn(<Button {...props}>Test</Button>);
 }
 
 describe('<Button /> Component', () => {
-    it(`should contains following controls:
-        - <button> with class "button";
-        - text "Test";`, done => {
+    it('should renders without errors', () => {
         const component = renderComponent();
-        const text = component.debug();
 
-        expect(text.includes('button className="button"')).toEqual(true);
-        expect(text.includes('Test')).toEqual(true);
+        expect(component.hasClass('button')).toBeTruthy();
+        expect(component.hasClass('button-primary')).toBeTruthy();
+    });
 
-        done();
+    it('should renders with success styles', () => {
+        const component = renderComponent({ type: 'success' });
+
+        expect(component.hasClass('button')).toBeTruthy();
+        expect(component.hasClass('button-success')).toBeTruthy();
     });
 });

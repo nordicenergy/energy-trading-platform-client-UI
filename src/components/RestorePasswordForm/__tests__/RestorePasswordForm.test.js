@@ -3,22 +3,10 @@ import { shallow } from 'enzyme';
 import RestorePasswordForm from '../RestorePasswordForm';
 
 const labelsMock = {
-    formTitle: {
-        id: 'restorePasswordForm.test.formTitle',
-        defaultMessage: 'Restore password'
-    },
-    emailField: {
-        id: 'restorePasswordForm.test.emailField',
-        defaultMessage: 'Enter Your Email'
-    },
-    sendButton: {
-        id: 'restorePasswordForm.test.sendButton',
-        defaultMessage: 'Send'
-    },
-    loginLink: {
-        id: 'restorePasswordForm.test.loginLink',
-        defaultMessage: 'Login'
-    }
+    formTitle: 'Restore password',
+    emailField: 'Enter Your Email',
+    sendButton: 'Send',
+    loginLink: 'Login'
 };
 const onSubmitMock = jest.fn();
 const onLoginLinkClickMock = jest.fn();

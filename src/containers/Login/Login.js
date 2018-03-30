@@ -33,15 +33,29 @@ export class Login extends React.Component {
         };
     }
 
+    prepareLabels() {
+        const { formatMessage } = this.context.intl;
+
+        return Object.entries(messages).reduce(
+            (labels, [labelName, messageDescriptor]) => {
+                return {
+                    ...labels,
+                    [labelName]: formatMessage(messageDescriptor)
+                };
+            },
+            {}
+        );
+    }
+
     sendCredentials(user, password) {
-        const { history } = this.props;
+        const { history } = this.context.router;
 
         performLogin(user, password);
         history.push('/');
     }
 
     openResetPasswordPage() {
-        const { history } = this.props;
+        const { history } = this.context.router;
         history.push('/restore-password');
     }
 
@@ -55,7 +69,7 @@ export class Login extends React.Component {
                     </div>
                     <div className="login-container-form">
                         <LoginForm
-                            labels={messages}
+                            labels={this.prepareLabels()}
                             onForgotPasswordLinkClick={() => {
                                 this.openResetPasswordPage();
                             }}
@@ -70,10 +84,17 @@ export class Login extends React.Component {
     }
 }
 
+Login.contextTypes = {
+    router: PropTypes.shape({
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired
+        }).isRequired
+    }),
+    intl: PropTypes.shape({
+        formatMessage: PropTypes.func.isRequired
+    }).isRequired
+};
 Login.propTypes = {
-    history: PropTypes.shape({
-        push: PropTypes.func.isRequired
-    }).isRequired,
     loading: PropTypes.bool,
     data: PropTypes.shape({})
 };

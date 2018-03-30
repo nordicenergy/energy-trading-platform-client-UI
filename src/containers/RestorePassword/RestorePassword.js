@@ -24,12 +24,26 @@ const messages = defineMessages({
 });
 
 export class RestorePassword extends Component {
+    prepareLabels() {
+        const { formatMessage } = this.context.intl;
+
+        return Object.entries(messages).reduce(
+            (labels, [labelName, messageDescriptor]) => {
+                return {
+                    ...labels,
+                    [labelName]: formatMessage(messageDescriptor)
+                };
+            },
+            {}
+        );
+    }
+
     sendEmail(email) {
         this.openLoginPage();
     }
 
     openLoginPage() {
-        const { history } = this.props;
+        const { history } = this.context.router;
         history.push('/login');
     }
 
@@ -43,7 +57,7 @@ export class RestorePassword extends Component {
                     </div>
                     <div className="restore-password-container-form">
                         <RestorePasswordForm
-                            labels={messages}
+                            labels={this.prepareLabels()}
                             onSubmit={email => this.sendEmail(email)}
                             onLoginLinkClick={() => this.openLoginPage()}
                         />
@@ -54,10 +68,17 @@ export class RestorePassword extends Component {
     }
 }
 
+RestorePassword.contextTypes = {
+    router: PropTypes.shape({
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired
+        }).isRequired
+    }),
+    intl: PropTypes.shape({
+        formatMessage: PropTypes.func.isRequired
+    })
+};
 RestorePassword.propTypes = {
-    history: PropTypes.shape({
-        push: PropTypes.func.isRequired
-    }).isRequired,
     loading: PropTypes.bool,
     data: PropTypes.shape({})
 };
