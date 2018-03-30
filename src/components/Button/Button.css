@@ -10,7 +10,7 @@
     height: 3.5rem;
     border: none;
     border-radius: 0.25rem;
-    box-shadow: none;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
     color: white;
     text-overflow: ellipsis;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
@@ -34,11 +34,10 @@
 
 .button:hover {
     background: #2771ab;
-    box-shadow: none;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
 }
 
 .button:disabled {
-    box-shadow: none;
     cursor: not-allowed;
 }
 
@@ -48,5 +47,4 @@
 
 .button.button-success:disabled {
     background: #80dea8;
-
 }
