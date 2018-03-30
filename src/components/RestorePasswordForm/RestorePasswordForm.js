@@ -40,12 +40,12 @@ class RestorePasswordForm extends Component {
         return (
             <div className="restore-password-form">
                 <h3 className="restore-password-form-title">
-                    {labels.formTitle.defaultMessage}
+                    {labels.formTitle}
                 </h3>
                 <form onSubmit={event => this.handleSubmit(event)}>
                     <TextField
                         className="email-field"
-                        label={labels.emailField.defaultMessage}
+                        label={labels.emailField}
                         type="email"
                         name="email"
                         value={email}
@@ -63,7 +63,7 @@ class RestorePasswordForm extends Component {
                                 icon={faChevronLeft}
                             />
                             <span className="login-link-text">
-                                {labels.loginLink.defaultMessage}
+                                {labels.loginLink}
                             </span>
                         </a>
                     </div>
@@ -73,17 +73,12 @@ class RestorePasswordForm extends Component {
     }
 }
 
-const MessageDescriptor = PropTypes.shape({
-    id: PropTypes.string,
-    defaultMessage: PropTypes.string
-});
-
 RestorePasswordForm.propTypes = {
     labels: PropTypes.shape({
-        formTitle: MessageDescriptor,
-        emailField: MessageDescriptor,
-        sendButton: MessageDescriptor,
-        loginLink: MessageDescriptor
+        formTitle: PropTypes.string,
+        emailField: PropTypes.string,
+        sendButton: PropTypes.string,
+        loginLink: PropTypes.string
     }).isRequired,
     onSubmit: PropTypes.func.isRequired,
     onLoginLinkClick: PropTypes.func.isRequired
