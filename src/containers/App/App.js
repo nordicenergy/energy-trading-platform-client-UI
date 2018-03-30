@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { defineMessages } from 'react-intl';
 import { MenuSideBar, Header } from '../../components';
 import './App.css';
 
@@ -8,17 +9,61 @@ class App extends React.Component {
         this.context.router.history.push(`/${route}`);
     }
 
-    render() {
-        const items = [
-            { id: '', icon: 'faHome', label: 'Overview' },
-            { id: 'documents', icon: 'faBook', label: 'My Documents' },
-            {
-                id: 'submit_meter',
-                icon: 'faCalculator',
-                label: 'Submit Meter Readings'
+    defineLabels() {
+        return defineMessages({
+            overview: {
+                id: 'app.menuBar.overview',
+                defaultMessage: 'Overview'
             },
-            { id: 'trading', icon: 'faChartBar', label: 'Trading' },
-            { id: 'profile', icon: 'faUser', label: 'Profile' }
+            documents: {
+                id: 'app.menuBar.documents',
+                defaultMessage: 'My Documents'
+            },
+            submitMetric: {
+                id: 'app.menuBar.submitMetric',
+                defaultMessage: 'Submit Metric Readings'
+            },
+            trading: {
+                id: 'app.menuBar.trading',
+                defaultMessage: 'Trading'
+            },
+            profile: {
+                id: 'app.menuBar.profile',
+                defaultMessage: 'Profile'
+            }
+        });
+    }
+
+    render() {
+        const labels = this.defineLabels();
+        const { formatMessage } = this.context.intl;
+
+        const items = [
+            {
+                id: '',
+                icon: 'faHome',
+                label: formatMessage(labels.overview)
+            },
+            {
+                id: 'documents',
+                icon: 'faBook',
+                label: formatMessage(labels.documents)
+            },
+            {
+                id: 'submit_metric',
+                icon: 'faCalculator',
+                label: formatMessage(labels.submitMetric)
+            },
+            {
+                id: 'trading',
+                icon: 'faChartBar',
+                label: formatMessage(labels.trading)
+            },
+            {
+                id: 'profile',
+                icon: 'faUser',
+                label: formatMessage(labels.profile)
+            }
         ];
 
         return (
@@ -42,7 +87,8 @@ class App extends React.Component {
 }
 
 App.contextTypes = {
-    router: PropTypes.object
+    router: PropTypes.object,
+    intl: PropTypes.object
 };
 
 export default App;

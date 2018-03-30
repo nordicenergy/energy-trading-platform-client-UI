@@ -6,6 +6,10 @@ body {
     padding: 0;
     font-family: 'Artegra Sans Alt', Helvetica, sans-serif;
 
+    /* Common sizes */
+    --menuIconSize: 4.5rem;
+    --borderWidth: 0.06rem;
+
     /* Color Schema */
     --fromColor: #2c6177;
     --toColor: #041a2d;

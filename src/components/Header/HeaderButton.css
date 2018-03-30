@@ -1,9 +1,9 @@
 .header-button-container {
     position: relative;
     width: 6.94rem;
-    height: 4.5rem;
-    border-left: 0.06rem solid #1e577b;
-    background-color: #051a2d;
+    height: var(--menuIconSize);
+    border-left: var(--borderWidth) solid var(--navigateTextColor);
+    background-color: var(--barColor);
 }
 
 .header-button {
