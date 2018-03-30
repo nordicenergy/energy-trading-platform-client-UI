@@ -9,6 +9,6 @@ const wrapperStyles = {
     backgroundColor: '#F0F4F7'
 };
 <div style={wrapperStyles}>
-    <NavigationCard type="myProducer" title="My producer"/>
+    <NavigationCard type="myProducer" title="My producer" onCardClickHandler={() => {}} />
 </div>
 ```
