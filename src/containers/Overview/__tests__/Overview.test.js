@@ -23,9 +23,9 @@ describe('<Overview /> Component', () => {
         - <h1> element`, done => {
         const component = renderComponent();
 
-        expect(component.find('div.overview-page').length).toBe(1);
-        expect(component.find('h1').length).toBe(1);
-        expect(component.find(NavigationCard).length).toBe(3);
+        expect(component.find('div.overview-page')).toHaveLength(1);
+        expect(component.find('h1')).toHaveLength(1);
+        expect(component.find(NavigationCard)).toHaveLength(3);
 
         done();
     });
