@@ -3,22 +3,10 @@ import { shallow, mount } from 'enzyme';
 import LoginForm from '../LoginForm';
 
 const labelsMock = {
-    usernameField: {
-        id: 'loginForm.test.usernameField',
-        defaultMessage: 'Username'
-    },
-    passwordField: {
-        id: 'loginForm.test.passwordField',
-        defaultMessage: 'Password'
-    },
-    forgotPasswordLink: {
-        id: 'loginForm.test.forgotPasswordLink',
-        defaultMessage: 'Forgot your password?'
-    },
-    loginButton: {
-        id: 'loginForm.test.loginButton',
-        defaultMessage: 'Login'
-    }
+    usernameField: 'Username',
+    passwordField: 'Password',
+    forgotPasswordLink: 'Forgot your password?',
+    loginButton: 'Login'
 };
 const onForgotPasswordLinkClickMock = jest.fn();
 const onSubmitMock = jest.fn();

@@ -1,6 +1,22 @@
+@keyframes auto-fill {
+    to {
+        background: none;
+        color: white;
+    }
+}
+
+@keyframes auto-fill-focus {
+    to {
+        background: transparent linear-gradient(to right, #4fd279, #38acc0)
+            no-repeat 0 100%;
+        background-size: 100% 0.1875rem;
+        color: white;
+    }
+}
+
 .text-field {
     width: 100%;
-    color: #fff;
+    color: white;
     font-size: 1rem;
 }
 
@@ -35,7 +51,7 @@
     outline: none;
     border: none;
     background: none;
-    color: #fff;
+    color: white;
     font-weight: 600;
     font-size: 1.125em;
 }
@@ -43,7 +59,21 @@
 .input-wrapper .input:focus {
     background: transparent linear-gradient(to right, #4fd279, #38acc0)
         no-repeat 0 100%;
-    background-size: 100% 3px;
+    background-size: 100% 0.1875rem;
+}
+
+.input-wrapper .input:-webkit-autofill {
+    animation-name: auto-fill;
+    animation-duration: 0s;
+
+    animation-fill-mode: both;
+}
+
+.input-wrapper .input:-webkit-autofill:focus {
+    animation-name: auto-fill-focus;
+    animation-duration: 0s;
+
+    animation-fill-mode: both;
 }
 
 .helper-text {
