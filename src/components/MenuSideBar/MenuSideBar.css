@@ -1,5 +1,4 @@
 .menu-side-bar {
-    --borderWidth: 0.06rem;
     --borderOnLightColor: #e7eaed;
     --borderOnDarkColor: #2c3d4d;
 
@@ -18,6 +17,13 @@
 
 .menu-side-bar .menu-item-icon {
     border-bottom: var(--borderWidth) solid var(--borderOnDarkColor);
+}
+
+.active .menu-item-label {
+    border-bottom: var(--borderWidth) solid transparent;
+}
+.menu-item-label:hover {
+    border-bottom: var(--borderWidth) solid var(--navigateTextColor);
 }
 
 /* TODO remake to mobile-first, move values to common variables */

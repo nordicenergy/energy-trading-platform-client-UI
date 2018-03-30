@@ -2,7 +2,7 @@
     position: relative;
     width: 6.94rem;
     height: var(--menuIconSize);
-    border-left: 0.06rem solid #1e577b;
+    border-left: var(--borderWidth) solid var(--navigateTextColor);
     background-color: var(--barColor);
 }
 

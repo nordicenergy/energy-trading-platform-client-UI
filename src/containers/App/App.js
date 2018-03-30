@@ -9,8 +9,8 @@ class App extends React.Component {
         this.context.router.history.push(`/${route}`);
     }
 
-    render() {
-        const messages = defineMessages({
+    defineLabels() {
+        return defineMessages({
             overview: {
                 id: 'app.menuBar.overview',
                 defaultMessage: 'Overview'
@@ -32,33 +32,37 @@ class App extends React.Component {
                 defaultMessage: 'Profile'
             }
         });
-        // const { formatMessage } = this.context.intl;
+    }
+
+    render() {
+        const labels = this.defineLabels();
+        const { formatMessage } = this.context.intl;
 
         const items = [
             {
                 id: '',
                 icon: 'faHome',
-                label: messages.documents.defaultMessage
+                label: formatMessage(labels.overview)
             },
             {
                 id: 'documents',
                 icon: 'faBook',
-                label: messages.documents.defaultMessage
+                label: formatMessage(labels.documents)
             },
             {
-                id: 'submit_meter',
+                id: 'submit_metric',
                 icon: 'faCalculator',
-                label: messages.submitMetric.defaultMessage
+                label: formatMessage(labels.submitMetric)
             },
             {
                 id: 'trading',
                 icon: 'faChartBar',
-                label: messages.trading.defaultMessage
+                label: formatMessage(labels.trading)
             },
             {
                 id: 'profile',
                 icon: 'faUser',
-                label: messages.profile.defaultMessage
+                label: formatMessage(labels.profile)
             }
         ];
 
@@ -83,7 +87,8 @@ class App extends React.Component {
 }
 
 App.contextTypes = {
-    router: PropTypes.object
+    router: PropTypes.object,
+    intl: PropTypes.object
 };
 
 export default App;
