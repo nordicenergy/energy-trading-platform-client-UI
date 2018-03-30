@@ -9,9 +9,11 @@ const mockStore = configureMockStore();
 const store = mockStore({});
 
 function renderComponent(context = {}) {
-    return mountWithIntl(<Provider store={store}>
-        <Overview context={context} />
-    </Provider>);
+    return mountWithIntl(
+        <Provider store={store}>
+            <Overview context={context} />
+        </Provider>
+    );
 }
 
 describe('<Overview /> Component', () => {

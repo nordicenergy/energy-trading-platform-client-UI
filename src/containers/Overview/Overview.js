@@ -4,7 +4,7 @@ import { defineMessages } from 'react-intl';
 import { NavigationCard } from '../../components';
 
 import './Overview.css';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 export class Overview extends React.Component {
     static mapStateToProps(/* state */) {
@@ -35,9 +35,21 @@ export class Overview extends React.Component {
             <div className="overview-page">
                 <h1>Overview</h1>
                 <nav className="overview-navigation-cards">
-                    <NavigationCard type="myProducer" title={formatMessage(labels.myProducer)} onCardClickHandler={f => f} />
-                    <NavigationCard type="buyEnergy" title={formatMessage(labels.buyEnergy)} onCardClickHandler={f => f} />
-                    <NavigationCard type="sellEnergy" title={formatMessage(labels.sellEnergy)} onCardClickHandler={f => f} />
+                    <NavigationCard
+                        type="myProducer"
+                        title={formatMessage(labels.myProducer)}
+                        onCardClickHandler={f => f}
+                    />
+                    <NavigationCard
+                        type="buyEnergy"
+                        title={formatMessage(labels.buyEnergy)}
+                        onCardClickHandler={f => f}
+                    />
+                    <NavigationCard
+                        type="sellEnergy"
+                        title={formatMessage(labels.sellEnergy)}
+                        onCardClickHandler={f => f}
+                    />
                 </nav>
             </div>
         );

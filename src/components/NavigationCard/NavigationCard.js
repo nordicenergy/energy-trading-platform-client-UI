@@ -20,7 +20,7 @@ const NavigationCard = ({ title, type, onCardClickHandler }) => {
         >
             <div className="nav-card">
                 <div className="nav-card-image-container">
-                    <Icon/>
+                    <Icon />
                 </div>
                 <div className="nav-card-title-container">
                     <p className="nav-card-title">{title}</p>
