@@ -6,8 +6,6 @@
 }
 
 .menu-item {
-    --menuIconSize: 4.5rem;
-
     justify-content: flex-start;
     width: 100%;
 
@@ -15,12 +13,6 @@
     background: white;
 
     cursor: pointer;
-}
-
-/* TODO temporary solution for demo */
-.menu-item:hover {
-    opacity: 0.7;
-    transition: 0.2s ease-in;
 }
 
 .active {
@@ -42,9 +34,8 @@
     text-align: center;
 }
 
-/* TODO temporary solution for demo */
-.menu-item:hover .menu-item-icon {
-    font-size: 1.7rem;
+.menu-item:hover .menu-item-icon svg {
+    transform: scale(1.2);
     transition: 0.2s;
 }
 
@@ -62,9 +53,16 @@
     text-transform: uppercase;
 }
 
+.menu-item:hover .menu-item-label {
+    background: var(--navigateTextColor);
+    color: white;
+    transition: 0.2s;
+}
+
 .menu-item-label span {
     padding-left: 2rem;
     padding-top: 0.25rem;
+    user-select: none;
 }
 
 .active .menu-item-label::before {
