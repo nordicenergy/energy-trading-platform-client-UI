@@ -6,8 +6,11 @@ import * as userActionPerformers from '../../../action_performers/users';
 const historyMock = {
     push: jest.fn()
 };
-function renderComponent({ history = historyMock } = {}, context = {}) {
-    return shallowWithIntl(<Login history={history} context={context} />);
+const routerMock = {
+    history: historyMock
+};
+function renderComponent(props = {}, context = { router: routerMock }) {
+    return shallowWithIntl(<Login {...props} />, { context });
 }
 
 describe('<Login /> Container', () => {

@@ -1,9 +1,18 @@
 .nav-card-container {
+    --transitionDuration: 0.2s;
+    --transitionFunction: ease-in;
     padding: 2.125rem 0 1.625rem;
-    width: 19rem;
+    flex-basis: 19rem;
+    min-width: 10rem;
     border-radius: 0.25rem;
-    background: #fff;
+    background: white;
     cursor: pointer;
+    transition: var(--transitionDuration) var(--transitionFunction);
+}
+
+.nav-card-container:hover {
+    color: white;
+    background: var(--activeColor);
 }
 
 .nav-card {
@@ -25,8 +34,18 @@
     margin: 0;
 }
 
-.nav-card-image-container img {
-    display: block;
-    max-width: 125px;
-    height: auto;
+.nav-card-container svg .fillArea {
+    transition: var(--transitionDuration) var(--transitionFunction);
+}
+
+.nav-card-container svg .strokeLine {
+    transition: var(--transitionDuration) var(--transitionFunction);
+}
+
+.nav-card-container:hover svg .fillArea {
+    opacity: 0.4;
+    stroke: white;
+}
+.nav-card-container:hover svg .strokeLine {
+    stroke: white;
 }

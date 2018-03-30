@@ -14,5 +14,9 @@
     "app.menuBar.documents": "My Documents",
     "app.menuBar.submitMetric": "Submit Metric Readings",
     "app.menuBar.trading": "Trading",
-    "app.menuBar.profile": "Profile"
+    "app.menuBar.profile": "Profile",
+
+    "app.overviewPage.myProducer": "My Producer",
+    "app.overviewPage.buyEnergy": "Buy Energy",
+    "app.overviewPage.sellEnergy": "Sell Energy"
 }

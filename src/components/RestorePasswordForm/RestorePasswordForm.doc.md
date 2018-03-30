@@ -6,22 +6,10 @@ const wrapperStyles = {
     padding: '1rem 2rem'
 };
 const labels = {
-    formTitle: {
-        id: 'restorePasswordForm.doc.formTitle',
-        defaultMessage: 'Restore password'
-    },
-    emailField: {
-        id: 'restorePasswordForm.doc.emailField',
-        defaultMessage: 'Enter Your Email'
-    },
-    sendButton: {
-        id: 'restorePasswordForm.doc.sendButton',
-        defaultMessage: 'Send'
-    },
-    loginLink: {
-        id: 'restorePasswordForm.doc.loginLink',
-        defaultMessage: 'Login'
-    }
+    formTitle: 'Restore password',
+    emailField: 'Enter Your Email',
+    sendButton: 'Send',
+    loginLink: 'Login'
 };
 
 <div style={wrapperStyles}>
