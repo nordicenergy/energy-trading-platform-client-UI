@@ -4,6 +4,8 @@
     "app.loginPage.passwordField": "Password",
     "app.loginPage.forgotPasswordLink": "Forgot your password?",
     "app.loginPage.loginButton": "Login",
+    "app.loginPage.errors.emptyUsername": "Enter your username.",
+    "app.loginPage.errors.emptyPassword": "Enter your password.",
 
     "app.restorePasswordPage.formTitle": "Restore password",
     "app.restorePasswordPage.emailField": "Enter Your Email",

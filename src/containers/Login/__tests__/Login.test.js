@@ -50,6 +50,32 @@ describe('<Login /> Container', () => {
         expect(historyMock.push).toHaveBeenCalledWith('/restore-password');
     });
 
+    it('should validate credentials', () => {
+        const component = renderComponent();
+        const credentialsMock = {
+            username: '',
+            password: ''
+        };
+        // Disable console warning for the test.
+        const consoleWarnSpy = jest
+            .spyOn(console, 'warn')
+            .mockImplementation(jest.fn());
+        const performLoginSpy = jest
+            .spyOn(userActionPerformers, 'performLogin')
+            .mockImplementation(jest.fn());
+
+        component
+            .find('LoginForm')
+            .props()
+            .onSubmit(credentialsMock);
+        expect(performLoginSpy).not.toHaveBeenCalled();
+        expect(component.state().errors).toHaveProperty('username');
+        expect(component.state().errors).toHaveProperty('password');
+
+        consoleWarnSpy.mockRestore();
+        performLoginSpy.mockRestore();
+    });
+
     it('should calls performLogin after form was submitted', () => {
         const component = renderComponent();
         const credentialsMock = {

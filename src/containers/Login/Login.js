@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
+import Validator from 'async-validator';
 import { LoginForm, Logo, Illustration } from '../../components';
 import { performLogin } from '../../action_performers/users';
 import './Login.css';
@@ -24,12 +25,29 @@ const messages = defineMessages({
         defaultMessage: 'Login'
     }
 });
+const errorMessages = defineMessages({
+    emptyUsername: {
+        id: 'app.loginPage.errors.emptyUsername',
+        defaultMessage: 'Enter your username.'
+    },
+    emptyPassword: {
+        id: 'app.loginPage.errors.emptyPassword',
+        defaultMessage: 'Enter your password.'
+    }
+});
 
 export class Login extends React.Component {
     static mapStateToProps(state) {
         return {
             loading: state.Users.login.loading,
             login: state.Users.login.data
+        };
+    }
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            errors: {}
         };
     }
 
@@ -45,11 +63,45 @@ export class Login extends React.Component {
         }, {});
     }
 
-    sendCredentials(user, password) {
-        const { history } = this.context.router;
+    prepareValidator() {
+        const { formatMessage } = this.context.intl;
+        const validationSchema = {
+            username: {
+                type: 'string',
+                required: true,
+                message: formatMessage(errorMessages.emptyUsername)
+            },
+            password: {
+                type: 'string',
+                required: true,
+                message: formatMessage(errorMessages.emptyPassword)
+            }
+        };
 
-        performLogin(user, password);
-        history.push('/');
+        return new Validator(validationSchema);
+    }
+
+    sendCredentials(credentials) {
+        const validator = this.prepareValidator();
+
+        validator.validate(credentials, errors => {
+            if (errors) {
+                this.setState({
+                    errors: errors.reduce(
+                        (errorsState, { field, message }) => ({
+                            ...errorsState,
+                            [field]: message
+                        }),
+                        {}
+                    )
+                });
+            } else {
+                const { history } = this.context.router;
+
+                performLogin(credentials.username, credentials.password);
+                history.push('/');
+            }
+        });
     }
 
     openResetPasswordPage() {
@@ -58,6 +110,8 @@ export class Login extends React.Component {
     }
 
     render() {
+        const { errors } = this.state;
+
         return (
             <div className="login-container">
                 <div className="login-container-layout">
@@ -68,11 +122,12 @@ export class Login extends React.Component {
                     <div className="login-container-form">
                         <LoginForm
                             labels={this.prepareLabels()}
+                            errors={errors}
                             onForgotPasswordLinkClick={() => {
                                 this.openResetPasswordPage();
                             }}
-                            onSubmit={({ username, password }) => {
-                                this.sendCredentials(username, password);
+                            onSubmit={credentials => {
+                                this.sendCredentials(credentials);
                             }}
                         />
                     </div>
