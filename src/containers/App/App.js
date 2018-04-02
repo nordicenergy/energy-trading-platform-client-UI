@@ -2,9 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages } from 'react-intl';
 import { MenuSideBar, Header, Footer } from '../../components';
+import { performLogout } from '../../action_performers/users';
 import './App.css';
 
 class App extends React.Component {
+    logout() {
+        performLogout();
+        this.navigateTo('login');
+    }
+
     navigateTo(route) {
         this.context.router.history.push(`/${route}`);
     }
@@ -100,7 +106,7 @@ class App extends React.Component {
         return (
             <div className="app">
                 <Header
-                    onLogoutButtonClickHandler={() => this.navigateTo('login')}
+                    onLogoutButtonClickHandler={() => this.logout()}
                     notifications={[]}
                 />
                 <div className="content">

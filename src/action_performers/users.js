@@ -19,7 +19,7 @@ export function performLogout() {
     );
 }
 
-export function performGetUserData(data) {
+export function performGetUserData() {
     dispatcher.dispatchPromise(
         getUserData,
         'GET_USER_DATA',
