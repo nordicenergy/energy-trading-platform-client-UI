@@ -12,7 +12,7 @@
 
 .nav-card-container:hover {
     color: white;
-    background: var(--activeColor);
+    background-color: var(--navigateTextColor);
 }
 
 .nav-card {
@@ -43,8 +43,8 @@
 }
 
 .nav-card-container:hover svg .fillArea {
-    opacity: 0.4;
-    stroke: white;
+    opacity: 0.3;
+    fill: white;
 }
 .nav-card-container:hover svg .strokeLine {
     stroke: white;
