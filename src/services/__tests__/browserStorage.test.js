@@ -1,6 +1,6 @@
 import { getToken, clearToken, setToken } from '../browserStorage';
 
-describe.skip('Browser Storage Service', () => {
+describe('Browser Storage Service', () => {
     const expectedKey = 'lition_auth_token';
 
     beforeEach(() => {
@@ -25,6 +25,6 @@ describe.skip('Browser Storage Service', () => {
     it('should provide method for removing token', () => {
         clearToken();
         const [[key]] = sessionStorage.removeItem.mock.calls;
-        expect(key).toEqual(ex);
+        expect(key).toEqual(expectedKey);
     });
 });
