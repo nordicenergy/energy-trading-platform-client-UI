@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages } from 'react-intl';
-import { MenuSideBar, Header } from '../../components';
+import { MenuSideBar, Header, Footer } from '../../components';
 import './App.css';
 
 class App extends React.Component {
@@ -30,6 +30,22 @@ class App extends React.Component {
             profile: {
                 id: 'app.menuBar.profile',
                 defaultMessage: 'Profile'
+            },
+            about: {
+                id: 'app.footer.about',
+                defaultMessage: 'About Us'
+            },
+            team: {
+                id: 'app.footer.team',
+                defaultMessage: 'Our Team'
+            },
+            service: {
+                id: 'app.footer.service',
+                defaultMessage: 'Question&Service'
+            },
+            address: {
+                id: 'app.footer.address',
+                defaultMessage: '2018 Lition. All rights reserved.'
             }
         });
     }
@@ -38,7 +54,7 @@ class App extends React.Component {
         const labels = this.defineLabels();
         const { formatMessage } = this.context.intl;
 
-        const items = [
+        const menuItems = [
             {
                 id: '',
                 icon: 'faHome',
@@ -66,6 +82,21 @@ class App extends React.Component {
             }
         ];
 
+        const footerItems = [
+            {
+                href: 'about',
+                label: formatMessage(labels.about)
+            },
+            {
+                href: 'team',
+                label: formatMessage(labels.team)
+            },
+            {
+                href: 'service',
+                label: formatMessage(labels.service)
+            }
+        ];
+
         return (
             <div className="app">
                 <Header
@@ -75,11 +106,17 @@ class App extends React.Component {
                 <div className="content">
                     <div className="menu-container">
                         <MenuSideBar
-                            items={items}
+                            items={menuItems}
                             onSelect={id => this.navigateTo(id)}
                         />
                     </div>
-                    <main>{this.props.children}</main>
+                    <div className="main-container">
+                        <main>{this.props.children}</main>
+                        <Footer
+                            addressLabel={formatMessage(labels.address)}
+                            navItems={footerItems}
+                        />
+                    </div>
                 </div>
             </div>
         );

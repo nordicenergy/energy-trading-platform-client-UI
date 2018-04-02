@@ -3,20 +3,20 @@
 }
 
 .content {
-    height: calc(100% - 4.5rem);
     display: flex;
+    height: calc(100% - var(--menuIconSize));
 }
 
-.app main {
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 100%;
-    color: var(--navigateTextColor);
-    text-align: center;
-    background-color: #f0f4f7;
-}
 
-.nav-cards-container {
-    display: flex;
-    justify-content: space-around;
+    color: var(--navigateTextColor);
+    background-color: #f0f4f7;
+
+    text-align: center;
 }
 
 .menu-container {
