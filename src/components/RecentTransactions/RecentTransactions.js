@@ -44,11 +44,11 @@ const RecentTransactions = ({
                     <tbody>{renderTableRows()}</tbody>
                 </table>
             </div>
-            <div className="current-balance-row">
-                <div className="current-balance-date">
+            <div className="recent-transactions-current-balance-row">
+                <div className="recent-transactions-current-balance-date">
                     {currentBalance.date}
                 </div>
-                <div className="current-balance-amount">
+                <div className="recent-transactions-current-balance-amount">
                     {labels.recentTransactionsCurrentBalance}:{' '}
                     {currentBalance.amount}
                 </div>

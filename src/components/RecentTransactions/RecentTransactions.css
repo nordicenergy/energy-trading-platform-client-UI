@@ -1,28 +1,29 @@
 .recent-transactions-container {
+    font-size: 1.125rem;
     background-color: white;
-    padding: 2rem 0 1.5rem;
+    padding: 1.78em 0 1.33em;
     box-sizing: border-box;
     width: 100%;
-    box-shadow: 0 0.25rem 1rem 0 rgba(217, 224, 229, 0.3);
-    border-radius: 0.25rem;
-    --transactions-rows-text-color: #142739;
-    --transactions-rows-side-padding: 6.937rem;
+    box-shadow: 0 0.22em 0.89em 0 rgba(217, 224, 229, 0.3);
+    border-radius: 0.22em;
+    --transactionsRowsTextColor: #142739;
+    --transactionsRowsSidePadding: 6.22em;
 }
 
 .recent-transactions-title-container {
+    font-size: 1.375rem;
     width: 100%;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.33em;
 }
 
 .recent-transactions-title {
-    font-size: 1.375rem;
     color: black;
     font-weight: 600;
 }
 
 .recent-transactions-table-container {
-    padding: 0 var(--transactions-rows-side-padding);
+    padding: 0 var(--transactionsRowsSidePadding);
 }
 
 .recent-transactions-table {
@@ -30,21 +31,23 @@
     border-collapse: collapse;
 }
 
-.current-balance-row {
+.recent-transactions-current-balance-row {
     display: flex;
-    color: var(--transactions-rows-text-color);
+    color: var(--transactionsRowsTextColor);
     justify-content: space-between;
     align-items: center;
     background-color: rgba(240, 244, 247, 0.6);
-    padding: 1.25rem var(--transactions-rows-side-padding) 1rem;
+    padding: 1.25rem var(--transactionsRowsSidePadding) 1rem;
 }
 
-.current-balance-row .current-balance-date {
+.recent-transactions-current-balance-row
+    .recent-transactions-current-balance-date {
     font-weight: 500;
     font-size: 1.125rem;
 }
 
-.current-balance-row .current-balance-amount {
+.recent-transactions-current-balance-row
+    .recent-transactions-current-balance-amount {
     font-size: 1.375rem;
     font-weight: 600;
 }
@@ -56,7 +59,7 @@
 }
 
 .recent-transactions-table tbody tr {
-    border-bottom: 0.06rem solid #eceef1;
+    border-bottom: 0.056em solid #eceef1;
 }
 
 .recent-transactions-table tbody tr:last-child {
@@ -64,10 +67,10 @@
 }
 
 .recent-transactions-table tbody td {
-    font-weight: 500;
-    color: var(--transactions-rows-text-color);
-    padding: 1rem 0 0.813rem;
     font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--transactionsRowsTextColor);
+    padding: 1em 0 0.78em;
 }
 
 .recent-transactions-table .amount-column {
@@ -91,5 +94,5 @@
 
 .recent-transactions-button-container {
     text-align: center;
-    margin-top: 1.5rem;
+    margin-top: 1.33em;
 }

@@ -2,30 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
 import { NavigationCard, RecentTransactions } from '../../components';
-
+import { performGetRecentTransactions } from '../../action_performers/transactions';
 import './Overview.css';
 import PropTypes from 'prop-types';
-
-const transactions = [
-    {
-        id: '1',
-        date: 'Mar 14, 2018',
-        name: 'Bought 23 kWh Alice',
-        amount: '0,81€'
-    },
-    {
-        id: '2',
-        date: 'Mar 14, 2018',
-        name: 'Monthly invoice',
-        amount: '0,81€'
-    },
-    {
-        id: '3',
-        date: 'Mar 14, 2018',
-        name: 'Bought 23 kWh from Peter',
-        amount: '0,81€'
-    }
-]; // TODO: remove
 
 const currentBalanceData = {
     date: 'Mar 14, 2018',
@@ -72,8 +51,15 @@ const messages = defineMessages({
 });
 
 export class Overview extends React.Component {
-    static mapStateToProps(/* state */) {
-        return {};
+    static mapStateToProps(state) {
+        return {
+            loading: state.Transactions.recentTransactions.loading,
+            recentTransactions: state.Transactions.recentTransactions.data
+        };
+    }
+
+    componentDidMount() {
+        performGetRecentTransactions();
     }
 
     prepareLabels() {
@@ -86,6 +72,11 @@ export class Overview extends React.Component {
                 [labelName]: formatMessage(messageDescriptor)
             };
         }, {});
+    }
+
+    openWattcoinPage() {
+        // const { history } = this.context.router;
+        // history.push('/trading/wattcoin');
     }
 
     render() {
@@ -111,9 +102,10 @@ export class Overview extends React.Component {
                 </nav>
                 <div className="overview-content-container">
                     <RecentTransactions
-                        transactions={transactions}
+                        transactions={this.props.recentTransactions}
                         currentBalance={currentBalanceData}
                         labels={labels}
+                        onButtonClick={() => this.openWattcoinPage()}
                     />
                 </div>
             </div>
@@ -122,7 +114,22 @@ export class Overview extends React.Component {
 }
 
 Overview.contextTypes = {
-    intl: PropTypes.object
+    router: PropTypes.shape({
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired
+        }).isRequired
+    }),
+    intl: PropTypes.shape({
+        formatMessage: PropTypes.func.isRequired
+    }).isRequired
+};
+Overview.propTypes = {
+    loading: PropTypes.bool,
+    data: PropTypes.array
+};
+Overview.defaultProps = {
+    loading: false,
+    data: []
 };
 
 export default connect(Overview.mapStateToProps)(Overview);
