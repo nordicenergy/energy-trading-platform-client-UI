@@ -10,7 +10,7 @@ export class SubmitMetric extends React.Component {
 
     render() {
         return (
-            <div className="submit-Metric-page">
+            <div className="submit-metric-page">
                 <h1>Submit Metric</h1>
             </div>
         );

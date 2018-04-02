@@ -8,7 +8,10 @@ import {
     Documents,
     SubmitMetric,
     Trading,
-    Profile
+    Profile,
+    Service,
+    About,
+    Team
 } from '../containers';
 
 const AppMainLayout = () => (
@@ -19,6 +22,9 @@ const AppMainLayout = () => (
             <Route path="/submit_metric" component={SubmitMetric} />
             <Route path="/trading" component={Trading} />
             <Route path="/profile" component={Profile} />
+            <Route path="/team" component={Team} />
+            <Route path="/about" component={About} />
+            <Route path="/service" component={Service} />
         </App>
     </div>
 );
