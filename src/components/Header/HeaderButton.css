@@ -27,7 +27,7 @@
 }
 
 .header-button:hover {
-    color: var(--activeIconColor);
+    color: var(--successColor);
 }
 
 .header-button:hover .header-button-icon-container svg {
@@ -44,5 +44,5 @@
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background-color: var(--activeIconColor);
+    background-color: var(--successColor);
 }

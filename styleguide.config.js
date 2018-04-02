@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+    assetsDir: path.join(__dirname, '/public'),
     require: [path.join(__dirname, '/src/index.css')],
     title: 'Lition Web Components List',
     ignore: ['**/*.test.js', '**/*index.js'],

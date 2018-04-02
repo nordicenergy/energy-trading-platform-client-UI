@@ -47,5 +47,12 @@
     "engines": {
         "node": ">=6.6.0",
         "npm": ">=3.10.8"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/**/*.{js,jsx}",
+            "!src/**/index.js",
+            "!<rootDir>/node_modules/"
+        ]
     }
 }
