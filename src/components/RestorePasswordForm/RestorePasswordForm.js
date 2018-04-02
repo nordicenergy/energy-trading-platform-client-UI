@@ -34,7 +34,7 @@ class RestorePasswordForm extends Component {
     }
 
     render() {
-        const { labels } = this.props;
+        const { labels, errors } = this.props;
         const { email } = this.state;
 
         return (
@@ -50,6 +50,7 @@ class RestorePasswordForm extends Component {
                         type="email"
                         name="email"
                         value={email}
+                        error={errors.email}
                         onChange={event => this.handleChange(event)}
                     />
                     <div className="restore-password-form-actions">
@@ -81,8 +82,14 @@ RestorePasswordForm.propTypes = {
         sendButton: PropTypes.string,
         loginLink: PropTypes.string
     }).isRequired,
+    errors: PropTypes.shape({
+        email: PropTypes.string
+    }),
     onSubmit: PropTypes.func.isRequired,
     onLoginLinkClick: PropTypes.func.isRequired
+};
+RestorePasswordForm.defaultProps = {
+    errors: {}
 };
 
 export default RestorePasswordForm;
