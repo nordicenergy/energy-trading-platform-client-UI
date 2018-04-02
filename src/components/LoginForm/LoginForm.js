@@ -39,6 +39,7 @@ class LoginForm extends Component {
             >
                 <TextField
                     className="username-field"
+                    darkMode
                     label={labels.usernameField}
                     type="text"
                     name="username"
@@ -46,6 +47,7 @@ class LoginForm extends Component {
                 />
                 <TextField
                     className="password-field"
+                    darkMode
                     label={labels.passwordField}
                     type="password"
                     name="password"

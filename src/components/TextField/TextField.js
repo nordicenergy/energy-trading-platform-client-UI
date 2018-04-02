@@ -1,50 +1,95 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './TextField.css';
 
-const TextField = props => {
-    const {
-        className,
-        label,
-        id,
-        type,
-        name,
-        disabled,
-        placeholder,
-        value,
-        onChange,
-        onFocus,
-        onBlur,
-        helperText,
-        ...otherProps
-    } = props;
-    const classes = classNames('text-field', className);
+class TextField extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            focused: false
+        };
+    }
 
-    return (
-        <div className={classes} {...otherProps}>
-            <label className="input-wrapper">
-                <strong className="label">{label}</strong>
-                <input
-                    className="input"
-                    id={id}
-                    disabled={disabled}
-                    type={type}
-                    name={name}
-                    placeholder={placeholder}
-                    value={value}
-                    onChange={onChange}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
-                />
-            </label>
-            {helperText && <p className="helper-text">{helperText}</p>}
-        </div>
-    );
-};
+    handleFocus(event) {
+        const { onFocus } = this.props;
+        this.setState({ focused: true });
+
+        if (typeof onFocus === 'function') {
+            onFocus(event);
+        }
+    }
+
+    handleBlur(event) {
+        const { onBlur } = this.props;
+        this.setState({ focused: false });
+
+        if (typeof onBlur === 'function') {
+            onBlur(event);
+        }
+    }
+
+    render() {
+        const {
+            className,
+            darkMode,
+            label,
+            id,
+            type,
+            name,
+            disabled,
+            placeholder,
+            value,
+            onChange,
+            addon,
+            helperText,
+            error,
+            ...otherProps
+        } = this.props;
+        const { focused } = this.state;
+        const classes = classNames(
+            'text-field',
+            focused && 'text-field--focused',
+            error && 'text-field--error',
+            darkMode && 'text-field--dark',
+            className
+        );
+
+        return (
+            <div className={classes}>
+                <label className="text-field-layout">
+                    <strong className="text-field-label">{label}</strong>
+                    <div className="text-field-input-group">
+                        <input
+                            {...otherProps}
+                            className="text-field-input"
+                            id={id}
+                            disabled={disabled}
+                            type={type}
+                            name={name}
+                            placeholder={placeholder}
+                            value={value}
+                            onChange={onChange}
+                            onFocus={event => this.handleFocus(event)}
+                            onBlur={event => this.handleBlur(event)}
+                        />
+                        {addon && (
+                            <span className="text-field-addon">{addon}</span>
+                        )}
+                    </div>
+                </label>
+                {helperText && (
+                    <p className="text-field-helper-text">{helperText}</p>
+                )}
+                {error && <div className="text-field-error">{error}</div>}
+            </div>
+        );
+    }
+}
 
 TextField.propTypes = {
     className: PropTypes.string,
+    darkMode: PropTypes.bool,
     label: PropTypes.string.isRequired,
     id: PropTypes.string,
     type: PropTypes.string,
@@ -55,9 +100,12 @@ TextField.propTypes = {
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    helperText: PropTypes.node
+    addon: PropTypes.string,
+    helperText: PropTypes.node,
+    error: PropTypes.string
 };
 TextField.defaultProps = {
+    darkMode: false,
     type: 'text',
     disabled: false
 };

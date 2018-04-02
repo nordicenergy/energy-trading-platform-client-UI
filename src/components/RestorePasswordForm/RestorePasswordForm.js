@@ -45,6 +45,7 @@ class RestorePasswordForm extends Component {
                 <form onSubmit={event => this.handleSubmit(event)}>
                     <TextField
                         className="email-field"
+                        darkMode
                         label={labels.emailField}
                         type="email"
                         name="email"
