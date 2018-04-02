@@ -30,14 +30,13 @@ const transactionsMock = [
         date: 'Mar 14, 2018',
         name: 'Bought 23 kWh from Peter',
         amount: '0,81€'
-    },
+    }
 ];
 
 const currentBalanceMockData = {
     date: 'Mar 14, 2018',
     amount: '4,03€'
 };
-
 
 function renderComponent(
     {
@@ -48,7 +47,14 @@ function renderComponent(
     },
     renderer = mount
 ) {
-    return renderer(<RecentTransactions labels={labels} transactions={transactions} currentBalance={currentBalance} onButtonClick={onButtonClick} />);
+    return renderer(
+        <RecentTransactions
+            labels={labels}
+            transactions={transactions}
+            currentBalance={currentBalance}
+            onButtonClick={onButtonClick}
+        />
+    );
 }
 
 describe('<RecentTransactions /> Component', () => {
@@ -61,8 +67,12 @@ describe('<RecentTransactions /> Component', () => {
         - card title element with class "nav-card-title";`, () => {
         const component = renderComponent({});
         expect(component.find('p.recent-transactions-title')).toHaveLength(1);
-        expect(component.find('table.recent-transactions-table thead')).toHaveLength(1);
-        expect(component.find('table.recent-transactions-table tbody')).toHaveLength(1);
+        expect(
+            component.find('table.recent-transactions-table thead')
+        ).toHaveLength(1);
+        expect(
+            component.find('table.recent-transactions-table tbody')
+        ).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(1);
     });
 

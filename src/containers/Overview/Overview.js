@@ -24,7 +24,7 @@ const transactions = [
         date: 'Mar 14, 2018',
         name: 'Bought 23 kWh from Peter',
         amount: '0,81€'
-    },
+    }
 ]; // TODO: remove
 
 const currentBalanceData = {
@@ -110,7 +110,11 @@ export class Overview extends React.Component {
                     />
                 </nav>
                 <div className="overview-content-container">
-                    <RecentTransactions transactions={transactions} currentBalance={currentBalanceData} labels={labels}/>
+                    <RecentTransactions
+                        transactions={transactions}
+                        currentBalance={currentBalanceData}
+                        labels={labels}
+                    />
                 </div>
             </div>
         );

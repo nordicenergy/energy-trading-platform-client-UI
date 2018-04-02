@@ -3,7 +3,7 @@
     padding: 2rem 0 1.5rem;
     box-sizing: border-box;
     width: 100%;
-    box-shadow: 0 0.25rem 1rem 0 rgba(217,224,229,0.3);
+    box-shadow: 0 0.25rem 1rem 0 rgba(217, 224, 229, 0.3);
     border-radius: 0.25rem;
     --transactions-rows-text-color: #142739;
     --transactions-rows-side-padding: 6.937rem;
@@ -35,7 +35,7 @@
     color: var(--transactions-rows-text-color);
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(240,244,247,0.6);
+    background-color: rgba(240, 244, 247, 0.6);
     padding: 1.25rem var(--transactions-rows-side-padding) 1rem;
 }
 
@@ -44,7 +44,7 @@
     font-size: 1.125rem;
 }
 
-.current-balance-row .current-balance-amount{
+.current-balance-row .current-balance-amount {
     font-size: 1.375rem;
     font-weight: 600;
 }
@@ -56,7 +56,7 @@
 }
 
 .recent-transactions-table tbody tr {
-    border-bottom: 0.06rem solid #ECEEF1;
+    border-bottom: 0.06rem solid #eceef1;
 }
 
 .recent-transactions-table tbody tr:last-child {
@@ -74,15 +74,18 @@
     font-weight: 600;
 }
 
-.recent-transactions-table .date-column, .recent-transactions-table .date-column-header {
+.recent-transactions-table .date-column,
+.recent-transactions-table .date-column-header {
     text-align: left;
 }
 
-.recent-transactions-table .transaction-column, .recent-transactions-table .transaction-column-header {
+.recent-transactions-table .transaction-column,
+.recent-transactions-table .transaction-column-header {
     text-align: center;
 }
 
-.recent-transactions-table .amount-column, .recent-transactions-table .amount-column-header {
+.recent-transactions-table .amount-column,
+.recent-transactions-table .amount-column-header {
     text-align: right;
 }
 
