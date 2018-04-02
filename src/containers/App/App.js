@@ -115,6 +115,7 @@ class App extends React.Component {
                         <Footer
                             addressLabel={formatMessage(labels.address)}
                             navItems={footerItems}
+                            onSelect={href => this.navigateTo(href)}
                         />
                     </div>
                 </div>

@@ -6,6 +6,9 @@ import Documents from './Documents';
 import SubmitMetric from './SubmitMetric';
 import Trading from './Trading';
 import Profile from './Profile';
+import About from './About';
+import Team from './Team';
+import Service from './Service';
 
 export {
     App,
@@ -15,5 +18,8 @@ export {
     Documents,
     SubmitMetric,
     Trading,
-    Profile
+    Profile,
+    Service,
+    About,
+    Team
 };
