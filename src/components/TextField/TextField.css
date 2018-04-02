@@ -1,84 +1,155 @@
 @keyframes auto-fill {
     to {
         background: none;
-        color: white;
+        color: #051a2d;
     }
 }
 
-@keyframes auto-fill-focus {
+@keyframes auto-fill-dark {
     to {
-        background: transparent linear-gradient(to right, #4fd279, #38acc0)
-            no-repeat 0 100%;
-        background-size: 100% 0.1875rem;
+        background: none;
         color: white;
     }
 }
 
 .text-field {
-    width: 100%;
-    color: white;
-    font-size: 1rem;
-}
-
-.input-wrapper {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    width: 100%;
-    height: 2.625em;
-    border-bottom: 0.125rem solid #e3e6e8;
-}
-
-.input-wrapper .label,
-.input-wrapper .input {
     position: relative;
-    bottom: -0.125rem;
     display: block;
-    box-sizing: border-box;
     width: 100%;
-    height: 100%;
+    color: #b1bac1;
+    font-size: 1rem;
+    font-family: inherit;
 }
 
-.input-wrapper .label {
-    max-width: 34%;
+.text-field-layout {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2.5em;
+    border-bottom: 0.062em solid #e3e6e8;
+}
+
+.text-field-layout:after {
+    position: absolute;
+    right: 0;
+    bottom: -0.062rem;
+    z-index: 1;
+    display: block;
+    width: 66%;
+    height: 0.125rem;
+    content: '';
+    transform: scaleX(0);
+}
+
+.text-field--focused .text-field-layout:after {
+    background: linear-gradient(to right, #48d376, #30acc1);
+    transition-duration: 200ms;
+    transform: scaleX(1);
+}
+
+.text-field--error .text-field-layout:after {
+    background: #e87373;
+    transform: scaleX(1);
+}
+
+.text-field-label {
+    overflow: hidden;
+    flex: 0 0 34%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-weight: 700;
     font-size: 0.875em;
-    line-height: 3em;
 }
 
-.input-wrapper .input {
-    max-width: 66%;
+.text-field-input-group {
+    display: flex;
+    align-items: center;
+    flex: 0 0 66%;
+    border: none;
+}
+
+.text-field-input {
+    flex: 1;
+    box-sizing: border-box;
     outline: none;
     border: none;
     background: none;
-    color: white;
+    color: #051a2d;
     font-weight: 600;
     font-size: 1.125em;
+
+    appearance: none;
 }
 
-.input-wrapper .input:focus {
-    background: transparent linear-gradient(to right, #4fd279, #38acc0)
-        no-repeat 0 100%;
-    background-size: 100% 0.1875rem;
+.text-field--dark .text-field-input {
+    color: white;
 }
 
-.input-wrapper .input:-webkit-autofill {
+.text-field-input:-webkit-autofill {
     animation-name: auto-fill;
-    animation-duration: 0s;
 
     animation-fill-mode: both;
 }
 
-.input-wrapper .input:-webkit-autofill:focus {
-    animation-name: auto-fill-focus;
-    animation-duration: 0s;
+.text-field--dark .text-field-input:-webkit-autofill {
+    animation-name: auto-fill-dark;
 
     animation-fill-mode: both;
 }
 
-.helper-text {
-    margin: 4px 0 0;
+.text-field-addon {
+    margin-left: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875em;
+}
+
+.text-field-helper-text {
+    box-sizing: border-box;
+    margin: 0.25rem 0 0;
     padding-left: 34%;
     font-weight: 700;
     font-size: 0.75em;
+}
+
+.text-field-error {
+    position: relative;
+    margin-top: 1rem;
+    padding: 1em 2em;
+    border: 1px solid #fbdede;
+    background: transparent;
+    color: #e87373;
+    font-weight: 700;
+    font-size: 0.75em;
+    line-height: 1.333;
+}
+
+.text-field-error:before,
+.text-field-error:after {
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    width: 0;
+    height: 0;
+    border-width: 0 0.5rem 0.5rem 0.5rem;
+    border-style: solid;
+    border-color: transparent transparent #fbdede transparent;
+    content: '';
+}
+
+.text-field-error:after {
+    top: -0.375rem;
+    border-bottom-color: white;
+}
+
+.text-field--dark .text-field-error {
+    border-color: #f4bdbd;
+}
+
+.text-field--dark .text-field-error:before {
+    border-bottom-color: #f4bdbd;
+}
+
+.text-field--dark .text-field-error:after {
+    border-bottom-color: #051a2d;
 }
