@@ -3,14 +3,21 @@ import PropTypes from 'prop-types';
 import './Footer.css';
 
 const Footer = props => {
-    const { navItems = [], addressLabel } = props;
+    const { navItems = [], addressLabel, onSelect = f => f } = props;
 
     return (
         <footer className="app-footer">
             <address>&copy; {addressLabel}</address>
             <nav>
                 {navItems.map(item => (
-                    <a key={item.href} href={`/${item.href}`}>
+                    <a
+                        key={item.href}
+                        href={`/${item.href}`}
+                        onClick={event => {
+                            event.preventDefault();
+                            onSelect(item.href);
+                        }}
+                    >
                         {item.label}
                     </a>
                 ))}
@@ -21,7 +28,8 @@ const Footer = props => {
 
 Footer.propTypes = {
     addressLabel: PropTypes.string,
-    navItems: PropTypes.array
+    navItems: PropTypes.array,
+    onSelect: PropTypes.func
 };
 
 export default Footer;

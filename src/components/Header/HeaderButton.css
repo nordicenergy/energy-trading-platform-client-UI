@@ -1,6 +1,6 @@
 .header-button-container {
     position: relative;
-    width: 6.94rem;
+    width: 7em;
     height: var(--menuIconSize);
     border-left: var(--borderWidth) solid var(--navigateTextColor);
     background-color: var(--barColor);
@@ -13,7 +13,7 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
-    color: #fff;
+    color: white;
     border: none;
     font-size: 1.5rem;
 }
@@ -26,6 +26,15 @@
     position: relative;
 }
 
+.header-button:hover {
+    color: var(--successColor);
+}
+
+.header-button:hover .header-button-icon-container svg {
+    transform: scale(1.2);
+    transition: 0.2s;
+}
+
 .has-indicator::after {
     content: '';
     position: absolute;
@@ -35,5 +44,5 @@
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background-color: #48d376;
+    background-color: var(--successColor);
 }
