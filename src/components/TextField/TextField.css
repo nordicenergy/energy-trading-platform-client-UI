@@ -1,7 +1,7 @@
 @keyframes auto-fill {
     to {
         background: none;
-        color: #051a2d;
+        color: var(--barColor);
     }
 }
 
@@ -13,10 +13,14 @@
 }
 
 .text-field {
+    --errorText: #e87373;
+    --errorBorderLight: #fbdede;
+    --errorBorderDark: #f4bdbd;
+
     position: relative;
     display: block;
     width: 100%;
-    color: #b1bac1;
+    color: var(--labelColor);
     font-size: 1rem;
     font-family: inherit;
 }
@@ -43,13 +47,17 @@
 }
 
 .text-field--focused .text-field-layout:after {
-    background: linear-gradient(to right, #48d376, #30acc1);
+    background: linear-gradient(
+        to right,
+        var(--successColor),
+        var(--activeColor)
+    );
     transition-duration: 200ms;
     transform: scaleX(1);
 }
 
 .text-field--error .text-field-layout:after {
-    background: #e87373;
+    background: var(--errorText);
     transform: scaleX(1);
 }
 
@@ -75,7 +83,7 @@
     outline: none;
     border: none;
     background: none;
-    color: #051a2d;
+    color: var(--barColor);
     font-weight: 600;
     font-size: 1.125em;
 
@@ -116,9 +124,9 @@
     position: relative;
     margin-top: 1rem;
     padding: 1em 2em;
-    border: 1px solid #fbdede;
+    border: 1px solid var(--errorBorderLight);
     background: transparent;
-    color: #e87373;
+    color: var(--errorText);
     font-weight: 700;
     font-size: 0.75em;
     line-height: 1.333;
@@ -133,7 +141,7 @@
     height: 0;
     border-width: 0 0.5rem 0.5rem 0.5rem;
     border-style: solid;
-    border-color: transparent transparent #fbdede transparent;
+    border-color: transparent transparent var(--errorBorderLight) transparent;
     content: '';
 }
 
@@ -143,13 +151,13 @@
 }
 
 .text-field--dark .text-field-error {
-    border-color: #f4bdbd;
+    border-color: var(--errorBorderDark);
 }
 
 .text-field--dark .text-field-error:before {
-    border-bottom-color: #f4bdbd;
+    border-bottom-color: var(--errorBorderDark);
 }
 
 .text-field--dark .text-field-error:after {
-    border-bottom-color: #051a2d;
+    border-bottom-color: var(--barColor);
 }
