@@ -11,6 +11,8 @@
     "app.restorePasswordPage.emailField": "Enter Your Email",
     "app.restorePasswordPage.sendButton": "Send",
     "app.restorePasswordPage.loginLink": "Login",
+    "app.restorePasswordPage.errors.emptyEmail": "Enter your email.",
+    "app.restorePasswordPage.errors.invalidEmail": "Invalid email.",
 
     "app.menuBar.overview": "Overview",
     "app.menuBar.documents": "My Documents",

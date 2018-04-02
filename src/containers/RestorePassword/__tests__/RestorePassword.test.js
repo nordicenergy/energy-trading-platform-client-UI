@@ -13,6 +13,10 @@ function renderComponent(props = {}, context = { router: routerMock }) {
 }
 
 describe('<RestorePassword /> Container', () => {
+    beforeEach(() => {
+        historyMock.push.mockClear();
+    });
+
     it(`should renders with:
         - restore password form
         - logo
@@ -40,7 +44,24 @@ describe('<RestorePassword /> Container', () => {
         component
             .find('RestorePasswordForm')
             .props()
-            .onSubmit();
+            .onSubmit('user@example.com');
         expect(historyMock.push).toHaveBeenCalledWith('/login');
+    });
+
+    it('should validate email', () => {
+        const component = renderComponent();
+        // Disable console warning for the test.
+        const consoleWarnSpy = jest
+            .spyOn(console, 'warn')
+            .mockImplementation(jest.fn());
+
+        component
+            .find('RestorePasswordForm')
+            .props()
+            .onSubmit();
+        expect(historyMock.push).not.toHaveBeenCalled();
+        expect(component.state().errors).toHaveProperty('email');
+
+        consoleWarnSpy.mockRestore();
     });
 });
