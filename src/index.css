@@ -15,8 +15,13 @@ body {
     --toColor: #041a2d;
 
     --barColor: #051a2d;
+    --linkColor: #809dad;
     --activeColor: #30acc1;
     --navigateTextColor: #1e577b;
+    --labelColor: #b1bac1;
+
+    --borderOnLightColor: #e7eaed;
+    --borderOnDarkColor: #2c3d4d;
 }
 
 body,
