@@ -1,10 +1,19 @@
+
+.overview-page {
+    padding: 2rem 1.5rem 2.5rem 2rem;
+}
 .overview-navigation-cards {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
 }
 
 .overview-navigation-cards .nav-card-container {
-    margin: 1rem;
+    margin-right: 1rem;
     flex-basis: calc(33% - 2rem);
     max-width: calc(33% - 2rem);
+}
+
+.overview-navigation-cards .nav-card-container:last-child {
+    margin-right: 0;
 }

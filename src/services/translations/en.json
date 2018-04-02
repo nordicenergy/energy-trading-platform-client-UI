@@ -23,5 +23,11 @@
 
     "app.overviewPage.myProducer": "My Producer",
     "app.overviewPage.buyEnergy": "Buy Energy",
-    "app.overviewPage.sellEnergy": "Sell Energy"
+    "app.overviewPage.sellEnergy": "Sell Energy",
+    "app.overviewPage.recentTransactionsTitle": "Most Recent Transactions",
+    "app.overviewPage.recentTransactionsHeaderDate": "Date",
+    "app.overviewPage.recentTransactionsHeaderTransaction": "Transaction",
+    "app.overviewPage.recentTransactionsHeaderAmount": "Amount",
+    "app.overviewPage.recentTransactionsCurrentBalance": "Current Balance",
+    "app.overviewPage.recentTransactionsMore": "More"
 }
