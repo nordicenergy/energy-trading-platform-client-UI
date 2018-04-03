@@ -104,10 +104,10 @@ export class RestorePassword extends Component {
             <div className="restore-password-container">
                 <div className="restore-password-container-layout">
                     <div className="restore-password-container-hero">
-                        <Logo className="logo--login" />
-                        <Illustration className="illustration--login" />
+                        <Illustration className="illustration--restore-password" />
                     </div>
                     <div className="restore-password-container-form">
+                        <Logo className="logo--restore-password" />
                         <RestorePasswordForm
                             labels={this.prepareLabels()}
                             errors={errors}
