@@ -15,7 +15,7 @@
     cursor: pointer;
 }
 
-.active {
+.menu-item--active {
     color: white;
     background: var(--activeColor);
     transition: 0.4s ease-in;
@@ -65,7 +65,7 @@
     user-select: none;
 }
 
-.active .menu-item-label::before {
+.menu-item--active .menu-item-label::before {
     --hypotenuseHalf: 0.5rem;
 
     position: absolute;

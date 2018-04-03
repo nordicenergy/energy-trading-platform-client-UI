@@ -5,6 +5,7 @@ import { mount } from 'enzyme';
 const props = {
     navItems: [
         {
+            active: true,
             label: 'item1',
             href: '#item1'
         },
@@ -25,7 +26,7 @@ describe('<Footer /> Component', () => {
     it(`should contains following controls:
         - <footer> with class 'app-footer';
         - <a> elements with correct labels;
-        - <address> with provided label;`, done => {
+        - <address> with provided label;`, () => {
         const component = renderComponent(props);
         const text = component.debug();
 
@@ -33,13 +34,12 @@ describe('<Footer /> Component', () => {
         expect(component.find('address').length).toEqual(1);
         expect(text.includes('Company Address')).toEqual(true);
         expect(component.find('a').length).toEqual(2);
+        expect(component.find('.footer-item--active').length).toEqual(1);
         expect(text.includes('item1')).toEqual(true);
         expect(text.includes('item1')).toEqual(true);
-
-        done();
     });
 
-    it('should handle on click event', done => {
+    it('should handle on click event', () => {
         const component = renderComponent(props);
         component
             .find('a')
@@ -48,7 +48,6 @@ describe('<Footer /> Component', () => {
         expect(props.onSelect.mock.calls.length).toEqual(1);
         const [[id]] = props.onSelect.mock.calls;
         expect(id).toEqual('#item2');
-
-        done();
+        expect(component.find('.footer-item--active').length).toEqual(1);
     });
 });

@@ -1,7 +1,7 @@
 Footer example:
 
 ```js
-const footerItems = [
+const initialState = { footerItems: [
     {
         href: '#item1',
         label: 'Item 1'
@@ -14,7 +14,15 @@ const footerItems = [
         href: '#item3',
         label: 'Item 3'
     }
-];
+] };
 
-<Footer addressLabel={'Company Address Label'} navItems={footerItems} />
+
+<Footer addressLabel={'Company Address Label'} navItems={state.footerItems} onSelect={(id) => {
+    setState({
+        footerItems: state.footerItems.map(i => {
+            i.active = i.href === id;
+            return i;
+        })
+    });
+}} />
 ```

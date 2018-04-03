@@ -51,6 +51,7 @@ class App extends React.Component {
     }
 
     render() {
+        const { pathname } = window.location;
         const labels = this.defineLabels();
         const { formatMessage } = this.context.intl;
 
@@ -85,15 +86,18 @@ class App extends React.Component {
         const footerItems = [
             {
                 href: 'about',
-                label: formatMessage(labels.about)
+                label: formatMessage(labels.about),
+                active: pathname === '/about'
             },
             {
                 href: 'team',
-                label: formatMessage(labels.team)
+                label: formatMessage(labels.team),
+                active: pathname === '/team'
             },
             {
                 href: 'service',
-                label: formatMessage(labels.service)
+                label: formatMessage(labels.service),
+                active: pathname === `/service`
             }
         ];
 

@@ -33,7 +33,6 @@ class MenuSideBar extends React.Component {
         return (
             <nav className="menu-side-bar">
                 {this.renderMenuItems()}
-                <div className="nav-space-line" />
             </nav>
         );
     }

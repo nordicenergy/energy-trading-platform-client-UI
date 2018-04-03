@@ -29,7 +29,7 @@ describe('<MenuItem /> Component', () => {
         const text = component.debug();
 
         expect(
-            text.includes('div role="menuitem" className="menu-item active"')
+            text.includes('div role="menuitem" className="menu-item menu-item--active"')
         ).toEqual(true);
 
         done();

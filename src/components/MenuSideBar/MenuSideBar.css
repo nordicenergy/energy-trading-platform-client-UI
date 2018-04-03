@@ -16,7 +16,7 @@
     border-bottom: var(--borderWidth) solid var(--borderOnDarkColor);
 }
 
-.active .menu-item-label {
+.menu-item--active .menu-item-label {
     border-bottom: var(--borderWidth) solid transparent;
 }
 .menu-item:hover .menu-item-label {
