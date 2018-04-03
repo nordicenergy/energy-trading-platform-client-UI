@@ -10,7 +10,7 @@ const MenuItem = props => {
     const itemClass = ['menu-item'];
 
     if (active) {
-        itemClass.push('active');
+        itemClass.push('menu-item--active');
     }
 
     return (

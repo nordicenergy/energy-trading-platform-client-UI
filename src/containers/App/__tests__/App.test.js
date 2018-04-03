@@ -111,14 +111,17 @@ describe('Main <App /> Component', () => {
 
         expect(footer.props().navItems).toEqual([
             {
+                active: false,
                 href: 'about',
                 label: 'test'
             },
             {
+                active: false,
                 href: 'team',
                 label: 'test'
             },
             {
+                active: false,
                 href: 'service',
                 label: 'test'
             }
