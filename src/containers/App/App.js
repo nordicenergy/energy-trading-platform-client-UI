@@ -2,9 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages } from 'react-intl';
 import { MenuSideBar, Header, Footer } from '../../components';
+import { performLogout } from '../../action_performers/users';
 import './App.css';
 
 class App extends React.Component {
+    logout(confirmMessage) {
+        // TODO: remake to our modals later
+        const answer = window.confirm(confirmMessage);
+
+        if (answer) {
+            performLogout();
+            this.navigateTo('login');
+        }
+    }
+
     navigateTo(route) {
         this.context.router.history.push(`/${route}`);
     }
@@ -46,6 +57,11 @@ class App extends React.Component {
             address: {
                 id: 'app.footer.address',
                 defaultMessage: '2018 Lition. All rights reserved.'
+            },
+            logoutConfirm: {
+                id: 'app.logout.confirm',
+                defaultMessage:
+                    "Are you sure that you'd like to logout from the system?"
             }
         });
     }
@@ -104,7 +120,9 @@ class App extends React.Component {
         return (
             <div className="app">
                 <Header
-                    onLogoutButtonClickHandler={() => this.navigateTo('login')}
+                    onLogoutButtonClickHandler={() =>
+                        this.logout(formatMessage(labels.logoutConfirm))
+                    }
                     notifications={[]}
                 />
                 <div className="content">

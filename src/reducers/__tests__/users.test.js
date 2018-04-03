@@ -1,15 +1,21 @@
+import * as persistenceStore from '../../services/browserStorage';
 import { usersReducer, initialState } from '../users';
 
 const { ACTIONS } = fixtures();
 
 describe('Users reducer:', () => {
+    beforeEach(() => {
+        persistenceStore.setToken = jest.fn();
+        persistenceStore.clearToken = jest.fn();
+    });
+
     describe('Pending cases:', () => {
         it('should handle LOGIN', done => {
             const result = usersReducer(initialState, ACTIONS.login.pending);
             expect(result.login.loading).toEqual(true);
             expect(result.login.error).toEqual(null);
             expect(result.login.data).toEqual({});
-
+            expect(persistenceStore.setToken.mock.calls.length).toEqual(0);
             done();
         });
         it('should handle LOGOUT', done => {
@@ -17,7 +23,7 @@ describe('Users reducer:', () => {
             expect(result.logout.loading).toEqual(true);
             expect(result.logout.error).toEqual(null);
             expect(result.logout.data).toEqual({});
-
+            expect(persistenceStore.clearToken.mock.calls.length).toEqual(0);
             done();
         });
         it('should handle GET_USER_DATA', done => {
@@ -38,7 +44,7 @@ describe('Users reducer:', () => {
             expect(result.login.loading).toEqual(false);
             expect(result.login.error).toEqual('Error Message');
             expect(result.login.data).toEqual({});
-
+            expect(persistenceStore.setToken.mock.calls.length).toEqual(0);
             done();
         });
         it('should handle LOGOUT', done => {
@@ -46,7 +52,7 @@ describe('Users reducer:', () => {
             expect(result.logout.loading).toEqual(false);
             expect(result.logout.error).toEqual('Error Message');
             expect(result.logout.data).toEqual({});
-
+            expect(persistenceStore.clearToken.mock.calls.length).toEqual(1);
             done();
         });
         it('should handle GET_USER_DATA', done => {
@@ -64,7 +70,11 @@ describe('Users reducer:', () => {
             expect(result.login.loading).toEqual(false);
             expect(result.login.error).toEqual(null);
             expect(result.login.data).toEqual(ACTIONS.login.success.payload);
-
+            expect(persistenceStore.setToken.mock.calls.length).toEqual(1);
+            const [[token]] = persistenceStore.setToken.mock.calls;
+            expect(token).toEqual(
+                ACTIONS.login.success.payload.authentication.authenticationToken
+            );
             done();
         });
         it('should handle LOGOUT', done => {
@@ -72,7 +82,7 @@ describe('Users reducer:', () => {
             expect(result.logout.loading).toEqual(false);
             expect(result.logout.error).toEqual(null);
             expect(result.logout.data).toEqual(ACTIONS.logout.success.payload);
-
+            expect(persistenceStore.clearToken.mock.calls.length).toEqual(1);
             done();
         });
         it('should handle GET_USER_DATA', done => {
@@ -85,7 +95,6 @@ describe('Users reducer:', () => {
             expect(result.profile.data).toEqual(
                 ACTIONS.getUserData.success.payload
             );
-
             done();
         });
     });

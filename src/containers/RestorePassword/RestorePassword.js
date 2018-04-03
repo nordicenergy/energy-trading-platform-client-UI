@@ -26,16 +26,14 @@ const messages = defineMessages({
 export class RestorePassword extends Component {
     prepareLabels() {
         const { formatMessage } = this.context.intl;
+        const entries = Object.keys(messages).map(key => [key, messages[key]]);
 
-        return Object.entries(messages).reduce(
-            (labels, [labelName, messageDescriptor]) => {
-                return {
-                    ...labels,
-                    [labelName]: formatMessage(messageDescriptor)
-                };
-            },
-            {}
-        );
+        return entries.reduce((labels, [labelName, messageDescriptor]) => {
+            return {
+                ...labels,
+                [labelName]: formatMessage(messageDescriptor)
+            };
+        }, {});
     }
 
     sendEmail(email) {

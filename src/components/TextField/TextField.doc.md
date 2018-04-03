@@ -1,19 +1,47 @@
-### TextField component:
+#### TextField:
 
 ```jsx
 const wrapperStyles = {
-    background: '#051a2d',
     padding: '1rem 2rem'
 };
 
 <div style={wrapperStyles}>
-    <TextField
-        label="Label"
-    />
-</div>
+    <TextField label="Username" />
+</div>;
 ```
 
-### TextField with helper text:
+#### Dark TextField:
+
+```jsx
+const wrapperStyles = {
+    background: '#051a2d',
+    padding: '1rem 2rem'
+};
+
+<div style={wrapperStyles}>
+    <TextField darkMode label="Username" />
+</div>;
+```
+
+#### Light TextField with helper text:
+
+```jsx
+const wrapperStyles = { padding: '1rem 2rem' };
+
+<div style={wrapperStyles}>
+    <TextField
+        label="Meter readings"
+        helperText={
+            <span>
+                Number of meter:{' '}
+                <strong style={{ color: '#757e85' }}>1225678936</strong>
+            </span>
+        }
+    />
+</div>;
+```
+
+#### Dark TextField with helper text:
 
 ```jsx
 const wrapperStyles = {
@@ -23,8 +51,79 @@ const wrapperStyles = {
 
 <div style={wrapperStyles}>
     <TextField
-        label="Label"
-        helperText="Helper text"
+        darkMode
+        label="Meter readings"
+        helperText={
+            <span>
+                Number of meter:{' '}
+                <strong style={{ color: '#e3e6e8' }}>1225678936</strong>
+            </span>
+        }
     />
-</div>
+</div>;
+```
+
+#### Light TextField with addon:
+
+```jsx
+const wrapperStyles = { padding: '1rem 2rem' };
+
+<div style={wrapperStyles}>
+    <TextField
+        label="Meter readings"
+        addon="kWh"
+        helperText={
+            <span>
+                Number of meter:{' '}
+                <strong style={{ color: '#757e85' }}>1225678936</strong>
+            </span>
+        }
+    />
+</div>;
+```
+
+#### Dark TextField with addon:
+
+```jsx
+const wrapperStyles = {
+    background: '#051a2d',
+    padding: '1rem 2rem'
+};
+
+<div style={wrapperStyles}>
+    <TextField
+        darkMode
+        label="Meter readings"
+        addon="kWh"
+        helperText={
+            <span>
+                Number of meter:{' '}
+                <strong style={{ color: '#e3e6e8' }}>1225678936</strong>
+            </span>
+        }
+    />
+</div>;
+```
+
+#### Light TextField with error:
+
+```jsx
+const wrapperStyles = { padding: '1rem 2rem' };
+
+<div style={wrapperStyles}>
+    <TextField label="Username" error="Enter your username" />
+</div>;
+```
+
+#### Dark TextField with error:
+
+```jsx
+const wrapperStyles = {
+    background: '#051a2d',
+    padding: '1rem 2rem'
+};
+
+<div style={wrapperStyles}>
+    <TextField darkMode label="Username" error="Enter your username" />
+</div>;
 ```

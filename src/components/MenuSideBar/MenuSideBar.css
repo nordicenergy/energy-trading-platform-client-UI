@@ -16,10 +16,10 @@
     border-bottom: var(--borderWidth) solid var(--borderOnDarkColor);
 }
 
-.menu-item--active .menu-item-label {
+.menu-side-bar .menu-item--active .menu-item-label {
     border-bottom: var(--borderWidth) solid transparent;
 }
-.menu-item:hover .menu-item-label {
+.menu-side-bar .menu-item:hover .menu-item-label {
     border-bottom: var(--borderWidth) solid var(--navigateTextColor);
 }
 
