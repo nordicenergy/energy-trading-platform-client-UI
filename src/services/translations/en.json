@@ -4,11 +4,15 @@
     "app.loginPage.passwordField": "Password",
     "app.loginPage.forgotPasswordLink": "Forgot your password?",
     "app.loginPage.loginButton": "Login",
+    "app.loginPage.errors.emptyUsername": "Enter your username.",
+    "app.loginPage.errors.emptyPassword": "Enter your password.",
 
     "app.restorePasswordPage.formTitle": "Restore password",
     "app.restorePasswordPage.emailField": "Enter Your Email",
     "app.restorePasswordPage.sendButton": "Send",
     "app.restorePasswordPage.loginLink": "Login",
+    "app.restorePasswordPage.errors.emptyEmail": "Enter your email.",
+    "app.restorePasswordPage.errors.invalidEmail": "Invalid email.",
 
     "app.menuBar.overview": "Overview",
     "app.menuBar.documents": "My Documents",

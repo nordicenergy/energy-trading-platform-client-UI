@@ -41,7 +41,6 @@
 @media (min-width: 1024px) {
     .login-container-layout {
         display: flex;
-        align-items: center;
         flex-direction: row-reverse;
         margin-right: auto;
         margin-left: auto;
@@ -56,7 +55,11 @@
     }
 
     .logo--login {
-        margin-left: -3rem;
+        margin-bottom: 8.25rem;
+    }
+
+    .login-container-hero {
+        padding-top: 1.5rem;
     }
 
     .illustration--login {
