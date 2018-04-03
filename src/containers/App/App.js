@@ -70,32 +70,38 @@ class App extends React.Component {
         const { pathname } = window.location;
         const labels = this.defineLabels();
         const { formatMessage } = this.context.intl;
+        const [, activeLocationId = ''] = pathname.split('/');
 
         const menuItems = [
             {
                 id: '',
                 icon: 'faHome',
-                label: formatMessage(labels.overview)
+                label: formatMessage(labels.overview),
+                active: activeLocationId === ''
             },
             {
                 id: 'documents',
                 icon: 'faBook',
-                label: formatMessage(labels.documents)
+                label: formatMessage(labels.documents),
+                active: activeLocationId === 'documents'
             },
             {
                 id: 'submit_metric',
                 icon: 'faCalculator',
-                label: formatMessage(labels.submitMetric)
+                label: formatMessage(labels.submitMetric),
+                active: activeLocationId === 'submit_metric'
             },
             {
                 id: 'trading',
                 icon: 'faChartBar',
-                label: formatMessage(labels.trading)
+                label: formatMessage(labels.trading),
+                active: activeLocationId === 'trading'
             },
             {
                 id: 'profile',
                 icon: 'faUser',
-                label: formatMessage(labels.profile)
+                label: formatMessage(labels.profile),
+                active: activeLocationId === 'profile'
             }
         ];
 
