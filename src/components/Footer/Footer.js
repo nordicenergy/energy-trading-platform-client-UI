@@ -11,6 +11,7 @@ const Footer = props => {
             <nav>
                 {navItems.map(item => (
                     <a
+                        className={item.active ? 'footer-item--active' : ''}
                         key={item.href}
                         href={`/${item.href}`}
                         onClick={event => {

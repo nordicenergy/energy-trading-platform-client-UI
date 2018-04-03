@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import { getToken } from './browserStorage';
 import {
     App,
     Login,
@@ -14,20 +15,30 @@ import {
     Team
 } from '../containers';
 
-const AppMainLayout = () => (
-    <div id="app-layout">
-        <App>
-            <Route exact path="/" component={Overview} />
-            <Route path="/documents" component={Documents} />
-            <Route path="/submit_metric" component={SubmitMetric} />
-            <Route path="/trading" component={Trading} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/team" component={Team} />
-            <Route path="/about" component={About} />
-            <Route path="/service" component={Service} />
-        </App>
-    </div>
-);
+const AppMainLayout = () => {
+    if (getToken()) {
+        return (
+            <div id="app-layout">
+                <App>
+                    <Route exact path="/" component={Overview} />
+                    <Route path="/documents" component={Documents} />
+                    <Route path="/submit_metric" component={SubmitMetric} />
+                    <Route path="/trading" component={Trading} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/team" component={Team} />
+                    <Route path="/about" component={About} />
+                    <Route path="/service" component={Service} />
+                </App>
+            </div>
+        );
+    }
+
+    return (
+        <Redirect
+            to={`/login?next=${encodeURIComponent(window.location.pathname)}`}
+        />
+    );
+};
 
 export const Routes = () => (
     <div id="routes">

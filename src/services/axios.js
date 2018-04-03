@@ -1,12 +1,13 @@
 import Axios from 'axios';
 import { dispatcher } from '../store';
 import { getToken } from './browserStorage';
+import history from './history';
 
 export default function configureAxios() {
     const token = getToken();
-    // TODO will be implemented
+
     if (token) {
-        dispatcher.dispatchAction('LOGIN', { id: token }, null, false);
+        dispatcher.dispatchAction('LOGIN', null, null, false);
     }
 
     Axios.interceptors.response.use(null, error => {
@@ -14,7 +15,7 @@ export default function configureAxios() {
             dispatcher.dispatchAction('LOGIN', null, error.response, false);
         }
         if (error.response && error.response.status === 403) {
-            //TODO go to home page
+            history.push('/');
         }
         throw error;
     });
