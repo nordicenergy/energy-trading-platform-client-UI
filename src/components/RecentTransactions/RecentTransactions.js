@@ -21,13 +21,11 @@ const RecentTransactions = ({
 
     return (
         <div className="recent-transactions-container">
-            <div className="recent-transactions-title-container">
-                <p className="recent-transactions-title">
-                    {labels.recentTransactionsTitle}
-                </p>
-            </div>
             <div className="recent-transactions-table-container">
                 <table className="recent-transactions-table">
+                    <caption className="recent-transactions-title">
+                        {labels.recentTransactionsTitle}
+                    </caption>
                     <thead>
                         <tr className="table-header">
                             <th className="date-column-header">
@@ -45,13 +43,13 @@ const RecentTransactions = ({
                 </table>
             </div>
             <div className="recent-transactions-current-balance-row">
-                <div className="recent-transactions-current-balance-date">
+                <p className="recent-transactions-current-balance-date">
                     {currentBalance.date}
-                </div>
-                <div className="recent-transactions-current-balance-amount">
+                </p>
+                <p className="recent-transactions-current-balance-amount">
                     {labels.recentTransactionsCurrentBalance}:{' '}
                     {currentBalance.amount}
-                </div>
+                </p>
             </div>
             <div className="recent-transactions-button-container">
                 <Button onClick={() => onButtonClick()}>

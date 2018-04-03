@@ -10,14 +10,12 @@
     --transactionsRowsSidePadding: 6.22em;
 }
 
-.recent-transactions-title-container {
+.recent-transactions-title {
     font-size: 1.375rem;
+    box-sizing: border-box;
     width: 100%;
     text-align: center;
-    margin-bottom: 1.33em;
-}
-
-.recent-transactions-title {
+    margin-bottom: 1.14em;
     color: black;
     font-weight: 600;
 }
@@ -37,7 +35,11 @@
     justify-content: space-between;
     align-items: center;
     background-color: rgba(240, 244, 247, 0.6);
-    padding: 1.25rem var(--transactionsRowsSidePadding) 1rem;
+    padding: 1.11em 6.22em 0.89em;
+}
+
+.recent-transactions-current-balance-row p {
+    margin: 0;
 }
 
 .recent-transactions-current-balance-row
