@@ -70,31 +70,40 @@ class App extends React.Component {
         const { pathname } = window.location;
         const labels = this.defineLabels();
         const { formatMessage } = this.context.intl;
+        const [, activeLocationId = ''] = pathname.split('/');
+
+        const icons = {
+            '': 'faHome',
+            documents: 'faBook',
+            submit_metric: 'faCalculator',
+            trading: 'faChartBar',
+            profile: 'faUser'
+        };
 
         const menuItems = [
             {
                 id: '',
-                icon: 'faHome',
+                icon: icons[''],
                 label: formatMessage(labels.overview)
             },
             {
                 id: 'documents',
-                icon: 'faBook',
+                icon: icons.documents,
                 label: formatMessage(labels.documents)
             },
             {
                 id: 'submit_metric',
-                icon: 'faCalculator',
+                icon: icons.submit_metric,
                 label: formatMessage(labels.submitMetric)
             },
             {
                 id: 'trading',
-                icon: 'faChartBar',
+                icon: icons.trading,
                 label: formatMessage(labels.trading)
             },
             {
                 id: 'profile',
-                icon: 'faUser',
+                icon: icons.profile,
                 label: formatMessage(labels.profile)
             }
         ];
@@ -123,7 +132,10 @@ class App extends React.Component {
                     onLogoutButtonClickHandler={() =>
                         this.logout(formatMessage(labels.logoutConfirm))
                     }
+                    navigateTo={route => this.navigateTo(route)}
                     notifications={[]}
+                    path={pathname}
+                    iconsTypes={icons}
                 />
                 <div className="content">
                     <div className="menu-container">

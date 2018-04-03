@@ -8,6 +8,16 @@
     box-sizing: border-box;
 }
 
+.logo-container {
+    width: 20.5rem;
+}
+
 .header-buttons {
     display: flex;
+}
+
+.main-header-container {
+    display: flex;
+    width: calc(100% - 20.5rem);
+    justify-content: space-between;
 }
