@@ -1,6 +1,5 @@
 import React from 'react';
 import App from '../App';
-import * as reactIntl from 'react-intl';
 import { Header, MenuSideBar, Footer } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
@@ -22,6 +21,7 @@ describe('Main <App /> Component', () => {
         context.intl.formatMessage = jest.fn();
         context.intl.formatMessage.mockReturnValue('test');
         usersActions.performLogout = jest.fn();
+        window.confirm = () => true;
     });
 
     it(`should contains following controls:
