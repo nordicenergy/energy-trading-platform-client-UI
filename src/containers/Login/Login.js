@@ -131,10 +131,10 @@ export class Login extends React.Component {
             <div className="login-container">
                 <div className="login-container-layout">
                     <div className="login-container-hero">
-                        <Logo className="logo--login" />
                         <Illustration className="illustration--login" />
                     </div>
                     <div className="login-container-form">
+                        <Logo className="logo--login" />
                         <LoginForm
                             labels={this.prepareLabels()}
                             errors={errors}
