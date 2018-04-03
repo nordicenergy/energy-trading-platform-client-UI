@@ -6,9 +6,14 @@ import { performLogout } from '../../action_performers/users';
 import './App.css';
 
 class App extends React.Component {
-    logout() {
-        performLogout();
-        this.navigateTo('login');
+    logout(confirmMessage) {
+        // TODO: remake to our modals later
+        const answer = window.confirm(confirmMessage);
+
+        if (answer) {
+            performLogout();
+            this.navigateTo('login');
+        }
     }
 
     navigateTo(route) {
@@ -52,6 +57,11 @@ class App extends React.Component {
             address: {
                 id: 'app.footer.address',
                 defaultMessage: '2018 Lition. All rights reserved.'
+            },
+            logoutConfirm: {
+                id: 'app.logout.confirm',
+                defaultMessage:
+                    "Are you sure that you'd like to logout from the system?"
             }
         });
     }
@@ -106,7 +116,9 @@ class App extends React.Component {
         return (
             <div className="app">
                 <Header
-                    onLogoutButtonClickHandler={() => this.logout()}
+                    onLogoutButtonClickHandler={() =>
+                        this.logout(formatMessage(labels.logoutConfirm))
+                    }
                     notifications={[]}
                 />
                 <div className="content">
