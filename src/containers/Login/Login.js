@@ -51,6 +51,24 @@ export class Login extends React.Component {
         };
     }
 
+    componentWillReceiveProps({ loading, login }) {
+        const loaded = this.props.loading !== loading && !loading;
+        const authenticated =
+            login.authentication && login.authentication.authenticationToken;
+
+        if (loaded && authenticated) {
+            this.handleSuccessfulAuthentication();
+        }
+    }
+
+    handleSuccessfulAuthentication() {
+        const { history, route } = this.context.router;
+        const matches = route.location.search.match(/next=([^&]*)/);
+        const nextUrl = matches ? decodeURIComponent(matches[1]) : '/';
+
+        history.push(nextUrl);
+    }
+
     prepareLabels() {
         const { formatMessage } = this.context.intl;
         const entries = Object.keys(messages).map(key => [key, messages[key]]);
@@ -96,10 +114,7 @@ export class Login extends React.Component {
                     )
                 });
             } else {
-                const { history } = this.context.router;
-
-                performLogin(credentials.username, credentials.password);
-                history.push('/');
+                performLogin(credentials);
             }
         });
     }
@@ -141,6 +156,9 @@ Login.contextTypes = {
     router: PropTypes.shape({
         history: PropTypes.shape({
             push: PropTypes.func.isRequired
+        }).isRequired,
+        route: PropTypes.shape({
+            location: PropTypes.object.isRequired
         }).isRequired
     }),
     intl: PropTypes.shape({

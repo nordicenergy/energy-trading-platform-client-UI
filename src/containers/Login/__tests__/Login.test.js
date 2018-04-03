@@ -6,11 +6,21 @@ import * as userActionPerformers from '../../../action_performers/users';
 const historyMock = {
     push: jest.fn()
 };
-const routerMock = {
-    history: historyMock
+const routeMock = {
+    location: {
+        search: ''
+    }
 };
-function renderComponent(props = {}, context = { router: routerMock }) {
-    return shallowWithIntl(<Login {...props} />, { context });
+const routerMock = {
+    history: historyMock,
+    route: routeMock
+};
+function renderComponent(
+    props = {},
+    context = { router: routerMock },
+    mountFn = shallowWithIntl
+) {
+    return mountFn(<Login {...props} />, { context });
 }
 
 describe('<Login /> Container', () => {
@@ -90,11 +100,52 @@ describe('<Login /> Container', () => {
             .find('LoginForm')
             .props()
             .onSubmit(credentialsMock);
-        expect(performLoginSpy).toHaveBeenCalledWith(
-            credentialsMock.username,
-            credentialsMock.password
-        );
+        expect(performLoginSpy).toHaveBeenCalledWith(credentialsMock);
 
         performLoginSpy.mockRestore();
+    });
+
+    it('should redirect to home page after authentication', () => {
+        const component = renderComponent();
+
+        component.setProps({ loading: true, login: {} });
+        component.setProps({
+            loading: false,
+            login: {
+                authentication: {
+                    authenticationToken: 'abc'
+                }
+            }
+        });
+
+        expect(historyMock.push).toHaveBeenCalledWith('/');
+    });
+
+    it('should redirect to /test after authentication', () => {
+        const component = renderComponent(
+            {},
+            {
+                router: {
+                    ...routerMock,
+                    route: {
+                        location: {
+                            search: '?next=%2Ftest'
+                        }
+                    }
+                }
+            }
+        );
+
+        component.setProps({ loading: true, login: {} });
+        component.setProps({
+            loading: false,
+            login: {
+                authentication: {
+                    authenticationToken: 'abc'
+                }
+            }
+        });
+
+        expect(historyMock.push).toHaveBeenCalledWith('/test');
     });
 });
