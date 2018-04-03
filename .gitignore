@@ -1,6 +1,9 @@
 # dependencies
 /node_modules
 
+# documenting
+/styleguide
+
 # testing
 /coverage
 jest_*

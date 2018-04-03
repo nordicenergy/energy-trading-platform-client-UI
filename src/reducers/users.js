@@ -1,3 +1,5 @@
+import { setToken, clearToken } from '../services/browserStorage';
+
 export const initialState = {
     login: { data: {}, error: null, loading: false },
     logout: { data: {}, error: null, loading: false },
@@ -6,16 +8,25 @@ export const initialState = {
 
 export function usersReducer(state = initialState, action) {
     switch (action.type) {
-        case 'LOGIN':
+        case 'LOGIN': {
+            const payload = action && action.payload;
+            const { authentication } = payload || {};
+            if (authentication && authentication.authenticationToken) {
+                setToken(authentication.authenticationToken);
+            }
             return {
                 ...state,
                 login: {
-                    data: action.payload ? action.payload : state.login.data,
+                    data: payload ? payload : state.login.data,
                     loading: action.loading,
                     error: action.error
                 }
             };
+        }
         case 'LOGOUT': {
+            if (!action.loading) {
+                clearToken();
+            }
             return {
                 ...state,
                 logout: {
