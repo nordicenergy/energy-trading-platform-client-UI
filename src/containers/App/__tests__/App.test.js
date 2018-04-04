@@ -42,7 +42,7 @@ describe('Main <App /> Component', () => {
         const component = renderComponent(context);
         component.setContext(context);
 
-        expect(context.intl.formatMessage.mock.calls.length).toEqual(9);
+        expect(context.intl.formatMessage.mock.calls.length).toEqual(11);
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {

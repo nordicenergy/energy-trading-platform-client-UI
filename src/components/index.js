@@ -25,6 +25,5 @@ export {
     Footer,
     NavigationCard,
     EnergyAmountGraph,
-    NavigationCard,
     RecentTransactions
 };

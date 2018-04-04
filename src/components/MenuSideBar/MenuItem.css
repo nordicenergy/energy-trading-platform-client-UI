@@ -12,6 +12,8 @@
     color: var(--navigateTextColor);
     background: white;
 
+    text-decoration: none;
+    outline: none;
     cursor: pointer;
 }
 

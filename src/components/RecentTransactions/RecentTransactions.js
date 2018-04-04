@@ -26,24 +26,36 @@ const RecentTransactions = ({
                     <caption>{labels.recentTransactionsTitle}</caption>
                     <thead>
                         <tr>
-                            <th>{labels.recentTransactionsHeaderDate}</th>
+                            <th id="transactionDateHeader">
+                                {labels.recentTransactionsHeaderDate}
+                            </th>
                             <th>
                                 {labels.recentTransactionsHeaderTransaction}
                             </th>
-                            <th>{labels.recentTransactionsHeaderAmount}</th>
+                            <th id="transactionAmountHeader">
+                                {labels.recentTransactionsHeaderAmount}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>{renderTableRows()}</tbody>
                 </table>
             </div>
-            <div className="recent-transactions-current-balance-row">
-                <p className="recent-transactions-current-balance-date">
+            <div role="row" className="recent-transactions-current-balance-row">
+                <span
+                    role="cell"
+                    aria-describedby="transactionDateHeader"
+                    className="recent-transactions-current-balance-date"
+                >
                     {currentBalance.date}
-                </p>
-                <p className="recent-transactions-current-balance-amount">
+                </span>
+                <span
+                    role="cell"
+                    aria-describedby="transactionAmountHeader"
+                    className="recent-transactions-current-balance-amount"
+                >
                     {labels.recentTransactionsCurrentBalance}:{' '}
                     {currentBalance.amount}
-                </p>
+                </span>
             </div>
             <div className="recent-transactions-button-container">
                 <Button onClick={() => onButtonClick()}>

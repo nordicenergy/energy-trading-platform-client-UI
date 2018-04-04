@@ -14,10 +14,15 @@ const MenuItem = props => {
     }
 
     return (
-        <div
+        <a
             role="menuitem"
+            aria-label={label}
             className={itemClass.join(' ')}
-            onClick={() => onClick()}
+            href=""
+            onClick={event => {
+                event.preventDefault();
+                onClick();
+            }}
         >
             <div className="menu-item-icon">
                 <FontAwesomeIcon icon={icons[icon]} />
@@ -25,7 +30,7 @@ const MenuItem = props => {
             <div className="menu-item-label">
                 <span>{label}</span>
             </div>
-        </div>
+        </a>
     );
 };
 
