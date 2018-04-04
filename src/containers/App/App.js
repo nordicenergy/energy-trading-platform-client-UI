@@ -4,6 +4,7 @@ import { defineMessages } from 'react-intl';
 import { MenuSideBar, Header, Footer } from '../../components';
 import { performLogout } from '../../action_performers/users';
 import './App.css';
+import { PATHS } from '../../services/routes';
 
 class App extends React.Component {
     logout(confirmMessage) {
@@ -70,56 +71,56 @@ class App extends React.Component {
         const { pathname } = window.location;
         const labels = this.defineLabels();
         const { formatMessage } = this.context.intl;
-        const [, activeLocationId = ''] = pathname.split('/');
+        const [, headRoute = ''] = pathname.split('/');
 
         const menuItems = [
             {
-                id: '',
+                id: PATHS.overview.id,
                 icon: 'faHome',
                 label: formatMessage(labels.overview),
-                active: activeLocationId === ''
+                active: headRoute === PATHS.overview.id
             },
             {
-                id: 'documents',
+                id: PATHS.documents.id,
                 icon: 'faBook',
                 label: formatMessage(labels.documents),
-                active: activeLocationId === 'documents'
+                active: headRoute === PATHS.documents.id
             },
             {
-                id: 'submit_metric',
+                id: PATHS.submit_metric.id,
                 icon: 'faCalculator',
                 label: formatMessage(labels.submitMetric),
-                active: activeLocationId === 'submit_metric'
+                active: headRoute === PATHS.submit_metric.id
             },
             {
-                id: 'trading',
+                id: PATHS.trading.id,
                 icon: 'faChartBar',
                 label: formatMessage(labels.trading),
-                active: activeLocationId === 'trading'
+                active: headRoute === PATHS.trading.id
             },
             {
-                id: 'profile',
+                id: PATHS.profile.id,
                 icon: 'faUser',
                 label: formatMessage(labels.profile),
-                active: activeLocationId === 'profile'
+                active: headRoute === PATHS.profile.id
             }
         ];
 
         const footerItems = [
             {
-                href: 'about',
+                href: PATHS.about.id,
                 label: formatMessage(labels.about),
-                active: pathname === '/about'
+                active: pathname === PATHS.about.path
             },
             {
-                href: 'team',
+                href: PATHS.team.id,
                 label: formatMessage(labels.team),
-                active: pathname === '/team'
+                active: pathname === PATHS.team.path
             },
             {
-                href: 'service',
+                href: PATHS.service.id,
                 label: formatMessage(labels.service),
-                active: pathname === `/service`
+                active: pathname === PATHS.service.path
             }
         ];
 
