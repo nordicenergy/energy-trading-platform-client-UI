@@ -70,7 +70,6 @@ class App extends React.Component {
         const { pathname } = window.location;
         const labels = this.defineLabels();
         const { formatMessage } = this.context.intl;
-        const [, activeLocationId = ''] = pathname.split('/');
 
         const icons = {
             '': 'faHome',

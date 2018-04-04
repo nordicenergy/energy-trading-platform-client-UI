@@ -5,8 +5,9 @@ import icons from '@fortawesome/fontawesome-free-solid';
 import classNames from 'classnames';
 import './Breadcrumbs.css';
 
-const Breadcrumbs = ({ items, iconsTypes, navigateTo }) => {
-    function renderBreadcrumbsItems() {
+class Breadcrumbs extends React.Component {
+    renderBreadcrumbsItems() {
+        const { items, iconsTypes, onClick } = this.props;
         const [iconBreadCrumb = {}, ...breadCrumbs] = items;
         const iconName = iconsTypes[iconBreadCrumb.id];
         const iconBreadcrumbElement = (
@@ -14,7 +15,7 @@ const Breadcrumbs = ({ items, iconsTypes, navigateTo }) => {
                 <a
                     className="icon-breadcrumb"
                     onClick={() => {
-                        navigateTo(iconBreadCrumb.path);
+                        onClick(iconBreadCrumb.path);
                     }}
                 >
                     {<FontAwesomeIcon icon={icons[iconName]} />}
@@ -36,7 +37,7 @@ const Breadcrumbs = ({ items, iconsTypes, navigateTo }) => {
                     <a
                         className="breadcrumb"
                         onClick={() => {
-                            navigateTo(item.path);
+                            onClick(item.path);
                         }}
                     >
                         {item.label}
@@ -53,19 +54,21 @@ const Breadcrumbs = ({ items, iconsTypes, navigateTo }) => {
             ? [iconBreadcrumbElement, ...breadCrumbElements]
             : null;
     }
-    return <div className="breadcrumbs">{renderBreadcrumbsItems()}</div>;
-};
+    render() {
+        return <div className="breadcrumbs">{this.renderBreadcrumbsItems()}</div>;
+    }
+}
 
 Breadcrumbs.propTypes = {
     items: PropTypes.array,
     iconsTypes: PropTypes.object,
-    navigateTo: PropTypes.func
+    onClick: PropTypes.func
 };
 
 Breadcrumbs.defaultProps = {
     items: [],
     iconsTypes: {},
-    navigateTo: () => {}
+    onClick: () => {}
 };
 
 export default Breadcrumbs;

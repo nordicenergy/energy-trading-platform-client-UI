@@ -55,7 +55,7 @@ class Header extends React.Component {
                     <Breadcrumbs
                         items={breadcrumbsItems}
                         iconsTypes={this.props.iconsTypes}
-                        navigateTo={this.props.navigateTo}
+                        onClick={this.props.navigateTo}
                     />
                     <nav className="header-buttons">
                         <HeaderButton

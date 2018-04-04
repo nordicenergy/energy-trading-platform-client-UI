@@ -1,5 +1,5 @@
 .menu-side-bar {
-    width: 20.5rem;
+    width: var(--sideBarWidth);
     height: calc(100% - var(--borderWidth));
 
     background: transparent

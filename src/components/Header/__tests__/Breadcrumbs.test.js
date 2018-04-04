@@ -23,13 +23,13 @@ function renderComponent({
         trading: 'faChartBar',
         profile: 'faUser'
     },
-    navigateTo = () => {}
+    onClick = () => {}
 }) {
     return mount(
         <Breadcrumbs
             items={items}
             iconsTypes={iconsTypes}
-            navigateTo={navigateTo}
+            onClick={onClick}
         />
     );
 }
@@ -47,22 +47,22 @@ describe('<Breadcrumbs /> Component', () => {
     });
 
     it('should call onClick event handler', () => {
-        const navigateTo = jest.fn();
+        const onClick = jest.fn();
         const component = renderComponent({
-            navigateTo
+            onClick
         });
 
         component
             .find('a')
             .at(1)
             .simulate('click');
-        expect(navigateTo).toHaveBeenCalledTimes(1);
-        expect(navigateTo).toHaveBeenCalledWith('trading/wattcoin');
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(onClick).toHaveBeenCalledWith('trading/wattcoin');
         component
             .find('a')
             .at(0)
             .simulate('click');
-        expect(navigateTo).toHaveBeenCalledTimes(2);
-        expect(navigateTo).toHaveBeenCalledWith('trading');
+        expect(onClick).toHaveBeenCalledTimes(2);
+        expect(onClick).toHaveBeenCalledWith('trading');
     });
 });

@@ -9,6 +9,7 @@ body {
     /* Common sizes */
     --menuIconSize: 4.5rem;
     --borderWidth: 0.06rem;
+    --sideBarWidth: 20.5rem;
 
     /* Color Schema */
     --fromColor: #2c6177;

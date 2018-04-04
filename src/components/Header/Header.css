@@ -9,7 +9,7 @@
 }
 
 .logo-container {
-    width: 20.5rem;
+    width: var(--sideBarWidth);
 }
 
 .header-buttons {
@@ -18,6 +18,6 @@
 
 .main-header-container {
     display: flex;
-    width: calc(100% - 20.5rem);
+    width: calc(100% - var(--sideBarWidth));
     justify-content: space-between;
 }
