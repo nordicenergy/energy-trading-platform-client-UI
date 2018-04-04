@@ -60,3 +60,20 @@
     width: 100%;
     transition: 0.2s ease;
 }
+
+/* TODO remake to mobile-first, move values to common variables */
+@media screen and (max-width: 768px) {
+    .app-footer {
+        flex-direction: column-reverse;
+    }
+
+    .app-footer address {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .app-footer nav {
+        justify-content: center;
+    }
+}
