@@ -23,7 +23,7 @@ class MenuSideBar extends React.Component {
                 key={`${index}-${label}`}
                 icon={icon}
                 label={label}
-                active={this.state.active === index}
+                active={active}
                 onClick={() => this.selectMenuItem(index, id)}
             />
         ));
