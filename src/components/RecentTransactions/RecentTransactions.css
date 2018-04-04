@@ -54,9 +54,10 @@
     font-weight: 600;
 }
 
-.recent-transactions-container thead th {
+.recent-transactions-container th {
     color: var(--labelColor);
     width: 33%;
+    text-align: center;
     font-size: 0.875rem;
     font-weight: 600;
 }
@@ -69,30 +70,26 @@
     border: none;
 }
 
-.recent-transactions-container tbody td {
+.recent-transactions-container td {
     font-size: 1.125rem;
     width: 33%;
+    text-align: center;
     font-weight: 500;
     color: var(--rowsTextColor);
     padding: 1em 0 0.78em;
 }
 
-.recent-transactions-container tbody td,
-.recent-transactions-container thead th {
-    text-align: center;
-}
-
-.recent-transactions-container tbody td:last-child {
+.recent-transactions-container td:last-child {
     font-weight: 600;
 }
 
-.recent-transactions-container tbody td:first-child,
-.recent-transactions-container thead th:first-child {
+.recent-transactions-container td:first-child,
+.recent-transactions-container th:first-child {
     text-align: left;
 }
 
-.recent-transactions-container tbody td:last-child,
-.recent-transactions-container thead th:last-child {
+.recent-transactions-container td:last-child,
+.recent-transactions-container th:last-child {
     text-align: right;
 }
 
