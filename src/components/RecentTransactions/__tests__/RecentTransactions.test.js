@@ -66,15 +66,9 @@ describe('<RecentTransactions /> Component', () => {
         - <Button /> component;
         - card title element with class "nav-card-title";`, () => {
         const component = renderComponent({});
-        expect(
-            component.find('caption')
-        ).toHaveLength(1);
-        expect(
-            component.find('thead')
-        ).toHaveLength(1);
-        expect(
-            component.find('tbody')
-        ).toHaveLength(1);
+        expect(component.find('caption')).toHaveLength(1);
+        expect(component.find('thead')).toHaveLength(1);
+        expect(component.find('tbody')).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(1);
     });
 
