@@ -9,6 +9,7 @@ import Illustration from './Illustration';
 import NavigationCard from './NavigationCard';
 import { MenuSideBar, MenuItem } from './MenuSideBar';
 import Loader from './Loader';
+import Toast from './Toast';
 
 export {
     Button,
@@ -23,5 +24,6 @@ export {
     HeaderButton,
     Footer,
     NavigationCard,
-    Loader
+    Loader,
+    Toast
 };
