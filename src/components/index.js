@@ -8,6 +8,7 @@ import Footer from './Footer';
 import Illustration from './Illustration';
 import NavigationCard from './NavigationCard';
 import { MenuSideBar, MenuItem } from './MenuSideBar';
+import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
 
 export {
@@ -23,5 +24,7 @@ export {
     HeaderButton,
     Footer,
     NavigationCard,
-    EnergyAmountGraph
+    EnergyAmountGraph,
+    NavigationCard,
+    RecentTransactions
 };

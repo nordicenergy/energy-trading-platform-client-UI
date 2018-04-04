@@ -1,7 +1,7 @@
 const TOKEN_KEY = 'lition_auth_token';
 
 export function getToken() {
-    sessionStorage.getItem(TOKEN_KEY);
+    return sessionStorage.getItem(TOKEN_KEY);
 }
 
 export function setToken(token) {

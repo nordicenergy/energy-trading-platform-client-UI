@@ -30,7 +30,8 @@ class LoginForm extends Component {
     }
 
     render() {
-        const { labels } = this.props;
+        const { labels, errors } = this.props;
+        const { username, password } = this.state;
 
         return (
             <form
@@ -43,6 +44,8 @@ class LoginForm extends Component {
                     label={labels.usernameField}
                     type="text"
                     name="username"
+                    value={username}
+                    error={errors.username}
                     onChange={event => this.handleChange(event)}
                 />
                 <TextField
@@ -51,10 +54,12 @@ class LoginForm extends Component {
                     label={labels.passwordField}
                     type="password"
                     name="password"
+                    value={password}
+                    error={errors.password}
                     helperText={
                         <a
                             className="reset-password-link"
-                            href="/reset-password"
+                            href="/restore-password"
                             onClick={event => {
                                 this.handleForgotPasswordLinkClick(event);
                             }}
@@ -77,8 +82,15 @@ LoginForm.propTypes = {
         resetPasswordLink: PropTypes.string,
         loginButton: PropTypes.string
     }),
+    errors: PropTypes.shape({
+        username: PropTypes.string,
+        password: PropTypes.string
+    }),
     onForgotPasswordLinkClick: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired
+};
+LoginForm.defaultProps = {
+    errors: {}
 };
 
 export default LoginForm;

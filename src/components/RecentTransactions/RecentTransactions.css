@@ -1,0 +1,99 @@
+.recent-transactions-container {
+    font-size: 1.125rem;
+    background-color: white;
+    padding: 1.78em 0 1.33em;
+    box-sizing: border-box;
+    width: 100%;
+    box-shadow: 0 0.22em 0.89em 0 rgba(217, 224, 229, 0.3);
+    border-radius: 0.22em;
+    --rowsTextColor: #142739;
+    --rowsSidePadding: 6.22em;
+}
+
+.recent-transactions-container caption {
+    font-size: 1.375rem;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1.14em;
+    color: black;
+    font-weight: 600;
+}
+
+.recent-transactions-container .table-container {
+    padding: 0 var(--rowsSidePadding);
+}
+
+.recent-transactions-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recent-transactions-current-balance-row {
+    display: flex;
+    color: var(--rowsTextColor);
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(240, 244, 247, 0.6);
+    padding: 1.11em var(--rowsSidePadding) 0.89em;
+}
+
+.recent-transactions-current-balance-row p {
+    margin: 0;
+}
+
+.recent-transactions-current-balance-row
+    .recent-transactions-current-balance-date {
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+.recent-transactions-current-balance-row
+    .recent-transactions-current-balance-amount {
+    font-size: 1.375rem;
+    font-weight: 600;
+}
+
+.recent-transactions-container th {
+    color: var(--labelColor);
+    width: 33%;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.recent-transactions-container tbody tr {
+    border-bottom: 0.056em solid #eceef1;
+}
+
+.recent-transactions-container tbody tr:last-child {
+    border: none;
+}
+
+.recent-transactions-container td {
+    font-size: 1.125rem;
+    width: 33%;
+    text-align: center;
+    font-weight: 500;
+    color: var(--rowsTextColor);
+    padding: 1em 0 0.78em;
+}
+
+.recent-transactions-container td:last-child {
+    font-weight: 600;
+}
+
+.recent-transactions-container td:first-child,
+.recent-transactions-container th:first-child {
+    text-align: left;
+}
+
+.recent-transactions-container td:last-child,
+.recent-transactions-container th:last-child {
+    text-align: right;
+}
+
+.recent-transactions-button-container {
+    text-align: center;
+    margin-top: 1.33em;
+}
