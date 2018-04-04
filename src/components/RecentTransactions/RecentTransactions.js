@@ -12,31 +12,25 @@ const RecentTransactions = ({
     function renderTableRows() {
         return transactions.map(transaction => (
             <tr key={transaction.id}>
-                <td className="date-column">{transaction.date}</td>
-                <td className="transaction-column">{transaction.name}</td>
-                <td className="amount-column">{transaction.amount}</td>
+                <td>{transaction.date}</td>
+                <td>{transaction.name}</td>
+                <td>{transaction.amount}</td>
             </tr>
         ));
     }
 
     return (
         <div className="recent-transactions-container">
-            <div className="recent-transactions-table-container">
-                <table className="recent-transactions-table">
-                    <caption className="recent-transactions-title">
-                        {labels.recentTransactionsTitle}
-                    </caption>
+            <div className="table-container">
+                <table>
+                    <caption>{labels.recentTransactionsTitle}</caption>
                     <thead>
-                        <tr className="table-header">
-                            <th className="date-column-header">
-                                {labels.recentTransactionsHeaderDate}
-                            </th>
-                            <th className="transaction-column-header">
+                        <tr>
+                            <th>{labels.recentTransactionsHeaderDate}</th>
+                            <th>
                                 {labels.recentTransactionsHeaderTransaction}
                             </th>
-                            <th className="amount-column-header">
-                                {labels.recentTransactionsHeaderAmount}
-                            </th>
+                            <th>{labels.recentTransactionsHeaderAmount}</th>
                         </tr>
                     </thead>
                     <tbody>{renderTableRows()}</tbody>

@@ -25,27 +25,27 @@ const messages = defineMessages({
         defaultMessage: 'Buy Energy'
     },
     recentTransactionsTitle: {
-        id: 'app.overviewPage.recentTransactionsTitle',
+        id: 'app.overviewPage.recentTransactions.title',
         defaultMessage: 'Most Recent Transactions'
     },
     recentTransactionsHeaderDate: {
-        id: 'app.overviewPage.recentTransactionsHeaderDate',
+        id: 'app.overviewPage.recentTransactions.headerDate',
         defaultMessage: 'Date'
     },
     recentTransactionsHeaderTransaction: {
-        id: 'app.overviewPage.recentTransactionsHeaderTransaction',
+        id: 'app.overviewPage.recentTransactions.headerTransaction',
         defaultMessage: 'Transactions'
     },
     recentTransactionsHeaderAmount: {
-        id: 'app.overviewPage.recentTransactionsHeaderAmount',
+        id: 'app.overviewPage.recentTransactions.headerAmount',
         defaultMessage: 'Amount'
     },
     recentTransactionsCurrentBalance: {
-        id: 'app.overviewPage.recentTransactionsCurrentBalance',
+        id: 'app.overviewPage.recentTransactions.currentBalance',
         defaultMessage: 'Current Balance'
     },
     recentTransactionsMore: {
-        id: 'app.overviewPage.recentTransactionsMore',
+        id: 'app.overviewPage.recentTransactions.more',
         defaultMessage: 'More'
     }
 });

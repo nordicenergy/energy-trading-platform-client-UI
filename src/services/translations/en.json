@@ -28,10 +28,10 @@
     "app.overviewPage.myProducer": "My Producer",
     "app.overviewPage.buyEnergy": "Buy Energy",
     "app.overviewPage.sellEnergy": "Sell Energy",
-    "app.overviewPage.recentTransactionsTitle": "Most Recent Transactions",
-    "app.overviewPage.recentTransactionsHeaderDate": "Date",
-    "app.overviewPage.recentTransactionsHeaderTransaction": "Transaction",
-    "app.overviewPage.recentTransactionsHeaderAmount": "Amount",
-    "app.overviewPage.recentTransactionsCurrentBalance": "Current Balance",
-    "app.overviewPage.recentTransactionsMore": "More"
+    "app.overviewPage.recentTransactions.title": "Most Recent Transactions",
+    "app.overviewPage.recentTransactions.headerDate": "Date",
+    "app.overviewPage.recentTransactions.headerTransaction": "Transaction",
+    "app.overviewPage.recentTransactions.headerAmount": "Amount",
+    "app.overviewPage.recentTransactions.currentBalance": "Current Balance",
+    "app.overviewPage.recentTransactions.more": "More"
 }
