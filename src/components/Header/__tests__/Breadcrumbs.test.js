@@ -26,11 +26,7 @@ function renderComponent({
     onClick = () => {}
 }) {
     return mount(
-        <Breadcrumbs
-            items={items}
-            iconsTypes={iconsTypes}
-            onClick={onClick}
-        />
+        <Breadcrumbs items={items} iconsTypes={iconsTypes} onClick={onClick} />
     );
 }
 

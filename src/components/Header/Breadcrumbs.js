@@ -55,7 +55,9 @@ class Breadcrumbs extends React.Component {
             : null;
     }
     render() {
-        return <div className="breadcrumbs">{this.renderBreadcrumbsItems()}</div>;
+        return (
+            <div className="breadcrumbs">{this.renderBreadcrumbsItems()}</div>
+        );
     }
 }
 
