@@ -12,9 +12,10 @@ const store = mockStore({
 });
 
 function renderComponent() {
+    const match = { path: '/trading' };
     return mountWithIntl(
         <Provider store={store}>
-            <Trading store={store} />
+            <Trading store={store} match={match} />
         </Provider>
     );
 }

@@ -4,7 +4,7 @@ import { defineMessages } from 'react-intl';
 import { EnergyAmountGraph } from '../../components';
 import './Trading.css';
 import PropTypes from 'prop-types';
-import TradingContainer from './TradingContainer';
+import { TradingContainer } from './TradingContainer';
 
 export class Trading extends TradingContainer {
     static mapStateToProps(state) {
