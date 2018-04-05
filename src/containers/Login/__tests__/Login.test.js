@@ -2,6 +2,7 @@ import React from 'react';
 import { Login } from '../Login';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import * as userActionPerformers from '../../../action_performers/users';
+import * as notificationsActionPerformers from '../../../action_performers/notifications';
 
 const historyMock = {
     push: jest.fn()
@@ -24,6 +25,10 @@ function renderComponent(
 }
 
 describe('<Login /> Container', () => {
+    afterEach(() => {
+        historyMock.push.mockClear();
+    });
+
     it(`should renders with:
         - login form
         - logo
@@ -67,10 +72,8 @@ describe('<Login /> Container', () => {
             password: ''
         };
         // Disable console warning for the test.
-        const consoleWarnSpy = jest
-            .spyOn(console, 'warn')
-            .mockImplementation(jest.fn());
-        const performLoginSpy = jest
+        jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+        jest
             .spyOn(userActionPerformers, 'performLogin')
             .mockImplementation(jest.fn());
 
@@ -78,12 +81,12 @@ describe('<Login /> Container', () => {
             .find('LoginForm')
             .props()
             .onSubmit(credentialsMock);
-        expect(performLoginSpy).not.toHaveBeenCalled();
+        expect(userActionPerformers.performLogin).not.toHaveBeenCalled();
         expect(component.state().errors).toHaveProperty('username');
         expect(component.state().errors).toHaveProperty('password');
 
-        consoleWarnSpy.mockRestore();
-        performLoginSpy.mockRestore();
+        console.warn.mockRestore();
+        userActionPerformers.performLogin.mockRestore();
     });
 
     it('should calls performLogin after form was submitted', () => {
@@ -92,7 +95,7 @@ describe('<Login /> Container', () => {
             username: 'test-username',
             password: 'qwerty'
         };
-        const performLoginSpy = jest
+        jest
             .spyOn(userActionPerformers, 'performLogin')
             .mockImplementation(jest.fn());
 
@@ -100,9 +103,11 @@ describe('<Login /> Container', () => {
             .find('LoginForm')
             .props()
             .onSubmit(credentialsMock);
-        expect(performLoginSpy).toHaveBeenCalledWith(credentialsMock);
+        expect(userActionPerformers.performLogin).toHaveBeenCalledWith(
+            credentialsMock
+        );
 
-        performLoginSpy.mockRestore();
+        userActionPerformers.performLogin.mockRestore();
     });
 
     it('should redirect to home page after authentication', () => {
@@ -111,11 +116,7 @@ describe('<Login /> Container', () => {
         component.setProps({ loading: true, login: {} });
         component.setProps({
             loading: false,
-            login: {
-                authentication: {
-                    authenticationToken: 'abc'
-                }
-            }
+            login: { authenticationToken: 'abc' }
         });
 
         expect(historyMock.push).toHaveBeenCalledWith('/');
@@ -139,13 +140,31 @@ describe('<Login /> Container', () => {
         component.setProps({ loading: true, login: {} });
         component.setProps({
             loading: false,
-            login: {
-                authentication: {
-                    authenticationToken: 'abc'
-                }
-            }
+            login: { authenticationToken: 'abc' }
         });
 
         expect(historyMock.push).toHaveBeenCalledWith('/test');
+    });
+
+    it('should shows server error if authentication is failed', () => {
+        jest
+            .spyOn(notificationsActionPerformers, 'performPushNotification')
+            .mockImplementation(jest.fn());
+        const component = renderComponent();
+
+        component.setProps({
+            loading: false,
+            login: null,
+            error: { message: 'Error message' }
+        });
+
+        expect(
+            notificationsActionPerformers.performPushNotification
+        ).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'Error message'
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
     });
 });
