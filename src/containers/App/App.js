@@ -5,20 +5,27 @@ import { MenuSideBar, Header, Footer } from '../../components';
 import { performLogout } from '../../action_performers/users';
 import './App.css';
 import { PATHS } from '../../services/routes';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
+    static mapStateToProps(state) {
+        return {
+            breadCrumbs: state.App.breadCrumbs.data
+        };
+    }
+
     logout(confirmMessage) {
         // TODO: remake to our modals later
         const answer = window.confirm(confirmMessage);
 
         if (answer) {
             performLogout();
-            this.navigateTo('login');
+            this.navigateTo('/login');
         }
     }
 
     navigateTo(route) {
-        this.context.router.history.push(`/${route}`);
+        this.context.router.history.push(route);
     }
 
     defineLabels() {
@@ -86,47 +93,52 @@ class App extends React.Component {
                 id: PATHS.overview.id,
                 icon: icons[''],
                 label: formatMessage(labels.overview),
-                active: headRoute === PATHS.overview.id
+                active: headRoute === PATHS.overview.id,
+                path: PATHS.overview.path
             },
             {
                 id: PATHS.documents.id,
                 icon: icons.documents,
                 label: formatMessage(labels.documents),
-                active: headRoute === PATHS.documents.id
+                active: headRoute === PATHS.documents.id,
+                path: PATHS.documents.path
             },
             {
                 id: PATHS.submit_metric.id,
                 icon: icons.submit_metric,
                 label: formatMessage(labels.submitMetric),
-                active: headRoute === PATHS.submit_metric.id
+                active: headRoute === PATHS.submit_metric.id,
+                path: PATHS.submit_metric.path
             },
             {
                 id: PATHS.trading.id,
                 icon: icons.trading,
                 label: formatMessage(labels.trading),
-                active: headRoute === PATHS.trading.id
+                active: headRoute === PATHS.trading.id,
+                path: PATHS.trading.path
             },
             {
                 id: PATHS.profile.id,
                 icon: icons.profile,
                 label: formatMessage(labels.profile),
-                active: headRoute === PATHS.profile.id
+                active: headRoute === PATHS.profile.id,
+                path: PATHS.profile.path
             }
         ];
 
         const footerItems = [
             {
-                href: PATHS.about.id,
+                href: PATHS.about.path,
                 label: formatMessage(labels.about),
                 active: pathname === PATHS.about.path
             },
             {
-                href: PATHS.team.id,
+                href: PATHS.team.path,
                 label: formatMessage(labels.team),
                 active: pathname === PATHS.team.path
             },
             {
-                href: PATHS.service.id,
+                href: PATHS.service.path,
                 label: formatMessage(labels.service),
                 active: pathname === PATHS.service.path
             }
@@ -140,7 +152,7 @@ class App extends React.Component {
                     }
                     navigateTo={route => this.navigateTo(route)}
                     notifications={[]}
-                    path={pathname}
+                    breadCrumbs={this.props.breadCrumbs}
                     iconsTypes={icons}
                 />
                 <div className="content">
@@ -169,4 +181,5 @@ App.contextTypes = {
     intl: PropTypes.object
 };
 
-export default App;
+export default connect(App.mapStateToProps)(App);
+export { App };

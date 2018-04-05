@@ -20,6 +20,8 @@
     "app.menuBar.trading": "Trading",
     "app.menuBar.profile": "Profile",
 
+    "app.breadCrumbs.myProducer": "My Producer",
+
     "app.footer.about": "About Us",
     "app.footer.team": "Our Team",
     "app.footer.service": "Question&Service",

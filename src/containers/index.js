@@ -4,11 +4,12 @@ import RestorePassword from './RestorePassword';
 import Overview from './Overview';
 import Documents from './Documents';
 import SubmitMetric from './SubmitMetric';
-import Trading from './Trading';
+import { Trading, TradingContainer } from './Trading';
 import Profile from './Profile';
 import About from './About';
 import Team from './Team';
 import Service from './Service';
+import MyProducer from './MyProducer';
 
 export {
     App,
@@ -18,8 +19,10 @@ export {
     Documents,
     SubmitMetric,
     Trading,
+    TradingContainer,
     Profile,
     Service,
     About,
-    Team
+    Team,
+    MyProducer
 };

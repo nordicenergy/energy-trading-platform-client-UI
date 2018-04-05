@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import withoutBreadCrumbs from '../HOC/withoutBreadCrumbs';
 import { getToken } from './browserStorage';
 import {
     App,
@@ -8,11 +9,11 @@ import {
     Overview,
     Documents,
     SubmitMetric,
-    Trading,
     Profile,
     Service,
     About,
-    Team
+    Team,
+    TradingContainer
 } from '../containers';
 
 export const PATHS = {
@@ -47,6 +48,10 @@ export const PATHS = {
     service: {
         id: 'service',
         path: '/service'
+    },
+    myProducer: {
+        id: 'myProducer',
+        path: '/my_producer'
     }
 };
 
@@ -58,18 +63,36 @@ const AppMainLayout = () => {
                     <Route
                         exact
                         path={PATHS.overview.path}
-                        component={Overview}
+                        component={withoutBreadCrumbs(Overview)}
                     />
-                    <Route path={PATHS.documents.path} component={Documents} />
+                    <Route
+                        path={PATHS.documents.path}
+                        component={withoutBreadCrumbs(Documents)}
+                    />
                     <Route
                         path={PATHS.submit_metric.path}
-                        component={SubmitMetric}
+                        component={withoutBreadCrumbs(SubmitMetric)}
                     />
-                    <Route path={PATHS.trading.path} component={Trading} />
-                    <Route path={PATHS.profile.path} component={Profile} />
-                    <Route path={PATHS.team.path} component={Team} />
-                    <Route path={PATHS.about.path} component={About} />
-                    <Route path={PATHS.service.path} component={Service} />
+                    <Route
+                        path={PATHS.trading.path}
+                        component={TradingContainer}
+                    />
+                    <Route
+                        path={PATHS.profile.path}
+                        component={withoutBreadCrumbs(Profile)}
+                    />
+                    <Route
+                        path={PATHS.team.path}
+                        component={withoutBreadCrumbs(Team)}
+                    />
+                    <Route
+                        path={PATHS.about.path}
+                        component={withoutBreadCrumbs(About)}
+                    />
+                    <Route
+                        path={PATHS.service.path}
+                        component={withoutBreadCrumbs(Service)}
+                    />
                 </App>
             </div>
         );

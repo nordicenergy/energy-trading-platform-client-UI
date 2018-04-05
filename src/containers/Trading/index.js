@@ -1,3 +1,4 @@
 import Trading from './Trading';
+import TradingContainer from './TradingContainer';
 
-export default Trading;
+export { Trading, TradingContainer };

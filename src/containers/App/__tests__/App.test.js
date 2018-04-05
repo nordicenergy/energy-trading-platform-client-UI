@@ -1,5 +1,5 @@
 import React from 'react';
-import App from '../App';
+import { App } from '../App';
 import { Header, MenuSideBar, Footer } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
@@ -63,7 +63,7 @@ describe('Main <App /> Component', () => {
         component.setContext(context);
 
         const menu = component.find(MenuSideBar).at(0);
-        menu.props().onSelect('item1');
+        menu.props().onSelect('/item1');
 
         expect(context.router.history.push.mock.calls.length).toEqual(1);
         const [[route]] = context.router.history.push.mock.calls;
@@ -74,31 +74,36 @@ describe('Main <App /> Component', () => {
                 id: '',
                 active: true,
                 icon: 'faHome',
-                label: 'test'
+                label: 'test',
+                path: '/'
             },
             {
                 id: 'documents',
                 active: false,
                 icon: 'faBook',
-                label: 'test'
+                label: 'test',
+                path: '/documents'
             },
             {
                 id: 'submit_metric',
                 active: false,
                 icon: 'faCalculator',
-                label: 'test'
+                label: 'test',
+                path: '/submit_metric'
             },
             {
                 id: 'trading',
                 active: false,
                 icon: 'faChartBar',
-                label: 'test'
+                label: 'test',
+                path: '/trading'
             },
             {
                 id: 'profile',
                 active: false,
                 icon: 'faUser',
-                label: 'test'
+                label: 'test',
+                path: '/profile'
             }
         ]);
     });
@@ -108,7 +113,7 @@ describe('Main <App /> Component', () => {
         component.setContext(context);
 
         const footer = component.find(Footer).at(0);
-        footer.props().onSelect('item1');
+        footer.props().onSelect('/item1');
 
         expect(context.router.history.push.mock.calls.length).toEqual(1);
         const [[route]] = context.router.history.push.mock.calls;
@@ -117,17 +122,17 @@ describe('Main <App /> Component', () => {
         expect(footer.props().navItems).toEqual([
             {
                 active: false,
-                href: 'about',
+                href: '/about',
                 label: 'test'
             },
             {
                 active: false,
-                href: 'team',
+                href: '/team',
                 label: 'test'
             },
             {
                 active: false,
-                href: 'service',
+                href: '/service',
                 label: 'test'
             }
         ]);

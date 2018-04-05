@@ -13,39 +13,11 @@ class Header extends React.Component {
         };
     }
 
-    formatLabel(label) {
-        const splittedLabels = label.split('_');
-        let formattedLabel = '';
-        for (let i = 0; i < splittedLabels.length; i++) {
-            formattedLabel +=
-                splittedLabels[i].charAt(0).toUpperCase() +
-                splittedLabels[i].slice(1) +
-                ' ';
-        }
-        return formattedLabel;
-    }
-
-    createBreadcrumbsItems() {
-        const paths = this.props.path.split('/').slice(1);
-        let breadcrumbsPaths = '';
-        return paths.map((path, index) => {
-            breadcrumbsPaths += index === 0 ? path : `/${path}`;
-            const label = this.formatLabel(path);
-            return {
-                id: path,
-                label,
-                path: breadcrumbsPaths
-            };
-        });
-    }
-
     logout() {
         this.props.onLogoutButtonClickHandler();
     }
 
     render() {
-        const breadcrumbsItems = this.createBreadcrumbsItems();
-
         return (
             <header className="header-desktop">
                 <div className="logo-container">
@@ -53,7 +25,7 @@ class Header extends React.Component {
                 </div>
                 <div className="main-header-container">
                     <Breadcrumbs
-                        items={breadcrumbsItems}
+                        items={this.props.breadCrumbs}
                         iconsTypes={this.props.iconsTypes}
                         onClick={this.props.navigateTo}
                     />
@@ -87,7 +59,7 @@ Header.propTypes = {
 
 Header.defaultProps = {
     notifications: [],
-    path: '/',
+    breadCrumbs: [],
     iconsTypes: {},
     navigateTo: () => {}
 };
