@@ -43,10 +43,7 @@ class Notification extends Component {
     setAutoHideTimeout() {
         const { autoHideTimeout } = this.props;
         clearTimeout(this.autoHideTimeout);
-        this.autoHideTimeout = setTimeout(
-            this.props.onClose,
-            autoHideTimeout
-        );
+        this.autoHideTimeout = setTimeout(this.props.onClose, autoHideTimeout);
     }
 
     handleExited() {
@@ -72,9 +69,16 @@ class Notification extends Component {
             return null;
         }
 
-        return <Transition appear in={open} timeout={animationDuration} onExited={() => this.handleExited()}>
+        return (
+            <Transition
+                appear
+                in={open}
+                timeout={animationDuration}
+                onExited={() => this.handleExited()}
+            >
                 {state => this.renderToast(state)}
-            </Transition>;
+            </Transition>
+        );
     }
 }
 

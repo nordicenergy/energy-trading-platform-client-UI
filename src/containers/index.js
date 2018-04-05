@@ -1,3 +1,4 @@
+import Notifications from './Notifications';
 import App from './App';
 import Login from './Login';
 import RestorePassword from './RestorePassword';
@@ -11,6 +12,7 @@ import Team from './Team';
 import Service from './Service';
 
 export {
+    Notifications,
     App,
     Login,
     RestorePassword,
