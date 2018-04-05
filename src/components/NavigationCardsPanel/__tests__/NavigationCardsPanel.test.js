@@ -62,13 +62,16 @@ describe('<NavigationCard /> Component', () => {
                     type: 'my_producer',
                     title: 'My Producer',
                     path: '/test1'
-                },
+                }
             ],
             onCardClick
         };
         const component = renderComponent(props);
 
-        component.find(NavigationCard).at(0).simulate('click');
+        component
+            .find(NavigationCard)
+            .at(0)
+            .simulate('click');
         expect(onCardClick).toHaveBeenCalled();
         expect(onCardClick).toHaveBeenCalledWith('/test1');
     });
