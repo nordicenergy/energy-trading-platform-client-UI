@@ -15,7 +15,6 @@ const MenuItem = props => {
 
     return (
         <a
-            role="menuitem"
             aria-label={label}
             className={itemClass.join(' ')}
             href=""

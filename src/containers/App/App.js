@@ -149,7 +149,7 @@ class App extends React.Component {
                             onSelect={id => this.navigateTo(id)}
                         />
                     </div>
-                    <div className="main-container">
+                    <div role="feed" className="main-container">
                         <main>{this.props.children}</main>
                         <Footer
                             addressLabel={formatMessage(labels.address)}
