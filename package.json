@@ -57,5 +57,14 @@
             "!src/**/index.js",
             "!<rootDir>/node_modules/"
         ]
+    },
+    "proxy": {
+        "/api/v1": {
+            "target": "https://aws1.lition.io",
+            "changeOrigin": true,
+            "pathRewrite": {
+                "^/api/v1": "/api"
+            }
+        }
     }
 }
