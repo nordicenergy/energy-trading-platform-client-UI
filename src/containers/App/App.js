@@ -5,6 +5,7 @@ import { defineMessages } from 'react-intl';
 import { MenuSideBar, Header, Footer } from '../../components';
 import { performLogout } from '../../action_performers/users';
 import './App.css';
+import { PATHS } from '../../services/routes';
 
 export class App extends React.Component {
     static mapStateToProps({ Users }) {
@@ -73,9 +74,17 @@ export class App extends React.Component {
                 defaultMessage: '2018 Lition. All rights reserved.'
             },
             logoutConfirm: {
-                id: 'app.logout.confirm',
+                id: 'app.header.logoutConfirm',
                 defaultMessage:
                     "Are you sure that you'd like to logout from the system?"
+            },
+            logoutLabel: {
+                id: 'app.header.logoutLabel',
+                defaultMessage: 'Logout'
+            },
+            notificationLabel: {
+                id: 'app.header.notificationLabel',
+                defaultMessage: 'Notifications'
             }
         });
     }
@@ -84,50 +93,56 @@ export class App extends React.Component {
         const { pathname } = window.location;
         const labels = this.defineLabels();
         const { formatMessage } = this.context.intl;
+        const [, headRoute = ''] = pathname.split('/');
 
         const menuItems = [
             {
-                id: '',
+                id: PATHS.overview.id,
                 icon: 'faHome',
-                label: formatMessage(labels.overview)
+                label: formatMessage(labels.overview),
+                active: headRoute === PATHS.overview.id
             },
             {
-                id: 'documents',
+                id: PATHS.documents.id,
                 icon: 'faBook',
-                label: formatMessage(labels.documents)
+                label: formatMessage(labels.documents),
+                active: headRoute === PATHS.documents.id
             },
             {
-                id: 'submit_metric',
+                id: PATHS.submit_metric.id,
                 icon: 'faCalculator',
-                label: formatMessage(labels.submitMetric)
+                label: formatMessage(labels.submitMetric),
+                active: headRoute === PATHS.submit_metric.id
             },
             {
-                id: 'trading',
+                id: PATHS.trading.id,
                 icon: 'faChartBar',
-                label: formatMessage(labels.trading)
+                label: formatMessage(labels.trading),
+                active: headRoute === PATHS.trading.id
             },
             {
-                id: 'profile',
+                id: PATHS.profile.id,
                 icon: 'faUser',
-                label: formatMessage(labels.profile)
+                label: formatMessage(labels.profile),
+                active: headRoute === PATHS.profile.id
             }
         ];
 
         const footerItems = [
             {
-                href: 'about',
+                href: PATHS.about.id,
                 label: formatMessage(labels.about),
-                active: pathname === '/about'
+                active: pathname === PATHS.about.path
             },
             {
-                href: 'team',
+                href: PATHS.team.id,
                 label: formatMessage(labels.team),
-                active: pathname === '/team'
+                active: pathname === PATHS.team.path
             },
             {
-                href: 'service',
+                href: PATHS.service.id,
                 label: formatMessage(labels.service),
-                active: pathname === `/service`
+                active: pathname === PATHS.service.path
             }
         ];
 
@@ -137,6 +152,8 @@ export class App extends React.Component {
                     onLogoutButtonClickHandler={() =>
                         this.logout(formatMessage(labels.logoutConfirm))
                     }
+                    logoutLabel={formatMessage(labels.logoutLabel)}
+                    notificationLabel={formatMessage(labels.notificationLabel)}
                     notifications={[]}
                 />
                 <div className="content">
@@ -146,7 +163,7 @@ export class App extends React.Component {
                             onSelect={id => this.navigateTo(id)}
                         />
                     </div>
-                    <div className="main-container">
+                    <div role="feed" className="main-container">
                         <main>{this.props.children}</main>
                         <Footer
                             addressLabel={formatMessage(labels.address)}

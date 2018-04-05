@@ -16,6 +16,41 @@ import {
     Team
 } from '../containers';
 
+export const PATHS = {
+    overview: {
+        id: '',
+        path: '/'
+    },
+    documents: {
+        id: 'documents',
+        path: '/documents'
+    },
+    submit_metric: {
+        id: 'submit_metric',
+        path: '/submit_metric'
+    },
+    trading: {
+        id: 'trading',
+        path: '/trading'
+    },
+    profile: {
+        id: 'profile',
+        path: '/profile'
+    },
+    team: {
+        id: 'team',
+        path: '/team'
+    },
+    about: {
+        id: 'about',
+        path: '/about'
+    },
+    service: {
+        id: 'service',
+        path: '/service'
+    }
+};
+
 const PublicRoute = ({ component: Component, ...otherProps }) => (
     <Route
         {...otherProps}
@@ -34,14 +69,21 @@ const AppMainLayout = () => {
         return (
             <div id="app-layout">
                 <App>
-                    <Route exact path="/" component={Overview} />
-                    <Route path="/documents" component={Documents} />
-                    <Route path="/submit_metric" component={SubmitMetric} />
-                    <Route path="/trading" component={Trading} />
-                    <Route path="/profile" component={Profile} />
-                    <Route path="/team" component={Team} />
-                    <Route path="/about" component={About} />
-                    <Route path="/service" component={Service} />
+                    <Route
+                        exact
+                        path={PATHS.overview.path}
+                        component={Overview}
+                    />
+                    <Route path={PATHS.documents.path} component={Documents} />
+                    <Route
+                        path={PATHS.submit_metric.path}
+                        component={SubmitMetric}
+                    />
+                    <Route path={PATHS.trading.path} component={Trading} />
+                    <Route path={PATHS.profile.path} component={Profile} />
+                    <Route path={PATHS.team.path} component={Team} />
+                    <Route path={PATHS.about.path} component={About} />
+                    <Route path={PATHS.service.path} component={Service} />
                 </App>
             </div>
         );

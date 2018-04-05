@@ -14,6 +14,11 @@
     "app.restorePasswordPage.errors.emptyEmail": "Enter your email.",
     "app.restorePasswordPage.errors.invalidEmail": "Invalid email.",
 
+    "app.header.logoutConfirm":
+        "Are you sure that you'd like to logout from the system?",
+    "app.header.logoutLabel": "Logout",
+    "app.header.notificationLabel": "Notifications",
+
     "app.menuBar.overview": "Overview",
     "app.menuBar.documents": "My Documents",
     "app.menuBar.submitMetric": "Submit Metric Readings",
@@ -27,5 +32,14 @@
 
     "app.overviewPage.myProducer": "My Producer",
     "app.overviewPage.buyEnergy": "Buy Energy",
-    "app.overviewPage.sellEnergy": "Sell Energy"
+    "app.overviewPage.sellEnergy": "Sell Energy",
+    "app.overviewPage.recentTransactions.title": "Most Recent Transactions",
+    "app.overviewPage.recentTransactions.headerDate": "Date",
+    "app.overviewPage.recentTransactions.headerTransaction": "Transaction",
+    "app.overviewPage.recentTransactions.headerAmount": "Amount",
+    "app.overviewPage.recentTransactions.currentBalance": "Current Balance",
+    "app.overviewPage.recentTransactions.more": "More",
+
+    "app.tradingPage.header": "Trading",
+    "app.tradingPage.graphTitle": "Amount of energy"
 }

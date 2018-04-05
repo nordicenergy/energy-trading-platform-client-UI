@@ -10,6 +10,8 @@ import NavigationCard from './NavigationCard';
 import { MenuSideBar, MenuItem } from './MenuSideBar';
 import Loader from './Loader';
 import Toast from './Toast';
+import RecentTransactions from './RecentTransactions';
+import EnergyAmountGraph from './EnergyAmountGraph';
 
 export {
     Button,
@@ -25,5 +27,7 @@ export {
     Footer,
     NavigationCard,
     Loader,
-    Toast
+    Toast,
+    EnergyAmountGraph,
+    RecentTransactions
 };

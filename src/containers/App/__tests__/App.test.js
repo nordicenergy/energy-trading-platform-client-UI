@@ -42,7 +42,7 @@ describe('Main <App /> Component', () => {
         const component = renderComponent(context);
         component.setContext(context);
 
-        expect(context.intl.formatMessage.mock.calls.length).toEqual(9);
+        expect(context.intl.formatMessage.mock.calls.length).toEqual(11);
     });
 
     it('should returns correct props', () => {
@@ -86,26 +86,31 @@ describe('Main <App /> Component', () => {
         expect(menu.props().items).toEqual([
             {
                 id: '',
+                active: true,
                 icon: 'faHome',
                 label: 'test'
             },
             {
                 id: 'documents',
+                active: false,
                 icon: 'faBook',
                 label: 'test'
             },
             {
                 id: 'submit_metric',
+                active: false,
                 icon: 'faCalculator',
                 label: 'test'
             },
             {
                 id: 'trading',
+                active: false,
                 icon: 'faChartBar',
                 label: 'test'
             },
             {
                 id: 'profile',
+                active: false,
                 icon: 'faUser',
                 label: 'test'
             }
