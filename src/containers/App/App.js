@@ -1,18 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
 import { MenuSideBar, Header, Footer } from '../../components';
 import { performLogout } from '../../action_performers/users';
 import './App.css';
 
-class App extends React.Component {
+export class App extends React.Component {
+    static mapStateToProps({ Users }) {
+        return { loggingOut: Users.logout.loading };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const loggedOut =
+            this.props.loggingOut !== nextProps.loggingOut &&
+            !nextProps.loggingOut;
+
+        if (loggedOut) {
+            this.navigateTo('login');
+        }
+    }
+
     logout(confirmMessage) {
         // TODO: remake to our modals later
         const answer = window.confirm(confirmMessage);
 
         if (answer) {
             performLogout();
-            this.navigateTo('login');
         }
     }
 
@@ -148,7 +162,8 @@ class App extends React.Component {
 
 App.contextTypes = {
     router: PropTypes.object,
-    intl: PropTypes.object
+    intl: PropTypes.object,
+    loggingOut: PropTypes.bool
 };
 
-export default App;
+export default connect(App.mapStateToProps)(App);

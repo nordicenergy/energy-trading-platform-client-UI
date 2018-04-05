@@ -1,36 +1,44 @@
 import Axios from 'axios';
 import { login, logout, getUserData } from '../users';
 
-// TODO remove skip after API integration
-describe.skip('Users API Service', () => {
-    beforeEach(done => {
-        Axios.get = jest.fn();
-        Axios.post = jest.fn();
-        done();
+describe('Users API Service', () => {
+    beforeAll(() => {
+        jest.spyOn(Axios, 'get').mockImplementation(jest.fn);
+        jest.spyOn(Axios, 'post').mockImplementation(jest.fn);
+    });
+
+    afterAll(() => {
+        Axios.get.mockRestore();
+        Axios.post.mockRestore();
+    });
+
+    afterEach(() => {
+        Axios.get.mockClear();
+        Axios.post.mockClear();
     });
 
     it('should provide method for login', () => {
         login({ username: 'test', password: 'password' });
-        const [call] = Axios.post.mock.calls;
-        const [url, credentials] = call;
 
-        expect(url).toEqual('/api/v1/user/login');
-        expect(credentials).toEqual({ username: 'test', password: 'password' });
+        expect(Axios.post).toHaveBeenCalledWith(
+            '/api/v1/user/login',
+            expect.objectContaining({
+                username: 'test',
+                password: 'password'
+            })
+        );
     });
 
     it('should provide method for logout', () => {
         logout();
-        const [call] = Axios.get.mock.calls;
-        const [url] = call;
 
-        expect(url).toEqual('/api/v1/user/logout');
+        expect(Axios.get).toHaveBeenCalledWith('/api/v1/user/logout');
     });
 
-    it('should provide method for getting user', () => {
+    // TODO remove skip after API integration
+    it.skip('should provide method for getting user', () => {
         getUserData();
-        const [call] = Axios.get.mock.calls;
-        const [url] = call;
 
-        expect(url).toEqual('/api/v1/user/getUserData');
+        expect(Axios.get).toHaveBeenCalledWith('/api/v1/user/getUserData');
     });
 });

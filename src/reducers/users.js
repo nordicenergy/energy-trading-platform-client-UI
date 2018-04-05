@@ -10,16 +10,15 @@ export function usersReducer(state = initialState, action) {
     switch (action.type) {
         case 'LOGIN': {
             const payload = action && action.payload;
-            const { authentication } = payload || {};
-            if (authentication && authentication.authenticationToken) {
-                setToken(authentication.authenticationToken);
+            if (payload && payload.authenticationToken) {
+                setToken(payload.authenticationToken);
             }
             return {
                 ...state,
                 login: {
                     data: payload ? payload : state.login.data,
                     loading: action.loading,
-                    error: action.error
+                    error: action.error && action.error.data
                 }
             };
         }

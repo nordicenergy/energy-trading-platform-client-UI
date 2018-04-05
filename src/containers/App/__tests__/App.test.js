@@ -1,5 +1,5 @@
 import React from 'react';
-import App from '../App';
+import { App } from '../App';
 import { Header, MenuSideBar, Footer } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
@@ -45,12 +45,26 @@ describe('Main <App /> Component', () => {
         expect(context.intl.formatMessage.mock.calls.length).toEqual(9);
     });
 
+    it('should returns correct props', () => {
+        const stateMock = {
+            Users: {
+                login: {},
+                logout: { loading: false }
+            }
+        };
+        const props = App.mapStateToProps(stateMock);
+
+        expect(props).toEqual({ loggingOut: false });
+    });
+
     it('should setup correct callbacks and handle related events for Header', () => {
         const component = renderComponent(context);
         component.setContext(context);
 
         const header = component.find(Header).at(0);
         header.props().onLogoutButtonClickHandler();
+        component.setProps({ loggingOut: true });
+        component.setProps({ loggingOut: false });
 
         expect(context.router.history.push.mock.calls.length).toEqual(1);
         expect(usersActions.performLogout.mock.calls.length).toEqual(1);

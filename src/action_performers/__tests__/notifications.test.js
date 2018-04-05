@@ -7,29 +7,25 @@ describe('Notifications action performers', () => {
         message: 'Error message'
     };
     const timestampMock = 999;
-    let dispatchActionSpy;
-    let dateNowSpy;
 
     beforeAll(() => {
-        dispatchActionSpy = jest
-            .spyOn(dispatcher, 'dispatchAction')
-            .mockImplementation(jest.fn());
-        dateNowSpy = jest.spyOn(Date, 'now').mockReturnValue(timestampMock);
+        jest.spyOn(dispatcher, 'dispatchAction').mockImplementation(jest.fn());
+        jest.spyOn(Date, 'now').mockReturnValue(timestampMock);
     });
 
     afterAll(() => {
-        dispatchActionSpy.mockRestore();
-        dateNowSpy.mockRestore();
+        dispatcher.dispatchAction.mockRestore();
+        Date.now.mockRestore();
     });
 
     afterEach(() => {
-        dispatchActionSpy.mockClear();
+        dispatcher.dispatchAction.mockClear();
     });
 
     it('should calls dispatch method for push notification', () => {
         performPushNotification(notificationMock);
 
-        expect(dispatchActionSpy).toHaveBeenCalledWith(
+        expect(dispatcher.dispatchAction).toHaveBeenCalledWith(
             'PUSH_NOTIFICATION',
             expect.objectContaining({
                 timestamp: timestampMock,
