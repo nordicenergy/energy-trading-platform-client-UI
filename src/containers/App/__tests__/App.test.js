@@ -42,7 +42,24 @@ describe('Main <App /> Component', () => {
         const component = renderComponent(context);
         component.setContext(context);
 
-        expect(context.intl.formatMessage.mock.calls.length).toEqual(9);
+        expect(context.intl.formatMessage.mock.calls.length).toEqual(11);
+    });
+
+    it('should returns correct props', () => {
+        const stateMock = {
+            Users: {
+                login: {},
+                logout: { loading: false }
+            },
+            App: {
+                breadCrumbs: {
+                    data: []
+                }
+            }
+        };
+        const props = App.mapStateToProps(stateMock);
+
+        expect(props).toEqual({ loggingOut: false, breadCrumbs: [] });
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {
@@ -51,6 +68,8 @@ describe('Main <App /> Component', () => {
 
         const header = component.find(Header).at(0);
         header.props().onLogoutButtonClickHandler();
+        component.setProps({ loggingOut: true });
+        component.setProps({ loggingOut: false });
 
         expect(context.router.history.push.mock.calls.length).toEqual(1);
         expect(usersActions.performLogout.mock.calls.length).toEqual(1);

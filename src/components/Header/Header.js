@@ -35,10 +35,12 @@ class Header extends React.Component {
                                 this.props.notifications &&
                                 this.props.notifications.length > 0
                             }
+                            label={this.props.notificationLabel}
                             icon={'faBell'}
                             onClickHandler={() => {}}
                         />
                         <HeaderButton
+                            label={this.props.logoutLabel}
                             icon={'faSignOutAlt'}
                             onClickHandler={() => this.logout()}
                         />
@@ -50,6 +52,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
+    logoutLabel: PropTypes.string,
+    notificationLabel: PropTypes.string,
     notifications: PropTypes.array,
     onLogoutButtonClickHandler: PropTypes.func,
     path: PropTypes.string,

@@ -7,11 +7,22 @@ import './App.css';
 import { PATHS } from '../../services/routes';
 import { connect } from 'react-redux';
 
-class App extends React.Component {
-    static mapStateToProps(state) {
+export class App extends React.Component {
+    static mapStateToProps({ Users, App }) {
         return {
-            breadCrumbs: state.App.breadCrumbs.data
+            loggingOut: Users.logout.loading,
+            breadCrumbs: App.breadCrumbs.data
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const loggedOut =
+            this.props.loggingOut !== nextProps.loggingOut &&
+            !nextProps.loggingOut;
+
+        if (loggedOut) {
+            this.navigateTo('/login');
+        }
     }
 
     logout(confirmMessage) {
@@ -20,7 +31,6 @@ class App extends React.Component {
 
         if (answer) {
             performLogout();
-            this.navigateTo('/login');
         }
     }
 
@@ -67,9 +77,17 @@ class App extends React.Component {
                 defaultMessage: '2018 Lition. All rights reserved.'
             },
             logoutConfirm: {
-                id: 'app.logout.confirm',
+                id: 'app.header.logoutConfirm',
                 defaultMessage:
                     "Are you sure that you'd like to logout from the system?"
+            },
+            logoutLabel: {
+                id: 'app.header.logoutLabel',
+                defaultMessage: 'Logout'
+            },
+            notificationLabel: {
+                id: 'app.header.notificationLabel',
+                defaultMessage: 'Notifications'
             }
         });
     }
@@ -151,6 +169,8 @@ class App extends React.Component {
                         this.logout(formatMessage(labels.logoutConfirm))
                     }
                     navigateTo={route => this.navigateTo(route)}
+                    logoutLabel={formatMessage(labels.logoutLabel)}
+                    notificationLabel={formatMessage(labels.notificationLabel)}
                     notifications={[]}
                     breadCrumbs={this.props.breadCrumbs}
                     iconsTypes={icons}
@@ -162,7 +182,7 @@ class App extends React.Component {
                             onSelect={id => this.navigateTo(id)}
                         />
                     </div>
-                    <div className="main-container">
+                    <div role="feed" className="main-container">
                         <main>{this.props.children}</main>
                         <Footer
                             addressLabel={formatMessage(labels.address)}
@@ -180,6 +200,8 @@ App.contextTypes = {
     router: PropTypes.object,
     intl: PropTypes.object
 };
+App.propTypes = {
+    loggingOut: PropTypes.bool
+};
 
 export default connect(App.mapStateToProps)(App);
-export { App };

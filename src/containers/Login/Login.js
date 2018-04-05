@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
 import Validator from 'async-validator';
-import { LoginForm, Logo, Illustration } from '../../components';
+import { LoginForm, Logo, Illustration, Loader } from '../../components';
 import { performLogin } from '../../action_performers/users';
+import { performPushNotification } from '../../action_performers/notifications';
 import './Login.css';
 
 const messages = defineMessages({
@@ -36,11 +37,12 @@ const errorMessages = defineMessages({
     }
 });
 
-export class Login extends React.Component {
+export class Login extends Component {
     static mapStateToProps(state) {
         return {
             loading: state.Users.login.loading,
-            login: state.Users.login.data
+            login: state.Users.login.data,
+            error: state.Users.login.error
         };
     }
 
@@ -51,13 +53,18 @@ export class Login extends React.Component {
         };
     }
 
-    componentWillReceiveProps({ loading, login }) {
+    componentWillReceiveProps({ loading, login, error }) {
         const loaded = this.props.loading !== loading && !loading;
-        const authenticated =
-            login.authentication && login.authentication.authenticationToken;
 
-        if (loaded && authenticated) {
+        if (loaded && login.authenticationToken) {
             this.handleSuccessfulAuthentication();
+        }
+
+        if (error && error.message) {
+            performPushNotification({
+                type: 'error',
+                message: error.message
+            });
         }
     }
 
@@ -114,6 +121,7 @@ export class Login extends React.Component {
                     )
                 });
             } else {
+                this.setState({ errors: {} });
                 performLogin(credentials);
             }
         });
@@ -125,11 +133,13 @@ export class Login extends React.Component {
     }
 
     render() {
+        const { loading } = this.props;
         const { errors } = this.state;
 
         return (
             <div className="login-container">
                 <div className="login-container-layout">
+                    <Loader show={loading} />
                     <div className="login-container-hero">
                         <Illustration className="illustration--login" />
                     </div>
@@ -167,11 +177,13 @@ Login.contextTypes = {
 };
 Login.propTypes = {
     loading: PropTypes.bool,
-    data: PropTypes.shape({})
+    data: PropTypes.shape({}),
+    error: PropTypes.object
 };
 Login.defaultProps = {
     loading: false,
-    data: {}
+    data: {},
+    error: null
 };
 
 export default connect(Login.mapStateToProps)(Login);

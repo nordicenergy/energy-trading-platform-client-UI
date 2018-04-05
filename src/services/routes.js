@@ -3,6 +3,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import withoutBreadCrumbs from '../HOC/withoutBreadCrumbs';
 import { getToken } from './browserStorage';
 import {
+    Notifications,
     App,
     Login,
     RestorePassword,
@@ -54,6 +55,19 @@ export const PATHS = {
         path: '/my_producer'
     }
 };
+
+const PublicRoute = ({ component: Component, ...otherProps }) => (
+    <Route
+        {...otherProps}
+        render={props => {
+            if (getToken()) {
+                return <Redirect to="/" />;
+            }
+
+            return <Component {...props} />;
+        }}
+    />
+);
 
 const AppMainLayout = () => {
     if (getToken()) {
@@ -107,9 +121,10 @@ const AppMainLayout = () => {
 
 export const Routes = () => (
     <div id="routes">
+        <Notifications />
         <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/restore-password" component={RestorePassword} />
+            <PublicRoute path="/login" component={Login} />
+            <PublicRoute path="/restore-password" component={RestorePassword} />
             <Route path="/" component={AppMainLayout} />
         </Switch>
     </div>
