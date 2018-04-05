@@ -179,7 +179,9 @@ export class App extends React.Component {
 
 App.contextTypes = {
     router: PropTypes.object,
-    intl: PropTypes.object,
+    intl: PropTypes.object
+};
+App.propTypes = {
     loggingOut: PropTypes.bool
 };
 

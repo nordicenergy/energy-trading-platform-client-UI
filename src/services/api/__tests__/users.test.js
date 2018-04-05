@@ -21,7 +21,7 @@ describe('Users API Service', () => {
         login({ username: 'test', password: 'password' });
 
         expect(Axios.post).toHaveBeenCalledWith(
-            '/api/v1/user/login',
+            '/api/user/login',
             expect.objectContaining({
                 username: 'test',
                 password: 'password'
@@ -32,13 +32,13 @@ describe('Users API Service', () => {
     it('should provide method for logout', () => {
         logout();
 
-        expect(Axios.get).toHaveBeenCalledWith('/api/v1/user/logout');
+        expect(Axios.get).toHaveBeenCalledWith('/api/user/logout');
     });
 
     // TODO remove skip after API integration
     it.skip('should provide method for getting user', () => {
         getUserData();
 
-        expect(Axios.get).toHaveBeenCalledWith('/api/v1/user/getUserData');
+        expect(Axios.get).toHaveBeenCalledWith('/api/user/getUserData');
     });
 });
