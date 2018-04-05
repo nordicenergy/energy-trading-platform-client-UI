@@ -1,40 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import loader from './loader@1x.gif';
-import loader2x from './loader@2x.gif';
 import './Loader.css';
 
-class Loader extends Component {
-    render() {
-        const { className, show } = this.props;
-        const classes = classNames(
-            'loader-backdrop',
-            show && 'loader-backdrop--show',
-            className
-        );
+const Loader = ({ className, show, fullScreen }) => {
+    const classes = classNames(
+        'loader-backdrop',
+        show && 'loader-backdrop--show',
+        fullScreen && 'loader-backdrop--full-screen',
+        className
+    );
 
-        return (
-            <div className={classes}>
-                <div className="loader-icon-wrapper">
-                    <img
-                        src={loader}
-                        srcSet={`${loader2x} 2x`}
-                        alt="Loader icon"
-                        draggable={false}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
+    return (
+        <div className={classes}>
+            <i className="loader-icon" />
+        </div>
+    );
+};
 
 Loader.propTypes = {
     className: PropTypes.string,
-    show: PropTypes.bool
+    show: PropTypes.bool,
+    fullScreen: PropTypes.bool
 };
 Loader.defaultProps = {
-    show: false
+    show: false,
+    fullScreen: true
 };
 
 export default Loader;

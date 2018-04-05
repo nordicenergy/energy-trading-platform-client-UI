@@ -16,4 +16,10 @@ describe('<Loader /> component', () => {
 
         expect(loader.hasClass('loader-backdrop--show')).toBeTruthy();
     });
+
+    it('should display loader on parent area', () => {
+        const loader = renderComponent({ fullScreen: false });
+
+        expect(loader.hasClass('loader-backdrop--full-screen')).toBeFalsy();
+    });
 });

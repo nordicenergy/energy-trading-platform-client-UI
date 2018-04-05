@@ -43,3 +43,9 @@ class Demo extends React.Component {
 
 <Demo />;
 ```
+
+#### Loader component
+
+```jsx
+<Loader show={true} fullScreen={false} />
+```
