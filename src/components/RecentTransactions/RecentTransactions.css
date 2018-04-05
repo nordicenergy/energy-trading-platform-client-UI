@@ -4,8 +4,8 @@
     padding: 1.78em 0 1.33em;
     box-sizing: border-box;
     width: 100%;
-    box-shadow: 0 0.22em 0.89em 0 rgba(217, 224, 229, 0.3);
-    border-radius: 0.22em;
+    box-shadow: 0 0.25em 1em 0 rgba(217, 224, 229, 0.3);
+    border-radius: 0.25em;
     --rowsTextColor: #142739;
     --rowsSidePadding: 6.22em;
 }

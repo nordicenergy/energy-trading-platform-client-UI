@@ -60,9 +60,17 @@ class App extends React.Component {
                 defaultMessage: '2018 Lition. All rights reserved.'
             },
             logoutConfirm: {
-                id: 'app.logout.confirm',
+                id: 'app.header.logoutConfirm',
                 defaultMessage:
                     "Are you sure that you'd like to logout from the system?"
+            },
+            logoutLabel: {
+                id: 'app.header.logoutLabel',
+                defaultMessage: 'Logout'
+            },
+            notificationLabel: {
+                id: 'app.header.notificationLabel',
+                defaultMessage: 'Notifications'
             }
         });
     }
@@ -130,6 +138,8 @@ class App extends React.Component {
                     onLogoutButtonClickHandler={() =>
                         this.logout(formatMessage(labels.logoutConfirm))
                     }
+                    logoutLabel={formatMessage(labels.logoutLabel)}
+                    notificationLabel={formatMessage(labels.notificationLabel)}
                     notifications={[]}
                 />
                 <div className="content">
@@ -139,7 +149,7 @@ class App extends React.Component {
                             onSelect={id => this.navigateTo(id)}
                         />
                     </div>
-                    <div className="main-container">
+                    <div role="feed" className="main-container">
                         <main>{this.props.children}</main>
                         <Footer
                             addressLabel={formatMessage(labels.address)}
