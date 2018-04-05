@@ -6,7 +6,7 @@ import Logo from './Logo';
 import { Header, HeaderButton } from './Header';
 import Footer from './Footer';
 import Illustration from './Illustration';
-import NavigationCard from './NavigationCard';
+import { NavigationCardsPanel, NavigationCard } from './NavigationCardsPanel';
 import { MenuSideBar, MenuItem } from './MenuSideBar';
 import Loader from './Loader';
 import Toast from './Toast';
@@ -26,6 +26,7 @@ export {
     HeaderButton,
     Footer,
     NavigationCard,
+    NavigationCardsPanel,
     Loader,
     Toast,
     EnergyAmountGraph,

@@ -30,9 +30,10 @@
     "app.footer.service": "Question&Service",
     "app.footer.address": "2018 Lition. All rights reserved.",
 
-    "app.overviewPage.myProducer": "My Producer",
-    "app.overviewPage.buyEnergy": "Buy Energy",
-    "app.overviewPage.sellEnergy": "Sell Energy",
+    "app.navigationCardsPanel.myProducer": "My Producer",
+    "app.navigationCardsPanel.buyEnergy": "Buy Energy",
+    "app.navigationCardsPanel.sellEnergy": "Sell Energy",
+
     "app.overviewPage.recentTransactions.title": "Most Recent Transactions",
     "app.overviewPage.recentTransactions.headerDate": "Date",
     "app.overviewPage.recentTransactions.headerTransaction": "Transaction",

@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
-import { EnergyAmountGraph } from '../../components';
+import { EnergyAmountGraph, NavigationCardsPanel } from '../../components';
 import './Trading.css';
+import { PATHS } from '../../services/routes';
 
 export class Trading extends React.Component {
     static mapStateToProps(/* state */) {
@@ -19,8 +20,24 @@ export class Trading extends React.Component {
             graphTitle: {
                 id: 'app.tradingPage.graphTitle',
                 defaultMessage: 'Amount of energy'
+            },
+            myProducer: {
+                id: 'app.navigationCardsPanel.myProducer',
+                defaultMessage: 'My Producer'
+            },
+            sellEnergy: {
+                id: 'app.navigationCardsPanel.sellEnergy',
+                defaultMessage: 'Sell Energy'
+            },
+            buyEnergy: {
+                id: 'app.navigationCardsPanel.buyEnergy',
+                defaultMessage: 'Buy Energy'
             }
         });
+    }
+
+    navigateTo(route) {
+        this.context.router.history.push(route);
     }
 
     render() {
@@ -63,9 +80,33 @@ export class Trading extends React.Component {
             ]
         };
 
+        const navigationCards = [
+            {
+                type: PATHS.myProducer.id,
+                title: formatMessage(labels.myProducer),
+                path: PATHS.myProducer.path
+            },
+            {
+                type: PATHS.buyEnergy.id,
+                title: formatMessage(labels.buyEnergy),
+                path: PATHS.buyEnergy.path
+            },
+            {
+                type: PATHS.sellEnergy.id,
+                title: formatMessage(labels.sellEnergy),
+                path: PATHS.sellEnergy.path
+            }
+        ];
+
         return (
             <div className="trading-page">
                 <h1>{formatMessage(labels.header)}</h1>
+                <NavigationCardsPanel
+                    onCardClick={route => {
+                        this.navigateTo(route);
+                    }}
+                    navigationCards={navigationCards}
+                />
                 <EnergyAmountGraph
                     title={formatMessage(labels.graphTitle)}
                     subtitle="Peter Producer"
@@ -77,6 +118,11 @@ export class Trading extends React.Component {
 }
 
 Trading.contextTypes = {
+    router: PropTypes.shape({
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired
+        }).isRequired
+    }),
     intl: PropTypes.object
 };
 

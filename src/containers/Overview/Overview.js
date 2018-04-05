@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
-import { NavigationCard, RecentTransactions } from '../../components';
+import { NavigationCardsPanel, RecentTransactions } from '../../components';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import './Overview.css';
 import PropTypes from 'prop-types';
+import { PATHS } from '../../services/routes';
 
 const currentBalanceData = {
     date: 'Mar 14, 2018',
@@ -13,15 +14,15 @@ const currentBalanceData = {
 
 const messages = defineMessages({
     myProducer: {
-        id: 'app.overviewPage.myProducer',
+        id: 'app.navigationCardsPanel.myProducer',
         defaultMessage: 'My Producer'
     },
     sellEnergy: {
-        id: 'app.overviewPage.sellEnergy',
+        id: 'app.navigationCardsPanel.sellEnergy',
         defaultMessage: 'Sell Energy'
     },
     buyEnergy: {
-        id: 'app.overviewPage.buyEnergy',
+        id: 'app.navigationCardsPanel.buyEnergy',
         defaultMessage: 'Buy Energy'
     },
     recentTransactionsTitle: {
@@ -74,6 +75,10 @@ export class Overview extends React.Component {
         }, {});
     }
 
+    navigateTo(route) {
+        this.context.router.history.push(route);
+    }
+
     openWattcoinPage() {
         // const { history } = this.context.router;
         // history.push('/trading/wattcoin');
@@ -81,25 +86,34 @@ export class Overview extends React.Component {
 
     render() {
         const labels = this.prepareLabels(messages);
+
+        const navigationCards = [
+            {
+                type: PATHS.myProducer.id,
+                title: labels.myProducer,
+                path: PATHS.myProducer.path
+            },
+            {
+                type: PATHS.buyEnergy.id,
+                title: labels.buyEnergy,
+                path: PATHS.buyEnergy.path
+            },
+            {
+                type: PATHS.sellEnergy.id,
+                title: labels.sellEnergy,
+                path: PATHS.sellEnergy.path
+            }
+        ];
+
         return (
             <div className="overview-page">
-                <nav className="overview-navigation-cards">
-                    <NavigationCard
-                        type="myProducer"
-                        title={labels.myProducer}
-                        onCardClickHandler={f => f}
-                    />
-                    <NavigationCard
-                        type="buyEnergy"
-                        title={labels.buyEnergy}
-                        onCardClickHandler={f => f}
-                    />
-                    <NavigationCard
-                        type="sellEnergy"
-                        title={labels.sellEnergy}
-                        onCardClickHandler={f => f}
-                    />
-                </nav>
+                <NavigationCardsPanel
+                    navigationCards={navigationCards}
+                    onCardClick={route => {
+                        this.navigateTo(route);
+                    }}
+                    labels={labels}
+                />
                 <div className="overview-content-container">
                     <RecentTransactions
                         transactions={this.props.recentTransactions}
