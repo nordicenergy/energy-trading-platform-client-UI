@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
-import { EnergyAmountGraph } from '../../components';
+import { EnergyAmountGraph, WattcoinTable } from '../../components';
 import './Trading.css';
 
 export class Trading extends React.Component {
@@ -63,6 +63,30 @@ export class Trading extends React.Component {
             ]
         };
 
+        const wattcoinProps = {
+            labels: {
+                caption: 'Wattcoin',
+                producer: 'Producer',
+                energyType: 'Type of energy',
+                total: 'Total',
+                trx: 'Transaction',
+                sent: 'Sent',
+                received: 'Received',
+                button: 'More'
+            },
+            data: {
+                producer: 'Peter Producer',
+                type: 'Solar panels',
+                total: 0.03,
+                count: {
+                    trx: 5,
+                    sent: 3,
+                    received: 6
+                }
+            },
+            onMoreClick: f => f
+        };
+
         return (
             <div className="trading-page">
                 <h1>{formatMessage(labels.header)}</h1>
@@ -71,6 +95,7 @@ export class Trading extends React.Component {
                     subtitle="Peter Producer"
                     data={data}
                 />
+                <WattcoinTable {...wattcoinProps} />
             </div>
         );
     }

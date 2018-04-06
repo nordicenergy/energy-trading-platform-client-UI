@@ -10,6 +10,7 @@ import NavigationCard from './NavigationCard';
 import { MenuSideBar, MenuItem } from './MenuSideBar';
 import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
+import WattcoinTable from './WattcoinTable';
 
 export {
     Button,
@@ -25,5 +26,6 @@ export {
     Footer,
     NavigationCard,
     EnergyAmountGraph,
-    RecentTransactions
+    RecentTransactions,
+    WattcoinTable
 };

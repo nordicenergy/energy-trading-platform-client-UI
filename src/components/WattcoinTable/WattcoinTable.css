@@ -1,0 +1,109 @@
+.wattcoin-table-container {
+    min-width: 450px;
+    margin: 1.625em 0;
+
+    color: var(--tableLabelColor);
+    background: white;
+    box-shadow: 0 0.25em 1em 0 rgba(217, 224, 229, 0.3);
+    border-radius: 0.25em;
+}
+
+.wattcoin-table-container table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.wattcoin-table-container tr td:first-child {
+    width: 45%;
+}
+
+.wattcoin-table-container caption {
+    padding-top: 1.45em;
+    padding-bottom: 1.3em;
+
+    color: black;
+    border-bottom: var(--borderWidth) solid var(--borderOnLightColor);
+
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.wattcoin-table-container td {
+    text-align: center;
+}
+
+td.wattcoin-table-textual-info {
+    padding: 1.25em;
+    border-right: var(--borderWidth) solid var(--borderOnLightColor);
+}
+
+
+td.wattcoin-table-textual-info .wattcoin-table-value,
+td.wattcoin-table-textual-info .wattcoin-table-label {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+td.wattcoin-table-count-info .wattcoin-table-label,
+td.wattcoin-table-textual-info .wattcoin-table-label {
+    color: var(--linkColor);
+}
+
+td.wattcoin-table-count-info {
+    padding: 1.3em 0;
+}
+
+td.wattcoin-table-count-info .wattcoin-table-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+td.wattcoin-table-count-info .wattcoin-table-value {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+td.wattcoin-table-count-info + td.wattcoin-table-count-info > div {
+    border-left: var(--borderWidth) solid var(--borderOnLightColor);
+}
+
+td.wattcoin-table-total-info {
+    background: var(--totalBackgroundColor);
+    border-bottom: var(--borderWidth) solid var(--borderOnLightColor);
+}
+
+td.wattcoin-table-total-info > span {
+    display: inline-block;
+    margin: 0 3.25em;
+}
+
+td.wattcoin-table-total-info .wattcoin-table-label {
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+td.wattcoin-table-total-info .wattcoin-table-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+td.wattcoin-table-total-info .wattcoin-table-label::after,
+td.wattcoin-table-textual-info .wattcoin-table-label::after {
+    margin-right: 0.3rem;
+    content: ':';
+}
+
+.wattcoin-table-more-button {
+    margin: 0.5em 1em;
+}
+
