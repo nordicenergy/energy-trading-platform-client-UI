@@ -39,7 +39,6 @@ td.wattcoin-table-textual-info {
     border-right: var(--borderWidth) solid var(--borderOnLightColor);
 }
 
-
 td.wattcoin-table-textual-info .wattcoin-table-value,
 td.wattcoin-table-textual-info .wattcoin-table-label {
     display: inline-block;
@@ -106,4 +105,3 @@ td.wattcoin-table-textual-info .wattcoin-table-label::after {
 .wattcoin-table-more-button {
     margin: 0.5em 1em;
 }
-
