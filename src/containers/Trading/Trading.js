@@ -155,8 +155,7 @@ export class Trading extends React.Component {
                     sent: 3,
                     received: 6
                 }
-            },
-            onMoreClick: f => f
+            }
         };
 
         return (
@@ -168,7 +167,10 @@ export class Trading extends React.Component {
                     }}
                     navigationCards={navigationCards}
                 />
-                <WattcoinTable {...wattcoinProps} />
+                <WattcoinTable
+                    {...wattcoinProps}
+                    onMoreClick={() => this.navigateTo(PATHS.wattcoin.path)}
+                />
                 <EnergyAmountGraph
                     title={formatMessage(labels.graphTitle)}
                     subtitle="Peter Producer"
