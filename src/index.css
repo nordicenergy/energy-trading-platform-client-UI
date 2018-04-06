@@ -10,6 +10,8 @@ body {
     --menuIconSize: 4.5rem;
     --borderWidth: 0.06rem;
 
+    --pagePaddings: 2rem 1.5rem 2.5rem 2rem;
+
     /* Color Schema */
     --fromColor: #2c6177;
     --toColor: #041a2d;

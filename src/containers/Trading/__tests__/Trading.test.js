@@ -3,7 +3,11 @@ import { Provider } from 'react-redux';
 import { mountWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 
-import { EnergyAmountGraph } from '../../../components';
+import {
+    EnergyAmountGraph,
+    WattcoinTable,
+    NavigationCardsPanel
+} from '../../../components';
 import Trading from '../Trading';
 
 const mockStore = configureMockStore();
@@ -20,18 +24,18 @@ function renderComponent() {
 describe('<Trading /> Container', () => {
     it(`should contains following controls:
         - <div> with class "trading-page";
+        - <NavigationCardsPanel>;
+        - <WattcoinTable>;
         - <EnergyAmountGraph>;
         - <h1> with header text;`, () => {
         const component = renderComponent();
 
         expect(component.find('div.trading-page').length).toEqual(1);
+        expect(component.find(NavigationCardsPanel).length).toEqual(1);
+        expect(component.find(WattcoinTable).length).toEqual(1);
         expect(component.find(EnergyAmountGraph).length).toEqual(1);
-        expect(component.find('h1').length).toEqual(2); // + Amount Energy Graph header
-        expect(
-            component
-                .find('h1')
-                .at(0)
-                .text()
-        ).toEqual('Trading');
+        const headers = component.find('h1');
+        expect(headers.length).toEqual(2); // + Amount Energy Graph header
+        expect(headers.at(0).text()).toEqual('Trading');
     });
 });
