@@ -23,10 +23,14 @@ import {
 } from '../containers';
 import { defineMessages } from 'react-intl';
 
-const messages = defineMessages({
+const pathsLabels = defineMessages({
     trading: {
         id: 'app.breadCrumbs.trading',
         defaultMessage: 'Trading'
+    },
+    wattcoin: {
+        id: 'app.breadCrumbs.wattcoin',
+        defaultMessage: 'Wattcoin'
     },
     myProducer: {
         id: 'app.breadCrumbs.myProducer',
@@ -58,7 +62,7 @@ export const PATHS = {
     trading: {
         id: 'trading',
         path: '/trading',
-        label: messages.trading
+        label: pathsLabels.trading
     },
     profile: {
         id: 'profile',
@@ -79,48 +83,39 @@ export const PATHS = {
     myProducer: {
         id: 'my_producer',
         path: '/trading/my_producer',
-        label: messages.myProducer
+        label: pathsLabels.myProducer
     },
     buyEnergy: {
         id: 'buy_energy',
         path: '/trading/buy_energy',
-        label: messages.buyEnergy
+        label: pathsLabels.buyEnergy
     },
     sellEnergy: {
         id: 'sell_energy',
-        path: '/trading/sell_energy',
-        label: messages.sellEnergy,
+        label: pathsLabels.sellEnergy,
         path: '/trading/sell_energy'
     },
     wattcoin: {
         id: 'wattcoin',
+        label: pathsLabels.wattcoin,
         path: '/trading/wattcoin'
     }
 };
 
-const TradingContainer = withBreadCrumbs(Trading, PATHS.trading);
-const MyProducerContainer = withBreadCrumbs(MyProducer, PATHS.myProducer);
-
-/*
-<Route exact path={PATHS.trading.path} component={Trading} />
-        <Route path={PATHS.myProducer.path} component={MyProducer} />
-        <Route path={PATHS.buyEnergy.path} component={BuyEnergy} />
-        <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
-        <Route path={PATHS.wattcoin.path} component={Wattcoin} />
- */
+const WrappedTrading = withBreadCrumbs(Trading, PATHS.trading);
+const WrappedMyProducer = withBreadCrumbs(MyProducer, PATHS.myProducer);
+const WrappedSellEnergy = withBreadCrumbs(SellEnergy, PATHS.sellEnergy);
+const WrappedBuyEnergy = withBreadCrumbs(BuyEnergy, PATHS.buyEnergy);
+const WrappedWattcoin = withBreadCrumbs(Wattcoin, PATHS.wattcoin);
 
 const TradingRoute = withBreadCrumbs(
     () => (
         <React.Fragment>
-            <Route
-                exact
-                path={PATHS.trading.path}
-                component={TradingContainer}
-            />
-            <Route
-                path={PATHS.myProducer.path}
-                component={MyProducerContainer}
-            />
+            <Route exact path={PATHS.trading.path} component={WrappedTrading} />
+            <Route path={PATHS.myProducer.path} component={WrappedMyProducer} />
+            <Route path={PATHS.sellEnergy.path} component={WrappedSellEnergy} />
+            <Route path={PATHS.buyEnergy.path} component={WrappedBuyEnergy} />
+            <Route path={PATHS.wattcoin.path} component={WrappedWattcoin} />
         </React.Fragment>
     ),
     { ...PATHS.trading, isRoot: true }
