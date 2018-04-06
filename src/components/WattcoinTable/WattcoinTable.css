@@ -1,5 +1,5 @@
 .wattcoin-table-container {
-    min-width: 450px;
+    min-width: 28rem;
     margin: 2.5em 0;
 
     color: var(--tableLabelColor);
