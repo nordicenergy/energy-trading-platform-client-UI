@@ -5,7 +5,7 @@ import RestorePassword from './RestorePassword';
 import Overview from './Overview';
 import Documents from './Documents';
 import SubmitMetric from './SubmitMetric';
-import { Trading, TradingContainer } from './Trading';
+import Trading from './Trading';
 import Profile from './Profile';
 import About from './About';
 import Team from './Team';
@@ -21,7 +21,6 @@ export {
     Documents,
     SubmitMetric,
     Trading,
-    TradingContainer,
     Profile,
     Service,
     About,

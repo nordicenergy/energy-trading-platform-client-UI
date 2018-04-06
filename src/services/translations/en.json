@@ -36,6 +36,11 @@
     "app.navigationCardsPanel.buyEnergy": "Buy Energy",
     "app.navigationCardsPanel.sellEnergy": "Sell Energy",
 
+    "app.breadCrumbs.sellEnergy": "Sell Energy",
+    "app.breadCrumbs.buyEnergy": "Buy Energy",
+    "app.breadCrumbs.myProducerEnergy": "My Producer",
+    "app.breadCrumbs.trading": "Trading",
+
     "app.overviewPage.recentTransactions.title": "Most Recent Transactions",
     "app.overviewPage.recentTransactions.headerDate": "Date",
     "app.overviewPage.recentTransactions.headerTransaction": "Transaction",
