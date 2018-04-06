@@ -1,3 +1,3 @@
-import Wattcoin from './Wattcoin'
+import Wattcoin from './Wattcoin';
 
 export default Wattcoin;
