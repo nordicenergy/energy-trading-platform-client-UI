@@ -10,6 +10,9 @@ import Profile from './Profile';
 import About from './About';
 import Team from './Team';
 import Service from './Service';
+import MyProducer from './MyProducer';
+import SellEnergy from './SellEnergy';
+import BuyEnergy from './BuyEnergy';
 
 export {
     Notifications,
@@ -23,5 +26,8 @@ export {
     Profile,
     Service,
     About,
-    Team
+    Team,
+    BuyEnergy,
+    SellEnergy,
+    MyProducer
 };

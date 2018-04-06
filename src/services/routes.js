@@ -13,7 +13,10 @@ import {
     Profile,
     Service,
     About,
-    Team
+    Team,
+    MyProducer,
+    BuyEnergy,
+    SellEnergy
 } from '../containers';
 
 export const PATHS = {
@@ -76,6 +79,15 @@ const PublicRoute = ({ component: Component, ...otherProps }) => (
     />
 );
 
+const TradingRoute = () => (
+    <React.Fragment>
+        <Route exact path={PATHS.trading.path} component={Trading} />
+        <Route path={PATHS.myProducer.path} component={MyProducer} />
+        <Route path={PATHS.buyEnergy.path} component={BuyEnergy} />
+        <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
+    </React.Fragment>
+);
+
 const AppMainLayout = () => {
     if (getToken()) {
         return (
@@ -91,7 +103,7 @@ const AppMainLayout = () => {
                         path={PATHS.submit_metric.path}
                         component={SubmitMetric}
                     />
-                    <Route path={PATHS.trading.path} component={Trading} />
+                    <TradingRoute />
                     <Route path={PATHS.profile.path} component={Profile} />
                     <Route path={PATHS.team.path} component={Team} />
                     <Route path={PATHS.about.path} component={About} />
