@@ -48,6 +48,18 @@ export const PATHS = {
     service: {
         id: 'service',
         path: '/service'
+    },
+    myProducer: {
+        id: 'my_producer',
+        path: '/trading/my_producer'
+    },
+    buyEnergy: {
+        id: 'buy_energy',
+        path: '/trading/buy_energy'
+    },
+    sellEnergy: {
+        id: 'sell_energy',
+        path: '/trading/sell_energy'
     }
 };
 
