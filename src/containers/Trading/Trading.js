@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
-import { EnergyAmountGraph, NavigationCardsPanel } from '../../components';
+import {
+    EnergyAmountGraph,
+    NavigationCardsPanel,
+    WattcoinTable
+} from '../../components';
 import './Trading.css';
 import { PATHS } from '../../services/routes';
 
@@ -20,6 +24,38 @@ export class Trading extends React.Component {
             graphTitle: {
                 id: 'app.tradingPage.graphTitle',
                 defaultMessage: 'Amount of energy'
+            },
+            wattcoinTableHeader: {
+                id: 'app.tradingPage.wattcoinTable.header',
+                defaultMessage: 'Wattcoin'
+            },
+            wattcoinTableMore: {
+                id: 'app.tradingPage.wattcoinTable.moreButton',
+                defaultMessage: 'More'
+            },
+            wattcoinTableTrx: {
+                id: 'app.tradingPage.wattcoinTable.trx',
+                defaultMessage: 'Transaction'
+            },
+            wattcoinTableSent: {
+                id: 'app.tradingPage.wattcoinTable.sent',
+                defaultMessage: 'Sent'
+            },
+            wattcoinTableReceived: {
+                id: 'app.tradingPage.wattcoinTable.received',
+                defaultMessage: 'Received'
+            },
+            wattcoinTableTotal: {
+                id: 'app.tradingPage.wattcoinTable.total',
+                defaultMessage: 'Total'
+            },
+            wattcoinTableProducer: {
+                id: 'app.tradingPage.wattcoinTable.producer',
+                defaultMessage: 'Producer'
+            },
+            wattcoinTableEnergyType: {
+                id: 'app.tradingPage.wattcoinTable.energyType',
+                defaultMessage: 'Type of energy'
             },
             myProducer: {
                 id: 'app.navigationCardsPanel.myProducer',
@@ -98,6 +134,30 @@ export class Trading extends React.Component {
             }
         ];
 
+        const wattcoinProps = {
+            labels: {
+                caption: formatMessage(labels.wattcoinTableHeader),
+                producer: formatMessage(labels.wattcoinTableProducer),
+                energyType: formatMessage(labels.wattcoinTableEnergyType),
+                total: formatMessage(labels.wattcoinTableTotal),
+                trx: formatMessage(labels.wattcoinTableTrx),
+                sent: formatMessage(labels.wattcoinTableSent),
+                received: formatMessage(labels.wattcoinTableReceived),
+                button: formatMessage(labels.wattcoinTableMore)
+            },
+            // TODO will receive this data from server-side
+            data: {
+                producer: 'Peter Producer',
+                type: 'Solar panels',
+                total: 0.03,
+                count: {
+                    trx: 5,
+                    sent: 3,
+                    received: 6
+                }
+            }
+        };
+
         return (
             <div className="trading-page">
                 <h1>{formatMessage(labels.header)}</h1>
@@ -106,6 +166,10 @@ export class Trading extends React.Component {
                         this.navigateTo(route);
                     }}
                     navigationCards={navigationCards}
+                />
+                <WattcoinTable
+                    {...wattcoinProps}
+                    onMoreClick={() => this.navigateTo(PATHS.wattcoin.path)}
                 />
                 <EnergyAmountGraph
                     title={formatMessage(labels.graphTitle)}

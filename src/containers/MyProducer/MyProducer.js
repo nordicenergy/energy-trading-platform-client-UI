@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './MyProducer.css';
-import PropTypes from 'prop-types';
 
 export class MyProducer extends React.Component {
     static mapStateToProps(/* state */) {
@@ -17,9 +16,5 @@ export class MyProducer extends React.Component {
         );
     }
 }
-
-MyProducer.contextTypes = {
-    intl: PropTypes.object
-};
 
 export default connect(MyProducer.mapStateToProps)(MyProducer);

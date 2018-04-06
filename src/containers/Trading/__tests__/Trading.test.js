@@ -1,40 +1,80 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mountWithIntl } from '../../../services/intlTestHelper';
-import configureMockStore from 'redux-mock-store';
+import { shallowWithIntl } from '../../../services/intlTestHelper';
 
-import { EnergyAmountGraph } from '../../../components';
-import Trading from '../Trading';
+import {
+    EnergyAmountGraph,
+    WattcoinTable,
+    NavigationCardsPanel
+} from '../../../components';
+import { Trading } from '../Trading';
 
-const mockStore = configureMockStore();
-const store = mockStore({
-    App: { breadCrumbs: { data: [] } }
-});
+const context = {
+    intl: { formatMessage: jest.fn() },
+    router: {
+        history: { push: jest.fn() }
+    }
+};
 
 function renderComponent() {
-    const match = { path: '/trading' };
-    return mountWithIntl(
-        <Provider store={store}>
-            <Trading store={store} match={match} />
-        </Provider>
-    );
+    return shallowWithIntl(<Trading />);
 }
 
 describe('<Trading /> Container', () => {
+    beforeEach(() => {
+        context.router.history.push = jest.fn();
+        context.intl.formatMessage = jest.fn();
+        context.intl.formatMessage.mockReturnValue('test');
+    });
+
     it(`should contains following controls:
         - <div> with class "trading-page";
+        - <NavigationCardsPanel>;
+        - <WattcoinTable>;
         - <EnergyAmountGraph>;
         - <h1> with header text;`, () => {
         const component = renderComponent();
 
         expect(component.find('div.trading-page').length).toEqual(1);
+        expect(component.find(NavigationCardsPanel).length).toEqual(1);
+        expect(component.find(WattcoinTable).length).toEqual(1);
         expect(component.find(EnergyAmountGraph).length).toEqual(1);
-        expect(component.find('h1').length).toEqual(2); // + Amount Energy Graph header
-        expect(
-            component
-                .find('h1')
-                .at(0)
-                .text()
-        ).toEqual('Trading');
+        const headers = component.find('h1');
+        expect(headers.length).toEqual(1);
+        expect(headers.at(0).text()).toEqual('Trading');
+    });
+
+    it('should setup correct translations', () => {
+        const component = renderComponent(context);
+        component.setContext(context);
+
+        expect(context.intl.formatMessage.mock.calls.length).toEqual(13);
+    });
+
+    it('should setup correct callbacks and handle related events for wattcoin table', () => {
+        const component = renderComponent(context);
+        component.setContext(context);
+
+        const table = component.find(WattcoinTable).at(0);
+        table.props().onMoreClick();
+
+        expect(context.router.history.push.mock.calls.length).toEqual(1);
+        const [[route]] = context.router.history.push.mock.calls;
+        expect(route).toEqual('/trading/wattcoin');
+        expect(table.props().labels).toEqual({
+            button: 'test',
+            caption: 'test',
+            energyType: 'test',
+            producer: 'test',
+            received: 'test',
+            sent: 'test',
+            total: 'test',
+            trx: 'test'
+        });
+        expect(table.props().data).toEqual({
+            count: { received: 6, sent: 3, trx: 5 },
+            producer: 'Peter Producer',
+            total: 0.03,
+            type: 'Solar panels'
+        });
     });
 });

@@ -49,5 +49,14 @@
     "app.overviewPage.recentTransactions.more": "More",
 
     "app.tradingPage.header": "Trading",
-    "app.tradingPage.graphTitle": "Amount of energy"
+    "app.tradingPage.graphTitle": "Amount of energy",
+
+    "app.tradingPage.wattcoinTable.header": "Wattcoin",
+    "app.tradingPage.wattcoinTable.moreButton": "More",
+    "app.tradingPage.wattcoinTable.trx": "Transaction",
+    "app.tradingPage.wattcoinTable.sent": "Sent",
+    "app.tradingPage.wattcoinTable.received": "Received",
+    "app.tradingPage.wattcoinTable.total": "Total",
+    "app.tradingPage.wattcoinTable.producer": "Producer",
+    "app.tradingPage.wattcoinTable.energyType": "Type of energy"
 }

@@ -12,6 +12,7 @@ import Loader from './Loader';
 import Toast from './Toast';
 import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
+import WattcoinTable from './WattcoinTable';
 
 export {
     Button,
@@ -31,5 +32,6 @@ export {
     Toast,
     EnergyAmountGraph,
     RecentTransactions,
-    Breadcrumbs
+    Breadcrumbs,
+    WattcoinTable
 };

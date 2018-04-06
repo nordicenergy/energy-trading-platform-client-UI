@@ -16,7 +16,10 @@ import {
     Service,
     About,
     Team,
-    MyProducer
+    MyProducer,
+    BuyEnergy,
+    SellEnergy,
+    Wattcoin
 } from '../containers';
 import { defineMessages } from 'react-intl';
 
@@ -86,12 +89,25 @@ export const PATHS = {
     sellEnergy: {
         id: 'sell_energy',
         path: '/trading/sell_energy',
-        label: messages.sellEnergy
+        label: messages.sellEnergy,
+        path: '/trading/sell_energy'
+    },
+    wattcoin: {
+        id: 'wattcoin',
+        path: '/trading/wattcoin'
     }
 };
 
 const TradingContainer = withBreadCrumbs(Trading, PATHS.trading);
 const MyProducerContainer = withBreadCrumbs(MyProducer, PATHS.myProducer);
+
+/*
+<Route exact path={PATHS.trading.path} component={Trading} />
+        <Route path={PATHS.myProducer.path} component={MyProducer} />
+        <Route path={PATHS.buyEnergy.path} component={BuyEnergy} />
+        <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
+        <Route path={PATHS.wattcoin.path} component={Wattcoin} />
+ */
 
 const TradingRoute = withBreadCrumbs(
     () => (
