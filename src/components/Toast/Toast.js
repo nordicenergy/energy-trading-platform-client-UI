@@ -27,7 +27,7 @@ const Toast = props => {
     }
 
     return (
-        <div className={classes}>
+        <div role="alertdialog" className={classes}>
             {icon}
             <h2 className="toast-message">{message}</h2>
         </div>
