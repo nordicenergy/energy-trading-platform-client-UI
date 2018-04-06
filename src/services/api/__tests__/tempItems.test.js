@@ -15,7 +15,7 @@ describe('Test Item API Service', () => {
         const [call] = Axios.get.mock.calls;
         const [url] = call;
 
-        expect(url).toEqual('/api/v1/items');
+        expect(url).toEqual('/api/items');
     });
 
     it('should provide method for creating new item', () => {
@@ -23,7 +23,7 @@ describe('Test Item API Service', () => {
         const [call] = Axios.post.mock.calls;
         const [url, request] = call;
 
-        expect(url).toEqual('/api/v1/items');
+        expect(url).toEqual('/api/items');
         expect(request.name).toEqual('test');
     });
 
@@ -32,7 +32,7 @@ describe('Test Item API Service', () => {
         const [call] = Axios.put.mock.calls;
         const [url, request] = call;
 
-        expect(url).toEqual('/api/v1/items');
+        expect(url).toEqual('/api/items');
         expect(request.name).toEqual('test');
     });
 
@@ -41,6 +41,6 @@ describe('Test Item API Service', () => {
         const [call] = Axios.delete.mock.calls;
 
         const [url] = call;
-        expect(url).toEqual('/api/v1/items/1');
+        expect(url).toEqual('/api/items/1');
     });
 });

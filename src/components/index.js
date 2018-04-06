@@ -6,8 +6,10 @@ import Logo from './Logo';
 import { Header, HeaderButton } from './Header';
 import Footer from './Footer';
 import Illustration from './Illustration';
-import NavigationCard from './NavigationCard';
+import { NavigationCardsPanel, NavigationCard } from './NavigationCardsPanel';
 import { MenuSideBar, MenuItem } from './MenuSideBar';
+import Loader from './Loader';
+import Toast from './Toast';
 import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
 import WattcoinTable from './WattcoinTable';
@@ -25,6 +27,9 @@ export {
     HeaderButton,
     Footer,
     NavigationCard,
+    NavigationCardsPanel,
+    Loader,
+    Toast,
     EnergyAmountGraph,
     RecentTransactions,
     WattcoinTable

@@ -1,1 +1,1 @@
-export const SESSION_API_URL = '/api/v1';
+export const SESSION_API_URL = '/api';

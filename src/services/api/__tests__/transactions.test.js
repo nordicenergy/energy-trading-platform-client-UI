@@ -12,6 +12,6 @@ describe.skip('Transactions API Service', () => {
         const [call] = Axios.get.mock.calls;
         const [url] = call;
 
-        expect(url).toEqual('/api/v1/user/getRecentTransactions');
+        expect(url).toEqual('/api/user/getRecentTransactions');
     });
 });

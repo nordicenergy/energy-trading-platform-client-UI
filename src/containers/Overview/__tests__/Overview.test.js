@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import Overview from '../Overview';
-import NavigationCard from '../../../components/NavigationCard';
+import { NavigationCard } from '../../../components/NavigationCardsPanel';
 import { mountWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 

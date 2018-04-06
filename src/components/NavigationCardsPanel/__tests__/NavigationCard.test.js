@@ -15,7 +15,7 @@ describe('<NavigationCard /> Component', () => {
         - card title element with class "nav-card-title";`, () => {
         const props = {
             title: 'My Producer',
-            type: 'myProducer',
+            type: 'my_producer',
             onCardClickHandler: () => {}
         };
         const component = renderComponent(props);
@@ -27,10 +27,10 @@ describe('<NavigationCard /> Component', () => {
         );
     });
 
-    it('should container MyProducerIcon', () => {
+    it('should display MyProducerIcon', () => {
         const props = {
             title: 'My Producer',
-            type: 'myProducer',
+            type: 'my_producer',
             onCardClickHandler: () => {}
         };
         const component = renderComponent(props);
@@ -40,7 +40,7 @@ describe('<NavigationCard /> Component', () => {
     it('should display BuyEnergyIcon', () => {
         const props = {
             title: 'Buy Energy',
-            type: 'buyEnergy',
+            type: 'buy_energy',
             onCardClickHandler: () => {}
         };
         const component = renderComponent(props);
@@ -50,7 +50,7 @@ describe('<NavigationCard /> Component', () => {
     it('should display SellEnergyIcon', () => {
         const props = {
             title: 'Sell Energy',
-            type: 'sellEnergy',
+            type: 'sell_energy',
             onCardClickHandler: () => {}
         };
         const component = renderComponent(props);
@@ -61,7 +61,7 @@ describe('<NavigationCard /> Component', () => {
         const onCardClickHandler = jest.fn();
         const props = {
             title: 'My Producer',
-            type: 'myProducer',
+            type: 'my_producer',
             onCardClickHandler
         };
         const component = renderComponent(props);
