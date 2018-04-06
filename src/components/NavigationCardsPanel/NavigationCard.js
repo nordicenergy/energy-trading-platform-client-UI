@@ -6,9 +6,9 @@ import BuyEnergyIcon from './BuyEnergyIcon';
 import SellEnergyIcon from './SellEnergyIcon';
 
 const ICONS_TYPES = {
-    buyEnergy: BuyEnergyIcon,
-    myProducer: MyProducerIcon,
-    sellEnergy: SellEnergyIcon
+    buy_energy: BuyEnergyIcon,
+    my_producer: MyProducerIcon,
+    sell_energy: SellEnergyIcon
 };
 
 const NavigationCard = ({ title, type, onCardClickHandler }) => {
@@ -32,7 +32,7 @@ const NavigationCard = ({ title, type, onCardClickHandler }) => {
 
 NavigationCard.propTypes = {
     title: PropTypes.string,
-    type: PropTypes.oneOf(['buyEnergy', 'myProducer', 'sellEnergy']),
+    type: PropTypes.oneOf(['buy_energy', 'my_producer', 'sell_energy']),
     onCardClickHandler: PropTypes.func.isRequired
 };
 

@@ -10,11 +10,11 @@ import {
     Overview,
     Documents,
     SubmitMetric,
+    Trading,
     Profile,
     Service,
     About,
-    Team,
-    TradingContainer
+    Team
 } from '../containers';
 
 export const PATHS = {
@@ -51,8 +51,16 @@ export const PATHS = {
         path: '/service'
     },
     myProducer: {
-        id: 'myProducer',
-        path: '/my_producer'
+        id: 'my_producer',
+        path: '/trading/my_producer'
+    },
+    buyEnergy: {
+        id: 'buy_energy',
+        path: '/trading/buy_energy'
+    },
+    sellEnergy: {
+        id: 'sell_energy',
+        path: '/trading/sell_energy'
     }
 };
 
@@ -89,7 +97,7 @@ const AppMainLayout = () => {
                     />
                     <Route
                         path={PATHS.trading.path}
-                        component={TradingContainer}
+                        component={Trading}
                     />
                     <Route
                         path={PATHS.profile.path}

@@ -20,8 +20,9 @@ pipelines:
     master: # -- When committing to mast branch
     - step:
         script:
+          - export CI=false
           - npm install
           - npm test
           - npm run build
           - scp -r build/* ec2-user@aws1.lition.io:/var/www/html
-          - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd          
+          - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd
