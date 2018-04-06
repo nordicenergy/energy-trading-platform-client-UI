@@ -12,6 +12,7 @@ import Loader from './Loader';
 import Toast from './Toast';
 import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
+import WattcoinTable from './WattcoinTable';
 import FilterCheckbox from './FilterCheckbox';
 
 export {
@@ -32,5 +33,6 @@ export {
     Toast,
     EnergyAmountGraph,
     RecentTransactions,
+    WattcoinTable,
     FilterCheckbox
 };

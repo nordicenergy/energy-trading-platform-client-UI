@@ -6,7 +6,6 @@
     width: 100%;
     box-shadow: 0 0.25em 1em 0 rgba(217, 224, 229, 0.3);
     border-radius: 0.25em;
-    --rowsTextColor: #142739;
     --rowsSidePadding: 6.22em;
 }
 
@@ -31,10 +30,10 @@
 
 .recent-transactions-current-balance-row {
     display: flex;
-    color: var(--rowsTextColor);
+    color: var(--tableLabelColor);
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(240, 244, 247, 0.6);
+    background: var(--totalBackgroundColor);
     padding: 1.11em var(--rowsSidePadding) 0.89em;
 }
 
@@ -42,14 +41,12 @@
     margin: 0;
 }
 
-.recent-transactions-current-balance-row
-    .recent-transactions-current-balance-date {
+.recent-transactions-current-balance-date {
     font-weight: 500;
     font-size: 1.125rem;
 }
 
-.recent-transactions-current-balance-row
-    .recent-transactions-current-balance-amount {
+.recent-transactions-current-balance-amount {
     font-size: 1.375rem;
     font-weight: 600;
 }
