@@ -13,6 +13,7 @@ import Service from './Service';
 import MyProducer from './MyProducer';
 import SellEnergy from './SellEnergy';
 import BuyEnergy from './BuyEnergy';
+import Wattcoin from './Wattcoin';
 
 export {
     Notifications,
@@ -29,5 +30,6 @@ export {
     Team,
     BuyEnergy,
     SellEnergy,
-    MyProducer
+    MyProducer,
+    Wattcoin
 };

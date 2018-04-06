@@ -80,8 +80,7 @@ export class Overview extends React.Component {
     }
 
     openWattcoinPage() {
-        // const { history } = this.context.router;
-        // history.push('/trading/wattcoin');
+        this.navigateTo(PATHS.wattcoin.path);
     }
 
     render() {

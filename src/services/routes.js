@@ -16,7 +16,8 @@ import {
     Team,
     MyProducer,
     BuyEnergy,
-    SellEnergy
+    SellEnergy,
+    Wattcoin
 } from '../containers';
 
 export const PATHS = {
@@ -63,6 +64,10 @@ export const PATHS = {
     sellEnergy: {
         id: 'sell_energy',
         path: '/trading/sell_energy'
+    },
+    wattcoin: {
+        id: 'wattcoin',
+        path: '/trading/wattcoin'
     }
 };
 
@@ -85,6 +90,7 @@ const TradingRoute = () => (
         <Route path={PATHS.myProducer.path} component={MyProducer} />
         <Route path={PATHS.buyEnergy.path} component={BuyEnergy} />
         <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
+        <Route path={PATHS.wattcoin.path} component={Wattcoin} />
     </React.Fragment>
 );
 
