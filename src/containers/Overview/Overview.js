@@ -6,6 +6,7 @@ import { performGetRecentTransactions } from '../../action_performers/transactio
 import './Overview.css';
 import PropTypes from 'prop-types';
 import { PATHS } from '../../services/routes';
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
 const currentBalanceData = {
     date: 'Mar 14, 2018',
@@ -51,7 +52,7 @@ const messages = defineMessages({
     }
 });
 
-export class Overview extends React.Component {
+export class Overview extends AbstractContainer {
     static mapStateToProps(state) {
         return {
             loading: state.Transactions.recentTransactions.loading,
