@@ -8,17 +8,22 @@ import './Breadcrumbs.css';
 class Breadcrumbs extends React.Component {
     renderBreadcrumbsItems() {
         const { items, iconsTypes, onClick } = this.props;
-        const [iconBreadCrumb = {}, ...breadCrumbs] = items;
-        const iconName = iconsTypes[iconBreadCrumb.id];
+        const [rootBreadCrumb = {}, ...breadCrumbs] = items;
+        const isRootIcon = rootBreadCrumb.type === 'icon';
+        const rootBreadcrumbLabel = isRootIcon ? (
+            <FontAwesomeIcon icon={icons[iconsTypes[rootBreadCrumb.id]]} />
+        ) : (
+            rootBreadCrumb.label
+        );
         const iconBreadcrumbElement = (
-            <div className="breadcrumb-item" key={iconBreadCrumb.id}>
+            <div className="breadcrumb-item" key={rootBreadCrumb.id}>
                 <a
                     className="icon-breadcrumb"
                     onClick={() => {
-                        onClick(iconBreadCrumb.path);
+                        onClick(rootBreadCrumb.path);
                     }}
                 >
-                    {<FontAwesomeIcon icon={icons[iconName]} />}
+                    {rootBreadcrumbLabel}
                 </a>
                 <div className="breadcrumb-arrow">
                     <FontAwesomeIcon icon={icons.faAngleRight} />
@@ -27,6 +32,12 @@ class Breadcrumbs extends React.Component {
         );
         const breadCrumbElements = breadCrumbs.map((item, index) => {
             const isLastItem = index === breadCrumbs.length - 1;
+            const isBreadCrumbIcon = item.type === 'icon';
+            const breadcrumbLabel = isBreadCrumbIcon ? (
+                <FontAwesomeIcon icon={icons[iconsTypes[item.id]]} />
+            ) : (
+                item.label
+            );
             return (
                 <div
                     className={classNames('breadcrumb-item', {
@@ -40,7 +51,7 @@ class Breadcrumbs extends React.Component {
                             onClick(item.path);
                         }}
                     >
-                        {item.label}
+                        {breadcrumbLabel}
                     </a>
                     {!isLastItem && (
                         <div className="breadcrumb-arrow">

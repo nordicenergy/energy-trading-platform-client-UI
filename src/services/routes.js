@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import withoutBreadCrumbs from '../HOC/withoutBreadCrumbs';
-import withBreadCrumbs from '../HOC/withBreadCrumbs';
 import { getToken } from './browserStorage';
 import {
     Notifications,
@@ -62,6 +60,7 @@ export const PATHS = {
     trading: {
         id: 'trading',
         path: '/trading',
+        type: 'icon',
         label: pathsLabels.trading
     },
     profile: {
@@ -83,42 +82,37 @@ export const PATHS = {
     myProducer: {
         id: 'my_producer',
         path: '/trading/my_producer',
+        type: 'text',
         label: pathsLabels.myProducer
     },
     buyEnergy: {
         id: 'buy_energy',
         path: '/trading/buy_energy',
+        type: 'text',
         label: pathsLabels.buyEnergy
     },
     sellEnergy: {
         id: 'sell_energy',
         label: pathsLabels.sellEnergy,
+        type: 'text',
         path: '/trading/sell_energy'
     },
     wattcoin: {
         id: 'wattcoin',
         label: pathsLabels.wattcoin,
+        type: 'text',
         path: '/trading/wattcoin'
     }
 };
 
-const WrappedTrading = withBreadCrumbs(Trading, PATHS.trading);
-const WrappedMyProducer = withBreadCrumbs(MyProducer, PATHS.myProducer);
-const WrappedSellEnergy = withBreadCrumbs(SellEnergy, PATHS.sellEnergy);
-const WrappedBuyEnergy = withBreadCrumbs(BuyEnergy, PATHS.buyEnergy);
-const WrappedWattcoin = withBreadCrumbs(Wattcoin, PATHS.wattcoin);
-
-const TradingRoute = withBreadCrumbs(
-    () => (
-        <React.Fragment>
-            <Route exact path={PATHS.trading.path} component={WrappedTrading} />
-            <Route path={PATHS.myProducer.path} component={WrappedMyProducer} />
-            <Route path={PATHS.sellEnergy.path} component={WrappedSellEnergy} />
-            <Route path={PATHS.buyEnergy.path} component={WrappedBuyEnergy} />
-            <Route path={PATHS.wattcoin.path} component={WrappedWattcoin} />
-        </React.Fragment>
-    ),
-    { ...PATHS.trading, isRoot: true }
+const TradingRoute = () => (
+    <React.Fragment>
+        <Route exact path={PATHS.trading.path} component={Trading} />
+        <Route path={PATHS.myProducer.path} component={MyProducer} />
+        <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
+        <Route path={PATHS.buyEnergy.path} component={BuyEnergy} />
+        <Route path={PATHS.wattcoin.path} component={Wattcoin} />
+    </React.Fragment>
 );
 
 const PublicRoute = ({ component: Component, ...otherProps }) => (
@@ -142,33 +136,18 @@ const AppMainLayout = () => {
                     <Route
                         exact
                         path={PATHS.overview.path}
-                        component={withoutBreadCrumbs(Overview)}
+                        component={Overview}
                     />
-                    <Route
-                        path={PATHS.documents.path}
-                        component={withoutBreadCrumbs(Documents)}
-                    />
+                    <Route path={PATHS.documents.path} component={Documents} />
                     <Route
                         path={PATHS.submit_metric.path}
-                        component={withoutBreadCrumbs(SubmitMetric)}
+                        component={SubmitMetric}
                     />
-                    <Route path={PATHS.trading.path} component={TradingRoute} />
-                    <Route
-                        path={PATHS.profile.path}
-                        component={withoutBreadCrumbs(Profile)}
-                    />
-                    <Route
-                        path={PATHS.team.path}
-                        component={withoutBreadCrumbs(Team)}
-                    />
-                    <Route
-                        path={PATHS.about.path}
-                        component={withoutBreadCrumbs(About)}
-                    />
-                    <Route
-                        path={PATHS.service.path}
-                        component={withoutBreadCrumbs(Service)}
-                    />
+                    <TradingRoute />
+                    <Route path={PATHS.profile.path} component={Profile} />
+                    <Route path={PATHS.team.path} component={Team} />
+                    <Route path={PATHS.about.path} component={About} />
+                    <Route path={PATHS.service.path} component={Service} />
                 </App>
             </div>
         );
