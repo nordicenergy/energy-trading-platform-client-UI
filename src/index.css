@@ -65,11 +65,16 @@
     --table-label-color: var(--bali-hai-color);
     --table-total-cell-bg-color: var(--stone-gray-color);
 
+    --breadcrumb-item-color: var(--emerald-color);
+    --breadcrumb-current-item-color: var(--tower-gray-color);
+    --breadcrumb-arrow-color: var(--athens-gray-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
     --page-paddings: 2rem 1.5rem 2.5rem 2rem;
     --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-clor);
+    --side-bar-width: 20.5rem;
 }
 
 body {
