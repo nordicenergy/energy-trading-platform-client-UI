@@ -7,17 +7,17 @@ import './Breadcrumbs.css';
 
 class Breadcrumbs extends React.Component {
     renderBreadcrumbsItems() {
-        const { items, iconsTypes, onClick } = this.props;
+        const { items, onClick } = this.props;
         const [rootBreadCrumb = {}, ...breadCrumbs] = items;
-        const isRootIcon = rootBreadCrumb.type === 'icon';
-        const rootBreadcrumbLabel = isRootIcon ? (
-            <FontAwesomeIcon icon={icons[iconsTypes[rootBreadCrumb.id]]} />
+        const rootBreadcrumbLabel = rootBreadCrumb.icon ? (
+            <FontAwesomeIcon icon={icons[rootBreadCrumb.icon]} />
         ) : (
             rootBreadCrumb.label
         );
         const iconBreadcrumbElement = (
             <div className="breadcrumb-item" key={rootBreadCrumb.id}>
                 <a
+                    aria-label={rootBreadCrumb.label}
                     className="icon-breadcrumb"
                     onClick={() => {
                         onClick(rootBreadCrumb.path);
@@ -32,9 +32,8 @@ class Breadcrumbs extends React.Component {
         );
         const breadCrumbElements = breadCrumbs.map((item, index) => {
             const isLastItem = index === breadCrumbs.length - 1;
-            const isBreadCrumbIcon = item.type === 'icon';
-            const breadcrumbLabel = isBreadCrumbIcon ? (
-                <FontAwesomeIcon icon={icons[iconsTypes[item.id]]} />
+            const breadcrumbLabel = item.icon ? (
+                <FontAwesomeIcon icon={icons[item.icon]} />
             ) : (
                 item.label
             );
@@ -46,6 +45,7 @@ class Breadcrumbs extends React.Component {
                     key={item.id}
                 >
                     <a
+                        aria-label={item.label}
                         className="breadcrumb"
                         onClick={() => {
                             onClick(item.path);
@@ -74,13 +74,11 @@ class Breadcrumbs extends React.Component {
 
 Breadcrumbs.propTypes = {
     items: PropTypes.array,
-    iconsTypes: PropTypes.object,
     onClick: PropTypes.func
 };
 
 Breadcrumbs.defaultProps = {
     items: [],
-    iconsTypes: {},
     onClick: () => {}
 };
 

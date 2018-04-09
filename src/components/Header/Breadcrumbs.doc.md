@@ -5,13 +5,12 @@ const breadcrumbsItems = [
     {
         id: 'trading',
         label: 'Trading',
-        type: 'icon',
+        icon: 'faChartBar',
         path: '#breadcrumbs'
     },
     {
         id: 'wattcoin',
         label: 'Wattcoin',
-        type: 'text',
         path: '#breadcrumbs'
     }
 ];

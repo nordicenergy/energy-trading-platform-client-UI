@@ -60,7 +60,7 @@ export const PATHS = {
     trading: {
         id: 'trading',
         path: '/trading',
-        type: 'icon',
+        icon: 'faChartBar',
         label: pathsLabels.trading
     },
     profile: {
@@ -82,25 +82,21 @@ export const PATHS = {
     myProducer: {
         id: 'my_producer',
         path: '/trading/my_producer',
-        type: 'text',
         label: pathsLabels.myProducer
     },
     buyEnergy: {
         id: 'buy_energy',
         path: '/trading/buy_energy',
-        type: 'text',
         label: pathsLabels.buyEnergy
     },
     sellEnergy: {
         id: 'sell_energy',
         label: pathsLabels.sellEnergy,
-        type: 'text',
         path: '/trading/sell_energy'
     },
     wattcoin: {
         id: 'wattcoin',
         label: pathsLabels.wattcoin,
-        type: 'text',
         path: '/trading/wattcoin'
     }
 };

@@ -26,7 +26,6 @@ class Header extends React.Component {
                 <div className="main-header-container">
                     <Breadcrumbs
                         items={this.props.breadCrumbs}
-                        iconsTypes={this.props.iconsTypes}
                         onClick={this.props.navigateTo}
                     />
                     <nav className="header-buttons">
@@ -36,12 +35,12 @@ class Header extends React.Component {
                                 this.props.notifications.length > 0
                             }
                             label={this.props.notificationLabel}
-                            icon={'faBell'}
+                            icon="faBell"
                             onClickHandler={() => {}}
                         />
                         <HeaderButton
                             label={this.props.logoutLabel}
-                            icon={'faSignOutAlt'}
+                            icon="faSignOutAlt"
                             onClickHandler={() => this.logout()}
                         />
                     </nav>
@@ -57,14 +56,12 @@ Header.propTypes = {
     notifications: PropTypes.array,
     onLogoutButtonClickHandler: PropTypes.func,
     path: PropTypes.string,
-    iconsTypes: PropTypes.object,
     navigateTo: PropTypes.func
 };
 
 Header.defaultProps = {
     notifications: [],
     breadCrumbs: [],
-    iconsTypes: {},
     navigateTo: () => {}
 };
 

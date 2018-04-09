@@ -173,7 +173,6 @@ export class App extends React.Component {
                     notificationLabel={formatMessage(labels.notificationLabel)}
                     notifications={[]}
                     breadCrumbs={this.props.breadCrumbs}
-                    iconsTypes={icons}
                 />
                 <div className="content">
                     <div className="menu-container">
