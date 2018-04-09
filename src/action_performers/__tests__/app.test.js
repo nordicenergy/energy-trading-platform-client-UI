@@ -1,8 +1,6 @@
 import { dispatcher } from '../../store';
 
-import {
-    performSetupBreadcrumbs
-} from '../app';
+import { performSetupBreadcrumbs } from '../app';
 
 describe('Users action performers', () => {
     beforeEach(() => {
