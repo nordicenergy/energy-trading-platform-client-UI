@@ -1,19 +1,10 @@
-@keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 .loader-backdrop {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    background: rgba(5, 26, 45, 0.8);
+    background: var(--loading-bg-color);
     opacity: 0;
     transition-duration: 200ms;
     pointer-events: none;
@@ -31,12 +22,54 @@
     pointer-events: all;
 }
 
-.loader-icon {
-    display: block;
-    width: 3rem;
-    height: 3rem;
-    border: 0.5rem solid var(--successColor);
-    border-right-color: transparent;
-    border-radius: 50%;
-    animation: rotation 1.4s linear infinite;
+.loader-spinner {
+    animation: rotator 1.3s linear infinite;
+}
+
+.loader-path {
+    stroke-dasharray: 200%;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.3s ease-in-out infinite, colors 4s ease-in-out infinite;
+}
+
+@keyframes rotator {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(270deg);
+    }
+}
+
+@keyframes colors {
+    0% {
+        stroke: var(--loading-active-phase-color);
+    }
+    25% {
+        stroke: var(--loading-passive-phase-color);
+    }
+    50% {
+        stroke: var(--loading-active-phase-color);
+    }
+    75% {
+        stroke: var(--loading-passive-phase-color);
+    }
+    100% {
+        stroke: var(--loading-active-phase-color);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 200%;
+    }
+    50% {
+        stroke-dashoffset: 20%;
+        transform: rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: 200%;
+        transform: rotate(450deg);
+    }
 }

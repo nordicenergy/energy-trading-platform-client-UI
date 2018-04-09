@@ -1,33 +1,81 @@
 @import 'fonts.css';
 @import '~normalize.css/normalize.css';
 
+:root {
+    /* Color Schema */
+    /* Use this service for naming - http://chir.ag/projects/name-that-color */
+    --black-pearl-color: #051a2d;
+    --transparent-black-pearl-color: rgba(5, 26, 45, 0.8);
+    --big-stone-color: #142739;
+    --pickled-bluewood-color: #2c3d4d;
+    --blumine-color: #1e577b;
+    --jelly-bean-color: #2771ab;
+    --scooter-color: #30acc1;
+    --bali-hai-color: #809dad;
+    --watercourse-color: #027150;
+    --emerald-color: #48d376;
+    --algae-green-color: #80dea8;
+    --sunglo-color: #e87373;
+    --mandys-pink-color: #f4bdbd;
+    --azalea-color: #fbdede;
+    --geyser-clor: rgba(217, 224, 229, 0.3);
+    --stone-gray-color: rgba(240, 244, 247, 0.6);
+    --tower-gray-color: #b1bac1;
+    --athens-gray-color: #e7eaed;
+    --porcelain-color: #e3e6e8;
+    --aqua-haze--color: #f0f4f7;
+
+    --button-text-shadow-color: rgba(0, 0, 0, 0.15);
+    --button-shadow-color: rgba(0, 0, 0, 0.2);
+    --button-primary-color: var(--blumine-color);
+    --button-success-color: var(--emerald-color);
+    --button-primary-hov-color: var(--bali-hai-color);
+    --button-success-hov-color: var(--algae-green-color);
+    --button-hover-color: var(--jelly-bean-color);
+
+    --loading-bg-color: var(--transparent-black-pearl-color);
+    --loading-active-phase-color: var(--emerald-color);
+    --loading-passive-phase-color: var(--watercourse-color);
+
+    --error-text-color: var(--sunglo-color);
+    --error-border-light-color: var(--azalea-color);
+    --error-border-dark-color: var(--mandys-pink-color);
+
+    --toast-success-bg-color: var(--emerald-color);
+    --toast-error-bg-color: var(--sunglo-color);
+
+    --app-bg-color: var(--aqua-haze--color);
+    --sign-pages-bg-color: var(--black-pearl-color);
+    --bar-color: var(--black-pearl-color);
+    --figure-subtitle-color: var(--bali-hai-color);
+
+    --link-color: var(--bali-hai-color);
+    --navigation-bg-color: var(--blumine-color);
+    --active-item-color: var(--scooter-color);
+    --hover-icon-color: var(--emerald-color);
+
+    --general-text-color: var(--blumine-color);
+    --label-color: var(--tower-gray-color);
+
+    --input-border: var(--porcelain-color);
+    --border-on-light-color: var(--athens-gray-color);
+    --border-on-dark-color: var(--pickled-bluewood-color);
+
+    --table-text-color: var(--big-stone-color);
+    --table-label-color: var(--bali-hai-color);
+    --table-total-cell-bg-color: var(--stone-gray-color);
+
+    /* Common sizes */
+    --menu-icon-size: 4.5rem;
+    --border-width: 0.06rem;
+    --page-paddings: 2rem 1.5rem 2.5rem 2rem;
+    --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-clor);
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Artegra Sans Alt', Helvetica, sans-serif;
-
-    /* Common sizes */
-    --menuIconSize: 4.5rem;
-    --borderWidth: 0.06rem;
-
-    --pagePaddings: 2rem 1.5rem 2.5rem 2rem;
-
-    /* Color Schema */
-    --fromColor: #2c6177;
-    --toColor: #041a2d;
-
-    --barColor: #051a2d;
-    --linkColor: #809dad;
-    --activeColor: #30acc1;
-    --successColor: #48d376;
-    --navigateTextColor: #1e577b;
-    --labelColor: #b1bac1;
-    --tableLabelColor: #142739;
-
-    --borderOnLightColor: #e7eaed;
-    --borderOnDarkColor: #2c3d4d;
-
-    --totalBackgroundColor: rgba(240, 244, 247, 0.6);
 }
 
 body,

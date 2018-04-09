@@ -33,13 +33,22 @@ const options = {
             size: '12',
             color: ''
         },
-        hovermode: false,
+        hovermode: 'closest',
+        hoverlabel: {
+            bgcolor: 'rgba(72, 211, 118, 0.3)',
+            bordercolor: '#48d376',
+            font: {
+                color: '#039c69'
+            }
+        },
+        // hovermode: false,
         xaxis: {
             type: 'date',
             fixedrange: true,
             color: tickColor,
             showline: false,
             showgrid: false,
+            // tickangle: 40,
             tickprefix: tickStartTag,
             ticksuffix: tickEndTag
         },

@@ -1,18 +1,18 @@
 .nav-card-container {
-    --transitionDuration: 0.2s;
-    --transitionFunction: ease-in;
+    --transition-duration: 0.2s;
+    --transition-function: ease-in;
     padding: 2.125rem 0 1.625rem;
     flex-basis: 19rem;
     min-width: 10rem;
     border-radius: 0.25rem;
     background: white;
     cursor: pointer;
-    transition: var(--transitionDuration) var(--transitionFunction);
+    transition: var(--transition-duration) var(--transition-function);
 }
 
 .nav-card-container:hover {
     color: white;
-    background-color: var(--navigateTextColor);
+    background-color: var(--navigation-bg-color);
 }
 
 .nav-card {
@@ -35,11 +35,11 @@
 }
 
 .nav-card-container svg .fillArea {
-    transition: var(--transitionDuration) var(--transitionFunction);
+    transition: var(--transition-duration) var(--transition-function);
 }
 
 .nav-card-container svg .strokeLine {
-    transition: var(--transitionDuration) var(--transitionFunction);
+    transition: var(--transition-duration) var(--transition-function);
 }
 
 .nav-card-container:hover svg .fillArea {

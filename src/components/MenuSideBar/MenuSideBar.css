@@ -1,32 +1,31 @@
 .menu-side-bar {
     width: 20.5rem;
-    height: calc(100% - var(--borderWidth));
+    height: calc(100% - var(--border-width));
 
     background: transparent
-        linear-gradient(to right, var(--barColor), var(--barColor)) no-repeat;
-    background-size: var(--menuIconSize) 100%;
-    border-right: var(--borderWidth) solid var(--borderOnLightColor);
+        linear-gradient(to right, var(--bar-color), var(--bar-color)) no-repeat;
+    background-size: var(--menu-icon-size) 100%;
+    border-right: var(--border-width) solid var(--border-on-light-color);
 }
 
 .menu-side-bar .menu-item-label {
-    border-bottom: var(--borderWidth) solid var(--borderOnLightColor);
+    border-bottom: var(--border-width) solid var(--border-on-light-color);
 }
 
 .menu-side-bar .menu-item-icon {
-    border-bottom: var(--borderWidth) solid var(--borderOnDarkColor);
+    border-bottom: var(--border-width) solid var(--border-on-dark-color);
 }
 
 .menu-side-bar .menu-item--active .menu-item-label {
-    border-bottom: var(--borderWidth) solid transparent;
+    border-bottom: var(--border-width) solid transparent;
 }
 .menu-side-bar .menu-item:hover .menu-item-label {
-    border-bottom: var(--borderWidth) solid var(--navigateTextColor);
+    border-bottom: var(--border-width) solid var(--navigation-bg-color);
 }
 
-/* TODO remake to mobile-first, move values to common variables */
 @media screen and (max-width: 768px) {
     .menu-side-bar {
-        width: var(--menuIconSize);
+        width: var(--menu-icon-size);
     }
 
     .menu-side-bar .menu-item-label {

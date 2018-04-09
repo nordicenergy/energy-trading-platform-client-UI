@@ -11,12 +11,12 @@
 }
 
 .toast--success {
-    background: rgba(72, 211, 118, 0.95);
+    background: var(--toast-success-bg-color);
     color: white;
 }
 
 .toast--error {
-    background: rgba(191, 0, 1, 0.95);
+    background: var(--toast-error-bg-color);
     color: white;
 }
 

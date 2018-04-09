@@ -2,9 +2,9 @@
     min-width: 28rem;
     margin: 2.5em 0;
 
-    color: var(--tableLabelColor);
+    color: var(--table-text-color);
     background: white;
-    box-shadow: 0 0.25em 1em 0 rgba(217, 224, 229, 0.3);
+    box-shadow: var(--main-boxes-shadow);
     border-radius: 0.25em;
 }
 
@@ -23,7 +23,7 @@
     padding-bottom: 1.3em;
 
     color: black;
-    border-bottom: var(--borderWidth) solid var(--borderOnLightColor);
+    border-bottom: var(--border-width) solid var(--border-on-light-color);
 
     font-size: 1.375rem;
     font-weight: 600;
@@ -36,7 +36,7 @@
 
 td.wattcoin-table-textual-info {
     padding: 1.25em;
-    border-right: var(--borderWidth) solid var(--borderOnLightColor);
+    border-right: var(--border-width) solid var(--border-on-light-color);
 }
 
 td.wattcoin-table-textual-info .wattcoin-table-value,
@@ -49,7 +49,7 @@ td.wattcoin-table-textual-info .wattcoin-table-label {
 
 td.wattcoin-table-count-info .wattcoin-table-label,
 td.wattcoin-table-textual-info .wattcoin-table-label {
-    color: var(--linkColor);
+    color: var(--table-label-color);
 }
 
 td.wattcoin-table-count-info {
@@ -71,12 +71,12 @@ td.wattcoin-table-count-info .wattcoin-table-value {
 }
 
 td.wattcoin-table-count-info + td.wattcoin-table-count-info > div {
-    border-left: var(--borderWidth) solid var(--borderOnLightColor);
+    border-left: var(--border-width) solid var(--border-on-light-color);
 }
 
 td.wattcoin-table-total-info {
-    background: var(--totalBackgroundColor);
-    border-bottom: var(--borderWidth) solid var(--borderOnLightColor);
+    background: var(--table-total-cell-bg-color);
+    border-bottom: var(--border-width) solid var(--border-on-light-color);
 }
 
 td.wattcoin-table-total-info > span {

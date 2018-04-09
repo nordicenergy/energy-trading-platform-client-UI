@@ -5,7 +5,7 @@
 
 .content {
     display: flex;
-    height: calc(100% - var(--menuIconSize));
+    height: calc(100% - var(--menu-icon-size));
 }
 
 .main-container {
@@ -14,8 +14,8 @@
     flex-direction: column;
     width: 100%;
 
-    color: var(--navigateTextColor);
-    background-color: #f0f4f7;
+    color: var(--general-text-color);
+    background-color: var(--app-bg-color);
 
     text-align: center;
 }
