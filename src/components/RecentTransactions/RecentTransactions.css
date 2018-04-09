@@ -4,9 +4,9 @@
     padding: 1.78em 0 1.33em;
     box-sizing: border-box;
     width: 100%;
-    box-shadow: 0 0.25em 1em 0 rgba(217, 224, 229, 0.3);
+    box-shadow: var(--main-boxes-shadow);
     border-radius: 0.25em;
-    --rowsSidePadding: 6.22em;
+    --rows-side-padding: 6.22em;
 }
 
 .recent-transactions-container caption {
@@ -20,7 +20,7 @@
 }
 
 .recent-transactions-container .table-container {
-    padding: 0 var(--rowsSidePadding);
+    padding: 0 var(--rows-side-padding);
 }
 
 .recent-transactions-container table {
@@ -30,11 +30,11 @@
 
 .recent-transactions-current-balance-row {
     display: flex;
-    color: var(--tableLabelColor);
+    color: var(--table-text-color);
     justify-content: space-between;
     align-items: center;
-    background: var(--totalBackgroundColor);
-    padding: 1.11em var(--rowsSidePadding) 0.89em;
+    background: var(--table-total-cell-bg-color);
+    padding: 1.11em var(--rows-side-padding) 0.89em;
 }
 
 .recent-transactions-current-balance-row p {
@@ -52,7 +52,7 @@
 }
 
 .recent-transactions-container th {
-    color: var(--labelColor);
+    color: var(--label-color);
     width: 33%;
     text-align: center;
     font-size: 0.875rem;
@@ -60,7 +60,7 @@
 }
 
 .recent-transactions-container tbody tr {
-    border-bottom: 0.056em solid #eceef1;
+    border-bottom: 0.056em solid var(--border-on-light-color);
 }
 
 .recent-transactions-container tbody tr:last-child {
@@ -72,7 +72,7 @@
     width: 33%;
     text-align: center;
     font-weight: 500;
-    color: var(--rowsTextColor);
+    color: var(--table-text-color);
     padding: 1em 0 0.78em;
 }
 

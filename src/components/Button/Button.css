@@ -1,5 +1,3 @@
-/* TODO: redefine box-shadow property */
-
 .button {
     overflow: hidden;
     box-sizing: border-box;
@@ -10,10 +8,10 @@
     height: 3.5rem;
     border: none;
     border-radius: 0.25rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.25rem 0.5rem var(--button-shadow-color);
     color: white;
     text-overflow: ellipsis;
-    text-shadow: 0.055em 0.055em 0 rgba(0, 0, 0, 0.15);
+    text-shadow: 0.055em 0.055em 0 var(--button-text-shadow-color);
     white-space: nowrap;
     font-weight: 600;
     font-size: 1.125rem;
@@ -25,16 +23,16 @@
 }
 
 .button.button-primary {
-    background: #1e567a;
+    background: var(--button-primary-color);
 }
 
 .button.button-success {
-    background: #40c56a;
+    background: var(--button-success-color);
 }
 
 .button:hover {
-    background: #2771ab;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+    background: var(--button-hover-color);
+    box-shadow: 0 0.25rem 0.5rem var(--button-shadow-color);
 }
 
 .button:disabled {
@@ -42,9 +40,9 @@
 }
 
 .button.button-primary:disabled {
-    background: #769cb1;
+    background: var(--button-primary-hov-color);
 }
 
 .button.button-success:disabled {
-    background: #80dea8;
+    background: var(--button-success-hov-color);
 }

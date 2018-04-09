@@ -1,9 +1,9 @@
 .header-button-container {
     position: relative;
     width: 7em;
-    height: var(--menuIconSize);
-    border-left: var(--borderWidth) solid var(--navigateTextColor);
-    background-color: var(--barColor);
+    height: var(--menu-icon-size);
+    border-left: var(--border-width) solid var(--navigation-bg-color);
+    background-color: var(--bar-color);
 }
 
 .header-button {
@@ -27,7 +27,7 @@
 }
 
 .header-button:hover {
-    color: var(--successColor);
+    color: var(--hover-icon-color);
 }
 
 .header-button:hover .header-button-icon-container svg {
@@ -44,5 +44,5 @@
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background-color: var(--successColor);
+    background-color: var(--hover-icon-color);
 }

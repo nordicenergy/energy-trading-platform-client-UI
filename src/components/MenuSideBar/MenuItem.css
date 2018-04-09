@@ -9,7 +9,7 @@
     justify-content: flex-start;
     width: 100%;
 
-    color: var(--navigateTextColor);
+    color: var(--general-text-color);
     background: white;
 
     text-decoration: none;
@@ -19,17 +19,17 @@
 
 .menu-item--active {
     color: white;
-    background: var(--activeColor);
+    background: var(--active-item-color);
     transition: 0.4s ease-in;
 }
 
 .menu-item-icon {
     justify-content: center;
-    width: var(--menuIconSize);
-    height: var(--menuIconSize);
+    width: var(--menu-icon-size);
+    height: var(--menu-icon-size);
 
     color: white;
-    background: var(--barColor);
+    background: var(--bar-color);
 
     font-size: 1.5rem;
     line-height: 1;
@@ -45,8 +45,8 @@
     position: relative;
 
     justify-content: flex-start;
-    width: calc(100% - var(--menuIconSize));
-    height: var(--menuIconSize);
+    width: calc(100% - var(--menu-icon-size));
+    height: var(--menu-icon-size);
 
     font-size: 0.875rem;
     font-weight: 600;
@@ -56,7 +56,7 @@
 }
 
 .menu-item:hover .menu-item-label {
-    background: var(--navigateTextColor);
+    background: var(--navigation-bg-color);
     color: white;
     transition: 0.2s;
 }
@@ -68,17 +68,17 @@
 }
 
 .menu-item--active .menu-item-label::before {
-    --hypotenuseHalf: 0.5rem;
+    --hypotenuse-half: 0.5rem;
 
     position: absolute;
     left: 0;
-    top: calc(50% - var(--hypotenuseHalf));
+    top: calc(50% - var(--hypotenuse-half));
 
     width: 0;
     height: 0;
-    border-top: var(--hypotenuseHalf) solid transparent;
-    border-left: var(--hypotenuseHalf) solid white;
-    border-bottom: var(--hypotenuseHalf) solid transparent;
+    border-top: var(--hypotenuse-half) solid transparent;
+    border-left: var(--hypotenuse-half) solid white;
+    border-bottom: var(--hypotenuse-half) solid transparent;
 
     content: '';
 }
