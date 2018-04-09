@@ -5,26 +5,20 @@ import MenuItem from './MenuItem';
 import './MenuSideBar.css';
 
 class MenuSideBar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { active: 0 };
-    }
-
-    selectMenuItem(index, id) {
+    selectMenuItem(path) {
         const { onSelect = f => f } = this.props;
-        this.setState({ active: index });
-        onSelect(id);
+        onSelect(path);
     }
 
     renderMenuItems() {
         const { items = [] } = this.props;
-        return items.map(({ id, icon, label, active }, index) => (
+        return items.map(({ id, icon, label, active, path }, index) => (
             <MenuItem
                 key={`${index}-${label}`}
                 icon={icon}
                 label={label}
                 active={active}
-                onClick={() => this.selectMenuItem(index, id)}
+                onClick={() => this.selectMenuItem(path)}
             />
         ));
     }

@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './About.css';
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
-export class About extends React.Component {
+export class About extends AbstractContainer {
     static mapStateToProps(/* state */) {
         return {};
     }

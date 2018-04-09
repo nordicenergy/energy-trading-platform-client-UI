@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
 import { MenuSideBar, Header, Footer } from '../../components';
 import { performLogout } from '../../action_performers/users';
 import './App.css';
 import { PATHS } from '../../services/routes';
+import { connect } from 'react-redux';
 
 export class App extends React.Component {
-    static mapStateToProps({ Users }) {
-        return { loggingOut: Users.logout.loading };
+    static mapStateToProps({ Users, App }) {
+        return {
+            loggingOut: Users.logout.loading,
+            breadCrumbs: App.breadCrumbs.data
+        };
     }
 
     componentWillReceiveProps(nextProps) {
@@ -18,7 +21,7 @@ export class App extends React.Component {
             !nextProps.loggingOut;
 
         if (loggedOut) {
-            this.navigateTo('login');
+            this.navigateTo('/login');
         }
     }
 
@@ -32,7 +35,7 @@ export class App extends React.Component {
     }
 
     navigateTo(route) {
-        this.context.router.history.push(`/${route}`);
+        this.context.router.history.push(route);
     }
 
     defineLabels() {
@@ -95,52 +98,65 @@ export class App extends React.Component {
         const { formatMessage } = this.context.intl;
         const [, headRoute = ''] = pathname.split('/');
 
+        const icons = {
+            '': 'faHome',
+            documents: 'faBook',
+            submit_metric: 'faCalculator',
+            trading: 'faChartBar',
+            profile: 'faUser'
+        };
+
         const menuItems = [
             {
                 id: PATHS.overview.id,
-                icon: 'faHome',
+                icon: icons[''],
                 label: formatMessage(labels.overview),
-                active: headRoute === PATHS.overview.id
+                active: headRoute === PATHS.overview.id,
+                path: PATHS.overview.path
             },
             {
                 id: PATHS.documents.id,
-                icon: 'faBook',
+                icon: icons.documents,
                 label: formatMessage(labels.documents),
-                active: headRoute === PATHS.documents.id
+                active: headRoute === PATHS.documents.id,
+                path: PATHS.documents.path
             },
             {
                 id: PATHS.submit_metric.id,
-                icon: 'faCalculator',
+                icon: icons.submit_metric,
                 label: formatMessage(labels.submitMetric),
-                active: headRoute === PATHS.submit_metric.id
+                active: headRoute === PATHS.submit_metric.id,
+                path: PATHS.submit_metric.path
             },
             {
                 id: PATHS.trading.id,
-                icon: 'faChartBar',
+                icon: icons.trading,
                 label: formatMessage(labels.trading),
-                active: headRoute === PATHS.trading.id
+                active: headRoute === PATHS.trading.id,
+                path: PATHS.trading.path
             },
             {
                 id: PATHS.profile.id,
-                icon: 'faUser',
+                icon: icons.profile,
                 label: formatMessage(labels.profile),
-                active: headRoute === PATHS.profile.id
+                active: headRoute === PATHS.profile.id,
+                path: PATHS.profile.path
             }
         ];
 
         const footerItems = [
             {
-                href: PATHS.about.id,
+                href: PATHS.about.path,
                 label: formatMessage(labels.about),
                 active: pathname === PATHS.about.path
             },
             {
-                href: PATHS.team.id,
+                href: PATHS.team.path,
                 label: formatMessage(labels.team),
                 active: pathname === PATHS.team.path
             },
             {
-                href: PATHS.service.id,
+                href: PATHS.service.path,
                 label: formatMessage(labels.service),
                 active: pathname === PATHS.service.path
             }
@@ -152,9 +168,11 @@ export class App extends React.Component {
                     onLogoutButtonClickHandler={() =>
                         this.logout(formatMessage(labels.logoutConfirm))
                     }
+                    navigateTo={route => this.navigateTo(route)}
                     logoutLabel={formatMessage(labels.logoutLabel)}
                     notificationLabel={formatMessage(labels.notificationLabel)}
                     notifications={[]}
+                    breadCrumbs={this.props.breadCrumbs}
                 />
                 <div className="content">
                     <div className="menu-container">

@@ -3,6 +3,7 @@ import HeaderButton from './HeaderButton';
 import './Header.css';
 import PropTypes from 'prop-types';
 import Logo from '../Logo';
+import Breadcrumbs from './Breadcrumbs';
 
 class Header extends React.Component {
     constructor(props) {
@@ -19,23 +20,31 @@ class Header extends React.Component {
     render() {
         return (
             <header className="header-desktop">
-                <Logo size="small" />
-                <nav className="header-buttons">
-                    <HeaderButton
-                        hasIndicator={
-                            this.props.notifications &&
-                            this.props.notifications.length > 0
-                        }
-                        label={this.props.notificationLabel}
-                        icon={'faBell'}
-                        onClickHandler={() => {}}
+                <div className="logo-container">
+                    <Logo size="small" />
+                </div>
+                <div className="main-header-container">
+                    <Breadcrumbs
+                        items={this.props.breadCrumbs}
+                        onClick={this.props.navigateTo}
                     />
-                    <HeaderButton
-                        label={this.props.logoutLabel}
-                        icon={'faSignOutAlt'}
-                        onClickHandler={() => this.logout()}
-                    />
-                </nav>
+                    <nav className="header-buttons">
+                        <HeaderButton
+                            hasIndicator={
+                                this.props.notifications &&
+                                this.props.notifications.length > 0
+                            }
+                            label={this.props.notificationLabel}
+                            icon="faBell"
+                            onClickHandler={() => {}}
+                        />
+                        <HeaderButton
+                            label={this.props.logoutLabel}
+                            icon="faSignOutAlt"
+                            onClickHandler={() => this.logout()}
+                        />
+                    </nav>
+                </div>
             </header>
         );
     }
@@ -45,7 +54,15 @@ Header.propTypes = {
     logoutLabel: PropTypes.string,
     notificationLabel: PropTypes.string,
     notifications: PropTypes.array,
-    onLogoutButtonClickHandler: PropTypes.func
+    onLogoutButtonClickHandler: PropTypes.func,
+    path: PropTypes.string,
+    navigateTo: PropTypes.func
+};
+
+Header.defaultProps = {
+    notifications: [],
+    breadCrumbs: [],
+    navigateTo: () => {}
 };
 
 export default Header;

@@ -14,6 +14,7 @@ import MyProducer from './MyProducer';
 import SellEnergy from './SellEnergy';
 import BuyEnergy from './BuyEnergy';
 import Wattcoin from './Wattcoin';
+import AbstractContainer from './AbstractContainer';
 
 export {
     Notifications,
@@ -31,5 +32,6 @@ export {
     BuyEnergy,
     SellEnergy,
     MyProducer,
-    Wattcoin
+    Wattcoin,
+    AbstractContainer
 };
