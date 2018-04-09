@@ -13,6 +13,7 @@ import Toast from './Toast';
 import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
 import WattcoinTable from './WattcoinTable';
+import FilterCheckbox from './FilterCheckbox';
 
 export {
     Button,
@@ -33,5 +34,6 @@ export {
     EnergyAmountGraph,
     RecentTransactions,
     Breadcrumbs,
-    WattcoinTable
+    WattcoinTable,
+    FilterCheckbox
 };
