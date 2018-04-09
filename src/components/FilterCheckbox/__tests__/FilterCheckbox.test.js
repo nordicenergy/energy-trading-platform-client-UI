@@ -5,7 +5,7 @@ import FilterCheckbox from '../FilterCheckbox';
 const onChangeMock = jest.fn();
 function renderComponent(
     {
-        type = 'all',
+        type = 'other',
         label = 'all',
         onChange = onChangeMock,
         ...otherProps
@@ -30,7 +30,7 @@ describe('<FilterCheckbox /> component', () => {
     it('should renders correct icon', () => {
         const filterComponent = renderComponent();
 
-        expect(filterComponent.html().includes('id="allIcon"')).toBeTruthy();
+        expect(filterComponent.html().includes('id="otherIcon"')).toBeTruthy();
         filterComponent.setProps({ type: 'wind' });
         expect(filterComponent.html().includes('id="windIcon"')).toBeTruthy();
         filterComponent.setProps({ type: 'solar' });
@@ -38,12 +38,6 @@ describe('<FilterCheckbox /> component', () => {
         filterComponent.setProps({ type: 'biomass' });
         expect(
             filterComponent.html().includes('id="biomassIcon"')
-        ).toBeTruthy();
-        filterComponent.setProps({ type: 'local' });
-        expect(filterComponent.html().includes('id="localIcon"')).toBeTruthy();
-        filterComponent.setProps({ type: 'renewable' });
-        expect(
-            filterComponent.html().includes('id="renewableIcon"')
         ).toBeTruthy();
     });
 

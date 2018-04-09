@@ -1,37 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    AllEnergyIcon,
+    OtherEnergyIcon,
     WindEnergyIcon,
     SolarEnergyIcon,
-    BiomassEnergyIcon,
-    LocalEnergyIcon,
-    RenewableEnergyIcon
+    BiomassEnergyIcon
 } from './icons';
+import { PLANT_TYPES } from '../../constants';
 import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ type, label, name, checked, onChange }) => {
     let icon = null;
 
     switch (type) {
-        case 'wind':
+        case PLANT_TYPES.wind:
             icon = <WindEnergyIcon />;
             break;
-        case 'solar':
+        case PLANT_TYPES.solar:
             icon = <SolarEnergyIcon />;
             break;
-        case 'biomass':
+        case PLANT_TYPES.biomass:
             icon = <BiomassEnergyIcon />;
             break;
-        case 'local':
-            icon = <LocalEnergyIcon />;
-            break;
-        case 'renewable':
-            icon = <RenewableEnergyIcon />;
-            break;
-        case 'all':
         default:
-            icon = <AllEnergyIcon />;
+            icon = <OtherEnergyIcon />;
             break;
     }
 
@@ -54,13 +46,11 @@ const FilterCheckbox = ({ type, label, name, checked, onChange }) => {
 
 FilterCheckbox.propTypes = {
     type: PropTypes.oneOf([
-        'all',
-        'wind',
-        'solar',
-        'biomass',
-        'renewable',
-        'local'
-    ]).isRequired,
+        PLANT_TYPES.wind,
+        PLANT_TYPES.solar,
+        PLANT_TYPES.biomass,
+        PLANT_TYPES.other
+    ]),
     label: PropTypes.string.isRequired,
     name: PropTypes.string,
     checked: PropTypes.bool,

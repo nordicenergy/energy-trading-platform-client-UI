@@ -14,7 +14,7 @@ const itemStyle = {
 
 <div style={wrapperStyle}>
     <span style={itemStyle}>
-        <FilterCheckbox type="all" label="all" />
+        <FilterCheckbox label="all" />
     </span>
     <span style={itemStyle}>
         <FilterCheckbox type="wind" label="wind" />
@@ -24,12 +24,6 @@ const itemStyle = {
     </span>
     <span style={itemStyle}>
         <FilterCheckbox type="biomass" label="biomass" />
-    </span>
-    <span style={itemStyle}>
-        <FilterCheckbox type="local" label="local production" />
-    </span>
-    <span style={itemStyle}>
-        <FilterCheckbox type="renewable" label="any renewable" />
     </span>
 </div>;
 ```

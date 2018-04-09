@@ -1,8 +1,8 @@
 import React from 'react';
 
-export const AllEnergyIcon = () => (
+export const OtherEnergyIcon = () => (
     <svg
-        id="allIcon"
+        id="otherIcon"
         width="14"
         height="23"
         viewBox="0 0 14 23"
@@ -81,40 +81,6 @@ export const BiomassEnergyIcon = () => (
             <path d="M17.709 18.872c-.315 0-.616.048-.896.131l.016-.131c0-.997-.984-1.804-2.199-1.804-.844 0-1.567.394-1.936.965-.416-.155-1.243-.604-1.729-.604-1.755 0-2.819 1.485-2.923 2.904-.594.052-1.106.32-1.426.705l-.704.887v2h15v-3c0-1.196-1.746-2.053-3.203-2.053z" />
             <path d="M15.434 11.175s-1.401 1.19-2.498 6.423" />
             <path d="M14.53 8.614c1.579-2.354 5.017-3.068 5.017-3.068s.494 3.675-1.085 6.03c-.968 1.444-2.667 2.002-3.795 1.246" />
-        </g>
-    </svg>
-);
-
-export const LocalEnergyIcon = () => (
-    <svg
-        id="localIcon"
-        width="25"
-        height="24"
-        viewBox="0 0 25 24"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <g stroke="currentColor" fill="none">
-            <path d="M23.607 11.782l-9.056 12 1.056-11h-3l8.782-12.282-.782 11.282z" />
-            <path d="M15.607 12.782c-2 5-7.054 11.115-7.054 11.115s-8.052-10.729-8.052-15.177 3.605-8.053 8.052-8.053c3.411 0 6.327 2.12 7.501 5.115" />
-            <path d="M10.607 8.782c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2z" />
-        </g>
-    </svg>
-);
-
-export const RenewableEnergyIcon = () => (
-    <svg
-        id="renewableIcon"
-        width="22"
-        height="24"
-        viewBox="0 0 22 24"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <g stroke="currentColor" fill="none">
-            <path d="M16.5 11.488l-10 12.012 2-11h-4l9.49-12-1.49 11z" />
-            <path d="M3.575 19.425c-4.101-4.101-4.101-10.749 0-14.85" />
-            <path d="M18.425 4.575c4.101 4.101 4.101 10.749 0 14.85" />
-            <path d="M.5 3.5h4v4" />
-            <path d="M21.5 20.5h-4v-4" />
         </g>
     </svg>
 );
