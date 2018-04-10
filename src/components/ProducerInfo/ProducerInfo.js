@@ -8,19 +8,16 @@ class ProducerInfo extends React.Component {
             <div className="producer-information-row">
                 <p>
                     <span className="producer-information-label">{label}</span>
-                    <span className="producer-information-value" translate="no">{value}</span>
+                    <span className="producer-information-value" translate="no">
+                        {value}
+                    </span>
                 </p>
             </div>
         );
     }
 
     render() {
-        const {
-            labels,
-            details,
-            description,
-            picture
-        } = this.props;
+        const { labels, details, description, picture } = this.props;
         const {
             name,
             price,
@@ -38,14 +35,15 @@ class ProducerInfo extends React.Component {
                     {this.renderInfoRow(labels.name, name)}
                     {this.renderInfoRow(labels.price, `${price} ct/KWh`)}
                     {this.renderInfoRow(labels.energyType, energyType)}
-                    {this.renderInfoRow(labels.annualProduction, `${annualProduction} kWh/day`)}
+                    {this.renderInfoRow(
+                        labels.annualProduction,
+                        `${annualProduction} kWh/day`
+                    )}
                     {this.renderInfoRow(labels.purchased, `${purchased} kWh`)}
                     {this.renderInfoRow(labels.capacity, `${capacity} MW`)}
                     {this.renderInfoRow(labels.selectedSince, selectedSince)}
                     {this.renderInfoRow(labels.location, location)}
-                    <p className="producer-information-desc">
-                        {description}
-                    </p>
+                    <p className="producer-information-desc">{description}</p>
                 </section>
                 <figure className="producer-information-image">
                     <img src={picture} alt="Producer profile image" />

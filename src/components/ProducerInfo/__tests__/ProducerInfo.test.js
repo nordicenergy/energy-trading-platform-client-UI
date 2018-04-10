@@ -54,14 +54,31 @@ describe('<ProducerInfo /> Component', () => {
         expect(img.at(0).props().src).toEqual(props.picture);
 
         const rows = component.find('.producer-information-row');
-        expect(rows.at(0).text()).toEqual(`${props.labels.name}${props.details.name}`);
-        expect(rows.at(1).text()).toEqual(`${props.labels.price}${props.details.price} ct/KWh`);
-        expect(rows.at(2).text()).toEqual(`${props.labels.energyType}${props.details.energyType}`);
-        expect(rows.at(3).text()).toEqual(`${props.labels.annualProduction}${props.details.annualProduction} kWh/day`);
-        expect(rows.at(4).text()).toEqual(`${props.labels.purchased}${props.details.purchased} kWh`);
-        expect(rows.at(5).text()).toEqual(`${props.labels.capacity}${props.details.capacity} MW`);
-        expect(rows.at(6).text()).toEqual(`${props.labels.selectedSince}${props.details.selectedSince}`);
-        expect(rows.at(7).text()).toEqual(`${props.labels.location}${props.details.location}`);
-
+        expect(rows.at(0).text()).toEqual(
+            `${props.labels.name}${props.details.name}`
+        );
+        expect(rows.at(1).text()).toEqual(
+            `${props.labels.price}${props.details.price} ct/KWh`
+        );
+        expect(rows.at(2).text()).toEqual(
+            `${props.labels.energyType}${props.details.energyType}`
+        );
+        expect(rows.at(3).text()).toEqual(
+            `${props.labels.annualProduction}${
+                props.details.annualProduction
+            } kWh/day`
+        );
+        expect(rows.at(4).text()).toEqual(
+            `${props.labels.purchased}${props.details.purchased} kWh`
+        );
+        expect(rows.at(5).text()).toEqual(
+            `${props.labels.capacity}${props.details.capacity} MW`
+        );
+        expect(rows.at(6).text()).toEqual(
+            `${props.labels.selectedSince}${props.details.selectedSince}`
+        );
+        expect(rows.at(7).text()).toEqual(
+            `${props.labels.location}${props.details.location}`
+        );
     });
 });
