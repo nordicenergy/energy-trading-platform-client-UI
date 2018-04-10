@@ -1,0 +1,47 @@
+#### ProducerCard component
+
+```jsx
+const wrapperStyle = {
+    padding: '1rem 2rem',
+    background: '#f0f4f7'
+};
+const cardWrapperStyle = {
+    maxWidth: '19rem',
+    margin: '0 auto'
+};
+const producer = {
+    price: 2.9,
+    name: 'John Doe',
+    plantType: 'solar'
+};
+
+<div style={wrapperStyle}>
+    <div style={cardWrapperStyle}>
+        <ProducerCard producer={producer} />
+    </div>
+</div>;
+```
+
+#### Selected ProducerCard
+
+```jsx
+const wrapperStyle = {
+    padding: '1rem 2rem',
+    background: '#f0f4f7'
+};
+const cardWrapperStyle = {
+    maxWidth: '19rem',
+    margin: '0 auto'
+};
+const producer = {
+    price: 2.9,
+    name: 'John Doe',
+    plantType: 'solar'
+};
+
+<div style={wrapperStyle}>
+    <div style={cardWrapperStyle}>
+        <ProducerCard selected producer={producer} />
+    </div>
+</div>;
+```

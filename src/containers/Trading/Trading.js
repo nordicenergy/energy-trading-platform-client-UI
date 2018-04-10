@@ -9,8 +9,20 @@ import {
 } from '../../components';
 import './Trading.css';
 import { PATHS } from '../../services/routes';
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
-export class Trading extends React.Component {
+export class Trading extends AbstractContainer {
+    constructor(props, context) {
+        const { formatMessage } = context.intl;
+        const breadcrumbs = [
+            {
+                ...PATHS.trading,
+                label: formatMessage(PATHS.trading.label)
+            }
+        ];
+        super(props, context, breadcrumbs);
+    }
+
     static mapStateToProps(/* state */) {
         return {};
     }

@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './Team.css';
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
-export class Team extends React.Component {
+export class Team extends AbstractContainer {
     static mapStateToProps(/* state */) {
         return {};
     }

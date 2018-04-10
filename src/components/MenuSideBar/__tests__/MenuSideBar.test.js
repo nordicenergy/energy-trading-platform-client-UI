@@ -33,7 +33,7 @@ describe('<MenuSideBar /> Component', () => {
             { icon: 'faHome', label: 'Item 1' },
             { icon: 'faBook', label: 'Item 2' },
             { icon: 'faCalculator', label: 'Item 3' },
-            { icon: 'faChartBar', label: 'Item 4', id: 'identifier' },
+            { icon: 'faChartBar', label: 'Item 4', path: '/testpath' },
             { icon: 'faUser', label: 'Item 5' }
         ];
         const props = { items, onSelect: jest.fn() };
@@ -42,10 +42,9 @@ describe('<MenuSideBar /> Component', () => {
             .find(MenuItem)
             .at(3)
             .simulate('click');
-        expect(component.state('active')).toEqual(3);
         expect(props.onSelect.mock.calls.length).toEqual(1);
-        const [[id]] = props.onSelect.mock.calls;
-        expect(id).toEqual('identifier');
+        const [[path]] = props.onSelect.mock.calls;
+        expect(path).toEqual('/testpath');
 
         done();
     });

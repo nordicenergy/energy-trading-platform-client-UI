@@ -1,0 +1,20 @@
+.producer-cards-panel {
+}
+
+.producer-cards-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.producer-cards-list-item {
+    flex: 0 0 31.15%;
+    margin-bottom: 2rem;
+}
+
+.producer-cards-list-item:nth-child(3n - 2),
+.producer-cards-list-item:nth-child(3n - 1) {
+    margin-right: 3.275%;
+}

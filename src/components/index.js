@@ -3,7 +3,7 @@ import TextField from './TextField';
 import LoginForm from './LoginForm';
 import RestorePasswordForm from './RestorePasswordForm';
 import Logo from './Logo';
-import { Header, HeaderButton } from './Header';
+import { Header, HeaderButton, Breadcrumbs } from './Header';
 import Footer from './Footer';
 import Illustration from './Illustration';
 import { NavigationCardsPanel, NavigationCard } from './NavigationCardsPanel';
@@ -13,6 +13,8 @@ import Toast from './Toast';
 import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
 import WattcoinTable from './WattcoinTable';
+import FilterCheckbox from './FilterCheckbox';
+import ProducerCardsPanel from './ProducerCardsPanel';
 import ProducerInfo from './ProducerInfo';
 
 export {
@@ -33,6 +35,9 @@ export {
     Toast,
     EnergyAmountGraph,
     RecentTransactions,
+    Breadcrumbs,
     WattcoinTable,
+    FilterCheckbox,
+    ProducerCardsPanel,
     ProducerInfo
 };

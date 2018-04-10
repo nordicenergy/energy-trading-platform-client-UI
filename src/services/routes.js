@@ -19,6 +19,30 @@ import {
     SellEnergy,
     Wattcoin
 } from '../containers';
+import { defineMessages } from 'react-intl';
+
+const pathsLabels = defineMessages({
+    trading: {
+        id: 'app.breadCrumbs.trading',
+        defaultMessage: 'Trading'
+    },
+    wattcoin: {
+        id: 'app.breadCrumbs.wattcoin',
+        defaultMessage: 'Wattcoin'
+    },
+    myProducer: {
+        id: 'app.breadCrumbs.myProducer',
+        defaultMessage: 'My Producer'
+    },
+    sellEnergy: {
+        id: 'app.breadCrumbs.sellEnergy',
+        defaultMessage: 'Sell Energy'
+    },
+    buyEnergy: {
+        id: 'app.breadCrumbs.buyEnergy',
+        defaultMessage: 'Buy Energy'
+    }
+});
 
 export const PATHS = {
     overview: {
@@ -35,7 +59,9 @@ export const PATHS = {
     },
     trading: {
         id: 'trading',
-        path: '/trading'
+        path: '/trading',
+        icon: 'faChartBar',
+        label: pathsLabels.trading
     },
     profile: {
         id: 'profile',
@@ -55,21 +81,35 @@ export const PATHS = {
     },
     myProducer: {
         id: 'my_producer',
-        path: '/trading/my_producer'
+        path: '/trading/my_producer',
+        label: pathsLabels.myProducer
     },
     buyEnergy: {
         id: 'buy_energy',
-        path: '/trading/buy_energy'
+        path: '/trading/buy_energy',
+        label: pathsLabels.buyEnergy
     },
     sellEnergy: {
         id: 'sell_energy',
+        label: pathsLabels.sellEnergy,
         path: '/trading/sell_energy'
     },
     wattcoin: {
         id: 'wattcoin',
+        label: pathsLabels.wattcoin,
         path: '/trading/wattcoin'
     }
 };
+
+const TradingRoute = () => (
+    <React.Fragment>
+        <Route exact path={PATHS.trading.path} component={Trading} />
+        <Route path={PATHS.myProducer.path} component={MyProducer} />
+        <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
+        <Route path={PATHS.buyEnergy.path} component={BuyEnergy} />
+        <Route path={PATHS.wattcoin.path} component={Wattcoin} />
+    </React.Fragment>
+);
 
 const PublicRoute = ({ component: Component, ...otherProps }) => (
     <Route
@@ -82,16 +122,6 @@ const PublicRoute = ({ component: Component, ...otherProps }) => (
             return <Component {...props} />;
         }}
     />
-);
-
-const TradingRoute = () => (
-    <React.Fragment>
-        <Route exact path={PATHS.trading.path} component={Trading} />
-        <Route path={PATHS.myProducer.path} component={MyProducer} />
-        <Route path={PATHS.buyEnergy.path} component={BuyEnergy} />
-        <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
-        <Route path={PATHS.wattcoin.path} component={Wattcoin} />
-    </React.Fragment>
 );
 
 const AppMainLayout = () => {

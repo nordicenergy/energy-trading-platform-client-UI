@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
 import { ProducerInfo, Loader } from '../../components';
 import { performGetProducer } from '../../action_performers/producers';
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import { PATHS } from '../../services/routes';
 
 import './MyProducer.css';
 
@@ -46,7 +48,22 @@ const labels = defineMessages({
     }
 });
 
-export class MyProducer extends React.Component {
+export class MyProducer extends AbstractContainer {
+    constructor(props, context) {
+        const { formatMessage } = context.intl;
+        const breadcrumbs = [
+            {
+                ...PATHS.trading,
+                label: formatMessage(PATHS.trading.label)
+            },
+            {
+                ...PATHS.myProducer,
+                label: formatMessage(PATHS.myProducer.label)
+            }
+        ];
+        super(props, context, breadcrumbs);
+    }
+
     static mapStateToProps(state) {
         return {
             loading: state.Producers.producer.loading,

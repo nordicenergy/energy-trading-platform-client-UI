@@ -9,7 +9,9 @@
     --big-stone-color: #142739;
     --pickled-bluewood-color: #2c3d4d;
     --blumine-color: #1e577b;
+    --ming: #3c6e8c;
     --jelly-bean-color: #2771ab;
+    --steel-blue: #4083b5;
     --scooter-color: #30acc1;
     --bali-hai-color: #809dad;
     --watercourse-color: #027150;
@@ -20,6 +22,7 @@
     --azalea-color: #fbdede;
     --geyser-clor: rgba(217, 224, 229, 0.3);
     --stone-gray-color: rgba(240, 244, 247, 0.6);
+    --nobel-color: #b5b5b5;
     --tower-gray-color: #b1bac1;
     --athens-gray-color: #e7eaed;
     --porcelain-color: #e3e6e8;
@@ -65,11 +68,29 @@
     --table-label-color: var(--bali-hai-color);
     --table-total-cell-bg-color: var(--stone-gray-color);
 
+    --breadcrumb-item-color: var(--emerald-color);
+    --breadcrumb-current-item-color: var(--tower-gray-color);
+    --breadcrumb-arrow-color: var(--athens-gray-color);
+
+    --filter-checkbox-hov-bg-color: var(--blumine-color);
+    --checked-filter-checkbox-bg-color: var(--jelly-bean-color);
+    --filter-checkbox-icon-color: var(--jelly-bean-color);
+    --filter-checkbox-border-color: var(--athens-gray-color);
+    --filter-checkbox-checked-border-color: var(--steel-blue);
+    --filter-checkbox-hov-border-color: var(--ming);
+
+    --producer-card-price-label-color: var(--nobel-color);
+    --producer-card-image-color: var(--jelly-bean-color);
+    --producer-card-border-color: var(--scooter-color);
+    --producer-card-active-bg-color: var(--scooter-color);
+    --producer-card-hov-bg-color: var(--jelly-bean-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
     --page-paddings: 2rem 1.5rem 2.5rem 2rem;
     --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-clor);
+    --side-bar-width: 20.5rem;
 }
 
 body {
