@@ -20,7 +20,8 @@
     --sunglo-color: #e87373;
     --mandys-pink-color: #f4bdbd;
     --azalea-color: #fbdede;
-    --geyser-clor: rgba(217, 224, 229, 0.3);
+    --geyser-color: #d7dfe4;
+    --transparent-geyser-color: rgba(217, 224, 229, 0.3);
     --stone-gray-color: rgba(240, 244, 247, 0.6);
     --nobel-color: #b5b5b5;
     --tower-gray-color: #b1bac1;
@@ -85,11 +86,13 @@
     --producer-card-active-bg-color: var(--scooter-color);
     --producer-card-hov-bg-color: var(--jelly-bean-color);
 
+    --producer-filters-border-color: var(--geyser-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
     --page-paddings: 2rem 1.5rem 2.5rem 2rem;
-    --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-clor);
+    --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-color);
     --side-bar-width: 20.5rem;
 }
 

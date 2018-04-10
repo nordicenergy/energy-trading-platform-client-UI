@@ -66,6 +66,11 @@
     "app.tradingPage.wattcoinTable.producer": "Producer",
     "app.tradingPage.wattcoinTable.energyType": "Type of energy",
 
+    "app.buyEnergyPage.pageTitle": "Buy Energy",
+    "app.buyEnergyPage.selectedProducerLabel": "Current Selection:",
+    "app.buyEnergyPage.filterLabel": "Filter by:",
+    "app.buyEnergyPage.filterOptionAll": "All",
+
     "app.producerPage.header": "My Producer",
     "app.producerPage.name": "Name",
     "app.producerPage.price": "Price",
