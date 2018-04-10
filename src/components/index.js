@@ -14,6 +14,7 @@ import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
 import WattcoinTable from './WattcoinTable';
 import FilterCheckbox from './FilterCheckbox';
+import ProducerCardsPanel from './ProducerCardsPanel';
 
 export {
     Button,
@@ -35,5 +36,6 @@ export {
     RecentTransactions,
     Breadcrumbs,
     WattcoinTable,
-    FilterCheckbox
+    FilterCheckbox,
+    ProducerCardsPanel
 };
