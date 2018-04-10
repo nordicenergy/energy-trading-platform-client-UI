@@ -1,0 +1,69 @@
+.producer-card,
+.producer-card-price strong,
+.producer-card-price .price-label,
+.producer-card-type-image,
+.producer-card-name h3 {
+    transition-timing-function: ease-in;
+    transition-duration: 200ms;
+    transition-property: background-color, color, border-color;
+}
+
+.producer-card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 1.125rem 0 1rem;
+    border-bottom: 0.25em solid var(--producer-card-border-color);
+    border-radius: 0.25rem;
+    background-color: white;
+    box-shadow: 0 0.25em 0.625em rgba(217, 224, 229, 0.3);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.producer-card-price {
+    margin-bottom: 0.875rem;
+}
+
+.producer-card-price strong {
+    color: black;
+    font-weight: 500;
+    font-size: 1.125em;
+}
+
+.producer-card-price .price-label {
+    color: var(--producer-card-price-label-color);
+}
+
+.producer-card-type-image {
+    margin-bottom: 1rem;
+    color: var(--producer-card-image-color);
+}
+
+.producer-card-name h3 {
+    margin: 0;
+    color: var(--general-text-color);
+    font-weight: 600;
+    font-size: 1.375em;
+}
+
+.producer-card--selected {
+    background: var(--producer-card-active-bg-color);
+}
+
+.producer-card:hover {
+    border-bottom-color: var(--producer-card-hov-bg-color);
+    background-color: var(--producer-card-hov-bg-color);
+}
+
+.producer-card--selected .producer-card-price strong,
+.producer-card--selected .producer-card-price .price-label,
+.producer-card--selected .producer-card-type-image,
+.producer-card--selected .producer-card-name h3,
+.producer-card:hover .producer-card-price strong,
+.producer-card:hover .producer-card-price .price-label,
+.producer-card:hover .producer-card-type-image,
+.producer-card:hover .producer-card-name h3 {
+    color: white;
+}
