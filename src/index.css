@@ -22,7 +22,7 @@
     --azalea-color: #fbdede;
     --geyser-clor: rgba(217, 224, 229, 0.3);
     --stone-gray-color: rgba(240, 244, 247, 0.6);
-    --nobel: #b5b5b5;
+    --nobel-color: #b5b5b5;
     --tower-gray-color: #b1bac1;
     --athens-gray-color: #e7eaed;
     --porcelain-color: #e3e6e8;
@@ -79,7 +79,7 @@
     --filter-checkbox-checked-border-color: var(--steel-blue);
     --filter-checkbox-hov-border-color: var(--ming);
 
-    --producer-card-price-label-color: var(--nobel);
+    --producer-card-price-label-color: var(--nobel-color);
     --producer-card-image-color: var(--jelly-bean-color);
     --producer-card-border-color: var(--scooter-color);
     --producer-card-active-bg-color: var(--scooter-color);

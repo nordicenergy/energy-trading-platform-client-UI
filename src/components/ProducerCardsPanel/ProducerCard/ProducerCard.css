@@ -13,17 +13,17 @@
     align-items: center;
     flex-direction: column;
     box-sizing: border-box;
-    padding: 1.125rem 0 1rem;
+    padding: 1.125em 0 1em;
     border-bottom: 0.25em solid var(--producer-card-border-color);
-    border-radius: 0.25rem;
+    border-radius: 0.25em;
     background-color: white;
-    box-shadow: 0 0.25em 0.625em rgba(217, 224, 229, 0.3);
+    box-shadow: var(--main-boxes-shadow);
     font-size: 1rem;
     cursor: pointer;
 }
 
 .producer-card-price {
-    margin-bottom: 0.875rem;
+    margin-bottom: 0.875em;
 }
 
 .producer-card-price strong {
@@ -37,7 +37,7 @@
 }
 
 .producer-card-type-image {
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
     color: var(--producer-card-image-color);
 }
 

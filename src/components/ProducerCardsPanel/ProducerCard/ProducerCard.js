@@ -14,22 +14,29 @@ class ProducerCard extends Component {
         }
     }
 
+    createImage(plantType) {
+        if (plantType === PLANT_TYPES.wind) {
+            return <WindImage />;
+        }
+
+        if (plantType === PLANT_TYPES.solar) {
+            return <SolarImage />;
+        }
+
+        if (plantType === PLANT_TYPES.biomass) {
+            return <BiomassImage />;
+        }
+
+        return null;
+    }
+
     render() {
-        const { className, producer, priceLabel, selected } = this.props;
+        const { className, producer, selected } = this.props;
         const classes = classNames(
             'producer-card',
             selected && 'producer-card--selected',
             className
         );
-        let image = null;
-
-        if (producer.plantType === PLANT_TYPES.wind) {
-            image = <WindImage />;
-        } else if (producer.plantType === PLANT_TYPES.solar) {
-            image = <SolarImage />;
-        } else if (producer.plantType === PLANT_TYPES.biomass) {
-            image = <BiomassImage />;
-        }
 
         return (
             <div
@@ -39,10 +46,14 @@ class ProducerCard extends Component {
                 <div className="producer-card-price">
                     <strong>
                         {producer.price}{' '}
-                        <span className="price-label">{priceLabel}</span>
+                        <span className="price-label" translate="no">
+                            ct/kWh
+                        </span>
                     </strong>
                 </div>
-                <div className="producer-card-type-image">{image}</div>
+                <div className="producer-card-type-image">
+                    {this.createImage(producer.plantType)}
+                </div>
                 <div className="producer-card-name">
                     <h3>{producer.name}</h3>
                 </div>
@@ -65,13 +76,11 @@ export const ProducerType = PropTypes.shape({
 ProducerCard.propTypes = {
     className: PropTypes.string,
     producer: ProducerType.isRequired,
-    priceLabel: PropTypes.string,
     selected: PropTypes.bool,
     onClick: PropTypes.func
 };
 ProducerCard.defaultProps = {
-    selected: false,
-    priceLabel: 'ct/kWh'
+    selected: false
 };
 
 export default ProducerCard;
