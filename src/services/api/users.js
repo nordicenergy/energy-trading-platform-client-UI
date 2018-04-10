@@ -19,6 +19,7 @@ export function getUserData() {
                 firstName: 'string',
                 lastName: 'string',
                 email: 'string',
+                currentProducerId: '1234567',
                 currentProducerName: 'Peter Producer',
                 currentProducerPicture: '/plantImg/peter_producer.jpg',
                 lastBillAvailable: true,
