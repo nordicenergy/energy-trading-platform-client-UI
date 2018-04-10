@@ -7,6 +7,11 @@
     "app.loginPage.errors.emptyUsername": "Enter your username.",
     "app.loginPage.errors.emptyPassword": "Enter your password.",
 
+    "app.plantType.biomass": "Biomass",
+    "app.plantType.solar": "Solar",
+    "app.plantType.wind": "Wind",
+    "app.plantType.other": "Other",
+
     "app.restorePasswordPage.formTitle": "Restore password",
     "app.restorePasswordPage.emailField": "Enter Your Email",
     "app.restorePasswordPage.sendButton": "Send",
@@ -59,5 +64,15 @@
     "app.tradingPage.wattcoinTable.received": "Received",
     "app.tradingPage.wattcoinTable.total": "Total",
     "app.tradingPage.wattcoinTable.producer": "Producer",
-    "app.tradingPage.wattcoinTable.energyType": "Type of energy"
+    "app.tradingPage.wattcoinTable.energyType": "Type of energy",
+
+    "app.producerPage.header": "My Producer",
+    "app.producerPage.name": "Name",
+    "app.producerPage.price": "Price",
+    "app.producerPage.energyType": "Type of energy",
+    "app.producerPage.annualProduction": "Annual Production",
+    "app.producerPage.purchased": "Energy purchased",
+    "app.producerPage.capacity": "Peak Capacity",
+    "app.producerPage.selectedSince": "Selected since",
+    "app.producerPage.location": "Location"
 }

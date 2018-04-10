@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
 import { ProducerInfo, Loader } from '../../components';
+import { performGetUserData } from '../../action_performers/users';
 import { performGetProducer } from '../../action_performers/producers';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { PATHS } from '../../services/routes';
+import { convertPlantType } from '../../services/plantType';
+
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
 import './MyProducer.css';
 
@@ -66,14 +69,34 @@ export class MyProducer extends AbstractContainer {
 
     static mapStateToProps(state) {
         return {
-            loading: state.Producers.producer.loading,
+            loading:
+                state.Producers.producer.loading || state.Users.profile.loading,
+            profile: state.Users.profile.data,
             producer: state.Producers.producer.data,
             error: state.Producers.producer.error
         };
     }
 
     componentDidMount() {
-        performGetProducer('testId');
+        performGetUserData();
+        this.fetchProducer();
+    }
+
+    componentDidUpdate(prevProps) {
+        const { profile: { user: prevUser = {} } = {} } = prevProps;
+        const { profile: { user = {} } = {} } = this.props;
+
+        if (user.currentProducerId !== prevUser.currentProducerId) {
+            this.fetchProducer();
+        }
+    }
+
+    fetchProducer() {
+        const { profile: { user } = {} } = this.props;
+
+        if (user && user.currentProducerId) {
+            performGetProducer(user.currentProducerId);
+        }
     }
 
     render() {
@@ -94,7 +117,7 @@ export class MyProducer extends AbstractContainer {
             details: {
                 name: producer.name,
                 price: producer.price,
-                energyType: producer.plantType,
+                energyType: formatMessage(convertPlantType(producer.plantType)),
                 annualProduction: producer.annualProduction,
                 purchased: producer.purchased,
                 capacity: producer.capacity,
@@ -123,13 +146,15 @@ MyProducer.contextTypes = {
 
 MyProducer.propTypes = {
     loading: PropTypes.bool,
-    data: PropTypes.object,
+    producer: PropTypes.object,
+    profile: PropTypes.object,
     error: PropTypes.object
 };
 
 MyProducer.defaultProps = {
     loading: false,
-    data: {},
+    producer: {},
+    profile: {},
     error: null
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+
 import './ProducerInfo.css';
 
 class ProducerInfo extends React.Component {
@@ -56,6 +57,29 @@ class ProducerInfo extends React.Component {
     }
 }
 
-ProducerInfo.propTypes = {};
+ProducerInfo.propTypes = {
+    details: PropTypes.shape({
+        name: PropTypes.string,
+        price: PropTypes.number,
+        energyType: PropTypes.string,
+        annualProduction: PropTypes.number,
+        purchased: PropTypes.number,
+        capacity: PropTypes.number,
+        selectedSince: PropTypes.string,
+        location: PropTypes.string
+    }),
+    labels: PropTypes.shape({
+        name: PropTypes.string,
+        price: PropTypes.string,
+        energyType: PropTypes.string,
+        annualProduction: PropTypes.string,
+        purchased: PropTypes.string,
+        capacity: PropTypes.string,
+        selectedSince: PropTypes.string,
+        location: PropTypes.string
+    }),
+    description: PropTypes.string,
+    picture: PropTypes.string
+};
 
 export default ProducerInfo;
