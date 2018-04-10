@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import {
     OtherEnergyIcon,
     WindEnergyIcon,
@@ -9,7 +10,15 @@ import {
 import { PLANT_TYPES } from '../../constants';
 import './FilterCheckbox.css';
 
-const FilterCheckbox = ({ type, label, name, checked, onChange }) => {
+const FilterCheckbox = ({
+    className,
+    type,
+    label,
+    name,
+    checked,
+    onChange
+}) => {
+    const classes = classNames('filter-checkbox', className);
     let icon = null;
 
     switch (type) {
@@ -28,7 +37,7 @@ const FilterCheckbox = ({ type, label, name, checked, onChange }) => {
     }
 
     return (
-        <label className="filter-checkbox">
+        <label className={classes}>
             <input
                 className="filter-checkbox-input"
                 type="checkbox"
@@ -45,6 +54,7 @@ const FilterCheckbox = ({ type, label, name, checked, onChange }) => {
 };
 
 FilterCheckbox.propTypes = {
+    className: PropTypes.string,
     type: PropTypes.oneOf([
         PLANT_TYPES.wind,
         PLANT_TYPES.solar,
