@@ -10,6 +10,7 @@ const cardWrapperStyle = {
     margin: '0 auto'
 };
 const producer = {
+    id: 1,
     price: 2.9,
     name: 'John Doe',
     plantType: 'solar'
@@ -34,6 +35,7 @@ const cardWrapperStyle = {
     margin: '0 auto'
 };
 const producer = {
+    id: 1,
     price: 2.9,
     name: 'John Doe',
     plantType: 'solar'
