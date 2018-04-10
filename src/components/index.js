@@ -13,6 +13,7 @@ import Toast from './Toast';
 import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
 import WattcoinTable from './WattcoinTable';
+import ProducerInfo from './ProducerInfo';
 
 export {
     Button,
@@ -32,5 +33,6 @@ export {
     Toast,
     EnergyAmountGraph,
     RecentTransactions,
-    WattcoinTable
+    WattcoinTable,
+    ProducerInfo
 };
