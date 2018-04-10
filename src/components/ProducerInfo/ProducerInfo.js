@@ -46,7 +46,10 @@ class ProducerInfo extends React.Component {
                     <p className="producer-information-desc">{description}</p>
                 </section>
                 <figure className="producer-information-image">
-                    <img src={picture} alt="Producer profile image" />
+                    <img
+                        src={picture}
+                        alt="Here you can see how looks producer"
+                    />
                 </figure>
             </section>
         );
