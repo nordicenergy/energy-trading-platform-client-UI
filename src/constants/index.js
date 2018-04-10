@@ -1,4 +1,5 @@
 export const SESSION_API_URL = '/api';
+
 export const PLANT_TYPES = {
     wind: 'wind',
     solar: 'solar',
