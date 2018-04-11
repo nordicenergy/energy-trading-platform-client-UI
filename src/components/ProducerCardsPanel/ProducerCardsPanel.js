@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Spinner from '../Loader/Spinner';
 import ProducerCard, { ProducerType } from './ProducerCard';
 import './ProducerCardsPanel.css';
 
 const ProducerCardsPanel = ({
     className,
+    loading,
     producers,
     selectedProducerId,
     priceLabel,
@@ -19,26 +21,30 @@ const ProducerCardsPanel = ({
                 {producers.map(producer => (
                     <li key={producer.id} className="producer-cards-list-item">
                         <ProducerCard
+                            className="producer-card--filled"
                             producer={producer}
                             selected={producer.id === selectedProducerId}
-                            priceLabel={priceLabel}
                             onClick={onProducerClick}
                         />
                     </li>
                 ))}
             </ul>
+            <div className="producer-cards-panel-loader">
+                {loading && <Spinner size="sm" />}
+            </div>
         </div>
     );
 };
 
 ProducerCardsPanel.propTypes = {
     className: PropTypes.string,
+    loading: PropTypes.bool,
     producers: PropTypes.arrayOf(ProducerType),
     selectedProducerId: PropTypes.number,
-    priceLabel: PropTypes.string,
     onProducerClick: PropTypes.func
 };
 ProducerCardsPanel.defaultProps = {
+    loading: false,
     producers: []
 };
 

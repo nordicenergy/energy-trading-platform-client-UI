@@ -10,11 +10,40 @@
 }
 
 .producer-cards-list-item {
-    flex: 0 0 31.15%;
+    flex: 0 0 48%;
     margin-bottom: 2rem;
+    overflow: hidden;
 }
 
-.producer-cards-list-item:nth-child(3n - 2),
-.producer-cards-list-item:nth-child(3n - 1) {
-    margin-right: 3.275%;
+.producer-cards-list-item:nth-child(2n - 1) {
+    margin-right: 2%;
+}
+
+.producer-card--filled {
+    height: 100%;
+    justify-content: center;
+}
+
+.producer-cards-panel-loader {
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 1360px) {
+    .producer-cards-list-item {
+        flex: 0 0 31.15%;
+        margin-bottom: 2rem;
+        overflow: hidden;
+    }
+
+    .producer-cards-list-item:nth-child(2n - 1) {
+        margin-right: initial;
+    }
+
+    .producer-cards-list-item:nth-child(3n - 2),
+    .producer-cards-list-item:nth-child(3n - 1) {
+        margin-right: 3.275%;
+    }
 }
