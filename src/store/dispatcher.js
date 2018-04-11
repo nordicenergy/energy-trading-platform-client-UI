@@ -44,7 +44,15 @@ class Dispatcher {
     dispatchAction(type, payload, error, loading, meta) {
         const { store } = this;
 
-        store.dispatch(this.createAction(type, payload, error && error.response && error.response.data, loading, meta));
+        store.dispatch(
+            this.createAction(
+                type,
+                payload,
+                error && error.response && error.response.data,
+                loading,
+                meta
+            )
+        );
     }
 
     /**
