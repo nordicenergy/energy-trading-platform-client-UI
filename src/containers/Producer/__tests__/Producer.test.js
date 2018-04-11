@@ -2,7 +2,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ProducerContainer, { Producer } from '../Producer';
 import { ProducerInfo, Loader } from '../../../components';
-import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
+import {
+    mountWithIntl,
+    shallowWithIntl
+} from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 import * as producersActions from '../../../action_performers/producers';
 import * as appActions from '../../../action_performers/app';
@@ -60,7 +63,9 @@ function renderContainer() {
 }
 
 function renderComponent() {
-    return shallowWithIntl(<Producer {...commonProps} {...props} context={context} />);
+    return shallowWithIntl(
+        <Producer {...commonProps} {...props} context={context} />
+    );
 }
 
 describe('<Producer /> Component', () => {
