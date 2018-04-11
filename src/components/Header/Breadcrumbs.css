@@ -1,6 +1,7 @@
 .breadcrumbs {
     display: flex;
     align-items: center;
+    padding-right: 1em;
     font-size: 1rem;
 }
 

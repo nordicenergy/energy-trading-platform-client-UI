@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { defineMessages, define } from 'react-intl';
+import { defineMessages } from 'react-intl';
 import { PLANT_TYPES } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { convertPlantType } from '../../services/plantType';
@@ -104,7 +104,11 @@ export class BuyEnergy extends AbstractContainer {
 
     handleProducerClick(producerId) {
         const { history } = this.context.router;
-        history.push(`/trading/buy_energy/${producerId}`);
+        history.push(
+            `/${PATHS.trading.id}/${PATHS.buyEnergy.id}/${
+                PATHS.producer.id
+            }/${producerId}`
+        );
     }
 
     render() {
