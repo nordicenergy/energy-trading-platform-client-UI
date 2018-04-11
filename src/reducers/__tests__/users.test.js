@@ -41,7 +41,7 @@ describe('Users reducer:', () => {
         it('should handle LOGIN', () => {
             const result = usersReducer(initialState, ACTIONS.login.fail);
             expect(result.login.loading).toEqual(false);
-            expect(result.login.error).toEqual(ACTIONS.login.fail.error.data);
+            expect(result.login.error).toEqual(ACTIONS.login.fail.error);
             expect(result.login.data).toEqual({});
             expect(persistenceStore.setToken.mock.calls.length).toEqual(0);
         });
@@ -71,7 +71,7 @@ describe('Users reducer:', () => {
             expect(persistenceStore.setToken.mock.calls.length).toEqual(1);
             const [[token]] = persistenceStore.setToken.mock.calls;
             expect(token).toEqual(
-                ACTIONS.login.success.payload.authenticationToken
+                ACTIONS.login.success.payload.authentication.authenticationToken
             );
         });
 
@@ -103,8 +103,10 @@ function fixtures() {
             success: {
                 type: 'LOGIN',
                 payload: {
-                    authenticationToken: 'DC124947VDE435FVA&23',
-                    expiresAt: 999999
+                    authentication: {
+                        authenticationToken: 'DC124947VDE435FVA&23',
+                        expiresAt: 999999
+                    }
                 },
                 error: null,
                 loading: false
@@ -113,11 +115,9 @@ function fixtures() {
                 type: 'LOGIN',
                 payload: null,
                 error: {
-                    data: {
-                        message: 'Error message',
-                        code: -1,
-                        extra: null
-                    }
+                    message: 'Error message',
+                    code: -1,
+                    extra: null
                 },
                 loading: false
             },

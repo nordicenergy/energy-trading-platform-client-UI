@@ -56,7 +56,11 @@ export class Login extends Component {
     componentWillReceiveProps({ loading, login, error }) {
         const loaded = this.props.loading !== loading && !loading;
 
-        if (loaded && login.authenticationToken) {
+        if (
+            loaded &&
+            login.authentication &&
+            login.authentication.authenticationToken
+        ) {
             this.handleSuccessfulAuthentication();
         }
 

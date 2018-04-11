@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ProducerContainer, { Producer } from '../Producer';
-import { ProducerInfo, Loader } from '../../../components';
+import { ProducerInfo, Loader, Button } from '../../../components';
 import {
     mountWithIntl,
     shallowWithIntl
@@ -87,6 +87,7 @@ describe('<Producer /> Component', () => {
         expect(component.find('h1')).toHaveLength(1);
         expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);
+        expect(component.find(Button)).toHaveLength(1);
     });
 
     it('should call prepare common function', () => {

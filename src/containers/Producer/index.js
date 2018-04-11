@@ -38,6 +38,14 @@ const labels = defineMessages({
     location: {
         id: 'app.producerPage.location',
         defaultMessage: 'Location'
+    },
+    selectButton: {
+        id: 'app.producerPage.selectButton',
+        defaultMessage: 'Select Producer'
+    },
+    changeButton: {
+        id: 'app.producerPage.changeButton',
+        defaultMessage: 'Change Producer'
     }
 });
 
