@@ -1,3 +1,4 @@
+import AbstractContainer from './AbstractContainer';
 import Notifications from './Notifications';
 import App from './App';
 import Login from './Login';
@@ -14,9 +15,10 @@ import MyProducer from './MyProducer';
 import SellEnergy from './SellEnergy';
 import BuyEnergy from './BuyEnergy';
 import Wattcoin from './Wattcoin';
-import AbstractContainer from './AbstractContainer';
+import Producer from './Producer';
 
 export {
+    AbstractContainer,
     Notifications,
     App,
     Login,
@@ -33,5 +35,5 @@ export {
     SellEnergy,
     MyProducer,
     Wattcoin,
-    AbstractContainer
+    Producer
 };

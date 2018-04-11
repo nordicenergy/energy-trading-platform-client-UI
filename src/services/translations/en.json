@@ -30,8 +30,6 @@
     "app.menuBar.trading": "Trading",
     "app.menuBar.profile": "Profile",
 
-    "app.breadCrumbs.myProducer": "My Producer",
-
     "app.footer.about": "About Us",
     "app.footer.team": "Our Team",
     "app.footer.service": "Question&Service",
@@ -43,9 +41,9 @@
 
     "app.breadCrumbs.sellEnergy": "Sell Energy",
     "app.breadCrumbs.buyEnergy": "Buy Energy",
-    "app.breadCrumbs.myProducerEnergy": "My Producer",
+    "app.breadCrumbs.myProducer": "My Producer",
     "app.breadCrumbs.trading": "Trading",
-    "app.breadCrumbs.Wattcoin": "Wattcoin",
+    "app.breadCrumbs.wattcoin": "Wattcoin",
 
     "app.overviewPage.recentTransactions.title": "Most Recent Transactions",
     "app.overviewPage.recentTransactions.headerDate": "Date",
