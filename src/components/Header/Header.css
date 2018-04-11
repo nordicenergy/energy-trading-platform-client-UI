@@ -21,3 +21,14 @@
     width: calc(100% - var(--side-bar-width));
     justify-content: space-between;
 }
+
+@media screen and (max-width: 768px) {
+    .logo-container {
+        width: calc(var(--side-bar-width) / 2);
+    }
+
+    .main-header-container {
+        width: auto;
+        justify-content: flex-end;
+    }
+}

@@ -44,3 +44,9 @@
     margin-right: 0.75em;
     color: var(--breadcrumb-arrow-color);
 }
+
+@media screen and (max-width: 768px) {
+    .breadcrumbs {
+        display: none;
+    }
+}

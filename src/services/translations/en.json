@@ -77,5 +77,6 @@
     "app.producerPage.purchased": "Energy purchased",
     "app.producerPage.capacity": "Peak Capacity",
     "app.producerPage.selectedSince": "Selected since",
-    "app.producerPage.location": "Location"
+    "app.producerPage.location": "Location",
+    "app.producerPage.selectButton": "Select Producer"
 }

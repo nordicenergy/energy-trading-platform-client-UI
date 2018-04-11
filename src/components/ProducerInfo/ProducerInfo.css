@@ -57,5 +57,15 @@ figure.producer-information-image {
 
 figure.producer-information-image img {
     width: 20rem;
-    border-radius: 0.5em;
+    border-radius: 0.25em;
+}
+
+@media screen and (max-width: 1024px) {
+    .producer-information {
+        flex-direction: column-reverse;
+    }
+
+    figure.producer-information-image {
+        margin: 0 0 1.5em;
+    }
 }

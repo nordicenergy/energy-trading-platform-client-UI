@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ProducerInfo, Loader } from '../../components';
+import { ProducerInfo, Loader, Button } from '../../components';
 import { labels, prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
 import { performGetProducer } from '../../action_performers/producers';
@@ -68,8 +68,13 @@ export class MyProducer extends AbstractContainer {
         return (
             <div className="my-producer-page">
                 <Loader show={loading} />
-                <h1>{formatMessage(labels.header)}</h1>
-                <ProducerInfo {...producerInfoProps} />
+                <section className="my-producer-page-info-container">
+                    <h1>{formatMessage(labels.header)}</h1>
+                    <ProducerInfo {...producerInfoProps} />
+                </section>
+                <section className="my-producer-page-controls">
+                    <Button>{formatMessage(labels.changeButton)}</Button>
+                </section>
             </div>
         );
     }
