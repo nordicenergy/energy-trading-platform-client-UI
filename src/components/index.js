@@ -16,6 +16,7 @@ import WattcoinTable from './WattcoinTable';
 import FilterCheckbox from './FilterCheckbox';
 import ProducerCardsPanel from './ProducerCardsPanel';
 import ProducerInfo from './ProducerInfo';
+import OptionLinks from './OptionLinks';
 
 export {
     Button,
@@ -39,5 +40,6 @@ export {
     WattcoinTable,
     FilterCheckbox,
     ProducerCardsPanel,
-    ProducerInfo
+    ProducerInfo,
+    OptionLinks
 };
