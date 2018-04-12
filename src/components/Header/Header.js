@@ -62,7 +62,8 @@ Header.propTypes = {
 Header.defaultProps = {
     notifications: [],
     breadCrumbs: [],
-    navigateTo: () => {}
+    navigateTo: () => {},
+    onLogoutButtonClickHandler: f => f
 };
 
 export default Header;

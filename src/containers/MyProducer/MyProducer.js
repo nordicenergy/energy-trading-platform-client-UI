@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faReply } from '@fortawesome/fontawesome-free-solid';
 import { ProducerInfo, Loader, Button } from '../../components';
 import { labels, prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
@@ -26,11 +28,10 @@ export class MyProducer extends AbstractContainer {
 
     static mapStateToProps(state) {
         return {
-            loading:
-                state.Producers.producer.loading || state.Users.profile.loading,
+            loading: state.Producers.producer.loading || state.Users.profile.loading,
             profile: state.Users.profile.data,
             producer: state.Producers.producer.data,
-            error: state.Producers.producer.error
+            error: state.Producers.producer.error || state.Users.profile.error
         };
     }
 
@@ -50,7 +51,6 @@ export class MyProducer extends AbstractContainer {
 
     fetchProducer() {
         const { profile: { user } = {} } = this.props;
-
         if (user && user.currentProducerId) {
             performGetProducer(user.currentProducerId);
         }
@@ -60,10 +60,7 @@ export class MyProducer extends AbstractContainer {
         const { formatMessage } = this.context.intl;
         const { loading, producer = {} } = this.props;
 
-        const producerInfoProps = prepareProducerInfoProps(
-            formatMessage,
-            producer
-        );
+        const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
 
         return (
             <div className="my-producer-page">
@@ -74,6 +71,17 @@ export class MyProducer extends AbstractContainer {
                 </section>
                 <section className="my-producer-page-controls">
                     <Button>{formatMessage(labels.changeButton)}</Button>
+                    <a
+                        className="my-producer-switch-back"
+                        href=""
+                        onClick={event => {
+                            event.preventDefault();
+                            // TODO: implement correct navigation logic
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faReply} />
+                        <span>{formatMessage(labels.switchBack)}</span>
+                    </a>
                 </section>
             </div>
         );

@@ -15,6 +15,10 @@ const labels = defineMessages({
         id: 'app.producerPage.price',
         defaultMessage: 'Price'
     },
+    marketPrice: {
+        id: 'app.producerPage.marketPrice',
+        defaultMessage: 'vs. market price of'
+    },
     energyType: {
         id: 'app.producerPage.energyType',
         defaultMessage: 'Type of energy'
@@ -46,6 +50,10 @@ const labels = defineMessages({
     changeButton: {
         id: 'app.producerPage.changeButton',
         defaultMessage: 'Change Producer'
+    },
+    switchBack: {
+        id: 'app.producerPage.switchBack',
+        defaultMessage: 'Switch back to market price purchasing'
     }
 });
 
@@ -54,6 +62,7 @@ function prepareProducerInfoProps(translate, producer) {
         labels: {
             name: translate(labels.name),
             price: translate(labels.price),
+            marketPrice: translate(labels.marketPrice),
             energyType: translate(labels.energyType),
             annualProduction: translate(labels.annualProduction),
             purchased: translate(labels.purchased),
@@ -63,6 +72,7 @@ function prepareProducerInfoProps(translate, producer) {
         },
         details: {
             name: producer.name,
+            marketPrice: producer.marketPrice,
             price: producer.price,
             energyType: translate(convertPlantType(producer.plantType)),
             annualProduction: producer.annualProduction,

@@ -13,7 +13,7 @@ const Footer = props => {
                     <a
                         className={item.active ? 'footer-item--active' : ''}
                         key={item.href}
-                        href={`/${item.href}`}
+                        href={`${item.href}`}
                         onClick={event => {
                             event.preventDefault();
                             onSelect(item.href);
