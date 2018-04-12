@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { defineMessages, define } from 'react-intl';
-import { PLANT_TYPES } from '../../constants';
+import { defineMessages } from 'react-intl';
+import { PLANT_TYPES, LIMIT } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { convertPlantType } from '../../services/plantType';
+import { performGetProducers } from '../../action_performers/producers';
+import { performGetUserData } from '../../action_performers/users';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { ProducerCardsPanel, FilterCheckbox } from '../../components';
+import { Loader, ProducerCardsPanel, FilterCheckbox } from '../../components';
 import './BuyEnergy.css';
 
 const messages = defineMessages({
@@ -60,32 +62,68 @@ export class BuyEnergy extends AbstractContainer {
         ];
 
         super(props, context, breadcrumbs);
+
+        this.scrollTimeout = null;
+        this.lastScrollTop = 0;
+        this.handleScroll = this.handleScroll.bind(this);
         this.state = {
-            filter: []
+            filter: [],
+            page: 0
         };
     }
 
-    static mapStateToProps(/* state */) {
-        // TODO replace with real data from redux store.
+    static mapStateToProps({ Users, Producers }) {
         return {
-            producers: [
-                { id: 0, price: 2.9, plantType: 'solar', name: 'John Doe' },
-                { id: 1, price: 2, plantType: 'wind', name: 'Peter Producer' },
-                { id: 2, price: 1, plantType: 'biomass', name: 'Jeremy' },
-                { id: 3, price: 5, plantType: 'wind', name: 'Blark' },
-                { id: 4, price: 1, plantType: 'solar', name: 'Alice' }
-            ],
-            selectedProducer: {
-                id: 1,
-                price: 2,
-                plantType: 'wind',
-                name: 'Peter Producer'
-            }
+            profileLoading: Users.profile.loading,
+            profile: Users.profile.data,
+            producersLoading: Producers.producers.loading,
+            producers: Producers.producers.data
         };
+    }
+
+    componentDidMount() {
+        const { offset } = this.state;
+
+        performGetUserData();
+        performGetProducers({ offset, limit: LIMIT });
+        document
+            .getElementById('main-container')
+            .addEventListener('scroll', this.handleScroll);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.page !== this.state.page) {
+            performGetProducers({ page: this.state.page });
+        }
+    }
+
+    componentWillUnmount() {
+        document
+            .getElementById('main-container')
+            .removeEventListener('scroll', this.handleScroll);
     }
 
     resetFilter() {
         this.setState({ filter: [] });
+    }
+
+    handleScroll({ target }) {
+        clearTimeout(this.scrollTimeout);
+
+        this.scrollTimeout = setTimeout(() => {
+            const { producersLoading } = this.props;
+            const { scrollTop, clientHeight, scrollHeight } = target;
+            const isScrollDown = scrollTop > this.lastScrollTop;
+            const delta = scrollHeight - scrollTop - clientHeight;
+
+            if (delta === 0 && isScrollDown && !producersLoading) {
+                this.setState(prevState => ({
+                    page: prevState.page + 1
+                }));
+            }
+
+            this.lastScrollTop = scrollTop;
+        }, 100);
     }
 
     handleFilterChange(event) {
@@ -109,16 +147,25 @@ export class BuyEnergy extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { producers, selectedProducer } = this.props;
-        const { filter } = this.state;
+        const {
+            profileLoading,
+            profile: { user = {} },
+            producersLoading,
+            producers
+        } = this.props;
+        const { filter, page } = this.state;
+        const shouldShowFullScreenLoader =
+            (profileLoading || producersLoading) && page === 0;
+        const shouldShowListLoader = producersLoading && page > 1;
 
         return (
             <section className="buy-energy-page">
+                <Loader show={shouldShowFullScreenLoader} />
                 <header className="buy-energy-page-header">
                     <h1>{formatMessage(messages.pageTitle)}</h1>
                     <h2>
                         {formatMessage(messages.selectedProducerLabel)}{' '}
-                        <strong>{selectedProducer.name}</strong>
+                        <strong>{user.currentProducerName}</strong>
                     </h2>
                 </header>
                 <aside className="buy-energy-page-filter">
@@ -154,8 +201,9 @@ export class BuyEnergy extends AbstractContainer {
                 </aside>
                 <ProducerCardsPanel
                     className="buy-energy-page-producers"
+                    loading={shouldShowListLoader}
                     producers={producers}
-                    selectedProducerId={selectedProducer.id}
+                    selectedProducerId={user.selectedProducerId}
                     onProducerClick={producerId => {
                         this.handleProducerClick(producerId);
                     }}
@@ -176,12 +224,10 @@ BuyEnergy.contextTypes = {
     }).isRequired
 };
 BuyEnergy.propTypes = {
-    producers: PropTypes.arrayOf(PropTypes.object),
-    selectedProducer: PropTypes.object
-};
-BuyEnergy.defaultProps = {
-    producers: [],
-    selectedProducer: {}
+    profileLoading: PropTypes.bool.isRequired,
+    profile: PropTypes.object.isRequired,
+    producersLoading: PropTypes.bool.isRequired,
+    producers: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default connect(BuyEnergy.mapStateToProps)(BuyEnergy);

@@ -37,7 +37,7 @@ function renderComponent(
     );
 }
 
-describe('<BuyEnergy /> container', () => {
+describe.skip('<BuyEnergy /> container', () => {
     it('should renders without errors', () => {
         renderComponent();
     });
