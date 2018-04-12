@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { getProducer, getProducers } from '../producers';
+import { getProducer, getCurrentProducer, getProducers } from '../producers';
 import { LIMIT } from '../../../constants';
 
 describe('Producers API Service', () => {
@@ -19,6 +19,32 @@ describe('Producers API Service', () => {
     it.skip('should provide method for getting specific producer', () => {
         getProducer('testId');
         expect(Axios.get).toHaveBeenCalledWith('/api//producers/get/testId');
+    });
+
+    // TODO remove skip after integration
+    it.skip('should provide method for getting current producer', async () => {
+        Axios.get.mockReturnValue(
+            Promise.resolve({
+                data: { user: { currentProducerId: 'TEST' } }
+            })
+        );
+
+        await getCurrentProducer();
+        expect(Axios.get).toHaveBeenCalledTimes(2);
+
+        const [firstCallUrl] = Axios.get.mock.calls[0];
+        const [secondCallUrl] = Axios.get.mock.calls[1];
+        expect(firstCallUrl).toBe('/api/user/getUserData');
+        expect(secondCallUrl).toBe('/api/producers/TEST/get');
+
+        Axios.get.mockClear();
+        Axios.get.mockReturnValue(Promise.resolve({}));
+
+        await getCurrentProducer();
+        expect(Axios.get).toHaveBeenCalledTimes(1);
+        expect(Axios.get).toHaveBeenCalledWith('/api/user/getUserData');
+
+        Axios.get.mockImplementation(jest.fn);
     });
 
     it('should provide method for getting producers list', () => {
