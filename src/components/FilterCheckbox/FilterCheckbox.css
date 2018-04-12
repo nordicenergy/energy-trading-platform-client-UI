@@ -43,8 +43,7 @@
 }
 
 .filter-checkbox-input:checked + * > .filter-checkbox-icon {
-    border-right: var(--border-width) solid
-        var(--filter-checkbox-checked-border-color);
+    border-right: var(--border-width) solid var(--filter-checkbox-checked-border-color);
     color: white;
 }
 
@@ -54,7 +53,6 @@
 }
 
 .filter-checkbox-label:hover > .filter-checkbox-icon {
-    border-right: var(--border-width) solid
-        var(--filter-checkbox-hov-border-color) !important;
+    border-right: var(--border-width) solid var(--filter-checkbox-hov-border-color) !important;
     color: white;
 }

@@ -8,9 +8,7 @@ export function transactionsReducer(state = initialState, action) {
             return {
                 ...state,
                 recentTransactions: {
-                    data: action.payload
-                        ? action.payload
-                        : state.recentTransactions.data,
+                    data: action.payload ? action.payload : state.recentTransactions.data,
                     loading: action.loading,
                     error: action.error
                 }

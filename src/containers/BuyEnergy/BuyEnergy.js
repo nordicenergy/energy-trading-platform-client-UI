@@ -5,10 +5,7 @@ import { defineMessages } from 'react-intl';
 import { PLANT_TYPES } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { convertPlantType } from '../../services/plantType';
-import {
-    performGetCurrentProducer,
-    performGetProducers
-} from '../../action_performers/producers';
+import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { Loader, ProducerCardsPanel, FilterCheckbox } from '../../components';
 import './BuyEnergy.css';
@@ -82,18 +79,14 @@ export class BuyEnergy extends AbstractContainer {
             currentProducer: Producers.currentProducer.data,
             producersLoading: Producers.producers.loading,
             producers: Producers.producers.data.entries,
-            hasNextProducers:
-                Producers.producers.data.total >
-                Producers.producers.data.entries.length
+            hasNextProducers: Producers.producers.data.total > Producers.producers.data.entries.length
         };
     }
 
     componentDidMount() {
         performGetCurrentProducer();
         performGetProducers();
-        document
-            .getElementById('main-container')
-            .addEventListener('scroll', this.handleScroll);
+        document.getElementById('main-container').addEventListener('scroll', this.handleScroll);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -103,9 +96,7 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentWillUnmount() {
-        document
-            .getElementById('main-container')
-            .removeEventListener('scroll', this.handleScroll);
+        document.getElementById('main-container').removeEventListener('scroll', this.handleScroll);
     }
 
     resetFilter() {
@@ -122,12 +113,7 @@ export class BuyEnergy extends AbstractContainer {
             const isScrollDown = scrollTop > this.lastScrollTop;
             const delta = scrollHeight - scrollTop - clientHeight;
 
-            if (
-                delta <= pageBottomOffset &&
-                isScrollDown &&
-                hasNextProducers &&
-                !producersLoading
-            ) {
+            if (delta <= pageBottomOffset && isScrollDown && hasNextProducers && !producersLoading) {
                 this.setState(prevState => ({
                     page: prevState.page + 1
                 }));
@@ -153,24 +139,14 @@ export class BuyEnergy extends AbstractContainer {
 
     handleProducerClick(producerId) {
         const { history } = this.context.router;
-        history.push(
-            `/${PATHS.trading.id}/${PATHS.buyEnergy.id}/${
-                PATHS.producer.id
-            }/${producerId}`
-        );
+        history.push(`/${PATHS.trading.id}/${PATHS.buyEnergy.id}/${PATHS.producer.id}/${producerId}`);
     }
 
     render() {
         const { formatMessage } = this.context.intl;
-        const {
-            currentProducerLoading,
-            currentProducer,
-            producersLoading,
-            producers
-        } = this.props;
+        const { currentProducerLoading, currentProducer, producersLoading, producers } = this.props;
         const { filter, page } = this.state;
-        const shouldShowFullScreenLoader =
-            (currentProducerLoading || producersLoading) && page === 0;
+        const shouldShowFullScreenLoader = (currentProducerLoading || producersLoading) && page === 0;
         const shouldShowListLoader = producersLoading && page >= 1;
 
         return (
@@ -179,16 +155,13 @@ export class BuyEnergy extends AbstractContainer {
                 <header className="buy-energy-page-header">
                     <h1>{formatMessage(messages.pageTitle)}</h1>
                     <h2>
-                        {formatMessage(messages.selectedProducerLabel)}{' '}
-                        <strong>{currentProducer.name}</strong>
+                        {formatMessage(messages.selectedProducerLabel)} <strong>{currentProducer.name}</strong>
                     </h2>
                 </header>
                 <aside className="buy-energy-page-filter">
                     <div className="producer-filter">
                         <div className="producer-filter-label">
-                            <strong>
-                                {formatMessage(messages.filterLabel)}
-                            </strong>
+                            <strong>{formatMessage(messages.filterLabel)}</strong>
                         </div>
                         <div className="producer-filter-options">
                             <FilterCheckbox

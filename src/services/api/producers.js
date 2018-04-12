@@ -19,7 +19,7 @@ export function getProducer(id) {
                 complete: false,
                 plantType: 'solar',
                 picture: null,
-                    // 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg',
+                // 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg',
                 location: 'Lippendorf, Neukieritzsch',
                 description: `LTN Supply & Trading is a leading European energy
                   trading house and the interface between the LTN Group's
@@ -54,9 +54,8 @@ export function getCurrentProducer() {
         data: {
             producer: {
                 id: 3,
-                name: 'John Doe',
-                description:
-                    'Green plant close to Hamburg run by a farmer, John Doe',
+                name: 'Peter Producer',
+                description: 'Green plant close to Hamburg run by a farmer, John Doe',
                 picture: '/plantImg/peter_producer.jpg',
                 capacity: 600,
                 price: 6.4,

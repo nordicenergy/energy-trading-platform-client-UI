@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import MyProducerContainer, { MyProducer } from '../MyProducer';
-import { ProducerInfo, Loader, Button } from '../../../components';
+import { ProducerInfo, ProducerHistory, Loader, Button } from '../../../components';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
@@ -98,6 +98,7 @@ describe('<MyProducer /> Component', () => {
         - <h1>;
         - <FontAwesomeIcon> icon (reply);
         - <Button> component;
+        - <ProducerHistory> component;
         - <Loader> component";
         - <ProducerInfo> component";`, () => {
         const component = renderContainer();
@@ -108,6 +109,7 @@ describe('<MyProducer /> Component', () => {
         expect(component.find(ProducerInfo)).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(1);
         expect(component.find(FontAwesomeIcon)).toHaveLength(1);
+        expect(component.find(ProducerHistory)).toHaveLength(1);
     });
 
     it('should call prepare common function', () => {

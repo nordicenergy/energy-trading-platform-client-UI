@@ -24,5 +24,7 @@ pipelines:
           - npm install
           - npm test
           - npm run build
+          - npm run styleguide:build
           - scp -r build/* ec2-user@aws1.lition.io:/var/www/html
+          - scp -r styleguide/* ec2-user@aws1.lition.io:/var/www/html/docs
           - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd

@@ -42,7 +42,8 @@
         "redux-mock-store": "1.5.1"
     },
     "pre-commit": [
-        "test"
+        "test",
+        "format"
     ],
     "repository": {
         "type": "git",

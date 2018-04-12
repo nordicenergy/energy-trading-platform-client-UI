@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faReply } from '@fortawesome/fontawesome-free-solid';
-import { ProducerInfo, Loader, Button } from '../../components';
+import { ProducerInfo, ProducerHistory, Loader, Button } from '../../components';
 import { labels, prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
 import { performGetProducer } from '../../action_performers/producers';
@@ -62,6 +62,29 @@ export class MyProducer extends AbstractContainer {
 
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
 
+        // TODO replace by data from store
+        const historyProps = {
+            title: 'History of changes',
+            data: [
+                {
+                    date: 'Sep 12',
+                    value: 'Change amount of energy 3000 kWh'
+                },
+                {
+                    date: 'Feb 22',
+                    value: 'Price change 2.4 ct/kWh'
+                },
+                {
+                    date: 'Feb 12',
+                    value: 'Change amount of energy 2300 kWh'
+                },
+                {
+                    date: 'Jan 14',
+                    value: 'Price change 3 ct/kWh'
+                }
+            ]
+        };
+
         return (
             <div className="my-producer-page">
                 <Loader show={loading} />
@@ -72,7 +95,7 @@ export class MyProducer extends AbstractContainer {
                 <section className="my-producer-page-controls">
                     <Button>{formatMessage(labels.changeButton)}</Button>
                     <a
-                        className="my-producer-switch-back"
+                        className="my-producer-page-switch-back"
                         href=""
                         onClick={event => {
                             event.preventDefault();
@@ -82,6 +105,9 @@ export class MyProducer extends AbstractContainer {
                         <FontAwesomeIcon icon={faReply} />
                         <span>{formatMessage(labels.switchBack)}</span>
                     </a>
+                </section>
+                <section className="my-producer-page-history">
+                    <ProducerHistory {...historyProps} />
                 </section>
             </div>
         );

@@ -50,15 +50,9 @@ describe('<BuyEnergy /> container', () => {
     const mainContainerMock = document.createElement('div');
 
     beforeAll(() => {
-        jest
-            .spyOn(producersActionPerformers, 'performGetCurrentProducer')
-            .mockImplementation(jest.fn());
-        jest
-            .spyOn(producersActionPerformers, 'performGetProducers')
-            .mockImplementation(jest.fn());
-        jest
-            .spyOn(document, 'getElementById')
-            .mockReturnValue(mainContainerMock);
+        jest.spyOn(producersActionPerformers, 'performGetCurrentProducer').mockImplementation(jest.fn());
+        jest.spyOn(producersActionPerformers, 'performGetProducers').mockImplementation(jest.fn());
+        jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerMock);
         jest.spyOn(mainContainerMock, 'addEventListener');
         jest.spyOn(mainContainerMock, 'removeEventListener');
     });
@@ -74,16 +68,10 @@ describe('<BuyEnergy /> container', () => {
         });
         const handleScrollMock = buyEnergy.instance().handleScroll;
 
-        expect(mainContainerMock.addEventListener).toHaveBeenCalledWith(
-            'scroll',
-            buyEnergy.instance().handleScroll
-        );
+        expect(mainContainerMock.addEventListener).toHaveBeenCalledWith('scroll', buyEnergy.instance().handleScroll);
 
         buyEnergy.unmount();
-        expect(mainContainerMock.removeEventListener).toHaveBeenCalledWith(
-            'scroll',
-            handleScrollMock
-        );
+        expect(mainContainerMock.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);
     });
 
     it('should return correct props', () => {
@@ -123,9 +111,7 @@ describe('<BuyEnergy /> container', () => {
         });
 
         buyEnergy.setState({ page: 1 });
-        expect(
-            producersActionPerformers.performGetProducers
-        ).toHaveBeenCalledWith({ page: 1 });
+        expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 1 });
     });
 
     it('should not update state if scroll up', () => {
@@ -164,9 +150,7 @@ describe('<BuyEnergy /> container', () => {
             .find('ProducerCardsPanel')
             .props()
             .onProducerClick(1);
-        expect(historyMock.push).toHaveBeenCalledWith(
-            '/trading/buy_energy/producer/1'
-        );
+        expect(historyMock.push).toHaveBeenCalledWith('/trading/buy_energy/producer/1');
     });
 
     it('should update state when filter option was clicked', () => {

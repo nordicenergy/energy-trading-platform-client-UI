@@ -1,23 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {
-    OtherEnergyIcon,
-    WindEnergyIcon,
-    SolarEnergyIcon,
-    BiomassEnergyIcon
-} from './icons';
+import { OtherEnergyIcon, WindEnergyIcon, SolarEnergyIcon, BiomassEnergyIcon } from './icons';
 import { PLANT_TYPES } from '../../constants';
 import './FilterCheckbox.css';
 
-const FilterCheckbox = ({
-    className,
-    type,
-    label,
-    name,
-    checked,
-    onChange
-}) => {
+const FilterCheckbox = ({ className, type, label, name, checked, onChange }) => {
     const classes = classNames('filter-checkbox', className);
     let icon = null;
 
@@ -55,12 +43,7 @@ const FilterCheckbox = ({
 
 FilterCheckbox.propTypes = {
     className: PropTypes.string,
-    type: PropTypes.oneOf([
-        PLANT_TYPES.wind,
-        PLANT_TYPES.solar,
-        PLANT_TYPES.biomass,
-        PLANT_TYPES.other
-    ]),
+    type: PropTypes.oneOf([PLANT_TYPES.wind, PLANT_TYPES.solar, PLANT_TYPES.biomass, PLANT_TYPES.other]),
     label: PropTypes.string.isRequired,
     name: PropTypes.string,
     checked: PropTypes.bool,

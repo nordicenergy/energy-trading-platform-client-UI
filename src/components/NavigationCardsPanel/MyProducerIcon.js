@@ -1,31 +1,13 @@
 import React from 'react';
 
 const MyProducerIcon = () => (
-    <svg
-        width="125px"
-        height="125px"
-        viewBox="0 0 127 127"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="125px" height="125px" viewBox="0 0 127 127" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <title>Page 1</title>
         <desc>Created with Sketch.</desc>
         <defs />
-        <g
-            id="Lition"
-            stroke="none"
-            strokeWidth="1"
-            fill="none"
-            fillRule="evenodd"
-        >
-            <g
-                id="Dashboard_my-version"
-                transform="translate(-450.000000, -137.000000)"
-            >
-                <g
-                    id="My-Producer"
-                    transform="translate(361.000000, 104.000000)"
-                >
+        <g id="Lition" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+            <g id="Dashboard_my-version" transform="translate(-450.000000, -137.000000)">
+                <g id="My-Producer" transform="translate(361.000000, 104.000000)">
                     <g id="Page-1" transform="translate(90.000000, 34.000000)">
                         <polygon
                             id="Fill-1"

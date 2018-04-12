@@ -19,7 +19,7 @@
     text-align: left;
 }
 
-a.my-producer-switch-back {
+a.my-producer-page-switch-back {
     outline: none;
     display: flex;
     justify-content: center;
@@ -34,24 +34,29 @@ a.my-producer-switch-back {
     text-decoration: none;
 }
 
-a.my-producer-switch-back > svg {
+a.my-producer-page-switch-back > svg {
     margin: 0 0.45em 0 0;
     color: var(--button-success-color);
     font-size: 1.25rem;
     line-height: 1.5;
 }
 
-a.my-producer-switch-back > span {
+a.my-producer-page-switch-back > span {
     margin-top: 0.25em;
 }
 
-a.my-producer-switch-back:hover > span {
+a.my-producer-page-switch-back:hover > span {
     color: var(--general-text-color);
     transition: color 0.3s ease-in;
 }
 
-a.my-producer-switch-back:hover > svg {
+a.my-producer-page-switch-back:hover > svg {
     transform: scale(1.1);
     color: var(--button-hover-color);
     transition: 0.2s ease-in;
+}
+
+.my-producer-page-history {
+    background: white;
+    padding: 3.625em 2em;
 }

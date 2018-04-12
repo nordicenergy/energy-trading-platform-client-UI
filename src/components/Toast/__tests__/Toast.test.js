@@ -2,10 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Toast from '../Toast';
 
-function renderComponent(
-    { message = 'Test message', ...otherProps } = {},
-    mountFn = shallow
-) {
+function renderComponent({ message = 'Test message', ...otherProps } = {}, mountFn = shallow) {
     return mountFn(<Toast message={message} {...otherProps} />);
 }
 

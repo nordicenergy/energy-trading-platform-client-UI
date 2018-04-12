@@ -1,29 +1,14 @@
 import React from 'react';
 
 const SellEnergyIcon = () => (
-    <svg
-        width="125px"
-        height="125px"
-        viewBox="0 0 127 127"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="125px" height="125px" viewBox="0 0 127 127" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <title>Page 1</title>
         <desc>Created with Sketch.</desc>
         <defs>
             <polygon id="path-1" points="0 127 127 127 127 0 0 0" />
         </defs>
-        <g
-            id="Lition"
-            stroke="none"
-            strokeWidth="1"
-            fill="none"
-            fillRule="evenodd"
-        >
-            <g
-                id="Dashboard_my-version"
-                transform="translate(-1121.000000, -139.000000)"
-            >
+        <g id="Lition" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+            <g id="Dashboard_my-version" transform="translate(-1121.000000, -139.000000)">
                 <g id="Page-1" transform="translate(1121.000000, 139.000000)">
                     <polygon
                         className="fillArea"

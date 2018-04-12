@@ -30,10 +30,7 @@ export class Producer extends AbstractContainer {
         const { producer: prevProducer = {} } = prevProps;
         const { producer = {} } = this.props;
 
-        if (
-            prevProducer.id !== producer.id ||
-            prevProducer.name !== producer.name
-        ) {
+        if (prevProducer.id !== producer.id || prevProducer.name !== producer.name) {
             this.setupProducerBreadcrumbs();
         }
     }
@@ -53,10 +50,7 @@ export class Producer extends AbstractContainer {
                 },
                 {
                     ...PATHS.producer,
-                    path: PATHS.producer.path.replace(
-                        ':producerId',
-                        producer.id
-                    ),
+                    path: PATHS.producer.path.replace(':producerId', producer.id),
                     label: producer.name
                 }
             ]);
@@ -66,10 +60,7 @@ export class Producer extends AbstractContainer {
     render() {
         const { formatMessage } = this.context.intl;
         const { loading, producer = {} } = this.props;
-        const producerInfoProps = prepareProducerInfoProps(
-            formatMessage,
-            producer
-        );
+        const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
 
         return (
             <div className="producer-page">

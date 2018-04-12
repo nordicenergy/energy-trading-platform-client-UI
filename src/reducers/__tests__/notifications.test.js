@@ -5,14 +5,9 @@ const { NOTIFICATION_MOCK, ACTIONS } = fixtures();
 describe('Notifications reducer', () => {
     describe('Pending cases:', () => {
         it('should handle PUSH_NOTIFICATION', () => {
-            const newState = notificationsReducer(
-                initialState,
-                ACTIONS.pushNotification.pending
-            );
+            const newState = notificationsReducer(initialState, ACTIONS.pushNotification.pending);
 
-            expect(newState.pushedNotification.data).toEqual(
-                initialState.pushedNotification.data
-            );
+            expect(newState.pushedNotification.data).toEqual(initialState.pushedNotification.data);
             expect(newState.pushedNotification.loading).toBeTruthy();
             expect(newState.pushedNotification.error).toBeNull();
         });
@@ -20,10 +15,7 @@ describe('Notifications reducer', () => {
 
     describe('Success cases:', () => {
         it('should handle PUSH_NOTIFICATION', () => {
-            const newState = notificationsReducer(
-                initialState,
-                ACTIONS.pushNotification.success
-            );
+            const newState = notificationsReducer(initialState, ACTIONS.pushNotification.success);
 
             expect(newState.pushedNotification.data).toEqual(NOTIFICATION_MOCK);
             expect(newState.pushedNotification.loading).toBeFalsy();
@@ -33,14 +25,9 @@ describe('Notifications reducer', () => {
 
     describe('Error cases:', () => {
         it('should handle PUSH_NOTIFICATION', () => {
-            const newState = notificationsReducer(
-                initialState,
-                ACTIONS.pushNotification.error
-            );
+            const newState = notificationsReducer(initialState, ACTIONS.pushNotification.error);
 
-            expect(newState.pushedNotification.data).toEqual(
-                initialState.pushedNotification.data
-            );
+            expect(newState.pushedNotification.data).toEqual(initialState.pushedNotification.data);
             expect(newState.pushedNotification.loading).toBeFalsy();
             expect(newState.pushedNotification.error).toBeInstanceOf(Error);
         });

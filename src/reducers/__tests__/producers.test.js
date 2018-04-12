@@ -5,32 +5,21 @@ const { ACTIONS } = fixtures();
 describe('Producers reducer:', () => {
     describe('Pending cases:', () => {
         it('should handle GET_PRODUCER', () => {
-            const result = producersReducer(
-                initialState,
-                ACTIONS.getProducer.pending
-            );
+            const result = producersReducer(initialState, ACTIONS.getProducer.pending);
             expect(result.producer.loading).toEqual(true);
             expect(result.producer.error).toEqual(null);
             expect(result.producer.data).toEqual({});
         });
 
         it('should handle GET_CURRENT_PRODUCER', () => {
-            const result = producersReducer(
-                initialState,
-                ACTIONS.getCurrentProducer.pending
-            );
+            const result = producersReducer(initialState, ACTIONS.getCurrentProducer.pending);
             expect(result.currentProducer.loading).toBeTruthy();
             expect(result.currentProducer.error).toBeNull();
-            expect(result.currentProducer.data).toEqual(
-                initialState.currentProducer.data
-            );
+            expect(result.currentProducer.data).toEqual(initialState.currentProducer.data);
         });
 
         it('should handle GET_PRODUCERS', () => {
-            const result = producersReducer(
-                initialState,
-                ACTIONS.getProducers.pending
-            );
+            const result = producersReducer(initialState, ACTIONS.getProducers.pending);
             expect(result.producers.loading).toBeTruthy();
             expect(result.producers.error).toBeNull();
             expect(result.producers.data).toEqual(initialState.producers.data);
@@ -39,72 +28,44 @@ describe('Producers reducer:', () => {
 
     describe('Error cases:', () => {
         it('should handle GET_PRODUCER', () => {
-            const result = producersReducer(
-                initialState,
-                ACTIONS.getProducer.fail
-            );
+            const result = producersReducer(initialState, ACTIONS.getProducer.fail);
             expect(result.producer.loading).toEqual(false);
             expect(result.producer.error).toEqual('Producer Error Message');
             expect(result.producer.data).toEqual({});
         });
 
         it('should handle GET_CURRENT_PRODUCER', () => {
-            const result = producersReducer(
-                initialState,
-                ACTIONS.getCurrentProducer.fail
-            );
+            const result = producersReducer(initialState, ACTIONS.getCurrentProducer.fail);
             expect(result.currentProducer.loading).toBeFalsy();
-            expect(result.currentProducer.error).toEqual(
-                ACTIONS.getCurrentProducer.fail.error.data
-            );
-            expect(result.currentProducer.data).toEqual(
-                initialState.currentProducer.data
-            );
+            expect(result.currentProducer.error).toEqual(ACTIONS.getCurrentProducer.fail.error.data);
+            expect(result.currentProducer.data).toEqual(initialState.currentProducer.data);
         });
 
         it('should handle GET_PRODUCERS', () => {
-            const result = producersReducer(
-                initialState,
-                ACTIONS.getProducers.fail
-            );
+            const result = producersReducer(initialState, ACTIONS.getProducers.fail);
             expect(result.producers.loading).toBeFalsy();
-            expect(result.producers.error).toEqual(
-                ACTIONS.getProducers.fail.error.data
-            );
+            expect(result.producers.error).toEqual(ACTIONS.getProducers.fail.error.data);
             expect(result.producers.data).toEqual(initialState.producers.data);
         });
     });
 
     describe('Success cases:', () => {
         it('should handle GET_PRODUCER', () => {
-            const result = producersReducer(
-                initialState,
-                ACTIONS.getProducer.success
-            );
+            const result = producersReducer(initialState, ACTIONS.getProducer.success);
             expect(result.producer.loading).toEqual(false);
             expect(result.producer.error).toEqual(null);
-            expect(result.producer.data).toEqual(
-                ACTIONS.getProducer.success.payload.producer
-            );
+            expect(result.producer.data).toEqual(ACTIONS.getProducer.success.payload.producer);
         });
 
         it('should handle GET_CURRENT_PRODUCER', () => {
-            const result = producersReducer(
-                initialState,
-                ACTIONS.getCurrentProducer.success
-            );
+            const result = producersReducer(initialState, ACTIONS.getCurrentProducer.success);
             expect(result.currentProducer.loading).toBeFalsy();
             expect(result.currentProducer.error).toBeNull();
-            expect(result.currentProducer.data).toEqual(
-                ACTIONS.getCurrentProducer.success.payload.producer
-            );
+            expect(result.currentProducer.data).toEqual(ACTIONS.getCurrentProducer.success.payload.producer);
         });
 
         it('should handle GET_PRODUCERS', () => {
-            const result = producersReducer(
-                initialState,
-                ACTIONS.getProducers.success
-            );
+            const result = producersReducer(initialState, ACTIONS.getProducers.success);
             expect(result.producers.loading).toBeFalsy();
             expect(result.producers.error).toBeNull();
             expect(result.producers.data).toEqual({
@@ -124,8 +85,7 @@ function fixtures() {
                     producer: {
                         price: 6,
                         name: 'John Doe',
-                        description:
-                            'Green plant close to Hamburg run by a farmer, John Doe',
+                        description: 'Green plant close to Hamburg run by a farmer, John Doe',
                         tradingStrategy: false,
                         id: 'testId',
                         complete: false,
@@ -157,8 +117,7 @@ function fixtures() {
                     producer: {
                         id: 3,
                         name: 'John Doe',
-                        description:
-                            'Green plant close to Hamburg run by a farmer, John Doe',
+                        description: 'Green plant close to Hamburg run by a farmer, John Doe',
                         picture: '/plantImg/peter_producer.jpg',
                         capacity: 600,
                         price: 6.4,

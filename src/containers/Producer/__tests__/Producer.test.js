@@ -2,10 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ProducerContainer, { Producer } from '../Producer';
 import { ProducerInfo, Loader, Button } from '../../../components';
-import {
-    mountWithIntl,
-    shallowWithIntl
-} from '../../../services/intlTestHelper';
+import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 import * as producersActions from '../../../action_performers/producers';
 import * as appActions from '../../../action_performers/app';
@@ -26,8 +23,7 @@ const store = mockStore({
                 id: 1,
                 complete: false,
                 plantType: 'solar',
-                picture:
-                    'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg',
+                picture: 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg',
                 location: 'Lippendorf, Neukieritzsch',
                 description: 'desc'
             },
@@ -64,9 +60,7 @@ function renderContainer() {
 }
 
 function renderComponent() {
-    return shallowWithIntl(
-        <Producer {...commonProps} {...props} context={context} />
-    );
+    return shallowWithIntl(<Producer {...commonProps} {...props} context={context} />);
 }
 
 describe('<Producer /> Component', () => {
@@ -119,8 +113,7 @@ describe('<Producer /> Component', () => {
                 purchased: 'Energy purchased',
                 selectedSince: 'Selected since'
             },
-            picture:
-                'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg'
+            picture: 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg'
         });
     });
 
@@ -145,16 +138,11 @@ describe('<Producer /> Component', () => {
     it('should perform related actions on did mount step', () => {
         renderContainer();
 
-        expect(producersActions.performGetProducer.mock.calls.length).toEqual(
-            1
-        );
+        expect(producersActions.performGetProducer.mock.calls.length).toEqual(1);
         const [[arg1]] = producersActions.performGetProducer.mock.calls;
         expect(arg1).toEqual('1');
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
-        const [
-            [bArg1],
-            [bArg2]
-        ] = appActions.performSetupBreadcrumbs.mock.calls;
+        const [[bArg1], [bArg2]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual(undefined);
         expect(bArg2).toEqual([
             {

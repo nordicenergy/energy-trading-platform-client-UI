@@ -24,16 +24,10 @@ class Header extends React.Component {
                     <Logo size="small" />
                 </div>
                 <div className="main-header-container">
-                    <Breadcrumbs
-                        items={this.props.breadCrumbs}
-                        onClick={this.props.navigateTo}
-                    />
+                    <Breadcrumbs items={this.props.breadCrumbs} onClick={this.props.navigateTo} />
                     <nav className="header-buttons">
                         <HeaderButton
-                            hasIndicator={
-                                this.props.notifications &&
-                                this.props.notifications.length > 0
-                            }
+                            hasIndicator={this.props.notifications && this.props.notifications.length > 0}
                             label={this.props.notificationLabel}
                             icon="faBell"
                             onClickHandler={() => {}}

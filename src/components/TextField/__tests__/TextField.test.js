@@ -6,24 +6,10 @@ const onChangeMock = jest.fn();
 const onFocusMock = jest.fn();
 const onBlurMock = jest.fn();
 function renderComponent(
-    {
-        label = 'Test',
-        onChange = onChangeMock,
-        onFocus = onFocusMock,
-        onBlur = onBlurMock,
-        ...otherProps
-    } = {},
+    { label = 'Test', onChange = onChangeMock, onFocus = onFocusMock, onBlur = onBlurMock, ...otherProps } = {},
     mountFn = shallow
 ) {
-    return mountFn(
-        <TextField
-            {...otherProps}
-            label={label}
-            onChange={onChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
-        />
-    );
+    return mountFn(<TextField {...otherProps} label={label} onChange={onChange} onFocus={onFocus} onBlur={onBlur} />);
 }
 
 describe('<TextField /> component', () => {
@@ -48,9 +34,7 @@ describe('<TextField /> component', () => {
         const textField = renderComponent({ helperText: helperTextMock });
 
         expect(textField.find('.text-field-helper-text')).toHaveLength(1);
-        expect(textField.find('.text-field-helper-text').text()).toBe(
-            helperTextMock
-        );
+        expect(textField.find('.text-field-helper-text').text()).toBe(helperTextMock);
     });
 
     it('should renders with addon', () => {

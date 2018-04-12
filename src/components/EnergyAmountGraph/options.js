@@ -1,6 +1,5 @@
 const tickColor = '#b1bac1';
-const tickStartTag =
-    '<span translate="no" style="font-weight: 600;line-height: 1.5em;">';
+const tickStartTag = '<span translate="no" style="font-weight: 600;line-height: 1.5em;">';
 const tickEndTag = '</span>';
 
 const options = {

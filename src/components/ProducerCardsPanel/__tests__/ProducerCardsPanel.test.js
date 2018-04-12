@@ -10,13 +10,8 @@ const producersMock = [
     { id: 4, price: 1, plantType: 'solar', name: 'Alice' }
 ];
 
-function renderComponent(
-    { producers = producersMock, ...otherProps } = {},
-    mountFn = shallow
-) {
-    return mountFn(
-        <ProducerCardsPanel producers={producers} {...otherProps} />
-    );
+function renderComponent({ producers = producersMock, ...otherProps } = {}, mountFn = shallow) {
+    return mountFn(<ProducerCardsPanel producers={producers} {...otherProps} />);
 }
 
 describe('<ProducerCardsPanel /> component', () => {

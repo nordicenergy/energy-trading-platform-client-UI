@@ -5,14 +5,7 @@ import Spinner from '../Loader/Spinner';
 import ProducerCard, { ProducerType } from './ProducerCard';
 import './ProducerCardsPanel.css';
 
-const ProducerCardsPanel = ({
-    className,
-    loading,
-    producers,
-    selectedProducerId,
-    priceLabel,
-    onProducerClick
-}) => {
+const ProducerCardsPanel = ({ className, loading, producers, selectedProducerId, priceLabel, onProducerClick }) => {
     const classes = classNames('producer-cards-panel', className);
 
     return (
@@ -29,9 +22,7 @@ const ProducerCardsPanel = ({
                     </li>
                 ))}
             </ul>
-            <div className="producer-cards-panel-loader">
-                {loading && <Spinner size="sm" />}
-            </div>
+            <div className="producer-cards-panel-loader">{loading && <Spinner size="sm" />}</div>
         </div>
     );
 };

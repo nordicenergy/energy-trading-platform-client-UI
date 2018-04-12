@@ -11,7 +11,9 @@ class ProducerInfo extends React.Component {
         return () =>
             marketPrice ? (
                 <small className="producer-information-market-value">
-                    {`${labels.marketPrice} `}<strong>{marketPrice}</strong>{` ct/KWh`}
+                    {`${labels.marketPrice} `}
+                    <strong>{marketPrice}</strong>
+                    {` ct/KWh`}
                 </small>
             ) : null;
     }
