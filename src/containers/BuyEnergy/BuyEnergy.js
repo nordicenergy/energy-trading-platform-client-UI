@@ -10,7 +10,12 @@ import {
     performGetProducers
 } from '../../action_performers/producers';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { Loader, ProducerCardsPanel, FilterCheckbox } from '../../components';
+import {
+    Loader,
+    ProducerCardsPanel,
+    FilterCheckbox,
+    OptionLinks
+} from '../../components';
 import './BuyEnergy.css';
 
 const pageBottomOffset = 200; // pixels
@@ -31,6 +36,14 @@ const messages = defineMessages({
     filterOptionAll: {
         id: 'app.buyEnergyPage.filterOptionAll',
         defaultMessage: 'All'
+    },
+    tradeDirectlyOnMarketLink: {
+        id: 'app.buyEnergyPage.tradeDirectlyOnMarketLink',
+        defaultMessage: 'Trade directly on market'
+    },
+    litionEnergyExchangeLink: {
+        id: 'app.buyEnergyPage.litionEnergyExchangeLink',
+        defaultMessage: 'Lition energy exchange'
     }
 });
 const FILTER_OPTIONS = [
@@ -48,6 +61,16 @@ const FILTER_OPTIONS = [
         name: 'biomass',
         label: convertPlantType(PLANT_TYPES.biomass),
         type: PLANT_TYPES.biomass
+    }
+];
+const LINKS = [
+    {
+        link: '#trade-directly-on-market',
+        caption: messages.tradeDirectlyOnMarketLink
+    },
+    {
+        link: '#lition-energy-exchange',
+        caption: messages.litionEnergyExchangeLink
     }
 ];
 
@@ -89,8 +112,13 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentDidMount() {
+        const { producers } = this.props;
+
+        if (producers.length === 0) {
+            performGetProducers();
+        }
+
         performGetCurrentProducer();
-        performGetProducers();
         document
             .getElementById('main-container')
             .addEventListener('scroll', this.handleScroll);
@@ -222,6 +250,12 @@ export class BuyEnergy extends AbstractContainer {
                     onProducerClick={producerId => {
                         this.handleProducerClick(producerId);
                     }}
+                />
+                <OptionLinks
+                    links={LINKS.map(link => ({
+                        ...link,
+                        caption: formatMessage(link.caption)
+                    }))}
                 />
             </section>
         );
