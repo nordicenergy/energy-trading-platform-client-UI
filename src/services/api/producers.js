@@ -1,5 +1,5 @@
-// import Axios from 'axios';
-// import { SESSION_API_URL } from '../../constants';
+import Axios from 'axios';
+import { SESSION_API_URL, LIMIT } from '../../constants';
 
 export function getProducer(id) {
     // TODO replace on real api call
@@ -27,5 +27,11 @@ export function getProducer(id) {
                   physical and/or derivative forms.`
             }
         }
+    });
+}
+
+export function getProducers({ page = 0 } = {}) {
+    return Axios.get(`${SESSION_API_URL}/producers/direct`, {
+        params: { limit: LIMIT, offset: page * LIMIT }
     });
 }

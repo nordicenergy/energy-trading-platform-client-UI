@@ -1,8 +1,8 @@
 import Axios from 'axios';
-import { getProducer } from '../producers';
+import { getProducer, getProducers } from '../producers';
+import { LIMIT } from '../../../constants';
 
-// TODO remove skip after integration
-describe.skip('Producers API Service', () => {
+describe('Producers API Service', () => {
     beforeAll(() => {
         jest.spyOn(Axios, 'get').mockImplementation(jest.fn);
     });
@@ -15,8 +15,34 @@ describe.skip('Producers API Service', () => {
         Axios.get.mockClear();
     });
 
-    it('should provide method for getting specific producer', () => {
+    // TODO remove skip after integration
+    it.skip('should provide method for getting specific producer', () => {
         getProducer('testId');
         expect(Axios.get).toHaveBeenCalledWith('/api//producers/get/testId');
+    });
+
+    it('should provide method for getting producers list', () => {
+        getProducers();
+        expect(Axios.get).toHaveBeenCalledWith(
+            '/api/producers/direct',
+            expect.objectContaining({
+                params: {
+                    limit: LIMIT,
+                    offset: 0
+                }
+            })
+        );
+        Axios.get.mockClear();
+
+        getProducers({ page: 5 });
+        expect(Axios.get).toHaveBeenCalledWith(
+            '/api/producers/direct',
+            expect.objectContaining({
+                params: {
+                    limit: LIMIT,
+                    offset: LIMIT * 5
+                }
+            })
+        );
     });
 });
