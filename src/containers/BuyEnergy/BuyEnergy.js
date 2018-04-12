@@ -13,6 +13,8 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { Loader, ProducerCardsPanel, FilterCheckbox } from '../../components';
 import './BuyEnergy.css';
 
+const pageBottomOffset = 200; // pixels
+const scrollTimeout = 100; // milliseconds
 const messages = defineMessages({
     pageTitle: {
         id: 'app.buyEnergyPage.pageTitle',
@@ -121,7 +123,7 @@ export class BuyEnergy extends AbstractContainer {
             const delta = scrollHeight - scrollTop - clientHeight;
 
             if (
-                delta <= 200 &&
+                delta <= pageBottomOffset &&
                 isScrollDown &&
                 hasNextProducers &&
                 !producersLoading
@@ -132,7 +134,7 @@ export class BuyEnergy extends AbstractContainer {
             }
 
             this.lastScrollTop = scrollTop;
-        }, 100);
+        }, scrollTimeout);
     }
 
     handleFilterChange(event) {
