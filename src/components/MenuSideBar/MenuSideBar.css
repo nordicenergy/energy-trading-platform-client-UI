@@ -1,6 +1,6 @@
 .menu-side-bar {
     width: var(--side-bar-width);
-    height: calc(100% - var(--border-width));
+    height: 100%;
 
     background: transparent
         linear-gradient(to right, var(--bar-color), var(--bar-color)) no-repeat;

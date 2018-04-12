@@ -14,11 +14,19 @@ function renderComponent(
     { producers = producersMock, ...otherProps } = {},
     mountFn = shallow
 ) {
-    return mountFn(<ProducerCardsPanel producers={producers} />);
+    return mountFn(
+        <ProducerCardsPanel producers={producers} {...otherProps} />
+    );
 }
 
 describe('<ProducerCardsPanel /> component', () => {
     it('should renders without errors', () => {
         renderComponent();
+    });
+
+    it('should renders with spinner', () => {
+        const producerCardsPanel = renderComponent({ loading: true });
+
+        expect(producerCardsPanel.find('Spinner')).toHaveLength(1);
     });
 });

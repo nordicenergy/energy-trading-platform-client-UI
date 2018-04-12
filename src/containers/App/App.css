@@ -8,8 +8,8 @@
     height: calc(100% - var(--menu-icon-size));
 }
 
-.main-container {
-    overflow: auto;
+#main-container {
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -20,7 +20,7 @@
     text-align: center;
 }
 
-.main-container main {
+#main-container main {
     flex: 1;
 }
 

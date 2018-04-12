@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import { BuyEnergy } from '../BuyEnergy';
+import * as producersActionPerformers from '../../../action_performers/producers';
 
 const producersMock = [
     { id: 0, price: 2.9, plantType: 'solar', name: 'John Doe' },
@@ -9,7 +10,7 @@ const producersMock = [
     { id: 3, price: 5, plantType: 'wind', name: 'Blark' },
     { id: 4, price: 1, plantType: 'solar', name: 'Alice' }
 ];
-const selectedProducerMock = producersMock[1];
+const currentProducerMock = producersMock[1];
 const historyMock = {
     push: jest.fn()
 };
@@ -19,16 +20,22 @@ const routerMock = {
 
 function renderComponent(
     {
+        currentProducerLoading = false,
+        currentProducer = currentProducerMock,
+        producersLoading = false,
         producers = producersMock,
-        selectedProducer = selectedProducerMock,
+        hasNextProducers = false,
         ...otherProps
     } = {},
     mountFn = shallowWithIntl
 ) {
     return mountFn(
         <BuyEnergy
+            currentProducerLoading={currentProducerLoading}
+            currentProducer={currentProducer}
+            producersLoading={producersLoading}
             producers={producers}
-            selectedProducer={selectedProducer}
+            hasNextProducers={hasNextProducers}
             {...otherProps}
         />,
         {
@@ -38,8 +45,116 @@ function renderComponent(
 }
 
 describe('<BuyEnergy /> container', () => {
+    jest.useFakeTimers();
+
+    const mainContainerMock = document.createElement('div');
+
+    beforeAll(() => {
+        jest
+            .spyOn(producersActionPerformers, 'performGetCurrentProducer')
+            .mockImplementation(jest.fn());
+        jest
+            .spyOn(producersActionPerformers, 'performGetProducers')
+            .mockImplementation(jest.fn());
+        jest
+            .spyOn(document, 'getElementById')
+            .mockReturnValue(mainContainerMock);
+        jest.spyOn(mainContainerMock, 'addEventListener');
+        jest.spyOn(mainContainerMock, 'removeEventListener');
+    });
+
+    afterEach(() => {
+        producersActionPerformers.performGetProducers.mockClear();
+    });
+
     it('should renders without errors', () => {
-        renderComponent();
+        const buyEnergy = renderComponent({
+            currentProducerLoading: true,
+            producersLoading: true
+        });
+        const handleScrollMock = buyEnergy.instance().handleScroll;
+
+        expect(mainContainerMock.addEventListener).toHaveBeenCalledWith(
+            'scroll',
+            buyEnergy.instance().handleScroll
+        );
+
+        buyEnergy.unmount();
+        expect(mainContainerMock.removeEventListener).toHaveBeenCalledWith(
+            'scroll',
+            handleScrollMock
+        );
+    });
+
+    it('should return correct props', () => {
+        const stateMock = {
+            Producers: {
+                currentProducer: {
+                    data: producersMock[1],
+                    error: null,
+                    loading: false
+                },
+                producers: {
+                    data: {
+                        total: 10,
+                        entries: producersMock
+                    },
+                    error: null,
+                    loading: false
+                }
+            },
+            Users: {}
+        };
+        const props = BuyEnergy.mapStateToProps(stateMock);
+
+        expect(props).toEqual({
+            currentProducerLoading: false,
+            currentProducer: producersMock[1],
+            producersLoading: false,
+            producers: producersMock,
+            hasNextProducers: true
+        });
+    });
+
+    it('should calls performGetProducers then page increase', () => {
+        const buyEnergy = renderComponent({
+            currentProducerLoading: true,
+            producersLoading: true
+        });
+
+        buyEnergy.setState({ page: 1 });
+        expect(
+            producersActionPerformers.performGetProducers
+        ).toHaveBeenCalledWith({ page: 1 });
+    });
+
+    it('should not update state if scroll up', () => {
+        const buyEnergy = renderComponent({ hasNextProducers: true });
+        const scrollEventMock = new Event('scroll', {
+            target: mainContainerMock
+        });
+
+        buyEnergy.instance().lastScrollTop = 1;
+
+        mainContainerMock.dispatchEvent(scrollEventMock);
+        jest.runAllTimers();
+
+        expect(buyEnergy.state().page).toBe(0);
+    });
+
+    it('should update state after scroll', () => {
+        const buyEnergy = renderComponent({ hasNextProducers: true });
+        const scrollEventMock = new Event('scroll', {
+            target: mainContainerMock
+        });
+
+        mainContainerMock.scrollTop = 2;
+        buyEnergy.instance().lastScrollTop = 1;
+
+        mainContainerMock.dispatchEvent(scrollEventMock);
+        jest.runAllTimers();
+
+        expect(buyEnergy.state().page).toBe(1);
     });
 
     it('should opens producer page', () => {
