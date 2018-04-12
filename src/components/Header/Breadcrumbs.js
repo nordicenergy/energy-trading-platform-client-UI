@@ -47,9 +47,7 @@ class Breadcrumbs extends React.Component {
                     <a
                         aria-label={item.label}
                         className="breadcrumb"
-                        onClick={() => {
-                            onClick(item.path);
-                        }}
+                        onClick={() => onClick(item.path)}
                     >
                         {breadcrumbLabel}
                     </a>

@@ -142,7 +142,11 @@ export class BuyEnergy extends AbstractContainer {
 
     handleProducerClick(producerId) {
         const { history } = this.context.router;
-        history.push(`/trading/buy_energy/${producerId}`);
+        history.push(
+            `/${PATHS.trading.id}/${PATHS.buyEnergy.id}/${
+                PATHS.producer.id
+            }/${producerId}`
+        );
     }
 
     render() {

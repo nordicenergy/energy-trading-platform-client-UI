@@ -1,9 +1,9 @@
-.my-producer-page-info-container {
+.producer-page-info-container {
     padding: var(--page-paddings);
     background: white;
 }
 
-.my-producer-page-info-container > h1 {
+.producer-page-info-container > h1 {
     margin: 0 0 1em 0;
     padding: 0;
     color: black;
@@ -13,7 +13,7 @@
     text-align: left;
 }
 
-.my-producer-page-controls {
+.producer-page-controls {
     padding: 1.5em;
     text-align: left;
 }

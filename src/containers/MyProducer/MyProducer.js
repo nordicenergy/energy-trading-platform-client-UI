@@ -1,64 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { defineMessages } from 'react-intl';
-import { ProducerInfo, Loader } from '../../components';
+import { ProducerInfo, Loader, Button } from '../../components';
+import { labels, prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
 import { performGetProducer } from '../../action_performers/producers';
 import { PATHS } from '../../services/routes';
-import { convertPlantType } from '../../services/plantType';
 
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
 import './MyProducer.css';
 
-const labels = defineMessages({
-    header: {
-        id: 'app.producerPage.header',
-        defaultMessage: 'My Producer'
-    },
-    name: {
-        id: 'app.producerPage.name',
-        defaultMessage: 'Name'
-    },
-    price: {
-        id: 'app.producerPage.price',
-        defaultMessage: 'Price'
-    },
-    energyType: {
-        id: 'app.producerPage.energyType',
-        defaultMessage: 'Type of energy'
-    },
-    annualProduction: {
-        id: 'app.producerPage.annualProduction',
-        defaultMessage: 'Annual Production'
-    },
-    purchased: {
-        id: 'app.producerPage.purchased',
-        defaultMessage: 'Energy purchased'
-    },
-    capacity: {
-        id: 'app.producerPage.capacity',
-        defaultMessage: 'Peak Capacity'
-    },
-    selectedSince: {
-        id: 'app.producerPage.selectedSince',
-        defaultMessage: 'Selected since'
-    },
-    location: {
-        id: 'app.producerPage.location',
-        defaultMessage: 'Location'
-    }
-});
-
 export class MyProducer extends AbstractContainer {
     constructor(props, context) {
         const { formatMessage } = context.intl;
         const breadcrumbs = [
-            {
-                ...PATHS.trading,
-                label: formatMessage(PATHS.trading.label)
-            },
+            { ...PATHS.trading, label: formatMessage(PATHS.trading.label) },
             {
                 ...PATHS.myProducer,
                 label: formatMessage(PATHS.myProducer.label)
@@ -103,36 +60,21 @@ export class MyProducer extends AbstractContainer {
         const { formatMessage } = this.context.intl;
         const { loading, producer = {} } = this.props;
 
-        const producerInfoProps = {
-            labels: {
-                name: formatMessage(labels.name),
-                price: formatMessage(labels.price),
-                energyType: formatMessage(labels.energyType),
-                annualProduction: formatMessage(labels.annualProduction),
-                purchased: formatMessage(labels.purchased),
-                capacity: formatMessage(labels.capacity),
-                selectedSince: formatMessage(labels.selectedSince),
-                location: formatMessage(labels.location)
-            },
-            details: {
-                name: producer.name,
-                price: producer.price,
-                energyType: formatMessage(convertPlantType(producer.plantType)),
-                annualProduction: producer.annualProduction,
-                purchased: producer.purchased,
-                capacity: producer.capacity,
-                selectedSince: producer.dates,
-                location: producer.location
-            },
-            description: producer.description,
-            picture: producer.picture
-        };
+        const producerInfoProps = prepareProducerInfoProps(
+            formatMessage,
+            producer
+        );
 
         return (
             <div className="my-producer-page">
                 <Loader show={loading} />
-                <h1>{formatMessage(labels.header)}</h1>
-                <ProducerInfo {...producerInfoProps} />
+                <section className="my-producer-page-info-container">
+                    <h1>{formatMessage(labels.header)}</h1>
+                    <ProducerInfo {...producerInfoProps} />
+                </section>
+                <section className="my-producer-page-controls">
+                    <Button>{formatMessage(labels.changeButton)}</Button>
+                </section>
             </div>
         );
     }

@@ -116,7 +116,7 @@ describe('<Login /> Container', () => {
         component.setProps({ loading: true, login: {} });
         component.setProps({
             loading: false,
-            login: { authenticationToken: 'abc' }
+            login: { authentication: { authenticationToken: 'abc' } }
         });
 
         expect(historyMock.push).toHaveBeenCalledWith('/');
@@ -140,7 +140,7 @@ describe('<Login /> Container', () => {
         component.setProps({ loading: true, login: {} });
         component.setProps({
             loading: false,
-            login: { authenticationToken: 'abc' }
+            login: { authentication: { authenticationToken: 'abc' } }
         });
 
         expect(historyMock.push).toHaveBeenCalledWith('/test');

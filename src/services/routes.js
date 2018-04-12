@@ -15,6 +15,7 @@ import {
     About,
     Team,
     MyProducer,
+    Producer,
     BuyEnergy,
     SellEnergy,
     Wattcoin
@@ -33,6 +34,10 @@ const pathsLabels = defineMessages({
     myProducer: {
         id: 'app.breadCrumbs.myProducer',
         defaultMessage: 'My Producer'
+    },
+    producer: {
+        id: 'app.breadCrumbs.producer',
+        defaultMessage: 'Selected Producer'
     },
     sellEnergy: {
         id: 'app.breadCrumbs.sellEnergy',
@@ -84,6 +89,11 @@ export const PATHS = {
         path: '/trading/my_producer',
         label: pathsLabels.myProducer
     },
+    producer: {
+        id: 'producer',
+        path: '/trading/buy_energy/producer/:producerId',
+        label: pathsLabels.producer
+    },
     buyEnergy: {
         id: 'buy_energy',
         path: '/trading/buy_energy',
@@ -101,13 +111,20 @@ export const PATHS = {
     }
 };
 
+const BuyEnergyRoute = () => (
+    <React.Fragment>
+        <Route exact path={PATHS.buyEnergy.path} component={BuyEnergy} />
+        <Route path={PATHS.producer.path} component={Producer} />
+    </React.Fragment>
+);
+
 const TradingRoute = () => (
     <React.Fragment>
         <Route exact path={PATHS.trading.path} component={Trading} />
         <Route path={PATHS.myProducer.path} component={MyProducer} />
         <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
-        <Route path={PATHS.buyEnergy.path} component={BuyEnergy} />
         <Route path={PATHS.wattcoin.path} component={Wattcoin} />
+        <BuyEnergyRoute />
     </React.Fragment>
 );
 
