@@ -6,3 +6,5 @@ export const PLANT_TYPES = {
     biomass: 'biomass',
     other: 'other'
 };
+
+export const LIMIT = 10;

@@ -1,5 +1,9 @@
 import { dispatcher } from '../../store';
-import { performGetProducer } from '../producers';
+import {
+    performGetProducer,
+    performGetCurrentProducer,
+    performGetProducers
+} from '../producers';
 
 describe('Producers action performers', () => {
     beforeEach(() => {
@@ -15,10 +19,52 @@ describe('Producers action performers', () => {
             Producers: { producer: { loading: 'TEST' } }
         });
 
-        expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);
         expect(method.name).toEqual('getProducer');
         expect(type).toEqual('GET_PRODUCER');
         expect(loading).toEqual('TEST');
         expect(meta).toEqual(['testId']);
+    });
+
+    it('should call dispatch method for get current producer', () => {
+        performGetCurrentProducer();
+
+        const [
+            method,
+            type,
+            loadingFunc,
+            meta
+        ] = dispatcher.dispatchPromise.mock.calls[0];
+        const loading = loadingFunc({
+            Producers: { currentProducer: { loading: 'TEST' } }
+        });
+
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);
+        expect(method.name).toEqual('getCurrentProducer');
+        expect(type).toEqual('GET_CURRENT_PRODUCER');
+        expect(loading).toEqual('TEST');
+        expect(meta).toEqual([]);
+    });
+
+    it('should call dispatch method for get producers list', () => {
+        const queryParamsMock = { page: 5 };
+
+        performGetProducers(queryParamsMock);
+
+        const [
+            method,
+            type,
+            loadingFunc,
+            meta
+        ] = dispatcher.dispatchPromise.mock.calls[0];
+        const loading = loadingFunc({
+            Producers: { producer: { loading: 'TEST' } }
+        });
+
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);
+        expect(method.name).toEqual('getProducers');
+        expect(type).toEqual('GET_PRODUCERS');
+        expect(loading).toEqual('TEST');
+        expect(meta).toEqual([queryParamsMock]);
     });
 });
