@@ -23,14 +23,6 @@
     animation: dash 1.5s ease-in-out infinite;
 }
 
-.spinner--success .path {
-    stroke: var(--spinner-success-color);
-}
-
-.spinner--primary .path {
-    stroke: var(--spinner-primary-color);
-}
-
 @keyframes rotate {
     100% {
         transform: rotate(360deg);

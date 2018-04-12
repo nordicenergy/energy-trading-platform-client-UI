@@ -3,13 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './Spinner.css';
 
-const Spinner = ({ className, type, size }) => {
-    const classes = classNames(
-        'spinner',
-        `spinner--${type}`,
-        `spinner--size-${size}`,
-        className
-    );
+const Spinner = ({ className, color, size }) => {
+    const classes = classNames('spinner', `spinner--size-${size}`, className);
 
     return (
         <svg
@@ -19,6 +14,7 @@ const Spinner = ({ className, type, size }) => {
         >
             <circle
                 className="path"
+                style={{ stroke: color }}
                 fill="none"
                 cx={25}
                 cy={25}
@@ -31,11 +27,11 @@ const Spinner = ({ className, type, size }) => {
 
 Spinner.propTypes = {
     className: PropTypes.string,
-    type: PropTypes.oneOf(['success', 'primary']),
+    color: PropTypes.string,
     size: PropTypes.oneOf(['sm', 'md', 'lg'])
 };
 Spinner.defaultProps = {
-    type: 'success',
+    color: '#48d376',
     size: 'md'
 };
 

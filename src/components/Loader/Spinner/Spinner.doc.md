@@ -8,12 +8,12 @@
 </div>
 ```
 
-#### Primary spinner
+#### Spinner with another color
 
 ```jsx
 <div>
-    <Spinner size="sm" type="primary" />
-    <Spinner size="md" type="primary" />
-    <Spinner size="lg" type="primary" />
+    <Spinner size="sm" color="violet" />
+    <Spinner size="md" color="violet" />
+    <Spinner size="lg" color="violet" />
 </div>
 ```
