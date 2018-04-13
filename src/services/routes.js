@@ -111,8 +111,6 @@ export const PATHS = {
     }
 };
 
-const Docs = () => <iframe title="Web Components Docs" src="docs/index.html" />;
-
 const BuyEnergyRoute = () => (
     <React.Fragment>
         <Route exact path={PATHS.buyEnergy.path} component={BuyEnergy} />
@@ -170,8 +168,6 @@ export const Routes = () => (
         <Switch>
             <PublicRoute path="/login" component={Login} />
             <PublicRoute path="/restore-password" component={RestorePassword} />
-            {/* Temporary route for react component documentation */}
-            <Route path="/docs" component={Docs} />
             <Route path="/" component={AppMainLayout} />
         </Switch>
     </div>
