@@ -48,11 +48,11 @@ class ProducerInfo extends React.Component {
             <section className="producer-information">
                 <section className="producer-information-details">
                     {name && this.renderInfoRow(labels.name, name)}
-                    {price && this.renderInfoRow(labels.price, `${price} ct/KWh`, this.priceAdditionalInfo())}
+                    {price > 0 && this.renderInfoRow(labels.price, `${price} ct/KWh`, this.priceAdditionalInfo())}
                     {energyType && this.renderInfoRow(labels.energyType, energyType)}
-                    {annualProduction && this.renderInfoRow(labels.annualProduction, `${annualProduction} kWh/day`)}
-                    {purchased && this.renderInfoRow(labels.purchased, `${purchased} kWh`)}
-                    {capacity && this.renderInfoRow(labels.capacity, `${capacity} MW`)}
+                    {annualProduction > 0 && this.renderInfoRow(labels.annualProduction, `${annualProduction} kWh/day`)}
+                    {purchased > 0 && this.renderInfoRow(labels.purchased, `${purchased} kWh`)}
+                    {capacity > 0 && this.renderInfoRow(labels.capacity, `${capacity} MW`)}
                     {selectedSince && this.renderInfoRow(labels.selectedSince, selectedSince)}
                     {location && this.renderInfoRow(labels.location, location)}
                     <p className="producer-information-desc">{description}</p>
