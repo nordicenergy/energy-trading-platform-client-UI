@@ -80,5 +80,8 @@
     "app.producerPage.capacity": "Peak Capacity",
     "app.producerPage.selectedSince": "Selected since",
     "app.producerPage.location": "Location",
-    "app.producerPage.selectButton": "Select Producer"
+    "app.producerPage.selectButton": "Select Producer",
+    "app.producerPage.backButton": "Back to Producers",
+    "app.producerPage.switchBack": "Switch back to market price purchasing",
+    "app.producerPage.changeButton": "Change Producer"
 }
