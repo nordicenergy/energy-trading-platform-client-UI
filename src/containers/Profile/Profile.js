@@ -310,4 +310,15 @@ Profile.contextTypes = {
     }).isRequired
 };
 
+Profile.propTypes = {
+    loading: PropTypes.bool,
+    profile: PropTypes.object,
+    error: PropTypes.object
+};
+Profile.defaultProps = {
+    loading: false,
+    profile: {},
+    error: null
+};
+
 export default connect(Profile.mapStateToProps)(Profile);

@@ -96,7 +96,8 @@ class ProfileForm extends React.PureComponent {
 
     handleDateChange(date) {
         this.setState({
-            birthday: date
+            birthday: date,
+            isEdited: true
         });
     }
 

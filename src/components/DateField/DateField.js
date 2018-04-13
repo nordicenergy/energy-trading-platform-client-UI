@@ -24,10 +24,10 @@ class DateField extends React.Component {
         moment.locale(props.locale);
     }
 
-    componentDidUpdate({ prevValue }) {
-        if (this.props.date !== prevValue) {
+    componentDidUpdate({ value }) {
+        if (this.props.value !== value) {
             this.setState({
-                date: this.props.date
+                date: this.props.value
             });
         }
     }
