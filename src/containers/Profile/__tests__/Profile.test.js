@@ -2,7 +2,7 @@ import React from 'react';
 import { Profile } from '../Profile';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import * as userActionPerformers from '../../../action_performers/users';
-import * as notificationsActionPerformers from "../../../action_performers/notifications";
+import * as notificationsActionPerformers from '../../../action_performers/notifications';
 
 function renderComponent(props = {}, mountFn = shallowWithIntl) {
     return mountFn(<Profile {...props} />);
