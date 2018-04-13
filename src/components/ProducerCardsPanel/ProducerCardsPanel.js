@@ -22,7 +22,7 @@ const ProducerCardsPanel = ({ className, loading, producers, selectedProducerId,
                     </li>
                 ))}
             </ul>
-            <div className="producer-cards-panel-loader">{loading && <Spinner size="sm" />}</div>
+            <div className="producer-cards-panel-loader">{loading && <Spinner size="sm" color="#30acc1" />}</div>
         </div>
     );
 };
