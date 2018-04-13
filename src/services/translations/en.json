@@ -67,6 +67,8 @@
     "app.buyEnergyPage.selectedProducerLabel": "Current Selection:",
     "app.buyEnergyPage.filterLabel": "Filter by:",
     "app.buyEnergyPage.filterOptionAll": "All",
+    "app.buyEnergyPage.tradeDirectlyOnMarketLink": "Trade directly on market",
+    "app.buyEnergyPage.litionEnergyExchangeLink": "Lition energy exchange",
 
     "app.producerPage.header": "My Producer",
     "app.producerPage.name": "Name",

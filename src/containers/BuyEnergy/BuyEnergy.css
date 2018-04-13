@@ -1,5 +1,9 @@
 .buy-energy-page {
     --section-padding: 2rem 1.5rem 2rem 2rem;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .buy-energy-page-header,
@@ -51,6 +55,7 @@
 }
 
 .buy-energy-page-producers {
+    flex: 1;
     padding-bottom: 0;
     box-sizing: border-box;
 }

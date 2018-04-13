@@ -17,6 +17,7 @@ import FilterCheckbox from './FilterCheckbox';
 import ProducerCardsPanel from './ProducerCardsPanel';
 import ProducerInfo from './ProducerInfo';
 import ProducerHistory from './ProducerHistory';
+import OptionLinks from './OptionLinks';
 
 export {
     Button,
@@ -41,5 +42,6 @@ export {
     FilterCheckbox,
     ProducerCardsPanel,
     ProducerInfo,
-    ProducerHistory
+    ProducerHistory,
+    OptionLinks
 };
