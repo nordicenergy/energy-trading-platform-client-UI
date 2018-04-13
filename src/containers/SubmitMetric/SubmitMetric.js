@@ -12,7 +12,7 @@ export class SubmitMetric extends AbstractContainer {
     render() {
         return (
             <div className="submit-metric-page">
-                <h1>Submit Metric</h1>
+                <h1>Submit Meter Readings</h1>
             </div>
         );
     }
