@@ -18,6 +18,8 @@ import ProducerCardsPanel from './ProducerCardsPanel';
 import ProducerInfo from './ProducerInfo';
 import ProducerHistory from './ProducerHistory';
 import OptionLinks from './OptionLinks';
+import DateField from './DateField';
+import ProfileForm from './ProfileForm';
 
 export {
     Button,
@@ -43,5 +45,7 @@ export {
     ProducerCardsPanel,
     ProducerInfo,
     ProducerHistory,
-    OptionLinks
+    OptionLinks,
+    DateField,
+    ProfileForm
 };

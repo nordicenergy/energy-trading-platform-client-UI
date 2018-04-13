@@ -84,5 +84,17 @@
     "app.producerPage.deselectButton": "Deselect Producer",
     "app.producerPage.backButton": "Back to Producers",
     "app.producerPage.switchBack": "Switch back to market price purchasing",
-    "app.producerPage.changeButton": "Change Producer"
+    "app.producerPage.changeButton": "Change Producer",
+
+    "app.profilePage.errors.firstName": "Enter your first name.",
+    "app.profilePage.errors.lastName": "Enter your last name.",
+    "app.profilePage.errors.iban": "Enter your IBAN.",
+    "app.profilePage.errors.street": "Enter your street.",
+    "app.profilePage.errors.streetNumber": "Enter your street.",
+    "app.profilePage.errors.postcode": "Enter your postcode.",
+    "app.profilePage.errors.city": "Enter your postcode.",
+    "app.profilePage.errors.emptyEmail": "Enter your email.",
+    "app.profilePage.errors.emptyBankAccountNumber": "Enter your bank account number.",
+    "app.profilePage.errors.passwordsMismatch": "Passwords don't match.",
+    "app.profilePage.errors.invalidEmail": "Invalid email address."
 }

@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import enLocaleData from 'react-intl/locale-data/en';
+import 'moment/locale/de';
 
 import { store } from './store';
 import messagesEn from './services/translations/en.json';
