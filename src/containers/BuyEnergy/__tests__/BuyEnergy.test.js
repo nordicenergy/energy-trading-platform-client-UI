@@ -2,6 +2,7 @@ import React from 'react';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import { BuyEnergy } from '../BuyEnergy';
 import * as producersActionPerformers from '../../../action_performers/producers';
+import * as notificationsActionPerformers from '../../../action_performers/notifications';
 
 const producersMock = [
     { id: 0, price: 2.9, plantType: 'solar', name: 'John Doe' },
@@ -52,6 +53,7 @@ describe('<BuyEnergy /> container', () => {
     beforeAll(() => {
         jest.spyOn(producersActionPerformers, 'performGetCurrentProducer').mockImplementation(jest.fn());
         jest.spyOn(producersActionPerformers, 'performGetProducers').mockImplementation(jest.fn());
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerMock);
         jest.spyOn(mainContainerMock, 'addEventListener');
         jest.spyOn(mainContainerMock, 'removeEventListener');
@@ -96,12 +98,19 @@ describe('<BuyEnergy /> container', () => {
         const props = BuyEnergy.mapStateToProps(stateMock);
 
         expect(props).toEqual({
+            error: null,
             currentProducerLoading: false,
             currentProducer: producersMock[1],
             producersLoading: false,
             producers: producersMock,
             hasNextProducers: true
         });
+    });
+
+    it('should call performGetProducers on did mount hook', () => {
+        renderComponent({ producers: [] });
+
+        expect(producersActionPerformers.performGetProducers).toHaveBeenCalled();
     });
 
     it('should calls performGetProducers then page increase', () => {
@@ -112,6 +121,16 @@ describe('<BuyEnergy /> container', () => {
 
         buyEnergy.setState({ page: 1 });
         expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 1 });
+    });
+
+    it('should call performPushNotification if error has occurred', () => {
+        const buyEnergy = renderComponent();
+
+        buyEnergy.setProps({ error: { message: 'TEST' } });
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            message: 'TEST',
+            type: 'error'
+        });
     });
 
     it('should not update state if scroll up', () => {

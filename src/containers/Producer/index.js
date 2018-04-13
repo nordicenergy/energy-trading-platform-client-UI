@@ -51,6 +51,10 @@ const labels = defineMessages({
         id: 'app.producerPage.changeButton',
         defaultMessage: 'Change Producer'
     },
+    backButton: {
+        id: 'app.producerPage.backButton',
+        defaultMessage: 'Back to Producers'
+    },
     switchBack: {
         id: 'app.producerPage.switchBack',
         defaultMessage: 'Switch back to market price purchasing'

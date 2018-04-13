@@ -20,7 +20,7 @@ export function producersReducer(state = initialState, action) {
                 producer: {
                     data: payload ? payload.producer : state.producer.data,
                     loading: action.loading,
-                    error: action.error && action.error.data
+                    error: action.error
                 }
             };
         }
@@ -32,7 +32,7 @@ export function producersReducer(state = initialState, action) {
                 currentProducer: {
                     data: payload ? payload.producer : state.currentProducer.data,
                     loading: action.loading,
-                    error: action.error && action.error.data
+                    error: action.error
                 }
             };
         }
@@ -49,7 +49,7 @@ export function producersReducer(state = initialState, action) {
                             : state.producers.data.entries
                     },
                     loading: action.loading,
-                    error: action.error && action.error.data
+                    error: action.error
                 }
             };
         }

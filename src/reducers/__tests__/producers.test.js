@@ -30,21 +30,21 @@ describe('Producers reducer:', () => {
         it('should handle GET_PRODUCER', () => {
             const result = producersReducer(initialState, ACTIONS.getProducer.fail);
             expect(result.producer.loading).toEqual(false);
-            expect(result.producer.error).toEqual('Producer Error Message');
+            expect(result.producer.error).toEqual(ACTIONS.getProducer.fail.error);
             expect(result.producer.data).toEqual({});
         });
 
         it('should handle GET_CURRENT_PRODUCER', () => {
             const result = producersReducer(initialState, ACTIONS.getCurrentProducer.fail);
             expect(result.currentProducer.loading).toBeFalsy();
-            expect(result.currentProducer.error).toEqual(ACTIONS.getCurrentProducer.fail.error.data);
+            expect(result.currentProducer.error).toEqual(ACTIONS.getCurrentProducer.fail.error);
             expect(result.currentProducer.data).toEqual(initialState.currentProducer.data);
         });
 
         it('should handle GET_PRODUCERS', () => {
             const result = producersReducer(initialState, ACTIONS.getProducers.fail);
             expect(result.producers.loading).toBeFalsy();
-            expect(result.producers.error).toEqual(ACTIONS.getProducers.fail.error.data);
+            expect(result.producers.error).toEqual(ACTIONS.getProducers.fail.error);
             expect(result.producers.data).toEqual(initialState.producers.data);
         });
     });
@@ -100,7 +100,7 @@ function fixtures() {
             fail: {
                 type: 'GET_PRODUCER',
                 payload: null,
-                error: { data: 'Producer Error Message' },
+                error: { message: 'Producer Error Message' },
                 loading: false
             },
             pending: {
@@ -138,7 +138,7 @@ function fixtures() {
             fail: {
                 type: 'GET_CURRENT_PRODUCER',
                 payload: null,
-                error: { data: 'Response error' },
+                error: { message: 'Response error' },
                 loading: false
             },
             pending: {
@@ -198,7 +198,7 @@ function fixtures() {
             fail: {
                 type: 'GET_PRODUCERS',
                 payload: null,
-                error: { data: 'Response error' },
+                error: { message: 'Response error' },
                 loading: false
             },
             pending: {

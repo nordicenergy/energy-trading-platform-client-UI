@@ -6,8 +6,9 @@ import { PLANT_TYPES } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { convertPlantType } from '../../services/plantType';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
+import { performPushNotification } from '../../action_performers/notifications';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { Loader, ProducerCardsPanel, FilterCheckbox } from '../../components';
+import { Loader, ProducerCardsPanel, FilterCheckbox, OptionLinks } from '../../components';
 import './BuyEnergy.css';
 
 const pageBottomOffset = 200; // pixels
@@ -28,6 +29,14 @@ const messages = defineMessages({
     filterOptionAll: {
         id: 'app.buyEnergyPage.filterOptionAll',
         defaultMessage: 'All'
+    },
+    tradeDirectlyOnMarketLink: {
+        id: 'app.buyEnergyPage.tradeDirectlyOnMarketLink',
+        defaultMessage: 'Trade directly on market'
+    },
+    litionEnergyExchangeLink: {
+        id: 'app.buyEnergyPage.litionEnergyExchangeLink',
+        defaultMessage: 'Lition energy exchange'
     }
 });
 const FILTER_OPTIONS = [
@@ -45,6 +54,16 @@ const FILTER_OPTIONS = [
         name: 'biomass',
         label: convertPlantType(PLANT_TYPES.biomass),
         type: PLANT_TYPES.biomass
+    }
+];
+const LINKS = [
+    {
+        link: '#trade-directly-on-market',
+        caption: messages.tradeDirectlyOnMarketLink
+    },
+    {
+        link: '#lition-energy-exchange',
+        caption: messages.litionEnergyExchangeLink
     }
 ];
 
@@ -75,6 +94,7 @@ export class BuyEnergy extends AbstractContainer {
 
     static mapStateToProps({ Producers }) {
         return {
+            error: Producers.currentProducer.error || Producers.producers.error,
             currentProducerLoading: Producers.currentProducer.loading,
             currentProducer: Producers.currentProducer.data,
             producersLoading: Producers.producers.loading,
@@ -84,14 +104,26 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentDidMount() {
+        const { producers } = this.props;
+
+        if (producers.length === 0) {
+            performGetProducers();
+        }
+
         performGetCurrentProducer();
-        performGetProducers();
         document.getElementById('main-container').addEventListener('scroll', this.handleScroll);
     }
 
     componentDidUpdate(prevProps, prevState) {
+        const { error: oldError } = prevProps;
+        const { currentProducerLoading, producersLoading, error: newError } = this.props;
+
         if (prevState.page !== this.state.page) {
             performGetProducers({ page: this.state.page });
+        }
+
+        if (!currentProducerLoading && !producersLoading && newError && newError !== oldError) {
+            performPushNotification({ message: newError.message, type: 'error' });
         }
     }
 
@@ -195,6 +227,12 @@ export class BuyEnergy extends AbstractContainer {
                     onProducerClick={producerId => {
                         this.handleProducerClick(producerId);
                     }}
+                />
+                <OptionLinks
+                    links={LINKS.map(link => ({
+                        ...link,
+                        caption: formatMessage(link.caption)
+                    }))}
                 />
             </section>
         );
