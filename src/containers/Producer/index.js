@@ -47,6 +47,10 @@ const labels = defineMessages({
         id: 'app.producerPage.selectButton',
         defaultMessage: 'Select Producer'
     },
+    deselectButton: {
+        id: 'app.producerPage.deselectButton',
+        defaultMessage: 'Deselect Producer'
+    },
     changeButton: {
         id: 'app.producerPage.changeButton',
         defaultMessage: 'Change Producer'

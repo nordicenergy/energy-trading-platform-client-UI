@@ -94,6 +94,7 @@ export class MyProducer extends AbstractContainer {
                 </section>
                 <section className="my-producer-page-controls">
                     <Button>{formatMessage(labels.changeButton)}</Button>
+                    <Button>{formatMessage(labels.deselectButton)}</Button>
                     <a
                         className="my-producer-page-switch-back"
                         href=""

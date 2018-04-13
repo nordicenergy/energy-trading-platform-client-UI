@@ -15,17 +15,21 @@
 
 .my-producer-page-controls {
     display: flex;
-    padding: 1.5em;
+    flex-wrap: wrap;
+    padding: 1em 1.5em 1em;
     text-align: left;
+}
+
+.my-producer-page-controls button {
+    margin: 0.5em 1.5em 0.5em 0;
 }
 
 a.my-producer-page-switch-back {
     outline: none;
-    display: flex;
+    display: inherit;
     justify-content: center;
     align-items: center;
-    margin: 0 0 0 3em;
-
+    padding: 1em 0;
     color: var(--link-color);
 
     font-size: 0.875rem;
