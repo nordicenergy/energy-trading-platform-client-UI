@@ -22,9 +22,7 @@ describe('<NavigationCard /> Component', () => {
 
         expect(component.find('svg')).toHaveLength(1);
         expect(component.find('p.nav-card-title')).toHaveLength(1);
-        expect(component.find('p.nav-card-title').text()).toEqual(
-            'My Producer'
-        );
+        expect(component.find('p.nav-card-title').text()).toEqual('My Producer');
     });
 
     it('should display MyProducerIcon', () => {

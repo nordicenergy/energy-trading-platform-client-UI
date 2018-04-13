@@ -39,9 +39,7 @@ class RestorePasswordForm extends Component {
 
         return (
             <div className="restore-password-form">
-                <h3 className="restore-password-form-title">
-                    {labels.formTitle}
-                </h3>
+                <h3 className="restore-password-form-title">{labels.formTitle}</h3>
                 <form onSubmit={event => this.handleSubmit(event)}>
                     <TextField
                         className="email-field"
@@ -55,18 +53,9 @@ class RestorePasswordForm extends Component {
                     />
                     <div className="restore-password-form-actions">
                         <Button type="success">{labels.sendButton}</Button>
-                        <a
-                            className="login-link"
-                            href="/login"
-                            onClick={event => this.handleLoginLinkClick(event)}
-                        >
-                            <FontAwesomeIcon
-                                className="login-link-icon"
-                                icon={faChevronLeft}
-                            />
-                            <span className="login-link-text">
-                                {labels.loginLink}
-                            </span>
+                        <a className="login-link" href="/login" onClick={event => this.handleLoginLinkClick(event)}>
+                            <FontAwesomeIcon className="login-link-icon" icon={faChevronLeft} />
+                            <span className="login-link-text">{labels.loginLink}</span>
                         </a>
                     </div>
                 </form>

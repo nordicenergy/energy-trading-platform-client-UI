@@ -52,11 +52,7 @@ export class Notifications extends Component {
 
         return (
             <div className="notifications">
-                <Notification
-                    open={open}
-                    notification={notification}
-                    onClose={() => this.handleNotificationClose()}
-                />
+                <Notification open={open} notification={notification} onClose={() => this.handleNotificationClose()} />
             </div>
         );
     }

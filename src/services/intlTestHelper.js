@@ -18,17 +18,10 @@ export function shallowWithIntl(node, { context, ...additionalOptions } = {}) {
     });
 }
 
-export function mountWithIntl(
-    node,
-    { context, childContextTypes, ...additionalOptions } = {}
-) {
+export function mountWithIntl(node, { context, childContextTypes, ...additionalOptions } = {}) {
     return mount(nodeWithIntlProp(node), {
         context: Object.assign({}, context, { intl }),
-        childContextTypes: Object.assign(
-            {},
-            { intl: intlShape },
-            childContextTypes
-        ),
+        childContextTypes: Object.assign({}, { intl: intlShape }, childContextTypes),
         ...additionalOptions
     });
 }

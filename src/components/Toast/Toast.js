@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import {
-    faCheckCircle,
-    faExclamationTriangle
-} from '@fortawesome/fontawesome-free-solid';
+import { faCheckCircle, faExclamationTriangle } from '@fortawesome/fontawesome-free-solid';
 import './Toast.css';
 
 const Toast = props => {
@@ -18,12 +15,7 @@ const Toast = props => {
     }
 
     if (type === 'error') {
-        icon = (
-            <FontAwesomeIcon
-                icon={faExclamationTriangle}
-                className="toast-icon"
-            />
-        );
+        icon = <FontAwesomeIcon icon={faExclamationTriangle} className="toast-icon" />;
     }
 
     return (

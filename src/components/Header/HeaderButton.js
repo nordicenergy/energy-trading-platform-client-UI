@@ -5,19 +5,9 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import icons from '@fortawesome/fontawesome-free-solid';
 import classNames from 'classnames';
 
-const HeaderButton = ({
-    children,
-    hasIndicator,
-    onClickHandler,
-    icon,
-    label
-}) => (
+const HeaderButton = ({ children, hasIndicator, onClickHandler, icon, label }) => (
     <div className="header-button-container">
-        <button
-            aria-label={label}
-            className="header-button"
-            onClick={onClickHandler}
-        >
+        <button aria-label={label} className="header-button" onClick={onClickHandler}>
             <span
                 className={classNames('header-button-icon-container', {
                     'has-indicator': hasIndicator

@@ -146,16 +146,9 @@ const AppMainLayout = () => {
         return (
             <div id="app-layout">
                 <App>
-                    <Route
-                        exact
-                        path={PATHS.overview.path}
-                        component={Overview}
-                    />
+                    <Route exact path={PATHS.overview.path} component={Overview} />
                     <Route path={PATHS.documents.path} component={Documents} />
-                    <Route
-                        path={PATHS.submit_metric.path}
-                        component={SubmitMetric}
-                    />
+                    <Route path={PATHS.submit_metric.path} component={SubmitMetric} />
                     <TradingRoute />
                     <Route path={PATHS.profile.path} component={Profile} />
                     <Route path={PATHS.team.path} component={Team} />
@@ -166,11 +159,7 @@ const AppMainLayout = () => {
         );
     }
 
-    return (
-        <Redirect
-            to={`/login?next=${encodeURIComponent(window.location.pathname)}`}
-        />
-    );
+    return <Redirect to={`/login?next=${encodeURIComponent(window.location.pathname)}`} />;
 };
 
 export const Routes = () => (

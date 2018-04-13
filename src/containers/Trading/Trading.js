@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { defineMessages } from 'react-intl';
-import {
-    EnergyAmountGraph,
-    NavigationCardsPanel,
-    WattcoinTable
-} from '../../components';
+import { EnergyAmountGraph, NavigationCardsPanel, WattcoinTable } from '../../components';
 import './Trading.css';
 import { PATHS } from '../../services/routes';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
@@ -110,22 +106,7 @@ export class Trading extends AbstractContainer {
                 '2018-10-12',
                 '2018-10-13'
             ],
-            amounts: [
-                2000,
-                2200,
-                1300,
-                1600,
-                1800,
-                2100,
-                2000,
-                2050,
-                1500,
-                2050,
-                2050,
-                1500,
-                2300,
-                2900
-            ]
+            amounts: [2000, 2200, 1300, 1600, 1800, 2100, 2000, 2050, 1500, 2050, 2050, 1500, 2300, 2900]
         };
 
         const navigationCards = [
@@ -179,15 +160,8 @@ export class Trading extends AbstractContainer {
                     }}
                     navigationCards={navigationCards}
                 />
-                <WattcoinTable
-                    {...wattcoinProps}
-                    onMoreClick={() => this.navigateTo(PATHS.wattcoin.path)}
-                />
-                <EnergyAmountGraph
-                    title={formatMessage(labels.graphTitle)}
-                    subtitle="Peter Producer"
-                    data={data}
-                />
+                <WattcoinTable {...wattcoinProps} onMoreClick={() => this.navigateTo(PATHS.wattcoin.path)} />
+                <EnergyAmountGraph title={formatMessage(labels.graphTitle)} subtitle="Peter Producer" data={data} />
             </div>
         );
     }

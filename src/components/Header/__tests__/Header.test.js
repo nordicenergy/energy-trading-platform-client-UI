@@ -4,16 +4,8 @@ import HeaderButton from '../HeaderButton';
 import Logo from '../../Logo';
 import { mount } from 'enzyme';
 
-function renderComponent({
-    notifications = [],
-    onLogoutButtonClickHandler = () => {}
-}) {
-    return mount(
-        <Header
-            notifications={notifications}
-            onLogoutButtonClickHandler={onLogoutButtonClickHandler}
-        />
-    );
+function renderComponent({ notifications = [], onLogoutButtonClickHandler = () => {} }) {
+    return mount(<Header notifications={notifications} onLogoutButtonClickHandler={onLogoutButtonClickHandler} />);
 }
 
 describe('<Header /> Component', () => {

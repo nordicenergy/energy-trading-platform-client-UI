@@ -19,6 +19,7 @@
     cursor: pointer;
     transition: background 200ms;
 
+    outline: none;
     appearance: none;
 }
 

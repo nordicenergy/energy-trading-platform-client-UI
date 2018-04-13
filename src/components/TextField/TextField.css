@@ -43,11 +43,7 @@
 }
 
 .text-field--focused .text-field-layout:after {
-    background: linear-gradient(
-        to right,
-        var(--hover-icon-color),
-        var(--active-item-color)
-    );
+    background: linear-gradient(to right, var(--hover-icon-color), var(--active-item-color));
     transition-duration: 200ms;
     transform: scaleX(1);
 }
@@ -137,8 +133,7 @@
     height: 0;
     border-width: 0 0.5rem 0.5rem 0.5rem;
     border-style: solid;
-    border-color: transparent transparent var(--error-border-light-color)
-        transparent;
+    border-color: transparent transparent var(--error-border-light-color) transparent;
     content: '';
 }
 

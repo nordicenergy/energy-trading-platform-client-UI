@@ -14,10 +14,7 @@ const ICONS_TYPES = {
 const NavigationCard = ({ title, type, onCardClickHandler }) => {
     const Icon = ICONS_TYPES[type];
     return (
-        <div
-            className="nav-card-container"
-            onClick={() => onCardClickHandler()}
-        >
+        <div className="nav-card-container" onClick={() => onCardClickHandler()}>
             <div className="nav-card">
                 <div className="nav-card-image-container">
                     <Icon />

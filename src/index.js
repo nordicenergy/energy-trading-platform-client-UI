@@ -23,10 +23,7 @@ function bootstrap() {
 
     ReactDOM.render(
         <Provider store={store}>
-            <IntlProvider
-                locale={defaultLocale}
-                messages={messages[defaultLocale]}
-            >
+            <IntlProvider locale={defaultLocale} messages={messages[defaultLocale]}>
                 <Router history={history}>
                     <Routes />
                 </Router>

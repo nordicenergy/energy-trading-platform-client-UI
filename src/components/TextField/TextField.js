@@ -73,14 +73,10 @@ class TextField extends Component {
                             onFocus={event => this.handleFocus(event)}
                             onBlur={event => this.handleBlur(event)}
                         />
-                        {addon && (
-                            <span className="text-field-addon">{addon}</span>
-                        )}
+                        {addon && <span className="text-field-addon">{addon}</span>}
                     </div>
                 </label>
-                {helperText && (
-                    <p className="text-field-helper-text">{helperText}</p>
-                )}
+                {helperText && <p className="text-field-helper-text">{helperText}</p>}
                 {error && (
                     <div role="alert" className="text-field-error">
                         {error}
