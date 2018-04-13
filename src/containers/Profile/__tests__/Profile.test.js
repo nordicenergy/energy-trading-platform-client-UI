@@ -23,7 +23,7 @@ describe('<Profile /> Container', () => {
             Users: {
                 profile: {
                     loading: true,
-                    data: { user: {foo: 'bar'} }
+                    data: { user: { foo: 'bar' } }
                 }
             }
         };
@@ -71,5 +71,4 @@ describe('<Profile /> Container', () => {
         console.warn.mockRestore();
         userActionPerformers.performUpdateUserData.mockRestore();
     });
-
 });

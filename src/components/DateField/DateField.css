@@ -105,7 +105,7 @@
 }
 
 .date-picker-field-addon {
-    margin: 0 0.7rem;
+    margin: 0 0.7em;
     cursor: pointer;
     color: var(--general-text-color);
     width: 1.5em;
@@ -113,21 +113,21 @@
 
 .date-picker-field-helper-text {
     box-sizing: border-box;
-    margin: 0.25rem 0 0;
+    margin: 0.33em 0 0;
     padding-left: 34%;
     font-weight: 700;
-    font-size: 0.75em;
+    font-size: 0.75rem;
 }
 
 .date-picker-field-error {
     position: relative;
-    margin-top: 1rem;
+    margin-top: 1.33em;
     padding: 1em 2em;
     border: 1px solid var(--error-border-light-color);
     background: transparent;
     color: var(--error-text-color);
     font-weight: 700;
-    font-size: 0.75em;
+    font-size: 0.75rem;
     line-height: 1.4;
 }
 
