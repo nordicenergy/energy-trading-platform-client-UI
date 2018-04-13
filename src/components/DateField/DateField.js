@@ -34,17 +34,23 @@ class DateField extends React.Component {
 
     onOkHandler(event) {
         event.preventDefault();
-        this.props.onOk(this.state.date);
+        if (this.props.value !== this.state.date) {
+            this.props.onOk(this.state.date);
+        }
         this.setState({ isOpened: false });
     }
 
     onCancelHandler(event) {
         event.preventDefault();
+        if (this.state.date !== this.props.value) {
+            this.setState({
+                date: this.props.value
+            });
+        }
         this.setState({
-            date: this.props.value
+            isOpened: false
         });
         this.props.onCancel();
-        this.setState({ isOpened: false });
     }
 
     handleFocus(event) {

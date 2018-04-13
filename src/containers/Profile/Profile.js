@@ -149,10 +149,10 @@ export class Profile extends AbstractContainer {
                 updated: false
             });
         }
-        if (error && error.message) {
+        if (this.props.error && this.props.error.message) {
             performPushNotification({
                 type: 'error',
-                message: error.message
+                message: this.props.error.message
             });
         }
     }

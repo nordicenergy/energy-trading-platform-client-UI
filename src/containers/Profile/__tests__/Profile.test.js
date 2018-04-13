@@ -2,6 +2,7 @@ import React from 'react';
 import { Profile } from '../Profile';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import * as userActionPerformers from '../../../action_performers/users';
+import * as notificationsActionPerformers from "../../../action_performers/notifications";
 
 function renderComponent(props = {}, mountFn = shallowWithIntl) {
     return mountFn(<Profile {...props} />);
@@ -69,6 +70,81 @@ describe('<Profile /> Container', () => {
         expect(component.state().errors).toHaveProperty('confirmNewPassword');
 
         console.warn.mockRestore();
+        userActionPerformers.performUpdateUserData.mockRestore();
+    });
+
+    it('should validate password fields', () => {
+        const component = renderComponent();
+        const dataMock = {
+            firstName: '',
+            lastName: '',
+            IBAN: '',
+            email: '',
+            street: '',
+            postcode: '',
+            city: '',
+            streetNumber: '',
+            password: 'aa',
+            confirmNewPassword: 'asd',
+            oldPassword: ''
+        };
+        // Disable console warning for the test.
+        jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+        jest.spyOn(userActionPerformers, 'performUpdateUserData').mockImplementation(jest.fn());
+
+        component
+            .find('ProfileForm')
+            .props()
+            .onSubmit(dataMock);
+        expect(userActionPerformers.performUpdateUserData).not.toHaveBeenCalled();
+        expect(component.state().errors).toHaveProperty('confirmNewPassword');
+        expect(component.state().errors).toHaveProperty('oldPassword');
+
+        console.warn.mockRestore();
+        userActionPerformers.performUpdateUserData.mockRestore();
+    });
+
+    it('should shows server error if authentication is failed', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        const component = renderComponent();
+
+        component.setProps({
+            loading: false,
+            profile: null,
+            error: { message: 'Error message' }
+        });
+
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'Error message'
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
+    });
+
+    it('should calls performUpdateUserData after form was submitted', () => {
+        const component = renderComponent();
+        const dataMock = {
+            firstName: 'fname',
+            lastName: 'lname',
+            IBAN: 'iban',
+            email: 'ss@gmail.com',
+            street: 'street',
+            postcode: '111',
+            city: 'city',
+            streetNumber: '1',
+            password: 'password',
+            confirmNewPassword: 'password',
+            oldPassword: 'oldPassword'
+        };
+        jest.spyOn(userActionPerformers, 'performUpdateUserData').mockImplementation(jest.fn());
+
+        component
+            .find('ProfileForm')
+            .props()
+            .onSubmit(dataMock);
+        expect(userActionPerformers.performUpdateUserData).toHaveBeenCalledWith(dataMock);
+
         userActionPerformers.performUpdateUserData.mockRestore();
     });
 });
