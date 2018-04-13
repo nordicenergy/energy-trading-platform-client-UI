@@ -8,20 +8,10 @@ const notificationMock = {
 };
 const onCloseMock = jest.fn();
 function renderComponent(
-    {
-        open = true,
-        notification = notificationMock,
-        onClose = onCloseMock
-    } = {},
+    { open = true, notification = notificationMock, onClose = onCloseMock } = {},
     mountFn = shallow
 ) {
-    return mountFn(
-        <Notification
-            open={open}
-            notification={notification}
-            onClose={onClose}
-        />
-    );
+    return mountFn(<Notification open={open} notification={notification} onClose={onClose} />);
 }
 
 describe('<Notification /> component', () => {
@@ -59,9 +49,7 @@ describe('<Notification /> component', () => {
     });
 
     it('should set auto hide timeout', () => {
-        const setTimeoutSpy = jest
-            .spyOn(window, 'setTimeout')
-            .mockImplementation(jest.fn());
+        const setTimeoutSpy = jest.spyOn(window, 'setTimeout').mockImplementation(jest.fn());
         renderComponent();
 
         expect(setTimeoutSpy).toHaveBeenCalled();
@@ -70,9 +58,7 @@ describe('<Notification /> component', () => {
     });
 
     it('should set new auto hide timeout', () => {
-        const setTimeoutSpy = jest
-            .spyOn(window, 'setTimeout')
-            .mockImplementation(jest.fn());
+        const setTimeoutSpy = jest.spyOn(window, 'setTimeout').mockImplementation(jest.fn());
         const notification = renderComponent();
 
         setTimeoutSpy.mockClear();
@@ -83,9 +69,7 @@ describe('<Notification /> component', () => {
     });
 
     it('should not set new auto hide timeout', () => {
-        const setTimeoutSpy = jest
-            .spyOn(window, 'setTimeout')
-            .mockImplementation(jest.fn());
+        const setTimeoutSpy = jest.spyOn(window, 'setTimeout').mockImplementation(jest.fn());
         const notification = renderComponent();
 
         setTimeoutSpy.mockClear();
@@ -96,9 +80,7 @@ describe('<Notification /> component', () => {
     });
 
     it('should reset timeout', () => {
-        const clearTimeoutSpy = jest
-            .spyOn(window, 'clearTimeout')
-            .mockImplementation(jest.fn());
+        const clearTimeoutSpy = jest.spyOn(window, 'clearTimeout').mockImplementation(jest.fn());
         const notification = renderComponent();
 
         notification.unmount();

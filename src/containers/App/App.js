@@ -16,9 +16,7 @@ export class App extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const loggedOut =
-            this.props.loggingOut !== nextProps.loggingOut &&
-            !nextProps.loggingOut;
+        const loggedOut = this.props.loggingOut !== nextProps.loggingOut && !nextProps.loggingOut;
 
         if (loggedOut) {
             this.navigateTo('/login');
@@ -78,8 +76,7 @@ export class App extends React.Component {
             },
             logoutConfirm: {
                 id: 'app.header.logoutConfirm',
-                defaultMessage:
-                    "Are you sure that you'd like to logout from the system?"
+                defaultMessage: "Are you sure that you'd like to logout from the system?"
             },
             logoutLabel: {
                 id: 'app.header.logoutLabel',
@@ -165,9 +162,7 @@ export class App extends React.Component {
         return (
             <div className="app">
                 <Header
-                    onLogoutButtonClickHandler={() =>
-                        this.logout(formatMessage(labels.logoutConfirm))
-                    }
+                    onLogoutButtonClickHandler={() => this.logout(formatMessage(labels.logoutConfirm))}
                     navigateTo={route => this.navigateTo(route)}
                     logoutLabel={formatMessage(labels.logoutLabel)}
                     notificationLabel={formatMessage(labels.notificationLabel)}
@@ -176,10 +171,7 @@ export class App extends React.Component {
                 />
                 <div className="content">
                     <div className="menu-container">
-                        <MenuSideBar
-                            items={menuItems}
-                            onSelect={id => this.navigateTo(id)}
-                        />
+                        <MenuSideBar items={menuItems} onSelect={id => this.navigateTo(id)} />
                     </div>
                     <div role="feed" id="main-container">
                         <main>{this.props.children}</main>

@@ -6,15 +6,7 @@ import './Logo.css';
 
 const Logo = ({ size, className }) => {
     const classes = classNames('logo', `logo-${size}`, className);
-    return (
-        <img
-            className={classes}
-            src={logo}
-            alt="Lition logo"
-            width={174}
-            height={36}
-        />
-    );
+    return <img className={classes} src={logo} alt="Lition logo" width={174} height={36} />;
 };
 
 Logo.propTypes = {

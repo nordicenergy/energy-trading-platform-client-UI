@@ -4,22 +4,10 @@ import FilterCheckbox from '../FilterCheckbox';
 
 const onChangeMock = jest.fn();
 function renderComponent(
-    {
-        type = 'other',
-        label = 'all',
-        onChange = onChangeMock,
-        ...otherProps
-    } = {},
+    { type = 'other', label = 'all', onChange = onChangeMock, ...otherProps } = {},
     mountFn = shallow
 ) {
-    return mountFn(
-        <FilterCheckbox
-            type={type}
-            label={label}
-            onChange={onChange}
-            {...otherProps}
-        />
-    );
+    return mountFn(<FilterCheckbox type={type} label={label} onChange={onChange} {...otherProps} />);
 }
 
 describe('<FilterCheckbox /> component', () => {
@@ -36,9 +24,7 @@ describe('<FilterCheckbox /> component', () => {
         filterComponent.setProps({ type: 'solar' });
         expect(filterComponent.html().includes('id="solarIcon"')).toBeTruthy();
         filterComponent.setProps({ type: 'biomass' });
-        expect(
-            filterComponent.html().includes('id="biomassIcon"')
-        ).toBeTruthy();
+        expect(filterComponent.html().includes('id="biomassIcon"')).toBeTruthy();
     });
 
     it('should calls onChange callback', () => {

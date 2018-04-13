@@ -9,11 +9,7 @@ const OptionLinks = ({ className, links }) => {
     return (
         <div className={classes}>
             {links.map(({ link, caption, shouldOpenInNewTab }) => (
-                <a
-                    key={link}
-                    href={link}
-                    target={shouldOpenInNewTab ? '_blank' : '_self'}
-                >
+                <a key={link} href={link} target={shouldOpenInNewTab ? '_blank' : '_self'}>
                     <span>{caption}</span>
                 </a>
             ))}

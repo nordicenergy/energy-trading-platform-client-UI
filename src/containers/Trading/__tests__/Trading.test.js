@@ -1,11 +1,7 @@
 import React from 'react';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 
-import {
-    EnergyAmountGraph,
-    WattcoinTable,
-    NavigationCardsPanel
-} from '../../../components';
+import { EnergyAmountGraph, WattcoinTable, NavigationCardsPanel } from '../../../components';
 import { Trading } from '../Trading';
 
 const context = {

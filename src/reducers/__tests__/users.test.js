@@ -27,10 +27,7 @@ describe('Users reducer:', () => {
         });
 
         it('should handle GET_USER_DATA', () => {
-            const result = usersReducer(
-                initialState,
-                ACTIONS.getUserData.pending
-            );
+            const result = usersReducer(initialState, ACTIONS.getUserData.pending);
             expect(result.profile.loading).toEqual(true);
             expect(result.profile.error).toEqual(null);
             expect(result.profile.data).toEqual({});
@@ -70,9 +67,7 @@ describe('Users reducer:', () => {
             expect(result.login.data).toEqual(ACTIONS.login.success.payload);
             expect(persistenceStore.setToken.mock.calls.length).toEqual(1);
             const [[token]] = persistenceStore.setToken.mock.calls;
-            expect(token).toEqual(
-                ACTIONS.login.success.payload.authentication.authenticationToken
-            );
+            expect(token).toEqual(ACTIONS.login.success.payload.authentication.authenticationToken);
         });
 
         it('should handle LOGOUT', () => {
@@ -84,15 +79,10 @@ describe('Users reducer:', () => {
         });
 
         it('should handle GET_USER_DATA', () => {
-            const result = usersReducer(
-                initialState,
-                ACTIONS.getUserData.success
-            );
+            const result = usersReducer(initialState, ACTIONS.getUserData.success);
             expect(result.profile.loading).toEqual(false);
             expect(result.profile.error).toEqual(null);
-            expect(result.profile.data).toEqual(
-                ACTIONS.getUserData.success.payload
-            );
+            expect(result.profile.data).toEqual(ACTIONS.getUserData.success.payload);
         });
     });
 });

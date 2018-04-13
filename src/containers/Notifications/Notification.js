@@ -70,12 +70,7 @@ class Notification extends Component {
         }
 
         return (
-            <Transition
-                appear
-                in={open}
-                timeout={animationDuration}
-                onExited={() => this.handleExited()}
-            >
+            <Transition appear in={open} timeout={animationDuration} onExited={() => this.handleExited()}>
                 {state => this.renderToast(state)}
             </Transition>
         );

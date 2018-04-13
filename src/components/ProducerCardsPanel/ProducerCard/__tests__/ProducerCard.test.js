@@ -10,13 +10,8 @@ const producerMock = {
 };
 const onClickMock = jest.fn();
 
-function renderComponent(
-    { producer = producerMock, onClick = onClickMock, ...otherProps } = {},
-    mountFn = shallow
-) {
-    return mountFn(
-        <ProducerCard producer={producer} onClick={onClick} {...otherProps} />
-    );
+function renderComponent({ producer = producerMock, onClick = onClickMock, ...otherProps } = {}, mountFn = shallow) {
+    return mountFn(<ProducerCard producer={producer} onClick={onClick} {...otherProps} />);
 }
 
 describe('<ProducerCard /> component', function() {

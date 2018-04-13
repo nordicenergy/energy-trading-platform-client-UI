@@ -5,10 +5,7 @@ const { ACTIONS } = fixtures();
 describe('Transactions reducer:', () => {
     describe('Pending cases:', () => {
         it('should handle GET_RECENT_TRANSACTIONS', done => {
-            const result = transactionsReducer(
-                initialState,
-                ACTIONS.getRecentTransactions.pending
-            );
+            const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.pending);
             expect(result.recentTransactions.loading).toEqual(true);
             expect(result.recentTransactions.error).toEqual(null);
             expect(result.recentTransactions.data).toEqual([]);
@@ -18,10 +15,7 @@ describe('Transactions reducer:', () => {
     });
     describe('Error cases:', () => {
         it('should handle GET_RECENT_TRANSACTIONS', done => {
-            const result = transactionsReducer(
-                initialState,
-                ACTIONS.getRecentTransactions.fail
-            );
+            const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.fail);
             expect(result.recentTransactions.loading).toEqual(false);
             expect(result.recentTransactions.error).toEqual('Error Message');
             expect(result.recentTransactions.data).toEqual([]);
@@ -31,15 +25,10 @@ describe('Transactions reducer:', () => {
     });
     describe('Success cases:', () => {
         it('should handle GET_RECENT_TRANSACTIONS', done => {
-            const result = transactionsReducer(
-                initialState,
-                ACTIONS.getRecentTransactions.success
-            );
+            const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.success);
             expect(result.recentTransactions.loading).toEqual(false);
             expect(result.recentTransactions.error).toEqual(null);
-            expect(result.recentTransactions.data).toEqual(
-                ACTIONS.getRecentTransactions.success.payload
-            );
+            expect(result.recentTransactions.data).toEqual(ACTIONS.getRecentTransactions.success.payload);
 
             done();
         });

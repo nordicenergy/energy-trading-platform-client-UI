@@ -30,9 +30,7 @@ export function producersReducer(state = initialState, action) {
             return {
                 ...state,
                 currentProducer: {
-                    data: payload
-                        ? payload.producer
-                        : state.currentProducer.data,
+                    data: payload ? payload.producer : state.currentProducer.data,
                     loading: action.loading,
                     error: action.error && action.error.data
                 }
@@ -45,14 +43,9 @@ export function producersReducer(state = initialState, action) {
                 ...state,
                 producers: {
                     data: {
-                        total: payload
-                            ? payload.numberOfProducers
-                            : state.producers.data.total,
+                        total: payload ? payload.numberOfProducers : state.producers.data.total,
                         entries: payload
-                            ? [
-                                  ...state.producers.data.entries,
-                                  ...payload.producers
-                              ]
+                            ? [...state.producers.data.entries, ...payload.producers]
                             : state.producers.data.entries
                     },
                     loading: action.loading,

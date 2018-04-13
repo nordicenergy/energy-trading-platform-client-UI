@@ -1,9 +1,5 @@
 import { dispatcher } from '../../store';
-import {
-    performGetProducer,
-    performGetCurrentProducer,
-    performGetProducers
-} from '../producers';
+import { performGetProducer, performGetCurrentProducer, performGetProducers } from '../producers';
 
 describe('Producers action performers', () => {
     beforeEach(() => {
@@ -29,12 +25,7 @@ describe('Producers action performers', () => {
     it('should call dispatch method for get current producer', () => {
         performGetCurrentProducer();
 
-        const [
-            method,
-            type,
-            loadingFunc,
-            meta
-        ] = dispatcher.dispatchPromise.mock.calls[0];
+        const [method, type, loadingFunc, meta] = dispatcher.dispatchPromise.mock.calls[0];
         const loading = loadingFunc({
             Producers: { currentProducer: { loading: 'TEST' } }
         });
@@ -51,12 +42,7 @@ describe('Producers action performers', () => {
 
         performGetProducers(queryParamsMock);
 
-        const [
-            method,
-            type,
-            loadingFunc,
-            meta
-        ] = dispatcher.dispatchPromise.mock.calls[0];
+        const [method, type, loadingFunc, meta] = dispatcher.dispatchPromise.mock.calls[0];
         const loading = loadingFunc({
             Producers: { producer: { loading: 'TEST' } }
         });

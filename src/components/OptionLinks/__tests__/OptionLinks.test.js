@@ -7,10 +7,7 @@ const linksMock = [
     { link: '#lition-energy-exchange', caption: 'Lition energy exchange' }
 ];
 
-function renderComponent(
-    { links = linksMock, ...otherProps } = {},
-    mountFn = shallow
-) {
+function renderComponent({ links = linksMock, ...otherProps } = {}, mountFn = shallow) {
     return mountFn(<OptionLinks links={links} {...otherProps} />);
 }
 

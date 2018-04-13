@@ -19,8 +19,7 @@
     "app.restorePasswordPage.errors.emptyEmail": "Enter your email.",
     "app.restorePasswordPage.errors.invalidEmail": "Invalid email.",
 
-    "app.header.logoutConfirm":
-        "Are you sure that you'd like to logout from the system?",
+    "app.header.logoutConfirm": "Are you sure that you'd like to logout from the system?",
     "app.header.logoutLabel": "Logout",
     "app.header.notificationLabel": "Notifications",
 
@@ -74,6 +73,7 @@
     "app.producerPage.header": "My Producer",
     "app.producerPage.name": "Name",
     "app.producerPage.price": "Price",
+    "app.producerPage.marketPrice": "vs. market price of",
     "app.producerPage.energyType": "Type of energy",
     "app.producerPage.annualProduction": "Annual Production",
     "app.producerPage.purchased": "Energy purchased",

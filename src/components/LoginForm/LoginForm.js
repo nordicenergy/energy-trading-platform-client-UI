@@ -34,10 +34,7 @@ class LoginForm extends Component {
         const { username, password } = this.state;
 
         return (
-            <form
-                className="login-form"
-                onSubmit={event => this.handleSubmit(event)}
-            >
+            <form className="login-form" onSubmit={event => this.handleSubmit(event)}>
                 <TextField
                     className="username-field"
                     darkMode

@@ -32,11 +32,7 @@ class Breadcrumbs extends React.Component {
         );
         const breadCrumbElements = breadCrumbs.map((item, index) => {
             const isLastItem = index === breadCrumbs.length - 1;
-            const breadcrumbLabel = item.icon ? (
-                <FontAwesomeIcon icon={icons[item.icon]} />
-            ) : (
-                item.label
-            );
+            const breadcrumbLabel = item.icon ? <FontAwesomeIcon icon={icons[item.icon]} /> : item.label;
             return (
                 <div
                     className={classNames('breadcrumb-item', {
@@ -44,11 +40,7 @@ class Breadcrumbs extends React.Component {
                     })}
                     key={item.id}
                 >
-                    <a
-                        aria-label={item.label}
-                        className="breadcrumb"
-                        onClick={() => onClick(item.path)}
-                    >
+                    <a aria-label={item.label} className="breadcrumb" onClick={() => onClick(item.path)}>
                         {breadcrumbLabel}
                     </a>
                     {!isLastItem && (
@@ -59,14 +51,10 @@ class Breadcrumbs extends React.Component {
                 </div>
             );
         });
-        return breadCrumbs.length
-            ? [iconBreadcrumbElement, ...breadCrumbElements]
-            : null;
+        return breadCrumbs.length ? [iconBreadcrumbElement, ...breadCrumbElements] : null;
     }
     render() {
-        return (
-            <div className="breadcrumbs">{this.renderBreadcrumbsItems()}</div>
-        );
+        return <div className="breadcrumbs">{this.renderBreadcrumbsItems()}</div>;
     }
 }
 

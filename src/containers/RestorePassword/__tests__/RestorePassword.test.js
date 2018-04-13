@@ -51,9 +51,7 @@ describe('<RestorePassword /> Container', () => {
     it('should validate email', () => {
         const component = renderComponent();
         // Disable console warning for the test.
-        const consoleWarnSpy = jest
-            .spyOn(console, 'warn')
-            .mockImplementation(jest.fn());
+        const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(jest.fn());
 
         component
             .find('RestorePasswordForm')

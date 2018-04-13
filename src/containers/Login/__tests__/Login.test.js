@@ -16,11 +16,7 @@ const routerMock = {
     history: historyMock,
     route: routeMock
 };
-function renderComponent(
-    props = {},
-    context = { router: routerMock },
-    mountFn = shallowWithIntl
-) {
+function renderComponent(props = {}, context = { router: routerMock }, mountFn = shallowWithIntl) {
     return mountFn(<Login {...props} />, { context });
 }
 
@@ -73,9 +69,7 @@ describe('<Login /> Container', () => {
         };
         // Disable console warning for the test.
         jest.spyOn(console, 'warn').mockImplementation(jest.fn());
-        jest
-            .spyOn(userActionPerformers, 'performLogin')
-            .mockImplementation(jest.fn());
+        jest.spyOn(userActionPerformers, 'performLogin').mockImplementation(jest.fn());
 
         component
             .find('LoginForm')
@@ -95,17 +89,13 @@ describe('<Login /> Container', () => {
             username: 'test-username',
             password: 'qwerty'
         };
-        jest
-            .spyOn(userActionPerformers, 'performLogin')
-            .mockImplementation(jest.fn());
+        jest.spyOn(userActionPerformers, 'performLogin').mockImplementation(jest.fn());
 
         component
             .find('LoginForm')
             .props()
             .onSubmit(credentialsMock);
-        expect(userActionPerformers.performLogin).toHaveBeenCalledWith(
-            credentialsMock
-        );
+        expect(userActionPerformers.performLogin).toHaveBeenCalledWith(credentialsMock);
 
         userActionPerformers.performLogin.mockRestore();
     });
@@ -147,9 +137,7 @@ describe('<Login /> Container', () => {
     });
 
     it('should shows server error if authentication is failed', () => {
-        jest
-            .spyOn(notificationsActionPerformers, 'performPushNotification')
-            .mockImplementation(jest.fn());
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         const component = renderComponent();
 
         component.setProps({
@@ -158,9 +146,7 @@ describe('<Login /> Container', () => {
             error: { message: 'Error message' }
         });
 
-        expect(
-            notificationsActionPerformers.performPushNotification
-        ).toHaveBeenCalledWith({
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
             message: 'Error message'
         });

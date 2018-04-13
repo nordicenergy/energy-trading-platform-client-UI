@@ -32,17 +32,10 @@ class ProducerCard extends Component {
 
     render() {
         const { className, producer, selected } = this.props;
-        const classes = classNames(
-            'producer-card',
-            selected && 'producer-card--selected',
-            className
-        );
+        const classes = classNames('producer-card', selected && 'producer-card--selected', className);
 
         return (
-            <div
-                className={classes}
-                onClick={() => this.handleClick(producer.id)}
-            >
+            <div className={classes} onClick={() => this.handleClick(producer.id)}>
                 <div className="producer-card-price">
                     <strong>
                         {producer.price}{' '}
@@ -51,9 +44,7 @@ class ProducerCard extends Component {
                         </span>
                     </strong>
                 </div>
-                <div className="producer-card-type-image">
-                    {this.createImage(producer.plantType)}
-                </div>
+                <div className="producer-card-type-image">{this.createImage(producer.plantType)}</div>
                 <div className="producer-card-name">
                     <h3>{producer.name}</h3>
                 </div>
@@ -66,12 +57,7 @@ export const ProducerType = PropTypes.shape({
     id: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    plantType: PropTypes.oneOf([
-        PLANT_TYPES.wind,
-        PLANT_TYPES.solar,
-        PLANT_TYPES.biomass,
-        PLANT_TYPES.other
-    ]).isRequired
+    plantType: PropTypes.oneOf([PLANT_TYPES.wind, PLANT_TYPES.solar, PLANT_TYPES.biomass, PLANT_TYPES.other]).isRequired
 });
 ProducerCard.propTypes = {
     className: PropTypes.string,
