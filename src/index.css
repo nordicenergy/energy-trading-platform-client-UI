@@ -86,12 +86,15 @@
 
     --producer-filters-border-color: var(--geyser-color);
 
+    --date-picker-date-text-hover-color: var(--geyser-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
     --page-paddings: 2rem 1.5rem 2.5rem 2rem;
     --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-color);
     --side-bar-width: 20.5rem;
+    --date-picker-width: 20.5em;
 }
 
 body {

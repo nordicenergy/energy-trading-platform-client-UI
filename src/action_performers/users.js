@@ -1,4 +1,4 @@
-import { login, logout, getUserData } from '../services/api/users';
+import { login, logout, getUserData, updateUserData } from '../services/api/users';
 
 import { dispatcher } from '../store';
 
@@ -12,4 +12,8 @@ export function performLogout() {
 
 export function performGetUserData() {
     dispatcher.dispatchPromise(getUserData, 'GET_USER_DATA', state => state.Users.profile.loading);
+}
+
+export function performUpdateUserData(userData) {
+    dispatcher.dispatchPromise(updateUserData, 'UPDATE_USER_DATA', state => state.Users.profile.loading, [userData]);
 }

@@ -1,14 +1,13 @@
 import { dispatcher } from '../../store';
 
-import { performLogin, performLogout, performGetUserData } from '../users';
+import { performLogin, performLogout, performGetUserData, performUpdateUserData } from '../users';
 
 describe('Users action performers', () => {
-    beforeEach(done => {
+    beforeEach(() => {
         dispatcher.dispatchPromise = jest.fn();
-        done();
     });
 
-    it('should call dispatch method for user login', done => {
+    it('should call dispatch method for user login', () => {
         performLogin({ username: 'test', password: 'test' });
 
         const [firstCall] = dispatcher.dispatchPromise.mock.calls;
@@ -23,11 +22,9 @@ describe('Users action performers', () => {
         expect(type).toEqual('LOGIN');
         expect(loading).toEqual('TEST');
         expect(credentials).toEqual({ username: 'test', password: 'test' });
-
-        done();
     });
 
-    it('should call dispatch method for user logout', done => {
+    it('should call dispatch method for user logout', () => {
         performLogout();
 
         const [firstCall] = dispatcher.dispatchPromise.mock.calls;
@@ -41,11 +38,9 @@ describe('Users action performers', () => {
         expect(type).toEqual('LOGOUT');
         expect(loading).toEqual('TEST');
         expect(meta).toEqual(undefined);
-
-        done();
     });
 
-    it('should call dispatch method for get user data', done => {
+    it('should call dispatch method for get user data', () => {
         performGetUserData();
 
         const [firstCall] = dispatcher.dispatchPromise.mock.calls;
@@ -59,7 +54,33 @@ describe('Users action performers', () => {
         expect(type).toEqual('GET_USER_DATA');
         expect(loading).toEqual('TEST');
         expect(meta).toEqual(undefined);
+    });
 
-        done();
+    it('should call dispatch method for updating user data', () => {
+        performUpdateUserData({
+            address: 'Huyssenallee 2, 45128 Essen',
+            dateOfBirth: 'Jan 11, 1987',
+            name: 'John Smith',
+            email: 'johnsmith@gmail.com',
+            bankAccountNumber: '11122333455556666666'
+        });
+
+        const [firstCall] = dispatcher.dispatchPromise.mock.calls;
+        const [method, type, loadingFunc, meta] = firstCall;
+        const loading = loadingFunc({
+            Users: { profile: { loading: 'TEST' } }
+        });
+        const [userData] = meta;
+        expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
+        expect(method.name).toEqual('updateUserData');
+        expect(type).toEqual('UPDATE_USER_DATA');
+        expect(loading).toEqual('TEST');
+        expect(userData).toEqual({
+            address: 'Huyssenallee 2, 45128 Essen',
+            dateOfBirth: 'Jan 11, 1987',
+            name: 'John Smith',
+            email: 'johnsmith@gmail.com',
+            bankAccountNumber: '11122333455556666666'
+        });
     });
 });

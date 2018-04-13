@@ -1,0 +1,340 @@
+@keyframes auto-fill {
+    to {
+        background: none;
+        color: var(--bar-color);
+    }
+}
+
+@keyframes auto-fill-dark {
+    to {
+        background: none;
+        color: white;
+    }
+}
+
+.date-picker-field {
+    position: relative;
+    display: block;
+    width: 100%;
+    color: var(--label-color);
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.date-picker-field-layout {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2.5em;
+    border-bottom: 0.062em solid var(--input-border);
+}
+
+.date-picker-field-layout:after {
+    position: absolute;
+    right: 0;
+    bottom: -0.062rem;
+    z-index: 1;
+    display: block;
+    width: 66%;
+    height: 0.125rem;
+    content: '';
+    transform: scaleX(0);
+}
+
+.date-picker-field--focused .date-picker-field-layout:after {
+    background: linear-gradient(to right, var(--hover-icon-color), var(--active-item-color));
+    transition-duration: 200ms;
+    transform: scaleX(1);
+}
+
+.date-picker-field--error .date-picker-field-layout:after {
+    background: var(--error-text-color);
+    transform: scaleX(1);
+}
+
+.date-picker-field-label {
+    overflow: hidden;
+    flex: 0 0 34%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 0.875em;
+}
+
+.date-picker-field-input-group {
+    display: flex;
+    align-items: center;
+    flex: 0 0 66%;
+    border: none;
+}
+
+.date-picker-field .ant-calendar-picker {
+    flex: 1 1;
+}
+
+.date-picker-field .ant-calendar-picker-input {
+    flex: 1;
+    box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    border: none;
+    background: none;
+    color: var(--bar-color);
+    font-weight: 600;
+    font-size: 1.125em;
+
+    appearance: none;
+}
+
+.date-picker-field--dark .ant-calendar-picker-input {
+    color: white;
+}
+
+.date-picker-field .ant-calendar-picker-input:-webkit-autofill {
+    animation-name: auto-fill;
+
+    animation-fill-mode: both;
+}
+
+.date-picker-field--dark .ant-calendar-picker-input:-webkit-autofill {
+    animation-name: auto-fill-dark;
+
+    animation-fill-mode: both;
+}
+
+.date-picker-field-addon {
+    margin: 0 0.7rem;
+    cursor: pointer;
+    color: var(--general-text-color);
+    width: 1.5em;
+}
+
+.date-picker-field-helper-text {
+    box-sizing: border-box;
+    margin: 0.25rem 0 0;
+    padding-left: 34%;
+    font-weight: 700;
+    font-size: 0.75em;
+}
+
+.date-picker-field-error {
+    position: relative;
+    margin-top: 1rem;
+    padding: 1em 2em;
+    border: 1px solid var(--error-border-light-color);
+    background: transparent;
+    color: var(--error-text-color);
+    font-weight: 700;
+    font-size: 0.75em;
+    line-height: 1.4;
+}
+
+.date-picker-field-error:before,
+.date-picker-field-error:after {
+    position: absolute;
+    top: -0.5rem;
+    left: 1rem;
+    width: 0;
+    height: 0;
+    border-width: 0 0.5rem 0.5rem 0.5rem;
+    border-style: solid;
+    border-color: transparent transparent var(--error-border-light-color) transparent;
+    content: '';
+}
+
+.date-picker-field-error:after {
+    top: -0.375rem;
+    border-bottom-color: white;
+}
+
+.date-picker-field--dark .date-picker-field-error {
+    border-color: var(--error-border-dark-color);
+}
+
+.date-picker-field--dark .date-picker-field-error:before {
+    border-bottom-color: var(--error-border-dark-color);
+}
+
+.date-picker-field--dark .date-picker-field-error:after {
+    border-bottom-color: var(--bar-color);
+}
+
+.date-picker-field .ant-calendar-picker-icon,
+.date-picker-field .ant-calendar-picker-clear {
+    display: none;
+}
+
+.ant-calendar {
+    font-size: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1em 1.1em;
+}
+
+.ant-calendar-body {
+    padding: 0.25em 0;
+}
+
+.ant-calendar-picker-container {
+    font-family: inherit;
+    width: var(--date-picker-width);
+    box-shadow: 0 0.25em 1.25em 0 rgba(0, 0, 0, 0.05);
+    border: var(--border-width) solid var(--input-border);
+}
+
+.ant-calendar-my-select a:hover {
+    color: var(--bar-color);
+}
+
+.ant-calendar-date,
+.ant-calendar-month-panel-month,
+.ant-calendar-year-panel-year,
+.ant-calendar-decade-panel-decade {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--bar-color);
+}
+
+.ant-calendar-date:hover,
+a.ant-calendar-month-panel-month:hover,
+a.ant-calendar-year-panel-year:hover,
+a.ant-calendar-decade-panel-decade:hover {
+    color: var(--bar-color);
+    background-color: var(--date-picker-date-text-hover-color);
+}
+
+.ant-calendar-selected-day .ant-calendar-date:hover,
+.ant-calendar-month-panel-selected-cell .ant-calendar-month-panel-month:hover,
+.ant-calendar-year-panel-selected-cell .ant-calendar-year-panel-year:hover,
+.ant-calendar-decade-panel-selected-cell .ant-calendar-decade-panel-decade:hover {
+    background-color: var(--button-hover-color);
+}
+
+.ant-calendar-selected-day .ant-calendar-date,
+.ant-calendar-month-panel-selected-cell .ant-calendar-month-panel-month,
+.ant-calendar-year-panel-selected-cell .ant-calendar-year-panel-year,
+.ant-calendar-decade-panel-selected-cell .ant-calendar-decade-panel-decade {
+    background-color: var(--button-primary-color);
+    color: white;
+}
+
+.ant-calendar-input-wrap {
+    display: none;
+}
+
+.ant-calendar-column-header .ant-calendar-column-header-inner {
+    color: var(--label-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.ant-calendar-header .ant-calendar-prev-year-btn,
+.ant-calendar-header .ant-calendar-next-year-btn {
+    display: none;
+}
+
+.ant-calendar-header .ant-calendar-prev-month-btn,
+.ant-calendar-month-panel-header .ant-calendar-prev-month-btn {
+    left: 0.5em;
+}
+
+.ant-calendar-header .ant-calendar-next-month-btn,
+.ant-calendar-month-panel-header .ant-calendar-next-month-btn {
+    right: 0.5em;
+}
+
+.ant-calendar-month-panel-header,
+.ant-calendar-year-panel-header,
+.ant-calendar-decade-panel-header {
+    position: relative;
+}
+
+.ant-calendar-header .ant-calendar-next-month-btn,
+.ant-calendar-header .ant-calendar-prev-month-btn,
+.ant-calendar-month-panel-header .ant-calendar-month-panel-prev-year-btn,
+.ant-calendar-month-panel-header .ant-calendar-month-panel-next-year-btn,
+.ant-calendar-year-panel-header .ant-calendar-year-panel-prev-decade-btn,
+.ant-calendar-year-panel-header .ant-calendar-year-panel-next-decade-btn,
+.ant-calendar-decade-panel-header .ant-calendar-decade-panel-prev-century-btn,
+.ant-calendar-decade-panel-header .ant-calendar-decade-panel-next-century-btn {
+    color: var(--button-primary-color);
+    top: calc(50% - 0.5rem);
+    font-size: 1rem;
+}
+
+.ant-calendar-header .ant-calendar-prev-month-btn::after,
+.ant-calendar-month-panel-header .ant-calendar-month-panel-prev-year-btn::after,
+.ant-calendar-year-panel-header .ant-calendar-year-panel-prev-decade-btn::after,
+.ant-calendar-decade-panel-header .ant-calendar-decade-panel-prev-century-btn::after {
+    content: '';
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background: url('./chevron-left.svg') no-repeat;
+}
+
+.ant-calendar-header .ant-calendar-next-month-btn::after,
+.ant-calendar-month-panel-header .ant-calendar-month-panel-next-year-btn::after,
+.ant-calendar-year-panel-header .ant-calendar-year-panel-next-decade-btn::after,
+.ant-calendar-decade-panel-header .ant-calendar-decade-panel-next-century-btn::after {
+    content: '';
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background: url('./chevron-right.svg') no-repeat;
+}
+
+.ant-calendar-header .ant-calendar-my-select *,
+.ant-calendar-header .ant-calendar-month-panel-year-select *,
+.ant-calendar-header .ant-calendar-month-panel-select *,
+.ant-calendar-header .ant-calendar-year-panel-decade-select *,
+.ant-calendar-header .ant-calendar-decade-panel-century {
+    font-size: 1rem;
+    color: var(--bar-color);
+    font-weight: 600;
+}
+
+.ant-calendar-header a {
+    cursor: pointer;
+}
+
+.ant-calendar-header,
+.ant-calendar-month-panel-header,
+.ant-calendar-year-panel-header,
+.ant-calendar-decade-panel-header {
+    border: none;
+}
+
+.ant-calendar-footer {
+    border: none;
+}
+
+.ant-calendar-footer-extra .footer-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ant-calendar-footer-extra .footer-buttons button {
+    color: var(--button-primary-color);
+    padding: 0.2em 0.5em;
+    margin-left: 2.5em;
+    border-radius: 0.125em;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.ant-calendar-footer-extra .footer-buttons button:hover {
+    background-color: var(--date-picker-date-text-hover-color);
+}
+
+.ant-calendar-footer-extra .footer-buttons button:focus {
+    outline: none;
+}
+
+.date-picker-field-addon path {
+    fill: var(--general-text-color);
+}

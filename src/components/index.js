@@ -17,6 +17,8 @@ import FilterCheckbox from './FilterCheckbox';
 import ProducerCardsPanel from './ProducerCardsPanel';
 import ProducerInfo from './ProducerInfo';
 import ProducerHistory from './ProducerHistory';
+import DateField from './DateField';
+import ProfileForm from './ProfileForm';
 
 export {
     Button,
@@ -41,5 +43,7 @@ export {
     FilterCheckbox,
     ProducerCardsPanel,
     ProducerInfo,
-    ProducerHistory
+    ProducerHistory,
+    DateField,
+    ProfileForm
 };
