@@ -6,6 +6,7 @@ import { PLANT_TYPES } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { convertPlantType } from '../../services/plantType';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
+import { performPushNotification } from '../../action_performers/notifications';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { Loader, ProducerCardsPanel, FilterCheckbox, OptionLinks } from '../../components';
 import './BuyEnergy.css';
@@ -93,6 +94,7 @@ export class BuyEnergy extends AbstractContainer {
 
     static mapStateToProps({ Producers }) {
         return {
+            error: Producers.currentProducer.error || Producers.producers.error,
             currentProducerLoading: Producers.currentProducer.loading,
             currentProducer: Producers.currentProducer.data,
             producersLoading: Producers.producers.loading,
@@ -113,8 +115,15 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        const { error: oldError } = prevProps;
+        const { currentProducerLoading, producersLoading, error: newError } = this.props;
+
         if (prevState.page !== this.state.page) {
             performGetProducers({ page: this.state.page });
+        }
+
+        if (!currentProducerLoading && !producersLoading && newError && newError !== oldError) {
+            performPushNotification({ message: newError.message, type: 'error' });
         }
     }
 
