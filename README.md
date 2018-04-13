@@ -8,6 +8,11 @@ Deployments to the production server are done manually by Richard
 
 ## Start Project :rocket:
 
+First step is install all application dependencies:
+```
+$ npm install
+```
+
 You have possibility to start standalone front-and app with local proxy server (by default `http://localhost:3000`):
 ```
 $ npm run start
@@ -25,6 +30,7 @@ Please, check this url for detailed information about our code rules, main techn
 `https://lition.atlassian.net/wiki/spaces/LIT/pages/4685825/Front-End+Development+client-side+app`
 
 ## Testing :bar_chart:
+
 Start unit and system tests using following command:
 ```
 $ npm run test
@@ -40,7 +46,7 @@ After test completion you can check coverage report here: `./coverage/lcov-repor
 
 All application web components described through interactive documentation.
 
-Run standalone documentation via following command:
+Run standalone documentation via following command (by default `http://localhost:6060`):
 ```
 $ npm run styleguide
 ``` 
