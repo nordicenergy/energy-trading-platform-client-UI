@@ -47,6 +47,20 @@ export function usersReducer(state = initialState, action) {
                 }
             };
         }
+        case 'UPDATE_USER_DATA': {
+            const updatedProfileData = action.payload ? action.payload : state.profile.data;
+            return {
+                ...state,
+                profile: {
+                    data: {
+                        ...state.profile.data,
+                        ...updatedProfileData
+                    },
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
         default:
             return state;
     }

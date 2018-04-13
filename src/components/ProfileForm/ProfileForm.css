@@ -1,0 +1,58 @@
+.profile-form {
+    font-size: 1rem;
+    padding: 3em 0 3.5em;
+    position: relative;
+}
+
+.profile-form .text-field {
+    margin: 3.5em 0;
+}
+
+.profile-form .text-field:first-child {
+    margin-top: 0;
+}
+
+.profile-form .text-field:last-child {
+    margin-bottom: 0;
+}
+
+.profile-form .text-field-label {
+    font-size: 0.875rem;
+}
+
+.profile-form .text-field-input {
+    font-size: 1.125rem;
+}
+
+.profile-form .change-password-container {
+    margin-top: 5em;
+}
+
+.profile-form .button-container {
+    margin-top: 3.5em;
+}
+
+.profile-form .date-of-birth-wrapper {
+    position: relative;
+}
+
+.profile-form .ant-calendar-picker {
+    font-family: inherit;
+    width: 100%;
+}
+
+.profile-form .ant-calendar-picker-input {
+    font-family: inherit;
+    font-size: 1.125rem;
+    border: none;
+}
+
+.profile-form .ant-calendar-picker-input:focus {
+    border: none;
+    box-shadow: none;
+}
+
+.profile-form .ant-calendar-picker-container {
+    right: 0;
+    left: unset !important;
+}
