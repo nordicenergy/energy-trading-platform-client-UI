@@ -95,19 +95,19 @@ describe('<MyProducer /> Component', () => {
 
     it(`should contains following controls:
         - <div> with class "my-producer-page";
-        - <h1>;
-        - <FontAwesomeIcon> icon (reply);
-        - <Button> component;
-        - <ProducerHistory> component;
-        - <Loader> component";
-        - <ProducerInfo> component";`, () => {
+        - 1 <h1>;
+        - 1 <FontAwesomeIcon> icon (reply);
+        - 2 <Button> component;
+        - 1 <ProducerHistory> component;
+        - 1 <Loader> component";
+        - 1 <ProducerInfo> component";`, () => {
         const component = renderContainer();
 
         expect(component.find('.my-producer-page')).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
         expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);
-        expect(component.find(Button)).toHaveLength(1);
+        expect(component.find(Button)).toHaveLength(2);
         expect(component.find(FontAwesomeIcon)).toHaveLength(1);
         expect(component.find(ProducerHistory)).toHaveLength(1);
     });
