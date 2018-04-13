@@ -57,6 +57,11 @@ export class Producer extends AbstractContainer {
         }
     }
 
+    backToProducers() {
+        const { history } = this.context.router;
+        history.push(PATHS.buyEnergy.path);
+    }
+
     render() {
         const { formatMessage } = this.context.intl;
         const { loading, producer = {} } = this.props;
@@ -71,6 +76,9 @@ export class Producer extends AbstractContainer {
                 </section>
                 <section className="producer-page-controls">
                     <Button>{formatMessage(labels.selectButton)}</Button>
+                    <Button className="producer-page-back-to-producers" onClick={() => this.backToProducers()}>
+                        {formatMessage(labels.backButton)}
+                    </Button>
                 </section>
             </div>
         );
@@ -78,6 +86,11 @@ export class Producer extends AbstractContainer {
 }
 
 Producer.contextTypes = {
+    router: PropTypes.shape({
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired
+        })
+    }),
     intl: PropTypes.shape({
         formatMessage: PropTypes.func.isRequired
     }).isRequired
