@@ -156,8 +156,6 @@ const AppMainLayout = () => {
                     <Route path={PATHS.team.path} component={Team} />
                     <Route path={PATHS.about.path} component={About} />
                     <Route path={PATHS.service.path} component={Service} />
-                    {/* Temporary route for react component documentation */}
-                    <Route path="docs" component={Docs} />
                 </App>
             </div>
         );
@@ -172,6 +170,8 @@ export const Routes = () => (
         <Switch>
             <PublicRoute path="/login" component={Login} />
             <PublicRoute path="/restore-password" component={RestorePassword} />
+            {/* Temporary route for react component documentation */}
+            <Route path="/docs" component={Docs} />
             <Route path="/" component={AppMainLayout} />
         </Switch>
     </div>
