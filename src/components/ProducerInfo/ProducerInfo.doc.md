@@ -97,7 +97,7 @@ const lukeProps = {
         purchased: 1300,
         capacity: 8,
         selectedSince: 'Sep 12 - Feb 22',
-        location: 'Böhlen, Landkreis Leipzig, Sachsen'
+        location: 'Neuer Hafen 10, Schwedt, DE 16303'
     },
     description: `LTN Supply & Trading is a leading European energy
                   trading house and the interface between the LTN Group's

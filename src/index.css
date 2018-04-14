@@ -95,6 +95,8 @@
     --option-link-bg-color: var(--mystic-color);
     --option-link-hov-bg-color: var(--darker-mystic-color);
 
+    --date-picker-date-text-hover-color: var(--geyser-color);
+
     --confirm-dialog-border-color: var(--darker-mystic-color);
 
     /* Common sizes */
@@ -103,6 +105,7 @@
     --page-paddings: 2rem 1.5rem 2.5rem 2rem;
     --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-color);
     --side-bar-width: 20.5rem;
+    --date-picker-width: 20.5em;
 }
 
 body {

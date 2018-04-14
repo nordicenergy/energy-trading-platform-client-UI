@@ -10,22 +10,32 @@ export function logout() {
 }
 
 export function getUserData() {
+    return Axios.get(`${SESSION_API_URL}/user/getUserData`);
+}
+
+export function updateUserData(userData) {
     // TODO replace on real api call
-    // return Axios.get(`${SESSION_API_URL}/user/getUserData`);
     return Promise.resolve({
         data: {
             user: {
                 id: 0,
-                firstName: 'string',
-                lastName: 'string',
-                email: 'string',
-                currentProducerId: '1234567',
-                currentProducerName: 'Peter Producer',
-                currentProducerPicture: '/plantImg/peter_producer.jpg',
+                firstName: 'John',
+                lastName: 'Smith',
+                email: 'johnsmith@gmail.com',
+                currentProducerId: 25,
                 lastBillAvailable: true,
                 lastBillAmount: '35.24',
                 lastBillDate: 'December;',
-                userStatus: 'string'
+                userStatus: 'string',
+                street: 'Sesame Street',
+                postcode: '12345',
+                city: 'Berlin',
+                country: 'Germany',
+                birthday: '31.12.1985',
+                IBAN: 'DE00 0000 0000 0000 0000 00',
+                BIC: 'BELADEBEXXX',
+                streetNumber: '11',
+                ...userData
             }
         }
     });

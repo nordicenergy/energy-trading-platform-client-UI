@@ -56,6 +56,12 @@ export class MyProducer extends AbstractContainer {
         }
     }
 
+    switchBackToMarketPrice() {
+        const { history } = this.context.router;
+        history.push(PATHS.buyEnergy.path);
+        // TODO: call producer deselect end-point here
+    }
+
     render() {
         const { formatMessage } = this.context.intl;
         const { loading, producer = {} } = this.props;
@@ -99,7 +105,7 @@ export class MyProducer extends AbstractContainer {
                         href=""
                         onClick={event => {
                             event.preventDefault();
-                            // TODO: implement correct navigation logic
+                            this.switchBackToMarketPrice();
                         }}
                     >
                         <FontAwesomeIcon icon={faReply} />
@@ -115,6 +121,11 @@ export class MyProducer extends AbstractContainer {
 }
 
 MyProducer.contextTypes = {
+    router: PropTypes.shape({
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired
+        })
+    }),
     intl: PropTypes.shape({
         formatMessage: PropTypes.func.isRequired
     }).isRequired

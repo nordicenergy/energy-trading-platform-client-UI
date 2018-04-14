@@ -66,9 +66,8 @@ figure.producer-information-image {
     margin: 0 0 0 1.6em;
 }
 
-.producer-information-image-placeholder,
 figure.producer-information-image img {
-    width: var(--image-size);
+    max-width: var(--image-size);
     border-radius: 0.25em;
 }
 
@@ -76,6 +75,7 @@ figure.producer-information-image img {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: var(--image-size);
     padding-bottom: 1rem;
     box-sizing: border-box;
     height: var(--image-size);

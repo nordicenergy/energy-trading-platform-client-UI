@@ -62,7 +62,7 @@ export class App extends React.Component {
             },
             submitMetric: {
                 id: 'app.menuBar.submitMetric',
-                defaultMessage: 'Submit Metric Readings'
+                defaultMessage: 'Submit Meter Readings'
             },
             trading: {
                 id: 'app.menuBar.trading',

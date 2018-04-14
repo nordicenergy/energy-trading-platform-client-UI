@@ -32,6 +32,13 @@ describe('Users reducer:', () => {
             expect(result.profile.error).toEqual(null);
             expect(result.profile.data).toEqual({});
         });
+
+        it('should handle UPDATE_USER_DATA', () => {
+            const result = usersReducer(initialState, ACTIONS.updateUserData.pending);
+            expect(result.profile.loading).toEqual(true);
+            expect(result.profile.error).toEqual(null);
+            expect(result.profile.data).toEqual({});
+        });
     });
 
     describe('Error cases:', () => {
@@ -53,6 +60,13 @@ describe('Users reducer:', () => {
 
         it('should handle GET_USER_DATA', () => {
             const result = usersReducer(initialState, ACTIONS.getUserData.fail);
+            expect(result.profile.loading).toEqual(false);
+            expect(result.profile.error).toEqual('Error Message');
+            expect(result.profile.data).toEqual({});
+        });
+
+        it('should handle UPDATE_USER_DATA', () => {
+            const result = usersReducer(initialState, ACTIONS.updateUserData.fail);
             expect(result.profile.loading).toEqual(false);
             expect(result.profile.error).toEqual('Error Message');
             expect(result.profile.data).toEqual({});
@@ -83,6 +97,13 @@ describe('Users reducer:', () => {
             expect(result.profile.loading).toEqual(false);
             expect(result.profile.error).toEqual(null);
             expect(result.profile.data).toEqual(ACTIONS.getUserData.success.payload);
+        });
+
+        it('should handle UPDATE_USER_DATA', () => {
+            const result = usersReducer(initialState, ACTIONS.updateUserData.success);
+            expect(result.profile.loading).toEqual(false);
+            expect(result.profile.error).toEqual(null);
+            expect(result.profile.data).toEqual(ACTIONS.updateUserData.success.payload);
         });
     });
 });
@@ -167,6 +188,44 @@ function fixtures() {
             },
             pending: {
                 type: 'GET_USER_DATA',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
+        updateUserData: {
+            success: {
+                type: 'UPDATE_USER_DATA',
+                payload: {
+                    user: {
+                        id: 0,
+                        firstName: 'string',
+                        address: 'Huyssenallee 2, 45128 Essen',
+                        dateOfBirth: 'Jan 11, 1987',
+                        name: 'John Smith',
+                        email: 'johnsmith@gmail.com',
+                        bankAccountNumber: '11122333455556666666',
+                        lastName: 'string',
+                        currentProducerId: '1234567',
+                        currentProducerName: 'Peter Producer',
+                        currentProducerPicture: '/plantImg/peter_producer.jpg',
+                        lastBillAvailable: true,
+                        lastBillAmount: '35.24',
+                        lastBillDate: 'December;',
+                        userStatus: 'string'
+                    }
+                },
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'UPDATE_USER_DATA',
+                payload: null,
+                error: 'Error Message',
+                loading: false
+            },
+            pending: {
+                type: 'UPDATE_USER_DATA',
                 payload: null,
                 error: null,
                 loading: true

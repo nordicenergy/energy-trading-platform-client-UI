@@ -18,6 +18,8 @@ import ProducerCardsPanel from './ProducerCardsPanel';
 import ProducerInfo from './ProducerInfo';
 import ProducerHistory from './ProducerHistory';
 import OptionLinks from './OptionLinks';
+import DateField from './DateField';
+import ProfileForm from './ProfileForm';
 import Confirm from './Confirm';
 
 export {
@@ -45,5 +47,7 @@ export {
     ProducerInfo,
     ProducerHistory,
     OptionLinks,
+    DateField,
+    ProfileForm,
     Confirm
 };

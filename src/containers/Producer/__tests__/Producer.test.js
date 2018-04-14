@@ -36,6 +36,9 @@ const store = mockStore({
 const context = {
     intl: {
         formatMessage: jest.fn()
+    },
+    router: {
+        history: { push: jest.fn() }
     }
 };
 
@@ -65,6 +68,7 @@ function renderComponent() {
 
 describe('<Producer /> Component', () => {
     beforeEach(() => {
+        context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
         context.intl.formatMessage.mockReturnValue('test');
         producersActions.performGetProducer = jest.fn();
@@ -73,17 +77,17 @@ describe('<Producer /> Component', () => {
 
     it(`should contains following controls:
         - <div> with class "producer-page";
-        - <h1>;
-        - <Button> component";
-        - <Loader> component";
-        - <ProducerInfo> component";`, () => {
+        - 1 <h1>;
+        - 2 <Button> component";
+        - 1 <Loader> component";
+        - 1 <ProducerInfo> component";`, () => {
         const component = renderContainer();
 
         expect(component.find('.producer-page')).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
         expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);
-        expect(component.find(Button)).toHaveLength(1);
+        expect(component.find(Button)).toHaveLength(2);
     });
 
     it('should call prepare common function', () => {
@@ -170,5 +174,17 @@ describe('<Producer /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(6);
         component.setProps({ producer: { id: 2, name: 'Test' } });
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(6);
+    });
+
+    it('should provide possibility navigate to producers list', () => {
+        const component = renderComponent();
+        component.setContext(context);
+        const back = component.find(Button).at(1);
+        back.props().onClick();
+
+        const { push } = context.router.history;
+        expect(push.mock.calls.length).toEqual(1);
+        const [[route]] = push.mock.calls;
+        expect(route).toEqual('/trading/buy_energy');
     });
 });
