@@ -5,7 +5,8 @@ import { ProducerInfo, Button, Loader } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from './.';
 
-import { performGetProducer } from '../../action_performers/producers';
+import { performGetProducer, performSelectProducer } from '../../action_performers/producers';
+import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
 
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
@@ -15,9 +16,10 @@ import './Producer.css';
 export class Producer extends AbstractContainer {
     static mapStateToProps(state) {
         return {
-            loading: state.Producers.producer.loading,
+            loading: state.Producers.producer.loading || state.Producers.selectedProducer.loading,
             producer: state.Producers.producer.data,
-            error: state.Producers.producer.error
+            selectedProducer: state.Producers.selectedProducer.data,
+            error: state.Producers.producer.error || state.Producers.selectedProducer.error
         };
     }
 
@@ -28,11 +30,19 @@ export class Producer extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
-        const { producer: prevProducer = {} } = prevProps;
-        const { producer = {} } = this.props;
+        const { producer: prevProducer = {}, selectedProducer: prevSelectedProducer = {}, error: oldError } = prevProps;
+        const { producer = {}, selectedProducer = {}, error, loading } = this.props;
 
         if (prevProducer.id !== producer.id || prevProducer.name !== producer.name) {
             this.setupProducerBreadcrumbs();
+        }
+
+        if (prevSelectedProducer !== selectedProducer) {
+            this.backToProducers();
+        }
+
+        if (!loading && error && error !== oldError) {
+            performPushNotification({ message: error.message, type: 'error' });
         }
     }
 
@@ -76,7 +86,9 @@ export class Producer extends AbstractContainer {
                     <ProducerInfo {...producerInfoProps} />
                 </section>
                 <section className="producer-page-controls">
-                    <Button>{formatMessage(messages.selectButton)}</Button>
+                    <Button onClick={() => performSelectProducer(producer.id)}>
+                        {formatMessage(messages.selectButton)}
+                    </Button>
                     <Button className="producer-page-back-to-producers" onClick={() => this.backToProducers()}>
                         {formatMessage(messages.backButton)}
                     </Button>

@@ -8,6 +8,7 @@ import configureMockStore from 'redux-mock-store';
 import * as usersActions from '../../../action_performers/users';
 import * as producersActions from '../../../action_performers/producers';
 import * as appActions from '../../../action_performers/app';
+import * as notificationActions from '../../../action_performers/notifications';
 
 const mockStore = configureMockStore();
 const store = mockStore({
@@ -48,6 +49,28 @@ const store = mockStore({
             },
             loading: false,
             error: null
+        },
+        producerHistory: {
+            data: [
+                {
+                    date: 'Sep 12',
+                    value: 'Change amount of energy 3000 kWh'
+                },
+                {
+                    date: 'Feb 22',
+                    value: 'Price change 2.4 ct/kWh'
+                },
+                {
+                    date: 'Feb 12',
+                    value: 'Change amount of energy 2300 kWh'
+                },
+                {
+                    date: 'Jan 14',
+                    value: 'Price change 3 ct/kWh'
+                }
+            ],
+            loading: false,
+            error: null
         }
     }
 });
@@ -67,12 +90,14 @@ const props = {
         id: 1,
         name: 'test'
     },
+    producerHistory: [{ date: 'test', value: 'test' }],
     profile: {
         user: {
             id: 1,
             currentProducerId: 1
         }
-    }
+    },
+    error: null
 };
 
 function renderContainer() {
@@ -93,8 +118,10 @@ describe('<MyProducer /> Component', () => {
         context.intl.formatMessage = jest.fn();
         context.intl.formatMessage.mockReturnValue('test');
         producersActions.performGetProducer = jest.fn();
+        producersActions.performGetProducerHistory = jest.fn();
         appActions.performSetupBreadcrumbs = jest.fn();
         usersActions.performGetUserData = jest.fn();
+        notificationActions.performPushNotification = jest.fn();
     });
 
     it(`should contains following controls:
@@ -156,19 +183,25 @@ describe('<MyProducer /> Component', () => {
                     data: 'producer_data',
                     error: null,
                     loading: false
+                },
+                producerHistory: {
+                    data: 'history_data',
+                    error: 'test_error',
+                    loading: 'test_loading'
                 }
             },
             Users: {
                 profile: {
                     data: 'user_data',
-                    error: 'test_error',
-                    loading: 'test_loading'
+                    error: null,
+                    loading: false
                 }
             }
         };
         const props = MyProducer.mapStateToProps(stateDummy);
         expect(props).toEqual({
             producer: 'producer_data',
+            producerHistory: 'history_data',
             profile: 'user_data',
             error: 'test_error',
             loading: 'test_loading'
@@ -210,6 +243,8 @@ describe('<MyProducer /> Component', () => {
         component.setProps({ profile: { user: { currentProducerId: 1, id: 2 } } });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(4);
 
+        expect(producersActions.performGetProducerHistory.mock.calls.length).toEqual(4);
+
         component.setContext(context);
         const backLink = component.find('a.my-producer-page-switch-back').at(0);
         backLink.props().onClick({ preventDefault: f => f });
@@ -217,5 +252,10 @@ describe('<MyProducer /> Component', () => {
         expect(history.push.mock.calls.length).toEqual(1);
         const [[route]] = history.push.mock.calls;
         expect(route).toEqual('/trading/buy_energy');
+
+        component.setProps({ error: { message: 'Error Message' } });
+        expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
+        const [[error]] = notificationActions.performPushNotification.mock.calls;
+        expect(error).toEqual({ message: 'Error Message', type: 'error' });
     });
 });

@@ -6,6 +6,7 @@ import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper
 import configureMockStore from 'redux-mock-store';
 import * as producersActions from '../../../action_performers/producers';
 import * as appActions from '../../../action_performers/app';
+import * as notificationActions from '../../../action_performers/notifications';
 
 const mockStore = configureMockStore();
 const store = mockStore({
@@ -27,6 +28,11 @@ const store = mockStore({
                 location: 'Lippendorf, Neukieritzsch',
                 description: 'desc'
             },
+            loading: false,
+            error: null
+        },
+        selectedProducer: {
+            data: {},
             loading: false,
             error: null
         }
@@ -51,7 +57,9 @@ const props = {
     producer: {
         id: 1,
         name: 'test'
-    }
+    },
+    selectedProducer: {},
+    error: null
 };
 
 function renderContainer() {
@@ -72,7 +80,9 @@ describe('<Producer /> Component', () => {
         context.intl.formatMessage = jest.fn();
         context.intl.formatMessage.mockReturnValue('test');
         producersActions.performGetProducer = jest.fn();
+        producersActions.performSelectProducer = jest.fn();
         appActions.performSetupBreadcrumbs = jest.fn();
+        notificationActions.performPushNotification = jest.fn();
     });
 
     it(`should contains following controls:
@@ -125,7 +135,12 @@ describe('<Producer /> Component', () => {
         const stateDummy = {
             Producers: {
                 producer: {
-                    data: 'test_data',
+                    data: 'test_producer_data',
+                    error: null,
+                    loading: false
+                },
+                selectedProducer: {
+                    data: 'test_selected_data',
                     error: 'test_error',
                     loading: 'test_loading'
                 }
@@ -133,13 +148,14 @@ describe('<Producer /> Component', () => {
         };
         const props = Producer.mapStateToProps(stateDummy);
         expect(props).toEqual({
-            producer: 'test_data',
+            producer: 'test_producer_data',
+            selectedProducer: 'test_selected_data',
             error: 'test_error',
             loading: 'test_loading'
         });
     });
 
-    it('should perform related actions on did mount step', () => {
+    it('should perform related actions on lifecycle step', () => {
         renderContainer();
 
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(1);
@@ -186,5 +202,27 @@ describe('<Producer /> Component', () => {
         expect(push.mock.calls.length).toEqual(1);
         const [[route]] = push.mock.calls;
         expect(route).toEqual('/trading/buy_energy');
+    });
+
+    it('should provide possibility to select producer', () => {
+        const component = renderComponent();
+        component.setContext(context);
+        const select = component.find(Button).at(0);
+        select.props().onClick();
+
+        expect(producersActions.performSelectProducer.mock.calls.length).toEqual(1);
+        const [[arg]] = producersActions.performSelectProducer.mock.calls;
+        expect(arg).toEqual(1);
+
+        component.setProps({ selectedProducer: { id: 1 } });
+        const { push } = context.router.history;
+        expect(push.mock.calls.length).toEqual(1);
+        const [[route]] = push.mock.calls;
+        expect(route).toEqual('/trading/buy_energy');
+
+        component.setProps({ error: { message: 'Error Message' } });
+        expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
+        const [[error]] = notificationActions.performPushNotification.mock.calls;
+        expect(error).toEqual({ message: 'Error Message', type: 'error' });
     });
 });

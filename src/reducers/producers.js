@@ -1,6 +1,8 @@
 export const initialState = {
     producer: { data: {}, error: null, loading: false },
     currentProducer: { data: {}, error: null, loading: false },
+    producerHistory: { data: [], error: null, loading: false },
+    selectedProducer: { data: {}, error: null, loading: false },
     producers: {
         data: {
             total: 0,
@@ -19,6 +21,29 @@ export function producersReducer(state = initialState, action) {
                 ...state,
                 producer: {
                     data: payload ? payload.producer : state.producer.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
+        case 'GET_PRODUCER_HISTORY': {
+            const payload = action && action.payload;
+            return {
+                ...state,
+                producerHistory: {
+                    data: payload ? payload.strategies : state.producerHistory.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
+        case 'SELECT_PRODUCER': {
+            const payload = action && action.payload;
+            const [id] = action.meta;
+            return {
+                ...state,
+                selectedProducer: {
+                    data: payload ? { ...payload, id } : state.selectedProducer.data,
                     loading: action.loading,
                     error: action.error
                 }

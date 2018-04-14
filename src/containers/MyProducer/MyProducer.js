@@ -7,7 +7,8 @@ import { ProducerInfo, ProducerHistory, Loader, Button } from '../../components'
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
-import { performGetProducer } from '../../action_performers/producers';
+import { performGetProducer, performGetProducerHistory } from '../../action_performers/producers';
+import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
 
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
@@ -29,10 +30,14 @@ export class MyProducer extends AbstractContainer {
 
     static mapStateToProps(state) {
         return {
-            loading: state.Producers.producer.loading || state.Users.profile.loading,
+            loading:
+                state.Producers.producer.loading ||
+                state.Users.profile.loading ||
+                state.Producers.producerHistory.loading,
             profile: state.Users.profile.data,
             producer: state.Producers.producer.data,
-            error: state.Producers.producer.error || state.Users.profile.error
+            producerHistory: state.Producers.producerHistory.data,
+            error: state.Producers.producer.error || state.Users.profile.error || state.Producers.producerHistory.error
         };
     }
 
@@ -42,11 +47,15 @@ export class MyProducer extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
-        const { profile: { user: prevUser = {} } = {} } = prevProps;
-        const { profile: { user = {} } = {} } = this.props;
+        const { profile: { user: prevUser = {} } = {}, error: oldError } = prevProps;
+        const { profile: { user = {} } = {}, loading, error } = this.props;
 
         if (user.currentProducerId !== prevUser.currentProducerId) {
             this.fetchProducer();
+        }
+
+        if (!loading && error && error !== oldError) {
+            performPushNotification({ message: error.message, type: 'error' });
         }
     }
 
@@ -54,6 +63,7 @@ export class MyProducer extends AbstractContainer {
         const { profile: { user } = {} } = this.props;
         if (user && user.currentProducerId) {
             performGetProducer(user.currentProducerId);
+            performGetProducerHistory(user.currentProducerId);
         }
     }
 
@@ -65,31 +75,13 @@ export class MyProducer extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { loading, producer = {} } = this.props;
+        const { loading, producer = {}, producerHistory = [] } = this.props;
 
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
 
-        // TODO replace by data from store
         const historyProps = {
             title: 'History of changes',
-            data: [
-                {
-                    date: 'Sep 12',
-                    value: 'Change amount of energy 3000 kWh'
-                },
-                {
-                    date: 'Feb 22',
-                    value: 'Price change 2.4 ct/kWh'
-                },
-                {
-                    date: 'Feb 12',
-                    value: 'Change amount of energy 2300 kWh'
-                },
-                {
-                    date: 'Jan 14',
-                    value: 'Price change 3 ct/kWh'
-                }
-            ]
+            data: producerHistory
         };
 
         return (
@@ -135,6 +127,7 @@ MyProducer.contextTypes = {
 MyProducer.propTypes = {
     loading: PropTypes.bool,
     producer: PropTypes.object,
+    producerHistory: PropTypes.array,
     profile: PropTypes.object,
     error: PropTypes.object
 };
@@ -142,6 +135,7 @@ MyProducer.propTypes = {
 MyProducer.defaultProps = {
     loading: false,
     producer: {},
+    producerHistory: [],
     profile: {},
     error: null
 };

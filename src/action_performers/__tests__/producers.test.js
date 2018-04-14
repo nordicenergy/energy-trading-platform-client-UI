@@ -1,5 +1,11 @@
 import { dispatcher } from '../../store';
-import { performGetProducer, performGetCurrentProducer, performGetProducers } from '../producers';
+import {
+    performGetProducer,
+    performGetCurrentProducer,
+    performGetProducers,
+    performSelectProducer,
+    performGetProducerHistory
+} from '../producers';
 
 describe('Producers action performers', () => {
     beforeEach(() => {
@@ -52,5 +58,35 @@ describe('Producers action performers', () => {
         expect(type).toEqual('GET_PRODUCERS');
         expect(loading).toEqual('TEST');
         expect(meta).toEqual([queryParamsMock]);
+    });
+
+    it('should call dispatch method for get selecting producer', () => {
+        performSelectProducer('testId');
+
+        const [[method, type, loadingFunc, meta]] = dispatcher.dispatchPromise.mock.calls;
+        const loading = loadingFunc({
+            Producers: { selectedProducer: { loading: 'TEST' } }
+        });
+
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);
+        expect(method.name).toEqual('selectProducer');
+        expect(type).toEqual('SELECT_PRODUCER');
+        expect(loading).toEqual('TEST');
+        expect(meta).toEqual(['testId']);
+    });
+
+    it('should call dispatch method for getting producer history', () => {
+        performGetProducerHistory('testId');
+
+        const [[method, type, loadingFunc, meta]] = dispatcher.dispatchPromise.mock.calls;
+        const loading = loadingFunc({
+            Producers: { producerHistory: { loading: 'TEST' } }
+        });
+
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);
+        expect(method.name).toEqual('getProducerHistory');
+        expect(type).toEqual('GET_PRODUCER_HISTORY');
+        expect(loading).toEqual('TEST');
+        expect(meta).toEqual(['testId']);
     });
 });
