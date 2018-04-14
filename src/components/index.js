@@ -18,6 +18,7 @@ import ProducerCardsPanel from './ProducerCardsPanel';
 import ProducerInfo from './ProducerInfo';
 import ProducerHistory from './ProducerHistory';
 import OptionLinks from './OptionLinks';
+import Confirm from './Confirm';
 
 export {
     Button,
@@ -43,5 +44,6 @@ export {
     ProducerCardsPanel,
     ProducerInfo,
     ProducerHistory,
-    OptionLinks
+    OptionLinks,
+    Confirm
 };

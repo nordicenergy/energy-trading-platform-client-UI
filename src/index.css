@@ -95,6 +95,8 @@
     --option-link-bg-color: var(--mystic-color);
     --option-link-hov-bg-color: var(--darker-mystic-color);
 
+    --confirm-dialog-border-color: var(--darker-mystic-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
