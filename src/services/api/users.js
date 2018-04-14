@@ -10,33 +10,29 @@ export function logout() {
 }
 
 export function getUserData() {
-    return Axios.get(`${SESSION_API_URL}/user/getUserData`);
+    return Axios.get(`${SESSION_API_URL}/user/getUserData`).then(response => {
+        // TODO: remove after date format will be unix timestamp
+        const { data = {} } = response;
+        const { user = {} } = data;
+        const birthdayData = (user.birthday && user.birthday) || '';
+        const [day, month, year] = birthdayData.split('.');
+        const formattedBirthdayData = new Date(`${year}-${month}-${day}`);
+        return {
+            data: {
+                user: {
+                    ...user,
+                    birthday: formattedBirthdayData.getTime()
+                }
+            }
+        };
+    });
 }
 
 export function updateUserData(userData) {
     // TODO replace on real api call
     return Promise.resolve({
         data: {
-            user: {
-                id: 0,
-                firstName: 'John',
-                lastName: 'Smith',
-                email: 'johnsmith@gmail.com',
-                currentProducerId: 25,
-                lastBillAvailable: true,
-                lastBillAmount: '35.24',
-                lastBillDate: 'December;',
-                userStatus: 'string',
-                street: 'Sesame Street',
-                postcode: '12345',
-                city: 'Berlin',
-                country: 'Germany',
-                birthday: '31.12.1985',
-                IBAN: 'DE00 0000 0000 0000 0000 00',
-                BIC: 'BELADEBEXXX',
-                streetNumber: '11',
-                ...userData
-            }
+            user: userData
         }
     });
 }

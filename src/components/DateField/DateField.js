@@ -159,7 +159,7 @@ DateField.propTypes = {
     name: PropTypes.string,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
