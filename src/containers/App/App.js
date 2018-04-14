@@ -99,6 +99,18 @@ export class App extends React.Component {
             notificationLabel: {
                 id: 'app.header.notificationLabel',
                 defaultMessage: 'Notifications'
+            },
+            logoutConfirmMessage: {
+                id: 'app.header.logoutConfirmMessage',
+                defaultMessage: "Are you sure that you'd like to logout from the system?"
+            },
+            logoutConfirmButton: {
+                id: 'app.header.logoutConfirmButton',
+                defaultMessage: 'Yes'
+            },
+            logoutCancelButton: {
+                id: 'app.header.logoutCancelButton',
+                defaultMessage: 'No'
             }
         });
     }
@@ -178,9 +190,9 @@ export class App extends React.Component {
             <div className="app">
                 <Confirm
                     labels={{
-                        message: "Are you sure that you'd like to logout from the system?",
-                        confirmButton: 'Yes',
-                        cancelButton: 'No'
+                        message: formatMessage(labels.logoutConfirmMessage),
+                        confirmButton: formatMessage(labels.logoutConfirmButton),
+                        cancelButton: formatMessage(labels.logoutCancelButton)
                     }}
                     show={isConfirmVisible}
                     onConfirm={() => this.handleLogoutConfirm()}

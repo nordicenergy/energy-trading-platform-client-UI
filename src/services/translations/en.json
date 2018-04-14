@@ -85,6 +85,9 @@
     "app.producerPage.backButton": "Back to Producers",
     "app.producerPage.switchBack": "Switch back to market price purchasing",
     "app.producerPage.changeButton": "Change Producer",
+    "app.header.logoutConfirmMessage": "Are you sure that you'd like to logout from the system?",
+    "app.header.logoutConfirmButton": "Yes",
+    "app.header.logoutCancelButton": "No",
 
     "app.profilePage.errors.firstName": "Enter your first name.",
     "app.profilePage.errors.lastName": "Enter your last name.",
