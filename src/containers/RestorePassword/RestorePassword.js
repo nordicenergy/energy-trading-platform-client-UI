@@ -1,38 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages } from 'react-intl';
 import Validator from 'async-validator';
 import { RestorePasswordForm, Logo, Illustration } from '../../components';
+import { RestorePassword as messages } from '../../services/translations/messages';
 import './RestorePassword.css';
-
-const messages = defineMessages({
-    formTitle: {
-        id: 'app.restorePasswordPage.formTitle',
-        defaultMessage: 'Restore password'
-    },
-    emailField: {
-        id: 'app.restorePasswordPage.emailField',
-        defaultMessage: 'Enter Your Email'
-    },
-    sendButton: {
-        id: 'app.restorePasswordPage.sendButton',
-        defaultMessage: 'Send'
-    },
-    loginLink: {
-        id: 'app.restorePasswordPage.loginLink',
-        defaultMessage: 'Login'
-    }
-});
-const errorMessages = defineMessages({
-    emptyEmail: {
-        id: 'app.restorePasswordPage.errors.emptyEmail',
-        defaultMessage: 'Enter your email.'
-    },
-    invalidEmail: {
-        id: 'app.restorePasswordPage.errors.invalidEmail',
-        defaultMessage: 'Invalid email.'
-    }
-});
 
 export class RestorePassword extends Component {
     constructor(props, context) {
@@ -60,11 +31,11 @@ export class RestorePassword extends Component {
             email: [
                 {
                     required: true,
-                    message: formatMessage(errorMessages.emptyEmail)
+                    message: formatMessage(messages.emptyEmailError)
                 },
                 {
                     type: 'email',
-                    message: formatMessage(errorMessages.invalidEmail)
+                    message: formatMessage(messages.invalidEmailError)
                 }
             ]
         };

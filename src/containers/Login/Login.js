@@ -1,41 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { defineMessages } from 'react-intl';
 import Validator from 'async-validator';
 import { LoginForm, Logo, Illustration, Loader } from '../../components';
 import { performLogin } from '../../action_performers/users';
 import { performPushNotification } from '../../action_performers/notifications';
+import { Login as messages } from '../../services/translations/messages';
 import './Login.css';
-
-const messages = defineMessages({
-    usernameField: {
-        id: 'app.loginPage.usernameField',
-        defaultMessage: 'Username'
-    },
-    passwordField: {
-        id: 'app.loginPage.passwordField',
-        defaultMessage: 'Password'
-    },
-    forgotPasswordLink: {
-        id: 'app.loginPage.forgotPasswordLink',
-        defaultMessage: 'Forgot your password?'
-    },
-    loginButton: {
-        id: 'app.loginPage.loginButton',
-        defaultMessage: 'Login'
-    }
-});
-const errorMessages = defineMessages({
-    emptyUsername: {
-        id: 'app.loginPage.errors.emptyUsername',
-        defaultMessage: 'Enter your username.'
-    },
-    emptyPassword: {
-        id: 'app.loginPage.errors.emptyPassword',
-        defaultMessage: 'Enter your password.'
-    }
-});
 
 export class Login extends Component {
     static mapStateToProps(state) {
@@ -94,12 +65,12 @@ export class Login extends Component {
             username: {
                 type: 'string',
                 required: true,
-                message: formatMessage(errorMessages.emptyUsername)
+                message: formatMessage(messages.emptyUsernameError)
             },
             password: {
                 type: 'string',
                 required: true,
-                message: formatMessage(errorMessages.emptyPassword)
+                message: formatMessage(messages.emptyPasswordError)
             }
         };
 
