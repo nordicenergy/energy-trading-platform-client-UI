@@ -26,8 +26,9 @@
         "redux": "3.7.2"
     },
     "scripts": {
+        "postcss": "node ./scripts/postcss.js",
         "start": "react-scripts start",
-        "build": "react-scripts build",
+        "build": "react-scripts build && npm run postcss",
         "test": "react-scripts test --no-cache --env=jsdom --coverage src/setupTests.js src/**/*",
         "format": "./node_modules/.bin/prettier --single-quote --write 'src/**/*.{js,jsx,json,css}'",
         "styleguide": "styleguidist server",
@@ -37,6 +38,7 @@
     "devDependencies": {
         "enzyme": "3.3.0",
         "enzyme-adapter-react-16": "1.1.1",
+        "postcss-css-variables": "^0.8.1",
         "pre-commit": "1.2.2",
         "prettier": "1.11.1",
         "react-styleguidist": "6.5.3",
