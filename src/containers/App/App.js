@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages } from 'react-intl';
-import { MenuSideBar, Header, Footer } from '../../components';
+import { MenuSideBar, Header, Footer, Confirm } from '../../components';
 import { performLogout } from '../../action_performers/users';
 import './App.css';
 import { PATHS } from '../../services/routes';
@@ -15,6 +15,13 @@ export class App extends React.Component {
         };
     }
 
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            isConfirmVisible: false
+        };
+    }
+
     componentWillReceiveProps(nextProps) {
         const loggedOut = this.props.loggingOut !== nextProps.loggingOut && !nextProps.loggingOut;
 
@@ -23,13 +30,20 @@ export class App extends React.Component {
         }
     }
 
-    logout(confirmMessage) {
-        // TODO: remake to our modals later
-        const answer = window.confirm(confirmMessage);
+    logout() {
+        this.setState(() => ({
+            isConfirmVisible: true
+        }));
+    }
 
-        if (answer) {
-            performLogout();
-        }
+    handleLogoutConfirm() {
+        performLogout();
+    }
+
+    handleLogoutCancel() {
+        this.setState(() => ({
+            isConfirmVisible: false
+        }));
     }
 
     navigateTo(route) {
@@ -85,11 +99,24 @@ export class App extends React.Component {
             notificationLabel: {
                 id: 'app.header.notificationLabel',
                 defaultMessage: 'Notifications'
+            },
+            logoutConfirmMessage: {
+                id: 'app.header.logoutConfirmMessage',
+                defaultMessage: "Are you sure that you'd like to logout from the system?"
+            },
+            logoutConfirmButton: {
+                id: 'app.header.logoutConfirmButton',
+                defaultMessage: 'Yes'
+            },
+            logoutCancelButton: {
+                id: 'app.header.logoutCancelButton',
+                defaultMessage: 'No'
             }
         });
     }
 
     render() {
+        const { isConfirmVisible } = this.state;
         const { pathname } = window.location;
         const labels = this.defineLabels();
         const { formatMessage } = this.context.intl;
@@ -161,6 +188,16 @@ export class App extends React.Component {
 
         return (
             <div className="app">
+                <Confirm
+                    labels={{
+                        message: formatMessage(labels.logoutConfirmMessage),
+                        confirmButton: formatMessage(labels.logoutConfirmButton),
+                        cancelButton: formatMessage(labels.logoutCancelButton)
+                    }}
+                    show={isConfirmVisible}
+                    onConfirm={() => this.handleLogoutConfirm()}
+                    onCancel={() => this.handleLogoutCancel()}
+                />
                 <Header
                     onLogoutButtonClickHandler={() => this.logout(formatMessage(labels.logoutConfirm))}
                     navigateTo={route => this.navigateTo(route)}

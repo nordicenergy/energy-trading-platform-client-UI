@@ -20,6 +20,7 @@ import ProducerHistory from './ProducerHistory';
 import OptionLinks from './OptionLinks';
 import DateField from './DateField';
 import ProfileForm from './ProfileForm';
+import Confirm from './Confirm';
 
 export {
     Button,
@@ -47,5 +48,6 @@ export {
     ProducerHistory,
     OptionLinks,
     DateField,
-    ProfileForm
+    ProfileForm,
+    Confirm
 };
