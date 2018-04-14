@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { DatePicker } from 'antd';
+import DatePicker from 'antd/lib/date-picker';
 import DE from 'antd/lib/date-picker/locale/de_DE';
 import EN from 'antd/lib/date-picker/locale/en_US';
 import CalendarIcon from './CalendarIcon';
