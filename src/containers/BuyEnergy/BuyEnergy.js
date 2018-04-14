@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { defineMessages } from 'react-intl';
 import { PLANT_TYPES } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { convertPlantType } from '../../services/plantType';
+import { BuyEnergy as messages } from '../../services/translations/messages';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
 import { performPushNotification } from '../../action_performers/notifications';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
@@ -13,32 +13,6 @@ import './BuyEnergy.css';
 
 const pageBottomOffset = 200; // pixels
 const scrollTimeout = 100; // milliseconds
-const messages = defineMessages({
-    pageTitle: {
-        id: 'app.buyEnergyPage.pageTitle',
-        defaultMessage: 'Buy Energy'
-    },
-    selectedProducerLabel: {
-        id: 'app.buyEnergyPage.selectedProducerLabel',
-        defaultMessage: 'Current Selection:'
-    },
-    filterLabel: {
-        id: 'app.buyEnergyPage.filterLabel',
-        defaultMessage: 'Filter by:'
-    },
-    filterOptionAll: {
-        id: 'app.buyEnergyPage.filterOptionAll',
-        defaultMessage: 'All'
-    },
-    tradeDirectlyOnMarketLink: {
-        id: 'app.buyEnergyPage.tradeDirectlyOnMarketLink',
-        defaultMessage: 'Trade directly on market'
-    },
-    litionEnergyExchangeLink: {
-        id: 'app.buyEnergyPage.litionEnergyExchangeLink',
-        defaultMessage: 'Lition energy exchange'
-    }
-});
 const FILTER_OPTIONS = [
     {
         name: 'wind',

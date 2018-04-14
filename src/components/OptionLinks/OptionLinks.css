@@ -1,9 +1,7 @@
 .option-links {
-    --border: var(--border-width) solid var(--option-link-border-color);
-
     display: flex;
     width: 100%;
-    border-top: var(--border);
+    border-top: var(--border-width) solid var(--option-link-border-color);
 }
 
 .option-links > a {
@@ -13,7 +11,7 @@
     justify-content: center;
     box-sizing: border-box;
     min-height: 3rem;
-    border-right: var(--border);
+    border-right: var(--border-width) solid var(--option-link-border-color);
     background: var(--option-link-bg-color);
     color: var(--option-link-color);
     text-align: center;

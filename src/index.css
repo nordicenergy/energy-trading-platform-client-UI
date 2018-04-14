@@ -97,6 +97,8 @@
 
     --date-picker-date-text-hover-color: var(--geyser-color);
 
+    --confirm-dialog-border-color: var(--darker-mystic-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;

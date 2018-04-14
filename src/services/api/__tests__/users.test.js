@@ -36,6 +36,11 @@ describe('Users API Service', () => {
     });
 
     it('should provide method for getting user', () => {
+        Axios.get.mockReturnValue(
+            Promise.resolve({
+                data: { user: {} }
+            })
+        );
         getUserData();
 
         expect(Axios.get).toHaveBeenCalledWith('/api/user/getUserData');

@@ -8,6 +8,7 @@ import 'moment/locale/de';
 
 import { store } from './store';
 import messagesEn from './services/translations/en.json';
+import messagesDe from './services/translations/de.json';
 import history from './services/history';
 import { Routes } from './services/routes';
 import configureAxios from './services/axios';
@@ -18,13 +19,16 @@ import './index.css';
 
 function bootstrap() {
     addLocaleData(enLocaleData);
-    const defaultLocale = 'en';
 
-    const messages = { en: messagesEn };
+    const locale = navigator.language.split('-')[0] || 'en';
+    const messages = {
+        en: messagesEn,
+        de: messagesDe
+    };
 
     ReactDOM.render(
         <Provider store={store}>
-            <IntlProvider locale={defaultLocale} messages={messages[defaultLocale]}>
+            <IntlProvider locale={locale} messages={messages[locale]}>
                 <Router history={history}>
                     <Routes />
                 </Router>

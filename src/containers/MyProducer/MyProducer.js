@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faReply } from '@fortawesome/fontawesome-free-solid';
 import { ProducerInfo, ProducerHistory, Loader, Button } from '../../components';
-import { labels, prepareProducerInfoProps } from '../Producer';
+import { Producer as messages } from '../../services/translations/messages';
+import { prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
 import { performGetProducer, performGetProducerHistory } from '../../action_performers/producers';
 import { performPushNotification } from '../../action_performers/notifications';
@@ -87,11 +88,11 @@ export class MyProducer extends AbstractContainer {
             <div className="my-producer-page">
                 <Loader show={loading} />
                 <section className="my-producer-page-info-container">
-                    <h1>{formatMessage(labels.header)}</h1>
+                    <h1>{formatMessage(messages.header)}</h1>
                     <ProducerInfo {...producerInfoProps} />
                 </section>
                 <section className="my-producer-page-controls">
-                    <Button>{formatMessage(labels.changeButton)}</Button>
+                    <Button>{formatMessage(messages.changeButton)}</Button>
                     <a
                         className="my-producer-page-switch-back"
                         href=""
@@ -101,7 +102,7 @@ export class MyProducer extends AbstractContainer {
                         }}
                     >
                         <FontAwesomeIcon icon={faReply} />
-                        <span>{formatMessage(labels.switchBack)}</span>
+                        <span>{formatMessage(messages.switchBack)}</span>
                     </a>
                 </section>
                 <section className="my-producer-page-history">

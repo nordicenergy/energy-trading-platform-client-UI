@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defineMessages } from 'react-intl';
-import { MenuSideBar, Header, Footer } from '../../components';
+import { MenuSideBar, Header, Footer, Confirm } from '../../components';
 import { performLogout } from '../../action_performers/users';
 import './App.css';
 import { PATHS } from '../../services/routes';
+import { App as messages } from '../../services/translations/messages';
 import { connect } from 'react-redux';
 
 export class App extends React.Component {
@@ -12,6 +12,13 @@ export class App extends React.Component {
         return {
             loggingOut: Users.logout.loading,
             breadCrumbs: App.breadCrumbs.data
+        };
+    }
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            isConfirmVisible: false
         };
     }
 
@@ -23,75 +30,29 @@ export class App extends React.Component {
         }
     }
 
-    logout(confirmMessage) {
-        // TODO: remake to our modals later
-        const answer = window.confirm(confirmMessage);
+    logout() {
+        this.setState(() => ({
+            isConfirmVisible: true
+        }));
+    }
 
-        if (answer) {
-            performLogout();
-        }
+    handleLogoutConfirm() {
+        performLogout();
+    }
+
+    handleLogoutCancel() {
+        this.setState(() => ({
+            isConfirmVisible: false
+        }));
     }
 
     navigateTo(route) {
         this.context.router.history.push(route);
     }
 
-    defineLabels() {
-        return defineMessages({
-            overview: {
-                id: 'app.menuBar.overview',
-                defaultMessage: 'Overview'
-            },
-            documents: {
-                id: 'app.menuBar.documents',
-                defaultMessage: 'My Documents'
-            },
-            submitMetric: {
-                id: 'app.menuBar.submitMetric',
-                defaultMessage: 'Submit Meter Readings'
-            },
-            trading: {
-                id: 'app.menuBar.trading',
-                defaultMessage: 'Trading'
-            },
-            profile: {
-                id: 'app.menuBar.profile',
-                defaultMessage: 'Profile'
-            },
-            about: {
-                id: 'app.footer.about',
-                defaultMessage: 'About Us'
-            },
-            team: {
-                id: 'app.footer.team',
-                defaultMessage: 'Our Team'
-            },
-            service: {
-                id: 'app.footer.service',
-                defaultMessage: 'Question&Service'
-            },
-            address: {
-                id: 'app.footer.address',
-                defaultMessage: '2018 Lition. All rights reserved.'
-            },
-            logoutConfirm: {
-                id: 'app.header.logoutConfirm',
-                defaultMessage: "Are you sure that you'd like to logout from the system?"
-            },
-            logoutLabel: {
-                id: 'app.header.logoutLabel',
-                defaultMessage: 'Logout'
-            },
-            notificationLabel: {
-                id: 'app.header.notificationLabel',
-                defaultMessage: 'Notifications'
-            }
-        });
-    }
-
     render() {
+        const { isConfirmVisible } = this.state;
         const { pathname } = window.location;
-        const labels = this.defineLabels();
         const { formatMessage } = this.context.intl;
         const [, headRoute = ''] = pathname.split('/');
 
@@ -107,35 +68,35 @@ export class App extends React.Component {
             {
                 id: PATHS.overview.id,
                 icon: icons[''],
-                label: formatMessage(labels.overview),
+                label: formatMessage(messages.overview),
                 active: headRoute === PATHS.overview.id,
                 path: PATHS.overview.path
             },
             {
                 id: PATHS.documents.id,
                 icon: icons.documents,
-                label: formatMessage(labels.documents),
+                label: formatMessage(messages.documents),
                 active: headRoute === PATHS.documents.id,
                 path: PATHS.documents.path
             },
             {
                 id: PATHS.submit_metric.id,
                 icon: icons.submit_metric,
-                label: formatMessage(labels.submitMetric),
+                label: formatMessage(messages.submitMetric),
                 active: headRoute === PATHS.submit_metric.id,
                 path: PATHS.submit_metric.path
             },
             {
                 id: PATHS.trading.id,
                 icon: icons.trading,
-                label: formatMessage(labels.trading),
+                label: formatMessage(messages.trading),
                 active: headRoute === PATHS.trading.id,
                 path: PATHS.trading.path
             },
             {
                 id: PATHS.profile.id,
                 icon: icons.profile,
-                label: formatMessage(labels.profile),
+                label: formatMessage(messages.profile),
                 active: headRoute === PATHS.profile.id,
                 path: PATHS.profile.path
             }
@@ -144,28 +105,38 @@ export class App extends React.Component {
         const footerItems = [
             {
                 href: PATHS.about.path,
-                label: formatMessage(labels.about),
+                label: formatMessage(messages.about),
                 active: pathname === PATHS.about.path
             },
             {
                 href: PATHS.team.path,
-                label: formatMessage(labels.team),
+                label: formatMessage(messages.team),
                 active: pathname === PATHS.team.path
             },
             {
                 href: PATHS.service.path,
-                label: formatMessage(labels.service),
+                label: formatMessage(messages.service),
                 active: pathname === PATHS.service.path
             }
         ];
 
         return (
             <div className="app">
+                <Confirm
+                    labels={{
+                        message: formatMessage(messages.logoutConfirmMessage),
+                        confirmButton: formatMessage(messages.logoutConfirmButton),
+                        cancelButton: formatMessage(messages.logoutCancelButton)
+                    }}
+                    show={isConfirmVisible}
+                    onConfirm={() => this.handleLogoutConfirm()}
+                    onCancel={() => this.handleLogoutCancel()}
+                />
                 <Header
-                    onLogoutButtonClickHandler={() => this.logout(formatMessage(labels.logoutConfirm))}
+                    onLogoutButtonClickHandler={() => this.logout(formatMessage(messages.logoutConfirm))}
                     navigateTo={route => this.navigateTo(route)}
-                    logoutLabel={formatMessage(labels.logoutLabel)}
-                    notificationLabel={formatMessage(labels.notificationLabel)}
+                    logoutLabel={formatMessage(messages.logoutLabel)}
+                    notificationLabel={formatMessage(messages.notificationLabel)}
                     notifications={[]}
                     breadCrumbs={this.props.breadCrumbs}
                 />
@@ -176,7 +147,7 @@ export class App extends React.Component {
                     <div role="feed" id="main-container">
                         <main>{this.props.children}</main>
                         <Footer
-                            addressLabel={formatMessage(labels.address)}
+                            addressLabel={formatMessage(messages.address)}
                             navItems={footerItems}
                             onSelect={href => this.navigateTo(href)}
                         />
