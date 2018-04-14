@@ -1,4 +1,10 @@
-import { getProducer, getCurrentProducer, getProducers } from '../services/api/producers';
+import {
+    getProducer,
+    getCurrentProducer,
+    getProducers,
+    selectProducer,
+    getProducerHistory
+} from '../services/api/producers';
 
 import { dispatcher } from '../store';
 
@@ -17,4 +23,19 @@ export function performGetCurrentProducer() {
 
 export function performGetProducers(queryParams) {
     dispatcher.dispatchPromise(getProducers, 'GET_PRODUCERS', state => state.Producers.producer.loading, [queryParams]);
+}
+
+export function performSelectProducer(id) {
+    dispatcher.dispatchPromise(selectProducer, 'SELECT_PRODUCER', state => state.Producers.selectedProducer.loading, [
+        id
+    ]);
+}
+
+export function performGetProducerHistory(producerId) {
+    dispatcher.dispatchPromise(
+        getProducerHistory,
+        'GET_PRODUCER_HISTORY',
+        state => state.Producers.producerHistory.loading,
+        [producerId]
+    );
 }

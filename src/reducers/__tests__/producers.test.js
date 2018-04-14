@@ -24,6 +24,20 @@ describe('Producers reducer:', () => {
             expect(result.producers.error).toBeNull();
             expect(result.producers.data).toEqual(initialState.producers.data);
         });
+
+        it('should handle SELECT_PRODUCER', () => {
+            const result = producersReducer(initialState, ACTIONS.selectProducer.pending);
+            expect(result.selectedProducer.loading).toBeTruthy();
+            expect(result.selectedProducer.error).toBeNull();
+            expect(result.selectedProducer.data).toEqual(initialState.selectedProducer.data);
+        });
+
+        it('should handle GET_PRODUCER_HISTORY', () => {
+            const result = producersReducer(initialState, ACTIONS.getProducerHistory.pending);
+            expect(result.producerHistory.loading).toBeTruthy();
+            expect(result.producerHistory.error).toBeNull();
+            expect(result.producerHistory.data).toEqual(initialState.producerHistory.data);
+        });
     });
 
     describe('Error cases:', () => {
@@ -46,6 +60,20 @@ describe('Producers reducer:', () => {
             expect(result.producers.loading).toBeFalsy();
             expect(result.producers.error).toEqual(ACTIONS.getProducers.fail.error);
             expect(result.producers.data).toEqual(initialState.producers.data);
+        });
+
+        it('should handle SELECT_PRODUCER', () => {
+            const result = producersReducer(initialState, ACTIONS.selectProducer.fail);
+            expect(result.selectedProducer.loading).toBeFalsy();
+            expect(result.selectedProducer.error).toEqual(ACTIONS.selectProducer.fail.error);
+            expect(result.selectedProducer.data).toEqual(initialState.selectedProducer.data);
+        });
+
+        it('should handle GET_PRODUCER_HISTORY', () => {
+            const result = producersReducer(initialState, ACTIONS.getProducerHistory.fail);
+            expect(result.producerHistory.loading).toBeFalsy();
+            expect(result.producerHistory.error).toEqual(ACTIONS.getProducerHistory.fail.error);
+            expect(result.producerHistory.data).toEqual(initialState.producerHistory.data);
         });
     });
 
@@ -72,6 +100,21 @@ describe('Producers reducer:', () => {
                 total: ACTIONS.getProducers.success.payload.numberOfProducers,
                 entries: ACTIONS.getProducers.success.payload.producers
             });
+        });
+
+        it('should handle SELECT_PRODUCER', () => {
+            const result = producersReducer(initialState, ACTIONS.selectProducer.success);
+            expect(result.selectedProducer.loading).toBeFalsy();
+            expect(result.selectedProducer.error).toBeNull();
+            const [id] = ACTIONS.selectProducer.success.meta;
+            expect(result.selectedProducer.data).toEqual({ ...ACTIONS.selectProducer.success.payload, id });
+        });
+
+        it('should handle GET_PRODUCER_HISTORY', () => {
+            const result = producersReducer(initialState, ACTIONS.getProducerHistory.success);
+            expect(result.producerHistory.loading).toBeFalsy();
+            expect(result.producerHistory.error).toBeNull();
+            expect(result.producerHistory.data).toEqual(ACTIONS.getProducerHistory.success.payload.strategies);
         });
     });
 });
@@ -206,6 +249,60 @@ function fixtures() {
                 payload: null,
                 error: null,
                 loading: true
+            }
+        },
+        getProducerHistory: {
+            success: {
+                type: 'GET_PRODUCER_HISTORY',
+                payload: {
+                    strategies: [
+                        {
+                            date: 1523468260,
+                            offerEventDescription: 'Price change 2.4 ct/kWh'
+                        },
+                        {
+                            date: 1523465260,
+                            offerEventDescription: 'Price change 2.3 ct/kWh'
+                        }
+                    ]
+                },
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'GET_PRODUCER_HISTORY',
+                payload: null,
+                error: { message: 'Response error' },
+                loading: false
+            },
+            pending: {
+                type: 'GET_PRODUCER_HISTORY',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
+        selectProducer: {
+            success: {
+                type: 'SELECT_PRODUCER',
+                payload: {},
+                error: null,
+                loading: false,
+                meta: ['testId']
+            },
+            fail: {
+                type: 'SELECT_PRODUCER',
+                payload: null,
+                error: { message: 'Response error' },
+                loading: false,
+                meta: ['testId']
+            },
+            pending: {
+                type: 'SELECT_PRODUCER',
+                payload: null,
+                error: null,
+                loading: true,
+                meta: ['testId']
             }
         }
     };

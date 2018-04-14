@@ -1,18 +1,21 @@
 import Axios from 'axios';
-import { getProducer, getCurrentProducer, getProducers } from '../producers';
+import { getProducer, getCurrentProducer, selectProducer, getProducers, getProducerHistory } from '../producers';
 import { LIMIT } from '../../../constants';
 
 describe('Producers API Service', () => {
     beforeAll(() => {
         jest.spyOn(Axios, 'get').mockImplementation(jest.fn);
+        jest.spyOn(Axios, 'post').mockImplementation(jest.fn);
     });
 
     afterAll(() => {
         Axios.get.mockRestore();
+        Axios.post.mockRestore();
     });
 
     afterEach(() => {
         Axios.get.mockClear();
+        Axios.post.mockClear();
     });
 
     it('should provide method for getting specific producer', () => {
@@ -23,6 +26,27 @@ describe('Producers API Service', () => {
         expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct', { params: { limit: 1000, offset: 0 } });
         // TODO will be replaced by
         // expect(Axios.get).toHaveBeenCalledWith('/api//producers/get/testId');
+    });
+
+    // TODO uncomment after completing end-point
+    it.skip('should provide method for getting producer history', () => {
+        Axios.get.mockReturnValue(jest.fn);
+
+        getProducerHistory('testId');
+
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/testId/offer/history', {
+            params: { limit: 10, offset: 0 }
+        });
+    });
+
+    it('should provide method for selecting producer', () => {
+        Axios.post.mockReturnValue(jest.fn);
+
+        selectProducer('testId');
+
+        expect(Axios.post).toHaveBeenCalledWith('/api/producers/select', {
+            producerID: 'testId'
+        });
     });
 
     it('should provide method for getting current producer', async () => {
