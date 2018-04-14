@@ -35,8 +35,7 @@ describe('Users API Service', () => {
         expect(Axios.get).toHaveBeenCalledWith('/api/user/logout');
     });
 
-    // TODO remove skip after API integration
-    it.skip('should provide method for getting user', () => {
+    it('should provide method for getting user', () => {
         getUserData();
 
         expect(Axios.get).toHaveBeenCalledWith('/api/user/getUserData');

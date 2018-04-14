@@ -15,14 +15,17 @@ describe('Producers API Service', () => {
         Axios.get.mockClear();
     });
 
-    // TODO remove skip after integration
-    it.skip('should provide method for getting specific producer', () => {
+    it('should provide method for getting specific producer', () => {
+        Axios.get.mockReturnValue(Promise.resolve({ data: { producers: [] } }));
+
         getProducer('testId');
-        expect(Axios.get).toHaveBeenCalledWith('/api//producers/get/testId');
+
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct', { params: { limit: 1000, offset: 0 } });
+        // TODO will be replaced by
+        // expect(Axios.get).toHaveBeenCalledWith('/api//producers/get/testId');
     });
 
-    // TODO remove skip after integration
-    it.skip('should provide method for getting current producer', async () => {
+    it('should provide method for getting current producer', async () => {
         Axios.get.mockReturnValue(
             Promise.resolve({
                 data: { user: { currentProducerId: 'TEST' } }
@@ -32,19 +35,11 @@ describe('Producers API Service', () => {
         await getCurrentProducer();
         expect(Axios.get).toHaveBeenCalledTimes(2);
 
-        const [firstCallUrl] = Axios.get.mock.calls[0];
-        const [secondCallUrl] = Axios.get.mock.calls[1];
+        const [[firstCallUrl], [secondCallUrl]] = Axios.get.mock.calls;
         expect(firstCallUrl).toBe('/api/user/getUserData');
-        expect(secondCallUrl).toBe('/api/producers/TEST/get');
-
-        Axios.get.mockClear();
-        Axios.get.mockReturnValue(Promise.resolve({}));
-
-        await getCurrentProducer();
-        expect(Axios.get).toHaveBeenCalledTimes(1);
-        expect(Axios.get).toHaveBeenCalledWith('/api/user/getUserData');
-
-        Axios.get.mockImplementation(jest.fn);
+        expect(secondCallUrl).toBe('/api/producers/direct');
+        // TODO will be replaced by
+        // expect(secondCallUrl).toBe('/api/producers/TEST/get');
     });
 
     it('should provide method for getting producers list', () => {

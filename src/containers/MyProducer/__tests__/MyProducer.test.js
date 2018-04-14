@@ -55,6 +55,9 @@ const store = mockStore({
 const context = {
     intl: {
         formatMessage: jest.fn()
+    },
+    router: {
+        history: { push: jest.fn() }
     }
 };
 
@@ -86,6 +89,7 @@ function renderComponent() {
 
 describe('<MyProducer /> Component', () => {
     beforeEach(() => {
+        context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
         context.intl.formatMessage.mockReturnValue('test');
         producersActions.performGetProducer = jest.fn();
@@ -96,8 +100,9 @@ describe('<MyProducer /> Component', () => {
     it(`should contains following controls:
         - <div> with class "my-producer-page";
         - 1 <h1>;
+        - 1 <a>;
         - 1 <FontAwesomeIcon> icon (reply);
-        - 2 <Button> component;
+        - 1 <Button> component;
         - 1 <ProducerHistory> component;
         - 1 <Loader> component";
         - 1 <ProducerInfo> component";`, () => {
@@ -105,9 +110,10 @@ describe('<MyProducer /> Component', () => {
 
         expect(component.find('.my-producer-page')).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
+        expect(component.find('a')).toHaveLength(1);
         expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);
-        expect(component.find(Button)).toHaveLength(2);
+        expect(component.find(Button)).toHaveLength(1);
         expect(component.find(FontAwesomeIcon)).toHaveLength(1);
         expect(component.find(ProducerHistory)).toHaveLength(1);
     });
@@ -203,5 +209,13 @@ describe('<MyProducer /> Component', () => {
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(3);
         component.setProps({ profile: { user: { currentProducerId: 1, id: 2 } } });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(4);
+
+        component.setContext(context);
+        const backLink = component.find('a.my-producer-page-switch-back').at(0);
+        backLink.props().onClick({ preventDefault: f => f });
+        const { history } = context.router;
+        expect(history.push.mock.calls.length).toEqual(1);
+        const [[route]] = history.push.mock.calls;
+        expect(route).toEqual('/trading/buy_energy');
     });
 });
