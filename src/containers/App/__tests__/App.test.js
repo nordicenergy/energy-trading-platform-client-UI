@@ -67,7 +67,9 @@ describe('Main <App /> Component', () => {
         component.setContext(context);
 
         const header = component.find(Header).at(0);
+        const confirm = component.find('Confirm');
         header.props().onLogoutButtonClickHandler();
+        confirm.props().onConfirm();
         component.setProps({ loggingOut: true });
         component.setProps({ loggingOut: false });
 
@@ -155,5 +157,28 @@ describe('Main <App /> Component', () => {
                 label: 'test'
             }
         ]);
+    });
+
+    it('should not perform logout if user click cancel', () => {
+        const component = renderComponent(context);
+        component.setContext(context);
+
+        const header = component.find(Header).at(0);
+        const confirm = component.find('Confirm');
+        header.props().onLogoutButtonClickHandler();
+        confirm.props().onCancel();
+
+        expect(context.router.history.push).not.toHaveBeenCalled();
+        expect(usersActions.performLogout).not.toHaveBeenCalled();
+    });
+
+    it('should navigate to necessary route', () => {
+        const component = renderComponent(context);
+        component.setContext(context);
+
+        const header = component.find(Header).at(0);
+        header.props().navigateTo('/test');
+
+        expect(context.router.history.push).toHaveBeenCalledWith('/test');
     });
 });
