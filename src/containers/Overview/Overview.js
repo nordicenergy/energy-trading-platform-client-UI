@@ -1,56 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { defineMessages } from 'react-intl';
 import { NavigationCardsPanel, RecentTransactions } from '../../components';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import './Overview.css';
 import PropTypes from 'prop-types';
 import { PATHS } from '../../services/routes';
+import { Overview as messages } from '../../services/translations/messages';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
 const currentBalanceData = {
     date: 'Mar 14, 2018',
     amount: '4,03€'
 }; // TODO: remove
-
-const messages = defineMessages({
-    myProducer: {
-        id: 'app.navigationCardsPanel.myProducer',
-        defaultMessage: 'My Producer'
-    },
-    sellEnergy: {
-        id: 'app.navigationCardsPanel.sellEnergy',
-        defaultMessage: 'Sell Energy'
-    },
-    buyEnergy: {
-        id: 'app.navigationCardsPanel.buyEnergy',
-        defaultMessage: 'Buy Energy'
-    },
-    recentTransactionsTitle: {
-        id: 'app.overviewPage.recentTransactions.title',
-        defaultMessage: 'Most Recent Transactions'
-    },
-    recentTransactionsHeaderDate: {
-        id: 'app.overviewPage.recentTransactions.headerDate',
-        defaultMessage: 'Date'
-    },
-    recentTransactionsHeaderTransaction: {
-        id: 'app.overviewPage.recentTransactions.headerTransaction',
-        defaultMessage: 'Transactions'
-    },
-    recentTransactionsHeaderAmount: {
-        id: 'app.overviewPage.recentTransactions.headerAmount',
-        defaultMessage: 'Amount'
-    },
-    recentTransactionsCurrentBalance: {
-        id: 'app.overviewPage.recentTransactions.currentBalance',
-        defaultMessage: 'Current Balance'
-    },
-    recentTransactionsMore: {
-        id: 'app.overviewPage.recentTransactions.more',
-        defaultMessage: 'More'
-    }
-});
 
 export class Overview extends AbstractContainer {
     static mapStateToProps(state) {

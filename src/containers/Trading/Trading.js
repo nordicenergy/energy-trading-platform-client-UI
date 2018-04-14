@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { defineMessages } from 'react-intl';
-import { EnergyAmountGraph, NavigationCardsPanel, WattcoinTable } from '../../components';
-import './Trading.css';
-import { PATHS } from '../../services/routes';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import { EnergyAmountGraph, NavigationCardsPanel, WattcoinTable } from '../../components';
+import { PATHS } from '../../services/routes';
+import { Trading as messages } from '../../services/translations/messages';
+import './Trading.css';
 
 export class Trading extends AbstractContainer {
     constructor(props, context) {
@@ -23,70 +23,12 @@ export class Trading extends AbstractContainer {
         return {};
     }
 
-    defineLabels() {
-        return defineMessages({
-            header: {
-                id: 'app.tradingPage.header',
-                defaultMessage: 'Trading'
-            },
-            graphTitle: {
-                id: 'app.tradingPage.graphTitle',
-                defaultMessage: 'Amount of energy'
-            },
-            wattcoinTableHeader: {
-                id: 'app.tradingPage.wattcoinTable.header',
-                defaultMessage: 'Wattcoin'
-            },
-            wattcoinTableMore: {
-                id: 'app.tradingPage.wattcoinTable.moreButton',
-                defaultMessage: 'More'
-            },
-            wattcoinTableTrx: {
-                id: 'app.tradingPage.wattcoinTable.trx',
-                defaultMessage: 'Transaction'
-            },
-            wattcoinTableSent: {
-                id: 'app.tradingPage.wattcoinTable.sent',
-                defaultMessage: 'Sent'
-            },
-            wattcoinTableReceived: {
-                id: 'app.tradingPage.wattcoinTable.received',
-                defaultMessage: 'Received'
-            },
-            wattcoinTableTotal: {
-                id: 'app.tradingPage.wattcoinTable.total',
-                defaultMessage: 'Total'
-            },
-            wattcoinTableProducer: {
-                id: 'app.tradingPage.wattcoinTable.producer',
-                defaultMessage: 'Producer'
-            },
-            wattcoinTableEnergyType: {
-                id: 'app.tradingPage.wattcoinTable.energyType',
-                defaultMessage: 'Type of energy'
-            },
-            myProducer: {
-                id: 'app.navigationCardsPanel.myProducer',
-                defaultMessage: 'My Producer'
-            },
-            sellEnergy: {
-                id: 'app.navigationCardsPanel.sellEnergy',
-                defaultMessage: 'Sell Energy'
-            },
-            buyEnergy: {
-                id: 'app.navigationCardsPanel.buyEnergy',
-                defaultMessage: 'Buy Energy'
-            }
-        });
-    }
-
     navigateTo(route) {
         this.context.router.history.push(route);
     }
 
     render() {
         const { formatMessage } = this.context.intl;
-        const labels = this.defineLabels();
 
         // TODO will receive this data from server-side
         const data = {
@@ -112,31 +54,31 @@ export class Trading extends AbstractContainer {
         const navigationCards = [
             {
                 type: PATHS.myProducer.id,
-                title: formatMessage(labels.myProducer),
+                title: formatMessage(messages.myProducer),
                 path: PATHS.myProducer.path
             },
             {
                 type: PATHS.buyEnergy.id,
-                title: formatMessage(labels.buyEnergy),
+                title: formatMessage(messages.buyEnergy),
                 path: PATHS.buyEnergy.path
             },
             {
                 type: PATHS.sellEnergy.id,
-                title: formatMessage(labels.sellEnergy),
+                title: formatMessage(messages.sellEnergy),
                 path: PATHS.sellEnergy.path
             }
         ];
 
         const wattcoinProps = {
             labels: {
-                caption: formatMessage(labels.wattcoinTableHeader),
-                producer: formatMessage(labels.wattcoinTableProducer),
-                energyType: formatMessage(labels.wattcoinTableEnergyType),
-                total: formatMessage(labels.wattcoinTableTotal),
-                trx: formatMessage(labels.wattcoinTableTrx),
-                sent: formatMessage(labels.wattcoinTableSent),
-                received: formatMessage(labels.wattcoinTableReceived),
-                button: formatMessage(labels.wattcoinTableMore)
+                caption: formatMessage(messages.wattcoinTableHeader),
+                producer: formatMessage(messages.wattcoinTableProducer),
+                energyType: formatMessage(messages.wattcoinTableEnergyType),
+                total: formatMessage(messages.wattcoinTableTotal),
+                trx: formatMessage(messages.wattcoinTableTrx),
+                sent: formatMessage(messages.wattcoinTableSent),
+                received: formatMessage(messages.wattcoinTableReceived),
+                button: formatMessage(messages.wattcoinTableMore)
             },
             // TODO will receive this data from server-side
             data: {
@@ -153,7 +95,7 @@ export class Trading extends AbstractContainer {
 
         return (
             <div className="trading-page">
-                <h1>{formatMessage(labels.header)}</h1>
+                <h1>{formatMessage(messages.header)}</h1>
                 <NavigationCardsPanel
                     onCardClick={route => {
                         this.navigateTo(route);
@@ -161,7 +103,7 @@ export class Trading extends AbstractContainer {
                     navigationCards={navigationCards}
                 />
                 <WattcoinTable {...wattcoinProps} onMoreClick={() => this.navigateTo(PATHS.wattcoin.path)} />
-                <EnergyAmountGraph title={formatMessage(labels.graphTitle)} subtitle="Peter Producer" data={data} />
+                <EnergyAmountGraph title={formatMessage(messages.graphTitle)} subtitle="Peter Producer" data={data} />
             </div>
         );
     }
