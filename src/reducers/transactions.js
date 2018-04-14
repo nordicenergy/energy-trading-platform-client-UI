@@ -1,5 +1,5 @@
 export const initialState = {
-    recentTransactions: { data: [], error: null, loading: false }
+    recentTransactions: { data: { currentBalance: {}, transactions: [] }, error: null, loading: false }
 };
 
 export function transactionsReducer(state = initialState, action) {

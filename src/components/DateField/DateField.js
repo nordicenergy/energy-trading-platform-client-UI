@@ -9,6 +9,8 @@ import CalendarIcon from './CalendarIcon';
 import 'antd/lib/date-picker/style/index.css';
 import './DateField.css';
 
+import { DATE_FORMAT } from '../../constants';
+
 const pickerLocales = {
     de: DE,
     en: EN
@@ -21,7 +23,6 @@ class DateField extends React.Component {
             isOpened: false,
             date: undefined
         };
-        moment.locale(props.locale);
     }
 
     componentDidUpdate({ value }) {
@@ -178,7 +179,7 @@ DateField.defaultProps = {
     onCancel: () => {},
     onOk: () => {},
     renderTo: 'body',
-    format: 'MMM DD, YYYY'
+    format: DATE_FORMAT
 };
 
 export default DateField;

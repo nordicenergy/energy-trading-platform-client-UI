@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './RecentTransactions.css';
 import Button from '../Button';
+import Spinner from '../Loader/Spinner';
 
-const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClick }) => {
+const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClick, loading }) => {
     function renderTableRows() {
         return transactions.map(transaction => (
             <tr key={transaction.id}>
@@ -16,6 +17,11 @@ const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClic
 
     return (
         <div className="recent-transactions-container">
+            {loading && (
+                <div className="recent-transactions-loader">
+                    <Spinner size="md" color="#30acc1" />
+                </div>
+            )}
             <div className="table-container">
                 <table>
                     <caption>{labels.recentTransactionsTitle}</caption>
@@ -66,7 +72,8 @@ RecentTransactions.propTypes = {
         recentTransactionsCurrentBalance: PropTypes.string,
         recentTransactionsMore: PropTypes.string
     }),
-    onButtonClick: PropTypes.func
+    onButtonClick: PropTypes.func,
+    loading: PropTypes.bool
 };
 
 export default RecentTransactions;

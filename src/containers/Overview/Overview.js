@@ -2,27 +2,30 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavigationCardsPanel, RecentTransactions } from '../../components';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
+import { performGetUserData } from '../../action_performers/users';
 import './Overview.css';
 import PropTypes from 'prop-types';
 import { PATHS } from '../../services/routes';
 import { Overview as messages } from '../../services/translations/messages';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
-const currentBalanceData = {
-    date: 'Mar 14, 2018',
-    amount: '4,03€'
-}; // TODO: remove
-
 export class Overview extends AbstractContainer {
     static mapStateToProps(state) {
         return {
-            loading: state.Transactions.recentTransactions.loading,
-            recentTransactions: state.Transactions.recentTransactions.data
+            loading: state.Transactions.recentTransactions.loading || state.Users.profile.loading,
+            recentTransactions: state.Transactions.recentTransactions.data,
+            user: state.Users.profile.data.user
         };
     }
 
     componentDidMount() {
-        performGetRecentTransactions();
+        performGetUserData();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.user.id !== prevProps.user.id) {
+            performGetRecentTransactions(this.props.user.id);
+        }
     }
 
     prepareLabels() {
@@ -47,6 +50,7 @@ export class Overview extends AbstractContainer {
 
     render() {
         const labels = this.prepareLabels(messages);
+        const { transactions = [], currentBalance = {} } = this.props.recentTransactions;
 
         const navigationCards = [
             {
@@ -77,9 +81,10 @@ export class Overview extends AbstractContainer {
                 />
                 <div className="overview-content-container">
                     <RecentTransactions
-                        transactions={this.props.recentTransactions}
-                        currentBalance={currentBalanceData}
+                        transactions={transactions}
+                        currentBalance={currentBalance}
                         labels={labels}
+                        loading={this.props.loading}
                         onButtonClick={() => this.openWattcoinPage()}
                     />
                 </div>

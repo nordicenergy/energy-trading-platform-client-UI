@@ -3,7 +3,7 @@ import { setToken, clearToken } from '../services/browserStorage';
 export const initialState = {
     login: { data: {}, error: null, loading: false },
     logout: { data: {}, error: null, loading: false },
-    profile: { data: {}, error: null, loading: false }
+    profile: { data: { user: {} }, error: null, loading: false }
 };
 
 export function usersReducer(state = initialState, action) {

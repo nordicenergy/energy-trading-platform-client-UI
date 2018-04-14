@@ -5,6 +5,8 @@ import { Router } from 'react-router-dom';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import enLocaleData from 'react-intl/locale-data/en';
 import 'moment/locale/de';
+import 'moment/locale/en-gb';
+import moment from 'moment';
 
 import { store } from './store';
 import messagesEn from './services/translations/en.json';
@@ -25,6 +27,8 @@ function bootstrap() {
         en: messagesEn,
         de: messagesDe
     };
+
+    moment.locale(locale);
 
     ReactDOM.render(
         <Provider store={store}>
