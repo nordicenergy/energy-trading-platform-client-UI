@@ -6,7 +6,6 @@
     width: 100%;
     box-shadow: var(--main-boxes-shadow);
     border-radius: 0.25em;
-    --rows-side-padding: 6.22em;
 }
 
 .recent-transactions-container caption {
@@ -20,7 +19,7 @@
 }
 
 .recent-transactions-container .table-container {
-    padding: 0 var(--rows-side-padding);
+    padding: 0 6.22em;
 }
 
 .recent-transactions-container table {
@@ -34,7 +33,7 @@
     justify-content: space-between;
     align-items: center;
     background: var(--table-total-cell-bg-color);
-    padding: 1.11em var(--rows-side-padding) 0.89em;
+    padding: 1.11em 6.22em 0.89em;
 }
 
 .recent-transactions-current-balance-row p {

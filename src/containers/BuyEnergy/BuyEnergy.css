@@ -1,6 +1,4 @@
 .buy-energy-page {
-    --section-padding: 2rem 1.5rem 2rem 2rem;
-
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -10,7 +8,7 @@
 .buy-energy-page-filters,
 .buy-energy-page-producers {
     box-sizing: border-box;
-    padding: var(--section-padding);
+    padding: 2rem 1.5rem 2rem 2rem;
     width: 100%;
 }
 
@@ -45,13 +43,11 @@
 }
 
 .buy-energy-page-filter {
-    --border: var(--border-width) solid var(--geyser-color);
-
     padding: var(--page-paddings);
     padding-bottom: 1rem;
     background: #e9eef2;
-    border-top: var(--border);
-    border-bottom: var(--border);
+    border-top: var(--border-width) solid var(--geyser-color);
+    border-bottom: var(--border-width) solid var(--geyser-color);
 }
 
 .buy-energy-page-producers {
