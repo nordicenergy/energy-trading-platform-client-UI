@@ -68,9 +68,14 @@ export class MyProducer extends AbstractContainer {
     }
 
     switchBackToMarketPrice() {
+        // TODO: call producer deselect end-point here
+        // const { history } = this.context.router;
+        // history.push(PATHS.buyEnergy.path);
+    }
+
+    openProducersPage() {
         const { history } = this.context.router;
         history.push(PATHS.buyEnergy.path);
-        // TODO: call producer deselect end-point here
     }
 
     render() {
@@ -92,7 +97,7 @@ export class MyProducer extends AbstractContainer {
                     <ProducerInfo {...producerInfoProps} />
                 </section>
                 <section className="my-producer-page-controls">
-                    <Button>{formatMessage(messages.changeButton)}</Button>
+                    <Button onClick={() => this.openProducersPage()}>{formatMessage(messages.changeButton)}</Button>
                     <a
                         className="my-producer-page-switch-back"
                         href=""

@@ -12,7 +12,8 @@ const props = {
         purchased: 'Energy purchased',
         capacity: 'Peak Capacity',
         selectedSince: 'Selected since',
-        location: 'Location'
+        location: 'Location',
+        ethereumAddress: 'Ethereum Address'
     },
     details: {
         name: 'Peter Producer',
@@ -22,6 +23,7 @@ const props = {
         purchased: 1300,
         capacity: 8,
         selectedSince: 'Sep 12 - Feb 22',
+        ethereumAddress: '0x3E7e5d1810F825a2B27C6BEC5fCB32F3eaCd192e',
         location: 'Lippendorf, Neukieritzsch'
     },
     description: `Lorem ipsum text`,
@@ -44,7 +46,7 @@ describe('<ProducerInfo /> Component', () => {
         expect(component.find('section').length).toEqual(2);
         expect(component.find('figure').length).toEqual(1);
         expect(component.find('img').length).toEqual(1);
-        expect(component.find('.producer-information-row').length).toEqual(8);
+        expect(component.find('.producer-information-row').length).toEqual(9);
 
         const description = component.find('.producer-information-desc');
         expect(description.length).toEqual(1);
@@ -62,7 +64,8 @@ describe('<ProducerInfo /> Component', () => {
         expect(rows.at(4).text()).toEqual(`${props.labels.purchased}${props.details.purchased} kWh`);
         expect(rows.at(5).text()).toEqual(`${props.labels.capacity}${props.details.capacity} MW`);
         expect(rows.at(6).text()).toEqual(`${props.labels.selectedSince}${props.details.selectedSince}`);
-        expect(rows.at(7).text()).toEqual(`${props.labels.location}${props.details.location}`);
+        expect(rows.at(7).text()).toEqual(`${props.labels.ethereumAddress}${props.details.ethereumAddress}`);
+        expect(rows.at(8).text()).toEqual(`${props.labels.location}${props.details.location}`);
     });
 
     it('should render image placeholder and hide some fields in case when data is absent', () => {

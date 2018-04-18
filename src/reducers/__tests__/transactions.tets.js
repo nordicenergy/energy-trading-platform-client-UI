@@ -8,7 +8,7 @@ describe('Transactions reducer:', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.pending);
             expect(result.recentTransactions.loading).toEqual(true);
             expect(result.recentTransactions.error).toEqual(null);
-            expect(result.recentTransactions.data).toEqual({ currentBalance: {}, transactions: [] });
+            expect(result.recentTransactions.data).toEqual({ currentBalance: 0, transactions: [] });
 
             done();
         });
@@ -18,7 +18,7 @@ describe('Transactions reducer:', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.fail);
             expect(result.recentTransactions.loading).toEqual(false);
             expect(result.recentTransactions.error).toEqual('Error Message');
-            expect(result.recentTransactions.data).toEqual({ currentBalance: {}, transactions: [] });
+            expect(result.recentTransactions.data).toEqual({ currentBalance: 0, transactions: [] });
 
             done();
         });
@@ -41,28 +41,25 @@ function fixtures() {
             success: {
                 type: 'GET_RECENT_TRANSACTIONS',
                 payload: {
-                    currentBalance: {
-                        date: 'Mar 14, 2018',
-                        amount: '0,81€'
-                    },
+                    currentBalance: 20,
                     transactions: [
                         {
                             id: 1,
-                            date: 'Mar 14, 2018',
-                            name: 'Bought 23 kWh Alice',
-                            amount: '0,81€'
+                            date: 1523707200,
+                            description: 'Bought 23 kWh from Alice',
+                            amount: 0.81
                         },
                         {
                             id: 2,
-                            date: 'Mar 14, 2018',
-                            name: 'Bought 23 kWh Alice',
+                            date: 1523707200,
+                            description: 'Bought 23 kWh from Alice',
                             amount: '0,81€'
                         },
                         {
-                            id: '3',
-                            date: 'Mar 14, 2018',
-                            name: 'Bought 23 kWh from Peter',
-                            amount: '0,81€'
+                            id: 3,
+                            date: 1523707200,
+                            description: 'Bought 23 kWh from Peter',
+                            amount: 0.81
                         }
                     ]
                 },

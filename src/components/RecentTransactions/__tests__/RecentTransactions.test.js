@@ -1,7 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import moment from 'moment/moment';
+import { mount } from 'enzyme';
 import RecentTransactions from '../RecentTransactions';
 import Button from '../../Button';
+import { DATE_FORMAT } from '../../../constants';
 
 const labelsMock = {
     recentTransactionsTitle: 'Most Recent Transactions',
@@ -15,36 +17,26 @@ const labelsMock = {
 const transactionsMock = [
     {
         id: '1',
-        date: 'Mar 14, 2018',
-        name: 'Bought 23 kWh Alice',
-        amount: '0,81€'
+        date: 1523707200,
+        description: 'Bought 23 kWh Alice',
+        transactionAmount: 0.81
     },
     {
         id: '2',
-        date: 'Mar 14, 2018',
-        name: 'Monthly invoice',
-        amount: '0,81€'
+        date: 1523707200,
+        description: 'Monthly invoice',
+        transactionAmount: 0.081
     },
     {
         id: '3',
-        date: 'Mar 14, 2018',
-        name: 'Bought 23 kWh from Peter',
-        amount: '0,81€'
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.081
     }
 ];
 
-const currentBalanceMockData = {
-    date: 'Mar 14, 2018',
-    amount: '4,03€'
-};
-
 function renderComponent(
-    {
-        labels = labelsMock,
-        transactions = transactionsMock,
-        currentBalance = currentBalanceMockData,
-        onButtonClick = () => {}
-    },
+    { labels = labelsMock, transactions = transactionsMock, currentBalance = 10, onButtonClick = () => {} },
     renderer = mount
 ) {
     return renderer(
@@ -59,7 +51,7 @@ function renderComponent(
 
 describe('<RecentTransactions /> Component', () => {
     it(`should contains following elements:
-        - <p /> element with class "recent-transactions-title";
+        - <caption /> element;
         - <table /> element;
         - <thead /> element;
         - <tbody /> element;
@@ -69,7 +61,28 @@ describe('<RecentTransactions /> Component', () => {
         expect(component.find('caption')).toHaveLength(1);
         expect(component.find('thead')).toHaveLength(1);
         expect(component.find('tbody')).toHaveLength(1);
+        expect(component.find('th')).toHaveLength(3);
+        expect(component.find('td')).toHaveLength(9);
         expect(component.find(Button)).toHaveLength(1);
+    });
+
+    it('should display correct data in table', () => {
+        const component = renderComponent({});
+        const data = component.find('td');
+        expect(data.at(0).text()).toEqual('Apr 14, 2018');
+        expect(data.at(1).text()).toEqual('Bought 23 kWh Alice');
+        expect(data.at(2).text()).toEqual('0,81 €');
+        expect(data.at(3).text()).toEqual('Apr 14, 2018');
+        expect(data.at(4).text()).toEqual('Monthly invoice');
+        expect(data.at(5).text()).toEqual('0,081 €');
+        expect(data.at(6).text()).toEqual('Apr 14, 2018');
+        expect(data.at(7).text()).toEqual('Bought 23 kWh from Peter');
+        expect(data.at(8).text()).toEqual('0,081 €');
+
+        expect(component.find('.recent-transactions-current-balance-date').text()).toEqual(
+            moment(Date.now()).format(DATE_FORMAT)
+        );
+        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual('Current Balance: 10');
     });
 
     it('should call onButtonClick handler', () => {

@@ -1,20 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavigationCardsPanel, RecentTransactions } from '../../components';
+import { NavigationCardsPanel, RecentTransactions, Loader } from '../../components';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import { performGetUserData } from '../../action_performers/users';
-import './Overview.css';
-import PropTypes from 'prop-types';
+import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
 import { Overview as messages } from '../../services/translations/messages';
+
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
+
+import './Overview.css';
 
 export class Overview extends AbstractContainer {
     static mapStateToProps(state) {
         return {
             loading: state.Transactions.recentTransactions.loading || state.Users.profile.loading,
             recentTransactions: state.Transactions.recentTransactions.data,
-            user: state.Users.profile.data.user
+            user: state.Users.profile.data.user,
+            error: state.Transactions.recentTransactions.error || state.Users.profile.error
         };
     }
 
@@ -23,8 +27,14 @@ export class Overview extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.user.id !== prevProps.user.id) {
+        const { user, loading, error } = this.props;
+
+        if (user !== prevProps.user) {
             performGetRecentTransactions(this.props.user.id);
+        }
+
+        if (!loading && error && error !== prevProps.error) {
+            performPushNotification({ message: error.message, type: 'error' });
         }
     }
 
@@ -50,7 +60,7 @@ export class Overview extends AbstractContainer {
 
     render() {
         const labels = this.prepareLabels(messages);
-        const { transactions = [], currentBalance = {} } = this.props.recentTransactions;
+        const { transactions = [], currentBalance = 0 } = this.props.recentTransactions;
 
         const navigationCards = [
             {
@@ -72,11 +82,10 @@ export class Overview extends AbstractContainer {
 
         return (
             <div className="overview-page">
+                <Loader show={this.props.loading} />
                 <NavigationCardsPanel
                     navigationCards={navigationCards}
-                    onCardClick={route => {
-                        this.navigateTo(route);
-                    }}
+                    onCardClick={route => this.navigateTo(route)}
                     labels={labels}
                 />
                 <div className="overview-content-container">
@@ -84,7 +93,6 @@ export class Overview extends AbstractContainer {
                         transactions={transactions}
                         currentBalance={currentBalance}
                         labels={labels}
-                        loading={this.props.loading}
                         onButtonClick={() => this.openWattcoinPage()}
                     />
                 </div>
@@ -105,11 +113,13 @@ Overview.contextTypes = {
 };
 Overview.propTypes = {
     loading: PropTypes.bool,
-    data: PropTypes.array
+    recentTransactions: PropTypes.object,
+    user: PropTypes.object
 };
 Overview.defaultProps = {
     loading: false,
-    data: []
+    recentTransactions: {},
+    user: {}
 };
 
 export default connect(Overview.mapStateToProps)(Overview);

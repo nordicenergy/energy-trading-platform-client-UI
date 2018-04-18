@@ -37,25 +37,25 @@ const messages = defineMessages({
         id: 'app.producerPage.selectedSince',
         defaultMessage: 'Selected since'
     },
+    ethereumAddress: {
+        id: 'app.producerPage.ethereumAddress',
+        defaultMessage: 'Ethereum Address'
+    },
     location: {
         id: 'app.producerPage.location',
         defaultMessage: 'Location'
     },
     selectButton: {
         id: 'app.producerPage.selectButton',
-        defaultMessage: 'Select Producer'
-    },
-    deselectButton: {
-        id: 'app.producerPage.deselectButton',
-        defaultMessage: 'Deselect Producer'
+        defaultMessage: 'Select producer'
     },
     changeButton: {
         id: 'app.producerPage.changeButton',
-        defaultMessage: 'Change Producer'
+        defaultMessage: 'Show other producers'
     },
     backButton: {
         id: 'app.producerPage.backButton',
-        defaultMessage: 'Back to Producers'
+        defaultMessage: 'Back to producers'
     },
     switchBack: {
         id: 'app.producerPage.switchBack',

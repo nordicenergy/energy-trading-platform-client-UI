@@ -45,6 +45,7 @@ const store = mockStore({
                 plantType: 'solar',
                 picture: 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg',
                 location: 'Lippendorf, Neukieritzsch',
+                ethereumAddress: '123',
                 description: 'desc'
             },
             loading: false,
@@ -159,7 +160,8 @@ describe('<MyProducer /> Component', () => {
                 price: 2.4,
                 marketPrice: 2.5,
                 purchased: 1300,
-                selectedSince: 'Sep 12 - Feb 22'
+                selectedSince: 'Sep 12 - Feb 22',
+                ethereumAddress: '123'
             },
             labels: {
                 annualProduction: 'Annual Production',
@@ -170,7 +172,8 @@ describe('<MyProducer /> Component', () => {
                 price: 'Price',
                 marketPrice: 'vs. market price of',
                 purchased: 'Energy purchased',
-                selectedSince: 'Selected since'
+                selectedSince: 'Selected since',
+                ethereumAddress: 'Ethereum Address'
             },
             picture: 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg'
         });
@@ -246,8 +249,13 @@ describe('<MyProducer /> Component', () => {
         expect(producersActions.performGetProducerHistory.mock.calls.length).toEqual(4);
 
         component.setContext(context);
-        const backLink = component.find('a.my-producer-page-switch-back').at(0);
-        backLink.props().onClick({ preventDefault: f => f });
+
+        // TODO will implement later
+        // const backLink = component.find('a.my-producer-page-switch-back').at(0);
+        // backLink.props().onClick({ preventDefault: f => f });
+
+        const openProducersList = component.find(Button).at(0);
+        openProducersList.props().onClick();
         const { history } = context.router;
         expect(history.push.mock.calls.length).toEqual(1);
         const [[route]] = history.push.mock.calls;
