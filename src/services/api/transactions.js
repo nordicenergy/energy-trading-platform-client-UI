@@ -1,27 +1,21 @@
-// import Axios from 'axios';
-// import { SESSION_API_URL } from '../../constants';
+import Axios from 'axios';
+import { SESSION_API_URL, LIMIT } from '../../constants';
 
-export function getRecentTransactions() {
-    return Promise.resolve({
-        data: [
-            {
-                id: '1',
-                date: 'Mar 14, 2018',
-                name: 'Bought 23 kWh Alice',
-                amount: '0,81€'
-            },
-            {
-                id: '2',
-                date: 'Mar 14, 2018',
-                name: 'Monthly invoice',
-                amount: '0,81€'
-            },
-            {
-                id: '3',
-                date: 'Mar 14, 2018',
-                name: 'Bought 23 kWh from Peter',
-                amount: '0,81€'
-            }
-        ]
-    });
+export function getRecentTransactions(userId) {
+    const currentBalance = {};
+
+    return Axios.get(`${SESSION_API_URL}/user/${userId}/transactions/getBalance`)
+        .then(response => {
+            const { balance, lastUpdatedAt } = response.data;
+            currentBalance.balance = balance || 0;
+            currentBalance.date = lastUpdatedAt || Date.now();
+
+            return Axios.get(`${SESSION_API_URL}/user/${userId}/transactions/getHistory`, {
+                params: { limit: LIMIT, offset: 0 }
+            });
+        })
+        .then(response => {
+            response.data.currentBalance = currentBalance;
+            return response;
+        });
 }

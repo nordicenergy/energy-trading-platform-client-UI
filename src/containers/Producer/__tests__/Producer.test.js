@@ -26,6 +26,7 @@ const store = mockStore({
                 plantType: 'solar',
                 picture: 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg',
                 location: 'Lippendorf, Neukieritzsch',
+                ethereumAddress: '123',
                 description: 'desc'
             },
             loading: false,
@@ -114,7 +115,8 @@ describe('<Producer /> Component', () => {
                 price: 2.4,
                 marketPrice: 2.5,
                 purchased: 1300,
-                selectedSince: 'Sep 12 - Feb 22'
+                selectedSince: 'Sep 12 - Feb 22',
+                ethereumAddress: '123'
             },
             labels: {
                 annualProduction: 'Annual Production',
@@ -125,7 +127,8 @@ describe('<Producer /> Component', () => {
                 price: 'Price',
                 marketPrice: 'vs. market price of',
                 purchased: 'Energy purchased',
-                selectedSince: 'Selected since'
+                selectedSince: 'Selected since',
+                ethereumAddress: 'Ethereum Address'
             },
             picture: 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg'
         });
@@ -218,7 +221,7 @@ describe('<Producer /> Component', () => {
         const { push } = context.router.history;
         expect(push.mock.calls.length).toEqual(1);
         const [[route]] = push.mock.calls;
-        expect(route).toEqual('/trading/buy_energy');
+        expect(route).toEqual('/');
 
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);

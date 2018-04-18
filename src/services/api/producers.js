@@ -16,10 +16,11 @@ export function getProducer(id) {
             // TODO in future need to think about Adapters
             result.data.producer = {
                 ...producer,
-                location: `${producer.street}, ${producer.city}, ${producer.country} ${producer.postcode}`,
+                location: `${producer.street}, ${producer.city}, ${producer.postcode} (${producer.country})`,
                 annualProduction: producer.productionOfLastDay,
                 purchased: producer.energyPurchased,
-                marketPrice: 2.5
+                marketPrice: 2.5,
+                ethereumAddress: producer.dlAddress
             };
         }
         return result;

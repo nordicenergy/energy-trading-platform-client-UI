@@ -38,7 +38,7 @@ export class Producer extends AbstractContainer {
         }
 
         if (prevSelectedProducer !== selectedProducer) {
-            this.backToProducers();
+            this.navigateToOverview();
         }
 
         if (!loading && error && error !== oldError) {
@@ -71,6 +71,11 @@ export class Producer extends AbstractContainer {
     backToProducers() {
         const { history } = this.context.router;
         history.push(PATHS.buyEnergy.path);
+    }
+
+    navigateToOverview() {
+        const { history } = this.context.router;
+        history.push(PATHS.overview.path);
     }
 
     render() {

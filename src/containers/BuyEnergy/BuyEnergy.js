@@ -11,8 +11,8 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { Loader, ProducerCardsPanel, FilterCheckbox, OptionLinks } from '../../components';
 import './BuyEnergy.css';
 
-const pageBottomOffset = 200; // pixels
-const scrollTimeout = 100; // milliseconds
+const PAGE_BOTTOM_OFFSET = 200; // pixels
+const SCROLL_TIMEOUT = 100; // milliseconds
 const FILTER_OPTIONS = [
     {
         name: 'wind',
@@ -119,14 +119,14 @@ export class BuyEnergy extends AbstractContainer {
             const isScrollDown = scrollTop > this.lastScrollTop;
             const delta = scrollHeight - scrollTop - clientHeight;
 
-            if (delta <= pageBottomOffset && isScrollDown && hasNextProducers && !producersLoading) {
+            if (delta <= PAGE_BOTTOM_OFFSET && isScrollDown && hasNextProducers && !producersLoading) {
                 this.setState(prevState => ({
                     page: prevState.page + 1
                 }));
             }
 
             this.lastScrollTop = scrollTop;
-        }, scrollTimeout);
+        }, SCROLL_TIMEOUT);
     }
 
     handleFilterChange(event) {

@@ -13,6 +13,7 @@ function prepareProducerInfoProps(translate, producer) {
             purchased: translate(messages.purchased),
             capacity: translate(messages.capacity),
             selectedSince: translate(messages.selectedSince),
+            ethereumAddress: translate(messages.ethereumAddress),
             location: translate(messages.location)
         },
         details: {
@@ -24,6 +25,7 @@ function prepareProducerInfoProps(translate, producer) {
             purchased: producer.purchased,
             capacity: producer.capacity,
             selectedSince: producer.dates,
+            ethereumAddress: producer.ethereumAddress,
             location: producer.location
         },
         description: producer.description,
