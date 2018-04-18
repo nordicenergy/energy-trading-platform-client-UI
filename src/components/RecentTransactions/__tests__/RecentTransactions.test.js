@@ -1,9 +1,7 @@
 import React from 'react';
-import moment from 'moment/moment';
 import { mount } from 'enzyme';
 import RecentTransactions from '../RecentTransactions';
 import Button from '../../Button';
-import { DATE_FORMAT } from '../../../constants';
 
 const labelsMock = {
     recentTransactionsTitle: 'Most Recent Transactions',
@@ -14,7 +12,7 @@ const labelsMock = {
     recentTransactionsMore: 'More'
 };
 
-const transactionsMock = [
+const transactionsDummy = [
     {
         id: '1',
         date: 1523707200,
@@ -35,8 +33,18 @@ const transactionsMock = [
     }
 ];
 
+const currentBalanceDummy = {
+    balance: 10,
+    date: 1523707200
+};
+
 function renderComponent(
-    { labels = labelsMock, transactions = transactionsMock, currentBalance = 10, onButtonClick = () => {} },
+    {
+        labels = labelsMock,
+        transactions = transactionsDummy,
+        currentBalance = currentBalanceDummy,
+        onButtonClick = () => {}
+    },
     renderer = mount
 ) {
     return renderer(
@@ -79,10 +87,8 @@ describe('<RecentTransactions /> Component', () => {
         expect(data.at(7).text()).toEqual('Bought 23 kWh from Peter');
         expect(data.at(8).text()).toEqual('0,081 €');
 
-        expect(component.find('.recent-transactions-current-balance-date').text()).toEqual(
-            moment(Date.now()).format(DATE_FORMAT)
-        );
-        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual('Current Balance: 10');
+        expect(component.find('.recent-transactions-current-balance-date').text()).toEqual('Apr 14, 2018');
+        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual('Current Balance: 10 €');
     });
 
     it('should call onButtonClick handler', () => {

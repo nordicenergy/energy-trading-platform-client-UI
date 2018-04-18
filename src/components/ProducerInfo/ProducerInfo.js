@@ -19,6 +19,7 @@ class ProducerInfo extends React.Component {
     }
 
     ethereumAddress(hash) {
+        // FIXME non standard behavior, need fix later after discussing with design team
         return () => <span className="producer-information-ethereum-hash">{hash}</span>;
     }
 

@@ -8,7 +8,7 @@ describe('Transactions reducer:', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.pending);
             expect(result.recentTransactions.loading).toEqual(true);
             expect(result.recentTransactions.error).toEqual(null);
-            expect(result.recentTransactions.data).toEqual({ currentBalance: 0, transactions: [] });
+            expect(result.recentTransactions.data).toEqual({ currentBalance: {}, transactions: [] });
 
             done();
         });
@@ -18,7 +18,7 @@ describe('Transactions reducer:', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.fail);
             expect(result.recentTransactions.loading).toEqual(false);
             expect(result.recentTransactions.error).toEqual('Error Message');
-            expect(result.recentTransactions.data).toEqual({ currentBalance: 0, transactions: [] });
+            expect(result.recentTransactions.data).toEqual({ currentBalance: {}, transactions: [] });
 
             done();
         });
@@ -41,7 +41,10 @@ function fixtures() {
             success: {
                 type: 'GET_RECENT_TRANSACTIONS',
                 payload: {
-                    currentBalance: 20,
+                    currentBalance: {
+                        balance: 20,
+                        date: 1523707200
+                    },
                     transactions: [
                         {
                             id: 1,
@@ -53,7 +56,7 @@ function fixtures() {
                             id: 2,
                             date: 1523707200,
                             description: 'Bought 23 kWh from Alice',
-                            amount: '0,81€'
+                            amount: 0.81
                         },
                         {
                             id: 3,

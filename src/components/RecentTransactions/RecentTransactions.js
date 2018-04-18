@@ -27,14 +27,14 @@ const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClic
                 aria-describedby="transactionDateHeader"
                 className="recent-transactions-current-balance-date"
             >
-                {moment(Date.now()).format(DATE_FORMAT)}
+                {renderDate(currentBalance.date)}
             </span>
             <span
                 role="cell"
                 aria-describedby="transactionAmountHeader"
                 className="recent-transactions-current-balance-amount"
             >
-                {labels.recentTransactionsCurrentBalance}: {currentBalance || '-'}
+                {labels.recentTransactionsCurrentBalance}: {renderAmountText(currentBalance.balance)}
             </span>
         </div>
         <div className="recent-transactions-button-container">
@@ -51,7 +51,10 @@ RecentTransactions.propTypes = {
             transactionAmount: PropTypes.number
         })
     ),
-    currentBalance: PropTypes.number,
+    currentBalance: PropTypes.shape({
+        date: PropTypes.number,
+        balance: PropTypes.number
+    }),
     labels: PropTypes.shape({
         recentTransactionsTitle: PropTypes.string,
         recentTransactionsHeaderDate: PropTypes.string,

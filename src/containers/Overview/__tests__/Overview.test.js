@@ -32,6 +32,10 @@ const store = mockStore({
     Transactions: {
         recentTransactions: {
             data: {
+                currentBalance: {
+                    date: 1523707200,
+                    balance: 40.4
+                },
                 transactions: [
                     {
                         id: 1,
@@ -61,6 +65,10 @@ const store = mockStore({
 
 const props = {
     recentTransactions: {
+        currentBalance: {
+            date: 1523707200,
+            balance: 40.4
+        },
         transactions: [
             {
                 id: 1,
@@ -128,7 +136,10 @@ describe('<Overview /> Component', () => {
         const tableProps = table.props();
         delete tableProps.onButtonClick;
         expect(tableProps).toEqual({
-            currentBalance: 0,
+            currentBalance: {
+                date: 1523707200,
+                balance: 40.4
+            },
             labels: {
                 buyEnergy: 'Buy Energy',
                 myProducer: 'My Producer',
