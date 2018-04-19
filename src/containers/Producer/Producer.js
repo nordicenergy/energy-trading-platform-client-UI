@@ -38,6 +38,11 @@ export class Producer extends AbstractContainer {
         }
 
         if (prevSelectedProducer !== selectedProducer) {
+            // TODO temporary, we should think about it - is it needed here?
+            performPushNotification({
+                message: `${selectedProducer.message}. Transaction hash: ${selectedProducer.dlTransactionHash}`,
+                type: 'success'
+            });
             this.navigateToOverview();
         }
 

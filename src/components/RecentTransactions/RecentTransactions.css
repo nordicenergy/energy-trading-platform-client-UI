@@ -58,14 +58,6 @@
     font-weight: 600;
 }
 
-.recent-transactions-container tbody tr {
-    border-bottom: 0.056em solid var(--border-on-light-color);
-}
-
-.recent-transactions-container tbody tr:last-child {
-    border: none;
-}
-
 .recent-transactions-container td {
     font-size: 1.125rem;
     width: 33%;
@@ -92,4 +84,28 @@
 .recent-transactions-button-container {
     text-align: center;
     margin-top: 1.33em;
+}
+
+tr.recent-transactions-hash {
+    border-bottom: var(--border-width) solid var(--border-on-light-color);
+}
+
+.recent-transactions-container tbody tr:last-child {
+    border: none;
+}
+
+/* FIXME need another solution for hashes, may be tooltip? will discuss with design team */
+.recent-transactions-container tr.recent-transactions-hash td {
+    font-size: 0.76rem;
+    font-weight: 500;
+    text-align: center;
+}
+@media screen and (max-width: 1240px) {
+    .recent-transactions-container tr.recent-transactions-hash {
+        display: none;
+    }
+
+    .recent-transactions-container tbody tr {
+        border-bottom: var(--border-width) solid var(--border-on-light-color);
+    }
 }

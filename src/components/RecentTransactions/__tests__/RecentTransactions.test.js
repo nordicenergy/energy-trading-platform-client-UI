@@ -17,19 +17,22 @@ const transactionsDummy = [
         id: '1',
         date: 1523707200,
         description: 'Bought 23 kWh Alice',
-        transactionAmount: 0.81
+        transactionAmount: 0.81,
+        transactionHash: '1234'
     },
     {
         id: '2',
         date: 1523707200,
         description: 'Monthly invoice',
-        transactionAmount: 0.081
+        transactionAmount: 0.081,
+        transactionHash: '1234'
     },
     {
         id: '3',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
-        transactionAmount: 0.081
+        transactionAmount: 0.081,
+        transactionHash: '1234'
     }
 ];
 
@@ -70,22 +73,29 @@ describe('<RecentTransactions /> Component', () => {
         expect(component.find('thead')).toHaveLength(1);
         expect(component.find('tbody')).toHaveLength(1);
         expect(component.find('th')).toHaveLength(3);
-        expect(component.find('td')).toHaveLength(9);
+        expect(component.find('td')).toHaveLength(12);
         expect(component.find(Button)).toHaveLength(1);
     });
 
     it('should display correct data in table', () => {
         const component = renderComponent({});
         const data = component.find('td');
-        expect(data.at(0).text()).toEqual('Apr 14, 2018');
-        expect(data.at(1).text()).toEqual('Bought 23 kWh Alice');
-        expect(data.at(2).text()).toEqual('0,81 €');
-        expect(data.at(3).text()).toEqual('Apr 14, 2018');
-        expect(data.at(4).text()).toEqual('Monthly invoice');
-        expect(data.at(5).text()).toEqual('0,081 €');
-        expect(data.at(6).text()).toEqual('Apr 14, 2018');
-        expect(data.at(7).text()).toEqual('Bought 23 kWh from Peter');
-        expect(data.at(8).text()).toEqual('0,081 €');
+        let count = 0;
+
+        expect(data.at(count++).text()).toEqual('Apr 14, 2018');
+        expect(data.at(count++).text()).toEqual('Bought 23 kWh Alice');
+        expect(data.at(count++).text()).toEqual('0,81 €');
+        expect(data.at(count++).text()).toEqual('1234');
+
+        expect(data.at(count++).text()).toEqual('Apr 14, 2018');
+        expect(data.at(count++).text()).toEqual('Monthly invoice');
+        expect(data.at(count++).text()).toEqual('0,081 €');
+        expect(data.at(count++).text()).toEqual('1234');
+
+        expect(data.at(count++).text()).toEqual('Apr 14, 2018');
+        expect(data.at(count++).text()).toEqual('Bought 23 kWh from Peter');
+        expect(data.at(count++).text()).toEqual('0,081 €');
+        expect(data.at(count).text()).toEqual('1234');
 
         expect(component.find('.recent-transactions-current-balance-date').text()).toEqual('Apr 14, 2018');
         expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual('Current Balance: 10 €');
