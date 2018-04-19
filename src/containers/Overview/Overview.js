@@ -60,7 +60,7 @@ export class Overview extends AbstractContainer {
 
     render() {
         const labels = this.prepareLabels(messages);
-        const { transactions = [], currentBalance = 0 } = this.props.recentTransactions;
+        const { recentTransactions: { transactions = [], currentBalance = 0 } } = this.props;
 
         const navigationCards = [
             {
