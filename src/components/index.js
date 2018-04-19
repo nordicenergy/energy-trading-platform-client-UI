@@ -1,5 +1,6 @@
 import Button from './Button';
 import TextField from './TextField';
+import NumberField from './NumberField';
 import LoginForm from './LoginForm';
 import RestorePasswordForm from './RestorePasswordForm';
 import Logo from './Logo';
@@ -25,6 +26,7 @@ import Confirm from './Confirm';
 export {
     Button,
     TextField,
+    NumberField,
     LoginForm,
     RestorePasswordForm,
     Logo,

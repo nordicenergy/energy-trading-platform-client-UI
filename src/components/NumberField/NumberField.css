@@ -1,0 +1,69 @@
+.number-field {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.number-field-label {
+    padding-right: 2.25rem;
+    color: var(--label-color);
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.number-field-control {
+    box-sizing: border-box;
+    padding: 0;
+    width: 2.125rem;
+    height: 2.125rem;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    background: var(--button-primary-color);
+    color: white;
+    font-weight: 700;
+    font-size: 1.1875rem;
+    cursor: pointer;
+    transition: 200ms;
+
+    user-select: none;
+    appearance: none;
+}
+
+.number-field-control:hover {
+    background: var(--button-hover-color);
+}
+
+.number-field-control--minus {
+    padding-top: 3px;
+    padding-right: 1px;
+}
+
+.number-field-control--plus {
+    padding-top: 4px;
+    padding-left: 1px;
+}
+
+.number-field-input {
+    flex: 1;
+    outline: none;
+    border: none;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.125rem;
+
+    -moz-appearance: textfield;
+    appearance: none;
+}
+
+.number-field-input::-webkit-outer-spin-button,
+.number-field-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.number-field-units {
+    padding-left: 1.5rem;
+    color: var(--label-color);
+    font-weight: 600;
+    font-size: 0.875rem;
+}
