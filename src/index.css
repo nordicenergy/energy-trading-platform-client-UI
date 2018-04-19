@@ -99,6 +99,8 @@
 
     --confirm-dialog-border-color: var(--darker-mystic-color);
 
+    --select-option-hov-bg-color: var(--blumine-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;

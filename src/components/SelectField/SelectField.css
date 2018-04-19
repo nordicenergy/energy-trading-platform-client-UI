@@ -1,0 +1,117 @@
+.select-field {
+    width: 100%;
+    font-size: 1rem;
+}
+
+.select-field-layout {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: var(--border-width) solid var(--input-border);
+}
+
+.select-field-layout:after {
+    position: absolute;
+    right: 0;
+    bottom: -0.062rem;
+    z-index: 1;
+    display: block;
+    width: 66%;
+    height: 0.125rem;
+    content: '';
+    transform: scaleX(0);
+}
+
+.select-field--focused .select-field-layout:after {
+    background: linear-gradient(to right, var(--hover-icon-color), var(--active-item-color));
+    transition-duration: 200ms;
+    transform: scaleX(1);
+}
+
+.select-field-label {
+    flex: 1;
+    max-width: 34%;
+    color: var(--label-color);
+    font-weight: 700;
+    font-size: 0.875em;
+}
+
+.select-field-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-width: 66%;
+    color: var(--bar-color);
+}
+
+.select-control {
+    display: flex;
+    align-items: center;
+    padding-right: 2rem;
+    width: 100%;
+    height: 2.5rem;
+}
+
+.select-control-text {
+    overflow: hidden;
+    width: calc(100% - 2.875rem);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 1.125em;
+}
+
+.select-control-icon {
+    transition: 250ms;
+}
+
+.options-list {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    max-height: 14.125rem;
+    width: 100%;
+    border: var(--border-width) solid var(--input-border);
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    background: white;
+    list-style: none;
+    transform: translateY(100%);
+}
+
+.options-list-item {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0.125rem 1.5rem 0;
+    height: 3.5rem;
+    border-bottom: var(--border-width) solid var(--input-border);
+    background: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+}
+
+.options-list-item:last-child {
+    border-bottom: none;
+}
+
+.options-list-item--selected {
+    color: var(--label-color);
+}
+
+.options-list-item:hover {
+    background: var(--select-option-hov-bg-color);
+    color: white;
+}
+
+.select-field--focused .select-control-icon {
+    transform: rotate(180deg);
+}
