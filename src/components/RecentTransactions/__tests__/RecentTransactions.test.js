@@ -98,7 +98,9 @@ describe('<RecentTransactions /> Component', () => {
         expect(data.at(count).text()).toEqual('1234');
 
         expect(component.find('.recent-transactions-current-balance-date').text()).toEqual('Apr 14, 2018');
-        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual('Monthly Balance: 10,00 €');
+        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual(
+            'Monthly Balance: 10,00 €'
+        );
     });
 
     it('should call onButtonClick handler', () => {
