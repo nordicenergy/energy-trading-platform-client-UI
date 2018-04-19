@@ -10,7 +10,9 @@ const CoinButton = props => {
     return (
         <button className={classes} disabled={disabled} onClick={onClick}>
             <span>{label}</span>
-            <span><strong>{price}</strong> ct/kWh</span>
+            <span>
+                <strong>{price}</strong> ct/kWh
+            </span>
         </button>
     );
 };
