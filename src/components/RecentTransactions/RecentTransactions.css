@@ -99,13 +99,5 @@ tr.recent-transactions-hash {
     font-size: 0.76rem;
     font-weight: 500;
     text-align: center;
-}
-@media screen and (max-width: 1240px) {
-    .recent-transactions-container tr.recent-transactions-hash {
-        display: none;
-    }
-
-    .recent-transactions-container tbody tr {
-        border-bottom: var(--border-width) solid var(--border-on-light-color);
-    }
+    word-break: break-all;
 }

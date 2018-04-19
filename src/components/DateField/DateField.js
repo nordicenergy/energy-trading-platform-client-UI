@@ -26,11 +26,12 @@ class DateField extends React.Component {
     }
 
     componentDidUpdate({ value }) {
-        if (this.props.value !== value) {
-            this.setState({
-                date: this.props.value
-            });
-        }
+        // FIXME @vlad.nickulcha@instinctools.ru
+        // if (this.props.value !== value) {
+        //     this.setState({
+        //         date: this.props.value
+        //     });
+        // }
     }
 
     onOkHandler(event) {
@@ -129,7 +130,7 @@ class DateField extends React.Component {
                             disabled={disabled}
                             placeholder={placeholder}
                             open={isOpened}
-                            value={moment(date)}
+                            value={moment(date || Date.now())}
                             onFocus={event => this.handleFocus(event)}
                             onBlur={event => this.handleBlur(event)}
                             onChange={(date, dateString) => this.handleChange(date, dateString)}

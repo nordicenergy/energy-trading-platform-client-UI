@@ -8,7 +8,7 @@ const labelsMock = {
     recentTransactionsHeaderDate: 'Date',
     recentTransactionsHeaderTransaction: 'Transaction',
     recentTransactionsHeaderAmount: 'Amount',
-    recentTransactionsCurrentBalance: 'Current Balance',
+    recentTransactionsMonthlyBalance: 'Monthly Balance',
     recentTransactionsMore: 'More'
 };
 
@@ -31,7 +31,7 @@ const transactionsDummy = [
         id: '3',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
-        transactionAmount: 0.081,
+        transactionAmount: 0.8,
         transactionHash: '1234'
     }
 ];
@@ -89,16 +89,16 @@ describe('<RecentTransactions /> Component', () => {
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
         expect(data.at(count++).text()).toEqual('Monthly invoice');
-        expect(data.at(count++).text()).toEqual('0,081 €');
+        expect(data.at(count++).text()).toEqual('0,08 €');
         expect(data.at(count++).text()).toEqual('1234');
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
         expect(data.at(count++).text()).toEqual('Bought 23 kWh from Peter');
-        expect(data.at(count++).text()).toEqual('0,081 €');
+        expect(data.at(count++).text()).toEqual('0,80 €');
         expect(data.at(count).text()).toEqual('1234');
 
         expect(component.find('.recent-transactions-current-balance-date').text()).toEqual('Apr 14, 2018');
-        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual('Current Balance: 10 €');
+        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual('Monthly Balance: 10,00 €');
     });
 
     it('should call onButtonClick handler', () => {
