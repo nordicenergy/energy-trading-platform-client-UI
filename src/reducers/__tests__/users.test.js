@@ -30,14 +30,14 @@ describe('Users reducer:', () => {
             const result = usersReducer(initialState, ACTIONS.getUserData.pending);
             expect(result.profile.loading).toEqual(true);
             expect(result.profile.error).toEqual(null);
-            expect(result.profile.data).toEqual({});
+            expect(result.profile.data).toEqual({ user: {} });
         });
 
         it('should handle UPDATE_USER_DATA', () => {
             const result = usersReducer(initialState, ACTIONS.updateUserData.pending);
             expect(result.profile.loading).toEqual(true);
             expect(result.profile.error).toEqual(null);
-            expect(result.profile.data).toEqual({});
+            expect(result.profile.data).toEqual({ user: {} });
         });
     });
 
@@ -62,14 +62,14 @@ describe('Users reducer:', () => {
             const result = usersReducer(initialState, ACTIONS.getUserData.fail);
             expect(result.profile.loading).toEqual(false);
             expect(result.profile.error).toEqual('Error Message');
-            expect(result.profile.data).toEqual({});
+            expect(result.profile.data).toEqual({ user: {} });
         });
 
         it('should handle UPDATE_USER_DATA', () => {
             const result = usersReducer(initialState, ACTIONS.updateUserData.fail);
             expect(result.profile.loading).toEqual(false);
             expect(result.profile.error).toEqual('Error Message');
-            expect(result.profile.data).toEqual({});
+            expect(result.profile.data).toEqual({ user: {} });
         });
     });
 

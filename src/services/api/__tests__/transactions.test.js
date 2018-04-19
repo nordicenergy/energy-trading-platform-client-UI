@@ -1,17 +1,25 @@
 import Axios from 'axios';
 import { getRecentTransactions } from '../transactions';
 
-// TODO remove skip after API integration
-describe.skip('Transactions API Service', () => {
+describe('Transactions API Service', () => {
     beforeEach(done => {
         Axios.get = jest.fn();
         done();
     });
-    it('should provide method for getting recent transactions', () => {
-        getRecentTransactions();
-        const [call] = Axios.get.mock.calls;
-        const [url] = call;
+    it('should provide method for getting recent transactions', async () => {
+        Axios.get
+            .mockReturnValueOnce(Promise.resolve({ data: { balance: 20, lastUpdatedAt: 12345678 } }))
+            .mockReturnValue(Promise.resolve({ data: { transactions: [{ test: 'test' }] } }));
 
-        expect(url).toEqual('/api/user/getRecentTransactions');
+        const response = await getRecentTransactions('testId');
+        const [[balanceUrl], [historyUrl, historyParams]] = Axios.get.mock.calls;
+
+        expect(balanceUrl).toEqual('/api/user/testId/transactions/getBalance');
+        expect(historyUrl).toEqual('/api/user/testId/transactions/getHistory');
+        expect(historyParams).toEqual({ params: { limit: 10, offset: 0 } });
+        expect(response.data).toEqual({
+            currentBalance: { balance: 20, date: 12345678 },
+            transactions: [{ test: 'test' }]
+        });
     });
 });

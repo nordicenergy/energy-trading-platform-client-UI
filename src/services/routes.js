@@ -150,7 +150,7 @@ const AppMainLayout = () => {
                     <Route path={PATHS.documents.path} component={Documents} />
                     <Route path={PATHS.submit_metric.path} component={SubmitMetric} />
                     <TradingRoute />
-                    <Route path={PATHS.profile.path} component={Profile} />
+                    {/*<Route path={PATHS.profile.path} component={Profile} />*/}
                     <Route path={PATHS.team.path} component={Team} />
                     <Route path={PATHS.about.path} component={About} />
                     <Route path={PATHS.service.path} component={Service} />

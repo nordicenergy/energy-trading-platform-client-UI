@@ -1,62 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './RecentTransactions.css';
+import moment from 'moment/moment';
 import Button from '../Button';
+import { DATE_FORMAT } from '../../constants';
 
-const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClick }) => {
-    function renderTableRows() {
-        return transactions.map(transaction => (
-            <tr key={transaction.id}>
-                <td>{transaction.date}</td>
-                <td>{transaction.name}</td>
-                <td>{transaction.amount}</td>
-            </tr>
-        ));
-    }
+import './RecentTransactions.css';
 
-    return (
-        <div className="recent-transactions-container">
-            <div className="table-container">
-                <table>
-                    <caption>{labels.recentTransactionsTitle}</caption>
-                    <thead>
-                        <tr>
-                            <th id="transactionDateHeader">{labels.recentTransactionsHeaderDate}</th>
-                            <th>{labels.recentTransactionsHeaderTransaction}</th>
-                            <th id="transactionAmountHeader">{labels.recentTransactionsHeaderAmount}</th>
-                        </tr>
-                    </thead>
-                    <tbody>{renderTableRows()}</tbody>
-                </table>
-            </div>
-            <div role="row" className="recent-transactions-current-balance-row">
-                <span
-                    role="cell"
-                    aria-describedby="transactionDateHeader"
-                    className="recent-transactions-current-balance-date"
-                >
-                    {currentBalance.date}
-                </span>
-                <span
-                    role="cell"
-                    aria-describedby="transactionAmountHeader"
-                    className="recent-transactions-current-balance-amount"
-                >
-                    {labels.recentTransactionsCurrentBalance}: {currentBalance.amount}
-                </span>
-            </div>
-            <div className="recent-transactions-button-container">
-                <Button onClick={() => onButtonClick()}>{labels.recentTransactionsMore}</Button>
-            </div>
+const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClick }) => (
+    <div className="recent-transactions-container">
+        <div className="table-container">
+            <table>
+                <caption>{labels.recentTransactionsTitle}</caption>
+                <thead>
+                    <tr>
+                        <th id="transactionDateHeader">{labels.recentTransactionsHeaderDate}</th>
+                        <th>{labels.recentTransactionsHeaderTransaction}</th>
+                        <th id="transactionAmountHeader">{labels.recentTransactionsHeaderAmount}</th>
+                    </tr>
+                </thead>
+                <tbody>{renderTableRows(transactions)}</tbody>
+            </table>
         </div>
-    );
-};
+        <div role="row" className="recent-transactions-current-balance-row">
+            <span
+                role="cell"
+                aria-describedby="transactionDateHeader"
+                className="recent-transactions-current-balance-date"
+            >
+                {renderDate(currentBalance.date)}
+            </span>
+            <span
+                role="cell"
+                aria-describedby="transactionAmountHeader"
+                className="recent-transactions-current-balance-amount"
+            >
+                {labels.recentTransactionsCurrentBalance}: {renderAmountText(currentBalance.balance)}
+            </span>
+        </div>
+        <div className="recent-transactions-button-container">
+            <Button onClick={() => onButtonClick()}>{labels.recentTransactionsMore}</Button>
+        </div>
+    </div>
+);
 
 RecentTransactions.propTypes = {
-    transactions: PropTypes.array,
+    transactions: PropTypes.arrayOf(
+        PropTypes.shape({
+            date: PropTypes.number,
+            description: PropTypes.string,
+            transactionAmount: PropTypes.number,
+            transactionHash: PropTypes.string
+        })
+    ),
     currentBalance: PropTypes.shape({
-        date: PropTypes.string,
-        amount: PropTypes.string
+        date: PropTypes.number,
+        balance: PropTypes.number
     }),
     labels: PropTypes.shape({
         recentTransactionsTitle: PropTypes.string,
@@ -68,5 +66,28 @@ RecentTransactions.propTypes = {
     }),
     onButtonClick: PropTypes.func
 };
+
+function renderTableRows(transactions) {
+    return transactions.map((transaction, index) => (
+        <React.Fragment key={`${transaction.id}-${index}`}>
+            <tr>
+                <td>{renderDate(transaction.date)}</td>
+                <td translate="no">{transaction.description}</td>
+                <td>{renderAmountText(transaction.transactionAmount)}</td>
+            </tr>
+            <tr aria-label="transaction has (ethereum address)" className="recent-transactions-hash">
+                <td colSpan="3">{transaction.transactionHash}</td>
+            </tr>
+        </React.Fragment>
+    ));
+}
+
+function renderDate(date /* expect seconds | unix timestamp */) {
+    return moment(new Date(date * 1000)).format(DATE_FORMAT);
+}
+
+function renderAmountText(amount) {
+    return `${String(amount || '0').replace('.', ',')} €`;
+}
 
 export default RecentTransactions;

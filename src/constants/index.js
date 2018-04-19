@@ -8,3 +8,5 @@ export const PLANT_TYPES = {
 };
 
 export const LIMIT = 10;
+
+export const DATE_FORMAT = 'MMM DD, YYYY';

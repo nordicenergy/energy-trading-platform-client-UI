@@ -38,7 +38,12 @@ export class Producer extends AbstractContainer {
         }
 
         if (prevSelectedProducer !== selectedProducer) {
-            this.backToProducers();
+            // TODO temporary, we should think about it - is it needed here?
+            performPushNotification({
+                message: `${selectedProducer.message}. Transaction hash: ${selectedProducer.dlTransactionHash}`,
+                type: 'success'
+            });
+            this.navigateToOverview();
         }
 
         if (!loading && error && error !== oldError) {
@@ -71,6 +76,11 @@ export class Producer extends AbstractContainer {
     backToProducers() {
         const { history } = this.context.router;
         history.push(PATHS.buyEnergy.path);
+    }
+
+    navigateToOverview() {
+        const { history } = this.context.router;
+        history.push(PATHS.overview.path);
     }
 
     render() {

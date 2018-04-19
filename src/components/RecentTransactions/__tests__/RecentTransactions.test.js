@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import RecentTransactions from '../RecentTransactions';
 import Button from '../../Button';
 
@@ -12,37 +12,40 @@ const labelsMock = {
     recentTransactionsMore: 'More'
 };
 
-const transactionsMock = [
+const transactionsDummy = [
     {
         id: '1',
-        date: 'Mar 14, 2018',
-        name: 'Bought 23 kWh Alice',
-        amount: '0,81€'
+        date: 1523707200,
+        description: 'Bought 23 kWh Alice',
+        transactionAmount: 0.81,
+        transactionHash: '1234'
     },
     {
         id: '2',
-        date: 'Mar 14, 2018',
-        name: 'Monthly invoice',
-        amount: '0,81€'
+        date: 1523707200,
+        description: 'Monthly invoice',
+        transactionAmount: 0.081,
+        transactionHash: '1234'
     },
     {
         id: '3',
-        date: 'Mar 14, 2018',
-        name: 'Bought 23 kWh from Peter',
-        amount: '0,81€'
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.081,
+        transactionHash: '1234'
     }
 ];
 
-const currentBalanceMockData = {
-    date: 'Mar 14, 2018',
-    amount: '4,03€'
+const currentBalanceDummy = {
+    balance: 10,
+    date: 1523707200
 };
 
 function renderComponent(
     {
         labels = labelsMock,
-        transactions = transactionsMock,
-        currentBalance = currentBalanceMockData,
+        transactions = transactionsDummy,
+        currentBalance = currentBalanceDummy,
         onButtonClick = () => {}
     },
     renderer = mount
@@ -59,7 +62,7 @@ function renderComponent(
 
 describe('<RecentTransactions /> Component', () => {
     it(`should contains following elements:
-        - <p /> element with class "recent-transactions-title";
+        - <caption /> element;
         - <table /> element;
         - <thead /> element;
         - <tbody /> element;
@@ -69,7 +72,33 @@ describe('<RecentTransactions /> Component', () => {
         expect(component.find('caption')).toHaveLength(1);
         expect(component.find('thead')).toHaveLength(1);
         expect(component.find('tbody')).toHaveLength(1);
+        expect(component.find('th')).toHaveLength(3);
+        expect(component.find('td')).toHaveLength(12);
         expect(component.find(Button)).toHaveLength(1);
+    });
+
+    it('should display correct data in table', () => {
+        const component = renderComponent({});
+        const data = component.find('td');
+        let count = 0;
+
+        expect(data.at(count++).text()).toEqual('Apr 14, 2018');
+        expect(data.at(count++).text()).toEqual('Bought 23 kWh Alice');
+        expect(data.at(count++).text()).toEqual('0,81 €');
+        expect(data.at(count++).text()).toEqual('1234');
+
+        expect(data.at(count++).text()).toEqual('Apr 14, 2018');
+        expect(data.at(count++).text()).toEqual('Monthly invoice');
+        expect(data.at(count++).text()).toEqual('0,081 €');
+        expect(data.at(count++).text()).toEqual('1234');
+
+        expect(data.at(count++).text()).toEqual('Apr 14, 2018');
+        expect(data.at(count++).text()).toEqual('Bought 23 kWh from Peter');
+        expect(data.at(count++).text()).toEqual('0,081 €');
+        expect(data.at(count).text()).toEqual('1234');
+
+        expect(component.find('.recent-transactions-current-balance-date').text()).toEqual('Apr 14, 2018');
+        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual('Current Balance: 10 €');
     });
 
     it('should call onButtonClick handler', () => {

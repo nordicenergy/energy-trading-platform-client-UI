@@ -8,7 +8,7 @@ describe('Transactions reducer:', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.pending);
             expect(result.recentTransactions.loading).toEqual(true);
             expect(result.recentTransactions.error).toEqual(null);
-            expect(result.recentTransactions.data).toEqual([]);
+            expect(result.recentTransactions.data).toEqual({ currentBalance: {}, transactions: [] });
 
             done();
         });
@@ -18,7 +18,7 @@ describe('Transactions reducer:', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.fail);
             expect(result.recentTransactions.loading).toEqual(false);
             expect(result.recentTransactions.error).toEqual('Error Message');
-            expect(result.recentTransactions.data).toEqual([]);
+            expect(result.recentTransactions.data).toEqual({ currentBalance: {}, transactions: [] });
 
             done();
         });
@@ -40,26 +40,32 @@ function fixtures() {
         getRecentTransactions: {
             success: {
                 type: 'GET_RECENT_TRANSACTIONS',
-                payload: [
-                    {
-                        id: '1',
-                        date: 'Mar 14, 2018',
-                        name: 'Bought 23 kWh Alice',
-                        amount: '0,81€'
+                payload: {
+                    currentBalance: {
+                        balance: 20,
+                        date: 1523707200
                     },
-                    {
-                        id: '2',
-                        date: 'Mar 14, 2018',
-                        name: 'Monthly invoice',
-                        amount: '0,81€'
-                    },
-                    {
-                        id: '3',
-                        date: 'Mar 14, 2018',
-                        name: 'Bought 23 kWh from Peter',
-                        amount: '0,81€'
-                    }
-                ],
+                    transactions: [
+                        {
+                            id: 1,
+                            date: 1523707200,
+                            description: 'Bought 23 kWh from Alice',
+                            amount: 0.81
+                        },
+                        {
+                            id: 2,
+                            date: 1523707200,
+                            description: 'Bought 23 kWh from Alice',
+                            amount: 0.81
+                        },
+                        {
+                            id: 3,
+                            date: 1523707200,
+                            description: 'Bought 23 kWh from Peter',
+                            amount: 0.81
+                        }
+                    ]
+                },
                 error: null,
                 loading: false
             },
