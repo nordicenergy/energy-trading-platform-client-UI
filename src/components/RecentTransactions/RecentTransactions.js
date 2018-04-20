@@ -69,16 +69,16 @@ RecentTransactions.propTypes = {
 
 function renderTableRows(transactions) {
     return transactions.map((transaction, index) => (
-        <React.Fragment key={`${transaction.id}-${index}`}>
-            <tr>
-                <td>{renderDate(transaction.date)}</td>
-                <td translate="no">{transaction.description}</td>
-                <td>{renderAmountText(transaction.transactionAmount)}</td>
-            </tr>
-            <tr aria-label="transaction has (ethereum address)" className="recent-transactions-hash">
-                <td colSpan="3">{transaction.transactionHash}</td>
-            </tr>
-        </React.Fragment>
+        <tr key={`${transaction.id}-${index}`}>
+            <td>{renderDate(transaction.date)}</td>
+            <td translate="no">
+                {transaction.description}
+                <span aria-label="transaction hash (ethereum address)" className="recent-transactions-hash">
+                    {transaction.transactionHash}
+                </span>
+            </td>
+            <td>{renderAmountText(transaction.transactionAmount)}</td>
+        </tr>
     ));
 }
 

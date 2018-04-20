@@ -27,12 +27,10 @@
 }
 
 .toast-message {
-    overflow: hidden;
     margin: 0;
     max-width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     font-weight: 500;
     font-size: 1.125em;
     line-height: 1;
+    word-break: break-all;
 }

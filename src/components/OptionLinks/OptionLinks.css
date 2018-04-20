@@ -1,7 +1,7 @@
 .option-links {
     display: flex;
     width: 100%;
-    border-top: var(--border-width) solid var(--option-link-border-color);
+    border-bottom: var(--border-width) solid var(--option-link-border-color);
 }
 
 .option-links > a {

@@ -46,6 +46,10 @@ span.producer-information-value {
     word-break: break-all;
 }
 
+span.producer-information-smaller-value {
+    font-size: 1rem;
+}
+
 small.producer-information-market-value {
     color: var(--label-color);
     font-size: 1rem;
