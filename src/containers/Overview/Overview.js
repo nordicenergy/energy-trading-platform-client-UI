@@ -38,18 +38,6 @@ export class Overview extends AbstractContainer {
         }
     }
 
-    prepareLabels() {
-        const { formatMessage } = this.context.intl;
-        const entries = Object.keys(messages).map(key => [key, messages[key]]);
-
-        return entries.reduce((labels, [labelName, messageDescriptor]) => {
-            return {
-                ...labels,
-                [labelName]: formatMessage(messageDescriptor)
-            };
-        }, {});
-    }
-
     navigateTo(route) {
         this.context.router.history.push(route);
     }
@@ -81,7 +69,7 @@ export class Overview extends AbstractContainer {
         ];
 
         return (
-            <div className="overview-page">
+            <section className="overview-page">
                 <Loader show={this.props.loading} />
                 <NavigationCardsPanel
                     navigationCards={navigationCards}
@@ -96,7 +84,7 @@ export class Overview extends AbstractContainer {
                         onButtonClick={() => this.openWattcoinPage()}
                     />
                 </div>
-            </div>
+            </section>
         );
     }
 }
@@ -114,12 +102,14 @@ Overview.contextTypes = {
 Overview.propTypes = {
     loading: PropTypes.bool,
     recentTransactions: PropTypes.object,
-    user: PropTypes.object
+    user: PropTypes.object,
+    error: PropTypes.object
 };
 Overview.defaultProps = {
     loading: false,
     recentTransactions: {},
-    user: {}
+    user: {},
+    error: null
 };
 
 export default connect(Overview.mapStateToProps)(Overview);

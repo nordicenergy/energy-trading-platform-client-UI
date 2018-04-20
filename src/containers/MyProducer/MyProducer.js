@@ -90,7 +90,7 @@ export class MyProducer extends AbstractContainer {
         };
 
         return (
-            <div className="my-producer-page">
+            <section className="my-producer-page">
                 <Loader show={loading} />
                 <section className="my-producer-page-info-container">
                     <h1>{formatMessage(messages.header)}</h1>
@@ -113,7 +113,7 @@ export class MyProducer extends AbstractContainer {
                 <section className="my-producer-page-history">
                     <ProducerHistory {...historyProps} />
                 </section>
-            </div>
+            </section>
         );
     }
 }

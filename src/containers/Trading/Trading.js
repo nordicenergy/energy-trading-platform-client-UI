@@ -94,7 +94,7 @@ export class Trading extends AbstractContainer {
         };
 
         return (
-            <div className="trading-page">
+            <section className="trading-page">
                 <h1>{formatMessage(messages.header)}</h1>
                 <NavigationCardsPanel
                     onCardClick={route => {
@@ -104,7 +104,7 @@ export class Trading extends AbstractContainer {
                 />
                 <WattcoinTable {...wattcoinProps} onMoreClick={() => this.navigateTo(PATHS.wattcoin.path)} />
                 <EnergyAmountGraph title={formatMessage(messages.graphTitle)} subtitle="Peter Producer" data={data} />
-            </div>
+            </section>
         );
     }
 }

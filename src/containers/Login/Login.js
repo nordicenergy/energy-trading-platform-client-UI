@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
@@ -6,9 +6,12 @@ import { LoginForm, Logo, Illustration, Loader } from '../../components';
 import { performLogin } from '../../action_performers/users';
 import { performPushNotification } from '../../action_performers/notifications';
 import { Login as messages } from '../../services/translations/messages';
+
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
+
 import './Login.css';
 
-export class Login extends Component {
+export class Login extends AbstractContainer {
     static mapStateToProps(state) {
         return {
             loading: state.Users.login.loading,
@@ -45,18 +48,6 @@ export class Login extends Component {
         const nextUrl = matches ? decodeURIComponent(matches[1]) : '/';
 
         history.push(nextUrl);
-    }
-
-    prepareLabels() {
-        const { formatMessage } = this.context.intl;
-        const entries = Object.keys(messages).map(key => [key, messages[key]]);
-
-        return entries.reduce((labels, [labelName, messageDescriptor]) => {
-            return {
-                ...labels,
-                [labelName]: formatMessage(messageDescriptor)
-            };
-        }, {});
     }
 
     prepareValidator() {
@@ -117,7 +108,7 @@ export class Login extends Component {
                     <div className="login-container-form">
                         <Logo className="logo--login" />
                         <LoginForm
-                            labels={this.prepareLabels()}
+                            labels={this.prepareLabels(messages)}
                             errors={errors}
                             onForgotPasswordLinkClick={() => {
                                 this.openResetPasswordPage();

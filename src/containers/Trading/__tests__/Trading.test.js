@@ -30,7 +30,7 @@ describe('<Trading /> Container', () => {
         - <h1> with header text;`, () => {
         const component = renderComponent();
 
-        expect(component.find('div.trading-page').length).toEqual(1);
+        expect(component.find('section.trading-page').length).toEqual(1);
         expect(component.find(NavigationCardsPanel).length).toEqual(1);
         expect(component.find(WattcoinTable).length).toEqual(1);
         expect(component.find(EnergyAmountGraph).length).toEqual(1);

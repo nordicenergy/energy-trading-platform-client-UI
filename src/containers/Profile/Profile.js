@@ -49,18 +49,6 @@ export class Profile extends AbstractContainer {
         }
     }
 
-    prepareLabels() {
-        const { formatMessage } = this.context.intl;
-        const entries = Object.keys(messages).map(key => [key, messages[key]]);
-
-        return entries.reduce((labels, [labelName, messageDescriptor]) => {
-            return {
-                ...labels,
-                [labelName]: formatMessage(messageDescriptor)
-            };
-        }, {});
-    }
-
     prepareValidator() {
         const { formatMessage } = this.context.intl;
         const validationSchema = {
@@ -178,9 +166,9 @@ export class Profile extends AbstractContainer {
 
     render() {
         const { locale } = this.context.intl;
-        const labels = this.prepareLabels();
+        const labels = this.prepareLabels(messages);
         return (
-            <div className="profile-page">
+            <section className="profile-page">
                 <h1>Profile</h1>
                 <div className="profile-form-container">
                     <ProfileForm
@@ -191,7 +179,7 @@ export class Profile extends AbstractContainer {
                         errors={this.state.errors}
                     />
                 </div>
-            </div>
+            </section>
         );
     }
 }

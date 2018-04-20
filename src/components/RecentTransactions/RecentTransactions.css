@@ -1,7 +1,7 @@
 .recent-transactions-container {
     font-size: 1.125rem;
     background-color: white;
-    padding: 1.78em 0 1.33em;
+    padding: 1.78em 0 0;
     box-sizing: border-box;
     width: 100%;
     box-shadow: var(--main-boxes-shadow);
@@ -82,8 +82,8 @@
 }
 
 .recent-transactions-button-container {
+    padding: 1.33em 0;
     text-align: center;
-    margin-top: 1.33em;
 }
 
 tr.recent-transactions-hash {

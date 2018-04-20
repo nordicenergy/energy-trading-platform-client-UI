@@ -6,7 +6,7 @@ import { DATE_FORMAT } from '../../constants';
 
 import './RecentTransactions.css';
 
-const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClick }) => (
+const RecentTransactions = ({ transactions, currentBalance, labels, pagination, onButtonClick }) => (
     <div className="recent-transactions-container">
         <div className="table-container">
             <table>
@@ -37,9 +37,11 @@ const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClic
                 {labels.recentTransactionsMonthlyBalance}: {renderAmountText(currentBalance.balance)}
             </span>
         </div>
-        <div className="recent-transactions-button-container">
-            <Button onClick={() => onButtonClick()}>{labels.recentTransactionsMore}</Button>
-        </div>
+        {!pagination && (
+            <div className="recent-transactions-button-container">
+                <Button onClick={() => onButtonClick()}>{labels.recentTransactionsMore}</Button>
+            </div>
+        )}
     </div>
 );
 
