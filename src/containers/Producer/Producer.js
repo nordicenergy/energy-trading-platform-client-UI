@@ -91,7 +91,7 @@ export class Producer extends AbstractContainer {
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
 
         return (
-            <div className="producer-page">
+            <section className="producer-page">
                 <Loader show={loading} />
                 <section className="producer-page-info-container">
                     <h1>{producer.name}</h1>
@@ -105,7 +105,7 @@ export class Producer extends AbstractContainer {
                         {formatMessage(messages.backButton)}
                     </Button>
                 </section>
-            </div>
+            </section>
         );
     }
 }

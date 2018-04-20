@@ -1,17 +1,17 @@
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-    myProducer: {
-        id: 'app.navigationCardsPanel.myProducer',
-        defaultMessage: 'My Producer'
+    header: {
+        id: 'app.wattcoinPage.header',
+        defaultMessage: 'Wattcoin'
     },
-    sellEnergy: {
-        id: 'app.navigationCardsPanel.sellEnergy',
-        defaultMessage: 'Sell Energy'
+    sellCoinsButton: {
+        id: 'app.wattcoinPage.sellCoinsButton',
+        defaultMessage: 'Sell Coins'
     },
-    buyEnergy: {
-        id: 'app.navigationCardsPanel.buyEnergy',
-        defaultMessage: 'Buy Energy'
+    buyCoinsButton: {
+        id: 'app.wattcoinPage.buyCoinsButton',
+        defaultMessage: 'Buy Coins'
     },
     recentTransactionsTitle: {
         id: 'app.recentTransactions.title',

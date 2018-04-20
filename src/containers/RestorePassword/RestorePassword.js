@@ -1,28 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Validator from 'async-validator';
 import { RestorePasswordForm, Logo, Illustration } from '../../components';
 import { RestorePassword as messages } from '../../services/translations/messages';
+
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
+
 import './RestorePassword.css';
 
-export class RestorePassword extends Component {
+export class RestorePassword extends AbstractContainer {
     constructor(props, context) {
         super(props, context);
         this.state = {
             errors: {}
         };
-    }
-
-    prepareLabels() {
-        const { formatMessage } = this.context.intl;
-        const entries = Object.keys(messages).map(key => [key, messages[key]]);
-
-        return entries.reduce((labels, [labelName, messageDescriptor]) => {
-            return {
-                ...labels,
-                [labelName]: formatMessage(messageDescriptor)
-            };
-        }, {});
     }
 
     prepareValidator() {
@@ -80,7 +71,7 @@ export class RestorePassword extends Component {
                     <div className="restore-password-container-form">
                         <Logo className="logo--restore-password" />
                         <RestorePasswordForm
-                            labels={this.prepareLabels()}
+                            labels={this.prepareLabels(messages)}
                             errors={errors}
                             onSubmit={email => this.sendEmail(email)}
                             onLoginLinkClick={() => this.openLoginPage()}
