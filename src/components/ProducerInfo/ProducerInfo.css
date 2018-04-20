@@ -43,6 +43,11 @@ span.producer-information-value {
     color: var(--table-text-color);
     font-weight: 600;
     line-height: 1.45;
+    word-break: break-all;
+}
+
+span.producer-information-smaller-value {
+    font-size: 1rem;
 }
 
 small.producer-information-market-value {
@@ -84,10 +89,6 @@ figure.producer-information-image img {
     height: 5rem;
     width: 5.25rem;
     opacity: 0.4;
-}
-
-.producer-information-ethereum-hash {
-    font-size: 0.875rem;
 }
 
 @media screen and (max-width: 1024px) {

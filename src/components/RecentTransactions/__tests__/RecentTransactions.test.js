@@ -8,7 +8,7 @@ const labelsMock = {
     recentTransactionsHeaderDate: 'Date',
     recentTransactionsHeaderTransaction: 'Transaction',
     recentTransactionsHeaderAmount: 'Amount',
-    recentTransactionsCurrentBalance: 'Current Balance',
+    recentTransactionsMonthlyBalance: 'Monthly Balance',
     recentTransactionsMore: 'More'
 };
 
@@ -31,7 +31,35 @@ const transactionsDummy = [
         id: '3',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
-        transactionAmount: 0.081,
+        transactionAmount: 0.8,
+        transactionHash: '1234'
+    },
+    {
+        id: '4',
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.8,
+        transactionHash: '1234'
+    },
+    {
+        id: '5',
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.8,
+        transactionHash: '1234'
+    },
+    {
+        id: '6',
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.8,
+        transactionHash: '1234'
+    },
+    {
+        id: '7',
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.8,
         transactionHash: '1234'
     }
 ];
@@ -73,7 +101,7 @@ describe('<RecentTransactions /> Component', () => {
         expect(component.find('thead')).toHaveLength(1);
         expect(component.find('tbody')).toHaveLength(1);
         expect(component.find('th')).toHaveLength(3);
-        expect(component.find('td')).toHaveLength(12);
+        expect(component.find('td')).toHaveLength(15);
         expect(component.find(Button)).toHaveLength(1);
     });
 
@@ -83,22 +111,21 @@ describe('<RecentTransactions /> Component', () => {
         let count = 0;
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
-        expect(data.at(count++).text()).toEqual('Bought 23 kWh Alice');
+        expect(data.at(count++).text()).toEqual('Bought 23 kWh Alice1234');
         expect(data.at(count++).text()).toEqual('0,81 €');
-        expect(data.at(count++).text()).toEqual('1234');
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
-        expect(data.at(count++).text()).toEqual('Monthly invoice');
-        expect(data.at(count++).text()).toEqual('0,081 €');
-        expect(data.at(count++).text()).toEqual('1234');
+        expect(data.at(count++).text()).toEqual('Monthly invoice1234');
+        expect(data.at(count++).text()).toEqual('0,08 €');
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
-        expect(data.at(count++).text()).toEqual('Bought 23 kWh from Peter');
-        expect(data.at(count++).text()).toEqual('0,081 €');
-        expect(data.at(count).text()).toEqual('1234');
+        expect(data.at(count++).text()).toEqual('Bought 23 kWh from Peter1234');
+        expect(data.at(count).text()).toEqual('0,80 €');
 
         expect(component.find('.recent-transactions-current-balance-date').text()).toEqual('Apr 14, 2018');
-        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual('Current Balance: 10 €');
+        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual(
+            'Monthly Balance: 10,00 €'
+        );
     });
 
     it('should call onButtonClick handler', () => {

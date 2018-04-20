@@ -8,8 +8,10 @@
     --transparent-black-pearl-color: rgba(5, 26, 45, 0.8);
     --big-stone-color: #142739;
     --pickled-bluewood-color: #2c3d4d;
+    --dark-blumine-color: #194d6d;
     --blumine-color: #1e577b;
     --ming: #3c6e8c;
+    --calypso-color: #2b658a;
     --jelly-bean-color: #2771ab;
     --steel-blue: #4083b5;
     --scooter-color: #30acc1;
@@ -39,6 +41,9 @@
     --button-primary-hov-color: var(--bali-hai-color);
     --button-success-hov-color: var(--algae-green-color);
     --button-hover-color: var(--jelly-bean-color);
+    --coin-button-border-color: var(--calypso-color);
+    --coin-button-bg-color: var(--dark-blumine-color);
+    --coin-button-shadow-color: var(--transparent-geyser-color);
 
     --loading-bg-color: var(--transparent-black-pearl-color);
 

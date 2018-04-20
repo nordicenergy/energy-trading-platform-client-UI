@@ -30,6 +30,7 @@ export class Producer extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
+        const { formatMessage } = this.context.intl;
         const { producer: prevProducer = {}, selectedProducer: prevSelectedProducer = {}, error: oldError } = prevProps;
         const { producer = {}, selectedProducer = {}, error, loading } = this.props;
 
@@ -38,9 +39,10 @@ export class Producer extends AbstractContainer {
         }
 
         if (prevSelectedProducer !== selectedProducer) {
-            // TODO temporary, we should think about it - is it needed here?
             performPushNotification({
-                message: `${selectedProducer.message}. Transaction hash: ${selectedProducer.dlTransactionHash}`,
+                message: `${selectedProducer.message} ${formatMessage(messages.transactionHash)}: ${
+                    selectedProducer.dlTransactionHash
+                }`,
                 type: 'success'
             });
             this.navigateToOverview();
@@ -89,7 +91,7 @@ export class Producer extends AbstractContainer {
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
 
         return (
-            <div className="producer-page">
+            <section className="producer-page">
                 <Loader show={loading} />
                 <section className="producer-page-info-container">
                     <h1>{producer.name}</h1>
@@ -103,7 +105,7 @@ export class Producer extends AbstractContainer {
                         {formatMessage(messages.backButton)}
                     </Button>
                 </section>
-            </div>
+            </section>
         );
     }
 }

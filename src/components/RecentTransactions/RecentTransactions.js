@@ -6,8 +6,10 @@ import { DATE_FORMAT } from '../../constants';
 
 import './RecentTransactions.css';
 
-const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClick }) => (
-    <div className="recent-transactions-container">
+const ROWS_LIMIT = 5;
+
+const RecentTransactions = ({ transactions, currentBalance, labels, pagination, onButtonClick }) => (
+    <div role="table" className="recent-transactions-container">
         <div className="table-container">
             <table>
                 <caption>{labels.recentTransactionsTitle}</caption>
@@ -18,7 +20,7 @@ const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClic
                         <th id="transactionAmountHeader">{labels.recentTransactionsHeaderAmount}</th>
                     </tr>
                 </thead>
-                <tbody>{renderTableRows(transactions)}</tbody>
+                <tbody>{renderTableRows(transactions, !pagination)}</tbody>
             </table>
         </div>
         <div role="row" className="recent-transactions-current-balance-row">
@@ -34,14 +36,45 @@ const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClic
                 aria-describedby="transactionAmountHeader"
                 className="recent-transactions-current-balance-amount"
             >
-                {labels.recentTransactionsCurrentBalance}: {renderAmountText(currentBalance.balance)}
+                {labels.recentTransactionsMonthlyBalance}: {renderAmountText(currentBalance.balance)}
             </span>
         </div>
-        <div className="recent-transactions-button-container">
-            <Button onClick={() => onButtonClick()}>{labels.recentTransactionsMore}</Button>
-        </div>
+        {!pagination && (
+            <div className="recent-transactions-button-container">
+                <Button onClick={() => onButtonClick()}>{labels.recentTransactionsMore}</Button>
+            </div>
+        )}
     </div>
 );
+
+function renderTableRows(transactions, limited) {
+    const rows = transactions.map((transaction, index) => (
+        <tr key={`${transaction.id}-${index}`}>
+            <td>{renderDate(transaction.date)}</td>
+            <td translate="no">
+                {transaction.description}
+                <span aria-label="transaction hash (ethereum address)" className="recent-transactions-hash">
+                    {transaction.transactionHash}
+                </span>
+            </td>
+            <td>{renderAmountText(transaction.transactionAmount)}</td>
+        </tr>
+    ));
+
+    if (limited) {
+        rows.length = ROWS_LIMIT;
+    }
+
+    return rows;
+}
+
+function renderDate(date /* expect seconds | unix timestamp */) {
+    return moment(new Date(date * 1000)).format(DATE_FORMAT);
+}
+
+function renderAmountText(amount) {
+    return `${String(Number(amount || '0').toFixed(2)).replace('.', ',')} €`;
+}
 
 RecentTransactions.propTypes = {
     transactions: PropTypes.arrayOf(
@@ -61,33 +94,10 @@ RecentTransactions.propTypes = {
         recentTransactionsHeaderDate: PropTypes.string,
         recentTransactionsHeaderTransaction: PropTypes.string,
         recentTransactionsHeaderAmount: PropTypes.string,
-        recentTransactionsCurrentBalance: PropTypes.string,
+        recentTransactionsMonthlyBalance: PropTypes.string,
         recentTransactionsMore: PropTypes.string
     }),
     onButtonClick: PropTypes.func
 };
-
-function renderTableRows(transactions) {
-    return transactions.map((transaction, index) => (
-        <React.Fragment key={`${transaction.id}-${index}`}>
-            <tr>
-                <td>{renderDate(transaction.date)}</td>
-                <td translate="no">{transaction.description}</td>
-                <td>{renderAmountText(transaction.transactionAmount)}</td>
-            </tr>
-            <tr aria-label="transaction has (ethereum address)" className="recent-transactions-hash">
-                <td colSpan="3">{transaction.transactionHash}</td>
-            </tr>
-        </React.Fragment>
-    ));
-}
-
-function renderDate(date /* expect seconds | unix timestamp */) {
-    return moment(new Date(date * 1000)).format(DATE_FORMAT);
-}
-
-function renderAmountText(amount) {
-    return `${String(amount || '0').replace('.', ',')} €`;
-}
 
 export default RecentTransactions;

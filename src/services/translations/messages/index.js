@@ -6,3 +6,4 @@ export { default as Overview } from './Overview';
 export { default as Profile } from './Profile';
 export { default as RestorePassword } from './RestorePassword';
 export { default as Trading } from './Trading';
+export { default as Wattcoin } from './Wattcoin';

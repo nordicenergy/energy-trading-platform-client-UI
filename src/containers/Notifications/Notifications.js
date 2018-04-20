@@ -51,7 +51,7 @@ export class Notifications extends Component {
         const { open, notification } = this.state;
 
         return (
-            <div className="notifications">
+            <div aria-hidden={!open} className="notifications">
                 <Notification open={open} notification={notification} onClose={() => this.handleNotificationClose()} />
             </div>
         );

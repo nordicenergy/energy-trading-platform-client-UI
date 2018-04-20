@@ -44,12 +44,16 @@
     "app.breadCrumbs.trading": "Trading",
     "app.breadCrumbs.wattcoin": "Wattcoin",
 
-    "app.overviewPage.recentTransactions.title": "Most Recent Transactions",
-    "app.overviewPage.recentTransactions.headerDate": "Date",
-    "app.overviewPage.recentTransactions.headerTransaction": "Transaction",
-    "app.overviewPage.recentTransactions.headerAmount": "Amount",
-    "app.overviewPage.recentTransactions.currentBalance": "Current Balance",
-    "app.overviewPage.recentTransactions.more": "More",
+    "app.recentTransactions.title": "Most Recent Transactions",
+    "app.recentTransactions.headerDate": "Date",
+    "app.recentTransactions.headerTransaction": "Transaction",
+    "app.recentTransactions.headerAmount": "Amount",
+    "app.recentTransactions.currentBalance": "Current Balance",
+    "app.recentTransactions.more": "More",
+
+    "app.wattcoinPage.header": "Wattcoin",
+    "app.wattcoinPage.sellCoinsButton": "Sell Coins",
+    "app.wattcoinPage.buyCoinsButton": "Buy Coins",
 
     "app.tradingPage.header": "Trading",
     "app.tradingPage.graphTitle": "Amount of energy",
@@ -84,6 +88,8 @@
     "app.producerPage.backButton": "Back to Producers",
     "app.producerPage.switchBack": "Switch back to market price purchasing",
     "app.producerPage.changeButton": "Show other producers",
+    "app.producerPage.transactionHash": "Transaction hash",
+
     "app.header.logoutConfirmMessage": "Are you sure that you'd like to logout from the system?",
     "app.header.logoutConfirmButton": "Yes",
     "app.header.logoutCancelButton": "No",

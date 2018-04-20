@@ -7,7 +7,7 @@ const Confirm = ({ className, labels, show, onConfirm, onCancel }) => {
     const classes = classNames('confirm', show && 'confirm--show', className);
 
     return (
-        <div className={classes}>
+        <div aria-hidden={!show} className={classes}>
             <dialog className="confirm-dialog" open={show}>
                 <strong className="confirm-dialog-message">{labels.message}</strong>
                 <div className="confirm-dialog-actions">

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import OverviewContainer, { Overview } from '../Overview';
-import { NavigationCardsPanel, Loader, RecentTransactions } from '../../../components';
+import WattcoinContainer, { Wattcoin } from '../Wattcoin';
+import { CoinButton, Loader, RecentTransactions } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 
 import * as usersActions from '../../../action_performers/users';
 import * as notificationActions from '../../../action_performers/notifications';
 import * as txActions from '../../../action_performers/transactions';
+import * as appActions from '../../../action_performers/app';
 
 const context = {
     intl: {
@@ -98,36 +99,38 @@ const props = {
 function renderContainer() {
     return mountWithIntl(
         <Provider store={store}>
-            <OverviewContainer context={context} />
+            <WattcoinContainer context={context} />
         </Provider>
     );
 }
 
 function renderComponent() {
-    return shallowWithIntl(<Overview {...props} context={context} />);
+    return shallowWithIntl(<Wattcoin {...props} context={context} />);
 }
 
-describe('<Overview /> Component', () => {
+describe('<Wattcoin /> Component', () => {
     beforeEach(() => {
         context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
         usersActions.performGetUserData = jest.fn();
         txActions.performGetRecentTransactions = jest.fn();
         notificationActions.performPushNotification = jest.fn();
+        appActions.performSetupBreadcrumbs = jest.fn();
     });
 
     it(`should contains following controls:
-        - 1 <NavigationCardsPanel /> component;
+        - 2 <CoinButton /> components;
         - 1 <RecentTransactions /> component;
         - 1 <Loader /> component;
-        - <div> element with class "overview-page";
-        - <h1> element`, () => {
+        - 3 <section> and one with class "overview-page";
+        - 1 <h1> element;`, () => {
         const component = renderContainer();
 
-        expect(component.find('section.overview-page')).toHaveLength(1);
-        expect(component.find(NavigationCardsPanel)).toHaveLength(1);
-        expect(component.find(RecentTransactions)).toHaveLength(1);
+        expect(component.find('section.wattcoin-page')).toHaveLength(1);
+        expect(component.find('section')).toHaveLength(3);
+        expect(component.find(CoinButton)).toHaveLength(2);
         expect(component.find(Loader)).toHaveLength(1);
+        expect(component.find(RecentTransactions)).toHaveLength(1);
     });
 
     it('should call prepare common function', () => {
@@ -136,20 +139,21 @@ describe('<Overview /> Component', () => {
         const tableProps = table.props();
         delete tableProps.onButtonClick;
         expect(tableProps).toEqual({
+            pagination: true,
             currentBalance: {
                 date: 1523707200,
                 balance: 40.4
             },
             labels: {
-                buyEnergy: 'Buy Energy',
-                myProducer: 'My Producer',
+                header: 'Wattcoin',
                 recentTransactionsMonthlyBalance: 'Monthly Balance',
                 recentTransactionsHeaderAmount: 'Amount',
                 recentTransactionsHeaderDate: 'Date',
                 recentTransactionsHeaderTransaction: 'Transaction',
                 recentTransactionsMore: 'More',
                 recentTransactionsTitle: 'Most Recent Transactions',
-                sellEnergy: 'Sell Energy'
+                sellCoinsButton: 'Sell Coins',
+                buyCoinsButton: 'Buy Coins'
             },
             transactions: [
                 { amount: 0.81, date: 1523707200, id: 1, name: 'Bought 23 kWh Alice' },
@@ -158,26 +162,21 @@ describe('<Overview /> Component', () => {
             ]
         });
 
-        const cards = component.find(NavigationCardsPanel).at(0);
-        const cardsProps = cards.props();
-        delete cardsProps.onCardClick;
-        expect(cards.props()).toEqual({
-            labels: {
-                buyEnergy: 'Buy Energy',
-                myProducer: 'My Producer',
-                recentTransactionsMonthlyBalance: 'Monthly Balance',
-                recentTransactionsHeaderAmount: 'Amount',
-                recentTransactionsHeaderDate: 'Date',
-                recentTransactionsHeaderTransaction: 'Transaction',
-                recentTransactionsMore: 'More',
-                recentTransactionsTitle: 'Most Recent Transactions',
-                sellEnergy: 'Sell Energy'
-            },
-            navigationCards: [
-                { path: '/trading/my_producer', title: 'My Producer', type: 'my_producer' },
-                { path: '/trading/buy_energy', title: 'Buy Energy', type: 'buy_energy' },
-                { path: '/trading/sell_energy', title: 'Sell Energy', type: 'sell_energy' }
-            ]
+        const buy = component.find(CoinButton).at(0);
+        const sell = component.find(CoinButton).at(1);
+
+        const buyProps = buy.props();
+        const sellProps = sell.props();
+
+        expect(buyProps).toEqual({
+            disabled: false,
+            label: 'Buy Coins',
+            price: 2.5
+        });
+        expect(sellProps).toEqual({
+            disabled: false,
+            label: 'Sell Coins',
+            price: 2.4
         });
     });
 
@@ -198,7 +197,7 @@ describe('<Overview /> Component', () => {
                 }
             }
         };
-        const props = Overview.mapStateToProps(stateDummy);
+        const props = Wattcoin.mapStateToProps(stateDummy);
         expect(props).toEqual({
             recentTransactions: 'tx_data',
             user: 'user_data',
@@ -207,32 +206,25 @@ describe('<Overview /> Component', () => {
         });
     });
 
-    it('should provide possibility navigate to wattcoin page', () => {
-        const component = renderComponent();
-        component.setContext(context);
-
-        const table = component.find(RecentTransactions).at(0);
-        table.props().onButtonClick();
-
-        expect(context.router.history.push.mock.calls.length).toEqual(1);
-        const [[route]] = context.router.history.push.mock.calls;
-        expect(route).toEqual('/trading/wattcoin');
-    });
-
-    it('should provide possibility navigate to different routes through cards', () => {
-        const component = renderComponent();
-        component.setContext(context);
-
-        const cards = component.find(NavigationCardsPanel).at(0);
-        cards.props().onCardClick('/testRoute');
-
-        expect(context.router.history.push.mock.calls.length).toEqual(1);
-        const [[route]] = context.router.history.push.mock.calls;
-        expect(route).toEqual('/testRoute');
-    });
-
     it('should perform related actions on did mount step', () => {
         renderContainer();
+
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
+        const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
+        expect(bArg1).toEqual([
+            {
+                icon: 'faChartBar',
+                id: 'trading',
+                label: 'Trading',
+                path: '/trading'
+            },
+            {
+                id: 'wattcoin',
+                label: 'Wattcoin',
+                path: '/trading/wattcoin'
+            }
+        ]);
+
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(1);
 
         const component = renderComponent();

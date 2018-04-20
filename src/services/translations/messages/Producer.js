@@ -60,6 +60,10 @@ const messages = defineMessages({
     switchBack: {
         id: 'app.producerPage.switchBack',
         defaultMessage: 'Switch back to market price purchasing'
+    },
+    transactionHash: {
+        id: 'app.producerPage.transactionHash',
+        defaultMessage: 'Transaction hash'
     }
 });
 

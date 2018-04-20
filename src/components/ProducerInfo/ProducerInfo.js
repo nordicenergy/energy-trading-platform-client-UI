@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './ProducerInfo.css';
+import classNames from 'classnames';
 
 class ProducerInfo extends React.Component {
     priceAdditionalInfo() {
@@ -18,11 +19,6 @@ class ProducerInfo extends React.Component {
             ) : null;
     }
 
-    ethereumAddress(hash) {
-        // FIXME non standard behavior, need fix later after discussing with design team
-        return () => <span className="producer-information-ethereum-hash">{hash}</span>;
-    }
-
     renderImage(picture) {
         if (picture) {
             return <img src={picture} alt="Here you can see how looks producer" />;
@@ -31,12 +27,17 @@ class ProducerInfo extends React.Component {
         return <Placeholder />;
     }
 
-    renderInfoRow(label, value, Additional) {
+    renderInfoRow(label, value, Additional, smallerText) {
+        const classes = classNames({
+            'producer-information-value': true,
+            'producer-information-smaller-value': smallerText
+        });
+
         return (
             <div className="producer-information-row">
                 <p>
                     <span className="producer-information-label">{label}</span>
-                    <span className="producer-information-value" translate="no">
+                    <span className={classes} translate="no">
                         <span>{value}</span>
                         {Additional && <Additional />}
                     </span>
@@ -69,8 +70,7 @@ class ProducerInfo extends React.Component {
                     {purchased > 0 && this.renderInfoRow(labels.purchased, `${purchased} kWh`)}
                     {capacity > 0 && this.renderInfoRow(labels.capacity, `${capacity} MW`)}
                     {selectedSince && this.renderInfoRow(labels.selectedSince, selectedSince)}
-                    {ethereumAddress &&
-                        this.renderInfoRow(labels.ethereumAddress, '', this.ethereumAddress(ethereumAddress))}
+                    {ethereumAddress && this.renderInfoRow(labels.ethereumAddress, ethereumAddress, null, true)}
                     {location && this.renderInfoRow(labels.location, location)}
                     <p className="producer-information-desc">{description}</p>
                 </section>
@@ -120,11 +120,8 @@ export function Placeholder() {
                     <g transform="translate(-1141.000000, -271.000000)">
                         <g transform="translate(1142.000000, 272.000000)">
                             <g stroke="#b3b3b3" strokeLinejoin="round" strokeWidth="2">
-                                <polyline
-                                    id="stroke-1"
-                                    points="12 26 28.963 14.5 28.963 26 47.377 13.75 47.377 26 65.082 14.375 65.082 26 83 14.187 83 30 83 79 12.533 79"
-                                />
-                                <polygon id="stroke-2" points="12 79 0 79 0 39 0 9 12 0 12 39" />
+                                <polyline points="12 26 28.963 14.5 28.963 26 47.377 13.75 47.377 26 65.082 14.375 65.082 26 83 14.187 83 30 83 79 12.533 79" />
+                                <polygon points="12 79 0 79 0 39 0 9 12 0 12 39" />
                             </g>
                             <polygon
                                 fill="#f2f2f2"
