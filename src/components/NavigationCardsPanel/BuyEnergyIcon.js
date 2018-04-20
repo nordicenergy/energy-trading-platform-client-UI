@@ -21,12 +21,7 @@ const BuyEnergyIcon = () => (
                         stroke="#2173C3"
                         strokeWidth="2"
                     />
-                    <path
-                        className="strokeLine"
-                        d="M43.6933,45 L25.6933,45"
-                        stroke="#2173C3"
-                        strokeWidth="2"
-                    />
+                    <path className="strokeLine" d="M43.6933,45 L25.6933,45" stroke="#2173C3" strokeWidth="2" />
                     <polyline
                         className="strokeLine"
                         stroke="#2173C3"
@@ -51,12 +46,7 @@ const BuyEnergyIcon = () => (
                         strokeWidth="2"
                         points="33.2548 79.8252 36.6928 92.0002 38.6928 92.0002"
                     />
-                    <path
-                        className="strokeLine"
-                        d="M54.6933,92 L71.6933,92"
-                        stroke="#2173C3"
-                        strokeWidth="2"
-                    />
+                    <path className="strokeLine" d="M54.6933,92 L71.6933,92" stroke="#2173C3" strokeWidth="2" />
                     <polygon
                         className="fillArea"
                         fill="#AED5FB"
