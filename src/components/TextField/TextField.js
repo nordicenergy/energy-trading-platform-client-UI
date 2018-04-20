@@ -59,7 +59,7 @@ class TextField extends Component {
             <div className={classes}>
                 <label className="text-field-layout">
                     <strong className="text-field-label">{label}</strong>
-                    <div className="text-field-input-group">
+                    <span className="text-field-input-group">
                         <input
                             {...otherProps}
                             className="text-field-input"
@@ -74,7 +74,7 @@ class TextField extends Component {
                             onBlur={event => this.handleBlur(event)}
                         />
                         {addon && <span className="text-field-addon">{addon}</span>}
-                    </div>
+                    </span>
                 </label>
                 {helperText && <p className="text-field-helper-text">{helperText}</p>}
                 {error && (

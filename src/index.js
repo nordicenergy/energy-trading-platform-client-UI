@@ -23,6 +23,9 @@ function bootstrap() {
     addLocaleData(enLocaleData);
 
     const locale = navigator.language.split('-')[0] || 'en';
+    const html = document.querySelector('html');
+    html.setAttribute('lang', locale);
+
     const messages = {
         en: messagesEn,
         de: messagesDe

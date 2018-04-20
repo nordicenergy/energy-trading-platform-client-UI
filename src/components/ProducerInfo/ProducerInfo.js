@@ -121,10 +121,9 @@ export function Placeholder() {
                         <g transform="translate(1142.000000, 272.000000)">
                             <g stroke="#b3b3b3" strokeLinejoin="round" strokeWidth="2">
                                 <polyline
-                                    id="stroke-1"
                                     points="12 26 28.963 14.5 28.963 26 47.377 13.75 47.377 26 65.082 14.375 65.082 26 83 14.187 83 30 83 79 12.533 79"
                                 />
-                                <polygon id="stroke-2" points="12 79 0 79 0 39 0 9 12 0 12 39" />
+                                <polygon points="12 79 0 79 0 39 0 9 12 0 12 39" />
                             </g>
                             <polygon
                                 fill="#f2f2f2"

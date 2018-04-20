@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const WindImage = () => (
-    <svg id="windImage" width="95" height="95" viewBox="0 0 95 95" xmlns="http://www.w3.org/2000/svg">
+    <svg className="windImage" width="95" height="95" viewBox="0 0 95 95" xmlns="http://www.w3.org/2000/svg">
         <g fill="none">
             <path
                 d="M94 47.5c0 25.681-20.819 46.5-46.5 46.5-25.682 0-46.5-20.819-46.5-46.5s20.818-46.5 46.5-46.5c25.681 0 46.5 20.819 46.5 46.5z"
@@ -33,7 +33,7 @@ export const WindImage = () => (
 );
 
 export const SolarImage = () => (
-    <svg id="solarImage" width="95" height="95" viewBox="0 0 95 95" xmlns="http://www.w3.org/2000/svg">
+    <svg className="solarImage" width="95" height="95" viewBox="0 0 95 95" xmlns="http://www.w3.org/2000/svg">
         <g fill="none">
             <path fillOpacity={0.4} fill="currentColor" d="M36.552 31.468l-1.564 14.077h13.294v-14.077z" />
             <path fillOpacity={0.4} fill="currentColor" d="M61.393 45.545l1.748 14.077h-14.858v-14.077z" />
@@ -54,7 +54,7 @@ export const SolarImage = () => (
 );
 
 export const BiomassImage = () => (
-    <svg id="biomassImage" width="95" height="95" viewBox="0 0 95 95" xmlns="http://www.w3.org/2000/svg">
+    <svg className="biomassImage" width="95" height="95" viewBox="0 0 95 95" xmlns="http://www.w3.org/2000/svg">
         <g fill="none">
             <path
                 d="M59.922 35v3.627c0 3.206 2.599 5.804 5.804 5.804s5.803-2.598 5.803-5.804v-3.627h-11.607z"

@@ -33,10 +33,10 @@ const FilterCheckbox = ({ className, type, label, name, checked, onChange }) => 
                 checked={checked}
                 onChange={onChange}
             />
-            <div className="filter-checkbox-label">
+            <span className="filter-checkbox-label">
                 <span className="filter-checkbox-icon">{icon}</span>
                 <span className="filter-checkbox-text">{label}</span>
-            </div>
+            </span>
         </label>
     );
 };
