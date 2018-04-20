@@ -72,7 +72,7 @@
 }
 
 .recent-transactions-container td,
-.recent-transactions-container th {
+.recent-transactions-container th:first-child {
     text-align: left;
 }
 
