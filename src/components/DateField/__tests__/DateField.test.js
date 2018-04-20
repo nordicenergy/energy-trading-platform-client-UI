@@ -3,8 +3,8 @@ import { shallow, mount } from 'enzyme';
 import DateField from '../DateField';
 
 const onChangeMock = jest.fn();
-function renderComponent({ onChange = onChangeMock, ...otherProps } = {}, mountFn = mount) {
-    return mountFn(<DateField {...otherProps} onChange={onChange} />);
+function renderComponent({ label = 'test', onChange = onChangeMock, ...otherProps } = {}, mountFn = mount) {
+    return mountFn(<DateField {...otherProps} label={label} onChange={onChange} />);
 }
 
 describe('<DateField /> component', () => {
@@ -13,11 +13,11 @@ describe('<DateField /> component', () => {
     });
 
     it('should renders without errors', () => {
-        renderComponent({ value: new Date() });
+        renderComponent({ value: Date.now() });
     });
 
     it('should calculate date picker position', () => {
-        const dateField = renderComponent({ value: new Date() });
+        const dateField = renderComponent({ value: Date.now() });
 
         jest.spyOn(dateField.instance().dateFieldRef, 'getBoundingClientRect').mockReturnValue({ top: 400 });
         dateField
@@ -49,6 +49,7 @@ describe('<DateField /> component', () => {
 
     it('should update state and calls onChange callback', () => {
         let dateMock = new Date();
+        let timestamp = parseInt(dateMock.getTime() / 1000, 10);
         const dateField = renderComponent({}, shallow);
 
         dateField.setState({ hasFocus: true });
@@ -57,18 +58,19 @@ describe('<DateField /> component', () => {
             .find('DatePicker')
             .props()
             .onChange(dateMock);
-        expect(dateField.state().value).toEqual(dateMock);
-        expect(onChangeMock).toHaveBeenCalledWith(dateMock);
+        expect(dateField.state().value).toEqual(timestamp);
+        expect(onChangeMock).toHaveBeenCalledWith(timestamp);
 
         onChangeMock.mockClear();
         dateMock = new Date();
+        timestamp = parseInt(dateMock.getTime() / 1000, 10);
         dateField
             .find('DatePicker')
             .props()
             .onConfirm(dateMock);
-        expect(dateField.state().value).toEqual(dateMock);
+        expect(dateField.state().value).toEqual(timestamp);
         expect(dateField.state().hasFocus).toBeFalsy();
-        expect(onChangeMock).toHaveBeenCalledWith(dateMock);
+        expect(onChangeMock).toHaveBeenCalledWith(timestamp);
     });
 
     it('should not calls onChange callback', () => {

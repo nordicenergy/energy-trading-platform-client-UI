@@ -1,6 +1,7 @@
 .long-press-button {
     box-sizing: border-box;
-    padding: 0.1875rem 0 0;
+    padding: 0.1875rem 0.035rem 0 0;
+    min-width: 2.125rem;
     width: 2.125rem;
     height: 2.125rem;
     outline: none;

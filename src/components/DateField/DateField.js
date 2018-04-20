@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import pick from 'lodash.pick';
+import moment from 'moment/moment';
+import { DATE_FORMAT } from '../../constants';
 import TextField from '../TextField';
 import DatePicker, { DateLabelsPropType, DATE_PICKER_HEIGHT } from './DatePicker';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/fontawesome-free-solid';
 import './DateField.css';
 
+const SECOND = 1000; // milliseconds.
+
 class DateField extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: props.defaultValue,
+            value: parseInt(props.defaultValue, 10),
             hasFocus: false,
             datePickerPosition: 'top'
         };
@@ -23,18 +27,14 @@ class DateField extends Component {
     }
 
     getFormattedDate() {
-        const { labels } = this.props;
         const { value } = this.getState();
 
-        if (!value) {
+        if (!value || isNaN(value)) {
             return '';
         }
 
-        const day = value.getDate();
-        const month = labels.monthsShort[value.getMonth()];
-        const year = value.getFullYear();
-
-        return `${month} ${day}, ${year}`;
+        const date = new Date(value * SECOND);
+        return moment(date).format(DATE_FORMAT);
     }
 
     handleFocus() {
@@ -48,12 +48,13 @@ class DateField extends Component {
     }
 
     handleChange(date) {
+        const timestamp = parseInt(date.getTime() / SECOND, 10);
         this.setState(
-            () => ({ value: date }),
+            () => ({ value: timestamp }),
             () => {
                 const { onChange } = this.props;
                 if (typeof onChange === 'function') {
-                    onChange(date);
+                    onChange(timestamp);
                 }
             }
         );
@@ -68,7 +69,7 @@ class DateField extends Component {
     }
 
     renderDatePicker() {
-        const { labels } = this.props;
+        const { datePickerLabels } = this.props;
         const { value, hasFocus, datePickerPosition } = this.getState();
         const classes = classNames('date-field-datepicker', `date-field-datepicker--${datePickerPosition}`);
 
@@ -77,8 +78,8 @@ class DateField extends Component {
                 <DatePicker
                     className={classes}
                     position={datePickerPosition}
-                    labels={labels}
-                    date={value}
+                    labels={datePickerLabels}
+                    date={!value || isNaN(value) ? new Date() : new Date(value * SECOND)}
                     onChange={date => this.handleChange(date)}
                     onCancel={() => this.handleOnCancel()}
                     onConfirm={date => this.handleConfirm(date)}
@@ -90,6 +91,7 @@ class DateField extends Component {
     }
 
     render() {
+        const { label } = this.props;
         const { hasFocus } = this.state;
         const addon = (
             <span className="date-field-addon">
@@ -100,7 +102,7 @@ class DateField extends Component {
         return (
             <div className="date-field" ref={ref => (this.dateFieldRef = ref)}>
                 <TextField
-                    label="Selected since"
+                    label={label}
                     addon={addon}
                     value={this.getFormattedDate()}
                     hasFocus={hasFocus}
@@ -114,13 +116,14 @@ class DateField extends Component {
 
 DateField.propTypes = {
     className: PropTypes.string,
-    labels: DateLabelsPropType,
-    value: PropTypes.instanceOf(Date),
-    defaultValue: PropTypes.instanceOf(Date),
+    label: PropTypes.string.isRequired,
+    datePickerLabels: DateLabelsPropType,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func
 };
 DateField.defaultProps = {
-    labels: {
+    datePickerLabels: {
         days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],

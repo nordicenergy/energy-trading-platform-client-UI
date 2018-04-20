@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import pick from 'lodash.pick';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/fontawesome-free-solid';
 import './SelectField.css';
@@ -24,8 +25,7 @@ class SelectField extends Component {
     }
 
     getState() {
-        const selectedOption = this.props.value || this.state.value;
-        return selectedOption ? { ...this.state, selectedOption } : this.state;
+        return { ...this.state, ...pick(this.props, ['value']) };
     }
 
     componentDidMount() {
@@ -74,7 +74,7 @@ class SelectField extends Component {
     }
 
     render() {
-        const { options, id } = this.props;
+        const { id, label, options } = this.props;
         const { selectedOption, isFocused } = this.getState();
         const listBoxId = `listbox-${id}`;
         const classes = classNames('select-field', isFocused && 'select-field--focused');
@@ -82,7 +82,7 @@ class SelectField extends Component {
         return (
             <div id={id} className={classes}>
                 <div className="select-field-layout" ref={ref => (this.layoutRef = ref)}>
-                    <label className="select-field-label">Type of energy</label>
+                    <label className="select-field-label">{label}</label>
                     <div
                         className="select-field-input"
                         role="combobox"
@@ -107,6 +107,7 @@ class SelectField extends Component {
 
 SelectField.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(OptionPropType),
     defaultValue: OptionPropType,
     value: OptionPropType,

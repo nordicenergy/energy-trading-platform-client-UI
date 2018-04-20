@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import pick from 'lodash.pick';
 import LongPressButton from './LongPressButton';
 import './NumberField.css';
 
@@ -19,8 +20,7 @@ class NumberField extends Component {
     }
 
     getState() {
-        const value = this.props.value || this.state.value;
-        return value ? { ...this.state, value } : this.state;
+        return { ...this.state, ...pick(this.props, ['value']) };
     }
 
     getStep(value) {
@@ -61,12 +61,13 @@ class NumberField extends Component {
     handleOnChange(event) {
         const { onChange } = this.props;
         const { value } = event.currentTarget;
+        const valueFloat = Number(value);
 
         this.setState(
-            () => ({ value }),
+            () => ({ value: valueFloat }),
             () => {
                 if (typeof onChange === 'function') {
-                    onChange(value);
+                    onChange(valueFloat);
                 }
             }
         );

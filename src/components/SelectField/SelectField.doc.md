@@ -7,5 +7,5 @@ const options = [
     { value: 'renewable', title: 'Renewable' },
 ];
 
-<SelectField options={options} />;
+<SelectField label="Type of energy" options={options} />;
 ```

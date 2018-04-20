@@ -82,17 +82,4 @@ describe('<NumberField /> component', () => {
             .onPress();
         expect(onChangeMock).toHaveBeenCalledWith(0.1);
     });
-
-    it.skip('should changes value when increase button was pressing', () => {
-        jest.spyOn(window, 'setInterval').mockImplementation(jest.fn());
-        const numberField = renderComponent();
-
-        numberField.setState({ valueIsIncrease: true });
-        jest.runAllTimers();
-        const [[callback]] = window.setInterval.mock.calls;
-        callback();
-        expect(numberField.state().value).toBe(0.1);
-
-        window.setInterval.mockRestore();
-    });
 });

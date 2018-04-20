@@ -9,8 +9,11 @@ const optionsMock = [
     { value: 'solar', title: 'Solar' },
     { value: 'renewable', title: 'Renewable' }
 ];
-function renderComponent({ id = 'test', options = optionsMock, ...otherProps } = {}, mountFn = shallow) {
-    return mountFn(<SelectField id={id} options={optionsMock} {...otherProps} />);
+function renderComponent(
+    { id = 'test', label = 'Test label', options = optionsMock, ...otherProps } = {},
+    mountFn = shallow
+) {
+    return mountFn(<SelectField id={id} label={label} options={optionsMock} {...otherProps} />);
 }
 
 describe('<SelectField /> component', () => {
