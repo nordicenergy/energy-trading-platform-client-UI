@@ -9,7 +9,7 @@ export const DateLabelsPropType = PropTypes.shape({
     daysShort: PropTypes.arrayOf(PropTypes.string).isRequired,
     daysMin: PropTypes.arrayOf(PropTypes.string).isRequired,
     months: PropTypes.arrayOf(PropTypes.string).isRequired,
-    monthsShort: PropTypes.arrayOf(PropTypes.string).isRequired,
+    monthsShort: PropTypes.arrayOf(PropTypes.string).isRequired
 });
 export const DATE_PICKER_HEIGHT = 362; // pixels
 
