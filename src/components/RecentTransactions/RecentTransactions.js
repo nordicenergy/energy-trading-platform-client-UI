@@ -34,7 +34,7 @@ const RecentTransactions = ({ transactions, currentBalance, labels, onButtonClic
                 aria-describedby="transactionAmountHeader"
                 className="recent-transactions-current-balance-amount"
             >
-                {labels.recentTransactionsCurrentBalance}: {renderAmountText(currentBalance.balance)}
+                {labels.recentTransactionsMonthlyBalance}: {renderAmountText(currentBalance.balance)}
             </span>
         </div>
         <div className="recent-transactions-button-container">
@@ -61,7 +61,7 @@ RecentTransactions.propTypes = {
         recentTransactionsHeaderDate: PropTypes.string,
         recentTransactionsHeaderTransaction: PropTypes.string,
         recentTransactionsHeaderAmount: PropTypes.string,
-        recentTransactionsCurrentBalance: PropTypes.string,
+        recentTransactionsMonthlyBalance: PropTypes.string,
         recentTransactionsMore: PropTypes.string
     }),
     onButtonClick: PropTypes.func
@@ -87,7 +87,7 @@ function renderDate(date /* expect seconds | unix timestamp */) {
 }
 
 function renderAmountText(amount) {
-    return `${String(amount || '0').replace('.', ',')} €`;
+    return `${String(Number(amount || '0').toFixed(2)).replace('.', ',')} €`;
 }
 
 export default RecentTransactions;

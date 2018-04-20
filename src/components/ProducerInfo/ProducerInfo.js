@@ -18,11 +18,6 @@ class ProducerInfo extends React.Component {
             ) : null;
     }
 
-    ethereumAddress(hash) {
-        // FIXME non standard behavior, need fix later after discussing with design team
-        return () => <span className="producer-information-ethereum-hash">{hash}</span>;
-    }
-
     renderImage(picture) {
         if (picture) {
             return <img src={picture} alt="Here you can see how looks producer" />;
@@ -69,8 +64,7 @@ class ProducerInfo extends React.Component {
                     {purchased > 0 && this.renderInfoRow(labels.purchased, `${purchased} kWh`)}
                     {capacity > 0 && this.renderInfoRow(labels.capacity, `${capacity} MW`)}
                     {selectedSince && this.renderInfoRow(labels.selectedSince, selectedSince)}
-                    {ethereumAddress &&
-                        this.renderInfoRow(labels.ethereumAddress, '', this.ethereumAddress(ethereumAddress))}
+                    {ethereumAddress && this.renderInfoRow(labels.ethereumAddress, ethereumAddress)}
                     {location && this.renderInfoRow(labels.location, location)}
                     <p className="producer-information-desc">{description}</p>
                 </section>

@@ -29,9 +29,9 @@ const messages = defineMessages({
         id: 'app.overviewPage.recentTransactions.headerAmount',
         defaultMessage: 'Amount'
     },
-    recentTransactionsCurrentBalance: {
-        id: 'app.overviewPage.recentTransactions.currentBalance',
-        defaultMessage: 'Current Balance'
+    recentTransactionsMonthlyBalance: {
+        id: 'app.overviewPage.recentTransactions.monthlyBalance',
+        defaultMessage: 'Monthly Balance'
     },
     recentTransactionsMore: {
         id: 'app.overviewPage.recentTransactions.more',

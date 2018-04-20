@@ -143,7 +143,7 @@ describe('<Overview /> Component', () => {
             labels: {
                 buyEnergy: 'Buy Energy',
                 myProducer: 'My Producer',
-                recentTransactionsCurrentBalance: 'Current Balance',
+                recentTransactionsMonthlyBalance: 'Monthly Balance',
                 recentTransactionsHeaderAmount: 'Amount',
                 recentTransactionsHeaderDate: 'Date',
                 recentTransactionsHeaderTransaction: 'Transaction',
@@ -165,7 +165,7 @@ describe('<Overview /> Component', () => {
             labels: {
                 buyEnergy: 'Buy Energy',
                 myProducer: 'My Producer',
-                recentTransactionsCurrentBalance: 'Current Balance',
+                recentTransactionsMonthlyBalance: 'Monthly Balance',
                 recentTransactionsHeaderAmount: 'Amount',
                 recentTransactionsHeaderDate: 'Date',
                 recentTransactionsHeaderTransaction: 'Transaction',
