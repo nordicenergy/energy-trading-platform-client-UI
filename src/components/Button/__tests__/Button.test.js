@@ -20,4 +20,15 @@ describe('<Button /> Component', () => {
         expect(component.hasClass('button')).toBeTruthy();
         expect(component.hasClass('button-success')).toBeTruthy();
     });
+
+    it('should handle click event', () => {
+        const onClickMock = jest.fn();
+        const component = renderComponent({ onClick: onClickMock });
+
+        component
+            .find('button')
+            .at(0)
+            .simulate('click');
+        expect(onClickMock).toHaveBeenCalled();
+    });
 });

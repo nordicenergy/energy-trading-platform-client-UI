@@ -21,9 +21,11 @@ import OptionLinks from './OptionLinks';
 import DateField from './DateField';
 import ProfileForm from './ProfileForm';
 import Confirm from './Confirm';
+import CoinButton from './CoinButton';
 
 export {
     Button,
+    CoinButton,
     TextField,
     LoginForm,
     RestorePasswordForm,
