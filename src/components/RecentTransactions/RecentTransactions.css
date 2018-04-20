@@ -82,10 +82,8 @@
 }
 
 .recent-transactions-button-container {
-    /*margin-top: 1.33em;*/
     padding: 1.33em 0;
     text-align: center;
-    /*1.33em*/
 }
 
 tr.recent-transactions-hash {
