@@ -1,38 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import LongPressButton from './LongPressButton';
 import './NumberField.css';
 
-const UPDATE_VALUE_INTERVAL = 50; // milliseconds.
-const UPDATE_VALUE_DELAY = 300; // milliseconds.
+const SMALL_STEP = 0.1;
+const MEDIUM_STEP = 1;
+const LARGE_STEP = 10;
+const VALUE_FOR_SMALL_STEP = 10;
+const VALUE_FOR_MEDIUM_STEP = 100;
 
 class NumberField extends Component {
     constructor(props) {
         super(props);
-
-        this.timeoutId = null;
-        this.intervalId = null;
         this.state = {
-            value: isNaN(props.defaultValue) ? '' : props.defaultValue,
-            valueIsIncrease: false,
-            valueIsDecrease: false
+            value: !props.defaultValue || isNaN(props.defaultValue) ? '' : Number(props.defaultValue)
         };
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        clearTimeout(this.timeoutId);
-
-        const { valueIsIncrease, valueIsDecrease } = this.getState();
-
-        if (valueIsIncrease !== prevState.valueIsIncrease || valueIsDecrease !== prevState.valueIsDecrease) {
-            clearTimeout(this.intervalId);
-        }
-
-        this.timeoutId = setTimeout(() => {
-            if (valueIsIncrease || valueIsDecrease) {
-                this.intervalId = setInterval(this.changeValue.bind(this), UPDATE_VALUE_INTERVAL);
-            }
-        }, UPDATE_VALUE_DELAY);
+    getState() {
+        const value = this.props.value || this.state.value;
+        return value ? { ...this.state, value } : this.state;
     }
 
     getStep(value) {
@@ -42,27 +30,22 @@ class NumberField extends Component {
             return step;
         }
 
-        if (!value || (value < 10 && value > -10)) {
-            return 0.1;
+        if (!value || (value < VALUE_FOR_SMALL_STEP && value > -VALUE_FOR_SMALL_STEP)) {
+            return SMALL_STEP;
         }
 
-        if (value < 100 && value > -100) {
-            return 1;
+        if (value < VALUE_FOR_MEDIUM_STEP && value > -VALUE_FOR_MEDIUM_STEP) {
+            return MEDIUM_STEP;
         }
 
-        return 10;
+        return LARGE_STEP;
     }
 
-    getState() {
-        const value = this.props.value || this.state.value;
-        return value ? { ...this.state, value } : this.state;
-    }
-
-    changeValue() {
+    handlePress(isIncrease) {
         const { onChange } = this.props;
-        const { value, valueIsIncrease, valueIsDecrease } = this.getState();
-        const valueFloat = isNaN(value) || !value ? 0 : parseFloat(value);
-        const step = !valueIsIncrease && valueIsDecrease ? -this.getStep(valueFloat) : this.getStep(valueFloat);
+        const { value } = this.getState();
+        const valueFloat = isNaN(value) || !value ? 0 : Number(value);
+        const step = isIncrease ? this.getStep(valueFloat) : -this.getStep(valueFloat);
         const changedValue = Number((valueFloat + step).toFixed(1));
 
         this.setState(
@@ -89,22 +72,6 @@ class NumberField extends Component {
         );
     }
 
-    handleIncreaseMouseDown() {
-        this.setState(() => ({ valueIsIncrease: true }), this.changeValue);
-    }
-
-    handleIncreaseMouseUp() {
-        this.setState(() => ({ valueIsIncrease: false }));
-    }
-
-    handleDecreaseMouseDown() {
-        this.setState(() => ({ valueIsDecrease: true }), this.changeValue);
-    }
-
-    handleDecreaseMouseUp() {
-        this.setState(() => ({ valueIsDecrease: false }));
-    }
-
     render() {
         const { className, label, units, id } = this.props;
         const { value } = this.getState();
@@ -116,13 +83,7 @@ class NumberField extends Component {
                 <label className="number-field-label" htmlFor={id}>
                     {label}
                 </label>
-                <button
-                    className="number-field-control number-field-control--minus"
-                    onMouseDown={() => this.handleDecreaseMouseDown()}
-                    onMouseUp={() => this.handleDecreaseMouseUp()}
-                >
-                    -
-                </button>
+                <LongPressButton sign="-" onPress={() => this.handlePress()} />
                 <input
                     className="number-field-input"
                     id={id}
@@ -131,13 +92,7 @@ class NumberField extends Component {
                     value={value}
                     onChange={event => this.handleOnChange(event)}
                 />
-                <button
-                    className="number-field-control number-field-control--plus"
-                    onMouseDown={() => this.handleIncreaseMouseDown()}
-                    onMouseUp={() => this.handleIncreaseMouseUp()}
-                >
-                    +
-                </button>
+                <LongPressButton sign="+" onPress={() => this.handlePress(true)} />
                 {units && <small className="number-field-units">{units}</small>}
             </div>
         );

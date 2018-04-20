@@ -7,8 +7,6 @@ function renderComponent({ label = 'Delta to Market Price', ...otherProps } = {}
 }
 
 describe('<NumberField /> component', () => {
-    jest.useFakeTimers();
-
     it('should renders without errors', () => {
         renderComponent({ defaultValue: 'abc' });
     });
@@ -20,25 +18,7 @@ describe('<NumberField /> component', () => {
         expect(numberField.find('.number-field-units').text()).toBe('cent');
     });
 
-    it('should update state when increase button was pressing', () => {
-        const numberField = renderComponent();
-
-        numberField.find('.number-field-control--plus').simulate('mouseDown');
-        expect(numberField.state().valueIsIncrease).toBeTruthy();
-        numberField.find('.number-field-control--plus').simulate('mouseUp');
-        expect(numberField.state().valueIsIncrease).toBeFalsy();
-    });
-
-    it('should update state when decrease button was pressing', () => {
-        const numberField = renderComponent({ defaultValue: '0.4' });
-
-        numberField.find('.number-field-control--minus').simulate('mouseDown');
-        expect(numberField.state().valueIsDecrease).toBeTruthy();
-        numberField.find('.number-field-control--minus').simulate('mouseUp');
-        expect(numberField.state().valueIsDecrease).toBeFalsy();
-    });
-
-    it('should update state when input value was changed', () => {
+    it('should updates state when input value was changed', () => {
         const numberField = renderComponent();
 
         numberField.find('.number-field-input').simulate('change', {
@@ -47,7 +27,7 @@ describe('<NumberField /> component', () => {
         expect(numberField.state().value).toBe(123);
     });
 
-    it('should call onChange callback when input value was changed', () => {
+    it('should calls onChange callback when input value was changed', () => {
         const onChangeMock = jest.fn();
         const numberField = renderComponent({ onChange: onChangeMock });
 
@@ -57,15 +37,7 @@ describe('<NumberField /> component', () => {
         expect(onChangeMock).toHaveBeenCalledWith(123);
     });
 
-    it('should call onChange callback when button was pressed', () => {
-        const onChangeMock = jest.fn();
-        const numberField = renderComponent({ onChange: onChangeMock });
-
-        numberField.find('.number-field-control--plus').simulate('mouseDown');
-        expect(onChangeMock).toHaveBeenCalledWith(0.1);
-    });
-
-    it('should return correct step', () => {
+    it('should returns correct step', () => {
         const numberField = renderComponent();
 
         expect(numberField.find('.number-field-input').props().step).toBe(0.1);
@@ -82,7 +54,36 @@ describe('<NumberField /> component', () => {
         expect(numberField.find('.number-field-input').props().step).toBe(13);
     });
 
-    it('should change value when increase button was pressing', () => {
+    it('should updates state when some button was pressed', () => {
+        const numberField = renderComponent({ defaultValue: '1' });
+
+        numberField
+            .find('LongPressButton')
+            .at(1)
+            .props()
+            .onPress();
+        expect(numberField.state().value).toBe(1.1);
+        numberField
+            .find('LongPressButton')
+            .at(0)
+            .props()
+            .onPress();
+        expect(numberField.state().value).toBe(1);
+    });
+
+    it('should calls onChange callback when some button was pressed', () => {
+        const onChangeMock = jest.fn();
+        const numberField = renderComponent({ onChange: onChangeMock });
+
+        numberField
+            .find('LongPressButton')
+            .at(1)
+            .props()
+            .onPress();
+        expect(onChangeMock).toHaveBeenCalledWith(0.1);
+    });
+
+    it.skip('should changes value when increase button was pressing', () => {
         jest.spyOn(window, 'setInterval').mockImplementation(jest.fn());
         const numberField = renderComponent();
 
