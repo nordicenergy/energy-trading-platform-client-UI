@@ -225,7 +225,7 @@ describe('<Producer /> Component', () => {
 
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[success]] = notificationActions.performPushNotification.mock.calls;
-        expect(success).toEqual({ message: 'Test. Transaction hash: 1234', type: 'success' });
+        expect(success).toEqual({ message: 'Test test: 1234', type: 'success' });
 
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(2);

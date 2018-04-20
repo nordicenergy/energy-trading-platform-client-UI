@@ -11,6 +11,7 @@ const billProps = {
         purchased: 'Energy purchased',
         capacity: 'Peak Capacity',
         selectedSince: 'Selected since',
+        ethereumAddress: 'Ethereum Address',
         location: 'Location'
     },
     details: {
@@ -22,6 +23,7 @@ const billProps = {
         purchased: 1300,
         capacity: 8,
         selectedSince: 'Sep 12 - Feb 22',
+        ethereumAddress: '0x3E7e5d1810F825a2B27C6BEC5fCB32F3eaCd192e',
         location: 'Lippendorf, Neukieritzsch'
     },
     description: `LTN Supply & Trading is a leading European energy

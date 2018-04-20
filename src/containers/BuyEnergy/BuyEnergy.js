@@ -193,6 +193,12 @@ export class BuyEnergy extends AbstractContainer {
                         </div>
                     </div>
                 </aside>
+                <OptionLinks
+                    links={LINKS.map(link => ({
+                        ...link,
+                        caption: formatMessage(link.caption)
+                    }))}
+                />
                 <ProducerCardsPanel
                     className="buy-energy-page-producers"
                     loading={shouldShowListLoader}
@@ -201,12 +207,6 @@ export class BuyEnergy extends AbstractContainer {
                     onProducerClick={producerId => {
                         this.handleProducerClick(producerId);
                     }}
-                />
-                <OptionLinks
-                    links={LINKS.map(link => ({
-                        ...link,
-                        caption: formatMessage(link.caption)
-                    }))}
                 />
             </section>
         );
