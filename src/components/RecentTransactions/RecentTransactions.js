@@ -6,8 +6,10 @@ import { DATE_FORMAT } from '../../constants';
 
 import './RecentTransactions.css';
 
+const ROWS_LIMIT = 5;
+
 const RecentTransactions = ({ transactions, currentBalance, labels, pagination, onButtonClick }) => (
-    <div className="recent-transactions-container">
+    <div role="table" className="recent-transactions-container">
         <div className="table-container">
             <table>
                 <caption>{labels.recentTransactionsTitle}</caption>
@@ -18,7 +20,7 @@ const RecentTransactions = ({ transactions, currentBalance, labels, pagination, 
                         <th id="transactionAmountHeader">{labels.recentTransactionsHeaderAmount}</th>
                     </tr>
                 </thead>
-                <tbody>{renderTableRows(transactions)}</tbody>
+                <tbody>{renderTableRows(transactions, !pagination)}</tbody>
             </table>
         </div>
         <div role="row" className="recent-transactions-current-balance-row">
@@ -45,6 +47,35 @@ const RecentTransactions = ({ transactions, currentBalance, labels, pagination, 
     </div>
 );
 
+function renderTableRows(transactions, limited) {
+    const rows = transactions.map((transaction, index) => (
+        <tr key={`${transaction.id}-${index}`}>
+            <td>{renderDate(transaction.date)}</td>
+            <td translate="no">
+                {transaction.description}
+                <span aria-label="transaction hash (ethereum address)" className="recent-transactions-hash">
+                    {transaction.transactionHash}
+                </span>
+            </td>
+            <td>{renderAmountText(transaction.transactionAmount)}</td>
+        </tr>
+    ));
+
+    if (limited) {
+        rows.length = ROWS_LIMIT;
+    }
+
+    return rows;
+}
+
+function renderDate(date /* expect seconds | unix timestamp */) {
+    return moment(new Date(date * 1000)).format(DATE_FORMAT);
+}
+
+function renderAmountText(amount) {
+    return `${String(Number(amount || '0').toFixed(2)).replace('.', ',')} €`;
+}
+
 RecentTransactions.propTypes = {
     transactions: PropTypes.arrayOf(
         PropTypes.shape({
@@ -68,28 +99,5 @@ RecentTransactions.propTypes = {
     }),
     onButtonClick: PropTypes.func
 };
-
-function renderTableRows(transactions) {
-    return transactions.map((transaction, index) => (
-        <tr key={`${transaction.id}-${index}`}>
-            <td>{renderDate(transaction.date)}</td>
-            <td translate="no">
-                {transaction.description}
-                <span aria-label="transaction hash (ethereum address)" className="recent-transactions-hash">
-                    {transaction.transactionHash}
-                </span>
-            </td>
-            <td>{renderAmountText(transaction.transactionAmount)}</td>
-        </tr>
-    ));
-}
-
-function renderDate(date /* expect seconds | unix timestamp */) {
-    return moment(new Date(date * 1000)).format(DATE_FORMAT);
-}
-
-function renderAmountText(amount) {
-    return `${String(Number(amount || '0').toFixed(2)).replace('.', ',')} €`;
-}
 
 export default RecentTransactions;

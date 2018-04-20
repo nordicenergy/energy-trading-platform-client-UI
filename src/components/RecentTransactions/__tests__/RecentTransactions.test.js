@@ -33,6 +33,34 @@ const transactionsDummy = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         transactionHash: '1234'
+    },
+    {
+        id: '4',
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.8,
+        transactionHash: '1234'
+    },
+    {
+        id: '5',
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.8,
+        transactionHash: '1234'
+    },
+    {
+        id: '6',
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.8,
+        transactionHash: '1234'
+    },
+    {
+        id: '7',
+        date: 1523707200,
+        description: 'Bought 23 kWh from Peter',
+        transactionAmount: 0.8,
+        transactionHash: '1234'
     }
 ];
 
@@ -73,7 +101,7 @@ describe('<RecentTransactions /> Component', () => {
         expect(component.find('thead')).toHaveLength(1);
         expect(component.find('tbody')).toHaveLength(1);
         expect(component.find('th')).toHaveLength(3);
-        expect(component.find('td')).toHaveLength(9);
+        expect(component.find('td')).toHaveLength(15);
         expect(component.find(Button)).toHaveLength(1);
     });
 
