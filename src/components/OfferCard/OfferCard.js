@@ -8,15 +8,28 @@ const OfferCard = ({ id, startPeriod, endPeriod, price, energyType, onClick, lab
         <div className="offer-card-header">
             <div className="offer-id">{id}</div>
             <div className="edit-button-container">
-                <button className="edit-button" onClick={onClick}>
+                <a
+                    href=""
+                    className="edit-button"
+                    onClick={event => {
+                        event.preventDefault();
+                        onClick();
+                    }}
+                >
                     {labels.editButton}
-                </button>
+                </a>
             </div>
         </div>
         <div className="period-info">
-            <span onClick={onClick}>
+            <a
+                href=""
+                onClick={event => {
+                    event.preventDefault();
+                    onClick();
+                }}
+            >
                 {renderPeriodDate(startPeriod)} - {renderPeriodDate(endPeriod)}
-            </span>
+            </a>
         </div>
         <div className="offer-card-footer">
             <div className="price-container">

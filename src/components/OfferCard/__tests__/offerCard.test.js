@@ -32,13 +32,13 @@ function renderComponent(
 describe('<OfferCard /> component', () => {
     it(`it should display:
         - 1 <div /> element with class "offer-id";
-        - 1 <button /> element with class "edit-button";
+        - 1 <a /> element with class "edit-button";
         - 1 <div /> element with class "period-info";
         - 1 <div /> element with class "price-container";
         - 1 <div /> element with class "energy-type";`, () => {
         const component = renderComponent({});
         expect(component.find('.offer-id')).toHaveLength(1);
-        expect(component.find('button.edit-button')).toHaveLength(1);
+        expect(component.find('a.edit-button')).toHaveLength(1);
         expect(component.find('.period-info')).toHaveLength(1);
         expect(component.find('.price-container')).toHaveLength(1);
         expect(component.find('.energy-type')).toHaveLength(1);
@@ -60,7 +60,7 @@ describe('<OfferCard /> component', () => {
         });
         component.find('.edit-button').simulate('click');
         expect(onClickMock).toHaveBeenCalledTimes(1);
-        component.find('.period-info span').simulate('click');
+        component.find('.period-info a').simulate('click');
         expect(onClickMock).toHaveBeenCalledTimes(2);
     });
 });

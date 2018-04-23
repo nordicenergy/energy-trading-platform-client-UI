@@ -23,6 +23,7 @@
 .offer-card .edit-button {
     color: var(--general-text-color);
     background-color: transparent;
+    text-decoration: none;
     border: none;
     cursor: pointer;
     font-weight: 600;
@@ -58,13 +59,15 @@
     font-weight: 600;
 }
 
-.offer-card .period-info span {
+.offer-card .period-info a {
+    color: var(--general-text-color);
+    text-decoration: none;
     cursor: pointer;
     transition: color 0.2s ease-in;
 }
 
 .offer-card .edit-button:hover,
-.offer-card .period-info span:hover {
+.offer-card .period-info a:hover {
     color: var(--button-hover-color);
 }
 
