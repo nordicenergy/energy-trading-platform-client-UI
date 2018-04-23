@@ -24,6 +24,7 @@ import DateField from './DateField';
 import ProfileForm from './ProfileForm';
 import Confirm from './Confirm';
 import CoinButton from './CoinButton';
+import OfferCard from './OfferCard';
 
 export {
     Button,
@@ -55,5 +56,6 @@ export {
     OptionLinks,
     DateField,
     ProfileForm,
-    Confirm
+    Confirm,
+    OfferCard
 };
