@@ -30,6 +30,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build && npm run postcss",
         "test": "react-scripts test --no-cache --env=jsdom --coverage src/setupTests.js src/**/*",
+        "e2e": "jest --no-cache e2e/**/*",
         "format": "./node_modules/.bin/prettier --single-quote --write 'src/**/*.{js,jsx,json,css}'",
         "styleguide": "styleguidist server",
         "styleguide:build": "styleguidist build",
@@ -41,6 +42,7 @@
         "postcss-css-variables": "^0.8.1",
         "pre-commit": "1.2.2",
         "prettier": "1.11.1",
+        "puppeteer": "1.2.0",
         "react-styleguidist": "6.5.3",
         "react-test-renderer": "16.2.0",
         "redux-mock-store": "1.5.1"
