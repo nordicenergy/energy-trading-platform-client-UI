@@ -145,7 +145,7 @@ class ProfileForm extends React.PureComponent {
                         label={labels.birthday}
                         value={birthday}
                         renderTo={'.profile-form'}
-                        onOk={date => this.handleDateChange(date)}
+                        onChange={date => this.handleDateChange(date)}
                     />
                 </div>
                 <TextField

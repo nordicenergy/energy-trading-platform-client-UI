@@ -137,14 +137,22 @@ describe('<Profile /> Container', () => {
             confirmNewPassword: 'password',
             oldPassword: 'oldPassword'
         };
-        jest.spyOn(userActionPerformers, 'performUpdateUserData').mockImplementation(jest.fn());
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        jest.spyOn(userActionPerformers, 'performUpdateUserData').mockImplementation(() => {
+            component.setProps({
+                loading: true
+            });
+        });
 
         component
             .find('ProfileForm')
             .props()
             .onSubmit(dataMock);
         expect(userActionPerformers.performUpdateUserData).toHaveBeenCalledWith(dataMock);
-
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'success',
+            message: 'Profile successfully updated.'
+        });
         userActionPerformers.performUpdateUserData.mockRestore();
     });
 });

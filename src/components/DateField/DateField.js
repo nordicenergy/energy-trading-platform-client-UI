@@ -5,11 +5,14 @@ import pick from 'lodash.pick';
 import moment from 'moment/moment';
 import { DATE_FORMAT } from '../../constants';
 import TextField from '../TextField';
-import DatePicker, { DateLabelsPropType, DATE_PICKER_HEIGHT } from './DatePicker';
+import DatePicker, { DateLabelsPropType } from './DatePicker';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/fontawesome-free-solid';
 import './DateField.css';
 
+const DATE_PICKER_HEIGHT = 362; //pixels
+const HEADER_HEIGHT = 72; //pixels
+const PAGE_TOP_OFFSET = DATE_PICKER_HEIGHT + HEADER_HEIGHT; // pixels
 const SECOND = 1000; // milliseconds.
 
 class DateField extends Component {
@@ -39,7 +42,7 @@ class DateField extends Component {
 
     handleFocus() {
         const dateFieldBounds = this.dateFieldRef.getBoundingClientRect();
-        const datePickerPosition = dateFieldBounds.top >= DATE_PICKER_HEIGHT ? 'top' : 'bottom';
+        const datePickerPosition = dateFieldBounds.top >= PAGE_TOP_OFFSET ? 'top' : 'bottom';
 
         this.setState(() => ({
             hasFocus: true,
