@@ -1,32 +1,58 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import pick from 'lodash.pick';
 import './TextField.css';
 
 class TextField extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            focused: false
+            value: props.defaultValue,
+            hasFocus: props.hasFocus
         };
     }
 
-    handleFocus(event) {
-        const { onFocus } = this.props;
-        this.setState({ focused: true });
+    getState() {
+        return { ...this.state, ...pick(this.props, ['value', 'hasFocus']) };
+    }
 
-        if (typeof onFocus === 'function') {
-            onFocus(event);
-        }
+    handleFocus(event) {
+        this.setState(
+            () => ({ hasFocus: true }),
+            () => {
+                const { onFocus } = this.props;
+                if (typeof onFocus === 'function') {
+                    onFocus(event);
+                }
+            }
+        );
     }
 
     handleBlur(event) {
-        const { onBlur } = this.props;
-        this.setState({ focused: false });
+        this.setState(
+            () => ({ hasFocus: false }),
+            () => {
+                const { onBlur } = this.props;
+                if (typeof onBlur === 'function') {
+                    onBlur(event);
+                }
+            }
+        );
+    }
 
-        if (typeof onBlur === 'function') {
-            onBlur(event);
-        }
+    handleChange(event) {
+        const { value } = event.currentTarget;
+
+        this.setState(
+            () => ({ value }),
+            () => {
+                const { onChange } = this.props;
+                if (typeof onChange === 'function') {
+                    onChange(event);
+                }
+            }
+        );
     }
 
     render() {
@@ -40,16 +66,14 @@ class TextField extends Component {
             disabled,
             placeholder,
             value,
-            onChange,
             addon,
             helperText,
-            error,
-            ...otherProps
+            error
         } = this.props;
-        const { focused } = this.state;
+        const { hasFocus } = this.getState();
         const classes = classNames(
             'text-field',
-            focused && 'text-field--focused',
+            hasFocus && 'text-field--focused',
             error && 'text-field--error',
             darkMode && 'text-field--dark',
             className
@@ -61,7 +85,6 @@ class TextField extends Component {
                     <strong className="text-field-label">{label}</strong>
                     <span className="text-field-input-group">
                         <input
-                            {...otherProps}
                             className="text-field-input"
                             id={id}
                             disabled={disabled}
@@ -69,7 +92,7 @@ class TextField extends Component {
                             name={name}
                             placeholder={placeholder}
                             value={value}
-                            onChange={onChange}
+                            onChange={event => this.handleChange(event)}
                             onFocus={event => this.handleFocus(event)}
                             onBlur={event => this.handleBlur(event)}
                         />
@@ -97,17 +120,20 @@ TextField.propTypes = {
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
     value: PropTypes.string,
+    defaultValue: PropTypes.string,
+    hasFocus: PropTypes.bool,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    addon: PropTypes.string,
+    addon: PropTypes.node,
     helperText: PropTypes.node,
     error: PropTypes.string
 };
 TextField.defaultProps = {
     darkMode: false,
     type: 'text',
-    disabled: false
+    disabled: false,
+    defaultValue: ''
 };
 
 export default TextField;

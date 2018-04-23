@@ -1,5 +1,5 @@
 DateField example:
 
-```
-<DateField label="Date field"/>
+```jsx
+<DateField label="Selected since" />
 ```

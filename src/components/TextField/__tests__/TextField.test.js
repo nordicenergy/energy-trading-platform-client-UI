@@ -89,8 +89,25 @@ describe('<TextField /> component', () => {
 
     it('should calls onChange callback when input value was changed', () => {
         const textField = renderComponent();
+        const eventMock = {
+            currentTarget: {
+                value: 'test'
+            }
+        };
 
-        textField.find('.text-field-input').simulate('change');
-        expect(onChangeMock).toHaveBeenCalled();
+        textField.find('.text-field-input').simulate('change', eventMock);
+        expect(onChangeMock).toHaveBeenCalledWith(eventMock);
+    });
+
+    it('should not calls onChange if onChange is not a function', () => {
+        const textField = renderComponent({ onChange: null });
+        const eventMock = {
+            currentTarget: {
+                value: 'test'
+            }
+        };
+
+        textField.find('.text-field-input').simulate('change', eventMock);
+        expect(onChangeMock).not.toHaveBeenCalled();
     });
 });

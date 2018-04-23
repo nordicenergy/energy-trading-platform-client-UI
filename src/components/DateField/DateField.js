@@ -1,152 +1,115 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import DatePicker from 'antd/lib/date-picker';
-import DE from 'antd/lib/date-picker/locale/de_DE';
-import EN from 'antd/lib/date-picker/locale/en_US';
-import CalendarIcon from './CalendarIcon';
-import 'antd/lib/date-picker/style/index.css';
+import classNames from 'classnames';
+import pick from 'lodash.pick';
+import moment from 'moment/moment';
+import { DATE_FORMAT } from '../../constants';
+import TextField from '../TextField';
+import DatePicker, { DateLabelsPropType, DATE_PICKER_HEIGHT } from './DatePicker';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faCalendarAlt } from '@fortawesome/fontawesome-free-solid';
 import './DateField.css';
 
-import { DATE_FORMAT } from '../../constants';
+const SECOND = 1000; // milliseconds.
 
-const pickerLocales = {
-    de: DE,
-    en: EN
-};
-
-class DateField extends React.Component {
+class DateField extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpened: false,
-            date: undefined
+            value: parseInt(props.defaultValue, 10),
+            hasFocus: false,
+            datePickerPosition: 'top'
         };
     }
 
-    componentDidUpdate({ value }) {
-        // FIXME @vlad.nickulcha@instinctools.ru
-        // if (this.props.value !== value) {
-        //     this.setState({
-        //         date: this.props.value
-        //     });
-        // }
+    getState() {
+        return { ...this.state, ...pick(this.props, ['value']) };
     }
 
-    onOkHandler(event) {
-        event.preventDefault();
-        if (this.props.value !== this.state.date) {
-            this.props.onOk(this.state.date);
+    getFormattedDate() {
+        const { value } = this.getState();
+
+        if (!value || isNaN(value)) {
+            return '';
         }
-        this.setState({ isOpened: false });
+
+        const date = new Date(value * SECOND);
+        return moment(date).format(DATE_FORMAT);
     }
 
-    onCancelHandler(event) {
-        event.preventDefault();
-        if (this.state.date !== this.props.value) {
-            this.setState({
-                date: this.props.value
-            });
-        }
-        this.setState({
-            isOpened: false
-        });
-        this.props.onCancel();
-    }
+    handleFocus() {
+        const dateFieldBounds = this.dateFieldRef.getBoundingClientRect();
+        const datePickerPosition = dateFieldBounds.top >= DATE_PICKER_HEIGHT ? 'top' : 'bottom';
 
-    handleFocus(event) {
-        const { onFocus } = this.props;
-        this.setState({ isOpened: true });
-
-        if (typeof onFocus === 'function') {
-            onFocus(event);
-        }
-    }
-
-    handleBlur(event) {
-        const { onBlur } = this.props;
-
-        if (typeof onBlur === 'function') {
-            onBlur(event);
-        }
-    }
-
-    renderFooter() {
-        return (
-            <div className="footer-buttons">
-                <button className="cancel-button" onClick={event => this.onCancelHandler(event)}>
-                    Cancel
-                </button>
-                <button className="ok-button" onClick={event => this.onOkHandler(event)}>
-                    Ok
-                </button>
-            </div>
-        );
+        this.setState(() => ({
+            hasFocus: true,
+            datePickerPosition
+        }));
     }
 
     handleChange(date) {
-        const formattedDate = date.format('YYYY-MM-DD');
-        this.setState({
-            date: formattedDate
-        });
+        const timestamp = parseInt(date.getTime() / SECOND, 10);
+        this.setState(
+            () => ({ value: timestamp }),
+            () => {
+                const { onChange } = this.props;
+                if (typeof onChange === 'function') {
+                    onChange(timestamp);
+                }
+            }
+        );
+    }
+
+    handleOnCancel() {
+        this.setState(() => ({ hasFocus: false }));
+    }
+
+    handleConfirm(date) {
+        this.setState(() => ({ hasFocus: false }), () => this.handleChange(date));
+    }
+
+    renderDatePicker() {
+        const { datePickerLabels } = this.props;
+        const { value, hasFocus, datePickerPosition } = this.getState();
+        const classes = classNames('date-field-datepicker', `date-field-datepicker--${datePickerPosition}`);
+
+        if (hasFocus) {
+            return (
+                <DatePicker
+                    className={classes}
+                    position={datePickerPosition}
+                    labels={datePickerLabels}
+                    date={!value || isNaN(value) ? new Date() : new Date(value * SECOND)}
+                    onChange={date => this.handleChange(date)}
+                    onCancel={() => this.handleOnCancel()}
+                    onConfirm={date => this.handleConfirm(date)}
+                />
+            );
+        }
+
+        return null;
     }
 
     render() {
-        const {
-            props: {
-                label,
-                error,
-                darkMode,
-                className,
-                disabled,
-                placeholder,
-                helperText,
-                showToday,
-                locale,
-                renderTo,
-                format
-            },
-            state: { isOpened, date }
-        } = this;
-        const renderContainer = document.querySelector(renderTo);
-        const classes = classNames(
-            'date-picker-field',
-            isOpened && 'date-picker-field--focused',
-            error && 'date-picker-field--error',
-            darkMode && 'date-picker-field--dark',
-            className
+        const { label, error } = this.props;
+        const { hasFocus } = this.state;
+        const addon = (
+            <span className="date-field-addon">
+                <FontAwesomeIcon icon={faCalendarAlt} />
+            </span>
         );
+
         return (
-            <div className={classes}>
-                <label className="date-picker-field-layout">
-                    <strong className="date-picker-field-label">{label}</strong>
-                    <div className="date-picker-field-input-group">
-                        <DatePicker
-                            format={format}
-                            getCalendarContainer={() => renderContainer}
-                            locale={pickerLocales[locale]}
-                            showToday={showToday}
-                            disabled={disabled}
-                            placeholder={placeholder}
-                            open={isOpened}
-                            value={moment(date || Date.now())}
-                            onFocus={event => this.handleFocus(event)}
-                            onBlur={event => this.handleBlur(event)}
-                            onChange={(date, dateString) => this.handleChange(date, dateString)}
-                            renderExtraFooter={() => this.renderFooter()}
-                        />
-                        <span className="date-picker-field-addon">
-                            <CalendarIcon />
-                        </span>
-                    </div>
-                </label>
-                {helperText && <p className="date-picker-field-helper-text">{helperText}</p>}
-                {error && (
-                    <div role="alert" className="date-picker-field-error">
-                        {error}
-                    </div>
-                )}
+            <div className="date-field" ref={ref => (this.dateFieldRef = ref)}>
+                <TextField
+                    label={label}
+                    addon={addon}
+                    value={this.getFormattedDate()}
+                    error={error}
+                    hasFocus={hasFocus}
+                    onFocus={event => this.handleFocus(event)}
+                />
+                {this.renderDatePicker()}
             </div>
         );
     }
@@ -154,33 +117,34 @@ class DateField extends React.Component {
 
 DateField.propTypes = {
     className: PropTypes.string,
-    darkMode: PropTypes.bool,
     label: PropTypes.string.isRequired,
-    id: PropTypes.string,
-    type: PropTypes.string,
-    name: PropTypes.string,
-    disabled: PropTypes.bool,
-    placeholder: PropTypes.string,
+    datePickerLabels: DateLabelsPropType,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    addon: PropTypes.node,
-    helperText: PropTypes.node,
     error: PropTypes.string,
-    showToday: PropTypes.bool,
-    renderTo: PropTypes.string,
-    format: PropTypes.string
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    onChange: PropTypes.func
 };
 DateField.defaultProps = {
-    darkMode: false,
-    type: 'text',
-    showToday: false,
-    disabled: false,
-    onCancel: () => {},
-    onOk: () => {},
-    renderTo: 'body',
-    format: DATE_FORMAT
+    datePickerLabels: {
+        days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        months: [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ],
+        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    }
 };
 
 export default DateField;
