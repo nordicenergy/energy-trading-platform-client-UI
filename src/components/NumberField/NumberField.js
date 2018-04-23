@@ -74,16 +74,13 @@ class NumberField extends Component {
     }
 
     render() {
-        const { className, label, units, id } = this.props;
+        const { id, className } = this.props;
         const { value } = this.getState();
         const step = this.getStep(value);
         const classes = classNames('number-field', className);
 
         return (
             <div className={classes}>
-                <label className="number-field-label" htmlFor={id}>
-                    {label}
-                </label>
                 <LongPressButton sign="-" onPress={() => this.handlePress()} />
                 <input
                     className="number-field-input"
@@ -94,7 +91,6 @@ class NumberField extends Component {
                     onChange={event => this.handleOnChange(event)}
                 />
                 <LongPressButton sign="+" onPress={() => this.handlePress(true)} />
-                {units && <small className="number-field-units">{units}</small>}
             </div>
         );
     }
@@ -102,8 +98,6 @@ class NumberField extends Component {
 
 NumberField.propTypes = {
     className: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    units: PropTypes.string,
     step: PropTypes.number,
     id: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

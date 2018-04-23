@@ -4,14 +4,6 @@
     font-size: 1rem;
 }
 
-.number-field-label {
-    padding-right: 2.25rem;
-    color: var(--label-color);
-    white-space: nowrap;
-    font-weight: 700;
-    font-size: 0.875rem;
-}
-
 .number-field-input {
     flex: 1;
     min-width: 0;
@@ -28,11 +20,4 @@
 .number-field-input::-webkit-outer-spin-button,
 .number-field-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
-}
-
-.number-field-units {
-    padding-left: 1.5rem;
-    color: var(--label-color);
-    font-weight: 600;
-    font-size: 0.875rem;
 }

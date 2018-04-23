@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import NumberField from '../NumberField';
 
-function renderComponent({ label = 'Delta to Market Price', ...otherProps } = {}, mountFn = shallow) {
-    return mountFn(<NumberField label={label} {...otherProps} />);
+function renderComponent({ id = 'test', ...otherProps } = {}, mountFn = shallow) {
+    return mountFn(<NumberField id={id} {...otherProps} />);
 }
 
 describe('<NumberField /> component', () => {
@@ -12,10 +12,10 @@ describe('<NumberField /> component', () => {
     });
 
     it('should renders without errors', () => {
-        const numberField = renderComponent({ units: 'cent' });
+        const numberField = renderComponent();
 
-        expect(numberField.find('.number-field-units')).toHaveLength(1);
-        expect(numberField.find('.number-field-units').text()).toBe('cent');
+        expect(numberField.find('LongPressButton[sign="-"]')).toHaveLength(1);
+        expect(numberField.find('LongPressButton[sign="+"]')).toHaveLength(1);
     });
 
     it('should updates state when input value was changed', () => {

@@ -91,7 +91,7 @@ class DateField extends Component {
     }
 
     render() {
-        const { label } = this.props;
+        const { label, error } = this.props;
         const { hasFocus } = this.state;
         const addon = (
             <span className="date-field-addon">
@@ -105,6 +105,7 @@ class DateField extends Component {
                     label={label}
                     addon={addon}
                     value={this.getFormattedDate()}
+                    error={error}
                     hasFocus={hasFocus}
                     onFocus={event => this.handleFocus(event)}
                 />
@@ -119,6 +120,7 @@ DateField.propTypes = {
     label: PropTypes.string.isRequired,
     datePickerLabels: DateLabelsPropType,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    error: PropTypes.string,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func
 };
