@@ -104,6 +104,10 @@
 
     --confirm-dialog-border-color: var(--darker-mystic-color);
 
+    --offer-card-price-color: var(--nobel-color);
+    --offer-card-energy-type-color: var(--black-pearl-color);
+    --offer-card-box-shadow: var(--transparent-geyser-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
