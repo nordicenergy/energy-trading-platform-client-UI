@@ -2,27 +2,31 @@ import React from 'react';
 import OfferCard from '../OfferCard';
 import { mount } from 'enzyme';
 
-function renderComponent({
-    id = '01',
-    startPeriod = 1502236800,
-    endPeriod = 1505001600,
-    price = 2.9,
-    energyType = 'wind',
-    onClick = () => {},
-    labels = {
-        editButton: 'Edit'
-    }
+function renderComponent(
+    {
+        id = '01',
+        startPeriod = 1502236800,
+        endPeriod = 1505001600,
+        price = 2.9,
+        energyType = 'wind',
+        onClick = () => {},
+        labels = {
+            editButton: 'Edit'
+        }
     },
-    mountFn = mount) {
-    return mountFn(<OfferCard
-        id={id}
-        startPeriod={startPeriod}
-        endPeriod={endPeriod}
-        price={price}
-        energyType={energyType}
-        onClick={onClick}
-        labels={labels}
-    />);
+    mountFn = mount
+) {
+    return mountFn(
+        <OfferCard
+            id={id}
+            startPeriod={startPeriod}
+            endPeriod={endPeriod}
+            price={price}
+            energyType={energyType}
+            onClick={onClick}
+            labels={labels}
+        />
+    );
 }
 
 describe('<OfferCard /> component', () => {
@@ -47,7 +51,6 @@ describe('<OfferCard /> component', () => {
         expect(component.find('.period-info').text()).toBe('Aug 9 - Sep 10');
         expect(component.find('.price-container .price').text()).toBe('2.9');
         expect(component.find('.energy-type').text()).toBe('wind');
-
     });
 
     it('should call onClick handler', () => {
@@ -59,5 +62,5 @@ describe('<OfferCard /> component', () => {
         expect(onClickMock).toHaveBeenCalledTimes(1);
         component.find('.period-info span').simulate('click');
         expect(onClickMock).toHaveBeenCalledTimes(2);
-    })
+    });
 });

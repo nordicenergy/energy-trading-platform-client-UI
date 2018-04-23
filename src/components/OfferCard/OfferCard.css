@@ -63,7 +63,8 @@
     transition: color 0.2s ease-in;
 }
 
-.offer-card .edit-button:hover, .offer-card .period-info span:hover {
+.offer-card .edit-button:hover,
+.offer-card .period-info span:hover {
     color: var(--button-hover-color);
 }
 
@@ -94,4 +95,3 @@
     text-transform: uppercase;
     font-weight: 600;
 }
-

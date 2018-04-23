@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from "moment/moment";
+import moment from 'moment/moment';
 import './OfferCard.css';
 
 const OfferCard = ({ id, startPeriod, endPeriod, price, energyType, onClick, labels }) => (
@@ -8,14 +8,20 @@ const OfferCard = ({ id, startPeriod, endPeriod, price, energyType, onClick, lab
         <div className="offer-card-header">
             <div className="offer-id">{id}</div>
             <div className="edit-button-container">
-                <button className="edit-button" onClick={onClick}>{labels.editButton}</button>
+                <button className="edit-button" onClick={onClick}>
+                    {labels.editButton}
+                </button>
             </div>
         </div>
         <div className="period-info">
-            <span onClick={onClick}>{renderPeriodDate(startPeriod)} - {renderPeriodDate(endPeriod)}</span>
+            <span onClick={onClick}>
+                {renderPeriodDate(startPeriod)} - {renderPeriodDate(endPeriod)}
+            </span>
         </div>
         <div className="offer-card-footer">
-            <div className="price-container"><span className="price">{price}</span> ct/kWh</div>
+            <div className="price-container">
+                <span className="price">{price}</span> ct/kWh
+            </div>
             <div className="energy-type">{energyType}</div>
         </div>
     </div>
