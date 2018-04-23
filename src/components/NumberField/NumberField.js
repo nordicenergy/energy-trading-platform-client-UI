@@ -48,14 +48,10 @@ class NumberField extends Component {
         const step = isIncrease ? this.getStep(valueFloat) : -this.getStep(valueFloat);
         const changedValue = Number((valueFloat + step).toFixed(1));
 
-        this.setState(
-            () => ({ value: changedValue }),
-            () => {
-                if (typeof onChange === 'function') {
-                    onChange(changedValue);
-                }
-            }
-        );
+        this.setState({ value: changedValue });
+        if (typeof onChange === 'function') {
+            onChange(changedValue);
+        }
     }
 
     handleOnChange(event) {
@@ -63,14 +59,10 @@ class NumberField extends Component {
         const { value } = event.currentTarget;
         const valueFloat = Number(value);
 
-        this.setState(
-            () => ({ value: valueFloat }),
-            () => {
-                if (typeof onChange === 'function') {
-                    onChange(valueFloat);
-                }
-            }
-        );
+        this.setState({ value: valueFloat });
+        if (typeof onChange === 'function') {
+            onChange(valueFloat);
+        }
     }
 
     render() {

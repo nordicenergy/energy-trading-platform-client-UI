@@ -18,41 +18,31 @@ class TextField extends Component {
     }
 
     handleFocus(event) {
-        this.setState(
-            () => ({ hasFocus: true }),
-            () => {
-                const { onFocus } = this.props;
-                if (typeof onFocus === 'function') {
-                    onFocus(event);
-                }
-            }
-        );
+        const { onFocus } = this.props;
+
+        this.setState({ hasFocus: true });
+        if (typeof onFocus === 'function') {
+            onFocus(event);
+        }
     }
 
     handleBlur(event) {
-        this.setState(
-            () => ({ hasFocus: false }),
-            () => {
-                const { onBlur } = this.props;
-                if (typeof onBlur === 'function') {
-                    onBlur(event);
-                }
-            }
-        );
+        const { onBlur } = this.props;
+
+        this.setState({ hasFocus: false });
+        if (typeof onBlur === 'function') {
+            onBlur(event);
+        }
     }
 
     handleChange(event) {
+        const { onChange } = this.props;
         const { value } = event.currentTarget;
 
-        this.setState(
-            () => ({ value }),
-            () => {
-                const { onChange } = this.props;
-                if (typeof onChange === 'function') {
-                    onChange(event);
-                }
-            }
-        );
+        this.setState({ value });
+        if (typeof onChange === 'function') {
+            onChange(event);
+        }
     }
 
     render() {
