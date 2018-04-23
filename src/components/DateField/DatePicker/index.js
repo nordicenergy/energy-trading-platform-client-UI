@@ -1,1 +1,1 @@
-export { default, DateLabelsPropType, DATE_PICKER_HEIGHT } from './DatePicker';
+export { default, DateLabelsPropType } from './DatePicker';

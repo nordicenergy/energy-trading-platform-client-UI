@@ -11,7 +11,6 @@ export const DateLabelsPropType = PropTypes.shape({
     months: PropTypes.arrayOf(PropTypes.string).isRequired,
     monthsShort: PropTypes.arrayOf(PropTypes.string).isRequired
 });
-export const DATE_PICKER_HEIGHT = 362; // pixels
 
 class DatePicker extends Component {
     constructor(props) {
