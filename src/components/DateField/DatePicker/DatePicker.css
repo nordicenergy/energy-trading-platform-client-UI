@@ -132,15 +132,15 @@
 
 .date-picker .pmu-days > * {
     box-sizing: border-box;
-    margin: 0.25rem calc((14.285% - 1.75rem) / 2);
-    padding-top: 0.125rem;
-    width: 1.75rem;
-    height: 1.5rem;
-    border-radius: 0.25rem;
+    margin: 0.285em calc((14.285% - 2em) / 2);
+    padding-top: 0.145em;
+    width: 2em;
+    height: 1.715em;
+    border-radius: 0.285em;
     text-align: center;
     font-weight: 600;
     font-size: 0.875em;
-    line-height: 1.5rem;
+    line-height: 1.715em;
     cursor: pointer;
 }
 

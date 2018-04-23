@@ -49,9 +49,9 @@
 .select-control {
     display: flex;
     align-items: center;
-    padding-right: 2rem;
+    padding-right: 2em;
     width: 100%;
-    height: 2.5rem;
+    height: 2.5em;
 }
 
 .select-control-text {
