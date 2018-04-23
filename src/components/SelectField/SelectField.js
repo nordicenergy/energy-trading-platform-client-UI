@@ -37,26 +37,22 @@ class SelectField extends Component {
     }
 
     handleBodyClick(event) {
-        this.setState(prevState => ({
-            isFocused: prevState.isFocused
+        const { isFocused } = this.getState();
+
+        this.setState({
+            isFocused: isFocused
                 ? false
                 : !!(this.layoutRef.compareDocumentPosition(event.target) & Node.DOCUMENT_POSITION_CONTAINED_BY)
-        }));
+        });
     }
 
     handleOptionMouseDown(option) {
         const { onChange } = this.props;
-        this.setState(
-            () => ({
-                selectedOption: option,
-                isFocused: false
-            }),
-            () => {
-                if (typeof onChange === 'function') {
-                    onChange(option);
-                }
-            }
-        );
+
+        this.setState({ selectedOption: option, isFocused: false });
+        if (typeof onChange === 'function') {
+            onChange(option);
+        }
     }
 
     renderOption(option) {

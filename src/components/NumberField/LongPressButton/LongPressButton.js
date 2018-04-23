@@ -41,11 +41,12 @@ class LongPressButton extends Component {
     }
 
     handleMouseDown() {
-        this.setState(() => ({ isPressed: true }), this.handlePress);
+        this.setState({ isPressed: true });
+        this.handlePress();
     }
 
     handleMouseUp() {
-        this.setState(() => ({ isPressed: false }));
+        this.setState({ isPressed: false });
     }
 
     render() {
