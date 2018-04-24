@@ -55,6 +55,7 @@ class LongPressButton extends Component {
 
         return (
             <button
+                type="button"
                 className={classes}
                 onMouseDown={() => this.handleMouseDown()}
                 onMouseUp={() => this.handleMouseUp()}
