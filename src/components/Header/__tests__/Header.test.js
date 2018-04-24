@@ -15,7 +15,7 @@ describe('<Header /> Component', () => {
         - 2 <HeaderButton> components`, () => {
         const component = renderComponent({});
 
-        expect(component.find('HeaderButton').length).toBe(2);
+        expect(component.find('HeaderButton').length).toBe(1);
         expect(component.find('Logo').length).toBe(1);
         expect(component.find('header.header-desktop').length).toBe(1);
     });
@@ -27,7 +27,7 @@ describe('<Header /> Component', () => {
         });
         component
             .find('HeaderButton')
-            .at(1)
+            .at(0)
             .find('button')
             .simulate('click');
         expect(onLogoutButtonClickHandler).toHaveBeenCalled();
@@ -38,7 +38,7 @@ describe('<Header /> Component', () => {
         Header.prototype.logout = jest.fn();
         component
             .find('HeaderButton')
-            .at(1)
+            .at(0)
             .find('button')
             .simulate('click');
         expect(Header.prototype.logout).toHaveBeenCalled();

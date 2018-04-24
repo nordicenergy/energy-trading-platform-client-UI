@@ -46,8 +46,8 @@ export class BuyEnergy extends AbstractContainer {
         const { formatMessage } = context.intl;
         const breadcrumbs = [
             {
-                ...PATHS.trading,
-                label: formatMessage(PATHS.trading.label)
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
             },
             {
                 ...PATHS.buyEnergy,
@@ -145,7 +145,7 @@ export class BuyEnergy extends AbstractContainer {
 
     handleProducerClick(producerId) {
         const { history } = this.context.router;
-        history.push(`/${PATHS.trading.id}/${PATHS.buyEnergy.id}/${PATHS.producer.id}/${producerId}`);
+        history.push(`${PATHS.buyEnergy.path}/${PATHS.producer.id}/${producerId}`);
     }
 
     render() {

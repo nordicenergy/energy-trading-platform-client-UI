@@ -1,34 +1,15 @@
-import { defineMessages } from 'react-intl';
+import { PlantType as messages } from '../services/translations/messages';
 import { PLANT_TYPES } from '../constants';
-
-const labels = defineMessages({
-    biomass: {
-        id: 'app.plantType.biomass',
-        defaultMessage: 'Biomass'
-    },
-    solar: {
-        id: 'app.plantType.solar',
-        defaultMessage: 'Solar'
-    },
-    wind: {
-        id: 'app.plantType.wind',
-        defaultMessage: 'Wind'
-    },
-    other: {
-        id: 'app.plantType.other',
-        defaultMessage: 'Other'
-    }
-});
 
 export function convertPlantType(type) {
     switch (type) {
         case PLANT_TYPES.biomass:
-            return labels.biomass;
+            return messages.biomass;
         case PLANT_TYPES.solar:
-            return labels.solar;
+            return messages.solar;
         case PLANT_TYPES.wind:
-            return labels.wind;
+            return messages.wind;
         default:
-            return labels.other;
+            return messages.other;
     }
 }

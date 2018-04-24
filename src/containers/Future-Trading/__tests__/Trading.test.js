@@ -55,7 +55,7 @@ describe('<Trading /> Container', () => {
 
         expect(context.router.history.push.mock.calls.length).toEqual(1);
         const [[route]] = context.router.history.push.mock.calls;
-        expect(route).toEqual('/trading/wattcoin');
+        expect(route).toEqual('/show_transactions');
         expect(table.props().labels).toEqual({
             button: 'test',
             caption: 'test',

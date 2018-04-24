@@ -11,8 +11,8 @@ export class SellEnergy extends AbstractContainer {
         const { formatMessage } = context.intl;
         const breadcrumbs = [
             {
-                ...PATHS.trading,
-                label: formatMessage(PATHS.trading.label)
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
             },
             {
                 ...PATHS.sellEnergy,

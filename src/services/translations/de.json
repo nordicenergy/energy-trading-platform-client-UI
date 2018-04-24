@@ -12,6 +12,13 @@
     "app.plantType.wind": "Wind",
     "app.plantType.other": "Other",
 
+    "app.breadCrumbs.overview": "Trading",
+    "app.breadCrumbs.showTransactions": "Show Transactions",
+    "app.breadCrumbs.myProducer": "My Producer",
+    "app.breadCrumbs.producer": "Selected Producer",
+    "app.breadCrumbs.sellEnergy": "Sell Energy",
+    "app.breadCrumbs.buyEnergy": "Buy Energy",
+
     "app.restorePasswordPage.formTitle": "Restore password",
     "app.restorePasswordPage.emailField": "Enter Your Email",
     "app.restorePasswordPage.sendButton": "Send",
@@ -38,12 +45,6 @@
     "app.navigationCardsPanel.buyEnergy": "Buy Energy",
     "app.navigationCardsPanel.sellEnergy": "Sell Energy",
 
-    "app.breadCrumbs.sellEnergy": "Sell Energy",
-    "app.breadCrumbs.buyEnergy": "Buy Energy",
-    "app.breadCrumbs.myProducer": "My Producer",
-    "app.breadCrumbs.trading": "Trading",
-    "app.breadCrumbs.wattcoin": "Wattcoin",
-
     "app.recentTransactions.title": "Most Recent Transactions",
     "app.recentTransactions.headerDate": "Date",
     "app.recentTransactions.headerTransaction": "Transaction",
@@ -51,14 +52,14 @@
     "app.recentTransactions.currentBalance": "Current Balance",
     "app.recentTransactions.more": "More",
 
-    "app.wattcoinPage.header": "Wattcoin",
-    "app.wattcoinPage.sellCoinsButton": "Sell Coins",
-    "app.wattcoinPage.buyCoinsButton": "Buy Coins",
+    "app.showTransactionsPage.header": "Wattcoin",
+    "app.showTransactionsPage.sellCoinsButton": "Sell Coins",
+    "app.showTransactionsPage.buyCoinsButton": "Buy Coins",
 
     "app.tradingPage.header": "Trading",
     "app.tradingPage.graphTitle": "Amount of energy",
 
-    "app.tradingPage.wattcoinTable.header": "Wattcoin",
+    "app.tradingPage.wattcoinTable.header": "Show Transactions",
     "app.tradingPage.wattcoinTable.moreButton": "More",
     "app.tradingPage.wattcoinTable.trx": "Transaction",
     "app.tradingPage.wattcoinTable.sent": "Sent",
@@ -85,9 +86,8 @@
     "app.producerPage.selectedSince": "Selected since",
     "app.producerPage.location": "Location",
     "app.producerPage.selectButton": "Select Producer",
-    "app.producerPage.backButton": "Back to Producers",
-    "app.producerPage.switchBack": "Switch back to market price purchasing",
-    "app.producerPage.changeButton": "Show other producers",
+    "app.producerPage.switchBack": "Switch back to Lition Standard",
+    "app.producerPage.showButton": "Show producers",
     "app.producerPage.transactionHash": "Transaction hash",
 
     "app.header.logoutConfirmMessage": "Are you sure that you'd like to logout from the system?",

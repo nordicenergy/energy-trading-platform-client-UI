@@ -7,9 +7,6 @@ import {
     Login,
     RestorePassword,
     Overview,
-    Documents,
-    SubmitMetric,
-    Trading,
     Profile,
     Service,
     About,
@@ -18,55 +15,16 @@ import {
     Producer,
     BuyEnergy,
     SellEnergy,
-    Wattcoin
+    ShowTransactions
 } from '../containers';
-import { defineMessages } from 'react-intl';
-
-const pathsLabels = defineMessages({
-    trading: {
-        id: 'app.breadCrumbs.trading',
-        defaultMessage: 'Trading'
-    },
-    wattcoin: {
-        id: 'app.breadCrumbs.wattcoin',
-        defaultMessage: 'Wattcoin'
-    },
-    myProducer: {
-        id: 'app.breadCrumbs.myProducer',
-        defaultMessage: 'My Producer'
-    },
-    producer: {
-        id: 'app.breadCrumbs.producer',
-        defaultMessage: 'Selected Producer'
-    },
-    sellEnergy: {
-        id: 'app.breadCrumbs.sellEnergy',
-        defaultMessage: 'Sell Energy'
-    },
-    buyEnergy: {
-        id: 'app.breadCrumbs.buyEnergy',
-        defaultMessage: 'Buy Energy'
-    }
-});
+import { Breadcrumbs as messages } from '../services/translations/messages';
 
 export const PATHS = {
     overview: {
         id: '',
-        path: '/'
-    },
-    documents: {
-        id: 'documents',
-        path: '/documents'
-    },
-    submit_metric: {
-        id: 'submit_metric',
-        path: '/submit_metric'
-    },
-    trading: {
-        id: 'trading',
-        path: '/trading',
-        icon: 'faChartBar',
-        label: pathsLabels.trading
+        path: '/',
+        icon: 'faHome',
+        label: messages.overview
     },
     profile: {
         id: 'profile',
@@ -86,28 +44,28 @@ export const PATHS = {
     },
     myProducer: {
         id: 'my_producer',
-        path: '/trading/my_producer',
-        label: pathsLabels.myProducer
+        path: '/my_producer',
+        label: messages.myProducer
     },
     producer: {
         id: 'producer',
-        path: '/trading/buy_energy/producer/:producerId',
-        label: pathsLabels.producer
+        path: '/buy_energy/producer/:producerId',
+        label: messages.producer
     },
     buyEnergy: {
         id: 'buy_energy',
-        path: '/trading/buy_energy',
-        label: pathsLabels.buyEnergy
+        path: '/buy_energy',
+        label: messages.buyEnergy
     },
     sellEnergy: {
         id: 'sell_energy',
-        label: pathsLabels.sellEnergy,
-        path: '/trading/sell_energy'
+        label: messages.sellEnergy,
+        path: '/sell_energy'
     },
-    wattcoin: {
-        id: 'wattcoin',
-        label: pathsLabels.wattcoin,
-        path: '/trading/wattcoin'
+    showTransactions: {
+        id: 'show_transactions',
+        label: messages.showTransactions,
+        path: '/show_transactions'
     }
 };
 
@@ -120,10 +78,10 @@ const BuyEnergyRoute = () => (
 
 const TradingRoute = () => (
     <React.Fragment>
-        <Route exact path={PATHS.trading.path} component={Trading} />
+        <Route exact path={PATHS.overview.path} component={Overview} />
         <Route path={PATHS.myProducer.path} component={MyProducer} />
         <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
-        <Route path={PATHS.wattcoin.path} component={Wattcoin} />
+        <Route path={PATHS.showTransactions.path} component={ShowTransactions} />
         <BuyEnergyRoute />
     </React.Fragment>
 );
@@ -135,7 +93,6 @@ const PublicRoute = ({ component: Component, ...otherProps }) => (
             if (getToken()) {
                 return <Redirect to="/" />;
             }
-
             return <Component {...props} />;
         }}
     />
@@ -146,9 +103,6 @@ const AppMainLayout = () => {
         return (
             <div id="app-layout">
                 <App>
-                    <Route exact path={PATHS.overview.path} component={Overview} />
-                    <Route path={PATHS.documents.path} component={Documents} />
-                    <Route path={PATHS.submit_metric.path} component={SubmitMetric} />
                     <TradingRoute />
                     <Route path={PATHS.profile.path} component={Profile} />
                     <Route path={PATHS.team.path} component={Team} />

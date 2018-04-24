@@ -58,9 +58,6 @@ export class App extends React.Component {
 
         const icons = {
             '': 'faHome',
-            documents: 'faBook',
-            submit_metric: 'faCalculator',
-            trading: 'faChartBar',
             profile: 'faUser'
         };
 
@@ -71,27 +68,6 @@ export class App extends React.Component {
                 label: formatMessage(messages.overview),
                 active: headRoute === PATHS.overview.id,
                 path: PATHS.overview.path
-            },
-            {
-                id: PATHS.documents.id,
-                icon: icons.documents,
-                label: formatMessage(messages.documents),
-                active: headRoute === PATHS.documents.id,
-                path: PATHS.documents.path
-            },
-            {
-                id: PATHS.submit_metric.id,
-                icon: icons.submit_metric,
-                label: formatMessage(messages.submitMetric),
-                active: headRoute === PATHS.submit_metric.id,
-                path: PATHS.submit_metric.path
-            },
-            {
-                id: PATHS.trading.id,
-                icon: icons.trading,
-                label: formatMessage(messages.trading),
-                active: headRoute === PATHS.trading.id,
-                path: PATHS.trading.path
             },
             {
                 id: PATHS.profile.id,

@@ -27,12 +27,6 @@ class Header extends React.Component {
                     <Breadcrumbs items={this.props.breadCrumbs} onClick={this.props.navigateTo} />
                     <nav className="header-buttons">
                         <HeaderButton
-                            hasIndicator={this.props.notifications && this.props.notifications.length > 0}
-                            label={this.props.notificationLabel}
-                            icon="faBell"
-                            onClickHandler={() => {}}
-                        />
-                        <HeaderButton
                             label={this.props.logoutLabel}
                             icon="faSignOutAlt"
                             onClickHandler={() => this.logout()}

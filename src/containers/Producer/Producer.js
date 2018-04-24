@@ -59,8 +59,8 @@ export class Producer extends AbstractContainer {
         if (producer && producer.name) {
             this.setupBreadcrumbs([
                 {
-                    ...PATHS.trading,
-                    label: formatMessage(PATHS.trading.label)
+                    ...PATHS.overview,
+                    label: formatMessage(PATHS.overview.label)
                 },
                 {
                     ...PATHS.buyEnergy,
@@ -102,7 +102,7 @@ export class Producer extends AbstractContainer {
                         {formatMessage(messages.selectButton)}
                     </Button>
                     <Button className="producer-page-back-to-producers" onClick={() => this.backToProducers()}>
-                        {formatMessage(messages.backButton)}
+                        {formatMessage(messages.showButton)}
                     </Button>
                 </section>
             </section>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import WattcoinContainer, { Wattcoin } from '../Wattcoin';
+import ShowTransactionsContainer, { ShowTransactions } from '../ShowTransactions';
 import { CoinButton, Loader, RecentTransactions } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
@@ -99,16 +99,16 @@ const props = {
 function renderContainer() {
     return mountWithIntl(
         <Provider store={store}>
-            <WattcoinContainer context={context} />
+            <ShowTransactionsContainer context={context} />
         </Provider>
     );
 }
 
 function renderComponent() {
-    return shallowWithIntl(<Wattcoin {...props} context={context} />);
+    return shallowWithIntl(<ShowTransactions {...props} context={context} />);
 }
 
-describe('<Wattcoin /> Component', () => {
+describe('<ShowTransactions /> Component', () => {
     beforeEach(() => {
         context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
@@ -119,16 +119,14 @@ describe('<Wattcoin /> Component', () => {
     });
 
     it(`should contains following controls:
-        - 2 <CoinButton /> components;
         - 1 <RecentTransactions /> component;
         - 1 <Loader /> component;
-        - 3 <section> and one with class "overview-page";
+        - 2 <section> and one with class "overview-page";
         - 1 <h1> element;`, () => {
         const component = renderContainer();
 
-        expect(component.find('section.wattcoin-page')).toHaveLength(1);
-        expect(component.find('section')).toHaveLength(3);
-        expect(component.find(CoinButton)).toHaveLength(2);
+        expect(component.find('section.show-transaction-page')).toHaveLength(1);
+        expect(component.find('section')).toHaveLength(2);
         expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(RecentTransactions)).toHaveLength(1);
     });
@@ -145,7 +143,7 @@ describe('<Wattcoin /> Component', () => {
                 balance: 40.4
             },
             labels: {
-                header: 'Wattcoin',
+                header: 'Show Transactions',
                 recentTransactionsMonthlyBalance: 'Monthly Balance',
                 recentTransactionsHeaderAmount: 'Amount',
                 recentTransactionsHeaderDate: 'Date',
@@ -160,23 +158,6 @@ describe('<Wattcoin /> Component', () => {
                 { amount: 0.81, date: 1523707200, id: 2, name: 'Monthly invoice' },
                 { amount: 0.81, date: 1523707200, id: 3, name: 'Bought 23 kWh from Peter' }
             ]
-        });
-
-        const buy = component.find(CoinButton).at(0);
-        const sell = component.find(CoinButton).at(1);
-
-        const buyProps = buy.props();
-        const sellProps = sell.props();
-
-        expect(buyProps).toEqual({
-            disabled: false,
-            label: 'Buy Coins',
-            price: 2.5
-        });
-        expect(sellProps).toEqual({
-            disabled: false,
-            label: 'Sell Coins',
-            price: 2.4
         });
     });
 
@@ -197,7 +178,7 @@ describe('<Wattcoin /> Component', () => {
                 }
             }
         };
-        const props = Wattcoin.mapStateToProps(stateDummy);
+        const props = ShowTransactions.mapStateToProps(stateDummy);
         expect(props).toEqual({
             recentTransactions: 'tx_data',
             user: 'user_data',
@@ -212,17 +193,8 @@ describe('<Wattcoin /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
         const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
-            {
-                icon: 'faChartBar',
-                id: 'trading',
-                label: 'Trading',
-                path: '/trading'
-            },
-            {
-                id: 'wattcoin',
-                label: 'Wattcoin',
-                path: '/trading/wattcoin'
-            }
+            { icon: 'faHome', id: '', label: 'Trading', path: '/' },
+            { id: 'show_transactions', label: 'Show Transactions', path: '/show_transactions' }
         ]);
 
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(1);

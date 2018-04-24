@@ -49,17 +49,13 @@ const messages = defineMessages({
         id: 'app.producerPage.selectButton',
         defaultMessage: 'Select producer'
     },
-    changeButton: {
-        id: 'app.producerPage.changeButton',
-        defaultMessage: 'Show other producers'
-    },
-    backButton: {
-        id: 'app.producerPage.backButton',
-        defaultMessage: 'Back to producers'
+    showButton: {
+        id: 'app.producerPage.showButton',
+        defaultMessage: 'Show producers'
     },
     switchBack: {
         id: 'app.producerPage.switchBack',
-        defaultMessage: 'Switch back to market price purchasing'
+        defaultMessage: 'Switch back to Lition Standard'
     },
     transactionHash: {
         id: 'app.producerPage.transactionHash',

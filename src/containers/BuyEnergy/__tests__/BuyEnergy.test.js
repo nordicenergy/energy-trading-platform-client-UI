@@ -169,7 +169,7 @@ describe('<BuyEnergy /> container', () => {
             .find('ProducerCardsPanel')
             .props()
             .onProducerClick(1);
-        expect(historyMock.push).toHaveBeenCalledWith('/trading/buy_energy/producer/1');
+        expect(historyMock.push).toHaveBeenCalledWith('/buy_energy/producer/1');
     });
 
     it('should update state when filter option was clicked', () => {

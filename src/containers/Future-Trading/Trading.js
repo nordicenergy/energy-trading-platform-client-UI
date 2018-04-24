@@ -7,13 +7,15 @@ import { PATHS } from '../../services/routes';
 import { Trading as messages } from '../../services/translations/messages';
 import './Trading.css';
 
+// TODO: In future we replace current trading container by this, and rename old in overview
+
 export class Trading extends AbstractContainer {
     constructor(props, context) {
         const { formatMessage } = context.intl;
         const breadcrumbs = [
             {
-                ...PATHS.trading,
-                label: formatMessage(PATHS.trading.label)
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
             }
         ];
         super(props, context, breadcrumbs);
@@ -30,7 +32,7 @@ export class Trading extends AbstractContainer {
     render() {
         const { formatMessage } = this.context.intl;
 
-        // TODO will receive this data from server-side
+        // TODO will receive this data from server-side, need implement action performer and reducer case
         const data = {
             dates: [
                 '2018-07-30',
@@ -80,7 +82,7 @@ export class Trading extends AbstractContainer {
                 received: formatMessage(messages.wattcoinTableReceived),
                 button: formatMessage(messages.wattcoinTableMore)
             },
-            // TODO will receive this data from server-side
+            // TODO will receive this data from server-side, need implement action performer and reducer case
             data: {
                 producer: 'Peter Producer',
                 type: 'Solar panels',
@@ -102,7 +104,7 @@ export class Trading extends AbstractContainer {
                     }}
                     navigationCards={navigationCards}
                 />
-                <WattcoinTable {...wattcoinProps} onMoreClick={() => this.navigateTo(PATHS.wattcoin.path)} />
+                <WattcoinTable {...wattcoinProps} onMoreClick={() => this.navigateTo(PATHS.showTransactions.path)} />
                 <EnergyAmountGraph title={formatMessage(messages.graphTitle)} subtitle="Peter Producer" data={data} />
             </section>
         );
