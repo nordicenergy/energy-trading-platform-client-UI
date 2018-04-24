@@ -1,0 +1,85 @@
+.delta-field {
+    width: 100%;
+    border: none;
+    color: var(--label-color);
+    table-layout: fixed;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.delta-field tr,
+.delta-field td {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border: none;
+}
+
+.delta-field tr > *:nth-child(1) {
+    padding-right: 2em;
+    padding-left: 2.25em;
+    width: 44%;
+}
+
+.delta-field tr > *:nth-child(2) {
+    position: relative;
+    padding-right: 1em;
+    width: 44%;
+}
+
+.delta-field tr > *:nth-child(3) {
+    padding-right: 1.145em;
+    width: 12%;
+    text-align: right;
+    font-size: 0.875em;
+}
+
+.delta-field-value-row {
+    height: 3em;
+    background: var(--aqua-haze-color);
+}
+
+.delta-field-input-row {
+    height: 7em;
+}
+
+.delta-field-value {
+    position: absolute;
+    top: 0;
+    right: 1em;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--delta-field-value-color);
+}
+
+.delta-field-value > small {
+    margin-left: 0.25em;
+    text-transform: capitalize;
+    font-size: inherit;
+}
+
+.delta-field-value--before:after {
+    position: absolute;
+    bottom: -0.375em;
+    width: 0;
+    height: 0;
+    border-width: 0.375em 0.375em 0 0.375em;
+    border-style: solid;
+    border-color: var(--delta-field-row-color) transparent transparent transparent;
+    content: '';
+}
+
+.delta-field-value--after:before {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-width: 0.375em 0.375em 0 0.375em;
+    border-style: solid;
+    border-color: white transparent transparent transparent;
+    content: '';
+}
