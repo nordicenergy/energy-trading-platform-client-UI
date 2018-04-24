@@ -165,11 +165,11 @@ export class Profile extends AbstractContainer {
     }
 
     render() {
-        const { locale } = this.context.intl;
+        const { locale, formatMessage } = this.context.intl;
         const labels = this.prepareLabels(messages);
         return (
             <section className="profile-page">
-                <h1>Profile</h1>
+                <h1>{formatMessage(messages.header)}</h1>
                 <div className="profile-form-container">
                     <ProfileForm
                         locale={locale}
