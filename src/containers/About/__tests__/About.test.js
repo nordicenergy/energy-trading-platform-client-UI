@@ -43,10 +43,8 @@ function renderComponent(mountFn = shallowWithIntl) {
     return mountFn(<About {...props} context={context} />);
 }
 
-describe('<MyProducer /> Component', () => {
+describe('<About /> Component', () => {
     beforeEach(() => {
-        context.intl.formatMessage = jest.fn();
-        context.intl.formatMessage.mockReturnValue('test');
         notificationActions.performPushNotification = jest.fn();
         aboutActionPerformers.performGetAboutUsInfo = jest.fn();
     });
