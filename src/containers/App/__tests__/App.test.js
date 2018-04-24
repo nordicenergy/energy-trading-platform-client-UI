@@ -41,7 +41,7 @@ describe('Main <App /> Component', () => {
     it('should setup correct translations', () => {
         const component = renderComponent(context);
         component.setContext(context);
-        expect(context.intl.formatMessage.mock.calls.length).toEqual(11);
+        expect(context.intl.formatMessage.mock.calls.length).toEqual(10);
     });
 
     it('should returns correct props', () => {
@@ -110,11 +110,6 @@ describe('Main <App /> Component', () => {
             {
                 active: false,
                 href: '/about',
-                label: 'test'
-            },
-            {
-                active: false,
-                href: '/team',
                 label: 'test'
             },
             {

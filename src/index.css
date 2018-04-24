@@ -116,6 +116,8 @@
     --delta-field-row-color: var(--aqua-haze-color);
     --delta-field-value-color: var(--black-pearl-color);
 
+    --about-us-info-text-color: var(--big-stone-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;

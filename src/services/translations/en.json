@@ -94,6 +94,9 @@
     "app.header.logoutConfirmButton": "Yes",
     "app.header.logoutCancelButton": "No",
 
+    "app.aboutPage.header": "About Us",
+
+    "app.profilePage.header": "Profile",
     "app.profilePage.errors.firstName": "Enter your first name.",
     "app.profilePage.errors.lastName": "Enter your last name.",
     "app.profilePage.errors.iban": "Enter your IBAN.",
