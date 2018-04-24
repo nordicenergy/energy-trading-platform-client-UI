@@ -10,35 +10,46 @@ const ROWS_LIMIT = 5;
 
 const RecentTransactions = ({ transactions, currentBalance, labels, pagination, onButtonClick }) => (
     <div role="table" className="recent-transactions-container">
-        <div className="table-container">
-            <table>
-                <caption>{labels.recentTransactionsTitle}</caption>
-                <thead>
-                    <tr>
-                        <th id="transactionDateHeader">{labels.recentTransactionsHeaderDate}</th>
-                        <th>{labels.recentTransactionsHeaderTransaction}</th>
-                        <th id="transactionAmountHeader">{labels.recentTransactionsHeaderAmount}</th>
-                    </tr>
-                </thead>
-                <tbody>{renderTableRows(transactions, !pagination)}</tbody>
-            </table>
-        </div>
-        <div role="row" className="recent-transactions-current-balance-row">
-            <span
-                role="cell"
-                aria-describedby="transactionDateHeader"
-                className="recent-transactions-current-balance-date"
-            >
-                {renderDate(currentBalance.date)}
-            </span>
-            <span
-                role="cell"
-                aria-describedby="transactionAmountHeader"
-                className="recent-transactions-current-balance-amount"
-            >
-                {labels.recentTransactionsMonthlyBalance}: {renderAmountText(currentBalance.balance)}
-            </span>
-        </div>
+        <table>
+            <caption>
+                {labels.recentTransactionsTitle}
+                {pagination && (
+                    <div className="recent-transactions-caption-content">
+                        <div>{renderDate(currentBalance.date)}</div>
+                        <div>
+                            {labels.recentTransactionsMonthlyBalance}: {renderAmountText(currentBalance.balance)}
+                        </div>
+                    </div>
+                )}
+            </caption>
+            <thead>
+                <tr>
+                    <th id="transactionDateHeader">{labels.recentTransactionsHeaderDate}</th>
+                    <th>{labels.recentTransactionsHeaderTransaction}</th>
+                    <th id="transactionAmountHeader">{labels.recentTransactionsHeaderAmount}</th>
+                </tr>
+            </thead>
+            <tbody>{renderTableRows(transactions, !pagination)}</tbody>
+        </table>
+
+        {!pagination && (
+            <div role="row" className="recent-transactions-current-balance-row">
+                <span
+                    role="cell"
+                    aria-describedby="transactionDateHeader"
+                    className="recent-transactions-current-balance-date"
+                >
+                    {renderDate(currentBalance.date)}
+                </span>
+                <span
+                    role="cell"
+                    aria-describedby="transactionAmountHeader"
+                    className="recent-transactions-current-balance-amount"
+                >
+                    {labels.recentTransactionsMonthlyBalance}: {renderAmountText(currentBalance.balance)}
+                </span>
+            </div>
+        )}
         {!pagination && (
             <div className="recent-transactions-button-container">
                 <Button onClick={() => onButtonClick()}>{labels.recentTransactionsMore}</Button>

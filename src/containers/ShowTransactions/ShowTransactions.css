@@ -1,8 +1,8 @@
-.wattcoin-page {
+.show-transaction-page {
     padding: var(--page-paddings);
 }
 
-.wattcoin-page > h1 {
+.show-transaction-page > h1 {
     margin: 0 0 1em 0;
     padding: 0;
     color: black;
@@ -12,12 +12,12 @@
     text-align: left;
 }
 
-.wattcoin-page-controls {
+.show-transaction-page-controls {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.wattcoin-page-controls button {
+.show-transaction-page-controls button {
     margin: 0 2em 2em 0;
 }

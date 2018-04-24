@@ -1,28 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { RecentTransactions, CoinButton, Loader } from '../../components';
+import { RecentTransactions, Loader } from '../../components';
 import { performGetUserData } from '../../action_performers/users';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
 
-import { Wattcoin as messages } from '../../services/translations/messages';
+import { ShowTransactions as messages } from '../../services/translations/messages';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
-import './Wattcoin.css';
+import './ShowTransactions.css';
 
-export class Wattcoin extends AbstractContainer {
+export class ShowTransactions extends AbstractContainer {
     constructor(props, context) {
         const { formatMessage } = context.intl;
         const breadcrumbs = [
             {
-                ...PATHS.trading,
-                label: formatMessage(PATHS.trading.label)
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
             },
             {
-                ...PATHS.wattcoin,
-                label: formatMessage(PATHS.wattcoin.label)
+                ...PATHS.showTransactions,
+                label: formatMessage(PATHS.showTransactions.label)
             }
         ];
         super(props, context, breadcrumbs);
@@ -58,13 +58,9 @@ export class Wattcoin extends AbstractContainer {
         const { recentTransactions: { transactions = [], currentBalance = 0 } } = this.props;
 
         return (
-            <section className="wattcoin-page">
+            <section className="show-transaction-page">
                 <Loader show={this.props.loading} />
                 <h1>{labels.header}</h1>
-                <section className="wattcoin-page-controls">
-                    <CoinButton label={labels.buyCoinsButton} price={2.5} />
-                    <CoinButton label={labels.sellCoinsButton} price={2.4} />
-                </section>
                 <section>
                     <RecentTransactions
                         transactions={transactions}
@@ -78,7 +74,7 @@ export class Wattcoin extends AbstractContainer {
     }
 }
 
-Wattcoin.contextTypes = {
+ShowTransactions.contextTypes = {
     router: PropTypes.shape({
         history: PropTypes.shape({
             push: PropTypes.func.isRequired
@@ -88,17 +84,17 @@ Wattcoin.contextTypes = {
         formatMessage: PropTypes.func.isRequired
     }).isRequired
 };
-Wattcoin.propTypes = {
+ShowTransactions.propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.object,
     recentTransactions: PropTypes.object,
     user: PropTypes.object
 };
-Wattcoin.defaultProps = {
+ShowTransactions.defaultProps = {
     loading: false,
     recentTransactions: {},
     user: {},
     error: null
 };
 
-export default connect(Wattcoin.mapStateToProps)(Wattcoin);
+export default connect(ShowTransactions.mapStateToProps)(ShowTransactions);

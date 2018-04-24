@@ -41,7 +41,7 @@ describe('Main <App /> Component', () => {
     it('should setup correct translations', () => {
         const component = renderComponent(context);
         component.setContext(context);
-        expect(context.intl.formatMessage.mock.calls.length).toEqual(14);
+        expect(context.intl.formatMessage.mock.calls.length).toEqual(11);
     });
 
     it('should returns correct props', () => {
@@ -90,41 +90,8 @@ describe('Main <App /> Component', () => {
         expect(route).toEqual('/item1');
 
         expect(menu.props().items).toEqual([
-            {
-                id: '',
-                active: true,
-                icon: 'faHome',
-                label: 'test',
-                path: '/'
-            },
-            {
-                id: 'documents',
-                active: false,
-                icon: 'faBook',
-                label: 'test',
-                path: '/documents'
-            },
-            {
-                id: 'submit_metric',
-                active: false,
-                icon: 'faCalculator',
-                label: 'test',
-                path: '/submit_metric'
-            },
-            {
-                id: 'trading',
-                active: false,
-                icon: 'faChartBar',
-                label: 'test',
-                path: '/trading'
-            },
-            {
-                id: 'profile',
-                active: false,
-                icon: 'faUser',
-                label: 'test',
-                path: '/profile'
-            }
+            { active: true, icon: 'faHome', id: '', label: 'test', path: '/' },
+            { active: false, icon: 'faUser', id: 'profile', label: 'test', path: '/profile' }
         ]);
     });
 

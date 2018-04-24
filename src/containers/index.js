@@ -6,7 +6,6 @@ import RestorePassword from './RestorePassword';
 import Overview from './Overview';
 import Documents from './Documents';
 import SubmitMetric from './SubmitMetric';
-import Trading from './Trading';
 import Profile from './Profile';
 import About from './About';
 import Team from './Team';
@@ -14,7 +13,7 @@ import Service from './Service';
 import MyProducer from './MyProducer';
 import SellEnergy from './SellEnergy';
 import BuyEnergy from './BuyEnergy';
-import Wattcoin from './Wattcoin';
+import ShowTransactions from './ShowTransactions';
 import Producer from './Producer';
 
 export {
@@ -26,7 +25,6 @@ export {
     Overview,
     Documents,
     SubmitMetric,
-    Trading,
     Profile,
     Service,
     About,
@@ -34,6 +32,6 @@ export {
     BuyEnergy,
     SellEnergy,
     MyProducer,
-    Wattcoin,
+    ShowTransactions,
     Producer
 };

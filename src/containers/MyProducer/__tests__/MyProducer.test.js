@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import MyProducerContainer, { MyProducer } from '../MyProducer';
-import { ProducerInfo, ProducerHistory, Loader, Button } from '../../../components';
+import { ProducerInfo, Loader, Button } from '../../../components';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
@@ -131,7 +131,6 @@ describe('<MyProducer /> Component', () => {
         - 1 <a>;
         - 1 <FontAwesomeIcon> icon (reply);
         - 1 <Button> component;
-        - 1 <ProducerHistory> component;
         - 1 <Loader> component";
         - 1 <ProducerInfo> component";`, () => {
         const component = renderContainer();
@@ -143,7 +142,6 @@ describe('<MyProducer /> Component', () => {
         expect(component.find(ProducerInfo)).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(1);
         expect(component.find(FontAwesomeIcon)).toHaveLength(1);
-        expect(component.find(ProducerHistory)).toHaveLength(1);
     });
 
     it('should call prepare common function', () => {
@@ -222,17 +220,8 @@ describe('<MyProducer /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
         const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
-            {
-                icon: 'faChartBar',
-                id: 'trading',
-                label: 'Trading',
-                path: '/trading'
-            },
-            {
-                id: 'my_producer',
-                label: 'My Producer',
-                path: '/trading/my_producer'
-            }
+            { icon: 'faHome', id: '', label: 'Trading', path: '/' },
+            { id: 'my_producer', label: 'My Producer', path: '/my_producer' }
         ]);
 
         const component = renderComponent();
@@ -259,7 +248,7 @@ describe('<MyProducer /> Component', () => {
         const { history } = context.router;
         expect(history.push.mock.calls.length).toEqual(1);
         const [[route]] = history.push.mock.calls;
-        expect(route).toEqual('/trading/buy_energy');
+        expect(route).toEqual('/buy_energy');
 
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);

@@ -2,15 +2,15 @@ import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
     header: {
-        id: 'app.wattcoinPage.header',
-        defaultMessage: 'Wattcoin'
+        id: 'app.showTransactionsPage.header',
+        defaultMessage: 'Show Transactions'
     },
     sellCoinsButton: {
-        id: 'app.wattcoinPage.sellCoinsButton',
+        id: 'app.showTransactionsPage.sellCoinsButton',
         defaultMessage: 'Sell Coins'
     },
     buyCoinsButton: {
-        id: 'app.wattcoinPage.buyCoinsButton',
+        id: 'app.showTransactionsPage.buyCoinsButton',
         defaultMessage: 'Buy Coins'
     },
     recentTransactionsTitle: {

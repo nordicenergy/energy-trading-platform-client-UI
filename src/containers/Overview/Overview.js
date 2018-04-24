@@ -42,8 +42,8 @@ export class Overview extends AbstractContainer {
         this.context.router.history.push(route);
     }
 
-    openWattcoinPage() {
-        this.navigateTo(PATHS.wattcoin.path);
+    openTransactionsPage() {
+        this.navigateTo(PATHS.showTransactions.path);
     }
 
     render() {
@@ -81,7 +81,7 @@ export class Overview extends AbstractContainer {
                         transactions={transactions}
                         currentBalance={currentBalance}
                         labels={labels}
-                        onButtonClick={() => this.openWattcoinPage()}
+                        onButtonClick={() => this.openTransactionsPage()}
                     />
                 </div>
             </section>

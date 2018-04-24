@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faReply } from '@fortawesome/fontawesome-free-solid';
-import { ProducerInfo, ProducerHistory, Loader, Button } from '../../components';
+import { ProducerInfo, Loader, Button } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
@@ -19,7 +19,7 @@ export class MyProducer extends AbstractContainer {
     constructor(props, context) {
         const { formatMessage } = context.intl;
         const breadcrumbs = [
-            { ...PATHS.trading, label: formatMessage(PATHS.trading.label) },
+            { ...PATHS.overview, label: formatMessage(PATHS.overview.label) },
             {
                 ...PATHS.myProducer,
                 label: formatMessage(PATHS.myProducer.label)
@@ -67,7 +67,7 @@ export class MyProducer extends AbstractContainer {
         }
     }
 
-    switchBackToMarketPrice() {
+    switchBackToStandard() {
         // TODO: call producer deselect end-point here
         // const { history } = this.context.router;
         // history.push(PATHS.buyEnergy.path);
@@ -80,14 +80,9 @@ export class MyProducer extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { loading, producer = {}, producerHistory = [] } = this.props;
+        const { loading, producer = {} } = this.props;
 
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
-
-        const historyProps = {
-            title: 'History of changes',
-            data: producerHistory
-        };
 
         return (
             <section className="my-producer-page">
@@ -97,21 +92,18 @@ export class MyProducer extends AbstractContainer {
                     <ProducerInfo {...producerInfoProps} />
                 </section>
                 <section className="my-producer-page-controls">
-                    <Button onClick={() => this.openProducersPage()}>{formatMessage(messages.changeButton)}</Button>
+                    <Button onClick={() => this.openProducersPage()}>{formatMessage(messages.showButton)}</Button>
                     <a
                         className="my-producer-page-switch-back"
                         href=""
                         onClick={event => {
                             event.preventDefault();
-                            this.switchBackToMarketPrice();
+                            this.switchBackToStandard();
                         }}
                     >
                         <FontAwesomeIcon icon={faReply} />
                         <span>{formatMessage(messages.switchBack)}</span>
                     </a>
-                </section>
-                <section className="my-producer-page-history">
-                    <ProducerHistory {...historyProps} />
                 </section>
             </section>
         );

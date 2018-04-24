@@ -168,22 +168,9 @@ describe('<Producer /> Component', () => {
         const [[bArg1], [bArg2]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual(undefined);
         expect(bArg2).toEqual([
-            {
-                icon: 'faChartBar',
-                id: 'trading',
-                label: 'Trading',
-                path: '/trading'
-            },
-            {
-                id: 'buy_energy',
-                label: 'Buy Energy',
-                path: '/trading/buy_energy'
-            },
-            {
-                id: 'producer',
-                label: 'Peter Producer',
-                path: '/trading/buy_energy/producer/1'
-            }
+            { icon: 'faHome', id: '', label: 'Trading', path: '/' },
+            { id: 'buy_energy', label: 'Buy Energy', path: '/buy_energy' },
+            { id: 'producer', label: 'Peter Producer', path: '/buy_energy/producer/1' }
         ]);
 
         const component = renderComponent();
@@ -204,7 +191,7 @@ describe('<Producer /> Component', () => {
         const { push } = context.router.history;
         expect(push.mock.calls.length).toEqual(1);
         const [[route]] = push.mock.calls;
-        expect(route).toEqual('/trading/buy_energy');
+        expect(route).toEqual('/buy_energy');
     });
 
     it('should provide possibility to select producer', () => {

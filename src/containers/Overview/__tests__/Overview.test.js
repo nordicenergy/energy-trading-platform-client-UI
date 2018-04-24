@@ -174,9 +174,9 @@ describe('<Overview /> Component', () => {
                 sellEnergy: 'Sell Energy'
             },
             navigationCards: [
-                { path: '/trading/my_producer', title: 'My Producer', type: 'my_producer' },
-                { path: '/trading/buy_energy', title: 'Buy Energy', type: 'buy_energy' },
-                { path: '/trading/sell_energy', title: 'Sell Energy', type: 'sell_energy' }
+                { path: '/my_producer', title: 'My Producer', type: 'my_producer' },
+                { path: '/buy_energy', title: 'Buy Energy', type: 'buy_energy' },
+                { path: '/sell_energy', title: 'Sell Energy', type: 'sell_energy' }
             ]
         });
     });
@@ -216,7 +216,7 @@ describe('<Overview /> Component', () => {
 
         expect(context.router.history.push.mock.calls.length).toEqual(1);
         const [[route]] = context.router.history.push.mock.calls;
-        expect(route).toEqual('/trading/wattcoin');
+        expect(route).toEqual('/show_transactions');
     });
 
     it('should provide possibility navigate to different routes through cards', () => {
