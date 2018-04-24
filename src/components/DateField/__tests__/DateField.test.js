@@ -19,7 +19,7 @@ describe('<DateField /> component', () => {
     it('should calculate date picker position', () => {
         const dateField = renderComponent({ value: Date.now() });
 
-        jest.spyOn(dateField.instance().dateFieldRef, 'getBoundingClientRect').mockReturnValue({ top: 400 });
+        jest.spyOn(dateField.instance().dateFieldRef, 'getBoundingClientRect').mockReturnValue({ top: 450 });
         dateField
             .find('TextField')
             .props()

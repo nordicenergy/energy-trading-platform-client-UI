@@ -106,6 +106,27 @@ describe('<ProfileForm /> component', () => {
         expect(component.state().firstName).toBe('test');
     });
 
+    it('should update state if firstName field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="firstName"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'firstName',
+                value: 'test'
+            }
+        });
+        expect(component.state().firstName).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'lastName',
+                value: 'test2'
+            }
+        });
+        expect(component.state().lastName).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
+    });
+
     it('should update state if lastName field value change', () => {
         const component = renderComponent();
 
@@ -121,14 +142,46 @@ describe('<ProfileForm /> component', () => {
         expect(component.state().lastName).toBe('test');
     });
 
+    it('should update state if lastName field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="lastName"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'lastName',
+                value: 'test'
+            }
+        });
+        expect(component.state().lastName).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'lastName',
+                value: 'test2'
+            }
+        });
+        expect(component.state().lastName).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
+    });
+
     it('should update state if birthday field value change', () => {
         const component = renderComponent();
 
         component
             .find('DateField')
             .props()
-            .onOk('test');
+            .onChange('test');
         expect(component.state().birthday).toBe('test');
+    });
+
+    it('should update state if birthday field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('DateField');
+        field.props().onChange('test');
+        expect(component.state().birthday).toBe('test');
+        field.props().onChange('test2');
+        expect(component.state().birthday).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
     });
 
     it('should update state if city field value change', () => {
@@ -146,6 +199,27 @@ describe('<ProfileForm /> component', () => {
         expect(component.state().city).toBe('test');
     });
 
+    it('should update state if city field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="city"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'city',
+                value: 'test'
+            }
+        });
+        expect(component.state().city).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'city',
+                value: 'test2'
+            }
+        });
+        expect(component.state().city).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
+    });
+
     it('should update state if street field value change', () => {
         const component = renderComponent();
 
@@ -159,6 +233,27 @@ describe('<ProfileForm /> component', () => {
                 }
             });
         expect(component.state().street).toBe('test');
+    });
+
+    it('should update state if street field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="street"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'street',
+                value: 'test'
+            }
+        });
+        expect(component.state().street).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'street',
+                value: 'test2'
+            }
+        });
+        expect(component.state().street).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
     });
 
     it('should update state if streetNumber field value change', () => {
@@ -176,6 +271,27 @@ describe('<ProfileForm /> component', () => {
         expect(component.state().streetNumber).toBe('test');
     });
 
+    it('should update state if streetNumber field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="streetNumber"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'streetNumber',
+                value: 'test'
+            }
+        });
+        expect(component.state().streetNumber).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'streetNumber',
+                value: 'test2'
+            }
+        });
+        expect(component.state().streetNumber).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
+    });
+
     it('should update state if postcode field value change', () => {
         const component = renderComponent();
 
@@ -189,6 +305,27 @@ describe('<ProfileForm /> component', () => {
                 }
             });
         expect(component.state().postcode).toBe('test');
+    });
+
+    it('should update state if postcode field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="postcode"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'postcode',
+                value: 'test'
+            }
+        });
+        expect(component.state().postcode).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'postcode',
+                value: 'test2'
+            }
+        });
+        expect(component.state().postcode).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
     });
 
     it('should update state if IBAN field value change', () => {
@@ -206,19 +343,25 @@ describe('<ProfileForm /> component', () => {
         expect(component.state().IBAN).toBe('test');
     });
 
-    it('should update state if email field value change', () => {
+    it('should update state if IBAN field value change and it was edited', () => {
         const component = renderComponent();
 
-        component
-            .find('TextField[name="email"]')
-            .props()
-            .onChange({
-                currentTarget: {
-                    name: 'email',
-                    value: 'test'
-                }
-            });
-        expect(component.state().email).toBe('test');
+        const field = component.find('TextField[name="IBAN"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'IBAN',
+                value: 'test'
+            }
+        });
+        expect(component.state().IBAN).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'IBAN',
+                value: 'test2'
+            }
+        });
+        expect(component.state().IBAN).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
     });
 
     it('should update state if email field value change', () => {
@@ -234,6 +377,27 @@ describe('<ProfileForm /> component', () => {
                 }
             });
         expect(component.state().email).toBe('test');
+    });
+
+    it('should update state if email field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="email"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'email',
+                value: 'test'
+            }
+        });
+        expect(component.state().email).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'email',
+                value: 'test2'
+            }
+        });
+        expect(component.state().email).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
     });
 
     it('should update state if oldPassword field value change', () => {
@@ -251,6 +415,27 @@ describe('<ProfileForm /> component', () => {
         expect(component.state().oldPassword).toBe('test');
     });
 
+    it('should update state if oldPassword field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="oldPassword"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'oldPassword',
+                value: 'test'
+            }
+        });
+        expect(component.state().oldPassword).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'oldPassword',
+                value: 'test2'
+            }
+        });
+        expect(component.state().oldPassword).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
+    });
+
     it('should update state if newPassword field value change', () => {
         const component = renderComponent();
 
@@ -266,6 +451,27 @@ describe('<ProfileForm /> component', () => {
         expect(component.state().newPassword).toBe('test');
     });
 
+    it('should update state if newPassword field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="newPassword"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'newPassword',
+                value: 'test'
+            }
+        });
+        expect(component.state().newPassword).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'newPassword',
+                value: 'test2'
+            }
+        });
+        expect(component.state().newPassword).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
+    });
+
     it('should update state if confirmNewPassword field value change', () => {
         const component = renderComponent();
 
@@ -279,6 +485,27 @@ describe('<ProfileForm /> component', () => {
                 }
             });
         expect(component.state().confirmNewPassword).toBe('test');
+    });
+
+    it('should update state if confirmNewPassword field value change and it was edited', () => {
+        const component = renderComponent();
+
+        const field = component.find('TextField[name="confirmNewPassword"]');
+        field.props().onChange({
+            currentTarget: {
+                name: 'confirmNewPassword',
+                value: 'test'
+            }
+        });
+        expect(component.state().confirmNewPassword).toBe('test');
+        field.props().onChange({
+            currentTarget: {
+                name: 'confirmNewPassword',
+                value: 'test2'
+            }
+        });
+        expect(component.state().confirmNewPassword).toBe('test2');
+        expect(component.state().isEdited).toBe(true);
     });
 
     it('should call onSubmit without password callback when form was submitted', () => {

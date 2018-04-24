@@ -31,7 +31,7 @@
     --porcelain-color: #e3e6e8;
     --mystic-color: #e9eef2;
     --darker-mystic-color: #dfe6ec;
-    --aqua-haze--color: #f0f4f7;
+    --aqua-haze-color: #f0f4f7;
     --athens-gray-color: #e7eaed;
 
     --button-text-shadow-color: rgba(0, 0, 0, 0.15);
@@ -54,7 +54,7 @@
     --toast-success-bg-color: var(--emerald-color);
     --toast-error-bg-color: var(--sunglo-color);
 
-    --app-bg-color: var(--aqua-haze--color);
+    --app-bg-color: var(--aqua-haze-color);
     --sign-pages-bg-color: var(--black-pearl-color);
     --bar-color: var(--black-pearl-color);
     --figure-subtitle-color: var(--bali-hai-color);
@@ -107,10 +107,14 @@
     --confirm-dialog-border-color: var(--darker-mystic-color);
 
     --select-option-hov-bg-color: var(--blumine-color);
+    --select-option-icon-color: var(--blumine-color);
 
     --offer-card-price-color: var(--nobel-color);
     --offer-card-energy-type-color: var(--black-pearl-color);
     --offer-card-box-shadow: var(--transparent-geyser-color);
+
+    --delta-field-row-color: var(--aqua-haze-color);
+    --delta-field-value-color: var(--black-pearl-color);
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;
