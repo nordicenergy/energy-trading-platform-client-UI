@@ -5,6 +5,7 @@ import SelectField from './SelectField';
 import DeltaField from './DeltaField';
 import LoginForm from './LoginForm';
 import RestorePasswordForm from './RestorePasswordForm';
+import OfferForm from './OfferForm';
 import Logo from './Logo';
 import { Header, HeaderButton, Breadcrumbs } from './Header';
 import Footer from './Footer';
@@ -36,6 +37,7 @@ export {
     DeltaField,
     LoginForm,
     RestorePasswordForm,
+    OfferForm,
     Logo,
     Illustration,
     MenuSideBar,
