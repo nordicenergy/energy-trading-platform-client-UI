@@ -23,6 +23,7 @@
     --mandys-pink-color: #f4bdbd;
     --azalea-color: #fbdede;
     --transparent-geyser-color: rgba(217, 224, 229, 0.3);
+    --transparent-blumine-color: rgba(30, 87, 123, 0.3);
     --stone-gray-color: rgba(240, 244, 247, 0.6);
     --hit-gray-color: #aab4bb;
     --nobel-color: #b5b5b5;
@@ -118,7 +119,8 @@
 
     --about-us-info-text-color: var(--big-stone-color);
 
-    --disclosure-arrow-hover-color: var(--nobel-color);
+    --disclosure-arrow-hover-color: var(--geyser-color);
+    --disclosure-arrow-border-color: var(--transparent-blumine-color);
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;
