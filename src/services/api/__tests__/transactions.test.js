@@ -11,12 +11,12 @@ describe('Transactions API Service', () => {
             .mockReturnValueOnce(Promise.resolve({ data: { balance: 20, lastUpdatedAt: 12345678 } }))
             .mockReturnValue(Promise.resolve({ data: { transactions: [{ test: 'test' }] } }));
 
-        const response = await getRecentTransactions('testId');
+        const response = await getRecentTransactions('testId', 1);
         const [[balanceUrl], [historyUrl, historyParams]] = Axios.get.mock.calls;
 
         expect(balanceUrl).toEqual('/api/user/testId/transactions/getBalance');
         expect(historyUrl).toEqual('/api/user/testId/transactions/getHistory');
-        expect(historyParams).toEqual({ params: { limit: 10, offset: 0 } });
+        expect(historyParams).toEqual({ params: { limit: 10, offset: 10 } });
         expect(response.data).toEqual({
             currentBalance: { balance: 20, date: 12345678 },
             transactions: [{ test: 'test' }]

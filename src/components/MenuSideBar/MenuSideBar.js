@@ -12,12 +12,13 @@ class MenuSideBar extends React.Component {
 
     renderMenuItems() {
         const { items = [] } = this.props;
-        return items.map(({ id, icon, label, active, path }, index) => (
+        return items.map(({ id, icon, label, active, path, disabled }, index) => (
             <MenuItem
                 key={`${index}-${label}`}
                 icon={icon}
                 label={label}
                 active={active}
+                disabled={disabled}
                 onClick={() => this.selectMenuItem(path)}
             />
         ));

@@ -19,7 +19,7 @@ function renderComponent({
     iconsTypes = {
         '': 'faHome',
         documents: 'faBook',
-        submit_metric: 'faCalculator',
+        submit_meter: 'faCalculator',
         trading: 'faChartBar',
         profile: 'faUser'
     },

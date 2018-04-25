@@ -1,29 +1,14 @@
 import React from 'react';
-import { performSetupBreadcrumbs } from '../../action_performers/app';
+import breadcrumbsMixin from './mixins/breadcrumbs';
+import scrollBottomHandlingMixin from './mixins/scrollBottomHandling';
+import labelsMixin from './mixins/labels';
 
-class AbstractContainer extends React.Component {
+const Base = labelsMixin(scrollBottomHandlingMixin(breadcrumbsMixin(React.Component)));
+
+class AbstractContainer extends Base {
+    // eslint-disable-next-line
     constructor(props, context, breadcrumbs) {
-        super(props, context);
-        this.setupBreadcrumbs(breadcrumbs);
-    }
-
-    setupBreadcrumbs(breadcrumbs) {
-        if (breadcrumbs) {
-            return performSetupBreadcrumbs(breadcrumbs);
-        }
-        performSetupBreadcrumbs();
-    }
-
-    prepareLabels(messages) {
-        const { formatMessage } = this.context.intl;
-        const entries = Object.keys(messages).map(key => [key, messages[key]]);
-
-        return entries.reduce((labels, [labelName, messageDescriptor]) => {
-            return {
-                ...labels,
-                [labelName]: formatMessage(messageDescriptor)
-            };
-        }, {});
+        super(props, context, breadcrumbs);
     }
 }
 

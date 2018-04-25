@@ -11,8 +11,6 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { Loader, ProducerCardsPanel, FilterCheckbox, OptionLinks } from '../../components';
 import './BuyEnergy.css';
 
-const PAGE_BOTTOM_OFFSET = 200; // pixels
-const SCROLL_TIMEOUT = 100; // milliseconds
 const FILTER_OPTIONS = [
     {
         name: 'wind',
@@ -57,9 +55,6 @@ export class BuyEnergy extends AbstractContainer {
 
         super(props, context, breadcrumbs);
 
-        this.scrollTimeout = null;
-        this.lastScrollTop = 0;
-        this.handleScroll = this.handleScroll.bind(this);
         this.state = {
             filter: [],
             page: 0
@@ -85,7 +80,17 @@ export class BuyEnergy extends AbstractContainer {
         }
 
         performGetCurrentProducer();
-        document.getElementById('main-container').addEventListener('scroll', this.handleScroll);
+
+        const loadCondition = () => {
+            const { hasNextProducers, producersLoading } = this.props;
+            return hasNextProducers && !producersLoading;
+        };
+        const loadCallback = () => {
+            this.setState(prevState => ({
+                page: prevState.page + 1
+            }));
+        };
+        this.setupScrollHandler(loadCondition, loadCallback);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -102,31 +107,11 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentWillUnmount() {
-        document.getElementById('main-container').removeEventListener('scroll', this.handleScroll);
+        this.removeScrollHandler();
     }
 
     resetFilter() {
         this.setState({ filter: [] });
-    }
-
-    handleScroll(event) {
-        const { target } = event;
-        clearTimeout(this.scrollTimeout);
-
-        this.scrollTimeout = setTimeout(() => {
-            const { producersLoading, hasNextProducers } = this.props;
-            const { scrollTop, clientHeight, scrollHeight } = target;
-            const isScrollDown = scrollTop > this.lastScrollTop;
-            const delta = scrollHeight - scrollTop - clientHeight;
-
-            if (delta <= PAGE_BOTTOM_OFFSET && isScrollDown && hasNextProducers && !producersLoading) {
-                this.setState(prevState => ({
-                    page: prevState.page + 1
-                }));
-            }
-
-            this.lastScrollTop = scrollTop;
-        }, SCROLL_TIMEOUT);
     }
 
     handleFilterChange(event) {
@@ -156,7 +141,7 @@ export class BuyEnergy extends AbstractContainer {
         const shouldShowListLoader = producersLoading && page >= 1;
 
         return (
-            <section className="buy-energy-page">
+            <section className="buy-energy-page" aria-busy={shouldShowFullScreenLoader}>
                 <Loader show={shouldShowFullScreenLoader} />
                 <header className="buy-energy-page-header">
                     <h1>{formatMessage(messages.pageTitle)}</h1>

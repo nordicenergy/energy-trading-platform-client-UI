@@ -48,7 +48,7 @@ export class Overview extends AbstractContainer {
 
     render() {
         const labels = this.prepareLabels(messages);
-        const { recentTransactions: { transactions = [], currentBalance = 0 } } = this.props;
+        const { recentTransactions: { transactions = [], currentBalance = 0 }, loading } = this.props;
 
         const navigationCards = [
             {
@@ -69,8 +69,8 @@ export class Overview extends AbstractContainer {
         ];
 
         return (
-            <section className="overview-page">
-                <Loader show={this.props.loading} />
+            <section className="overview-page" aria-busy={loading}>
+                <Loader show={loading} />
                 <NavigationCardsPanel
                     navigationCards={navigationCards}
                     onCardClick={route => this.navigateTo(route)}

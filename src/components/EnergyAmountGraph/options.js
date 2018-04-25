@@ -32,15 +32,16 @@ const options = {
             size: '12',
             color: ''
         },
-        hovermode: 'closest',
-        hoverlabel: {
-            bgcolor: 'rgba(72, 211, 118, 0.3)',
-            bordercolor: '#48d376',
-            font: {
-                color: '#039c69'
-            }
-        },
-        // hovermode: false,
+        // TODO uncomment after complete implementation
+        // hovermode: 'closest',
+        // hoverlabel: {
+        //     bgcolor: 'rgba(72, 211, 118, 0.3)',
+        //     bordercolor: '#48d376',
+        //     font: {
+        //         color: '#039c69'
+        //     }
+        // },
+        hovermode: false,
         xaxis: {
             type: 'date',
             fixedrange: true,
