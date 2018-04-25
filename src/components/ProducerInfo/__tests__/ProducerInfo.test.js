@@ -26,7 +26,7 @@ const props = {
         ethereumAddress: '0x3E7e5d1810F825a2B27C6BEC5fCB32F3eaCd192e',
         location: 'Lippendorf, Neukieritzsch'
     },
-    description: `Lorem ipsum text`,
+    description: 'Lorem ipsum text',
     picture: 'http://via.placeholder.com/350x150'
 };
 
@@ -38,6 +38,7 @@ describe('<ProducerInfo /> Component', () => {
     it(`should contains following controls:
         - 2 <section>;
         - 1 <figure>;
+        - 1 <a> (location link to google maps);
         - 1 <img> with correct src;
         - 8 ".producer-information-row" with correct key-values;
         - 1 ".producer-information-desc" with correct content;`, () => {
@@ -46,11 +47,16 @@ describe('<ProducerInfo /> Component', () => {
         expect(component.find('section').length).toEqual(2);
         expect(component.find('figure').length).toEqual(1);
         expect(component.find('img').length).toEqual(1);
+        expect(component.find('a').length).toEqual(1);
         expect(component.find('.producer-information-row').length).toEqual(9);
 
         const description = component.find('.producer-information-desc');
         expect(description.length).toEqual(1);
         expect(description.at(0).text()).toEqual(props.description);
+
+        const anchor = component.find('a');
+        expect(anchor.length).toEqual(1);
+        expect(anchor.at(0).props().href).toEqual('http://maps.google.com/?q=Lippendorf, Neukieritzsch');
 
         const img = component.find('img');
         expect(img.length).toEqual(1);

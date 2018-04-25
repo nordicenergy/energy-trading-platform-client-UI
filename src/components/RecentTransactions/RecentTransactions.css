@@ -50,7 +50,7 @@ caption .recent-transactions-caption-content > div:last-child {
     justify-content: space-between;
     align-items: center;
     background: var(--table-total-cell-bg-color);
-    padding: 1.11em 6.22em 0.89em;
+    padding: 1.11em 6.22rem 0.89em;
 }
 
 .recent-transactions-current-balance-row p {
@@ -123,4 +123,8 @@ tr.recent-transactions-hash {
     font-size: 1rem;
     text-align: left;
     word-break: break-all;
+}
+
+.recent-transactions-loader {
+    text-align: center;
 }
