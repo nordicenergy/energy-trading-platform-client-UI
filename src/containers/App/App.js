@@ -19,7 +19,22 @@ export class App extends React.Component {
         };
     }
 
-    static setupLocale(savedLocale) {
+    constructor(props, context) {
+        super(props, context);
+        this.setupLocale();
+        this.state = { isConfirmVisible: false };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const loggedOut = this.props.loggingOut !== nextProps.loggingOut && !nextProps.loggingOut;
+
+        if (loggedOut) {
+            this.navigateTo('/login');
+        }
+    }
+
+    setupLocale() {
+        const { locale: savedLocale } = this.props;
         let locale;
 
         if (savedLocale) {
@@ -30,20 +45,6 @@ export class App extends React.Component {
         }
 
         performSetupLocale(locale);
-    }
-
-    constructor(props, context) {
-        super(props, context);
-        this.state = { isConfirmVisible: false };
-        this.constructor.setupLocale(props.locale);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const loggedOut = this.props.loggingOut !== nextProps.loggingOut && !nextProps.loggingOut;
-
-        if (loggedOut) {
-            this.navigateTo('/login');
-        }
     }
 
     logout() {

@@ -27,8 +27,9 @@
 }
 
 .select-field--language .select-control-text {
-    margin-right: 8px;
-    margin-left: 8px;
+    padding-top: 0.195em;
+    margin-right: 0.445em;
+    margin-left: 0.445em;
     width: auto;
     color: white;
     text-align: center;
