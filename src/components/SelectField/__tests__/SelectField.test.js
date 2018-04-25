@@ -49,8 +49,8 @@ describe('<SelectField /> component', () => {
         selectField
             .find('.options-list-item')
             .at(2)
-            .simulate('mouseDown');
-        expect(selectField.state().selectedOption).toEqual(optionsMock[2]);
+            .simulate('click');
+        expect(selectField.state().value).toEqual(optionsMock[2]);
     });
 
     it('should call onChange callback after some option was clicked', () => {
@@ -62,7 +62,7 @@ describe('<SelectField /> component', () => {
         selectField
             .find('.options-list-item')
             .at(2)
-            .simulate('mouseDown');
+            .simulate('click');
         expect(onChangeMock).toHaveBeenCalledWith(optionsMock[2]);
     });
 
