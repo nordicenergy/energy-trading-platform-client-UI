@@ -41,7 +41,7 @@ describe('Main <App /> Component', () => {
     it('should setup correct translations', () => {
         const component = renderComponent(context);
         component.setContext(context);
-        expect(context.intl.formatMessage.mock.calls.length).toEqual(14);
+        expect(context.intl.formatMessage.mock.calls.length).toEqual(13);
     });
 
     it('should returns correct props', () => {
