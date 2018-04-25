@@ -46,6 +46,17 @@ span.producer-information-value {
     word-break: break-all;
 }
 
+span.producer-information-value a {
+    outline: none;
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+span.producer-information-value a:hover {
+    color: var(--general-text-color);
+    transition: color 0.2s ease-in;
+}
+
 span.producer-information-smaller-value {
     font-size: 1rem;
 }
