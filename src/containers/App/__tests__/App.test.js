@@ -124,11 +124,6 @@ describe('Main <App /> Component', () => {
             },
             {
                 active: false,
-                href: '/team',
-                label: 'test'
-            },
-            {
-                active: false,
                 href: '/service',
                 label: 'test'
             }

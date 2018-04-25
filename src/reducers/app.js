@@ -1,5 +1,6 @@
 export const initialState = {
-    breadCrumbs: { data: [] }
+    breadCrumbs: { data: [] },
+    locale: 'en'
 };
 
 export function appReducer(state = initialState, action) {

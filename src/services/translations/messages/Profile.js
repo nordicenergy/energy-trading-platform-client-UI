@@ -1,6 +1,10 @@
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
+    header: {
+        id: 'app.profilePage.header',
+        defaultMessage: 'Profile'
+    },
     save: {
         id: 'app.profilePage.labels.save',
         defaultMessage: 'Save'
