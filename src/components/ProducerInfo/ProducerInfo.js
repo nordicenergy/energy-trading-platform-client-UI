@@ -4,19 +4,56 @@ import PropTypes from 'prop-types';
 import './ProducerInfo.css';
 import classNames from 'classnames';
 
-class ProducerInfo extends React.Component {
-    priceAdditionalInfo() {
-        const { labels, details } = this.props;
-        const { marketPrice } = details;
+const MAP_SERVICE_URL = 'http://maps.google.com/?q=';
 
-        return () =>
-            marketPrice ? (
-                <small className="producer-information-market-value">
-                    {`${labels.marketPrice} `}
-                    <strong>{marketPrice}</strong>
-                    {` ct/KWh`}
-                </small>
-            ) : null;
+class ProducerInfo extends React.Component {
+    renderPrice() {
+        const { labels, details } = this.props;
+        const { marketPrice, price } = details;
+
+        return (
+            <React.Fragment>
+                <span>{`${price} ct/KWh`}</span>
+                {marketPrice ? (
+                    <small className="producer-information-market-value">
+                        {`${labels.marketPrice} `}
+                        <strong>{marketPrice}</strong>
+                        {` ct/KWh`}
+                    </small>
+                ) : null}
+            </React.Fragment>
+        );
+    }
+
+    renderLocation() {
+        const { details } = this.props;
+        const { location } = details;
+        return (
+            <span>
+                <a target="_blank" href={`${MAP_SERVICE_URL}${location}`}>
+                    {location}
+                </a>
+            </span>
+        );
+    }
+
+    renderValue(value, smallerText) {
+        const classes = classNames({ 'producer-information-smaller-value': smallerText });
+        return <span className={classes}>{value}</span>;
+    }
+
+    renderRow(label, value, smallerText) {
+        const renderValue = typeof value === 'function' ? value : this.renderValue.bind(null, value, smallerText);
+        return (
+            <div className="producer-information-row">
+                <p>
+                    <span className="producer-information-label">{label}</span>
+                    <span className="producer-information-value" translate="no">
+                        {renderValue()}
+                    </span>
+                </p>
+            </div>
+        );
     }
 
     renderImage(picture) {
@@ -25,25 +62,6 @@ class ProducerInfo extends React.Component {
         }
 
         return <Placeholder />;
-    }
-
-    renderInfoRow(label, value, Additional, smallerText) {
-        const classes = classNames({
-            'producer-information-value': true,
-            'producer-information-smaller-value': smallerText
-        });
-
-        return (
-            <div className="producer-information-row">
-                <p>
-                    <span className="producer-information-label">{label}</span>
-                    <span className={classes} translate="no">
-                        <span>{value}</span>
-                        {Additional && <Additional />}
-                    </span>
-                </p>
-            </div>
-        );
     }
 
     render() {
@@ -63,15 +81,15 @@ class ProducerInfo extends React.Component {
         return (
             <section className="producer-information">
                 <section className="producer-information-details">
-                    {name && this.renderInfoRow(labels.name, name)}
-                    {price > 0 && this.renderInfoRow(labels.price, `${price} ct/KWh`, this.priceAdditionalInfo())}
-                    {energyType && this.renderInfoRow(labels.energyType, energyType)}
-                    {annualProduction > 0 && this.renderInfoRow(labels.annualProduction, `${annualProduction} kWh/day`)}
-                    {purchased > 0 && this.renderInfoRow(labels.purchased, `${purchased} kWh`)}
-                    {capacity > 0 && this.renderInfoRow(labels.capacity, `${capacity} MW`)}
-                    {selectedSince && this.renderInfoRow(labels.selectedSince, selectedSince)}
-                    {ethereumAddress && this.renderInfoRow(labels.ethereumAddress, ethereumAddress, null, true)}
-                    {location && this.renderInfoRow(labels.location, location)}
+                    {name && this.renderRow(labels.name, name)}
+                    {price > 0 && this.renderRow(labels.price, this.renderPrice.bind(this))}
+                    {energyType && this.renderRow(labels.energyType, energyType)}
+                    {annualProduction > 0 && this.renderRow(labels.annualProduction, `${annualProduction} kWh/day`)}
+                    {purchased > 0 && this.renderRow(labels.purchased, `${purchased} kWh`)}
+                    {capacity > 0 && this.renderRow(labels.capacity, `${capacity} MW`)}
+                    {selectedSince && this.renderRow(labels.selectedSince, selectedSince)}
+                    {ethereumAddress && this.renderRow(labels.ethereumAddress, ethereumAddress, true)}
+                    {location && location.trim() && this.renderRow(labels.location, this.renderLocation.bind(this))}
                     <p className="producer-information-desc">{description}</p>
                 </section>
                 <figure className="producer-information-image">{this.renderImage(picture)}</figure>

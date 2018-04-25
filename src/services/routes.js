@@ -16,9 +16,7 @@ import {
     BuyEnergy,
     SellEnergy,
     ShowTransactions,
-    Trading,
-    Documents,
-    SubmitMeter
+    Trading
 } from '../containers';
 import { Breadcrumbs as messages } from '../services/translations/messages';
 
