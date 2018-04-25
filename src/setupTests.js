@@ -7,11 +7,16 @@ jest.mock('react-plotly.js');
 
 if (window) {
     window.URL = {
-        createObjectURL: f => f
+        createObjectURL: jest.fn()
     };
     window.sessionStorage = {
-        setItem: f => f,
-        getItem: f => f,
-        removeItem: f => f
+        setItem: jest.fn(),
+        getItem: jest.fn(),
+        removeItem: jest.fn()
+    };
+    window.localStorage = {
+        setItem: jest.fn(),
+        getItem: jest.fn(),
+        removeItem: jest.fn()
     };
 }
