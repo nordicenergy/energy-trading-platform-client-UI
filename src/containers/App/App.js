@@ -1,25 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MenuSideBar, Header, Footer, Confirm } from '../../components';
-import { performLogout } from '../../action_performers/users';
-import './App.css';
-import { PATHS } from '../../services/routes';
-import { App as messages } from '../../services/translations/messages';
 import { connect } from 'react-redux';
+import { LOCALES, DEFAULT_LOCALE } from '../../constants';
+import { PATHS } from '../../services/routes';
+import { performSetupLocale } from '../../action_performers/app';
+import { performLogout } from '../../action_performers/users';
+import { App as messages } from '../../services/translations/messages';
+import { Loader, MenuSideBar, Header, Footer, Confirm } from '../../components';
+import './App.css';
 
 export class App extends React.Component {
     static mapStateToProps({ Users, App }) {
         return {
             loggingOut: Users.logout.loading,
-            breadCrumbs: App.breadCrumbs.data
+            breadCrumbs: App.breadCrumbs.data,
+            loading: App.localization.loading,
+            locale: App.localization.data.locale
         };
+    }
+
+    static setupLocale(savedLocale) {
+        let locale;
+
+        if (savedLocale) {
+            locale = savedLocale;
+        } else {
+            const [browserLocale] = navigator.language.split('-');
+            locale = !browserLocale || LOCALES.indexOf(browserLocale) === -1 ? DEFAULT_LOCALE : browserLocale;
+        }
+
+        performSetupLocale(locale);
     }
 
     constructor(props, context) {
         super(props, context);
-        this.state = {
-            isConfirmVisible: false
-        };
+        this.state = { isConfirmVisible: false };
+        this.constructor.setupLocale(props.locale);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -36,10 +52,6 @@ export class App extends React.Component {
         }));
     }
 
-    handleLogoutConfirm() {
-        performLogout();
-    }
-
     handleLogoutCancel() {
         this.setState(() => ({
             isConfirmVisible: false
@@ -51,6 +63,7 @@ export class App extends React.Component {
     }
 
     render() {
+        const { loading, locale } = this.props;
         const { isConfirmVisible } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
@@ -100,9 +113,10 @@ export class App extends React.Component {
                         cancelButton: formatMessage(messages.logoutCancelButton)
                     }}
                     show={isConfirmVisible}
-                    onConfirm={() => this.handleLogoutConfirm()}
+                    onConfirm={() => performLogout()}
                     onCancel={() => this.handleLogoutCancel()}
                 />
+                <Loader show={loading} />
                 <Header
                     onLogoutButtonClickHandler={() => this.logout(formatMessage(messages.logoutConfirm))}
                     navigateTo={route => this.navigateTo(route)}
@@ -110,6 +124,9 @@ export class App extends React.Component {
                     notificationLabel={formatMessage(messages.notificationLabel)}
                     notifications={[]}
                     breadCrumbs={this.props.breadCrumbs}
+                    locales={LOCALES}
+                    locale={locale || DEFAULT_LOCALE}
+                    onLocaleChange={locale => performSetupLocale(locale)}
                 />
                 <div className="content">
                     <div className="menu-container">
@@ -134,7 +151,12 @@ App.contextTypes = {
     intl: PropTypes.object
 };
 App.propTypes = {
-    loggingOut: PropTypes.bool
+    loggingOut: PropTypes.bool,
+    locale: PropTypes.string,
+    loading: PropTypes.bool
+};
+App.defaultProps = {
+    loading: false
 };
 
 export default connect(App.mapStateToProps)(App);

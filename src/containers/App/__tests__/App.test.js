@@ -2,6 +2,7 @@ import React from 'react';
 import { App } from '../App';
 import { Header, MenuSideBar, Footer } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
+import * as appActions from '../../../action_performers/app';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 
 const context = {
@@ -11,8 +12,8 @@ const context = {
     }
 };
 
-function renderComponent() {
-    return shallowWithIntl(<App />);
+function renderComponent(props = {}) {
+    return shallowWithIntl(<App {...props} />);
 }
 
 describe('Main <App /> Component', () => {
@@ -21,7 +22,12 @@ describe('Main <App /> Component', () => {
         context.intl.formatMessage = jest.fn();
         context.intl.formatMessage.mockReturnValue('test');
         usersActions.performLogout = jest.fn();
+        appActions.performSetupLocale = jest.fn();
         window.confirm = () => true;
+    });
+
+    afterEach(() => {
+        appActions.performSetupLocale.mockClear();
     });
 
     it(`should contains following controls:
@@ -53,12 +59,18 @@ describe('Main <App /> Component', () => {
             App: {
                 breadCrumbs: {
                     data: []
+                },
+                localization: {
+                    data: {
+                        locale: 'en'
+                    },
+                    loading: false
                 }
             }
         };
         const props = App.mapStateToProps(stateMock);
 
-        expect(props).toEqual({ loggingOut: false, breadCrumbs: [] });
+        expect(props).toEqual({ loggingOut: false, breadCrumbs: [], locale: 'en', loading: false });
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {
@@ -141,5 +153,20 @@ describe('Main <App /> Component', () => {
         header.props().navigateTo('/test');
 
         expect(context.router.history.push).toHaveBeenCalledWith('/test');
+    });
+
+    it('should calls performSetupLocale', () => {
+        renderComponent({ locale: 'de' });
+        expect(appActions.performSetupLocale).toHaveBeenCalledWith('de');
+    });
+
+    it('should calls performSetupLocale when locale was changed', () => {
+        const app = renderComponent();
+
+        app
+            .find('Header')
+            .props()
+            .onLocaleChange('de');
+        expect(appActions.performSetupLocale).toHaveBeenCalledWith('de');
     });
 });
