@@ -5,23 +5,30 @@
     box-sizing: border-box;
     background-color: white;
     cursor: pointer;
-    font-size: 0.5rem;
-    width: 4em;
-    height: 4em;
+    font-size: 0.7rem;
+    padding-left: 0.6em;
+    width: 3.4em;
+    height: 3.4em;
     border-radius: 50%;
     color: var(--button-primary-color);
-    border: var(--border-width) solid var(--button-primary-color);
-    transition: 0.2s all ease-in;
+    border: 0.133em solid var(--disclosure-arrow-border-color);
+    transition: 0.2s transform ease-in, 0.2s color ease-in;
     outline: none;
     appearance: none;
 }
 
+.disclosure-arrow > svg {
+    vertical-align: top;
+    text-align: center;
+}
+
 .disclosure-arrow:hover,
 .disclosure-arrow.expanded {
-    border: var(--border-width) solid var(--disclosure-arrow-hover-color);
+    border-color: var(--disclosure-arrow-hover-color);
     color: var(--disclosure-arrow-hover-color);
 }
 
 .disclosure-arrow.expanded {
     transform: rotate(90deg);
+    padding-left: 0.7em;
 }
