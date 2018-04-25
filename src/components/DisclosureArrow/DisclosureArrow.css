@@ -1,0 +1,27 @@
+.disclosure-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: white;
+    cursor: pointer;
+    font-size: 0.5rem;
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    color: var(--button-primary-color);
+    border: var(--border-width) solid var(--button-primary-color);
+    transition: 0.2s all ease-in;
+    outline: none;
+    appearance: none;
+}
+
+.disclosure-arrow:hover,
+.disclosure-arrow.expanded {
+    border: var(--border-width) solid var(--disclosure-arrow-hover-color);
+    color: var(--disclosure-arrow-hover-color);
+}
+
+.disclosure-arrow.expanded {
+    transform: rotate(90deg);
+}

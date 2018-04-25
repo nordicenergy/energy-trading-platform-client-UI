@@ -27,6 +27,7 @@ import ProfileForm from './ProfileForm';
 import Confirm from './Confirm';
 import CoinButton from './CoinButton';
 import OfferCard from './OfferCard';
+import DisclosureArrow from './DisclosureArrow';
 
 export {
     Button,
@@ -61,5 +62,6 @@ export {
     DateField,
     ProfileForm,
     Confirm,
-    OfferCard
+    OfferCard,
+    DisclosureArrow
 };
