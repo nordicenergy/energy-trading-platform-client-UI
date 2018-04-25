@@ -37,6 +37,7 @@ const store = mockStore({
                     date: 1523707200,
                     balance: 40.4
                 },
+                hasNextTransactions: 3,
                 transactions: [
                     {
                         id: 1,
@@ -70,6 +71,7 @@ const props = {
             date: 1523707200,
             balance: 40.4
         },
+        hasNextTransactions: 3,
         transactions: [
             {
                 id: 1,
@@ -109,6 +111,10 @@ function renderComponent() {
 }
 
 describe('<ShowTransactions /> Component', () => {
+    jest.useFakeTimers();
+
+    const mainContainerMock = document.createElement('div');
+
     beforeEach(() => {
         context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
@@ -116,6 +122,10 @@ describe('<ShowTransactions /> Component', () => {
         txActions.performGetRecentTransactions = jest.fn();
         notificationActions.performPushNotification = jest.fn();
         appActions.performSetupBreadcrumbs = jest.fn();
+
+        jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerMock);
+        jest.spyOn(mainContainerMock, 'addEventListener');
+        jest.spyOn(mainContainerMock, 'removeEventListener');
     });
 
     it(`should contains following controls:
@@ -131,6 +141,16 @@ describe('<ShowTransactions /> Component', () => {
         expect(component.find(RecentTransactions)).toHaveLength(1);
     });
 
+    it('should handler scroll event', () => {
+        const component = renderComponent();
+        const handleScrollMock = component.instance().scrollHandler;
+
+        expect(mainContainerMock.addEventListener).toHaveBeenCalledWith('scroll', component.instance().scrollHandler);
+
+        component.unmount();
+        expect(mainContainerMock.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);
+    });
+
     it('should call prepare common function', () => {
         const component = renderContainer();
         const table = component.find(RecentTransactions).at(0);
@@ -138,6 +158,7 @@ describe('<ShowTransactions /> Component', () => {
         delete tableProps.onButtonClick;
         expect(tableProps).toEqual({
             pagination: true,
+            loading: false,
             currentBalance: {
                 date: 1523707200,
                 balance: 40.4
@@ -165,9 +186,12 @@ describe('<ShowTransactions /> Component', () => {
         const stateDummy = {
             Transactions: {
                 recentTransactions: {
-                    data: 'tx_data',
+                    data: {
+                        numberOfTransactions: 20,
+                        transactions: ['tx_test']
+                    },
                     error: null,
-                    loading: false
+                    loading: 'tx_loading'
                 }
             },
             Users: {
@@ -180,7 +204,12 @@ describe('<ShowTransactions /> Component', () => {
         };
         const props = ShowTransactions.mapStateToProps(stateDummy);
         expect(props).toEqual({
-            recentTransactions: 'tx_data',
+            recentTransactions: {
+                numberOfTransactions: 20,
+                transactions: ['tx_test']
+            },
+            hasNextTransactions: true,
+            transactionsLoading: 'tx_loading',
             user: 'user_data',
             error: 'test_error',
             loading: 'test_loading'

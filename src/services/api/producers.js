@@ -4,19 +4,13 @@ import { SESSION_API_URL, LIMIT } from '../../constants';
 
 export function getProducer(id) {
     const result = { data: { producer: {} } };
-    // TODO it's temporary ugly solution, please, replace by needed API call
-    // return Axios.get(`${SESSION_API_URL}/producers/${id}/get`);
-    return Axios.get(`${SESSION_API_URL}/producers/direct`, {
-        params: { limit: 1000, offset: 0 }
-    }).then(response => {
-        if (response.data && Array.isArray(response.data.producers)) {
-            const { producers } = response.data;
-            // eslint-disable-next-line
-            const producer = producers.find(producer => producer.id == id) || {};
-            // TODO in future need to think about Adapters
+
+    return Axios.get(`${SESSION_API_URL}/producers/${id}/get`).then(response => {
+        if (response.data && response.data.producer) {
+            const { producer } = response.data;
             result.data.producer = {
                 ...producer,
-                location: `${producer.street}, ${producer.city}, ${producer.postcode} (${producer.country})`,
+                location: locationTag`${producer.street}, ${producer.postcode} ${producer.city}, ${producer.country}`,
                 annualProduction: producer.productionOfLastDay,
                 purchased: producer.energyPurchased,
                 marketPrice: 2.5,
@@ -25,6 +19,17 @@ export function getProducer(id) {
         }
         return result;
     });
+}
+
+function locationTag(strings, ...values) {
+    const formatted = values.map((value, index) => {
+        if (!!value) {
+            return `${value}${strings[index + 1] || ''}`;
+        }
+        return '';
+    });
+
+    return formatted.join('');
 }
 
 export function getProducerHistory(/* producerId, { page = 0 } = {} */) {

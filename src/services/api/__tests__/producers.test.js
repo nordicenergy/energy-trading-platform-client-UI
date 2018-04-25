@@ -22,10 +22,7 @@ describe('Producers API Service', () => {
         Axios.get.mockReturnValue(Promise.resolve({ data: { producers: [] } }));
 
         getProducer('testId');
-
-        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct', { params: { limit: 1000, offset: 0 } });
-        // TODO will be replaced by
-        // expect(Axios.get).toHaveBeenCalledWith('/api//producers/get/testId');
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/testId/get');
     });
 
     // TODO uncomment after completing end-point
@@ -61,9 +58,7 @@ describe('Producers API Service', () => {
 
         const [[firstCallUrl], [secondCallUrl]] = Axios.get.mock.calls;
         expect(firstCallUrl).toBe('/api/user/getUserData');
-        expect(secondCallUrl).toBe('/api/producers/direct');
-        // TODO will be replaced by
-        // expect(secondCallUrl).toBe('/api/producers/TEST/get');
+        expect(secondCallUrl).toBe('/api/producers/TEST/get');
     });
 
     it('should provide method for getting producers list', () => {

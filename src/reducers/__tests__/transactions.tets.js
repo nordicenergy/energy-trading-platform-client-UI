@@ -8,7 +8,11 @@ describe('Transactions reducer:', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.pending);
             expect(result.recentTransactions.loading).toEqual(true);
             expect(result.recentTransactions.error).toEqual(null);
-            expect(result.recentTransactions.data).toEqual({ currentBalance: {}, transactions: [] });
+            expect(result.recentTransactions.data).toEqual({
+                currentBalance: {},
+                transactions: [],
+                numberOfTransactions: 0
+            });
 
             done();
         });
@@ -18,7 +22,11 @@ describe('Transactions reducer:', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.fail);
             expect(result.recentTransactions.loading).toEqual(false);
             expect(result.recentTransactions.error).toEqual('Error Message');
-            expect(result.recentTransactions.data).toEqual({ currentBalance: {}, transactions: [] });
+            expect(result.recentTransactions.data).toEqual({
+                currentBalance: {},
+                transactions: [],
+                numberOfTransactions: 0
+            });
 
             done();
         });
@@ -64,22 +72,26 @@ function fixtures() {
                             description: 'Bought 23 kWh from Peter',
                             amount: 0.81
                         }
-                    ]
+                    ],
+                    numberOfTransactions: 3
                 },
                 error: null,
-                loading: false
+                loading: false,
+                meta: ['testId', 0]
             },
             fail: {
                 type: 'GET_RECENT_TRANSACTIONS',
                 payload: null,
                 error: 'Error Message',
-                loading: false
+                loading: false,
+                meta: ['testId', 0]
             },
             pending: {
                 type: 'GET_RECENT_TRANSACTIONS',
                 payload: null,
                 error: null,
-                loading: true
+                loading: true,
+                meta: ['testId', 0]
             }
         }
     };

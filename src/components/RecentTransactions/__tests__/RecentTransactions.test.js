@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import RecentTransactions from '../RecentTransactions';
 import Button from '../../Button';
+import Spinner from '../../Loader/Spinner';
 
 const labelsMock = {
     recentTransactionsTitle: 'Most Recent Transactions',
@@ -71,6 +72,8 @@ const currentBalanceDummy = {
 
 function renderComponent(
     {
+        loading = false,
+        pagination = false,
         labels = labelsMock,
         transactions = transactionsDummy,
         currentBalance = currentBalanceDummy,
@@ -80,6 +83,8 @@ function renderComponent(
 ) {
     return renderer(
         <RecentTransactions
+            loading={loading}
+            pagination={pagination}
             labels={labels}
             transactions={transactions}
             currentBalance={currentBalance}
@@ -98,11 +103,23 @@ describe('<RecentTransactions /> Component', () => {
         - card title element with class "nav-card-title";`, () => {
         const component = renderComponent({});
         expect(component.find('caption')).toHaveLength(1);
+        expect(component.find('.recent-transactions-caption-content')).toHaveLength(0);
+        expect(component.find('.recent-transactions-current-balance-row')).toHaveLength(1);
         expect(component.find('thead')).toHaveLength(1);
         expect(component.find('tbody')).toHaveLength(1);
         expect(component.find('th')).toHaveLength(3);
         expect(component.find('td')).toHaveLength(15);
         expect(component.find(Button)).toHaveLength(1);
+        expect(component.find(Spinner)).toHaveLength(0);
+
+        const extendedComponent = renderComponent({ pagination: true, loading: true });
+
+        expect(extendedComponent.find(Spinner)).toHaveLength(1);
+        expect(extendedComponent.find('.recent-transactions-caption-content')).toHaveLength(1);
+        expect(extendedComponent.find('.recent-transactions-current-balance-row')).toHaveLength(0);
+        expect(extendedComponent.find(Button)).toHaveLength(0);
+        expect(extendedComponent.find('th')).toHaveLength(3);
+        expect(extendedComponent.find('td')).toHaveLength(21);
     });
 
     it('should display correct data in table', () => {
