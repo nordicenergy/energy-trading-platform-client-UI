@@ -8,7 +8,7 @@ describe('Transactions action performers', () => {
     });
 
     it('should call dispatch method for getting recent transactions', () => {
-        performGetRecentTransactions('testId');
+        performGetRecentTransactions('testId', 1);
 
         const [firstCall] = dispatcher.dispatchPromise.mock.calls;
         const [method, type, loadingFunc, meta] = firstCall;
@@ -20,6 +20,6 @@ describe('Transactions action performers', () => {
         expect(method.name).toEqual('getRecentTransactions');
         expect(type).toEqual('GET_RECENT_TRANSACTIONS');
         expect(loading).toEqual('TEST');
-        expect(meta).toEqual(['testId']);
+        expect(meta).toEqual(['testId', 1]);
     });
 });

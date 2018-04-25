@@ -11,3 +11,8 @@
     line-height: 1.5;
     text-align: left;
 }
+
+.trading-page .energy-amount-graph,
+.trading-page .wattcoin-table-container {
+    opacity: 0.4;
+}

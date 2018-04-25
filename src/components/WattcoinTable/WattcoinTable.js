@@ -34,7 +34,7 @@ class WattcoinTable extends React.Component {
                     <span className="wattcoin-table-label">{label}</span>
                     <span className="wattcoin-table-value">{`${total || ''}`.replace('.', ',')}</span>
                 </span>
-                <Button className="wattcoin-table-more-button" onClick={() => onMoreClick()}>
+                <Button disabled className="wattcoin-table-more-button" onClick={() => onMoreClick()}>
                     {button}
                 </Button>
             </td>

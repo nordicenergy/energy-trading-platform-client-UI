@@ -26,11 +26,17 @@ export class ShowTransactions extends AbstractContainer {
             }
         ];
         super(props, context, breadcrumbs);
+
+        this.state = { page: 0 };
     }
 
     static mapStateToProps(state) {
+        const { data: txData } = state.Transactions.recentTransactions;
+
         return {
-            loading: state.Transactions.recentTransactions.loading || state.Users.profile.loading,
+            loading: state.Users.profile.loading,
+            transactionsLoading: state.Transactions.recentTransactions.loading,
+            hasNextTransactions: txData.numberOfTransactions > txData.transactions.length,
             recentTransactions: state.Transactions.recentTransactions.data,
             user: state.Users.profile.data.user,
             error: state.Transactions.recentTransactions.error || state.Users.profile.error
@@ -39,13 +45,24 @@ export class ShowTransactions extends AbstractContainer {
 
     componentDidMount() {
         performGetUserData();
+
+        const loadCondition = () => {
+            const { hasNextTransactions, transactionsLoading } = this.props;
+            return hasNextTransactions && !transactionsLoading;
+        };
+        const loadCallback = () => {
+            this.setState(state => ({
+                page: state.page + 1
+            }));
+        };
+        this.setupScrollHandler(loadCondition, loadCallback);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         const { user, loading, error } = this.props;
 
-        if (user !== prevProps.user) {
-            performGetRecentTransactions(this.props.user.id);
+        if (user !== prevProps.user || prevState.page !== this.state.page) {
+            performGetRecentTransactions(this.props.user.id, this.state.page);
         }
 
         if (!loading && error && error !== prevProps.error) {
@@ -53,19 +70,28 @@ export class ShowTransactions extends AbstractContainer {
         }
     }
 
+    componentWillUnmount() {
+        this.removeScrollHandler();
+    }
+
     render() {
         const labels = this.prepareLabels(messages);
-        const { recentTransactions: { transactions = [], currentBalance = 0 } } = this.props;
+        const {
+            recentTransactions: { transactions = [], currentBalance = 0 },
+            transactionsLoading,
+            loading
+        } = this.props;
 
         return (
-            <section className="show-transaction-page">
-                <Loader show={this.props.loading} />
+            <section className="show-transaction-page" aria-busy={loading}>
+                <Loader show={loading} />
                 <h1>{labels.header}</h1>
                 <section>
                     <RecentTransactions
                         transactions={transactions}
                         currentBalance={currentBalance}
                         labels={labels}
+                        loading={transactionsLoading}
                         pagination
                     />
                 </section>

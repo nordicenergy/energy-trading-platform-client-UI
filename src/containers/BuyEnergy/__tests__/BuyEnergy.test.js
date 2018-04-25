@@ -68,9 +68,9 @@ describe('<BuyEnergy /> container', () => {
             currentProducerLoading: true,
             producersLoading: true
         });
-        const handleScrollMock = buyEnergy.instance().handleScroll;
+        const handleScrollMock = buyEnergy.instance().scrollHandler;
 
-        expect(mainContainerMock.addEventListener).toHaveBeenCalledWith('scroll', buyEnergy.instance().handleScroll);
+        expect(mainContainerMock.addEventListener).toHaveBeenCalledWith('scroll', buyEnergy.instance().scrollHandler);
 
         buyEnergy.unmount();
         expect(mainContainerMock.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);

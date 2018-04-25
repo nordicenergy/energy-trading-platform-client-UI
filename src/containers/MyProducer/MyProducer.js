@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faReply } from '@fortawesome/fontawesome-free-solid';
 import { ProducerInfo, Loader, Button } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from '../Producer';
@@ -67,12 +65,6 @@ export class MyProducer extends AbstractContainer {
         }
     }
 
-    switchBackToStandard() {
-        // TODO: call producer deselect end-point here
-        // const { history } = this.context.router;
-        // history.push(PATHS.buyEnergy.path);
-    }
-
     openProducersPage() {
         const { history } = this.context.router;
         history.push(PATHS.buyEnergy.path);
@@ -85,7 +77,7 @@ export class MyProducer extends AbstractContainer {
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
 
         return (
-            <section className="my-producer-page">
+            <section className="my-producer-page" aria-busy={loading}>
                 <Loader show={loading} />
                 <section className="my-producer-page-info-container">
                     <h1>{formatMessage(messages.header)}</h1>
@@ -93,17 +85,6 @@ export class MyProducer extends AbstractContainer {
                 </section>
                 <section className="my-producer-page-controls">
                     <Button onClick={() => this.openProducersPage()}>{formatMessage(messages.showButton)}</Button>
-                    <a
-                        className="my-producer-page-switch-back"
-                        href=""
-                        onClick={event => {
-                            event.preventDefault();
-                            this.switchBackToStandard();
-                        }}
-                    >
-                        <FontAwesomeIcon icon={faReply} />
-                        <span>{formatMessage(messages.switchBack)}</span>
-                    </a>
                 </section>
             </section>
         );

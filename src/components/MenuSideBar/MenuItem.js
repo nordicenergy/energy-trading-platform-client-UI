@@ -6,11 +6,15 @@ import icons from '@fortawesome/fontawesome-free-solid';
 import './MenuItem.css';
 
 const MenuItem = props => {
-    const { label, icon, active, onClick = f => f } = props;
+    const { label, icon, active, disabled, onClick = f => f } = props;
     const itemClass = ['menu-item'];
 
     if (active) {
         itemClass.push('menu-item--active');
+    }
+
+    if (disabled) {
+        itemClass.push('menu-item--disabled');
     }
 
     return (
@@ -20,7 +24,9 @@ const MenuItem = props => {
             href=""
             onClick={event => {
                 event.preventDefault();
-                onClick();
+                if (!disabled) {
+                    onClick();
+                }
             }}
         >
             <div className="menu-item-icon">

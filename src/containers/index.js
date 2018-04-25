@@ -5,7 +5,7 @@ import Login from './Login';
 import RestorePassword from './RestorePassword';
 import Overview from './Overview';
 import Documents from './Documents';
-import SubmitMetric from './SubmitMetric';
+import SubmitMeter from './SubmitMeter';
 import Profile from './Profile';
 import About from './About';
 import Team from './Team';
@@ -15,6 +15,7 @@ import SellEnergy from './SellEnergy';
 import BuyEnergy from './BuyEnergy';
 import ShowTransactions from './ShowTransactions';
 import Producer from './Producer';
+import Trading from './Trading';
 
 export {
     AbstractContainer,
@@ -24,7 +25,7 @@ export {
     RestorePassword,
     Overview,
     Documents,
-    SubmitMetric,
+    SubmitMeter,
     Profile,
     Service,
     About,
@@ -33,5 +34,6 @@ export {
     SellEnergy,
     MyProducer,
     ShowTransactions,
-    Producer
+    Producer,
+    Trading
 };
