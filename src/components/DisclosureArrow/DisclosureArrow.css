@@ -18,7 +18,8 @@
     outline: none;
 }
 
-.disclosure-arrow:hover, .disclosure-arrow.expanded {
+.disclosure-arrow:hover,
+.disclosure-arrow.expanded {
     border: var(--border-width) solid var(--disclosure-arrow-hover-color);
     color: var(--disclosure-arrow-hover-color);
 }
