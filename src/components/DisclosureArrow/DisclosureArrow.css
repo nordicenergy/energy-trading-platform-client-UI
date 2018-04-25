@@ -12,10 +12,8 @@
     color: var(--button-primary-color);
     border: var(--border-width) solid var(--button-primary-color);
     transition: 0.2s all ease-in;
-}
-
-.disclosure-arrow:focus {
     outline: none;
+    appearance: none;
 }
 
 .disclosure-arrow:hover,
