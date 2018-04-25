@@ -1,4 +1,23 @@
-// import Axios from 'axios';
+import Axios from 'axios';
+import { SESSION_API_URL } from '../../constants';
+
+export function getAboutUsContent(locale) {
+    return Axios.get(`${SESSION_API_URL}/content/aboutUs`, {
+        locale
+    }).then(response => response.data && response.data.introductionText);
+}
+
+export function getFAQContent(locale) {
+    return Axios.get(`${SESSION_API_URL}/content/FAQ`, {
+        locale
+    }).then(response => response.data && response.data.faq);
+}
+
+export function getLocalizationContent(locale) {
+    return Promise.all([getAboutUsContent(locale), getFAQContent(locale)]).then(([aboutUs, FAQ]) => ({
+        data: { aboutUs, FAQ }
+    }));
+}
 
 export function getAboutUsInfo(locale) {
     return Promise.resolve({
