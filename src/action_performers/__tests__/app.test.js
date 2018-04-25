@@ -1,10 +1,10 @@
 import { dispatcher } from '../../store';
-
-import { performSetupBreadcrumbs } from '../app';
+import { performSetupBreadcrumbs, performSetupLocale } from '../app';
 
 describe('Users action performers', () => {
     beforeEach(() => {
         dispatcher.dispatchAction = jest.fn();
+        dispatcher.dispatchPromise = jest.fn();
     });
 
     it('should call dispatch method for get user data', () => {
@@ -27,5 +27,20 @@ describe('Users action performers', () => {
                 path: '/test'
             }
         ]);
+    });
+
+    it('should call dispatch method for get localization content', () => {
+        performSetupLocale('en');
+
+        const [[method, type, loadingFunc, meta]] = dispatcher.dispatchPromise.mock.calls;
+        const loading = loadingFunc({
+            App: { localization: { loading: 'TEST' } }
+        });
+
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);
+        expect(method.name).toEqual('getLocalizationContent');
+        expect(type).toEqual('SETUP_LOCALE');
+        expect(loading).toEqual('TEST');
+        expect(meta).toEqual(['en']);
     });
 });
