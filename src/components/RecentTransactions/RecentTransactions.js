@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment/moment';
 import Button from '../Button';
+import Spinner from '../Loader/Spinner';
 import { DATE_FORMAT } from '../../constants';
 
 import './RecentTransactions.css';
 
 const ROWS_LIMIT = 5;
 
-const RecentTransactions = ({ transactions, currentBalance, labels, pagination, onButtonClick }) => (
+const RecentTransactions = ({ transactions, currentBalance, labels, pagination, onButtonClick, loading }) => (
     <div role="table" className="recent-transactions-container">
         <table>
             <caption>
@@ -53,6 +54,11 @@ const RecentTransactions = ({ transactions, currentBalance, labels, pagination, 
         {!pagination && (
             <div className="recent-transactions-button-container">
                 <Button onClick={() => onButtonClick()}>{labels.recentTransactionsMore}</Button>
+            </div>
+        )}
+        {pagination && (
+            <div role="progressbar" aria-hidden={!loading} className="recent-transactions-loader">
+                {loading && <Spinner size="sm" color="#30acc1" />}
             </div>
         )}
     </div>

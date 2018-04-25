@@ -99,7 +99,7 @@ export class Login extends AbstractContainer {
         const { errors } = this.state;
 
         return (
-            <div className="login-container">
+            <div className="login-container" aria-busy={loading}>
                 <div className="login-container-layout">
                     <Loader show={loading} />
                     <div className="login-container-hero">

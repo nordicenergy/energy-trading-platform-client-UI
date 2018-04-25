@@ -9,8 +9,8 @@ const messages = defineMessages({
         id: 'app.menuBar.documents',
         defaultMessage: 'My Documents'
     },
-    submitMetric: {
-        id: 'app.menuBar.submitMetric',
+    submitMeter: {
+        id: 'app.menuBar.submitMeter',
         defaultMessage: 'Submit Meter Readings'
     },
     trading: {

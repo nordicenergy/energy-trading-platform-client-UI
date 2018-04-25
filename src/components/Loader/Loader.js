@@ -13,7 +13,7 @@ const Loader = ({ className, show, fullScreen }) => {
     );
 
     return (
-        <div aria-hidden={!show} className={classes}>
+        <div role="progressbar" aria-hidden={!show} className={classes}>
             <Spinner />
         </div>
     );

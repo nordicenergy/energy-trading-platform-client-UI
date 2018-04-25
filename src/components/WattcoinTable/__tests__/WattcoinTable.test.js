@@ -67,7 +67,8 @@ describe('<WattcoinTable /> Component', () => {
         expect(totalCells.at(0).text()).toEqual('Total0,03More');
     });
 
-    it('should handle on click event for button "More"', () => {
+    // TODO remove skip after enabling button
+    it.skip('should handle on click event for button "More"', () => {
         const component = renderComponent(props);
         component
             .find(Button)

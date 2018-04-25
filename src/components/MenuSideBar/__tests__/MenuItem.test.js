@@ -38,4 +38,16 @@ describe('<MenuItem /> Component', () => {
             .simulate('click');
         expect(props.onClick.mock.calls.length).toEqual(1);
     });
+
+    it('should provide possibility self disabling', () => {
+        const props = { icon: 'faCoffee', label: 'Item', onClick: jest.fn(), disabled: true };
+        const component = renderComponent(props);
+
+        expect(component.find('a.menu-item--disabled').length).toEqual(1);
+        component
+            .find('.menu-item')
+            .at(0)
+            .simulate('click');
+        expect(props.onClick.mock.calls.length).toEqual(0);
+    });
 });

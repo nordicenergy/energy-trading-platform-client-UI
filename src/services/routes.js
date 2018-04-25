@@ -15,7 +15,10 @@ import {
     Producer,
     BuyEnergy,
     SellEnergy,
-    ShowTransactions
+    ShowTransactions,
+    Trading,
+    Documents,
+    SubmitMeter
 } from '../containers';
 import { Breadcrumbs as messages } from '../services/translations/messages';
 
@@ -25,6 +28,20 @@ export const PATHS = {
         path: '/',
         icon: 'faHome',
         label: messages.overview
+    },
+    documents: {
+        id: 'documents',
+        path: '/documents'
+    },
+    submit_meter: {
+        id: 'submit_meter',
+        path: '/submit_meter'
+    },
+    trading: {
+        id: 'trading',
+        path: '/trading',
+        icon: 'faChartBar',
+        label: messages.trading
     },
     profile: {
         id: 'profile',
@@ -76,7 +93,7 @@ const BuyEnergyRoute = () => (
     </React.Fragment>
 );
 
-const TradingRoute = () => (
+const OverviewRoute = () => (
     <React.Fragment>
         <Route exact path={PATHS.overview.path} component={Overview} />
         <Route path={PATHS.myProducer.path} component={MyProducer} />
@@ -103,7 +120,10 @@ const AppMainLayout = () => {
         return (
             <div id="app-layout">
                 <App>
-                    <TradingRoute />
+                    <OverviewRoute />
+                    <Route exact path={PATHS.trading.path} component={Trading} />
+                    {/*<Route path={PATHS.documents.path} component={Documents} />*/}
+                    {/*<Route path={PATHS.submit_meter.path} component={SubmitMeter} />*/}
                     <Route path={PATHS.profile.path} component={Profile} />
                     <Route path={PATHS.team.path} component={Team} />
                     <Route path={PATHS.about.path} component={About} />

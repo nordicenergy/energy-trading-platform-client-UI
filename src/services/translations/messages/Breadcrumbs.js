@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl';
 const messages = defineMessages({
     overview: {
         id: 'app.breadCrumbs.overview',
-        defaultMessage: 'Trading'
+        defaultMessage: 'Overview'
     },
     showTransactions: {
         id: 'app.breadCrumbs.showTransactions',

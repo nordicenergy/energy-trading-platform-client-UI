@@ -2,7 +2,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import MyProducerContainer, { MyProducer } from '../MyProducer';
 import { ProducerInfo, Loader, Button } from '../../../components';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 import * as usersActions from '../../../action_performers/users';
@@ -128,8 +127,6 @@ describe('<MyProducer /> Component', () => {
     it(`should contains following controls:
         - <div> with class "my-producer-page";
         - 1 <h1>;
-        - 1 <a>;
-        - 1 <FontAwesomeIcon> icon (reply);
         - 1 <Button> component;
         - 1 <Loader> component";
         - 1 <ProducerInfo> component";`, () => {
@@ -137,11 +134,9 @@ describe('<MyProducer /> Component', () => {
 
         expect(component.find('.my-producer-page')).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
-        expect(component.find('a')).toHaveLength(1);
         expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(1);
-        expect(component.find(FontAwesomeIcon)).toHaveLength(1);
     });
 
     it('should call prepare common function', () => {
@@ -238,10 +233,6 @@ describe('<MyProducer /> Component', () => {
         expect(producersActions.performGetProducerHistory.mock.calls.length).toEqual(4);
 
         component.setContext(context);
-
-        // TODO will implement later
-        // const backLink = component.find('a.my-producer-page-switch-back').at(0);
-        // backLink.props().onClick({ preventDefault: f => f });
 
         const openProducersList = component.find(Button).at(0);
         openProducersList.props().onClick();

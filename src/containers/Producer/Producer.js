@@ -91,7 +91,7 @@ export class Producer extends AbstractContainer {
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
 
         return (
-            <section className="producer-page">
+            <section className="producer-page" aria-busy={loading}>
                 <Loader show={loading} />
                 <section className="producer-page-info-container">
                     <h1>{producer.name}</h1>
