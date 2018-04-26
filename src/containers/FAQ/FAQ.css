@@ -24,6 +24,7 @@
 .faq-page .title-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .faq-page .question-container .title {

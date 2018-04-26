@@ -23,10 +23,11 @@ export class FAQ extends AbstractContainer {
     }
 
     toggleExpandQuestion(id) {
-        if (this.state.expandedIds.includes(id)) {
-            const index = this.state.expandedIds.findIndex(expandedId => expandedId === id);
+        const searchedIndex = this.state.expandedIds.indexOf(id);
+        const isIncludesSearchedId = searchedIndex !== -1;
+        if (isIncludesSearchedId) {
             this.setState({
-                expandedIds: [...this.state.expandedIds.slice(0, index), ...this.state.expandedIds.slice(index + 1)]
+                expandedIds: [...this.state.expandedIds.slice(0, searchedIndex), ...this.state.expandedIds.slice(searchedIndex + 1)]
             });
         } else {
             this.setState({

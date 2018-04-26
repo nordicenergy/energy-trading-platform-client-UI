@@ -25,8 +25,8 @@ const messages = defineMessages({
         id: 'app.footer.about',
         defaultMessage: 'About Us'
     },
-    team: {
-        id: 'app.footer.team',
+    termsAndConditions: {
+        id: 'app.footer.termsAndConditions',
         defaultMessage: 'Terms & Conditions'
     },
     faq: {

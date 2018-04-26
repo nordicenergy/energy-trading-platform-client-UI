@@ -126,7 +126,7 @@ export class App extends React.Component {
             },
             {
                 href: PATHS.team.path,
-                label: formatMessage(messages.team),
+                label: formatMessage(messages.termsAndConditions),
                 active: pathname === PATHS.team.path
             },
             {
