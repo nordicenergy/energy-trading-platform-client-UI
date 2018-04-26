@@ -53,11 +53,11 @@ class Notification extends Component {
 
     renderToast(state) {
         const style = { ...defaultStyle, ...transitionStyles[state] };
-        const { notification: { type, message } } = this.props;
+        const { notification: { type, message }, onClose } = this.props;
 
         return (
             <div style={style}>
-                <Toast type={type} message={message} />
+                <Toast type={type} message={message} onCloseClick={onClose} />
             </div>
         );
     }
