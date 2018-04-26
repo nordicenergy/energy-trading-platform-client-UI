@@ -7,19 +7,23 @@ pipelines:
         script:
           - export CI=false
           - npm install
+    - step: #Step 2: Do tests
+        name: Do tests
+        deployment: test
+        script:
           - npm test
+    - step: #Step 3: Compile and deploy to staging
+        name: Deploy to Staging
+        deployment: staging        
+        script:
           - npm run build
           - npm run styleguide:build
           - mkdir build/docs
           - cp -r styleguide/* build/docs
-    - step: #Step 2: Deploy to staging
-        name: Deploy to Staging
-        deployment: staging        
-        script:
           - scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
           - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
           - ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
-    - step: #Step 3: Deploy to staging
+    - step: #Step 4: Deploy to staging
         name: Deploy to Production
         deployment: production
         script:
