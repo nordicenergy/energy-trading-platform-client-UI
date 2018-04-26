@@ -27,11 +27,11 @@ const messages = defineMessages({
     },
     team: {
         id: 'app.footer.team',
-        defaultMessage: 'Our Team'
+        defaultMessage: 'Terms & Conditions'
     },
-    service: {
-        id: 'app.footer.service',
-        defaultMessage: 'Question&Service'
+    faq: {
+        id: 'app.footer.faq',
+        defaultMessage: 'FAQ'
     },
     address: {
         id: 'app.footer.address',

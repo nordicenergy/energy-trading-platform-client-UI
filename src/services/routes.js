@@ -8,7 +8,7 @@ import {
     RestorePassword,
     Overview,
     Profile,
-    Service,
+    FAQ,
     About,
     Team,
     MyProducer,
@@ -53,9 +53,9 @@ export const PATHS = {
         id: 'about',
         path: '/about'
     },
-    service: {
-        id: 'service',
-        path: '/service'
+    faq: {
+        id: 'faq',
+        path: '/faq'
     },
     myProducer: {
         id: 'my_producer',
@@ -125,7 +125,7 @@ const AppMainLayout = () => {
                     <Route path={PATHS.profile.path} component={Profile} />
                     <Route path={PATHS.team.path} component={Team} />
                     <Route path={PATHS.about.path} component={About} />
-                    <Route path={PATHS.service.path} component={Service} />
+                    <Route path={PATHS.faq.path} component={FAQ} />
                 </App>
             </div>
         );

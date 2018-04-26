@@ -39,8 +39,8 @@
     "app.menuBar.profile": "Profile",
 
     "app.footer.about": "About Us",
-    "app.footer.team": "Our Team",
-    "app.footer.service": "Question&Service",
+    "app.footer.team": "Terms & Conditions",
+    "app.footer.faq": "FAQ",
     "app.footer.address": "2018 Lition. All rights reserved.",
 
     "app.navigationCardsPanel.myProducer": "My Producer",
@@ -97,6 +97,7 @@
     "app.header.logoutCancelButton": "No",
 
     "app.aboutPage.header": "About Us",
+    "app.faqPage.header": "FAQ",
 
     "app.profilePage.header": "Profile",
     "app.profilePage.errors.firstName": "Enter your first name.",
