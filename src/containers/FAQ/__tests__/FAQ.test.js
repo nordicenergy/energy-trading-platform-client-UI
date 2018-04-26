@@ -96,13 +96,16 @@ describe('<FAQ /> Component', () => {
         };
         const props = FAQ.mapStateToProps(stateDummy);
         expect(props).toEqual({
-            questions: ['test_data'],
+            questions: ['test_data']
         });
     });
 
     it('should expand question answer by clicking on title', () => {
         const component = renderComponent();
-        component.find('.title').at(0).simulate('click');
+        component
+            .find('.title')
+            .at(0)
+            .simulate('click');
         expect(component.state('expandedIds')).toEqual(['testId1']);
     });
 
@@ -111,13 +114,19 @@ describe('<FAQ /> Component', () => {
         component.setState({
             expandedIds: ['testId1']
         });
-        component.find('.title').at(0).simulate('click');
+        component
+            .find('.title')
+            .at(0)
+            .simulate('click');
         expect(component.state('expandedIds')).toEqual([]);
     });
 
     it('should expand question answer by clicking on disclosure arrow', () => {
         const component = renderComponent();
-        component.find('DisclosureArrow').at(0).simulate('click');
+        component
+            .find('DisclosureArrow')
+            .at(0)
+            .simulate('click');
         expect(component.state('expandedIds')).toEqual(['testId1']);
     });
 
@@ -126,7 +135,10 @@ describe('<FAQ /> Component', () => {
         component.setState({
             expandedIds: ['testId1']
         });
-        component.find('DisclosureArrow').at(0).simulate('click');
+        component
+            .find('DisclosureArrow')
+            .at(0)
+            .simulate('click');
         expect(component.state('expandedIds')).toEqual([]);
     });
 });
