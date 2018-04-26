@@ -27,7 +27,10 @@ export class FAQ extends AbstractContainer {
         const isIncludesSearchedId = searchedIndex !== -1;
         if (isIncludesSearchedId) {
             this.setState({
-                expandedIds: [...this.state.expandedIds.slice(0, searchedIndex), ...this.state.expandedIds.slice(searchedIndex + 1)]
+                expandedIds: [
+                    ...this.state.expandedIds.slice(0, searchedIndex),
+                    ...this.state.expandedIds.slice(searchedIndex + 1)
+                ]
             });
         } else {
             this.setState({
