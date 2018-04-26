@@ -19,7 +19,7 @@ class SelectField extends Component {
 
         this.handleBodyClick = this.handleBodyClick.bind(this);
         this.state = {
-            selectedOption: props.defaultValue || firstOption,
+            value: props.defaultValue || firstOption,
             isFocused: false
         };
     }
@@ -37,48 +37,47 @@ class SelectField extends Component {
     }
 
     handleBodyClick(event) {
-        const { isFocused } = this.getState();
-
         this.setState({
-            isFocused: isFocused
-                ? false
-                : !!(this.layoutRef.compareDocumentPosition(event.target) & Node.DOCUMENT_POSITION_CONTAINED_BY)
+            isFocused:
+                this.state.isFocused && !event.target.classList.contains('options-list-item')
+                    ? false
+                    : !!(this.layoutRef.compareDocumentPosition(event.target) & Node.DOCUMENT_POSITION_CONTAINED_BY)
         });
     }
 
-    handleOptionMouseDown(option) {
+    handleOptionClick(option) {
         const { onChange } = this.props;
 
-        this.setState({ selectedOption: option, isFocused: false });
+        this.setState({ value: option, isFocused: false });
         if (typeof onChange === 'function') {
             onChange(option);
         }
     }
 
     renderOption(option) {
-        const { selectedOption } = this.getState();
+        const { value: selectedOption } = this.getState();
         const classes = classNames({
             'options-list-item': true,
             'options-list-item--selected': selectedOption.value === option.value
         });
 
         return (
-            <li className={classes} key={option.value} onMouseDown={() => this.handleOptionMouseDown(option)}>
+            <li className={classes} key={option.value} onClick={() => this.handleOptionClick(option)}>
                 {option.title}
             </li>
         );
     }
 
     render() {
-        const { id, label, options } = this.props;
-        const { selectedOption, isFocused } = this.getState();
+        const { id, className, label, options } = this.props;
+        const { value: selectedOption, isFocused } = this.getState();
         const listBoxId = `listbox-${id}`;
-        const classes = classNames('select-field', isFocused && 'select-field--focused');
+        const classes = classNames('select-field', isFocused && 'select-field--focused', className);
 
         return (
             <div id={id} className={classes}>
                 <div className="select-field-layout" ref={ref => (this.layoutRef = ref)}>
-                    <label className="select-field-label">{label}</label>
+                    {label && <label className="select-field-label">{label}</label>}
                     <div
                         className="select-field-input"
                         role="combobox"
@@ -102,8 +101,9 @@ class SelectField extends Component {
 }
 
 SelectField.propTypes = {
+    className: PropTypes.string,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     options: PropTypes.arrayOf(OptionPropType),
     defaultValue: OptionPropType,
     value: OptionPropType,

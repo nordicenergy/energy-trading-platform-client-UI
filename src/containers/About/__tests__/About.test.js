@@ -89,7 +89,6 @@ describe('<About /> Component', () => {
 
         component.setProps({ locale: 'de' });
         expect(aboutActionPerformers.performGetAboutUsInfo).toHaveBeenCalledTimes(3);
-        console.log(aboutActionPerformers.performGetAboutUsInfo);
         const [, , [locale]] = aboutActionPerformers.performGetAboutUsInfo.mock.calls;
         expect(locale).toEqual('de');
 

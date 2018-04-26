@@ -1,9 +1,10 @@
 import React from 'react';
-import HeaderButton from './HeaderButton';
-import './Header.css';
 import PropTypes from 'prop-types';
 import Logo from '../Logo';
 import Breadcrumbs from './Breadcrumbs';
+import LanguageSelect from './LanguageSelect';
+import HeaderButton from './HeaderButton';
+import './Header.css';
 
 class Header extends React.Component {
     constructor(props) {
@@ -14,10 +15,14 @@ class Header extends React.Component {
     }
 
     logout() {
-        this.props.onLogoutButtonClickHandler();
+        const { onLogoutButtonClickHandler } = this.props;
+        if (typeof onLogoutButtonClickHandler === 'function') {
+            onLogoutButtonClickHandler();
+        }
     }
 
     render() {
+        const { locales, locale, onLocaleChange } = this.props;
         return (
             <header className="header-desktop">
                 <div className="logo-container">
@@ -26,6 +31,7 @@ class Header extends React.Component {
                 <div className="main-header-container">
                     <Breadcrumbs items={this.props.breadCrumbs} onClick={this.props.navigateTo} />
                     <nav className="header-buttons">
+                        <LanguageSelect locales={locales} value={locale} onChange={onLocaleChange} />
                         <HeaderButton
                             label={this.props.logoutLabel}
                             icon="faSignOutAlt"
@@ -44,14 +50,16 @@ Header.propTypes = {
     notifications: PropTypes.array,
     onLogoutButtonClickHandler: PropTypes.func,
     path: PropTypes.string,
-    navigateTo: PropTypes.func
+    navigateTo: PropTypes.func,
+    locales: PropTypes.arrayOf(PropTypes.string),
+    locale: PropTypes.string.isRequired,
+    onLocaleChange: PropTypes.func
 };
 
 Header.defaultProps = {
     notifications: [],
     breadCrumbs: [],
-    navigateTo: () => {},
-    onLogoutButtonClickHandler: f => f
+    navigateTo: () => {}
 };
 
 export default Header;

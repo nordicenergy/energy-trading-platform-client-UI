@@ -1,12 +1,12 @@
 Header example:
 
-```js
-<Header/>
+```jsx
+<Header locales={['en', 'de']} locale="en" onLocaleChange={() => null} />
 ```
 
 Header example with breadcrumbs:
 
-```js
+```jsx
 const path = '/trading/my_producer/john_doe';
 
 const iconsTypes = {
@@ -16,5 +16,5 @@ const iconsTypes = {
     trading: 'faChartBar',
     profile: 'faUser'
 };
-<Header path={path} iconsTypes={iconsTypes} />
+<Header path={path} iconsTypes={iconsTypes} locales={['en', 'de']} locale="en" onLocaleChange={() => null} />;
 ```

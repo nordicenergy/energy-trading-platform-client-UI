@@ -2,8 +2,7 @@ NavigationCardsPanel component:
 
 ```jsx
 const wrapperStyles = {
-    width: '100%',
-    padding: '10px',
+    padding: '1rem',
     backgroundColor: '#F0F4F7'
 };
 const labels = {

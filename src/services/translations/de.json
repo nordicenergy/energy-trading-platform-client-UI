@@ -30,11 +30,11 @@
     "app.header.logoutLabel": "Logout",
     "app.header.notificationLabel": "Notifications",
 
-    "app.menuBar.overview": "Overview",
-    "app.menuBar.documents": "My Documents",
-    "app.menuBar.submitMetric": "Submit Meter Readings",
+    "app.menuBar.overview": "Überblick",
+    "app.menuBar.documents": "Meine Dokumente",
+    "app.menuBar.submitMeter": "Submit Meter Readings",
     "app.menuBar.trading": "Trading",
-    "app.menuBar.profile": "Profile",
+    "app.menuBar.profile": "Profil",
 
     "app.footer.about": "About Us",
     "app.footer.team": "Our Team",
@@ -50,16 +50,17 @@
     "app.recentTransactions.headerTransaction": "Transaction",
     "app.recentTransactions.headerAmount": "Amount",
     "app.recentTransactions.currentBalance": "Current Balance",
+    "app.recentTransactions.monthlyBalance": "Monthly Balance",
     "app.recentTransactions.more": "More",
 
-    "app.showTransactionsPage.header": "Wattcoin",
+    "app.showTransactionsPage.header": "Show Transactions",
     "app.showTransactionsPage.sellCoinsButton": "Sell Coins",
     "app.showTransactionsPage.buyCoinsButton": "Buy Coins",
 
     "app.tradingPage.header": "Trading",
     "app.tradingPage.graphTitle": "Amount of energy",
 
-    "app.tradingPage.wattcoinTable.header": "Show Transactions",
+    "app.tradingPage.wattcoinTable.header": "Wattcoin",
     "app.tradingPage.wattcoinTable.moreButton": "More",
     "app.tradingPage.wattcoinTable.trx": "Transaction",
     "app.tradingPage.wattcoinTable.sent": "Sent",
