@@ -5,11 +5,5 @@
 }
 
 .navigation-cards .nav-card-container {
-    margin-right: 1rem;
-    flex-basis: calc(33% - 2rem);
-    max-width: calc(33% - 2rem);
-}
-
-.navigation-cards .nav-card-container:last-child {
-    margin-right: 0;
+    flex: 0 0 31.15%;
 }
