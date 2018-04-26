@@ -53,7 +53,7 @@ describe('<About /> Component', () => {
         };
         const props = About.mapStateToProps(stateDummy);
         expect(props).toEqual({
-            paragraphs: 'test_data',
+            paragraphs: 'test_data'
         });
     });
 });

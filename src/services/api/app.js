@@ -4,7 +4,7 @@ import { SESSION_API_URL } from '../../constants';
 export function getAboutUsContent(locale) {
     return Axios.get(`${SESSION_API_URL}/content/aboutUs`, {
         params: { lang: locale }
-    }).then((response) => {
+    }).then(response => {
         const { data } = response;
         return data.introductionText.split('\n');
     });
