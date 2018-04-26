@@ -53,11 +53,12 @@ class Notification extends Component {
 
     renderToast(state) {
         const style = { ...defaultStyle, ...transitionStyles[state] };
-        const { notification: { type, message }, onClose } = this.props;
+        const { defaultErrorMessage, notification, onClose } = this.props;
+        const message = notification.message || defaultErrorMessage;
 
         return (
             <div style={style}>
-                <Toast type={type} message={message} onCloseClick={onClose} />
+                <Toast type={notification.type} message={message} onCloseClick={onClose} />
             </div>
         );
     }
@@ -65,7 +66,11 @@ class Notification extends Component {
     render() {
         const { open, notification } = this.props;
 
-        if ((!open && this.state.animationEnded) || !notification) {
+        if (
+            (!open && this.state.animationEnded) ||
+            !notification ||
+            (notification.type === 'success' && !notification.message)
+        ) {
             return null;
         }
 
@@ -80,10 +85,15 @@ class Notification extends Component {
 Notification.propTypes = {
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    notification: PropTypes.object,
+    defaultErrorMessage: PropTypes.string,
+    notification: PropTypes.shape({
+        type: PropTypes.oneOf(['success', 'error']),
+        message: PropTypes.string
+    }),
     autoHideTimeout: PropTypes.number
 };
 Notification.defaultProps = {
+    defaultErrorMessage: 'Unknown error.',
     notification: null,
     autoHideTimeout: 10000 // 10 seconds
 };

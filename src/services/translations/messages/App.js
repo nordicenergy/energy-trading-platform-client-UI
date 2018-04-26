@@ -60,6 +60,10 @@ const messages = defineMessages({
     logoutCancelButton: {
         id: 'app.header.logoutCancelButton',
         defaultMessage: 'No'
+    },
+    defaultErrorMessage: {
+        id: 'app.notifications.defaultErrorMessage',
+        defaultMessage: 'Unknown error.'
     }
 });
 
