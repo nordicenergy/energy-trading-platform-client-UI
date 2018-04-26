@@ -34,7 +34,7 @@ export class Login extends AbstractContainer {
             this.handleSuccessfulAuthentication();
         }
 
-        if (error && error.message) {
+        if (error) {
             performPushNotification({
                 type: 'error',
                 message: error.message
@@ -140,7 +140,7 @@ Login.contextTypes = {
 Login.propTypes = {
     loading: PropTypes.bool,
     data: PropTypes.shape({}),
-    error: PropTypes.object
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 Login.defaultProps = {
     loading: false,

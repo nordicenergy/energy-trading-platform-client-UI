@@ -26,6 +26,8 @@
     "app.restorePasswordPage.errors.emptyEmail": "Enter your email.",
     "app.restorePasswordPage.errors.invalidEmail": "Invalid email.",
 
+    "app.notifications.defaultErrorMessage": "Unknown error.",
+
     "app.header.logoutConfirm": "Are you sure that you'd like to logout from the system?",
     "app.header.logoutLabel": "Logout",
     "app.header.notificationLabel": "Notifications",

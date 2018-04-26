@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallowWithIntl } from '../../../services/intlTestHelper';
 import { Notifications } from '../Notifications';
 
 const notificationMock = {
@@ -12,7 +12,7 @@ const newNotification = {
     type: 'success',
     message: 'Success message'
 };
-function renderComponent(props = {}, mountFn = shallow) {
+function renderComponent(props = {}, mountFn = shallowWithIntl) {
     return mountFn(<Notifications {...props} />);
 }
 

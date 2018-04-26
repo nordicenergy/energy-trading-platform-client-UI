@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { App as messages } from '../../services/translations/messages';
 import './Notifications.css';
 import Notification from './Notification';
+import { Login } from '../Login/Login';
 
 export class Notifications extends Component {
     static mapStateToProps({ Notifications }) {
@@ -48,16 +50,27 @@ export class Notifications extends Component {
     }
 
     render() {
+        const { formatMessage } = this.context.intl;
         const { open, notification } = this.state;
 
         return (
             <div aria-hidden={!open} aria-live="polite" className="notifications">
-                <Notification open={open} notification={notification} onClose={() => this.handleNotificationClose()} />
+                <Notification
+                    open={open}
+                    defaultErrorMessage={formatMessage(messages.defaultErrorMessage)}
+                    notification={notification}
+                    onClose={() => this.handleNotificationClose()}
+                />
             </div>
         );
     }
 }
 
+Notifications.contextTypes = {
+    intl: PropTypes.shape({
+        formatMessage: PropTypes.func.isRequired
+    }).isRequired
+};
 Notifications.propTypes = {
     pushedNotification: PropTypes.object
 };

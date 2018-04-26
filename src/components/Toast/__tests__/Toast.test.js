@@ -22,4 +22,12 @@ describe('<Toast /> component', () => {
 
         expect(toast.hasClass('toast--error')).toBeTruthy();
     });
+
+    it('should calls onCloseButtonClick callback', () => {
+        const onCloseClickMock = jest.fn();
+        const toast = renderComponent({ onCloseClick: onCloseClickMock });
+
+        toast.find('.toast-close-button').simulate('click');
+        expect(onCloseClickMock).toHaveBeenCalled();
+    });
 });

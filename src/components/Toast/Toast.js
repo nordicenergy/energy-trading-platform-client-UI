@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faExclamationTriangle } from '@fortawesome/fontawesome-free-solid';
+import { faCheckCircle, faExclamationTriangle, faTimes } from '@fortawesome/fontawesome-free-solid';
 import './Toast.css';
 
 const Toast = props => {
-    const { className, type, message } = props;
+    const { className, type, message, onCloseClick } = props;
     const classes = classNames('toast', `toast--${type}`, className);
     let icon = null;
 
@@ -22,6 +22,9 @@ const Toast = props => {
         <div role="alertdialog" className={classes}>
             {icon}
             <h2 className="toast-message">{message}</h2>
+            <button className="toast-close-button" onClick={onCloseClick}>
+                <FontAwesomeIcon icon={faTimes} />
+            </button>
         </div>
     );
 };
@@ -29,7 +32,8 @@ const Toast = props => {
 Toast.propTypes = {
     className: PropTypes.string,
     type: PropTypes.oneOf(['success', 'error']),
-    message: PropTypes.string.isRequired
+    message: PropTypes.string.isRequired,
+    onCloseClick: PropTypes.func
 };
 Toast.defaultProps = {
     type: 'success'
