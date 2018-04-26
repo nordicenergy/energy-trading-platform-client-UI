@@ -122,6 +122,9 @@
     --disclosure-arrow-hover-color: var(--geyser-color);
     --disclosure-arrow-border-color: var(--transparent-blumine-color);
 
+    --answer-text-color: var(--big-stone-color);
+    --question-hover-color: var(--nobel-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;

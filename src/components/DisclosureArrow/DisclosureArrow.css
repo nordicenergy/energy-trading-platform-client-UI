@@ -17,6 +17,10 @@
     appearance: none;
 }
 
+.disclosure-arrow:focus {
+    outline: none;
+}
+
 .disclosure-arrow > svg {
     vertical-align: top;
     text-align: center;
