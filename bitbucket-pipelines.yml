@@ -1,21 +1,37 @@
 image: node:9.9
 
 pipelines:
+  default: # Default manual deployment 
+    - step: #Step 1: Compile
+        name: Prepare build
+        script:
+          - export CI=false
+          - npm install
+          - npm test
+          - npm run build
+          - npm run styleguide:build
+          - mkdir build/docs
+          - cp -r styleguide/* build/docs
+    - step: #Step 2: Deploy to staging
+        name: Deploy to Staging
+        deployment: staging        
+        script:
+          - scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
+          - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.staging.lition.io sudo systemctl restart httpd
+    - step: #Step 3: Deploy to staging
+        name: Deploy to Production
+        deployment: production
+        script:
+          - scp -r build/* deployer@fe.prod.lition.io:/var/www/html
+          - ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.prod.lition.io sudo systemctl restart httpd
   custom: # Pipelines that are triggered manually
     init: # -- First time init
     - step:
         script:
           - apt-get update
           - npm install
-    deploy-all: # -- Deploys all files from the selected commit
-    - step:
-        deployment: test
-        script:
-          - npm install
-          - npm test
-          - npm run build
-          - scp -r build/* ec2-user@aws1.lition.io:/var/www/html
-          - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd
   branches: # Automated triggers on commits to branches
     master: # -- When committing to mast branch
     - step:
