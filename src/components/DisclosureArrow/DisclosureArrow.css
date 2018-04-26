@@ -12,7 +12,7 @@
     border-radius: 50%;
     color: var(--button-primary-color);
     border: 0.133em solid var(--disclosure-arrow-border-color);
-    transition: 0.2s transform ease-in, 0.2s color ease-in;
+    transition: 0.2s transform ease-in, 0.2s color ease-in, 0.2s border-color ease-in;
     outline: none;
     appearance: none;
 }
