@@ -72,6 +72,7 @@ export class ShowTransactions extends AbstractContainer {
 
     componentWillUnmount() {
         this.removeScrollHandler();
+        this.scrollToTop();
     }
 
     render() {
