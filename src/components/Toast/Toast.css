@@ -27,10 +27,28 @@
 }
 
 .toast-message {
+    flex: 1;
     margin: 0;
+    padding-right: 1em;
     max-width: 100%;
+    word-break: break-all;
     font-weight: 500;
     font-size: 1.125em;
     line-height: 1;
-    word-break: break-all;
+}
+
+.toast-close-button {
+    padding-top: 0.4em;
+    outline: none;
+    border: none;
+    background: none;
+    color: white;
+    cursor: pointer;
+    transition: 200ms ease-in;
+
+    appearance: none;
+}
+
+.toast-close-button:hover {
+    opacity: 0.75;
 }

@@ -1,7 +1,7 @@
 #### Toast component
 
 ```jsx
-<Toast message="Successfully!" />
+<Toast message="Successfully!" onCloseClick={() => alert('close')} />
 ```
 
 #### Toast with error
