@@ -17,14 +17,14 @@ describe('App API Service', () => {
     it('should provide method for getting about us content', async () => {
         Axios.get.mockReturnValue(Promise.resolve({ data: { introductionText: 'test' } }));
         const aboutUsContent = await getAboutUsContent('en');
-        expect(Axios.get).toHaveBeenCalledWith('/api/content/aboutUs', expect.objectContaining({ locale: 'en' }));
-        expect(aboutUsContent).toBe('test');
+        expect(Axios.get).toHaveBeenCalledWith('/api/content/aboutUs', { params: { lang: 'en' } });
+        expect(aboutUsContent).toEqual(['test']);
     });
 
     it('should provide method for getting FAQ content', async () => {
         Axios.get.mockReturnValue(Promise.resolve({ data: { faq: ['faq 1', 'faq 2'] } }));
         const FAQContent = await getFAQContent('en');
-        expect(Axios.get).toHaveBeenCalledWith('/api/content/FAQ', expect.objectContaining({ locale: 'en' }));
+        expect(Axios.get).toHaveBeenCalledWith('/api/content/FAQ', { params: { lang: 'en' } });
         expect(FAQContent).toEqual(['faq 1', 'faq 2']);
     });
 
@@ -39,8 +39,8 @@ describe('App API Service', () => {
         expect(Axios.get).toHaveBeenCalledTimes(2);
         expect(localizationContent).toEqual({
             data: {
-                aboutUs: 'test',
-                FAQ: ['faq 1', 'faq 2']
+                aboutUs: ['test'],
+                faq: ['faq 1', 'faq 2']
             }
         });
     });

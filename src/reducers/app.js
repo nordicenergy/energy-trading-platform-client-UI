@@ -3,7 +3,8 @@ export const initialState = {
     localization: {
         data: {
             locale: localStorage.getItem('locale'),
-            content: {}
+            aboutUs: [],
+            faq: []
         },
         loading: false,
         error: null
