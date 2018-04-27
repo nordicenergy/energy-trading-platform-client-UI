@@ -6,7 +6,7 @@
     background-color: white;
     cursor: pointer;
     font-size: 0.7rem;
-    padding-left: 0.6em;
+    padding-left: 0.75em;
     width: 3.4em;
     height: 3.4em;
     border-radius: 50%;
@@ -30,5 +30,5 @@
 
 .disclosure-arrow.expanded {
     transform: rotate(90deg);
-    padding-left: 0.7em;
+    padding-left: 0.85em;
 }

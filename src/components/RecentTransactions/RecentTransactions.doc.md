@@ -7,49 +7,91 @@ const transactions = [
         date: 1523707200,
         description: 'Bought 23 kWh Alice',
         transactionAmount: 0.81,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '2',
         date: 1523707200,
         description: 'Monthly invoice',
         transactionAmount: 0.081,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '3',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '4',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '5',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '6',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '7',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     }
 ];
 
@@ -64,7 +106,12 @@ const labels = {
     recentTransactionsHeaderTransaction: 'Transaction',
     recentTransactionsHeaderAmount: 'Amount',
     recentTransactionsMonthlyBalance: 'Monthly Balance',
-    recentTransactionsMore: 'More'
+    recentTransactionsMore: 'More',
+    recentTransactionsDetailsFrom: 'From',
+    recentTransactionsDetailsAmount: 'Amount',
+    recentTransactionsDetailsPrice: 'Price per kWh',
+    recentTransactionsDetailsHash: 'Blockchain-Transaction',
+    recentTransactionsDetailsUrl: 'Show Details'
 }
 
 const wrapperStyles = {
@@ -84,49 +131,91 @@ const transactions = [
         date: 1523707200,
         description: 'Bought 23 kWh Alice',
         transactionAmount: 0.81,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '2',
         date: 1523707200,
         description: 'Monthly invoice',
         transactionAmount: 0.081,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '3',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '4',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '5',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '6',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '7',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234g45645g54646464564564565464646'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     }
 ];
 
@@ -141,7 +230,12 @@ const labels = {
     recentTransactionsHeaderTransaction: 'Transaction',
     recentTransactionsHeaderAmount: 'Amount',
     recentTransactionsMonthlyBalance: 'Monthly Balance',
-    recentTransactionsMore: 'More'
+    recentTransactionsMore: 'More',
+    recentTransactionsDetailsFrom: 'From',
+    recentTransactionsDetailsAmount: 'Amount',
+    recentTransactionsDetailsPrice: 'Price per kWh',
+    recentTransactionsDetailsHash: 'Blockchain-Transaction',
+    recentTransactionsDetailsUrl: 'Show Details'
 }
 
 const wrapperStyles = {
