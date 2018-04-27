@@ -97,8 +97,8 @@ export class BuyEnergy extends AbstractContainer {
         const { error: oldError } = prevProps;
         const { currentProducerLoading, producersLoading, error: newError } = this.props;
 
-        if (prevState.page !== this.state.page) {
-            performGetProducers({ page: this.state.page });
+        if (prevState.page !== this.state.page || prevState.filter !== this.state.filter) {
+            performGetProducers({ page: this.state.page, filter: this.state.filter });
         }
 
         if (!currentProducerLoading && !producersLoading && newError && newError !== oldError) {
@@ -112,7 +112,10 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     resetFilter() {
-        this.setState({ filter: [] });
+        this.setState({
+            filter: [],
+            page: 0
+        });
     }
 
     handleFilterChange(event) {
@@ -126,7 +129,10 @@ export class BuyEnergy extends AbstractContainer {
             changedFilter = [...filter, name];
         }
 
-        this.setState({ filter: changedFilter });
+        this.setState({
+            filter: changedFilter,
+            page: 0
+        });
     }
 
     handleProducerClick(producerId) {

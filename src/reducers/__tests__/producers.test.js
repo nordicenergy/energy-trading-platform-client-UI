@@ -102,6 +102,55 @@ describe('Producers reducer:', () => {
             });
         });
 
+        it('should handle GET_PRODUCERS with defined page number', () => {
+            const result = producersReducer(
+                {
+                    ...initialState,
+                    producers: {
+                        ...initialState.producers,
+                        data: {
+                            ...initialState.producers.data,
+                            entries: [
+                                {
+                                    id: 22,
+                                    name: 'GASAG',
+                                    picture:
+                                        'https://res.cloudinary.com/dqqhd7l11/image/upload/v1480972142/image001_png_ciwv5g.png',
+                                    description: '',
+                                    capacity: 3,
+                                    price: 0,
+                                    plantType: 'solar',
+                                    tradingStrategy: 0,
+                                    complete: 0
+                                }
+                            ]
+                        }
+                    }
+                },
+                ACTIONS.getProducers.successWithDefinedPage
+            );
+            expect(result.producers.loading).toBeFalsy();
+            expect(result.producers.error).toBeNull();
+            expect(result.producers.data).toEqual({
+                total: ACTIONS.getProducers.successWithDefinedPage.payload.numberOfProducers,
+                entries: [
+                    {
+                        id: 22,
+                        name: 'GASAG',
+                        picture:
+                            'https://res.cloudinary.com/dqqhd7l11/image/upload/v1480972142/image001_png_ciwv5g.png',
+                        description: '',
+                        capacity: 3,
+                        price: 0,
+                        plantType: 'solar',
+                        tradingStrategy: 0,
+                        complete: 0
+                    },
+                    ...ACTIONS.getProducers.successWithDefinedPage.payload.producers
+                ]
+            });
+        });
+
         it('should handle SELECT_PRODUCER', () => {
             const result = producersReducer(initialState, ACTIONS.selectProducer.success);
             expect(result.selectedProducer.loading).toBeFalsy();
@@ -237,6 +286,57 @@ function fixtures() {
                 },
                 error: null,
                 loading: false
+            },
+            successWithDefinedPage: {
+                type: 'GET_PRODUCERS',
+                payload: {
+                    numberOfProducers: 10,
+                    producers: [
+                        {
+                            id: 1,
+                            name: 'GASAG',
+                            picture:
+                                'https://res.cloudinary.com/dqqhd7l11/image/upload/v1480972142/image001_png_ciwv5g.png',
+                            description: '',
+                            capacity: 6,
+                            price: 0,
+                            plantType: 'solar',
+                            tradingStrategy: 0,
+                            complete: 0
+                        },
+                        {
+                            id: 2,
+                            name: 'GASAG',
+                            picture:
+                                'https://res.cloudinary.com/dqqhd7l11/image/upload/v1480972142/image001_png_ciwv5g.png',
+                            description: '',
+                            capacity: 3,
+                            price: 0,
+                            plantType: 'solar',
+                            tradingStrategy: 0,
+                            complete: 0
+                        },
+                        {
+                            id: 3,
+                            name: 'GASAG',
+                            picture:
+                                'https://res.cloudinary.com/dqqhd7l11/image/upload/v1480972142/image001_png_ciwv5g.png',
+                            description: '',
+                            capacity: 2,
+                            price: 0,
+                            plantType: 'solar',
+                            tradingStrategy: 0,
+                            complete: 0
+                        }
+                    ]
+                },
+                error: null,
+                loading: false,
+                meta: [
+                    {
+                        page: 1
+                    }
+                ]
             },
             fail: {
                 type: 'GET_PRODUCERS',
