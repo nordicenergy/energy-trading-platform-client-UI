@@ -9,6 +9,7 @@
 }
 
 #main-container {
+    position: relative;
     display: flex;
     overflow-y: auto;
     flex-direction: column;
@@ -16,11 +17,10 @@
     background-color: var(--app-bg-color);
     color: var(--general-text-color);
     text-align: center;
-    position: relative;
 }
 
 #main-container main {
-    flex: 1;
+    flex: 1 1 auto;
 }
 
 .menu-container {

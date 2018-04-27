@@ -2,20 +2,22 @@
     display: flex;
     align-items: stretch;
     justify-content: center;
-    min-height: 5.5em;
     padding: 0 2em;
-
-    background: white;
+    min-height: 5.5em;
     border-top: var(--border-width) solid var(--border-on-light-color);
+    background: white;
 }
 
 .app-footer nav a,
 .app-footer address {
     display: flex;
     align-items: center;
-
-    font: normal bold 0.875rem /1.5em 'Artegra Sans Alt';
     text-decoration: none;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 0.875rem;
+    font-family: inherit;
+    line-height: 1.5;
 }
 
 .app-footer address {
@@ -25,16 +27,16 @@
 }
 
 .app-footer nav {
-    flex: 1;
     display: flex;
-    justify-content: flex-end;
     align-items: stretch;
+    flex: 1;
+    justify-content: flex-end;
 }
 
 .app-footer nav a {
     position: relative;
-    outline: none;
     margin: 0 1em;
+    outline: none;
     color: var(--link-color);
 }
 
