@@ -1,11 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Swiper from 'swiper';
+import Swiper from 'swiper/dist/js/swiper';
 import OffersSlider from '../OffersSlider';
 
-// const destroyMock = jest.fn();
-jest.mock('swiper');
-// Swiper.mockReturnValue({ destroy: destroyMock });
+jest.mock('swiper/dist/js/swiper');
 
 const offersMock = [
     {
