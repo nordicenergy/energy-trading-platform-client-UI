@@ -39,7 +39,7 @@
     }
 
     .producer-cards-list-item:nth-child(2n - 1) {
-        margin-right: initial;
+        margin-right: 0;
     }
 
     .producer-cards-list-item:nth-child(3n - 2),

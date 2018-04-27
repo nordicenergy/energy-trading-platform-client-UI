@@ -66,7 +66,13 @@ class OfferForm extends Component {
     getSelectedOption() {
         const { plantTypeOptions } = this.props;
         const { plantType } = this.state;
-        return plantTypeOptions.find(option => option.value === plantType);
+
+        for (let i = 0; i < plantTypeOptions.length; i += 1) {
+            const option = plantTypeOptions[i];
+            if (option.value === plantType) {
+                return option;
+            }
+        }
     }
 
     calculateDelta() {

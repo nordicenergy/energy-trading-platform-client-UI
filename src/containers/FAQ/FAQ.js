@@ -68,7 +68,7 @@ export class FAQ extends AbstractContainer {
             <div className="faq-page">
                 <h1>{formatMessage(messages.header)}</h1>
                 {this.props.questions.map(({ question, answer, id }) => {
-                    const isExpanded = this.state.expandedIds.includes(id);
+                    const isExpanded = this.state.expandedIds.indexOf(id) > -1;
                     return (
                         <div
                             className={classNames('question-container', { expanded: isExpanded })}
