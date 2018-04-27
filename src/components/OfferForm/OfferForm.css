@@ -10,7 +10,7 @@
 .offer-form-field {
     box-sizing: border-box;
     margin-bottom: 3em;
-    padding-left: 2.125em;
+    padding-left: 2em;
     width: 100%;
 }
 
@@ -21,7 +21,7 @@
 .offer-form-actions {
     display: flex;
     align-items: center;
-    padding-left: 2.125em;
+    padding-left: 2em;
     min-height: 6rem;
     background: var(--app-bg-color);
 }

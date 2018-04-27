@@ -115,5 +115,8 @@
     "app.profilePage.errors.emptyEmail": "E-Mail eingeben.",
     "app.profilePage.errors.emptyBankAccountNumber": "Kontonummer eingeben.",
     "app.profilePage.errors.passwordsMismatch": "Passwort stimmt nicht.",
-    "app.profilePage.errors.invalidEmail": "Ungültige E-Mail."
+    "app.profilePage.errors.invalidEmail": "Ungültige E-Mail.",
+
+    "app.sellEnergyPage.pageTitle": "Sell Energy",
+    "app.sellEnergyPage.offersSectionTitle": "My offers"
 }

@@ -1,3 +1,1 @@
-import OfferCard from './OfferCard';
-
-export default OfferCard;
+export { default, OfferPropType } from './OfferCard';

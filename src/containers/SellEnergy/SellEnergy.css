@@ -1,0 +1,43 @@
+.sell-energy-page {
+    color: black;
+    text-align: initial;
+    background: white;
+    position: relative;
+}
+
+.sell-energy-page > h1 {
+    margin: 0;
+    font-size: 1.625em;
+    padding: var(--page-paddings);
+    padding-bottom: 1.5rem;
+}
+
+.sell-energy-page-offers {
+    padding: var(--page-paddings);
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
+}
+
+.sell-energy-page-offers > h2 {
+    margin: 0;
+    font-size: 1.125em;
+}
+
+@media (min-width: 640px) {
+    .offers-slider--full-width {
+        margin: 0 -1em;
+    }
+}
+
+.not-allowed-backdrop {
+    display: block;
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: '';
+    background: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+}
