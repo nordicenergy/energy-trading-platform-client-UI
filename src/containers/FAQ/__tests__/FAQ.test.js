@@ -34,7 +34,7 @@ const store = mockStore({
     }
 });
 
-const props = {
+const defaultProps = {
     questions: [
         {
             id: 'testId1',
@@ -57,7 +57,7 @@ function renderContainer(mountFn = mountWithIntl) {
     );
 }
 
-function renderComponent(mountFn = mountWithIntl) {
+function renderComponent(mountFn = mountWithIntl, props = defaultProps) {
     return mountFn(<FAQ {...props} context={context} />);
 }
 
@@ -140,5 +140,36 @@ describe('<FAQ /> Component', () => {
             .at(0)
             .simulate('click');
         expect(component.state('expandedIds')).toEqual([]);
+    });
+
+    it('should call performPushNotification on componentDidUpdate', () => {
+        notificationActions.performPushNotification = jest.fn();
+        const component = renderComponent();
+        component.setProps({
+            loading: false,
+            error: {
+                message: 'test',
+                type: 'error'
+            }
+        });
+        expect(notificationActions.performPushNotification).toHaveBeenCalledWith({
+            message: 'Could not load content',
+            type: 'error'
+        });
+    });
+
+    it('should call performPushNotification on componentDidMount', () => {
+        notificationActions.performPushNotification = jest.fn();
+        renderComponent(mountWithIntl, {
+            ...defaultProps,
+            error: {
+                message: 'test',
+                type: 'error'
+            }
+        });
+        expect(notificationActions.performPushNotification).toHaveBeenCalledWith({
+            message: 'Could not load content',
+            type: 'error'
+        });
     });
 });

@@ -24,15 +24,17 @@ export function appReducer(state = initialState, action) {
         case 'SETUP_LOCALE':
             const payload = action && action.payload;
             const [locale] = action.meta;
+            let newLocale = state.localization.data.locale;
 
             if (locale) {
                 window.localStorage.setItem('locale', locale);
+                newLocale = locale;
             }
 
             return {
                 ...state,
                 localization: {
-                    data: payload ? { ...payload, locale } : state.localization.data,
+                    data: payload ? { ...payload, locale } : { ...state.localization.data, locale: newLocale },
                     loading: action.loading,
                     error: action.error
                 }

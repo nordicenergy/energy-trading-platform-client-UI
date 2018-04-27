@@ -105,6 +105,10 @@
     "app.header.logoutCancelButton": "Nein",
 
     "app.aboutPage.header": "Über uns",
+    "app.aboutPage.error": "Could not load content",
+
+    "app.faqPage.header": "FAQ",
+    "app.faqPage.error": "Could not load content",
 
     "app.profilePage.header": "Profil",
     "app.profilePage.errors.firstName": "Vorname eingeben.",

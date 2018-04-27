@@ -1,5 +1,4 @@
 import { appReducer, initialState } from '../app';
-import { producersReducer } from '../producers';
 
 const { ACTIONS } = fixtures();
 
@@ -19,18 +18,20 @@ describe('App reducer:', () => {
     describe('Pending cases:', () => {
         it('should handle SETUP_LOCALE', () => {
             const result = appReducer(initialState, ACTIONS.setupLocale.pending);
+            const [locale] = ACTIONS.setupLocale.fail.meta;
             expect(result.localization.loading).toEqual(true);
             expect(result.localization.error).toEqual(null);
-            expect(result.localization.data).toEqual(initialState.localization.data);
+            expect(result.localization.data).toEqual({ ...initialState.localization.data, locale });
         });
     });
 
     describe('Error cases:', () => {
         it('should handle SETUP_LOCALE', () => {
             const result = appReducer(initialState, ACTIONS.setupLocale.fail);
+            const [locale] = ACTIONS.setupLocale.fail.meta;
             expect(result.localization.loading).toEqual(false);
             expect(result.localization.error).toEqual(ACTIONS.setupLocale.fail.error);
-            expect(result.localization.data).toEqual(initialState.localization.data);
+            expect(result.localization.data).toEqual({ ...initialState.localization.data, locale });
         });
     });
 

@@ -3,6 +3,7 @@ import AboutContainer, { About } from '../About';
 import { mountWithIntl } from '../../../services/intlTestHelper';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
+import * as notificationActions from '../../../action_performers/notifications';
 
 const context = {
     intl: {
@@ -21,12 +22,22 @@ const store = mockStore({
     }
 });
 
+const defaultProps = {
+    paragraphs: ['p1', 'p2'],
+    error: null,
+    loading: false
+};
+
 function renderContainer(mountFn = mountWithIntl) {
     return mountFn(
         <Provider store={store}>
             <AboutContainer context={context} />
         </Provider>
     );
+}
+
+function renderComponent(mountFn = mountWithIntl, props = defaultProps) {
+    return mountFn(<About {...props} context={context} />);
 }
 
 describe('<About /> Component', () => {
@@ -54,6 +65,37 @@ describe('<About /> Component', () => {
         const props = About.mapStateToProps(stateDummy);
         expect(props).toEqual({
             paragraphs: 'test_data'
+        });
+    });
+
+    it('should call performPushNotification on componentDidUpdate', () => {
+        notificationActions.performPushNotification = jest.fn();
+        const component = renderComponent();
+        component.setProps({
+            loading: false,
+            error: {
+                message: 'test',
+                type: 'error'
+            }
+        });
+        expect(notificationActions.performPushNotification).toHaveBeenCalledWith({
+            message: 'Could not load content',
+            type: 'error'
+        });
+    });
+
+    it('should call performPushNotification on componentDidMount', () => {
+        notificationActions.performPushNotification = jest.fn();
+        renderComponent(mountWithIntl, {
+            ...defaultProps,
+            error: {
+                message: 'test',
+                type: 'error'
+            }
+        });
+        expect(notificationActions.performPushNotification).toHaveBeenCalledWith({
+            message: 'Could not load content',
+            type: 'error'
         });
     });
 });
