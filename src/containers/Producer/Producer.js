@@ -98,11 +98,11 @@ export class Producer extends AbstractContainer {
                     <ProducerInfo {...producerInfoProps} />
                 </section>
                 <section className="producer-page-controls">
-                    <Button onClick={() => performSelectProducer(producer.id)}>
-                        {formatMessage(messages.selectButton)}
-                    </Button>
                     <Button className="producer-page-back-to-producers" onClick={() => this.backToProducers()}>
                         {formatMessage(messages.showButton)}
+                    </Button>
+                    <Button onClick={() => performSelectProducer(producer.id)}>
+                        {formatMessage(messages.selectButton)}
                     </Button>
                 </section>
             </section>
