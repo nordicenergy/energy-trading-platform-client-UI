@@ -1,9 +1,11 @@
 image: node:9.9
 
 pipelines:
-  default: # Default manual deployment 
+  default: # Default manual deployment
     - step: #Step 1: Compile
         name: Prepare build
+        caches:
+            - node
         script:
           - export CI=false
           - npm install
@@ -14,7 +16,7 @@ pipelines:
           - npm test
     - step: #Step 3: Compile and deploy to staging
         name: Deploy to Staging
-        deployment: staging        
+        deployment: staging
         script:
           - npm run build
           - npm run styleguide:build
