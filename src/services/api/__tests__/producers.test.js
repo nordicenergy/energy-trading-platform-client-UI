@@ -63,26 +63,30 @@ describe('Producers API Service', () => {
 
     it('should provide method for getting producers list', () => {
         getProducers();
-        expect(Axios.get).toHaveBeenCalledWith(
-            '/api/producers/direct',
-            expect.objectContaining({
-                params: {
-                    limit: LIMIT,
-                    offset: 0
-                }
-            })
-        );
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?', {
+            params: {
+                limit: LIMIT,
+                offset: 0
+            }
+        });
         Axios.get.mockClear();
 
         getProducers({ page: 5 });
-        expect(Axios.get).toHaveBeenCalledWith(
-            '/api/producers/direct',
-            expect.objectContaining({
-                params: {
-                    limit: LIMIT,
-                    offset: LIMIT * 5
-                }
-            })
-        );
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?', {
+            params: {
+                limit: LIMIT,
+                offset: LIMIT * 5
+            }
+        });
+    });
+
+    it('should provide method for getting producers list', () => {
+        getProducers({ filter: ['test1', 'test2'] });
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?type=test1&type=test2', {
+            params: {
+                limit: LIMIT,
+                offset: 0
+            }
+        });
     });
 });

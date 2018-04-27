@@ -57,7 +57,13 @@ export const ProducerType = PropTypes.shape({
     id: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    plantType: PropTypes.oneOf([PLANT_TYPES.wind, PLANT_TYPES.solar, PLANT_TYPES.biomass, PLANT_TYPES.other]).isRequired
+    plantType: PropTypes.oneOf([
+        PLANT_TYPES.wind,
+        PLANT_TYPES.solar,
+        PLANT_TYPES.biomass,
+        PLANT_TYPES.other,
+        PLANT_TYPES.default
+    ]).isRequired
 });
 ProducerCard.propTypes = {
     className: PropTypes.string,

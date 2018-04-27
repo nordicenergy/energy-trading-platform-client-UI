@@ -64,8 +64,14 @@ export function selectProducer(producerId) {
     return Axios.post(`${SESSION_API_URL}/producers/select`, { producerID: producerId });
 }
 
-export function getProducers({ page = 0 } = {}) {
-    return Axios.get(`${SESSION_API_URL}/producers/direct`, {
+export function getProducers({ page = 0, filter = [] } = {}) {
+    let filterQuery = '';
+    for (let i = 0; i < filter.length; i++) {
+        const type = filter[i];
+        const nextSymbol = i === filter.length - 1 ? '' : '&';
+        filterQuery += `type=${type}${nextSymbol}`;
+    }
+    return Axios.get(`${SESSION_API_URL}/producers/direct?${filterQuery}`, {
         params: { limit: LIMIT, offset: page * LIMIT }
     });
 }

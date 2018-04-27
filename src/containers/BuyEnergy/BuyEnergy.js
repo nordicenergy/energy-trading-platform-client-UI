@@ -93,12 +93,16 @@ export class BuyEnergy extends AbstractContainer {
         this.setupScrollHandler(loadCondition, loadCallback);
     }
 
+    fetchProducersWithParams() {
+        performGetProducers({ page: this.state.page, filter: this.state.filter });
+    }
+
     componentDidUpdate(prevProps, prevState) {
         const { error: oldError } = prevProps;
         const { currentProducerLoading, producersLoading, error: newError } = this.props;
 
         if (prevState.page !== this.state.page) {
-            performGetProducers({ page: this.state.page });
+            this.fetchProducersWithParams();
         }
 
         if (!currentProducerLoading && !producersLoading && newError && newError !== oldError) {
@@ -111,7 +115,17 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     resetFilter() {
-        this.setState({ filter: [] });
+        if (this.state.filter.length) {
+            this.setState(
+                {
+                    filter: [],
+                    page: 0
+                },
+                () => {
+                    this.fetchProducersWithParams();
+                }
+            );
+        }
     }
 
     handleFilterChange(event) {
@@ -125,7 +139,15 @@ export class BuyEnergy extends AbstractContainer {
             changedFilter = [...filter, name];
         }
 
-        this.setState({ filter: changedFilter });
+        this.setState(
+            {
+                filter: changedFilter,
+                page: 0
+            },
+            () => {
+                this.fetchProducersWithParams();
+            }
+        );
     }
 
     handleProducerClick(producerId) {

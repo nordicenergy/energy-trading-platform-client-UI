@@ -62,16 +62,16 @@ export function producersReducer(state = initialState, action) {
             };
         }
         case 'GET_PRODUCERS': {
-            const payload = action && action.payload;
-
+            const { payload = {} } = action || {};
+            const { producers = [] } = payload || {};
+            const [metaData = {}] = action.meta || [];
+            const newEntries = metaData.page ? [...state.producers.data.entries, ...producers] : producers;
             return {
                 ...state,
                 producers: {
                     data: {
                         total: payload ? payload.numberOfProducers : state.producers.data.total,
-                        entries: payload
-                            ? [...state.producers.data.entries, ...payload.producers]
-                            : state.producers.data.entries
+                        entries: payload ? newEntries : state.producers.data.entries
                     },
                     loading: action.loading,
                     error: action.error

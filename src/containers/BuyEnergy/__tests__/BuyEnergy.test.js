@@ -113,14 +113,33 @@ describe('<BuyEnergy /> container', () => {
         expect(producersActionPerformers.performGetProducers).toHaveBeenCalled();
     });
 
-    it('should calls performGetProducers then page increase', () => {
+    it('should calls performGetProducers when page increase', () => {
         const buyEnergy = renderComponent({
             currentProducerLoading: true,
             producersLoading: true
         });
 
         buyEnergy.setState({ page: 1 });
-        expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 1 });
+        expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 1, filter: [] });
+    });
+
+    it('should calls performGetProducers with selected filter and first page', () => {
+        const buyEnergy = renderComponent({
+            currentProducerLoading: true,
+            producersLoading: true
+        });
+
+        buyEnergy.setState({
+            page: 2
+        });
+
+        buyEnergy
+            .find('FilterCheckbox[name="wind"]')
+            .props()
+            .onChange({
+                currentTarget: { name: 'wind' }
+            });
+        expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 0, filter: ['wind'] });
     });
 
     it('should call performPushNotification if error has occurred', () => {
