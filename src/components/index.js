@@ -27,6 +27,7 @@ import ProfileForm from './ProfileForm';
 import Confirm from './Confirm';
 import CoinButton from './CoinButton';
 import OfferCard from './OfferCard';
+import OffersSlider from './OffersSlider';
 import DisclosureArrow from './DisclosureArrow';
 
 export {
@@ -63,5 +64,6 @@ export {
     ProfileForm,
     Confirm,
     OfferCard,
+    OffersSlider,
     DisclosureArrow
 };

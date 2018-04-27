@@ -17,7 +17,7 @@ describe('<DisclosureArrow /> Component', () => {
         const component = renderComponent({ expanded: true });
 
         expect(component.hasClass('disclosure-arrow')).toBeTruthy();
-        expect(component.hasClass('expanded')).toBeTruthy();
+        expect(component.hasClass('disclosure-arrow--expanded')).toBeTruthy();
     });
 
     it('should handle click event', () => {

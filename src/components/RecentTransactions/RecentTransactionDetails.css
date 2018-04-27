@@ -1,0 +1,73 @@
+.recent-transactions-details {
+    padding-top: 1.25rem;
+}
+
+.recent-transactions-details *[role='columnheader'] {
+    color: var(--label-color);
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.recent-transactions-details-from,
+.recent-transactions-details-hash {
+    padding: 0.5rem 10% 0.5rem 3rem;
+}
+
+.recent-transactions-details-from > div[role='columnheader'],
+.recent-transactions-details-hash > div[role='columnheader'] {
+    padding-top: 0.5rem;
+    border-top: var(--border-width) solid var(--border-on-light-color);
+}
+
+.recent-transactions-details-from > div:last-child,
+.recent-transactions-details-hash > div:last-child {
+    padding: 0.5rem 0 1.25rem;
+    font-size: 1rem;
+    text-align: center;
+    word-break: break-all;
+}
+
+.recent-transactions-details-headers,
+.recent-transactions-details-values {
+    display: flex;
+}
+
+.recent-transactions-details-values a {
+    color: var(--button-primary-color);
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    transition: color 0.3s ease-out;
+}
+
+.recent-transactions-details-values a:hover {
+    color: var(--button-primary-hov-color);
+}
+
+.recent-transactions-details-headers > div,
+.recent-transactions-details-values > div {
+    box-sizing: border-box;
+    padding-top: 0.5em;
+}
+
+.recent-transactions-details-headers > div:first-child,
+.recent-transactions-details-values > div:first-child {
+    width: 25%;
+    padding-left: 3rem;
+    text-align: left;
+}
+
+.recent-transactions-details-headers > div:nth-child(0n + 2),
+.recent-transactions-details-values > div:nth-child(0n + 2) {
+    width: 50%;
+    text-align: center;
+}
+
+.recent-transactions-details-headers > div:last-child,
+.recent-transactions-details-values > div:last-child {
+    width: 25%;
+    padding-right: 10%;
+    text-align: right;
+}
