@@ -12,7 +12,7 @@
 
 .recent-transactions-details-from,
 .recent-transactions-details-hash {
-    padding: 0.5rem 10% 0.5rem 6.22rem;
+    padding: 0.5rem 10% 0.5rem 3rem;
 }
 
 .recent-transactions-details-from > div[role='columnheader'],
@@ -55,7 +55,7 @@
 .recent-transactions-details-headers > div:first-child,
 .recent-transactions-details-values > div:first-child {
     width: 25%;
-    padding-left: 6.22rem;
+    padding-left: 3rem;
     text-align: left;
 }
 

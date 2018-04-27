@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { App as messages } from '../../services/translations/messages';
 import './Notifications.css';
 import Notification from './Notification';
-import { Login } from '../Login/Login';
 
 export class Notifications extends Component {
     static mapStateToProps({ Notifications }) {
