@@ -9,7 +9,7 @@ import './OffersSlider.css';
 
 class OffersSlider extends Component {
     componentDidMount() {
-        new Swiper(this.sliderContainerRef, {
+        this.slider = new Swiper(this.sliderContainerRef, {
             autoHeight: true,
             grabCursor: true,
             watchOverflow: true,
@@ -46,6 +46,10 @@ class OffersSlider extends Component {
                 }
             }
         });
+    }
+
+    componentWillUnmount() {
+        this.slider.destroy();
     }
 
     render() {

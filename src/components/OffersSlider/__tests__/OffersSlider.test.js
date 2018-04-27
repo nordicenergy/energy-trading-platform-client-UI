@@ -3,7 +3,9 @@ import { shallow, mount } from 'enzyme';
 import Swiper from 'swiper';
 import OffersSlider from '../OffersSlider';
 
+// const destroyMock = jest.fn();
 jest.mock('swiper');
+// Swiper.mockReturnValue({ destroy: destroyMock });
 
 const offersMock = [
     {
@@ -59,6 +61,14 @@ describe('<OffersSlider /> component', () => {
 
         expect(Swiper).toHaveBeenCalledTimes(1);
         expect(offersSlider.find('OfferCard')).toHaveLength(6);
+    });
+
+    it('should destroy swiper when component was unmount', () => {
+        const offersSlider = renderComponent();
+        const destroyMock = jest.spyOn(offersSlider.instance().slider, 'destroy');
+
+        offersSlider.unmount();
+        expect(destroyMock).toHaveBeenCalled();
     });
 
     it('should sets correct refs', () => {
