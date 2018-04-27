@@ -36,6 +36,26 @@ const messages = defineMessages({
     recentTransactionsMore: {
         id: 'app.recentTransactions.more',
         defaultMessage: 'More'
+    },
+    recentTransactionsDetailsFrom: {
+        id: 'app.recentTransactionsDetails.from',
+        defaultMessage: 'From'
+    },
+    recentTransactionsDetailsAmount: {
+        id: 'app.recentTransactionsDetails.amount',
+        defaultMessage: 'Amount'
+    },
+    recentTransactionsDetailsPrice: {
+        id: 'app.recentTransactionsDetails.price',
+        defaultMessage: 'Price per kWh'
+    },
+    recentTransactionsDetailsHash: {
+        id: 'app.recentTransactionsDetails.hash',
+        defaultMessage: 'Blockchain-Transaction'
+    },
+    recentTransactionsDetailsUrl: {
+        id: 'app.recentTransactionsDetails.url',
+        defaultMessage: 'Show Details'
     }
 });
 

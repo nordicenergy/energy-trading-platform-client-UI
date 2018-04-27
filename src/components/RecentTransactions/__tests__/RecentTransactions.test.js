@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import RecentTransactions from '../RecentTransactions';
-import Button from '../../Button';
+import { Button, DisclosureArrow } from '../../.';
+import RecentTransactionDetails from '../RecentTransactionDetails';
 import Spinner from '../../Loader/Spinner';
 
 const labelsMock = {
@@ -10,7 +11,12 @@ const labelsMock = {
     recentTransactionsHeaderTransaction: 'Transaction',
     recentTransactionsHeaderAmount: 'Amount',
     recentTransactionsMonthlyBalance: 'Monthly Balance',
-    recentTransactionsMore: 'More'
+    recentTransactionsMore: 'More',
+    recentTransactionsDetailsFrom: 'From',
+    recentTransactionsDetailsAmount: 'Amount',
+    recentTransactionsDetailsPrice: 'Price per kWh',
+    recentTransactionsDetailsHash: 'Blockchain-Transaction',
+    recentTransactionsDetailsUrl: 'Show Details'
 };
 
 const transactionsDummy = [
@@ -19,49 +25,91 @@ const transactionsDummy = [
         date: 1523707200,
         description: 'Bought 23 kWh Alice',
         transactionAmount: 0.81,
-        transactionHash: '1234'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '2',
         date: 1523707200,
         description: 'Monthly invoice',
         transactionAmount: 0.081,
-        transactionHash: '1234'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '3',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '4',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '5',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '6',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     },
     {
         id: '7',
         date: 1523707200,
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
-        transactionHash: '1234'
+        details: {
+            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            price: 2.5,
+            amount: 7.74,
+            from: '254839457345934957394593459',
+            url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+        }
     }
 ];
 
@@ -100,16 +148,20 @@ describe('<RecentTransactions /> Component', () => {
         - <thead /> element;
         - <tbody /> element;
         - <Button /> component;
-        - card title element with class "nav-card-title";`, () => {
+        - <DisclosureArrow /> components;
+        - <RecentTransactionDetails /> components;`, () => {
         const component = renderComponent({});
         expect(component.find('caption')).toHaveLength(1);
         expect(component.find('.recent-transactions-caption-content')).toHaveLength(0);
         expect(component.find('.recent-transactions-current-balance-row')).toHaveLength(1);
         expect(component.find('thead')).toHaveLength(1);
         expect(component.find('tbody')).toHaveLength(1);
-        expect(component.find('th')).toHaveLength(3);
-        expect(component.find('td')).toHaveLength(15);
+        expect(component.find('th')).toHaveLength(4);
+        expect(component.find('td')).toHaveLength(25);
         expect(component.find(Button)).toHaveLength(1);
+        expect(component.find(DisclosureArrow)).toHaveLength(5);
+        expect(component.find(RecentTransactionDetails)).toHaveLength(5);
+
         expect(component.find(Spinner)).toHaveLength(0);
 
         const extendedComponent = renderComponent({ pagination: true, loading: true });
@@ -118,8 +170,10 @@ describe('<RecentTransactions /> Component', () => {
         expect(extendedComponent.find('.recent-transactions-caption-content')).toHaveLength(1);
         expect(extendedComponent.find('.recent-transactions-current-balance-row')).toHaveLength(0);
         expect(extendedComponent.find(Button)).toHaveLength(0);
-        expect(extendedComponent.find('th')).toHaveLength(3);
-        expect(extendedComponent.find('td')).toHaveLength(21);
+        expect(extendedComponent.find(DisclosureArrow)).toHaveLength(7);
+        expect(extendedComponent.find(RecentTransactionDetails)).toHaveLength(7);
+        expect(extendedComponent.find('th')).toHaveLength(4);
+        expect(extendedComponent.find('td')).toHaveLength(35);
     });
 
     it('should display correct data in table', () => {
@@ -128,16 +182,28 @@ describe('<RecentTransactions /> Component', () => {
         let count = 0;
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
-        expect(data.at(count++).text()).toEqual('Bought 23 kWh Alice1234');
+        expect(data.at(count++).text()).toEqual('Bought 23 kWh Alice');
         expect(data.at(count++).text()).toEqual('0,81 €');
+        expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
+        expect(data.at(count++).text()).toContain(
+            'AmountPrice per kWhShow Details7.74 kWh2.5 ctFrom254839457345934957394593459Blockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743'
+        );
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
-        expect(data.at(count++).text()).toEqual('Monthly invoice1234');
+        expect(data.at(count++).text()).toEqual('Monthly invoice');
         expect(data.at(count++).text()).toEqual('0,08 €');
+        expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
+        expect(data.at(count++).text()).toContain(
+            'AmountPrice per kWhShow Details7.74 kWh2.5 ctFrom254839457345934957394593459Blockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743'
+        );
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
-        expect(data.at(count++).text()).toEqual('Bought 23 kWh from Peter1234');
-        expect(data.at(count).text()).toEqual('0,80 €');
+        expect(data.at(count++).text()).toEqual('Bought 23 kWh from Peter');
+        expect(data.at(count++).text()).toEqual('0,80 €');
+        expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
+        expect(data.at(count).text()).toContain(
+            'AmountPrice per kWhShow Details7.74 kWh2.5 ctFrom254839457345934957394593459Blockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743'
+        );
 
         expect(component.find('.recent-transactions-current-balance-date').text()).toEqual('Apr 14, 2018');
         expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual(

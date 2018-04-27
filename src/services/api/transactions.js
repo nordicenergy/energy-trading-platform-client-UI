@@ -16,6 +16,17 @@ export function getRecentTransactions(userId, page = 0) {
         })
         .then(response => {
             response.data.currentBalance = currentBalance;
+            const { transactions = [] } = response.data;
+            transactions.forEach(tx => {
+                tx.details = {
+                    hash: tx.transactionHash || '--',
+                    price: tx.price || 0,
+                    amount: tx.energyAmount || 0,
+                    from: tx.from || '--',
+                    url: tx.detailsLink || ''
+                };
+            });
+            response.data.transactions = transactions;
             return response;
         });
 }

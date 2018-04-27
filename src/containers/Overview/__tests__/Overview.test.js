@@ -38,22 +38,102 @@ const store = mockStore({
                 },
                 transactions: [
                     {
-                        id: 1,
+                        id: '1',
                         date: 1523707200,
-                        name: 'Bought 23 kWh Alice',
-                        amount: 0.81
+                        description: 'Bought 23 kWh Alice',
+                        transactionAmount: 0.81,
+                        details: {
+                            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                            price: 2.5,
+                            amount: 7.74,
+                            from: '254839457345934957394593459',
+                            url:
+                                'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                        }
                     },
                     {
-                        id: 2,
+                        id: '2',
                         date: 1523707200,
-                        name: 'Monthly invoice',
-                        amount: 0.81
+                        description: 'Monthly invoice',
+                        transactionAmount: 0.081,
+                        details: {
+                            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                            price: 2.5,
+                            amount: 7.74,
+                            from: '254839457345934957394593459',
+                            url:
+                                'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                        }
                     },
                     {
-                        id: 3,
+                        id: '3',
                         date: 1523707200,
-                        name: 'Bought 23 kWh from Peter',
-                        amount: 0.81
+                        description: 'Bought 23 kWh from Peter',
+                        transactionAmount: 0.8,
+                        details: {
+                            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                            price: 2.5,
+                            amount: 7.74,
+                            from: '254839457345934957394593459',
+                            url:
+                                'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                        }
+                    },
+                    {
+                        id: '4',
+                        date: 1523707200,
+                        description: 'Bought 23 kWh from Peter',
+                        transactionAmount: 0.8,
+                        details: {
+                            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                            price: 2.5,
+                            amount: 7.74,
+                            from: '254839457345934957394593459',
+                            url:
+                                'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                        }
+                    },
+                    {
+                        id: '5',
+                        date: 1523707200,
+                        description: 'Bought 23 kWh from Peter',
+                        transactionAmount: 0.8,
+                        details: {
+                            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                            price: 2.5,
+                            amount: 7.74,
+                            from: '254839457345934957394593459',
+                            url:
+                                'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                        }
+                    },
+                    {
+                        id: '6',
+                        date: 1523707200,
+                        description: 'Bought 23 kWh from Peter',
+                        transactionAmount: 0.8,
+                        details: {
+                            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                            price: 2.5,
+                            amount: 7.74,
+                            from: '254839457345934957394593459',
+                            url:
+                                'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                        }
+                    },
+                    {
+                        id: '7',
+                        date: 1523707200,
+                        description: 'Bought 23 kWh from Peter',
+                        transactionAmount: 0.8,
+                        details: {
+                            hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                            price: 2.5,
+                            amount: 7.74,
+                            from: '254839457345934957394593459',
+                            url:
+                                'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                        }
                     }
                 ]
             },
@@ -71,22 +151,102 @@ const props = {
         },
         transactions: [
             {
-                id: 1,
+                id: '1',
                 date: 1523707200,
-                name: 'Bought 23 kWh Alice',
-                amount: 0.81
+                description: 'Bought 23 kWh Alice',
+                transactionAmount: 0.81,
+                details: {
+                    hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                    price: 2.5,
+                    amount: 7.74,
+                    from: '254839457345934957394593459',
+                    url:
+                        'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                }
             },
             {
-                id: 2,
+                id: '2',
                 date: 1523707200,
-                name: 'Monthly invoice',
-                amount: 0.81
+                description: 'Monthly invoice',
+                transactionAmount: 0.081,
+                details: {
+                    hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                    price: 2.5,
+                    amount: 7.74,
+                    from: '254839457345934957394593459',
+                    url:
+                        'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                }
             },
             {
-                id: 3,
+                id: '3',
                 date: 1523707200,
-                name: 'Bought 23 kWh from Peter',
-                amount: 0.81
+                description: 'Bought 23 kWh from Peter',
+                transactionAmount: 0.8,
+                details: {
+                    hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                    price: 2.5,
+                    amount: 7.74,
+                    from: '254839457345934957394593459',
+                    url:
+                        'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                }
+            },
+            {
+                id: '4',
+                date: 1523707200,
+                description: 'Bought 23 kWh from Peter',
+                transactionAmount: 0.8,
+                details: {
+                    hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                    price: 2.5,
+                    amount: 7.74,
+                    from: '254839457345934957394593459',
+                    url:
+                        'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                }
+            },
+            {
+                id: '5',
+                date: 1523707200,
+                description: 'Bought 23 kWh from Peter',
+                transactionAmount: 0.8,
+                details: {
+                    hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                    price: 2.5,
+                    amount: 7.74,
+                    from: '254839457345934957394593459',
+                    url:
+                        'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                }
+            },
+            {
+                id: '6',
+                date: 1523707200,
+                description: 'Bought 23 kWh from Peter',
+                transactionAmount: 0.8,
+                details: {
+                    hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                    price: 2.5,
+                    amount: 7.74,
+                    from: '254839457345934957394593459',
+                    url:
+                        'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                }
+            },
+            {
+                id: '7',
+                date: 1523707200,
+                description: 'Bought 23 kWh from Peter',
+                transactionAmount: 0.8,
+                details: {
+                    hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+                    price: 2.5,
+                    amount: 7.74,
+                    from: '254839457345934957394593459',
+                    url:
+                        'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
+                }
             }
         ]
     },
@@ -136,26 +296,24 @@ describe('<Overview /> Component', () => {
         const tableProps = table.props();
         delete tableProps.onButtonClick;
         expect(tableProps).toEqual({
-            currentBalance: {
-                date: 1523707200,
-                balance: 40.4
-            },
+            currentBalance: { ...props.recentTransactions.currentBalance },
             labels: {
                 buyEnergy: 'Buy Energy',
                 myProducer: 'My Producer',
-                recentTransactionsMonthlyBalance: 'Monthly Balance',
+                recentTransactionsDetailsAmount: 'Amount',
+                recentTransactionsDetailsFrom: 'From',
+                recentTransactionsDetailsHash: 'Blockchain-Transaction',
+                recentTransactionsDetailsPrice: 'Price per kWh',
+                recentTransactionsDetailsUrl: 'Show Details',
                 recentTransactionsHeaderAmount: 'Amount',
                 recentTransactionsHeaderDate: 'Date',
                 recentTransactionsHeaderTransaction: 'Transaction',
+                recentTransactionsMonthlyBalance: 'Monthly Balance',
                 recentTransactionsMore: 'More',
                 recentTransactionsTitle: 'Most Recent Transactions',
                 sellEnergy: 'Sell Energy'
             },
-            transactions: [
-                { amount: 0.81, date: 1523707200, id: 1, name: 'Bought 23 kWh Alice' },
-                { amount: 0.81, date: 1523707200, id: 2, name: 'Monthly invoice' },
-                { amount: 0.81, date: 1523707200, id: 3, name: 'Bought 23 kWh from Peter' }
-            ]
+            transactions: [...props.recentTransactions.transactions]
         });
 
         const cards = component.find(NavigationCardsPanel).at(0);
@@ -165,10 +323,15 @@ describe('<Overview /> Component', () => {
             labels: {
                 buyEnergy: 'Buy Energy',
                 myProducer: 'My Producer',
-                recentTransactionsMonthlyBalance: 'Monthly Balance',
+                recentTransactionsDetailsAmount: 'Amount',
+                recentTransactionsDetailsFrom: 'From',
+                recentTransactionsDetailsHash: 'Blockchain-Transaction',
+                recentTransactionsDetailsPrice: 'Price per kWh',
+                recentTransactionsDetailsUrl: 'Show Details',
                 recentTransactionsHeaderAmount: 'Amount',
                 recentTransactionsHeaderDate: 'Date',
                 recentTransactionsHeaderTransaction: 'Transaction',
+                recentTransactionsMonthlyBalance: 'Monthly Balance',
                 recentTransactionsMore: 'More',
                 recentTransactionsTitle: 'Most Recent Transactions',
                 sellEnergy: 'Sell Energy'
