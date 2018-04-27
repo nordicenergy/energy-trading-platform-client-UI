@@ -7,7 +7,9 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 const DisclosureArrow = ({ expanded, onClick }) => (
     <button className={classNames('disclosure-arrow', { expanded: expanded })} onClick={onClick}>
-        <FontAwesomeIcon icon={icons['faChevronRight']} />
+        <div>
+            <FontAwesomeIcon icon={icons['faChevronRight']} />
+        </div>
     </button>
 );
 

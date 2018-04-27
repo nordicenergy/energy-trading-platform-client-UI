@@ -1,25 +1,23 @@
 .disclosure-arrow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     box-sizing: border-box;
-    background-color: white;
-    cursor: pointer;
-    font-size: 0.7rem;
-    padding-left: 0.75em;
+    padding: 0.15em 0.6em 0 0.7em;
     width: 3.4em;
     height: 3.4em;
-    border-radius: 50%;
-    color: var(--button-primary-color);
+
+    background: white;
     border: 0.133em solid var(--disclosure-arrow-border-color);
-    transition: 0.2s transform ease-in, 0.2s color ease-in, 0.2s border-color ease-in;
+    border-radius: 100%;
+    color: var(--button-primary-color);
+
+    font-size: 0.7rem;
+    line-height: 3.4em;
+    text-align: center;
+
+    transition: 0.2s ease-in;
+    cursor: pointer;
     outline: none;
     appearance: none;
-}
-
-.disclosure-arrow > svg {
-    vertical-align: top;
-    text-align: center;
 }
 
 .disclosure-arrow:hover,
@@ -30,5 +28,5 @@
 
 .disclosure-arrow.expanded {
     transform: rotate(90deg);
-    padding-left: 0.85em;
+    padding-left: 0.8em;
 }
