@@ -1,46 +1,8 @@
 image: node:9.9
 
 pipelines:
-#  default: # Default manual deployment
-#    - step: #Step 1: Compile
-#        name: Prepare build
-#        script:
-#          - export CI=false
-#          - npm install
-#    - step: #Step 2: Do tests
-#        name: Do tests
-#        deployment: test
-#        script:
-#          - npm test
-#    - step: #Step 3: Compile and deploy to staging
-#        name: Deploy to Staging
-#        deployment: staging
-#        script:
-#          - npm run build
-#          - npm run styleguide:build
-#          - mkdir build/docs
-#          - cp -r styleguide/* build/docs
-#          - scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
-#          - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
-#          - ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
-#    - step: #Step 4: Deploy to staging
-#        name: Deploy to Production
-#        deployment: production
-#        script:
-#          - scp -r build/* deployer@fe.prod.lition.io:/var/www/html
-#          - ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
-#          - ssh ec2-user@fe.prod.lition.io sudo systemctl reload httpd
-  deploy-all: # -- Deploys all files from the selected commit
-    - step:
-        deployment: test
-        script:
-          - npm install
-          - npm test
-          - npm run build
-          - scp -r build/* ec2-user@aws1.lition.io:/var/www/html
-          - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd
   branches: # Automated triggers on commits to branches
-    master: # -- When committing to mast branch
+    master: # -- When committing to master branch auto-deploy to staging environment
     - step:
         script:
           - export CI=false
@@ -53,8 +15,32 @@ pipelines:
           - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
           - ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
   custom: # Pipelines that are triggered manually
-    init: # -- First time init
-    - step:
+    deploy_to_production: # Deploy to production server (prod.lition.io / kundenportal.lition.de)
+    - step: #Step 1: Compile
+        name: Prepare build
         script:
-          - apt-get update
+          - export CI=false
+          #- apt-get update
           - npm install
+    - step: #Step 2: Do tests
+        name: Do tests
+        deployment: test
+        script:
+          - npm test
+    - step: #Step 3: Compile
+        name: Compile
+        script:
+          - npm run build
+          - npm run styleguide:build
+          - mkdir build/docs
+          - cp -r styleguide/* build/docs
+          #- scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
+          #- ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          #- ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
+    - step: #Step 4: Deploy to staging
+        name: Deploy to Production
+        deployment: production
+        script:
+          - scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html
+          - ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.prod.lition.io sudo systemctl reload httpd
