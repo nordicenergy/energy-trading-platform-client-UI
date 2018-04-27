@@ -81,7 +81,7 @@ caption .recent-transactions-caption-content > div:last-child {
 .recent-transactions-container th:first-child {
     width: 25%;
     text-align: left;
-    padding-left: 6.22rem;
+    padding-left: 3rem;
 }
 
 .recent-transactions-container th:nth-child(0n + 2),
@@ -170,7 +170,7 @@ tr.recent-transactions-details-row--expand > td::after {
     justify-content: space-between;
     align-items: center;
     background: var(--table-total-cell-bg-color);
-    padding: 1.11em 10% 0.89em 6.22rem;
+    padding: 1.11em 10% 0.89em 3rem;
 }
 
 .recent-transactions-current-balance-row p {
