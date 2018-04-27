@@ -121,9 +121,10 @@ export class BuyEnergy extends AbstractContainer {
     handleFilterChange(event) {
         const { filter } = this.state;
         const { name } = event.currentTarget;
+        const isIncludesName = filter.indexOf(name) > -1;
         let changedFilter;
 
-        if (filter.includes(name)) {
+        if (isIncludesName) {
             changedFilter = filter.filter(option => option !== name);
         } else {
             changedFilter = [...filter, name];
@@ -169,19 +170,22 @@ export class BuyEnergy extends AbstractContainer {
                                 checked={filter.length === 0}
                                 onChange={() => this.resetFilter()}
                             />
-                            {FILTER_OPTIONS.map(({ name, label, type }) => (
-                                <FilterCheckbox
-                                    key={name}
-                                    className="producer-filter-option"
-                                    label={formatMessage(label)}
-                                    type={type}
-                                    name={name}
-                                    checked={filter.includes(name)}
-                                    onChange={event => {
-                                        this.handleFilterChange(event);
-                                    }}
-                                />
-                            ))}
+                            {FILTER_OPTIONS.map(({ name, label, type }) => {
+                                const isIncludesName = filter.indexOf(name) > -1;
+                                return (
+                                    <FilterCheckbox
+                                        key={name}
+                                        className="producer-filter-option"
+                                        label={formatMessage(label)}
+                                        type={type}
+                                        name={name}
+                                        checked={isIncludesName}
+                                        onChange={event => {
+                                            this.handleFilterChange(event);
+                                        }}
+                                    />
+                                );
+                            })}
                         </div>
                     </div>
                 </aside>

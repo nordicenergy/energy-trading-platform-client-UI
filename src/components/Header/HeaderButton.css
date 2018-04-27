@@ -9,7 +9,7 @@
 .header-button {
     padding: 0;
     display: block;
-    background-color: inherit;
+    background-color: transparent;
     width: 100%;
     height: 100%;
     cursor: pointer;
