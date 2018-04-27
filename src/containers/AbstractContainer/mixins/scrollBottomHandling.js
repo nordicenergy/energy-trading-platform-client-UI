@@ -13,7 +13,10 @@ const scrollBottomHandlingMixin = Base =>
         }
 
         scrollToTop() {
-            document.getElementById(MAIN_CONTAINER_SELECTOR).scrollTop = 0;
+            const container = document.getElementById(MAIN_CONTAINER_SELECTOR);
+            if (container) {
+                container.scrollTop = 0;
+            }
         }
 
         handleScroll(event, condition, callback) {
