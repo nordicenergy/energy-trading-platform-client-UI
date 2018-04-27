@@ -139,6 +139,7 @@ describe('<BuyEnergy /> container', () => {
             .onChange({
                 currentTarget: { name: 'wind' }
             });
+        buyEnergy.instance().componentDidUpdate({}, {});
         expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 0, filter: ['wind'] });
     });
 
