@@ -23,6 +23,8 @@
 
 .faq-page .title-container {
     display: flex;
+    padding-bottom: 0.5em;
+    border-bottom: var(--border-width) solid var(--question-title-border);
     justify-content: space-between;
     align-items: center;
 }
@@ -42,6 +44,7 @@
 }
 
 .faq-page .answer-container {
+    margin-top: 0.6em;
     color: var(--answer-text-color);
     line-height: 2;
     height: 0;

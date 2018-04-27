@@ -124,6 +124,7 @@
 
     --answer-text-color: var(--big-stone-color);
     --question-hover-color: var(--nobel-color);
+    --question-title-border: var(--porcelain-color);
 
     --slider-control-color: var(--blumine-color);
     --slider-bullet-color: var(--tower-gray-color);
