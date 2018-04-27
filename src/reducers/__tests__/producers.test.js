@@ -103,27 +103,32 @@ describe('Producers reducer:', () => {
         });
 
         it('should handle GET_PRODUCERS with defined page number', () => {
-            const result = producersReducer({
-                ...initialState,
-                producers: {
-                    ...initialState.producers,
-                    data: {
-                        ...initialState.producers.data,
-                        entries: [{
-                            id: 22,
-                            name: 'GASAG',
-                            picture:
-                                'https://res.cloudinary.com/dqqhd7l11/image/upload/v1480972142/image001_png_ciwv5g.png',
-                            description: '',
-                            capacity: 3,
-                            price: 0,
-                            plantType: 'solar',
-                            tradingStrategy: 0,
-                            complete: 0
-                        }]
+            const result = producersReducer(
+                {
+                    ...initialState,
+                    producers: {
+                        ...initialState.producers,
+                        data: {
+                            ...initialState.producers.data,
+                            entries: [
+                                {
+                                    id: 22,
+                                    name: 'GASAG',
+                                    picture:
+                                        'https://res.cloudinary.com/dqqhd7l11/image/upload/v1480972142/image001_png_ciwv5g.png',
+                                    description: '',
+                                    capacity: 3,
+                                    price: 0,
+                                    plantType: 'solar',
+                                    tradingStrategy: 0,
+                                    complete: 0
+                                }
+                            ]
+                        }
                     }
-                }
-            }, ACTIONS.getProducers.successWithDefinedPage);
+                },
+                ACTIONS.getProducers.successWithDefinedPage
+            );
             expect(result.producers.loading).toBeFalsy();
             expect(result.producers.error).toBeNull();
             expect(result.producers.data).toEqual({
@@ -141,7 +146,8 @@ describe('Producers reducer:', () => {
                         tradingStrategy: 0,
                         complete: 0
                     },
-                    ...ACTIONS.getProducers.successWithDefinedPage.payload.producers]
+                    ...ACTIONS.getProducers.successWithDefinedPage.payload.producers
+                ]
             });
         });
 
@@ -326,9 +332,11 @@ function fixtures() {
                 },
                 error: null,
                 loading: false,
-                meta: [{
-                    page: 1
-                }]
+                meta: [
+                    {
+                        page: 1
+                    }
+                ]
             },
             fail: {
                 type: 'GET_PRODUCERS',
