@@ -7,6 +7,7 @@ import { FAQ as messages } from '../../services/translations/messages';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { performPushNotification } from '../../action_performers/notifications';
 
 export class FAQ extends AbstractContainer {
     constructor(props) {
@@ -18,10 +19,19 @@ export class FAQ extends AbstractContainer {
 
     static mapStateToProps(state) {
         return {
-            questions: state.App.localization.data.faq
+            questions: state.App.localization.data.faq,
+            error: state.App.localization.error,
+            loading: state.App.localization.loading
         };
     }
 
+    componentDidUpdate(prevProps) {
+        const { error, loading } = this.props;
+
+        if (!loading && error && error !== prevProps.error) {
+            performPushNotification({ message: error.message, type: 'error' });
+        }
+    }
     toggleExpandQuestion(id) {
         const searchedIndex = this.state.expandedIds.indexOf(id);
         const isIncludesSearchedId = searchedIndex !== -1;
@@ -74,7 +84,9 @@ FAQ.contextTypes = {
 };
 
 FAQ.propTypes = {
-    questions: PropTypes.array
+    questions: PropTypes.array,
+    loading: PropTypes.bool,
+    error: PropTypes.object
 };
 
 export default connect(FAQ.mapStateToProps)(FAQ);

@@ -141,4 +141,20 @@ describe('<FAQ /> Component', () => {
             .simulate('click');
         expect(component.state('expandedIds')).toEqual([]);
     });
+
+    it('should call performPushNotification', () => {
+        notificationActions.performPushNotification = jest.fn();
+        const component = renderComponent();
+        component.setProps({
+            loading: false,
+            error: {
+                message: 'test',
+                type: 'error'
+            }
+        });
+        expect(notificationActions.performPushNotification).toHaveBeenCalledWith({
+            message: 'test',
+            type: 'error'
+        });
+    });
 });
