@@ -9,7 +9,7 @@ import SubmitMeter from './SubmitMeter';
 import Profile from './Profile';
 import About from './About';
 import Team from './Team';
-import Service from './Service';
+import FAQ from './FAQ';
 import MyProducer from './MyProducer';
 import SellEnergy from './SellEnergy';
 import BuyEnergy from './BuyEnergy';
@@ -27,7 +27,7 @@ export {
     Documents,
     SubmitMeter,
     Profile,
-    Service,
+    FAQ,
     About,
     Team,
     BuyEnergy,

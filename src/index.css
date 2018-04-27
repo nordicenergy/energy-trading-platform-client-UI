@@ -122,6 +122,9 @@
     --disclosure-arrow-hover-color: var(--geyser-color);
     --disclosure-arrow-border-color: var(--transparent-blumine-color);
 
+    --answer-text-color: var(--big-stone-color);
+    --question-hover-color: var(--nobel-color);
+
     --slider-control-color: var(--blumine-color);
     --slider-bullet-color: var(--tower-gray-color);
     --slider-active-bullet-color: var(--blumine-color);

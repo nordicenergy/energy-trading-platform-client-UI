@@ -141,7 +141,7 @@ describe('Main <App /> Component', () => {
             },
             {
                 active: false,
-                href: '/service',
+                href: '/faq',
                 label: 'test'
             }
         ]);

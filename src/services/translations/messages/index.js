@@ -10,4 +10,5 @@ export { default as ShowTransactions } from './ShowTransactions';
 export { default as PlantType } from './PlantType';
 export { default as Breadcrumbs } from './Breadcrumbs';
 export { default as About } from './About';
+export { default as FAQ } from './FAQ';
 export { default as SellEnergy } from './SellEnergy';

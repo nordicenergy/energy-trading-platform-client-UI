@@ -1,21 +1,35 @@
 image: node:9.9
 
 pipelines:
-  custom: # Pipelines that are triggered manually
-    init: # -- First time init
-    - step:
+  default: # Default manual deployment 
+    - step: #Step 1: Compile
+        name: Prepare build
         script:
-          - apt-get update
+          - export CI=false
           - npm install
-    deploy-all: # -- Deploys all files from the selected commit
-    - step:
+    - step: #Step 2: Do tests
+        name: Do tests
         deployment: test
         script:
-          - npm install
           - npm test
+    - step: #Step 3: Compile and deploy to staging
+        name: Deploy to Staging
+        deployment: staging        
+        script:
           - npm run build
-          - scp -r build/* ec2-user@aws1.lition.io:/var/www/html
-          - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd
+          - npm run styleguide:build
+          - mkdir build/docs
+          - cp -r styleguide/* build/docs
+          - scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
+          - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
+    - step: #Step 4: Deploy to staging
+        name: Deploy to Production
+        deployment: production
+        script:
+          - scp -r build/* deployer@fe.prod.lition.io:/var/www/html
+          - ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.prod.lition.io sudo systemctl reload httpd
   branches: # Automated triggers on commits to branches
     master: # -- When committing to mast branch
     - step:
@@ -26,6 +40,12 @@ pipelines:
           - npm run build
           - npm run styleguide:build
           - mkdir build/docs
-          - cp -r styleguide/* build/docs
-          - scp -r build/* ec2-user@aws1.lition.io:/var/www/html
-          - ssh ec2-user@aws1.lition.io sudo systemctl restart httpd
+          - scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
+          - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
+#  custom: # Pipelines that are triggered manually
+#    init: # -- First time init
+#    - step:
+#        script:
+#          - apt-get update
+#          - npm install
