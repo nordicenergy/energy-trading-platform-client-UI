@@ -54,6 +54,11 @@
     "app.recentTransactions.currentBalance": "Aktuelle Bilanz",
     "app.recentTransactions.monthlyBalance": "Summe des Monats",
     "app.recentTransactions.more": "Mehr",
+    "app.recentTransactionsDetails.from": "From",
+    "app.recentTransactionsDetails.amount": "Amount",
+    "app.recentTransactionsDetails.price": "Price per kWh",
+    "app.recentTransactionsDetails.hash": "Blockchain-Transaction",
+    "app.recentTransactionsDetails.url": "Show Details",
 
     "app.showTransactionsPage.header": "Transaktionen anzeigen",
     "app.showTransactionsPage.sellCoinsButton": "kWh verkaufen",

@@ -53,6 +53,11 @@
     "app.recentTransactions.headerAmount": "Amount",
     "app.recentTransactions.currentBalance": "Current Balance",
     "app.recentTransactions.more": "More",
+    "app.recentTransactionsDetails.from": "From",
+    "app.recentTransactionsDetails.amount": "Amount",
+    "app.recentTransactionsDetails.price": "Price per kWh",
+    "app.recentTransactionsDetails.hash": "Blockchain-Transaction",
+    "app.recentTransactionsDetails.url": "Show Details",
 
     "app.showTransactionsPage.header": "Show Transactions",
     "app.showTransactionsPage.sellCoinsButton": "Sell Coins",
