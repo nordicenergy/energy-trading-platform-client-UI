@@ -185,7 +185,7 @@ describe('<Producer /> Component', () => {
     it('should provide possibility navigate to producers list', () => {
         const component = renderComponent();
         component.setContext(context);
-        const back = component.find(Button).at(1);
+        const back = component.find(Button).at(0);
         back.props().onClick();
 
         const { push } = context.router.history;
@@ -197,7 +197,7 @@ describe('<Producer /> Component', () => {
     it('should provide possibility to select producer', () => {
         const component = renderComponent();
         component.setContext(context);
-        const select = component.find(Button).at(0);
+        const select = component.find(Button).at(1);
         select.props().onClick();
 
         expect(producersActions.performSelectProducer.mock.calls.length).toEqual(1);
