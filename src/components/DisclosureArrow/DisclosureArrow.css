@@ -21,12 +21,12 @@
 }
 
 .disclosure-arrow:hover,
-.disclosure-arrow.expanded {
+.disclosure-arrow--expanded {
     border-color: var(--disclosure-arrow-hover-color);
     color: var(--disclosure-arrow-hover-color);
 }
 
-.disclosure-arrow.expanded {
+.disclosure-arrow--expanded {
     transform: rotate(90deg);
     padding-left: 0.8em;
 }
