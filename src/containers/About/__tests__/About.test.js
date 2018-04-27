@@ -22,7 +22,7 @@ const store = mockStore({
     }
 });
 
-const props = {
+const defaultProps = {
     paragraphs: ['p1', 'p2'],
     error: null,
     loading: false
@@ -36,7 +36,7 @@ function renderContainer(mountFn = mountWithIntl) {
     );
 }
 
-function renderComponent(mountFn = mountWithIntl) {
+function renderComponent(mountFn = mountWithIntl, props = defaultProps) {
     return mountFn(<About {...props} context={context} />);
 }
 
@@ -68,7 +68,7 @@ describe('<About /> Component', () => {
         });
     });
 
-    it('should call performPushNotification', () => {
+    it('should call performPushNotification on componentDidUpdate', () => {
         notificationActions.performPushNotification = jest.fn();
         const component = renderComponent();
         component.setProps({
@@ -79,7 +79,22 @@ describe('<About /> Component', () => {
             }
         });
         expect(notificationActions.performPushNotification).toHaveBeenCalledWith({
-            message: 'test',
+            message: 'Could not load content',
+            type: 'error'
+        });
+    });
+
+    it('should call performPushNotification on componentDidMount', () => {
+        notificationActions.performPushNotification = jest.fn();
+        renderComponent(mountWithIntl, {
+            ...defaultProps,
+            error: {
+                message: 'test',
+                type: 'error'
+            }
+        });
+        expect(notificationActions.performPushNotification).toHaveBeenCalledWith({
+            message: 'Could not load content',
             type: 'error'
         });
     });

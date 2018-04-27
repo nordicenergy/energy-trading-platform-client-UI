@@ -25,13 +25,26 @@ export class FAQ extends AbstractContainer {
         };
     }
 
+    showError() {
+        const { formatMessage } = this.context.intl;
+        performPushNotification({ message: formatMessage(messages.error), type: 'error' });
+    }
+
+    componentDidMount() {
+        const { error, loading } = this.props;
+        if (!loading && error) {
+            this.showError();
+        }
+    }
+
     componentDidUpdate(prevProps) {
         const { error, loading } = this.props;
 
         if (!loading && error && error !== prevProps.error) {
-            performPushNotification({ message: error.message, type: 'error' });
+            this.showError();
         }
     }
+
     toggleExpandQuestion(id) {
         const searchedIndex = this.state.expandedIds.indexOf(id);
         const isIncludesSearchedId = searchedIndex !== -1;

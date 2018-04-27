@@ -16,11 +16,18 @@ export class About extends AbstractContainer {
         };
     }
 
+    componentDidMount() {
+        const { error, loading } = this.props;
+        if (!loading && error) {
+            performPushNotification({ message: 'Could not load content', type: 'error' });
+        }
+    }
+
     componentDidUpdate(prevProps) {
         const { error, loading } = this.props;
 
         if (!loading && error && error !== prevProps.error) {
-            performPushNotification({ message: error.message, type: 'error' });
+            performPushNotification({ message: 'Could not load content', type: 'error' });
         }
     }
 
