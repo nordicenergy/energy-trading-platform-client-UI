@@ -5,7 +5,7 @@
 
     background: white;
     border: 0.133em solid var(--disclosure-arrow-border-color);
-    border-radius: 100%;
+    border-radius: 50%;
     color: var(--button-primary-color);
 
     font-size: 0.7rem;
