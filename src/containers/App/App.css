@@ -9,7 +9,7 @@
 }
 
 #main-container {
-    overflow-y: scroll;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     width: 100%;

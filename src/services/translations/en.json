@@ -26,6 +26,8 @@
     "app.restorePasswordPage.errors.emptyEmail": "Enter your email.",
     "app.restorePasswordPage.errors.invalidEmail": "Invalid email.",
 
+    "app.notifications.defaultErrorMessage": "Unknown error.",
+
     "app.header.logoutConfirm": "Are you sure that you'd like to logout from the system?",
     "app.header.logoutLabel": "Logout",
     "app.header.notificationLabel": "Notifications",
@@ -37,8 +39,8 @@
     "app.menuBar.profile": "Profile",
 
     "app.footer.about": "About Us",
-    "app.footer.team": "Our Team",
-    "app.footer.service": "Question&Service",
+    "app.footer.termsAndConditions": "Terms & Conditions",
+    "app.footer.faq": "FAQ",
     "app.footer.address": "2018 Lition. All rights reserved.",
 
     "app.navigationCardsPanel.myProducer": "My Producer",
@@ -95,6 +97,7 @@
     "app.header.logoutCancelButton": "No",
 
     "app.aboutPage.header": "About Us",
+    "app.faqPage.header": "FAQ",
 
     "app.profilePage.header": "Profile",
     "app.profilePage.errors.firstName": "Enter your first name.",

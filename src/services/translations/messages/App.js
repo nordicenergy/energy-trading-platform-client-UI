@@ -25,13 +25,13 @@ const messages = defineMessages({
         id: 'app.footer.about',
         defaultMessage: 'About Us'
     },
-    team: {
-        id: 'app.footer.team',
-        defaultMessage: 'Our Team'
+    termsAndConditions: {
+        id: 'app.footer.termsAndConditions',
+        defaultMessage: 'Terms & Conditions'
     },
-    service: {
-        id: 'app.footer.service',
-        defaultMessage: 'Question&Service'
+    faq: {
+        id: 'app.footer.faq',
+        defaultMessage: 'FAQ'
     },
     address: {
         id: 'app.footer.address',
@@ -60,6 +60,10 @@ const messages = defineMessages({
     logoutCancelButton: {
         id: 'app.header.logoutCancelButton',
         defaultMessage: 'No'
+    },
+    defaultErrorMessage: {
+        id: 'app.notifications.defaultErrorMessage',
+        defaultMessage: 'Unknown error.'
     }
 });
 

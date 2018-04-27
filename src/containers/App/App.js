@@ -125,9 +125,14 @@ export class App extends React.Component {
                 active: pathname === PATHS.about.path
             },
             {
-                href: PATHS.service.path,
-                label: formatMessage(messages.service),
-                active: pathname === PATHS.service.path
+                href: PATHS.team.path,
+                label: formatMessage(messages.termsAndConditions),
+                active: pathname === PATHS.team.path
+            },
+            {
+                href: PATHS.faq.path,
+                label: formatMessage(messages.faq),
+                active: pathname === PATHS.faq.path
             }
         ];
 
