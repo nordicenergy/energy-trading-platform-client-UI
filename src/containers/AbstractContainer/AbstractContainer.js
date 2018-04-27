@@ -10,6 +10,10 @@ class AbstractContainer extends Base {
     constructor(props, context, breadcrumbs) {
         super(props, context, breadcrumbs);
     }
+
+    componentWillUnmount() {
+        this.scrollToTop();
+    }
 }
 
 export default AbstractContainer;

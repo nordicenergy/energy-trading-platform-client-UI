@@ -1,10 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import './SellEnergy.css';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { PATHS } from '../../services/routes';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { PATHS } from '../../services/routes';
+import { SellEnergy as messages } from '../../services/translations/messages';
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import { OfferForm, OffersSlider } from '../../components';
+import './SellEnergy.css';
 
 export class SellEnergy extends AbstractContainer {
     constructor(props, context) {
@@ -23,20 +24,92 @@ export class SellEnergy extends AbstractContainer {
     }
 
     static mapStateToProps(/* state */) {
-        return {};
+        return {
+            offers: [
+                {
+                    id: '01',
+                    startPeriod: 1502236800,
+                    endPeriod: 1505001600,
+                    energyType: 'wind',
+                    price: 2.9
+                },
+                {
+                    id: '02',
+                    startPeriod: 1502236800,
+                    endPeriod: 1505001600,
+                    energyType: 'biomass',
+                    price: 3.2
+                },
+                {
+                    id: '03',
+                    startPeriod: 1502236800,
+                    endPeriod: 1505001600,
+                    energyType: 'solar',
+                    price: 4
+                },
+                {
+                    id: '04',
+                    startPeriod: 1502236800,
+                    endPeriod: 1505001600,
+                    energyType: 'wind',
+                    price: 2.9
+                },
+                {
+                    id: '05',
+                    startPeriod: 1502236800,
+                    endPeriod: 1505001600,
+                    energyType: 'biomass',
+                    price: 3.2
+                },
+                {
+                    id: '06',
+                    startPeriod: 1502236800,
+                    endPeriod: 1505001600,
+                    energyType: 'solar',
+                    price: 4
+                }
+            ]
+        };
+    }
+
+    renderOffersSlider() {
+        const { offers } = this.props;
+        const { formatMessage } = this.context.intl;
+
+        if (offers && offers.length > 0) {
+            return (
+                <div className="sell-energy-page-offers">
+                    <h2>{formatMessage(messages.offersSectionTitle)}</h2>
+                    <OffersSlider className="offers-slider--full-width" offers={offers} />
+                </div>
+            );
+        }
+
+        return null;
     }
 
     render() {
+        const { formatMessage } = this.context.intl;
+
         return (
-            <div className="sell-energy-page">
-                <h1>Sell Energy</h1>
-            </div>
+            <section className="sell-energy-page">
+                <h1>{formatMessage(messages.pageTitle)}</h1>
+                <OfferForm />
+                {this.renderOffersSlider()}
+                {/* TODO remove (including styles) after complete implementation */}
+                <div className="not-allowed-backdrop" />
+            </section>
         );
     }
 }
 
 SellEnergy.contextTypes = {
-    intl: PropTypes.object
+    intl: PropTypes.shape({
+        formatMessage: PropTypes.func.isRequired
+    }).isRequired
+};
+SellEnergy.propTypes = {
+    offers: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default connect(SellEnergy.mapStateToProps)(SellEnergy);

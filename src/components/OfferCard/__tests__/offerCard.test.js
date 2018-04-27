@@ -4,11 +4,13 @@ import { mount } from 'enzyme';
 
 function renderComponent(
     {
-        id = '01',
-        startPeriod = 1502236800,
-        endPeriod = 1505001600,
-        price = 2.9,
-        energyType = 'wind',
+        offer = {
+            id: '01',
+            startPeriod: 1502236800,
+            endPeriod: 1505001600,
+            energyType: 'wind',
+            price: 2.9
+        },
         onClick = () => {},
         labels = {
             editButton: 'Edit'
@@ -16,17 +18,7 @@ function renderComponent(
     },
     mountFn = mount
 ) {
-    return mountFn(
-        <OfferCard
-            id={id}
-            startPeriod={startPeriod}
-            endPeriod={endPeriod}
-            price={price}
-            energyType={energyType}
-            onClick={onClick}
-            labels={labels}
-        />
-    );
+    return mountFn(<OfferCard offer={offer} onClick={onClick} labels={labels} />);
 }
 
 describe('<OfferCard /> component', () => {
@@ -62,5 +54,11 @@ describe('<OfferCard /> component', () => {
         expect(onClickMock).toHaveBeenCalledTimes(1);
         component.find('.period-info a').simulate('click');
         expect(onClickMock).toHaveBeenCalledTimes(2);
+    });
+
+    it('should not call onClick handler if onClick is not a function', () => {
+        const component = renderComponent({ onClick: null });
+        component.find('.edit-button').simulate('click');
+        component.find('.period-info a').simulate('click');
     });
 });

@@ -108,6 +108,7 @@ export class BuyEnergy extends AbstractContainer {
 
     componentWillUnmount() {
         this.removeScrollHandler();
+        this.scrollToTop();
     }
 
     resetFilter() {

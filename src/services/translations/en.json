@@ -54,6 +54,11 @@
     "app.recentTransactions.headerAmount": "Amount",
     "app.recentTransactions.currentBalance": "Current Balance",
     "app.recentTransactions.more": "More",
+    "app.recentTransactionsDetails.from": "From",
+    "app.recentTransactionsDetails.amount": "Amount",
+    "app.recentTransactionsDetails.price": "Price per kWh",
+    "app.recentTransactionsDetails.hash": "Blockchain-Transaction",
+    "app.recentTransactionsDetails.url": "Show Details",
 
     "app.showTransactionsPage.header": "Show Transactions",
     "app.showTransactionsPage.sellCoinsButton": "Sell Coins",
@@ -112,5 +117,8 @@
     "app.profilePage.errors.emptyEmail": "Enter your email.",
     "app.profilePage.errors.emptyBankAccountNumber": "Enter your bank account number.",
     "app.profilePage.errors.passwordsMismatch": "Passwords don't match.",
-    "app.profilePage.errors.invalidEmail": "Invalid email address."
+    "app.profilePage.errors.invalidEmail": "Invalid email address.",
+
+    "app.sellEnergyPage.pageTitle": "Sell Energy",
+    "app.sellEnergyPage.offersSectionTitle": "My offers"
 }
