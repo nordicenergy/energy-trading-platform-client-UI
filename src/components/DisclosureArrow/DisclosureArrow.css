@@ -18,10 +18,15 @@
     appearance: none;
 }
 
-.disclosure-arrow:hover,
-.disclosure-arrow--expanded {
+.disclosure-arrow:hover {
     border-color: var(--disclosure-arrow-hover-color);
     color: var(--disclosure-arrow-hover-color);
+}
+
+.disclosure-arrow--expanded,
+.disclosure-arrow--expanded:hover {
+    border-color: var(--disclosure-arrow-active-color);
+    color: var(--disclosure-arrow-active-color);
 }
 
 .disclosure-arrow--expanded {
