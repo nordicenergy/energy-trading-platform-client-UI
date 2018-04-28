@@ -26,6 +26,31 @@
     position: relative;
     padding-right: 1em;
     width: 44%;
+    color: var(--delta-field-value-color);
+    text-align: center;
+}
+
+.delta-field tr > *:nth-child(2) > small {
+    text-transform: capitalize;
+    font-size: inherit;
+}
+
+.delta-field tr:nth-child(2) > *:nth-child(2):before,
+.delta-field tr:nth-child(3) > *:nth-child(2):before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -0.875em;
+    width: 0;
+    height: 0;
+    border-width: 0.375em 0.375em 0 0.375em;
+    border-style: solid;
+    border-color: var(--delta-field-row-color) transparent transparent transparent;
+    content: '';
+}
+
+.delta-field tr:nth-child(3) > *:nth-child(2):before {
+    border-color: white transparent transparent transparent;
 }
 
 .delta-field tr > *:nth-child(3) {
@@ -42,44 +67,4 @@
 
 .delta-field-input-row {
     height: 7em;
-}
-
-.delta-field-value {
-    position: absolute;
-    top: 0;
-    right: 1em;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--delta-field-value-color);
-}
-
-.delta-field-value > small {
-    margin-left: 0.25em;
-    text-transform: capitalize;
-    font-size: inherit;
-}
-
-.delta-field-value--before:after {
-    position: absolute;
-    bottom: -0.375em;
-    width: 0;
-    height: 0;
-    border-width: 0.375em 0.375em 0 0.375em;
-    border-style: solid;
-    border-color: var(--delta-field-row-color) transparent transparent transparent;
-    content: '';
-}
-
-.delta-field-value--after:before {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 0;
-    border-width: 0.375em 0.375em 0 0.375em;
-    border-style: solid;
-    border-color: white transparent transparent transparent;
-    content: '';
 }

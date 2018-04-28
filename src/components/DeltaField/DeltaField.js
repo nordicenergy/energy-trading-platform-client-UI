@@ -44,9 +44,7 @@ class DeltaField extends Component {
                         <tr className="delta-field-value-row">
                             <td>{labels.beforeLabel}</td>
                             <td>
-                                <div className="delta-field-value delta-field-value--before">
-                                    {initialValue} <small>{labels.units}</small>
-                                </div>
+                                {initialValue} <small>{labels.units}</small>
                             </td>
                             {labels.units && <td />}
                         </tr>
@@ -60,9 +58,7 @@ class DeltaField extends Component {
                         <tr className="delta-field-value-row">
                             <td>{labels.afterLabel}</td>
                             <td>
-                                <div className="delta-field-value delta-field-value--after">
-                                    {value} <small>{labels.units}</small>
-                                </div>
+                                {value} <small>{labels.units}</small>
                             </td>
                             {labels.units && <td />}
                         </tr>

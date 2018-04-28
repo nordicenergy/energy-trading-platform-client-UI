@@ -2,8 +2,8 @@
 .login-container-layout,
 .login-container-hero,
 .login-container-form {
+    flex: 1 1 0%;
     box-sizing: border-box;
-    width: 100%;
 }
 
 .login-container {
