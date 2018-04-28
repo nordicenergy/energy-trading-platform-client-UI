@@ -1,6 +1,6 @@
 .spinner {
-    animation: rotate 2s linear infinite;
     display: inline-block;
+    animation: rotate 2s linear infinite;
 }
 
 .spinner--size-sm {
@@ -19,8 +19,12 @@
 }
 
 .spinner .path {
-    stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
+
+    /* stroke-dasharray and stroke-dashoffset as fallback for IE11  */
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35px;
+    stroke-linecap: round;
 }
 
 @keyframes rotate {

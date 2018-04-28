@@ -13,10 +13,10 @@
 }
 
 .buy-energy-page-header {
-    color: black;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: black;
 }
 
 .buy-energy-page-header > * {
@@ -26,41 +26,40 @@
 
 .buy-energy-page-header > h1 {
     margin: 0;
-    font-size: 1.625em;
     font-weight: 700;
+    font-size: 1.625em;
 }
 
 .buy-energy-page-header > h2 {
     margin: 0;
-    font-size: 1.375em;
-    font-weight: 600;
     color: var(--label-color);
+    font-weight: 600;
+    font-size: 1.375em;
 }
 
 .buy-energy-page-header > h2 > strong {
-    font-weight: inherit;
     color: var(--general-text-color);
+    font-weight: inherit;
 }
 
 .buy-energy-page-filter {
     padding: var(--page-paddings);
     padding-bottom: 1rem;
-    background: #e9eef2;
     border-top: var(--border-width) solid var(--geyser-color);
     border-bottom: var(--border-width) solid var(--geyser-color);
+    background: #e9eef2;
 }
 
 .buy-energy-page-producers {
-    flex: 1;
-    padding-bottom: 0;
     box-sizing: border-box;
+    padding-bottom: 0;
 }
 
 .producer-filter {
     display: flex;
     width: 100%;
-    font-size: 1rem;
     color: black;
+    font-size: 1rem;
 }
 
 .producer-filter-label {

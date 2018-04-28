@@ -26,6 +26,13 @@
     background: var(--app-bg-color);
 }
 
+.offer-form-actions:after {
+    /* Fix align-items: center with min-height for IE11 */
+    min-height: inherit;
+    content: '';
+    font-size: 0;
+}
+
 .offer-form-delete-button {
     margin-left: 2em;
     outline: none;
