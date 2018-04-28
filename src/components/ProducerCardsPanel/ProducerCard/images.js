@@ -99,3 +99,36 @@ export const BiomassImage = () => (
         </g>
     </svg>
 );
+
+export const DefaultImage = () => (
+    <svg className="defaultImage" width="95px" height="95px" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
+            <g transform="translate(-800.000000, -561.000000)">
+                <g transform="translate(801.000000, 562.000000)">
+                    <polygon fillOpacity={0.4} fill="currentColor" points="36 42 34 58 27 80 66 80 59 58 57 42" />
+                    <polyline
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        points="36 23 36 42 34 58 27 80 66 80 59 58 57 42 57 23"
+                    />
+                    <polyline stroke="currentColor" strokeWidth={2} points="21 23 26 23 72 23" />
+                    <polygon stroke="currentColor" strokeWidth={2} points="46 8 26 23 66 23" />
+                    <path d="M36,42 L57,23" stroke="currentColor" strokeWidth={2} />
+                    <path d="M57,42 L36,23" stroke="currentColor" strokeWidth={2} />
+                    <path d="M36,42 L59,58" stroke="currentColor" strokeWidth={2} />
+                    <path d="M57,42 L34,58" stroke="currentColor" strokeWidth={2} />
+                    <path d="M36,42 L57,42" stroke="currentColor" strokeWidth={2} />
+                    <path d="M34,58 L59,58" stroke="currentColor" strokeWidth={2} />
+                    <path d="M27,80 L59,58" stroke="currentColor" strokeWidth={2} />
+                    <path d="M66,80 L34,58" stroke="currentColor" strokeWidth={2} />
+                    <polyline stroke="currentColor" strokeWidth={2} points="57 23 57 17 36 17 36 23" />
+                    <path
+                        d="M93,46.5 C93,72.181 72.182,93 46.5,93 C20.818,93 0,72.181 0,46.5 C0,20.819 20.818,0 46.5,0 C72.182,0 93,20.819 93,46.5 Z"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                    />
+                </g>
+            </g>
+        </g>
+    </svg>
+);

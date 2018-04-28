@@ -16,10 +16,6 @@ const messages = defineMessages({
     other: {
         id: 'app.plantType.other',
         defaultMessage: 'Other'
-    },
-    default: {
-        id: 'app.plantType.default',
-        defaultMessage: 'Default'
     }
 });
 
