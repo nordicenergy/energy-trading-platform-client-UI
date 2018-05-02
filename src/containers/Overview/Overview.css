@@ -1,3 +1,9 @@
 .overview-page {
     padding: var(--page-paddings);
 }
+
+@media screen and (max-width: 767px) {
+    .overview-page {
+        padding: var(--mobile-page-padding);
+    }
+}
