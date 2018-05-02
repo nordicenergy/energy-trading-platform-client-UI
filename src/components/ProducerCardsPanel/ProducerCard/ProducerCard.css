@@ -67,3 +67,42 @@
 .producer-card:hover .producer-card-name h3 {
     color: white;
 }
+
+@media (max-width: 767px) {
+    .producer-card {
+        position: relative;
+        padding: 1em 1em 0.625em 7em;
+        min-height: 7em;
+    }
+
+    .producer-card-type-image,
+    .producer-card-price,
+    .producer-card-name {
+        margin: 0;
+    }
+
+    .producer-card-type-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 7em;
+        height: 100%;
+    }
+
+    .producer-card-type-image > svg {
+        width: 5em;
+        height: 5em;
+    }
+
+    .producer-card-price {
+        width: 100%;
+        text-align: left;
+    }
+
+    .producer-card-name {
+        text-align: left;
+    }
+}
