@@ -228,7 +228,6 @@ OfferForm.defaultProps = {
         { value: PLANT_TYPES.solar, title: 'Solar' },
         { value: PLANT_TYPES.wind, title: 'Wind' },
         { value: PLANT_TYPES.biomass, title: 'Biomass' },
-        { value: PLANT_TYPES.default, title: 'Default' },
         { value: PLANT_TYPES.other, title: 'Other' }
     ],
     marketPrice: 0,

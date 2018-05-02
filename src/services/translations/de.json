@@ -11,7 +11,6 @@
     "app.plantType.solar": "Solaranlage",
     "app.plantType.wind": "Windkraftanlage",
     "app.plantType.other": "Sonstige",
-    "app.plantType.default": "Default",
 
     "app.breadCrumbs.overview": "Überblick",
     "app.breadCrumbs.showTransactions": "Transaktionen anzeigen",

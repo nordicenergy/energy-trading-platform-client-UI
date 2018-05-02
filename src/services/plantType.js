@@ -9,8 +9,6 @@ export function convertPlantType(type) {
             return messages.solar;
         case PLANT_TYPES.wind:
             return messages.wind;
-        case PLANT_TYPES.default:
-            return messages.default;
         default:
             return messages.other;
     }

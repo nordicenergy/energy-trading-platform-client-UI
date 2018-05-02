@@ -4,8 +4,7 @@ export const PLANT_TYPES = {
     wind: 'wind',
     solar: 'solar',
     biomass: 'biomass',
-    other: 'other',
-    default: 'default'
+    other: 'default'
 };
 
 export const LIMIT = 10;
