@@ -32,4 +32,8 @@
     .profile-page {
         padding: var(--mobile-page-paddings);
     }
+
+    .profile-page > h1 {
+        font-size: 1.375rem;
+    }
 }
