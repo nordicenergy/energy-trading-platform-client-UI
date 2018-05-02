@@ -17,6 +17,7 @@
     display: block;
     width: 100%;
     color: var(--label-color);
+    text-align: left;
     font-size: 1rem;
     font-family: inherit;
 }
@@ -71,6 +72,10 @@
 .text-field-input {
     flex: 1;
     box-sizing: border-box;
+    padding-right: 0;
+    padding-left: 0;
+    min-width: 0;
+    width: 100%;
     outline: none;
     border: none;
     background: none;
@@ -151,4 +156,30 @@
 
 .text-field--dark .text-field-error:after {
     border-bottom-color: var(--bar-color);
+}
+
+@media (max-width: 767px) {
+    .text-field-layout {
+        display: block;
+        height: auto;
+    }
+
+    .text-field-layout:after {
+        width: 100%;
+    }
+
+    .text-field-label {
+        font-size: 0.75em;
+    }
+
+    .text-field-input {
+        padding-right: 0;
+        padding-left: 0;
+        font-size: 1em;
+    }
+
+    .text-field-helper-text {
+        margin-top: 0.75em;
+        padding-left: 0;
+    }
 }
