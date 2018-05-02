@@ -10,10 +10,10 @@ const Logo = ({ size, className }) => {
 };
 
 Logo.propTypes = {
+    className: PropTypes.string,
     size: PropTypes.oneOf(['small', 'medium'])
 };
 Logo.defaultProps = {
-    className: PropTypes.string,
     size: 'medium'
 };
 

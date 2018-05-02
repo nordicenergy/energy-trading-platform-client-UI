@@ -26,7 +26,7 @@ class Header extends React.Component {
         return (
             <header className="header-desktop">
                 <div className="logo-container">
-                    <Logo size="small" />
+                    <Logo className="logo--header" size="small" />
                 </div>
                 <div className="main-header-container">
                     <Breadcrumbs items={this.props.breadCrumbs} onClick={this.props.navigateTo} />

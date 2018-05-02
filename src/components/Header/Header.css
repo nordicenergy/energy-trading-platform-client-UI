@@ -11,7 +11,10 @@
 }
 
 .logo-container {
+    box-sizing: border-box;
+    padding-top: 0.375em;
     width: var(--side-bar-width);
+    line-height: 1;
 }
 
 .header-buttons {
@@ -24,9 +27,20 @@
     width: calc(100% - var(--side-bar-width));
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 1023px) {
+    .main-header-container {
+        justify-content: flex-end;
+    }
+}
+
+@media screen and (max-width: 767px) {
     .logo-container {
-        width: calc(var(--side-bar-width) / 2);
+        width: auto;
+    }
+
+    .logo--header {
+        width: 5.5em;
+        height: auto;
     }
 
     .main-header-container {

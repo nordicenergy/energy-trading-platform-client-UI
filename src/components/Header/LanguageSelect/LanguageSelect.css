@@ -1,5 +1,5 @@
 .language-select {
-    width: 7rem;
+    width: 7em;
     border-left: var(--border-width) solid var(--navigation-bg-color);
 }
 
@@ -27,9 +27,9 @@
 }
 
 .select-field--language .select-control-text {
-    padding-top: 0.195em;
     margin-right: 0.445em;
     margin-left: 0.445em;
+    padding-top: 0.195em;
     width: auto;
     color: white;
     text-align: center;
@@ -51,4 +51,11 @@
 
 .select-field--language .options-list-item {
     justify-content: center;
+}
+
+@media (max-width: 767px) {
+    .language-select {
+        width: 4em;
+        border: none;
+    }
 }
