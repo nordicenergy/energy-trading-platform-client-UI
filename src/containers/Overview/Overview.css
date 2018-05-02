@@ -4,6 +4,6 @@
 
 @media screen and (max-width: 767px) {
     .overview-page {
-        padding: var(--mobile-page-padding);
+        padding: 1rem;
     }
 }
