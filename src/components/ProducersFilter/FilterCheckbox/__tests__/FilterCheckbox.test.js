@@ -4,7 +4,7 @@ import FilterCheckbox from '../FilterCheckbox';
 
 const onChangeMock = jest.fn();
 function renderComponent(
-    { type = 'other', label = 'all', onChange = onChangeMock, ...otherProps } = {},
+    { type = 'default', label = 'all', onChange = onChangeMock, ...otherProps } = {},
     mountFn = shallow
 ) {
     return mountFn(<FilterCheckbox type={type} label={label} onChange={onChange} {...otherProps} />);
