@@ -26,7 +26,7 @@
     background: var(--app-bg-color);
 }
 
-.offer-form-actions:after {
+.offer-form-actions::after {
     /* Fix align-items: center with min-height for IE11 */
     min-height: inherit;
     content: '';

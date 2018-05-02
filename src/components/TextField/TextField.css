@@ -17,6 +17,7 @@
     display: block;
     width: 100%;
     color: var(--label-color);
+    text-align: left;
     font-size: 1rem;
     font-family: inherit;
 }
@@ -30,7 +31,7 @@
     border-bottom: 0.062em solid var(--input-border);
 }
 
-.text-field-layout:after {
+.text-field-layout::after {
     position: absolute;
     right: 0;
     bottom: -0.062rem;
@@ -41,13 +42,13 @@
     transform: scaleX(0);
 }
 
-.text-field--focused .text-field-layout:after {
+.text-field--focused .text-field-layout::after {
     background: linear-gradient(to right, var(--hover-icon-color), var(--active-item-color));
     transition-duration: 200ms;
     transform: scaleX(1);
 }
 
-.text-field--error .text-field-layout:after {
+.text-field--error .text-field-layout::after {
     background: var(--error-text-color);
     transform: scaleX(1);
 }
@@ -71,6 +72,10 @@
 .text-field-input {
     flex: 1;
     box-sizing: border-box;
+    padding-right: 0;
+    padding-left: 0;
+    min-width: 0;
+    width: 100%;
     outline: none;
     border: none;
     background: none;
@@ -123,8 +128,8 @@
     line-height: 1.4;
 }
 
-.text-field-error:before,
-.text-field-error:after {
+.text-field-error::before,
+.text-field-error::after {
     position: absolute;
     top: -0.5rem;
     left: 1rem;
@@ -136,7 +141,7 @@
     content: '';
 }
 
-.text-field-error:after {
+.text-field-error::after {
     top: -0.375rem;
     border-bottom-color: white;
 }
@@ -145,10 +150,36 @@
     border-color: var(--error-border-dark-color);
 }
 
-.text-field--dark .text-field-error:before {
+.text-field--dark .text-field-error::before {
     border-bottom-color: var(--error-border-dark-color);
 }
 
-.text-field--dark .text-field-error:after {
+.text-field--dark .text-field-error::after {
     border-bottom-color: var(--bar-color);
+}
+
+@media (max-width: 767px) {
+    .text-field-layout {
+        display: block;
+        height: auto;
+    }
+
+    .text-field-layout::after {
+        width: 100%;
+    }
+
+    .text-field-label {
+        font-size: 0.75em;
+    }
+
+    .text-field-input {
+        padding-right: 0;
+        padding-left: 0;
+        font-size: 1em;
+    }
+
+    .text-field-helper-text {
+        margin-top: 0.75em;
+        padding-left: 0;
+    }
 }

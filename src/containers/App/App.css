@@ -1,5 +1,4 @@
 .app {
-    min-width: 45rem;
     height: 100%;
 }
 
@@ -20,12 +19,19 @@
 }
 
 #main-container main {
-    flex: 1 0 auto;
     display: flex;
+    flex: 1 0 auto;
     flex-direction: column;
 }
 
 .menu-container {
     width: auto;
     height: 100%;
+}
+
+@media (max-width: 767px) {
+    .menu-container {
+        /* TODO temporary solution. Necessary implement menu with a slide effect. */
+        display: none;
+    }
 }

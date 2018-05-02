@@ -61,6 +61,8 @@
     --bar-color: var(--black-pearl-color);
     --figure-subtitle-color: var(--bali-hai-color);
 
+    --footer-border-color: var(--geyser-color);
+
     --link-color: var(--bali-hai-color);
     --navigation-bg-color: var(--blumine-color);
     --active-item-color: var(--scooter-color);

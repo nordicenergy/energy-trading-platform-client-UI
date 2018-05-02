@@ -7,22 +7,24 @@ const Footer = props => {
 
     return (
         <footer className="app-footer">
-            <address>&copy; {addressLabel}</address>
-            <nav>
-                {navItems.map(item => (
-                    <a
-                        className={item.active ? 'footer-item--active' : ''}
-                        key={item.href}
-                        href={item.href}
-                        onClick={event => {
-                            event.preventDefault();
-                            onSelect(item.href);
-                        }}
-                    >
-                        {item.label}
-                    </a>
-                ))}
-            </nav>
+            <div className="app-footer-layout">
+                <nav>
+                    {navItems.map(item => (
+                        <a
+                            className={item.active ? 'footer-item--active' : ''}
+                            key={item.href}
+                            href={item.href}
+                            onClick={event => {
+                                event.preventDefault();
+                                onSelect(item.href);
+                            }}
+                        >
+                            {item.label}
+                        </a>
+                    ))}
+                </nav>
+                <address>&copy; {addressLabel}</address>
+            </div>
         </footer>
     );
 };
