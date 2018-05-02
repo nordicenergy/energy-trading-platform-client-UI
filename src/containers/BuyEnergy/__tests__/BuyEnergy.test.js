@@ -61,6 +61,7 @@ describe('<BuyEnergy /> container', () => {
 
     afterEach(() => {
         producersActionPerformers.performGetProducers.mockClear();
+        historyMock.push.mockClear();
     });
 
     it('should renders without errors', () => {
@@ -134,11 +135,9 @@ describe('<BuyEnergy /> container', () => {
         });
 
         buyEnergy
-            .find('FilterCheckbox[name="wind"]')
+            .find('ProducersFilter')
             .props()
-            .onChange({
-                currentTarget: { name: 'wind' }
-            });
+            .onChange(['wind']);
         buyEnergy.instance().componentDidUpdate({}, {});
         expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 0, filter: ['wind'] });
     });
@@ -182,6 +181,13 @@ describe('<BuyEnergy /> container', () => {
         expect(buyEnergy.state().page).toBe(1);
     });
 
+    it('should opens trading page', () => {
+        const buyEnergy = renderComponent();
+
+        buyEnergy.find('.back-link').simulate('click', { preventDefault: jest.fn() });
+        expect(historyMock.push).toHaveBeenCalledWith('/trading');
+    });
+
     it('should opens producer page', () => {
         const buyEnergy = renderComponent();
 
@@ -190,43 +196,5 @@ describe('<BuyEnergy /> container', () => {
             .props()
             .onProducerClick(1);
         expect(historyMock.push).toHaveBeenCalledWith('/buy_energy/producer/1');
-    });
-
-    it('should update state when filter option was clicked', () => {
-        const buyEnergy = renderComponent();
-
-        buyEnergy.setState({ filter: ['wind', 'solar'] });
-        buyEnergy
-            .find('FilterCheckbox[name="reset"]')
-            .props()
-            .onChange({
-                currentTarget: { name: 'all' }
-            });
-        expect(buyEnergy.state().filter).toEqual([]);
-
-        buyEnergy
-            .find('FilterCheckbox[name="wind"]')
-            .props()
-            .onChange({
-                currentTarget: { name: 'wind' }
-            });
-        expect(buyEnergy.state().filter).toEqual(['wind']);
-
-        buyEnergy.setState({ filter: ['wind', 'solar'] });
-        buyEnergy
-            .find('FilterCheckbox[name="solar"]')
-            .props()
-            .onChange({
-                currentTarget: { name: 'solar' }
-            });
-        expect(buyEnergy.state().filter).toEqual(['wind']);
-
-        buyEnergy
-            .find('FilterCheckbox[name="wind"]')
-            .props()
-            .onChange({
-                currentTarget: { name: 'wind' }
-            });
-        expect(buyEnergy.state().filter).toEqual([]);
     });
 });

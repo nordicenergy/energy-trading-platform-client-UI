@@ -1,7 +1,9 @@
 .buy-energy-page {
     display: flex;
+    flex: 1 1 0%;
     flex-direction: column;
     height: 100%;
+    text-align: left;
 }
 
 .buy-energy-page-header,
@@ -14,7 +16,6 @@
 
 .buy-energy-page-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     color: black;
 }
@@ -25,13 +26,19 @@
 }
 
 .buy-energy-page-header > h1 {
-    margin: 0;
+    padding-top: 0.1em;
+    white-space: nowrap;
     font-weight: 700;
     font-size: 1.625em;
 }
 
+.buy-energy-page-header > h1 > .back-link {
+    display: none;
+}
+
 .buy-energy-page-header > h2 {
-    margin: 0;
+    padding-top: 0.25em;
+    padding-left: 1em;
     color: var(--label-color);
     font-weight: 600;
     font-size: 1.375em;
@@ -42,45 +49,68 @@
     font-weight: inherit;
 }
 
-.buy-energy-page-filter {
-    padding: var(--page-paddings);
-    padding-bottom: 1rem;
-    border-top: var(--border-width) solid var(--geyser-color);
-    border-bottom: var(--border-width) solid var(--geyser-color);
-    background: #e9eef2;
-}
-
 .buy-energy-page-producers {
     box-sizing: border-box;
     padding-bottom: 0;
 }
 
-.producer-filter {
-    display: flex;
-    width: 100%;
-    color: black;
-    font-size: 1rem;
+@media (max-width: 1023px) {
+    .buy-energy-page-header {
+        display: block;
+    }
+
+    .buy-energy-page-header > h1 {
+        margin-bottom: 0.75em;
+        padding: 0;
+        width: 100%;
+    }
+
+    .buy-energy-page-header > h2 {
+        padding: 0;
+        width: 100%;
+        line-height: 1.5;
+    }
 }
 
-.producer-filter-label {
-    padding-right: 2.5em;
-}
+@media (max-width: 767px) {
+    .buy-energy-page-header,
+    .buy-energy-page-filters,
+    .buy-energy-page-producers {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
 
-.producer-filter-label > strong {
-    white-space: nowrap;
-    line-height: 2.5;
-}
+    .buy-energy-page-header > h1 {
+        display: flex;
+        align-items: center;
+        font-size: 1.375em;
+    }
 
-.producer-filter-options {
-    display: flex;
-    flex-wrap: wrap;
-}
+    .buy-energy-page-header > h1 > .back-link {
+        display: block;
+        margin-right: 1rem;
+        width: 2rem;
+        height: 2rem;
+    }
 
-.producer-filter-option {
-    margin-right: 1em;
-    margin-bottom: 1em;
-}
+    .buy-energy-page-header > h1 > .back-link .disclosure-arrow {
+        transform: rotate(180deg);
+    }
 
-.producer-filter-option:last-child {
-    margin-right: 0;
+    .buy-energy-page-header > h1 > .back-link .disclosure-arrow-border {
+        stroke: var(--button-success-color);
+    }
+
+    .buy-energy-page-header > h1 > span {
+        padding-top: 0.25em;
+    }
+
+    .buy-energy-page-header > h2 {
+        font-size: 1em;
+    }
+
+    .buy-energy-page-header > h2 > strong {
+        display: inline-block;
+        width: 100%;
+    }
 }

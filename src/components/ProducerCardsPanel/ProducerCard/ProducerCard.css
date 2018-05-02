@@ -41,6 +41,10 @@
     color: var(--producer-card-image-color);
 }
 
+.producer-card-name {
+    text-align: center;
+}
+
 .producer-card-name h3 {
     margin: 0;
     color: var(--general-text-color);
