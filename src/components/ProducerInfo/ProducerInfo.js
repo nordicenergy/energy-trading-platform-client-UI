@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './ProducerInfo.css';
 import classNames from 'classnames';
+
+import { formatFloat } from '../../services/formatter';
+import './ProducerInfo.css';
 
 const MAP_SERVICE_URL = 'http://maps.google.com/?q=';
 
@@ -13,12 +14,12 @@ class ProducerInfo extends React.Component {
 
         return (
             <React.Fragment>
-                <span>{`${price} ct/KWh`}</span>
+                <span>{`${formatFloat(price)} ct/kWh`}</span>
                 {marketPrice ? (
                     <small className="producer-information-market-value">
                         {`${labels.marketPrice} `}
-                        <strong>{marketPrice}</strong>
-                        {` ct/KWh`}
+                        <strong>{formatFloat(marketPrice)}</strong>
+                        {` ct/kWh`}
                     </small>
                 ) : null}
             </React.Fragment>
@@ -78,15 +79,17 @@ class ProducerInfo extends React.Component {
             location
         } = details;
 
+        const calcCapacity = Number(capacity || 0) / 1000; // expect kWh, convert to MW
         return (
             <section className="producer-information">
                 <section className="producer-information-details">
                     {name && this.renderRow(labels.name, name)}
                     {price > 0 && this.renderRow(labels.price, this.renderPrice.bind(this))}
                     {energyType && this.renderRow(labels.energyType, energyType)}
-                    {annualProduction > 0 && this.renderRow(labels.annualProduction, `${annualProduction} kWh/day`)}
-                    {purchased > 0 && this.renderRow(labels.purchased, `${purchased} kWh`)}
-                    {capacity > 0 && this.renderRow(labels.capacity, `${capacity} MW`)}
+                    {annualProduction > 0 &&
+                        this.renderRow(labels.annualProduction, `${formatFloat(annualProduction)} kWh/day`)}
+                    {purchased > 0 && this.renderRow(labels.purchased, `${formatFloat(purchased)} kWh`)}
+                    {capacity > 0 && this.renderRow(labels.capacity, `${formatFloat(calcCapacity)} MW`)}
                     {selectedSince && this.renderRow(labels.selectedSince, selectedSince)}
                     {ethereumAddress && this.renderRow(labels.ethereumAddress, ethereumAddress, true)}
                     {location && location.trim() && this.renderRow(labels.location, this.renderLocation.bind(this))}

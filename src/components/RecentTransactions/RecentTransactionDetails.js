@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { formatFloat } from '../../services/formatter';
 
 import './RecentTransactionDetails.css';
 
-const RecentTransactionDetails = ({ labels, hash, price, amount, from, url }) => (
+const RecentTransactionDetails = ({ labels, hash, price, amount, from, fromUrl, url }) => (
     <div role="table" className="recent-transactions-details">
         <div role="rowgroup">
             <div className="recent-transactions-details-headers" role="row">
-                <div role="columnheader" aria-label="Contract details link">
-                    &nbsp;
-                </div>
+                <div role="columnheader">{labels.from}</div>
                 <div role="columnheader">{labels.amount}</div>
                 <div role="columnheader">{labels.price}</div>
             </div>
@@ -17,20 +16,20 @@ const RecentTransactionDetails = ({ labels, hash, price, amount, from, url }) =>
         <div role="rowgroup">
             <div className="recent-transactions-details-values" role="row">
                 <div role="cell">
-                    <a target="_blank" href={url}>
-                        {labels.url}
+                    <a target="_blank" href={fromUrl}>
+                        {from}
                     </a>
                 </div>
-                <div role="cell">{`${amount} kWh`}</div>
-                <div role="cell">{`${price} ct`}</div>
-            </div>
-            <div className="recent-transactions-details-from" role="row">
-                <div role="columnheader">{labels.from}</div>
-                <div role="cell">{from}</div>
+                <div role="cell">{`${formatFloat(amount)} kWh`}</div>
+                <div role="cell">{`${formatFloat(price)} ct`}</div>
             </div>
             <div className="recent-transactions-details-hash" role="row">
                 <div role="columnheader">{labels.hash}</div>
-                <div role="cell">{hash}</div>
+                <div role="cell">
+                    <a target="_blank" href={url}>
+                        {hash}
+                    </a>
+                </div>
             </div>
         </div>
     </div>

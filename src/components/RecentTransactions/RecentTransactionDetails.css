@@ -10,19 +10,16 @@
     text-align: center;
 }
 
-.recent-transactions-details-from,
 .recent-transactions-details-hash {
     padding: 0.5rem calc(10% - 3rem) 0.5rem 0;
 }
 
-.recent-transactions-details-from > div[role='columnheader'],
 .recent-transactions-details-hash > div[role='columnheader'] {
     padding-left: calc(10% - 3rem);
     padding-top: 0.5rem;
     border-top: var(--border-width) solid var(--border-on-light-color);
 }
 
-.recent-transactions-details-from > div:last-child,
 .recent-transactions-details-hash > div:last-child {
     padding: 0.5rem 0 1.25rem calc(10% - 3rem);
     font-size: 1rem;
@@ -30,16 +27,12 @@
     word-break: break-all;
 }
 
-.recent-transactions-details-hash > div:last-child {
-    color: var(--label-color);
-}
-
 .recent-transactions-details-headers,
 .recent-transactions-details-values {
     display: flex;
 }
 
-.recent-transactions-details-values a {
+.recent-transactions-details a {
     color: var(--button-primary-color);
     text-decoration: none;
     outline: none;
@@ -47,7 +40,7 @@
     transition: color 0.3s ease-out;
 }
 
-.recent-transactions-details-values a:hover {
+.recent-transactions-details a:hover {
     color: var(--button-primary-hov-color);
 }
 

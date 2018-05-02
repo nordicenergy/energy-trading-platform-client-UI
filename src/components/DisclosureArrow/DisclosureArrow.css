@@ -1,30 +1,26 @@
 .disclosure-arrow {
-    padding: 0.1em 0.6em 0 0.7em;
-    width: 3.4em;
-    height: 3.4em;
-
-    background: white;
-    border: 0.133em solid var(--disclosure-arrow-border-color);
-    border-radius: 50%;
-    color: var(--button-primary-color);
-
+    width: 3.2em;
+    height: 3.2em;
     font-size: 0.7rem;
-    line-height: 3.4em;
-    text-align: center;
+    line-height: 3.2em;
 
-    transition: 0.2s ease-in;
+    transition: 0.2s ease-out;
     cursor: pointer;
-    outline: none;
-    appearance: none;
 }
 
-.disclosure-arrow:hover,
-.disclosure-arrow--expanded {
-    border-color: var(--disclosure-arrow-hover-color);
-    color: var(--disclosure-arrow-hover-color);
+.disclosure-arrow .disclosure-arrow-border {
+    stroke: var(--button-primary-color);
+}
+
+.disclosure-arrow circle {
+    fill: white;
+}
+
+.disclosure-arrow:hover .disclosure-arrow-border,
+.disclosure-arrow--expanded .disclosure-arrow-border {
+    stroke: var(--label-color);
 }
 
 .disclosure-arrow--expanded {
     transform: rotate(90deg);
-    padding-left: 0.8em;
 }

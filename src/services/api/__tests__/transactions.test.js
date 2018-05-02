@@ -46,7 +46,8 @@ describe('Transactions API Service', () => {
                     description: 'Bought 7.13 kWh from "Bio-Erdgas-Anlage in der ehemaligen Schultheiss-Brauerei"',
                     details: {
                         amount: 7.13,
-                        from: '0x0101f8cdf2c5ed1d775120a99a701bab5418add8',
+                        from: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss-Brauerei',
+                        fromUrl: '/buy_energy/producer/9',
                         hash: '0x4c6c11de80fa544341fc97fd4fb6755adbe6006a424f5a1029b632b7ce81ed25',
                         price: 2.7,
                         url:

@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import { SESSION_API_URL, LIMIT } from '../../constants';
+import { PATHS } from '../routes';
 
 export function getRecentTransactions(userId, page = 0) {
     const currentBalance = {};
@@ -18,11 +19,16 @@ export function getRecentTransactions(userId, page = 0) {
             response.data.currentBalance = currentBalance;
             const { transactions = [] } = response.data;
             transactions.forEach(tx => {
+                // TODO need implement on serve-side
+                const { description = '' } = tx;
+                const [, from] = description.split('"') || [];
+
                 tx.details = {
                     hash: tx.transactionHash || '--',
                     price: tx.price || 0,
                     amount: tx.energyAmount || 0,
-                    from: tx.from || '--',
+                    from: from,
+                    fromUrl: `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${tx.producerID}`,
                     url: tx.detailsLink || ''
                 };
             });

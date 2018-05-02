@@ -11,7 +11,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -24,7 +24,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -37,7 +37,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -50,7 +50,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -63,7 +63,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -76,7 +76,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -89,7 +89,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     }
@@ -110,8 +110,7 @@ const labels = {
     recentTransactionsDetailsFrom: 'From',
     recentTransactionsDetailsAmount: 'Amount',
     recentTransactionsDetailsPrice: 'Price per kWh',
-    recentTransactionsDetailsHash: 'Blockchain-Transaction',
-    recentTransactionsDetailsUrl: 'Show Details'
+    recentTransactionsDetailsHash: 'Blockchain-Transaction'
 }
 
 const wrapperStyles = {
@@ -135,7 +134,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -148,7 +147,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -161,7 +160,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -174,7 +173,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -187,7 +186,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -200,7 +199,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -213,7 +212,7 @@ const transactions = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     }
@@ -234,8 +233,7 @@ const labels = {
     recentTransactionsDetailsFrom: 'From',
     recentTransactionsDetailsAmount: 'Amount',
     recentTransactionsDetailsPrice: 'Price per kWh',
-    recentTransactionsDetailsHash: 'Blockchain-Transaction',
-    recentTransactionsDetailsUrl: 'Show Details'
+    recentTransactionsDetailsHash: 'Blockchain-Transaction'
 }
 
 const wrapperStyles = {
