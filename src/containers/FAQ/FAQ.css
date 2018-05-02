@@ -81,16 +81,11 @@
         padding: 1.5rem 1rem 1rem;
     }
 
-    .faq-page > h1 {
-        font-weight: 300;
-    }
-
     .faq-page .question-container:first-of-type {
         margin-top: 1.25em;
     }
 
     .faq-page .question-container .title {
-        font-weight: 300;
         font-size: 1rem;
     }
 }
