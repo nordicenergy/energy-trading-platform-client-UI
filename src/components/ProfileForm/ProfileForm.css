@@ -36,23 +36,28 @@
     position: relative;
 }
 
-.profile-form .ant-calendar-picker {
-    font-family: inherit;
-    width: 100%;
-}
+@media (max-width: 767px) {
+    .profile-form {
+        padding: 2.5em 0;
+    }
 
-.profile-form .ant-calendar-picker-input {
-    font-family: inherit;
-    font-size: 1.125rem;
-    border: none;
-}
+    .profile-form .date-picker {
+        width: 16.5rem
+    }
 
-.profile-form .ant-calendar-picker-input:focus {
-    border: none;
-    box-shadow: none;
-}
+    .profile-form .text-field {
+        margin: 2.375em 0;
+    }
 
-.profile-form .ant-calendar-picker-container {
-    right: 0;
-    left: unset !important;
+    .profile-form .change-password-container {
+        margin-top: 3em;
+    }
+
+    .profile-form .button-container {
+        margin-top: 2.5em;
+    }
+
+    .profile-form .button {
+        width: 100%;
+    }
 }

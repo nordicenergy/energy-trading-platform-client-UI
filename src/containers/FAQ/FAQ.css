@@ -78,7 +78,7 @@
 
 @media screen and (max-width: 767px) {
     .faq-page {
-        padding: 1.5rem 1rem 1rem;
+        padding: var(--mobile-page-paddings);
     }
 
     .faq-page .question-container:first-of-type {

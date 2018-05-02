@@ -27,3 +27,9 @@
         min-width: 100%;
     }
 }
+
+@media (max-width: 767px) {
+    .profile-page {
+        padding: var(--mobile-page-paddings);
+    }
+}
