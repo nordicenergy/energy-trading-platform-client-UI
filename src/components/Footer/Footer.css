@@ -1,46 +1,48 @@
 .app-footer {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
     padding: 0 2em;
-    min-height: 5.5em;
     border-top: var(--border-width) solid var(--border-on-light-color);
     background: white;
 }
 
-.app-footer nav a,
-.app-footer address {
+.app-footer-layout {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.app-footer address,
+.app-footer nav a {
     display: flex;
     align-items: center;
+    color: var(--link-color);
     text-decoration: none;
     font-weight: 700;
     font-style: normal;
     font-size: 0.875rem;
     font-family: inherit;
-    line-height: 1.5;
 }
 
 .app-footer address {
-    flex: 1.25;
+    flex: 1;
     color: var(--label-color);
     text-align: left;
 }
 
 .app-footer nav {
     display: flex;
-    align-items: stretch;
-    flex: 1;
-    justify-content: flex-end;
+    justify-content: stretch;
+    height: 5.5em;
 }
 
 .app-footer nav a {
     position: relative;
-    margin: 0 1em;
-    outline: none;
-    color: var(--link-color);
+    margin-left: 2em;
 }
 
-.app-footer nav a::before {
+.app-footer nav a:first-child {
+    margin-left: 0;
+}
+
+.app-footer nav a:before {
     position: absolute;
     top: 0;
     width: 0;
@@ -58,23 +60,42 @@
     color: var(--label-color);
 }
 
-.app-footer nav a.footer-item--active::before {
+.app-footer nav a.footer-item--active:before {
     width: 100%;
     transition: 0.2s ease;
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 767px) {
     .app-footer {
-        flex-direction: column-reverse;
+        padding: 0;
+        border-top: var(--border-width) solid var(--footer-border-color);
     }
 
-    .app-footer address {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .app-footer-layout {
+        display: block;
     }
 
     .app-footer nav {
-        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 0.625em;
+        padding-top: 2em;
+    }
+
+    .app-footer nav a {
+        margin-bottom: 1.285em;
+        margin-left: 0;
+    }
+
+    .app-footer nav a:before {
+        content: none;
+    }
+
+    .app-footer address {
+        display: block;
+        padding-top: 1.145em;
+        padding-bottom: 0.57em;
+        border-top: var(--border-width) solid var(--footer-border-color);
+        text-align: center;
     }
 }
