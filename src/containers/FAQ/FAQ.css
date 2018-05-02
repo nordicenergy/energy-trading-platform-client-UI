@@ -70,13 +70,13 @@
     opacity: 1;
 }
 
-@media screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
     .faq-page .question-container {
         width: 100%;
     }
 }
 
-@media screen and (max-width: 767px) {
+@media (max-width: 767px) {
     .faq-page {
         padding: var(--mobile-page-paddings);
     }
