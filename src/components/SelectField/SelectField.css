@@ -11,7 +11,7 @@
     border-bottom: var(--border-width) solid var(--input-border);
 }
 
-.select-field-layout:after {
+.select-field-layout::after {
     position: absolute;
     right: 0;
     bottom: -0.062rem;
@@ -23,7 +23,7 @@
     transform: scaleX(0);
 }
 
-.select-field--focused .select-field-layout:after {
+.select-field--focused .select-field-layout::after {
     background: linear-gradient(to right, var(--hover-icon-color), var(--active-item-color));
     transition-duration: 200ms;
     transform: scaleX(1);

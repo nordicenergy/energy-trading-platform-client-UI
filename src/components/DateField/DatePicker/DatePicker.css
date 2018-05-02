@@ -9,8 +9,8 @@
     font-size: 1rem;
 }
 
-.date-picker:after,
-.date-picker:before {
+.date-picker::after,
+.date-picker::before {
     position: absolute;
     display: block;
     width: 0;
@@ -19,33 +19,33 @@
     content: '';
 }
 
-.date-picker:before {
+.date-picker::before {
     right: 0.5rem;
 }
 
-.date-picker:after {
+.date-picker::after {
     right: 0.5625rem;
 }
 
-.date-picker.date-picker--top:before {
+.date-picker.date-picker--top::before {
     bottom: -0.5625rem;
     border-width: 0.5625rem 0.5625rem 0 0.5625rem;
     border-color: var(--input-border) transparent transparent transparent;
 }
 
-.date-picker.date-picker--top:after {
+.date-picker.date-picker--top::after {
     bottom: -0.5rem;
     border-width: 0.5rem 0.5rem 0 0.5rem;
     border-color: white transparent transparent transparent;
 }
 
-.date-picker.date-picker--bottom:before {
+.date-picker.date-picker--bottom::before {
     top: -0.5625rem;
     border-width: 0 0.5625rem 0.5625rem 0.5625rem;
     border-color: transparent transparent var(--input-border) transparent;
 }
 
-.date-picker.date-picker--bottom:after {
+.date-picker.date-picker--bottom::after {
     top: -0.5rem;
     border-width: 0 0.5rem 0.5rem 0.5rem;
     border-color: transparent transparent white transparent;

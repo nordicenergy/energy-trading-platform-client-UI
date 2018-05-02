@@ -42,7 +42,7 @@
     margin-left: 0;
 }
 
-.app-footer nav a:before {
+.app-footer nav a::before {
     position: absolute;
     top: 0;
     width: 0;
@@ -60,7 +60,7 @@
     color: var(--label-color);
 }
 
-.app-footer nav a.footer-item--active:before {
+.app-footer nav a.footer-item--active::before {
     width: 100%;
     transition: 0.2s ease;
 }
@@ -87,7 +87,7 @@
         margin-left: 0;
     }
 
-    .app-footer nav a:before {
+    .app-footer nav a::before {
         content: none;
     }
 
