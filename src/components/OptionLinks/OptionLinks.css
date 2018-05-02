@@ -35,3 +35,18 @@
     margin-bottom: -0.25em;
     color: inherit;
 }
+
+@media (max-width: 767px) {
+    .option-links {
+        flex-direction: column;
+    }
+
+    .option-links > a {
+        border-right: none;
+        border-bottom: var(--border-width) solid var(--option-link-border-color);
+    }
+
+    .option-links > a:last-child {
+        border-bottom: none;
+    }
+}
