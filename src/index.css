@@ -15,6 +15,7 @@
     --jelly-bean-color: #2771ab;
     --steel-blue: #4083b5;
     --scooter-color: #30acc1;
+    --pelorous-color: #45afbf;
     --bali-hai-color: #809dad;
     --watercourse-color: #027150;
     --emerald-color: #48d376;
@@ -119,11 +120,13 @@
 
     --about-us-info-text-color: var(--big-stone-color);
 
-    --disclosure-arrow-hover-color: var(--geyser-color);
+    --disclosure-arrow-active-color: var(--geyser-color);
+    --disclosure-arrow-hover-color: var(--pelorous-color);
     --disclosure-arrow-border-color: var(--transparent-blumine-color);
 
     --answer-text-color: var(--big-stone-color);
-    --question-hover-color: var(--nobel-color);
+    --question-hover-color: var(--pelorous-color);
+    --question-active-color: var(--tower-gray-color);
     --question-title-border: var(--porcelain-color);
 
     --slider-control-color: var(--blumine-color);
