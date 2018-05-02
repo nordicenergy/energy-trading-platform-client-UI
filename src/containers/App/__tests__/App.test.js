@@ -136,7 +136,7 @@ describe('Main <App /> Component', () => {
             },
             {
                 active: false,
-                href: '/team',
+                href: '/termsandconditions',
                 label: 'test'
             },
             {

@@ -107,6 +107,9 @@
     "app.faqPage.header": "FAQ",
     "app.faqPage.error": "Could not load content",
 
+    "app.termsAndConditionsPage.header": "Terms & Conditions",
+    "app.termsAndConditionsPage.error": "Could not load content",
+
     "app.profilePage.header": "Profile",
     "app.profilePage.errors.firstName": "Enter your first name.",
     "app.profilePage.errors.lastName": "Enter your last name.",

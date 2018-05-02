@@ -8,7 +8,7 @@ import Documents from './Documents';
 import SubmitMeter from './SubmitMeter';
 import Profile from './Profile';
 import About from './About';
-import Team from './Team';
+import TermsAndConditions from './TermsAndConditions';
 import FAQ from './FAQ';
 import MyProducer from './MyProducer';
 import SellEnergy from './SellEnergy';
@@ -29,7 +29,7 @@ export {
     Profile,
     FAQ,
     About,
-    Team,
+    TermsAndConditions,
     BuyEnergy,
     SellEnergy,
     MyProducer,

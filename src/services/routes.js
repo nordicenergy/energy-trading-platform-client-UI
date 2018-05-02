@@ -10,7 +10,7 @@ import {
     Profile,
     FAQ,
     About,
-    Team,
+    TermsAndConditions,
     MyProducer,
     Producer,
     BuyEnergy,
@@ -45,9 +45,9 @@ export const PATHS = {
         id: 'profile',
         path: '/profile'
     },
-    team: {
-        id: 'team',
-        path: '/team'
+    termsAndConditions: {
+        id: 'termsandconditions',
+        path: '/termsandconditions'
     },
     about: {
         id: 'about',
@@ -123,7 +123,7 @@ const AppMainLayout = () => {
                     {/*<Route path={PATHS.documents.path} component={Documents} />*/}
                     {/*<Route path={PATHS.submit_meter.path} component={SubmitMeter} />*/}
                     <Route path={PATHS.profile.path} component={Profile} />
-                    <Route path={PATHS.team.path} component={Team} />
+                    <Route path={PATHS.termsAndConditions.path} component={TermsAndConditions} />
                     <Route path={PATHS.about.path} component={About} />
                     <Route path={PATHS.faq.path} component={FAQ} />
                 </App>
