@@ -58,7 +58,6 @@
     "app.recentTransactionsDetails.amount": "Amount",
     "app.recentTransactionsDetails.price": "Price per kWh",
     "app.recentTransactionsDetails.hash": "Blockchain-Transaction",
-    "app.recentTransactionsDetails.url": "Show Details",
 
     "app.showTransactionsPage.header": "Show Transactions",
     "app.showTransactionsPage.sellCoinsButton": "Sell Coins",

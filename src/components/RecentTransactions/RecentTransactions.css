@@ -61,7 +61,7 @@ caption .recent-transactions-caption-content > div:last-child {
     text-align: center;
     font-weight: 500;
     color: var(--table-text-color);
-    padding: 0.78em 0;
+    padding: 0.6em 0 0.4em;
 }
 
 .recent-transactions-container .recent-transactions-row--expand td {
