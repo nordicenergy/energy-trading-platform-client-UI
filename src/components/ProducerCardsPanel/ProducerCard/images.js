@@ -103,8 +103,6 @@ export const BiomassImage = () => (
 export const DefaultImage = () => (
     <svg
         className="defaultImage"
-        width="95px"
-        height="95px"
         viewBox="0 0 95 95"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
