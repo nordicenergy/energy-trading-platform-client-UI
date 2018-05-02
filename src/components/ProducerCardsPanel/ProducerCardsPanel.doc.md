@@ -10,7 +10,8 @@ const producers = [
     { id: 1, price: 2, plantType: 'wind', name: 'Peter Producer' },
     { id: 2, price: 1, plantType: 'biomass', name: 'Jeremy' },
     { id: 3, price: 5, plantType: 'wind', name: 'Blark' },
-    { id: 4, price: 1, plantType: 'solar', name: 'Alice' }
+    { id: 4, price: 1, plantType: 'solar', name: 'Alice' },
+    { id: 5, price: 1, plantType: 'default', name: 'Standard' }
 ];
 
 <div style={wrapperStyle}>

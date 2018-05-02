@@ -25,7 +25,7 @@ describe('<DisclosureArrow /> Component', () => {
         const component = renderComponent({ onClick: onClickMock });
 
         component
-            .find('button')
+            .find('svg')
             .at(0)
             .simulate('click');
         expect(onClickMock).toHaveBeenCalled();

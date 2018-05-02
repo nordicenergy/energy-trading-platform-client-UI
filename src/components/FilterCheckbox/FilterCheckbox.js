@@ -43,13 +43,7 @@ const FilterCheckbox = ({ className, type, label, name, checked, onChange }) => 
 
 FilterCheckbox.propTypes = {
     className: PropTypes.string,
-    type: PropTypes.oneOf([
-        PLANT_TYPES.wind,
-        PLANT_TYPES.solar,
-        PLANT_TYPES.biomass,
-        PLANT_TYPES.other,
-        PLANT_TYPES.default
-    ]),
+    type: PropTypes.oneOf([PLANT_TYPES.wind, PLANT_TYPES.solar, PLANT_TYPES.biomass, PLANT_TYPES.other]),
     label: PropTypes.string.isRequired,
     name: PropTypes.string,
     checked: PropTypes.bool,

@@ -6,6 +6,7 @@ import { DisclosureArrow, Button } from '../.';
 import Spinner from '../Loader/Spinner';
 import RecentTransactionDetails from './RecentTransactionDetails';
 import { DATE_FORMAT } from '../../constants';
+import { formatCurrency } from '../../services/formatter';
 
 import './RecentTransactions.css';
 
@@ -44,28 +45,23 @@ class RecentTransactions extends React.Component {
                         }}
                     >
                         <td>{renderDate(transaction.date)}</td>
-                        <td translate="no">{transaction.description}</td>
-                        <td>{renderAmountText(transaction.transactionAmount)}</td>
+                        <td>{transaction.description}</td>
+                        <td>{formatCurrency(transaction.transactionAmount)} €</td>
                         <td>
                             <DisclosureArrow expanded={isExpand} />
                         </td>
                     </tr>
                     <tr className={detailsClasses}>
-                        <td colSpan={4} translate="no">
+                        <td colSpan={4}>
                             <div role="region" aria-live="polite" aria-label="Transaction details">
                                 <RecentTransactionDetails
                                     labels={{
                                         from: labels.recentTransactionsDetailsFrom,
                                         amount: labels.recentTransactionsDetailsAmount,
                                         price: labels.recentTransactionsDetailsPrice,
-                                        hash: labels.recentTransactionsDetailsHash,
-                                        url: labels.recentTransactionsDetailsUrl
+                                        hash: labels.recentTransactionsDetailsHash
                                     }}
-                                    url={details.url}
-                                    hash={details.hash}
-                                    price={details.price}
-                                    amount={details.amount}
-                                    from={details.from}
+                                    {...details}
                                 />
                             </div>
                         </td>
@@ -93,8 +89,8 @@ class RecentTransactions extends React.Component {
                             <div className="recent-transactions-caption-content">
                                 <div>{renderDate(currentBalance.date)}</div>
                                 <div>
-                                    {labels.recentTransactionsMonthlyBalance}:{' '}
-                                    {renderAmountText(currentBalance.balance)}
+                                    {labels.recentTransactionsMonthlyBalance}: {formatCurrency(currentBalance.balance)}{' '}
+                                    €
                                 </div>
                             </div>
                         )}
@@ -124,7 +120,7 @@ class RecentTransactions extends React.Component {
                             aria-describedby="transactionAmountHeader"
                             className="recent-transactions-current-balance-amount"
                         >
-                            {labels.recentTransactionsMonthlyBalance}: {renderAmountText(currentBalance.balance)}
+                            {labels.recentTransactionsMonthlyBalance}: {formatCurrency(currentBalance.balance)} €
                         </span>
                     </div>
                 )}
@@ -145,10 +141,6 @@ class RecentTransactions extends React.Component {
 
 function renderDate(date /* expect seconds | unix timestamp */) {
     return moment(new Date(date * 1000)).format(DATE_FORMAT);
-}
-
-function renderAmountText(amount) {
-    return `${String(Number(amount || '0').toFixed(2)).replace('.', ',')} €`;
 }
 
 RecentTransactions.propTypes = {

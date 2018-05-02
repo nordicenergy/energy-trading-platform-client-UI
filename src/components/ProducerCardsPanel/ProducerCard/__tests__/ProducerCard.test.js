@@ -34,9 +34,9 @@ describe('<ProducerCard /> component', function() {
         expect(producerCard.html().includes('biomassImage')).toBeTruthy();
 
         producerCard = renderComponent({
-            producer: { ...producerMock, plantType: 'other' }
+            producer: { ...producerMock, plantType: 'default' }
         });
-        expect(producerCard.html().includes('svg')).toBeFalsy();
+        expect(producerCard.html().includes('defaultImage')).toBeTruthy();
     });
 
     it('should renders with selected style', () => {

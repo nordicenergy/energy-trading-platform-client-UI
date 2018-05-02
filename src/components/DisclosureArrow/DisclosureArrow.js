@@ -1,16 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import icons from '@fortawesome/fontawesome-free-solid/index';
 import classNames from 'classnames';
 import './DisclosureArrow.css';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 const DisclosureArrow = ({ expanded, onClick }) => (
-    <button className={classNames('disclosure-arrow', { 'disclosure-arrow--expanded': expanded })} onClick={onClick}>
-        <div>
-            <FontAwesomeIcon icon={icons['faChevronRight']} />
-        </div>
-    </button>
+    <svg
+        className={classNames('disclosure-arrow', { 'disclosure-arrow--expanded': expanded })}
+        onClick={onClick}
+        width="40px"
+        height="40px"
+        viewBox="0 0 40 40"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <g className="disclosure-arrow-border">
+            <g transform="translate(3, 3)">
+                <circle strokeWidth="2" fill="#FFFFFF" opacity="0.3" cx="17" cy="17" r="17" />
+                <g transform="translate(16, 13.5)" strokeLinecap="square" strokeWidth="2">
+                    <path d="M0.5,0.5 L3.54138127,3.54138127" id="Line-4" />
+                    <path
+                        d="M0.5,3.5 L3.54138127,6.54138127"
+                        id="Line-4"
+                        transform="translate(2, 5) scale(1, -1) translate(-2, -5)"
+                    />
+                </g>
+            </g>
+        </g>
+    </svg>
 );
 
 DisclosureArrow.propTypes = {

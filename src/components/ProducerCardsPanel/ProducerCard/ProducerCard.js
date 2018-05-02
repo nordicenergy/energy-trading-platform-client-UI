@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { PLANT_TYPES } from '../../../constants';
-import { WindImage, SolarImage, BiomassImage } from './images';
+import { WindImage, SolarImage, BiomassImage, DefaultImage } from './images';
 import './ProducerCard.css';
 
 class ProducerCard extends Component {
@@ -27,7 +27,7 @@ class ProducerCard extends Component {
             return <BiomassImage />;
         }
 
-        return null;
+        return <DefaultImage />;
     }
 
     render() {
@@ -57,13 +57,7 @@ export const ProducerType = PropTypes.shape({
     id: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    plantType: PropTypes.oneOf([
-        PLANT_TYPES.wind,
-        PLANT_TYPES.solar,
-        PLANT_TYPES.biomass,
-        PLANT_TYPES.other,
-        PLANT_TYPES.default
-    ]).isRequired
+    plantType: PropTypes.oneOf([PLANT_TYPES.wind, PLANT_TYPES.solar, PLANT_TYPES.biomass, PLANT_TYPES.other]).isRequired
 });
 ProducerCard.propTypes = {
     className: PropTypes.string,

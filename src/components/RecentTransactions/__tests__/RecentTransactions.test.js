@@ -4,6 +4,7 @@ import RecentTransactions from '../RecentTransactions';
 import { Button, DisclosureArrow } from '../../.';
 import RecentTransactionDetails from '../RecentTransactionDetails';
 import Spinner from '../../Loader/Spinner';
+import { formatFloat, formatCurrency } from '../../../services/formatter';
 
 const labelsMock = {
     recentTransactionsTitle: 'Most Recent Transactions',
@@ -15,8 +16,7 @@ const labelsMock = {
     recentTransactionsDetailsFrom: 'From',
     recentTransactionsDetailsAmount: 'Amount',
     recentTransactionsDetailsPrice: 'Price per kWh',
-    recentTransactionsDetailsHash: 'Blockchain-Transaction',
-    recentTransactionsDetailsUrl: 'Show Details'
+    recentTransactionsDetailsHash: 'Blockchain-Transaction'
 };
 
 const transactionsDummy = [
@@ -29,7 +29,7 @@ const transactionsDummy = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -42,7 +42,7 @@ const transactionsDummy = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -55,7 +55,7 @@ const transactionsDummy = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -68,7 +68,7 @@ const transactionsDummy = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -81,7 +81,7 @@ const transactionsDummy = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -94,7 +94,7 @@ const transactionsDummy = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     },
@@ -107,7 +107,7 @@ const transactionsDummy = [
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
-            from: '254839457345934957394593459',
+            from: 'Jhon Doe',
             url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
         }
     }
@@ -183,31 +183,37 @@ describe('<RecentTransactions /> Component', () => {
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
         expect(data.at(count++).text()).toEqual('Bought 23 kWh Alice');
-        expect(data.at(count++).text()).toEqual('0,81 €');
+        expect(data.at(count++).text()).toEqual(`${formatCurrency(0.81)} €`);
         expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
         expect(data.at(count++).text()).toContain(
-            'AmountPrice per kWhShow Details7.74 kWh2.5 ctFrom254839457345934957394593459Blockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743'
+            `FromAmountPrice per kWhJhon Doe${formatFloat(7.74)} kWh${formatFloat(
+                2.5
+            )} ctBlockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743`
         );
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
         expect(data.at(count++).text()).toEqual('Monthly invoice');
-        expect(data.at(count++).text()).toEqual('0,08 €');
+        expect(data.at(count++).text()).toEqual(`${formatCurrency(0.081)} €`);
         expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
         expect(data.at(count++).text()).toContain(
-            'AmountPrice per kWhShow Details7.74 kWh2.5 ctFrom254839457345934957394593459Blockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743'
+            `FromAmountPrice per kWhJhon Doe${formatFloat(7.74)} kWh${formatFloat(
+                2.5
+            )} ctBlockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743`
         );
 
         expect(data.at(count++).text()).toEqual('Apr 14, 2018');
         expect(data.at(count++).text()).toEqual('Bought 23 kWh from Peter');
-        expect(data.at(count++).text()).toEqual('0,80 €');
+        expect(data.at(count++).text()).toEqual(`${formatCurrency(0.8)} €`);
         expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
         expect(data.at(count).text()).toContain(
-            'AmountPrice per kWhShow Details7.74 kWh2.5 ctFrom254839457345934957394593459Blockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743'
+            `FromAmountPrice per kWhJhon Doe${formatFloat(7.74)} kWh${formatFloat(
+                2.5
+            )} ctBlockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743`
         );
 
         expect(component.find('.recent-transactions-current-balance-date').text()).toEqual('Apr 14, 2018');
         expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual(
-            'Monthly Balance: 10,00 €'
+            `Monthly Balance: ${formatCurrency(currentBalanceDummy.balance)} €`
         );
     });
 
@@ -216,5 +222,23 @@ describe('<RecentTransactions /> Component', () => {
         const component = renderComponent({ onButtonClick }, mount);
         component.find(Button).simulate('click');
         expect(onButtonClick).toHaveBeenCalled();
+    });
+
+    it('should provide possibility to expand / collapse row', () => {
+        const component = renderComponent({}, mount);
+        component
+            .find(DisclosureArrow)
+            .at(3)
+            .simulate('click');
+        expect(component.state()).toEqual({ expanded: [undefined, undefined, undefined, true] });
+        component
+            .find(DisclosureArrow)
+            .at(3)
+            .simulate('click');
+        component
+            .find(DisclosureArrow)
+            .at(2)
+            .simulate('click');
+        expect(component.state()).toEqual({ expanded: [undefined, undefined, true, false] });
     });
 });

@@ -11,7 +11,6 @@
     "app.plantType.solar": "Solaranlage",
     "app.plantType.wind": "Windkraftanlage",
     "app.plantType.other": "Sonstige",
-    "app.plantType.default": "Default",
 
     "app.breadCrumbs.overview": "Überblick",
     "app.breadCrumbs.showTransactions": "Transaktionen anzeigen",
@@ -40,7 +39,7 @@
     "app.menuBar.profile": "Profil",
 
     "app.footer.about": "Über uns",
-    "app.footer.team": "Unser Team",
+    "app.footer.termsAndConditions": "Terms & Conditions",
     "app.footer.service": "Fragen & Service",
     "app.footer.address": "2018 Lition. Alle Rechte vorbehalten.",
 
@@ -59,7 +58,6 @@
     "app.recentTransactionsDetails.amount": "Amount",
     "app.recentTransactionsDetails.price": "Price per kWh",
     "app.recentTransactionsDetails.hash": "Blockchain-Transaction",
-    "app.recentTransactionsDetails.url": "Show Details",
 
     "app.showTransactionsPage.header": "Transaktionen anzeigen",
     "app.showTransactionsPage.sellCoinsButton": "kWh verkaufen",
@@ -94,7 +92,7 @@
     "app.producerPage.capacity": "Spitzenkapazität",
     "app.producerPage.selectedSince": "ausgewählt seit",
     "app.producerPage.location": "Ort",
-    "app.producerPage.selectButton": "Kraftwerk ausgewähltes",
+    "app.producerPage.selectButton": "Kraftwerk auswählen",
     "app.producerPage.switchBack": "Zurück zum Lition Standardtarif",
     "app.producerPage.showButton": "Erzeuger anzeigen",
     "app.producerPage.transactionHash": "Transaktions hash",
@@ -109,6 +107,9 @@
 
     "app.faqPage.header": "FAQ",
     "app.faqPage.error": "Could not load content",
+
+    "app.termsAndConditionsPage.header": "Terms & Conditions",
+    "app.termsAndConditionsPage.error": "Could not load content",
 
     "app.profilePage.header": "Profil",
     "app.profilePage.errors.firstName": "Vorname eingeben.",

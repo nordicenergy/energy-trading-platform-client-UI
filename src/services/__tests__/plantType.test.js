@@ -26,14 +26,6 @@ describe('Convert enum plant type into locale label', () => {
         });
     });
 
-    it('should return correct locale label for default', () => {
-        const defaultType = convertPlantType(PLANT_TYPES.default);
-        expect(defaultType).toEqual({
-            defaultMessage: 'Default',
-            id: 'app.plantType.default'
-        });
-    });
-
     it('should return correct locale label for other types', () => {
         const other = convertPlantType(PLANT_TYPES.other);
         expect(other).toEqual({
