@@ -30,7 +30,7 @@
 
     "app.header.logoutConfirm": "Bist Du sicher, dass Du dich vom Portal abmelden möchtest?",
     "app.header.logoutLabel": "Logout",
-    "app.header.notificationLabel": "Nachrichten",
+    "app.header.menuBarLabel": "Toggle menu sidebar",
 
     "app.menuBar.overview": "Überblick",
     "app.menuBar.documents": "Meine Dokumente",

@@ -79,7 +79,7 @@ describe('Main <App /> Component', () => {
 
         const header = component.find(Header).at(0);
         const confirm = component.find('Confirm');
-        header.props().onLogoutButtonClickHandler();
+        header.props().onLogoutClick();
         confirm.props().onConfirm();
         component.setProps({ loggingOut: true });
         component.setProps({ loggingOut: false });
@@ -153,7 +153,7 @@ describe('Main <App /> Component', () => {
 
         const header = component.find(Header).at(0);
         const confirm = component.find('Confirm');
-        header.props().onLogoutButtonClickHandler();
+        header.props().onLogoutClick();
         confirm.props().onCancel();
 
         expect(context.router.history.push).not.toHaveBeenCalled();
@@ -165,7 +165,7 @@ describe('Main <App /> Component', () => {
         component.setContext(context);
 
         const header = component.find(Header).at(0);
-        header.props().navigateTo('/test');
+        header.props().onBreadCrumbsClick('/test');
 
         expect(context.router.history.push).toHaveBeenCalledWith('/test');
     });

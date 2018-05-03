@@ -6,60 +6,76 @@ import LanguageSelect from './LanguageSelect';
 import HeaderButton from './HeaderButton';
 import './Header.css';
 
-class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isNotificationsOpened: false
-        };
-    }
+const Header = ({
+    breadCrumbs,
+    onBreadCrumbsClick,
 
-    logout() {
-        const { onLogoutButtonClickHandler } = this.props;
-        if (typeof onLogoutButtonClickHandler === 'function') {
-            onLogoutButtonClickHandler();
-        }
-    }
+    menuBarIcon,
+    menuBarLabel,
+    onToggleMenuBar,
 
-    render() {
-        const { locales, locale, onLocaleChange } = this.props;
-        return (
-            <header className="header-desktop">
-                <div className="logo-container">
-                    <Logo className="logo--header" size="small" />
+    logoutLabel,
+    onLogoutClick,
+
+    locales,
+    locale,
+    onLocaleChange,
+
+    onLogoClick
+}) => {
+    return (
+        <header className="header-desktop">
+            <div aria-live="polite" className="header-menu-bars-button">
+                <HeaderButton label={menuBarLabel} icon={menuBarIcon} onClickHandler={() => onToggleMenuBar()} />
+            </div>
+            <div className="logo-container">
+                <Logo className="logo--header" size="small" onClick={() => onLogoClick()} />
+            </div>
+            <nav className="main-header-container">
+                <Breadcrumbs items={breadCrumbs} onClick={onBreadCrumbsClick} />
+                <div className="header-buttons">
+                    <LanguageSelect locales={locales} value={locale} onChange={onLocaleChange} />
+                    <HeaderButton label={logoutLabel} icon="faSignOutAlt" onClickHandler={() => onLogoutClick()} />
                 </div>
-                <div className="main-header-container">
-                    <Breadcrumbs items={this.props.breadCrumbs} onClick={this.props.navigateTo} />
-                    <nav className="header-buttons">
-                        <LanguageSelect locales={locales} value={locale} onChange={onLocaleChange} />
-                        <HeaderButton
-                            label={this.props.logoutLabel}
-                            icon="faSignOutAlt"
-                            onClickHandler={() => this.logout()}
-                        />
-                    </nav>
-                </div>
-            </header>
-        );
-    }
-}
+            </nav>
+        </header>
+    );
+};
 
 Header.propTypes = {
+    menuBarIcon: PropTypes.string,
+    menuBarLabel: PropTypes.string,
+    onToggleMenuBar: PropTypes.func,
+
     logoutLabel: PropTypes.string,
-    notificationLabel: PropTypes.string,
-    notifications: PropTypes.array,
-    onLogoutButtonClickHandler: PropTypes.func,
-    path: PropTypes.string,
-    navigateTo: PropTypes.func,
+    onLogoutClick: PropTypes.func,
+
+    breadCrumbs: PropTypes.arrayOf(PropTypes.any),
+    onBreadCrumbsClick: PropTypes.func,
+
     locales: PropTypes.arrayOf(PropTypes.string),
     locale: PropTypes.string.isRequired,
-    onLocaleChange: PropTypes.func
+    onLocaleChange: PropTypes.func,
+
+    onLogoClick: PropTypes.func
 };
 
 Header.defaultProps = {
-    notifications: [],
+    logoutLabel: 'Logout',
+    onLogoutClick: f => f,
+
+    menuBarIcon: 'faBars',
+    menuBarLabel: 'Toggle Menu Bar',
+    onToggleMenuBar: f => f,
+
     breadCrumbs: [],
-    navigateTo: () => {}
+    onBreadCrumbsClick: f => f,
+
+    onLocaleChange: f => f,
+    locales: ['EN', 'DE'],
+    locale: 'EN',
+
+    onLogoClick: f => f
 };
 
 export default Header;

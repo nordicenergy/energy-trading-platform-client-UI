@@ -25,13 +25,3 @@
 .menu-side-bar .menu-item--disabled:hover .menu-item-label {
     border-bottom: var(--border-width) solid var(--border-on-light-color);
 }
-
-@media screen and (max-width: 768px) {
-    .menu-side-bar {
-        width: var(--menu-icon-size);
-    }
-
-    .menu-side-bar .menu-item-label {
-        display: none;
-    }
-}
