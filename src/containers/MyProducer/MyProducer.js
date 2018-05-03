@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ProducerInfo, Loader, Button } from '../../components';
+import { ProducerInfo, Loader, Button, DisclosureArrow } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
@@ -65,6 +65,12 @@ export class MyProducer extends AbstractContainer {
         }
     }
 
+    handleBackLinkClick(event) {
+        event.preventDefault();
+        const { history } = this.context.router;
+        history.push(PATHS.trading.path);
+    }
+
     openProducersPage() {
         const { history } = this.context.router;
         history.push(PATHS.buyEnergy.path);
@@ -80,7 +86,16 @@ export class MyProducer extends AbstractContainer {
             <section className="my-producer-page" aria-busy={loading}>
                 <Loader show={loading} />
                 <section className="my-producer-page-info-container">
-                    <h1>{formatMessage(messages.header)}</h1>
+                    <h1>
+                        <a
+                            href={PATHS.trading.path}
+                            className="back-link"
+                            onClick={event => this.handleBackLinkClick(event)}
+                        >
+                            <DisclosureArrow />
+                        </a>
+                        <span>{formatMessage(messages.header)}</span>
+                    </h1>
                     <ProducerInfo {...producerInfoProps} />
                 </section>
                 <section className="my-producer-page-controls">

@@ -13,6 +13,10 @@
     text-align: left;
 }
 
+.my-producer-page-info-container > h1 > .back-link {
+    display: none;
+}
+
 .my-producer-page-controls {
     display: flex;
     flex-wrap: wrap;
@@ -22,4 +26,40 @@
 
 .my-producer-page-controls button {
     margin: 0.5em 1.5em 0.5em 0;
+}
+
+@media screen and (max-width: 767px) {
+    .my-producer-page-info-container > h1 {
+        display: flex;
+        align-items: center;
+        font-size: 1.375rem;
+    }
+
+    .my-producer-page-info-container > h1 > .back-link {
+        display: block;
+        margin-right: 1rem;
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .my-producer-page-info-container > h1 > .back-link .disclosure-arrow {
+        transform: rotate(180deg);
+    }
+
+    .my-producer-page-info-container > h1 > .back-link .disclosure-arrow-border {
+        stroke: var(--button-success-color);
+    }
+
+    .my-producer-page-info-container > h1 > span {
+        padding-top: 0.25em;
+    }
+
+    .my-producer-page-controls {
+        padding: 1em;
+    }
+
+    .my-producer-page-controls button {
+        margin: 0.5em 0;
+        width: 100%;
+    }
 }

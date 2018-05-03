@@ -83,19 +83,21 @@ class ProducerInfo extends React.Component {
         return (
             <section className="producer-information">
                 <section className="producer-information-details">
-                    {name && this.renderRow(labels.name, name)}
-                    {price > 0 && this.renderRow(labels.price, this.renderPrice.bind(this))}
-                    {energyType && this.renderRow(labels.energyType, energyType)}
-                    {annualProduction > 0 &&
-                        this.renderRow(labels.annualProduction, `${formatFloat(annualProduction)} kWh/day`)}
-                    {purchased > 0 && this.renderRow(labels.purchased, `${formatFloat(purchased)} kWh`)}
-                    {capacity > 0 && this.renderRow(labels.capacity, `${formatFloat(calcCapacity)} MW`)}
-                    {selectedSince && this.renderRow(labels.selectedSince, selectedSince)}
-                    {ethereumAddress && this.renderRow(labels.ethereumAddress, ethereumAddress, true)}
-                    {location && location.trim() && this.renderRow(labels.location, this.renderLocation.bind(this))}
-                    <p className="producer-information-desc">{description}</p>
+                    <div>
+                        {name && this.renderRow(labels.name, name)}
+                        {price > 0 && this.renderRow(labels.price, this.renderPrice.bind(this))}
+                        {energyType && this.renderRow(labels.energyType, energyType)}
+                        {annualProduction > 0 &&
+                            this.renderRow(labels.annualProduction, `${formatFloat(annualProduction)} kWh/day`)}
+                        {purchased > 0 && this.renderRow(labels.purchased, `${formatFloat(purchased)} kWh`)}
+                        {capacity > 0 && this.renderRow(labels.capacity, `${formatFloat(calcCapacity)} MW`)}
+                        {selectedSince && this.renderRow(labels.selectedSince, selectedSince)}
+                        {ethereumAddress && this.renderRow(labels.ethereumAddress, ethereumAddress, true)}
+                        {location && location.trim() && this.renderRow(labels.location, this.renderLocation.bind(this))}
+                    </div>
+                    <figure className="producer-information-image">{this.renderImage(picture)}</figure>
                 </section>
-                <figure className="producer-information-image">{this.renderImage(picture)}</figure>
+                <p className="producer-information-desc">{description}</p>
             </section>
         );
     }
