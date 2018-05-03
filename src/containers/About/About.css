@@ -34,10 +34,6 @@
 }
 
 @media (max-width: 767px) {
-    .about-page {
-        padding: var(--mobile-page-paddings);
-    }
-
     .about-page > h1 {
         font-size: 1.375rem;
     }

@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import logo from './logo.png';
 import './Logo.css';
 
-const Logo = ({ size, className }) => {
+const Logo = ({ size, className, ...other }) => {
     const classes = classNames('logo', `logo-${size}`, className);
-    return <img className={classes} src={logo} alt="Lition logo" width={174} height={36} />;
+    return <img className={classes} src={logo} alt="Lition logo" width={174} height={36} {...other} />;
 };
 
 Logo.propTypes = {

@@ -31,8 +31,11 @@
     color: var(--hover-icon-color);
 }
 
-.header-button:hover .header-button-icon-container svg {
+.header-button .header-button-icon-container svg {
     transition: 0.2s;
+}
+
+.header-button:hover .header-button-icon-container svg {
     transform: scale(1.2);
 }
 

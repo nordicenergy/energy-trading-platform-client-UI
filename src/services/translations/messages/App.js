@@ -45,9 +45,9 @@ const messages = defineMessages({
         id: 'app.header.logoutLabel',
         defaultMessage: 'Logout'
     },
-    notificationLabel: {
-        id: 'app.header.notificationLabel',
-        defaultMessage: 'Notifications'
+    menuBarLabel: {
+        id: 'app.header.menuBarLabel',
+        defaultMessage: 'Toggle menu sidebar'
     },
     logoutConfirmMessage: {
         id: 'app.header.logoutConfirmMessage',

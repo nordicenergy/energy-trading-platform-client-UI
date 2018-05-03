@@ -26,6 +26,7 @@
 }
 
 .menu-item-icon {
+    box-sizing: border-box;
     justify-content: center;
     width: var(--menu-icon-size);
     height: var(--menu-icon-size);
@@ -50,7 +51,7 @@
 
 .menu-item-label {
     position: relative;
-
+    box-sizing: border-box;
     justify-content: flex-start;
     width: calc(100% - var(--menu-icon-size));
     height: var(--menu-icon-size);
