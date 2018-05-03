@@ -30,7 +30,7 @@
 
     "app.header.logoutConfirm": "Are you sure that you'd like to logout from the system?",
     "app.header.logoutLabel": "Logout",
-    "app.header.notificationLabel": "Notifications",
+    "app.header.menuBarLabel": "Toggle menu sidebar",
 
     "app.menuBar.overview": "Overview",
     "app.menuBar.documents": "My Documents",

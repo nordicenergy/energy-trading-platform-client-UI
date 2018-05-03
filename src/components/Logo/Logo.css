@@ -8,3 +8,7 @@
     width: 8.875rem;
     height: 1.875rem;
 }
+
+.logo {
+    cursor: pointer;
+}

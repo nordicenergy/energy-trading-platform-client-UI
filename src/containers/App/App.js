@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { LOCALES, DEFAULT_LOCALE } from '../../constants';
 import { PATHS } from '../../services/routes';
@@ -22,7 +23,7 @@ export class App extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.setupLocale();
-        this.state = { isConfirmVisible: false };
+        this.state = { isConfirmVisible: false, isMenuBarOpen: false };
     }
 
     componentWillReceiveProps(nextProps) {
@@ -150,19 +151,38 @@ export class App extends React.Component {
                 />
                 <Loader show={loading} />
                 <Header
-                    onLogoutButtonClickHandler={() => this.logout(formatMessage(messages.logoutConfirm))}
-                    navigateTo={route => this.navigateTo(route)}
                     logoutLabel={formatMessage(messages.logoutLabel)}
-                    notificationLabel={formatMessage(messages.notificationLabel)}
-                    notifications={[]}
+                    onLogoutClick={() => this.logout(formatMessage(messages.logoutConfirm))}
+                    menuBarIcon={this.state.isMenuBarOpen ? 'faArrowRight' : 'faBars'}
+                    menuBarLabel={formatMessage(messages.menuBarLabel)}
+                    onToggleMenuBar={() => this.setState(state => ({ isMenuBarOpen: !state.isMenuBarOpen }))}
                     breadCrumbs={this.props.breadCrumbs}
+                    onBreadCrumbsClick={route => this.navigateTo(route)}
+                    onLogoClick={() => this.navigateTo(PATHS.overview.path)}
                     locales={LOCALES}
                     locale={locale || DEFAULT_LOCALE}
                     onLocaleChange={locale => performSetupLocale(locale)}
                 />
-                <div className="content">
-                    <div className="menu-container">
-                        <MenuSideBar items={menuItems} onSelect={id => this.navigateTo(id)} />
+                <div
+                    className={classNames({
+                        content: true,
+                        'content--de-emphasized': this.state.isMenuBarOpen
+                    })}
+                >
+                    <div
+                        aria-live="polite"
+                        className={classNames({
+                            'menu-container': true,
+                            'menu-container--opened': this.state.isMenuBarOpen
+                        })}
+                    >
+                        <MenuSideBar
+                            items={menuItems}
+                            onSelect={id => {
+                                this.setState({ isMenuBarOpen: false });
+                                this.navigateTo(id);
+                            }}
+                        />
                     </div>
                     <div role="feed" id="main-container">
                         <main>{this.props.children}</main>
