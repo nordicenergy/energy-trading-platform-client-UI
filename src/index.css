@@ -4,6 +4,7 @@
 :root {
     /* Color Schema */
     /* Use this service for naming - http://chir.ag/projects/name-that-color */
+    --night-pearl-color: #031321;
     --black-pearl-color: #051a2d;
     --transparent-black-pearl-color: rgba(5, 26, 45, 0.8);
     --big-stone-color: #142739;

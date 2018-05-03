@@ -28,7 +28,7 @@
 .header-menu-bars-button .header-button-container {
     border: none;
     width: var(--menu-icon-size);
-    background: #031321;
+    background: var(--night-pearl-color);
 }
 
 .main-header-container {
