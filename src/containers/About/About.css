@@ -27,7 +27,7 @@
     line-height: 2;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1279px) {
     .about-info-container {
         width: 100%;
     }
