@@ -139,8 +139,7 @@
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
-    --page-paddings: 2rem 1.5rem 2.5rem 2rem;
-    --mobile-page-paddings: 1.5rem 1rem 1rem;
+    --page-paddings: 1.5rem 2rem 2rem;
     --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-color);
     --side-bar-width: 20.5rem;
 }
@@ -158,4 +157,10 @@ html,
 #app-layout {
     width: 100%;
     height: 100%;
+}
+
+@media (max-width: 767px) {
+    :root {
+        --page-paddings: 1.5rem 1rem 1rem;
+    }
 }
