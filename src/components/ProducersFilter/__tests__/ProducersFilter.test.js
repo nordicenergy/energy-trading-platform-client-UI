@@ -23,7 +23,6 @@ const optionsMock = [
         type: 'biomass'
     }
 ];
-// const onChangeMock = jest.fn();
 function renderComponent({ labels = labelsMock, options = optionsMock, ...otherProps } = {}, mountFn = shallow) {
     return mountFn(<ProducersFilter labels={labelsMock} options={options} {...otherProps} />);
 }
