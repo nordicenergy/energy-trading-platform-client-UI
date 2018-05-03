@@ -27,8 +27,18 @@
     line-height: 2;
 }
 
-@media screen and (max-width: 1024px) {
+@media (max-width: 1279px) {
     .about-info-container {
         width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .about-page {
+        padding: var(--mobile-page-paddings);
+    }
+
+    .about-page > h1 {
+        font-size: 1.375rem;
     }
 }

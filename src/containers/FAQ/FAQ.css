@@ -81,6 +81,10 @@
         padding: var(--mobile-page-paddings);
     }
 
+    .faq-page > h1 {
+        font-size: 1.375rem;
+    }
+
     .faq-page .question-container:first-of-type {
         margin-top: 1.25em;
     }
