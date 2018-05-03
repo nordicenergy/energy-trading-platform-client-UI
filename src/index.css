@@ -83,6 +83,7 @@
     --breadcrumb-current-item-color: var(--tower-gray-color);
     --breadcrumb-arrow-color: var(--athens-gray-color);
 
+    --producers-filter-bg-color: var(--mystic-color);
     --filter-checkbox-hov-bg-color: var(--blumine-color);
     --checked-filter-checkbox-bg-color: var(--jelly-bean-color);
     --filter-checkbox-icon-color: var(--jelly-bean-color);
@@ -138,7 +139,8 @@
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
-    --page-paddings: 2rem;
+    --page-paddings: 2rem 1.5rem 2.5rem 2rem;
+    --mobile-page-paddings: 1.5rem 1rem 1rem;
     --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-color);
     --side-bar-width: 20.5rem;
 }

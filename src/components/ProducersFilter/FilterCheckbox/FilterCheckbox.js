@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { OtherEnergyIcon, WindEnergyIcon, SolarEnergyIcon, BiomassEnergyIcon } from './icons';
-import { PLANT_TYPES } from '../../constants';
+import { PLANT_TYPES } from '../../../constants';
 import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ className, type, label, name, checked, onChange }) => {

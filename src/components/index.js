@@ -17,7 +17,7 @@ import Toast from './Toast';
 import RecentTransactions from './RecentTransactions';
 import EnergyAmountGraph from './EnergyAmountGraph';
 import WattcoinTable from './WattcoinTable';
-import FilterCheckbox from './FilterCheckbox';
+import ProducersFilter from './ProducersFilter';
 import ProducerCardsPanel from './ProducerCardsPanel';
 import ProducerInfo from './ProducerInfo';
 import ProducerHistory from './ProducerHistory';
@@ -55,7 +55,7 @@ export {
     RecentTransactions,
     Breadcrumbs,
     WattcoinTable,
-    FilterCheckbox,
+    ProducersFilter,
     ProducerCardsPanel,
     ProducerInfo,
     ProducerHistory,

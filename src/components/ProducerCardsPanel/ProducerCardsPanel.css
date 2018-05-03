@@ -10,40 +10,50 @@
 }
 
 .producer-cards-list-item {
-    flex: 0 0 48%;
-    margin-bottom: 2rem;
     overflow: hidden;
+    flex: 0 0 31.15%;
+    margin-bottom: 2rem;
 }
 
 .producer-cards-list-item:nth-child(2n - 1) {
-    margin-right: 2%;
+    margin-right: 0;
+}
+
+.producer-cards-list-item:nth-child(3n - 2),
+.producer-cards-list-item:nth-child(3n - 1) {
+    margin-right: 3.275%;
 }
 
 .producer-card--filled {
-    height: 100%;
     justify-content: center;
+    height: 100%;
 }
 
 .producer-cards-panel-loader {
-    height: 3.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 3.5rem;
 }
 
-@media (min-width: 1360px) {
+@media (max-width: 1279px) {
     .producer-cards-list-item {
-        flex: 0 0 31.15%;
-        margin-bottom: 2rem;
-        overflow: hidden;
+        flex-basis: 48%;
     }
 
     .producer-cards-list-item:nth-child(2n - 1) {
-        margin-right: 0;
+        margin-right: 4%;
     }
 
-    .producer-cards-list-item:nth-child(3n - 2),
-    .producer-cards-list-item:nth-child(3n - 1) {
-        margin-right: 3.275%;
+    .producer-cards-list-item:nth-child(2n) {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .producer-cards-list-item {
+        flex-basis: 100%;
+        margin-right: 0;
+        margin-bottom: 1rem;
     }
 }

@@ -1,7 +1,6 @@
 .option-links {
     display: flex;
     width: 100%;
-    border-bottom: var(--border-width) solid var(--option-link-border-color);
 }
 
 .option-links > a {
@@ -12,6 +11,7 @@
     box-sizing: border-box;
     min-height: 3rem;
     border-right: var(--border-width) solid var(--option-link-border-color);
+    border-bottom: var(--border-width) solid var(--option-link-border-color);
     background: var(--option-link-bg-color);
     color: var(--option-link-color);
     text-align: center;
@@ -34,4 +34,14 @@
 .option-links > a > span {
     margin-bottom: -0.25em;
     color: inherit;
+}
+
+@media (max-width: 767px) {
+    .option-links {
+        flex-direction: column;
+    }
+
+    .option-links > a {
+        border-right: none;
+    }
 }

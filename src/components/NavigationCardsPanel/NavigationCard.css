@@ -49,3 +49,28 @@
 .nav-card-container:hover svg .strokeLine {
     stroke: white;
 }
+
+@media screen and (max-width: 767px) {
+    .nav-card-container {
+        padding: 1rem;
+        margin: 0;
+    }
+
+    .nav-card {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .nav-card-title-container {
+        margin: 0 0 0 1em;
+    }
+
+    .nav-card-title {
+        text-align: left;
+    }
+
+    .nav-card-container svg {
+        width: 5rem;
+        height: 5rem;
+    }
+}
