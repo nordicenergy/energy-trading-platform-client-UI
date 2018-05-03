@@ -83,6 +83,7 @@
     --breadcrumb-current-item-color: var(--tower-gray-color);
     --breadcrumb-arrow-color: var(--athens-gray-color);
 
+    --producers-filter-bg-color: var(--mystic-color);
     --filter-checkbox-hov-bg-color: var(--blumine-color);
     --checked-filter-checkbox-bg-color: var(--jelly-bean-color);
     --filter-checkbox-icon-color: var(--jelly-bean-color);

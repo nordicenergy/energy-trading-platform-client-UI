@@ -24,7 +24,9 @@
     position: relative;
     display: flex;
     align-items: center;
-    padding: 0 1em;
+    justify-content: center;
+    padding: 0;
+    width: 3rem;
     height: 100%;
     border-right: var(--border-width) solid var(--filter-checkbox-border-color);
     color: var(--filter-checkbox-icon-color);

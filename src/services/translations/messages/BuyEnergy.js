@@ -11,7 +11,7 @@ const messages = defineMessages({
     },
     filterLabel: {
         id: 'app.buyEnergyPage.filterLabel',
-        defaultMessage: 'Filter by:'
+        defaultMessage: 'Filter by'
     },
     filterOptionAll: {
         id: 'app.buyEnergyPage.filterOptionAll',

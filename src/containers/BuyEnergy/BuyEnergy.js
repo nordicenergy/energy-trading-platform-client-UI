@@ -8,7 +8,7 @@ import { BuyEnergy as messages } from '../../services/translations/messages';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
 import { performPushNotification } from '../../action_performers/notifications';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { Loader, ProducerCardsPanel, FilterCheckbox, OptionLinks } from '../../components';
+import { Loader, DisclosureArrow, ProducerCardsPanel, ProducersFilter, OptionLinks } from '../../components';
 import './BuyEnergy.css';
 
 const FILTER_OPTIONS = [
@@ -111,29 +111,23 @@ export class BuyEnergy extends AbstractContainer {
         this.scrollToTop();
     }
 
-    resetFilter() {
-        this.setState({
-            filter: [],
-            page: 0
-        });
+    prepareFilterOptions() {
+        const { formatMessage } = this.context.intl;
+        return FILTER_OPTIONS.map(option => ({
+            name: option.name,
+            label: formatMessage(option.label),
+            type: option.type
+        }));
     }
 
-    handleFilterChange(event) {
-        const { filter } = this.state;
-        const { name } = event.currentTarget;
-        const isIncludesName = filter.indexOf(name) > -1;
-        let changedFilter;
+    handleBackLinkClick(event) {
+        event.preventDefault();
+        const { history } = this.context.router;
+        history.push(PATHS.trading.path);
+    }
 
-        if (isIncludesName) {
-            changedFilter = filter.filter(option => option !== name);
-        } else {
-            changedFilter = [...filter, name];
-        }
-
-        this.setState({
-            filter: changedFilter,
-            page: 0
-        });
+    handleFilterChange(filter) {
+        this.setState({ filter, page: 0 });
     }
 
     handleProducerClick(producerId) {
@@ -152,43 +146,29 @@ export class BuyEnergy extends AbstractContainer {
             <section className="buy-energy-page" aria-busy={shouldShowFullScreenLoader}>
                 <Loader show={shouldShowFullScreenLoader} />
                 <header className="buy-energy-page-header">
-                    <h1>{formatMessage(messages.pageTitle)}</h1>
+                    <h1>
+                        <a
+                            href={PATHS.trading.path}
+                            className="back-link"
+                            onClick={event => this.handleBackLinkClick(event)}
+                        >
+                            <DisclosureArrow />
+                        </a>
+                        <span>{formatMessage(messages.pageTitle)}</span>
+                    </h1>
                     <h2>
                         {formatMessage(messages.selectedProducerLabel)} <strong>{currentProducer.name}</strong>
                     </h2>
                 </header>
-                <aside className="buy-energy-page-filter">
-                    <div className="producer-filter">
-                        <div className="producer-filter-label">
-                            <strong>{formatMessage(messages.filterLabel)}</strong>
-                        </div>
-                        <div className="producer-filter-options">
-                            <FilterCheckbox
-                                className="producer-filter-option"
-                                label={formatMessage(messages.filterOptionAll)}
-                                name="reset"
-                                checked={filter.length === 0}
-                                onChange={() => this.resetFilter()}
-                            />
-                            {FILTER_OPTIONS.map(({ name, label, type }) => {
-                                const isIncludesName = filter.indexOf(name) > -1;
-                                return (
-                                    <FilterCheckbox
-                                        key={name}
-                                        className="producer-filter-option"
-                                        label={formatMessage(label)}
-                                        type={type}
-                                        name={name}
-                                        checked={isIncludesName}
-                                        onChange={event => {
-                                            this.handleFilterChange(event);
-                                        }}
-                                    />
-                                );
-                            })}
-                        </div>
-                    </div>
-                </aside>
+                <ProducersFilter
+                    labels={{
+                        helpMessage: formatMessage(messages.filterLabel),
+                        defaultOption: formatMessage(messages.filterOptionAll)
+                    }}
+                    options={this.prepareFilterOptions()}
+                    value={filter}
+                    onChange={filter => this.handleFilterChange(filter)}
+                />
                 <OptionLinks
                     links={LINKS.map(link => ({
                         ...link,
