@@ -73,12 +73,7 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentDidMount() {
-        const { producers } = this.props;
-
-        if (producers.length === 0) {
-            performGetProducers();
-        }
-
+        performGetProducers();
         performGetCurrentProducer();
 
         const loadCondition = () => {

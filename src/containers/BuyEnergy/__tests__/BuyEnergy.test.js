@@ -116,6 +116,12 @@ describe('<BuyEnergy /> container', () => {
         expect(producersActionPerformers.performGetProducers).toHaveBeenCalled();
     });
 
+    it('should call performGetProducers on did mount hook even if producers list is not empty', () => {
+        renderComponent();
+
+        expect(producersActionPerformers.performGetProducers).toHaveBeenCalled();
+    });
+
     it('should calls performGetProducers when page increase', () => {
         const buyEnergy = renderComponent({
             currentProducerLoading: true,
