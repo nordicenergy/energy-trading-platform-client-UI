@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { PATHS } from '../../services/routes';
 import { SellEnergy as messages } from '../../services/translations/messages';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { OfferForm, OffersSlider } from '../../components';
+import { OfferForm, OffersSlider, BackLink } from '../../components';
 import './SellEnergy.css';
 
 export class SellEnergy extends AbstractContainer {
@@ -72,6 +72,12 @@ export class SellEnergy extends AbstractContainer {
         };
     }
 
+    handleBackLinkClick(event) {
+        event.preventDefault();
+        const { history } = this.context.router;
+        history.push(PATHS.trading.path);
+    }
+
     renderOffersSlider() {
         const { offers } = this.props;
         const { formatMessage } = this.context.intl;
@@ -93,7 +99,10 @@ export class SellEnergy extends AbstractContainer {
 
         return (
             <section className="sell-energy-page">
-                <h1>{formatMessage(messages.pageTitle)}</h1>
+                <h1>
+                    <BackLink onClick={event => this.handleBackLinkClick(event)} />
+                    <span>{formatMessage(messages.pageTitle)}</span>
+                </h1>
                 <OfferForm />
                 {this.renderOffersSlider()}
                 {/* TODO remove (including styles) after complete implementation */}
@@ -104,6 +113,11 @@ export class SellEnergy extends AbstractContainer {
 }
 
 SellEnergy.contextTypes = {
+    router: PropTypes.shape({
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired
+        })
+    }),
     intl: PropTypes.shape({
         formatMessage: PropTypes.func.isRequired
     }).isRequired

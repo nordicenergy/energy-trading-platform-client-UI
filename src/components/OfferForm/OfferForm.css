@@ -68,3 +68,29 @@
     color: var(--button-hover-color);
     transform: scale(1.1);
 }
+
+@media (max-width: 767px) {
+    .offer-form-field {
+        padding: 0 1em;
+    }
+
+    .offer-form-field--price-delta {
+        padding: 0;
+    }
+
+    .offer-form-actions {
+        display: block;
+        padding: 2em 1em;
+        min-height: 0;
+        text-align: center;
+    }
+
+    .offer-form-actions > .button {
+        width: 100%;
+    }
+
+    .offer-form-delete-button {
+        margin-top: 1.43em;
+        margin-left: -1em;
+    }
+}

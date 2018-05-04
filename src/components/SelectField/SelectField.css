@@ -118,3 +118,39 @@
 .select-field--focused .select-control-icon {
     transform: rotate(180deg);
 }
+
+@media (max-width: 767px) {
+    .select-field-layout {
+        display: block;
+    }
+
+    .select-field-layout::after {
+        width: 100%;
+    }
+
+    .select-field-label,
+    .select-field-input {
+        display: block;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .select-field-label {
+        margin-bottom: 0.4em;
+        font-size: 0.75em;
+    }
+
+    .select-field-input {
+        width: 100%;
+    }
+
+    .select-control {
+        height: 1.75rem;
+    }
+
+    .select-control-text {
+        width: 100%;
+        font-size: 1em;
+        line-height: 1.25;
+    }
+}
