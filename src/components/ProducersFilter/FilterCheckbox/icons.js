@@ -1,13 +1,13 @@
 import React from 'react';
 
 export const OtherEnergyIcon = () => (
-    <svg id="otherIcon" width="14" height="23" viewBox="0 0 14 23" xmlns="http://www.w3.org/2000/svg">
+    <svg className="other-energy-icon" width="14" height="23" viewBox="0 0 14 23" xmlns="http://www.w3.org/2000/svg">
         <path d="M13 10.988l-10 12.012 2-11h-4l9.49-12-1.49 11z" stroke="currentColor" fill="none" />
     </svg>
 );
 
 export const WindEnergyIcon = () => (
-    <svg id="windIcon" width="21" height="28" viewBox="0 0 21 28" xmlns="http://www.w3.org/2000/svg">
+    <svg className="wind-energy-icon" width="21" height="28" viewBox="0 0 21 28" xmlns="http://www.w3.org/2000/svg">
         <g transform="translate(0 0)" stroke="currentColor" fill="none">
             <path strokeLinejoin="round" d="M11.266 13.366l.873 13.938h-3.409l1.106-13.938" />
             <path d="M20.262 19.061c-.679-1.275-2.152-3.142-4.049-5.039-1.055-1.054-2.145-2.016-3.155-2.813.154-.515.154-1.061.002-1.576 1.002-.795 2.085-1.752 3.134-2.801 1.89-1.89 3.363-3.748 4.044-5.014.401-.743-.455-1.599-1.199-1.198-1.265.681-3.124 2.153-5.013 4.044-1.044 1.044-1.997 2.123-2.79 3.121-.525-.162-1.081-.165-1.607-.01-.793-1.002-1.749-2.085-2.797-3.133-1.891-1.891-3.751-3.362-5.02-4.041-.746-.399-1.611.466-1.212 1.211.679 1.27 2.15 3.13 4.041 5.021 1.048 1.048 2.132 2.004 3.134 2.797-.159.536-.154 1.105.018 1.638-.996.793-2.071 1.745-3.113 2.788-1.893 1.892-3.369 3.749-4.055 5.013-.402.742.444 1.589 1.187 1.186 1.263-.686 3.121-2.162 5.012-4.054 1.051-1.051 2.013-2.137 2.81-3.14.504.149 1.036.151 1.541.008.799 1.013 1.765 2.109 2.824 3.167 1.897 1.897 3.763 3.371 5.038 4.049.749.399 1.623-.474 1.225-1.224z" />
@@ -17,7 +17,7 @@ export const WindEnergyIcon = () => (
 );
 
 export const SolarEnergyIcon = () => (
-    <svg id="solarIcon" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+    <svg className="solar-energy-icon" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
         <g fill="none">
             <path
                 d="M23.35 0h-18c-.79 0-2 .21-2 1l-3.35 17.557c0 .789.646 1.435 1.436 1.435h25.128c.79 0 1.436-.646 1.436-1.435l-2.65-17.557c0-.79-1.21-1-2-1m0 1c.492 0 .856.094 1.014.168l2.632 17.441c-.027.213-.213.383-.432.383h-25.128c-.214 0-.398-.163-.431-.369l3.327-17.436.004-.019c.158-.074.522-.168 1.014-.168h18"
@@ -35,7 +35,7 @@ export const SolarEnergyIcon = () => (
 );
 
 export const BiomassEnergyIcon = () => (
-    <svg id="biomassIcon" width="33" height="25" viewBox="0 0 33 25" xmlns="http://www.w3.org/2000/svg">
+    <svg className="biomass-energy-icon" width="33" height="25" viewBox="0 0 33 25" xmlns="http://www.w3.org/2000/svg">
         <g stroke="currentColor" fill="none">
             <path d="M23.922 3.925v2.417c0 2.137 1.788 3.869 3.995 3.869 2.206 0 3.995-1.732 3.995-3.869v-2.417h-7.99z" />
             <path d="M25.912.925v3" />

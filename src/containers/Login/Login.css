@@ -53,11 +53,20 @@
         min-height: 100vh;
     }
 
+    .login-container-layout::after {
+        /* Fix align-items: center with min-height for IE11 */
+        min-height: inherit;
+        content: '';
+        font-size: 0;
+    }
+
     .login-container-hero {
         display: none;
     }
 
     .login-container-form {
+        flex-basis: 100%;
+        flex-grow: 0;
         margin: 0;
         padding: 0 1rem;
         text-align: center;
