@@ -19,17 +19,15 @@ export function getRecentTransactions(userId, page = 0) {
             response.data.currentBalance = currentBalance;
             const { transactions = [] } = response.data;
             transactions.forEach(tx => {
-                // TODO need implement on serve-side
-                const { description = '' } = tx;
-                const [, from] = description.split('"') || [];
-
                 tx.details = {
                     hash: tx.transactionHash || '--',
                     price: tx.price || 0,
                     amount: tx.energyAmount || 0,
-                    from: from,
-                    fromUrl: `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${tx.producerID}`,
-                    url: tx.detailsLink || ''
+                    from: tx.producerName || '--',
+                    fromUrl: tx.producerID
+                        ? `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${tx.producerID}`
+                        : '#producer',
+                    url: tx.detailsLink || '#details'
                 };
             });
             response.data.transactions = transactions;

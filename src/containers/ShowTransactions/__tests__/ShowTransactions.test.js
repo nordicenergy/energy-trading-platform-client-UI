@@ -1,8 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ShowTransactionsContainer, { ShowTransactions } from '../ShowTransactions';
-import { CoinButton, Loader, RecentTransactions } from '../../../components';
+import { BackLink, Loader, RecentTransactions } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
+import { formatFloat } from '../../../services/formatter';
 import configureMockStore from 'redux-mock-store';
 
 import * as usersActions from '../../../action_performers/users';
@@ -42,7 +43,9 @@ const store = mockStore({
                     {
                         id: '1',
                         date: 1523707200,
-                        description: 'Bought 23 kWh Alice',
+                        producerName: 'Alice',
+                        energyAmount: 7.13,
+                        description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.81,
                         details: {
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -56,7 +59,9 @@ const store = mockStore({
                     {
                         id: '2',
                         date: 1523707200,
-                        description: 'Monthly invoice',
+                        producerName: 'Alice',
+                        energyAmount: 7.13,
+                        description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.081,
                         details: {
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -70,7 +75,9 @@ const store = mockStore({
                     {
                         id: '3',
                         date: 1523707200,
-                        description: 'Bought 23 kWh from Peter',
+                        producerName: 'Alice',
+                        energyAmount: 7.13,
+                        description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -84,7 +91,9 @@ const store = mockStore({
                     {
                         id: '4',
                         date: 1523707200,
-                        description: 'Bought 23 kWh from Peter',
+                        producerName: 'Alice',
+                        energyAmount: 7.13,
+                        description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -98,7 +107,9 @@ const store = mockStore({
                     {
                         id: '5',
                         date: 1523707200,
-                        description: 'Bought 23 kWh from Peter',
+                        producerName: 'Alice',
+                        energyAmount: 7.13,
+                        description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -112,7 +123,9 @@ const store = mockStore({
                     {
                         id: '6',
                         date: 1523707200,
-                        description: 'Bought 23 kWh from Peter',
+                        producerName: 'Alice',
+                        energyAmount: 7.13,
+                        description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -126,7 +139,9 @@ const store = mockStore({
                     {
                         id: '7',
                         date: 1523707200,
-                        description: 'Bought 23 kWh from Peter',
+                        producerName: 'Alice',
+                        energyAmount: 7.13,
+                        description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -156,7 +171,9 @@ const props = {
             {
                 id: '1',
                 date: 1523707200,
-                description: 'Bought 23 kWh Alice',
+                producerName: 'Alice',
+                energyAmount: 7.13,
+                description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.81,
                 details: {
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -170,7 +187,9 @@ const props = {
             {
                 id: '2',
                 date: 1523707200,
-                description: 'Monthly invoice',
+                producerName: 'Alice',
+                energyAmount: 7.13,
+                description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.081,
                 details: {
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -184,7 +203,9 @@ const props = {
             {
                 id: '3',
                 date: 1523707200,
-                description: 'Bought 23 kWh from Peter',
+                producerName: 'Alice',
+                energyAmount: 7.13,
+                description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -198,7 +219,9 @@ const props = {
             {
                 id: '4',
                 date: 1523707200,
-                description: 'Bought 23 kWh from Peter',
+                producerName: 'Alice',
+                energyAmount: 7.13,
+                description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -212,7 +235,9 @@ const props = {
             {
                 id: '5',
                 date: 1523707200,
-                description: 'Bought 23 kWh from Peter',
+                producerName: 'Alice',
+                energyAmount: 7.13,
+                description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -226,7 +251,9 @@ const props = {
             {
                 id: '6',
                 date: 1523707200,
-                description: 'Bought 23 kWh from Peter',
+                producerName: 'Alice',
+                energyAmount: 7.13,
+                description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -240,7 +267,9 @@ const props = {
             {
                 id: '7',
                 date: 1523707200,
-                description: 'Bought 23 kWh from Peter',
+                producerName: 'Alice',
+                energyAmount: 7.13,
+                description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
@@ -291,7 +320,7 @@ describe('<ShowTransactions /> Component', () => {
     it(`should contains following controls:
         - 1 <RecentTransactions /> component;
         - 1 <Loader /> component;
-        - 2 <section> and one with class "overview-page";
+        - 2 <section> elements;
         - 1 <h1> element;`, () => {
         const component = renderContainer();
 
@@ -299,6 +328,8 @@ describe('<ShowTransactions /> Component', () => {
         expect(component.find('section')).toHaveLength(2);
         expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(RecentTransactions)).toHaveLength(1);
+        expect(component.find(BackLink)).toHaveLength(1);
+        expect(component.find('h1')).toHaveLength(1);
     });
 
     it('should handler scroll event', () => {
@@ -309,6 +340,17 @@ describe('<ShowTransactions /> Component', () => {
 
         component.unmount();
         expect(mainContainerMock.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);
+    });
+
+    it('should provide possibility back to overview page through header', () => {
+        const event = { preventDefault: jest.fn() };
+        const component = renderComponent();
+        component.setContext(context);
+        const backLink = component.find(BackLink).at(0);
+        backLink.simulate('click', event);
+
+        expect(context.router.history.push).toHaveBeenCalledWith('/');
+        expect(event.preventDefault).toHaveBeenCalled();
     });
 
     it('should call prepare common function', () => {
@@ -331,6 +373,8 @@ describe('<ShowTransactions /> Component', () => {
                 recentTransactionsMonthlyBalance: 'Monthly Balance',
                 recentTransactionsMore: 'More',
                 recentTransactionsTitle: 'Most Recent Transactions',
+                recentTransactionsDescriptionBought: 'Bought',
+                recentTransactionsDescriptionFrom: 'from',
                 sellCoinsButton: 'Sell Coins'
             },
             loading: false,

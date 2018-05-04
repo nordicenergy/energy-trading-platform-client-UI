@@ -7,6 +7,7 @@ import { performGetUserData } from '../../action_performers/users';
 import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
 import { Overview as messages } from '../../services/translations/messages';
+import { formatFloat } from '../../services/formatter';
 
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
@@ -49,7 +50,12 @@ export class Overview extends AbstractContainer {
     render() {
         const labels = this.prepareLabels(messages);
         const { recentTransactions: { transactions = [], currentBalance = 0 }, loading } = this.props;
-
+        const formattedTransactions = transactions.map(tx => ({
+            ...tx,
+            description: `${labels.recentTransactionsDescriptionBought} ${formatFloat(tx.energyAmount)} kWh ${
+                labels.recentTransactionsDescriptionFrom
+            } "${tx.producerName}"`
+        }));
         const navigationCards = [
             {
                 type: PATHS.myProducer.id,
@@ -78,7 +84,7 @@ export class Overview extends AbstractContainer {
                 />
                 <div className="overview-content-container">
                     <RecentTransactions
-                        transactions={transactions}
+                        transactions={formattedTransactions}
                         currentBalance={currentBalance}
                         labels={labels}
                         onButtonClick={() => this.openTransactionsPage()}

@@ -52,6 +52,14 @@ const messages = defineMessages({
     recentTransactionsDetailsHash: {
         id: 'app.recentTransactionsDetails.hash',
         defaultMessage: 'Blockchain-Transaction'
+    },
+    recentTransactionsDescriptionFrom: {
+        id: 'app.recentTransactionsDescription.from',
+        defaultMessage: 'from'
+    },
+    recentTransactionsDescriptionBought: {
+        id: 'app.recentTransactionsDescription.bought',
+        defaultMessage: 'Bought'
     }
 });
 

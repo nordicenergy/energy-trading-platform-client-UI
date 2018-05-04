@@ -40,13 +40,12 @@ describe('<RecentTransactionDetails /> Component', () => {
         - 4 div[role="cell"] elements;
         - 4 div[role="columnheader"] elements;`, () => {
         const component = renderComponent({});
-        expect(component.find('.recent-transactions-details-headers')).toHaveLength(1);
         expect(component.find('.recent-transactions-details-values')).toHaveLength(1);
         expect(component.find('.recent-transactions-details-hash')).toHaveLength(1);
 
         expect(component.find('div[role="table"]')).toHaveLength(1);
         expect(component.find('div[role="rowgroup"]')).toHaveLength(2);
-        expect(component.find('div[role="row"]')).toHaveLength(3);
+        expect(component.find('div[role="row"]')).toHaveLength(4);
         expect(component.find('div[role="cell"]')).toHaveLength(4);
         expect(component.find('div[role="columnheader"]')).toHaveLength(4);
 
