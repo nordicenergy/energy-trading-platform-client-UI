@@ -101,7 +101,14 @@ export const BiomassImage = () => (
 );
 
 export const DefaultImage = () => (
-    <svg className="defaultImage" viewBox="0 0 95 95" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg
+        className="defaultImage"
+        width="95"
+        height="95"
+        viewBox="0 0 95 95"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+    >
         <g stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
             <g transform="translate(-800.000000, -561.000000)">
                 <g transform="translate(801.000000, 562.000000)">
