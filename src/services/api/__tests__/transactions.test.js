@@ -24,6 +24,7 @@ describe('Transactions API Service', () => {
                                 id: 99,
                                 price: 2.7,
                                 producerID: 9,
+                                producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss-Brauerei',
                                 transactionAmount: 0.19,
                                 transactionHash: '0x4c6c11de80fa544341fc97fd4fb6755adbe6006a424f5a1029b632b7ce81ed25'
                             }
@@ -56,6 +57,7 @@ describe('Transactions API Service', () => {
                     detailsLink:
                         'https://ropsten.etherscan.io/tx/0x4c6c11de80fa544341fc97fd4fb6755adbe6006a424f5a1029b632b7ce81ed25',
                     energyAmount: 7.13,
+                    producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss-Brauerei',
                     from: '0x0101f8cdf2c5ed1d775120a99a701bab5418add8',
                     id: 99,
                     price: 2.7,

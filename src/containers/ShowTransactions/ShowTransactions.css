@@ -12,6 +12,10 @@
     text-align: left;
 }
 
+.show-transaction-page > h1 > .back-link {
+    display: none;
+}
+
 .show-transaction-page-controls {
     display: flex;
     justify-content: flex-start;
@@ -20,4 +24,21 @@
 
 .show-transaction-page-controls button {
     margin: 0 2em 2em 0;
+}
+
+@media (max-width: 767px) {
+    .show-transaction-page > h1 {
+        display: flex;
+        align-items: center;
+        font-size: 1.375em;
+    }
+
+    .show-transaction-page > h1 > .back-link {
+        display: inline-block;
+        margin-right: 1rem;
+    }
+
+    .show-transaction-page > h1 > span {
+        padding-top: 0.25em;
+    }
 }

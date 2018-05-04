@@ -6,23 +6,25 @@ import './RecentTransactionDetails.css';
 
 const RecentTransactionDetails = ({ labels, hash, price, amount, from, fromUrl, url }) => (
     <div role="table" className="recent-transactions-details">
-        <div role="rowgroup">
-            <div className="recent-transactions-details-headers" role="row">
+        <div className="recent-transactions-details-values" role="rowgroup">
+            <div role="row">
                 <div role="columnheader">{labels.from}</div>
-                <div role="columnheader">{labels.amount}</div>
-                <div role="columnheader">{labels.price}</div>
-            </div>
-        </div>
-        <div role="rowgroup">
-            <div className="recent-transactions-details-values" role="row">
                 <div role="cell">
                     <a target="_blank" href={fromUrl}>
                         {from}
                     </a>
                 </div>
+            </div>
+            <div role="row">
+                <div role="columnheader">{labels.amount}</div>
                 <div role="cell">{`${formatFloat(amount)} kWh`}</div>
+            </div>
+            <div role="row">
+                <div role="columnheader">{labels.price}</div>
                 <div role="cell">{`${formatFloat(price)} ct`}</div>
             </div>
+        </div>
+        <div role="rowgroup">
             <div className="recent-transactions-details-hash" role="row">
                 <div role="columnheader">{labels.hash}</div>
                 <div role="cell">

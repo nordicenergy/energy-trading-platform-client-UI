@@ -164,7 +164,7 @@ tr.recent-transactions-details-row--expand > td::after {
     text-align: center;
 }
 
-.recent-transactions-current-balance-row {
+.recent-transactions-balance-row {
     display: flex;
     color: var(--table-text-color);
     justify-content: space-between;
@@ -173,16 +173,16 @@ tr.recent-transactions-details-row--expand > td::after {
     padding: 1.11em 10% 0.89em 3rem;
 }
 
-.recent-transactions-current-balance-row p {
+.recent-transactions-balance-row p {
     margin: 0;
 }
 
-.recent-transactions-current-balance-date {
+.recent-transactions-balance-date {
     font-weight: 500;
     font-size: 1rem;
 }
 
-.recent-transactions-current-balance-amount {
+.recent-transactions-balance-amount {
     font-size: 1.375rem;
     font-weight: 600;
 }
@@ -190,4 +190,75 @@ tr.recent-transactions-details-row--expand > td::after {
 .recent-transactions-loader {
     text-align: center;
     padding: 1em;
+}
+
+@media (max-width: 767px) {
+    .recent-transactions-container {
+        padding: 0;
+    }
+
+    .recent-transactions-container caption {
+        padding: 1rem 0.5rem 0.5rem;
+        margin: 0;
+        font-size: 1.125rem;
+    }
+
+    .recent-transactions-container thead {
+        display: none;
+    }
+
+    .recent-transactions-container tr.recent-transactions-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem;
+    }
+
+    .recent-transactions-container tr.recent-transactions-row td {
+        width: 100%;
+        padding: 0.5rem 0;
+        text-align: center;
+    }
+
+    .recent-transactions-container tr.recent-transactions-row td:first-child {
+        padding-top: 1rem;
+        color: var(--label-color);
+    }
+
+    .recent-transactions-container tr.recent-transactions-row td:nth-child(0n + 3) {
+        padding-bottom: 0;
+        font-weight: 600;
+    }
+
+    .recent-transactions-container tr.recent-transactions-row td:last-child {
+        padding: 0;
+    }
+
+    .recent-transactions-container tr.recent-transactions-row svg {
+        width: 2rem;
+        height: 2rem;
+        transform: scale(2) rotate(90deg);
+    }
+
+    .recent-transactions-container tr.recent-transactions-row--expand svg {
+        transform: scale(2) rotate(-90deg);
+    }
+
+    .recent-transactions-container tr.recent-transactions-row circle {
+        display: none;
+    }
+
+    .recent-transactions-container tr.recent-transactions-details-row td {
+        padding: 0 0.5rem;
+    }
+
+    .recent-transactions-container div.recent-transactions-balance-row {
+        flex-direction: column;
+    }
+
+    .recent-transactions-container .recent-transactions-balance-amount {
+        padding-top: 1rem;
+        font-size: 1.125rem;
+    }
 }

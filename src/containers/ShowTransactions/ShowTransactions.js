@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { RecentTransactions, Loader } from '../../components';
+import { RecentTransactions, Loader, BackLink } from '../../components';
 import { performGetUserData } from '../../action_performers/users';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import { performPushNotification } from '../../action_performers/notifications';
@@ -11,6 +11,7 @@ import { ShowTransactions as messages } from '../../services/translations/messag
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
 import './ShowTransactions.css';
+import { formatFloat } from '../../services/formatter';
 
 export class ShowTransactions extends AbstractContainer {
     constructor(props, context) {
@@ -75,6 +76,12 @@ export class ShowTransactions extends AbstractContainer {
         this.scrollToTop();
     }
 
+    backToOverviewPage(event) {
+        event.preventDefault();
+        const { history } = this.context.router;
+        history.push(PATHS.overview.path);
+    }
+
     render() {
         const labels = this.prepareLabels(messages);
         const {
@@ -82,14 +89,23 @@ export class ShowTransactions extends AbstractContainer {
             transactionsLoading,
             loading
         } = this.props;
+        const formattedTransactions = transactions.map(tx => ({
+            ...tx,
+            description: `${labels.recentTransactionsDescriptionBought} ${formatFloat(tx.energyAmount)} kWh ${
+                labels.recentTransactionsDescriptionFrom
+            } "${tx.producerName}"`
+        }));
 
         return (
             <section className="show-transaction-page" aria-busy={loading}>
                 <Loader show={loading} />
-                <h1>{labels.header}</h1>
+                <h1>
+                    <BackLink onClick={event => this.backToOverviewPage(event)} />
+                    <span>{labels.header}</span>
+                </h1>
                 <section>
                     <RecentTransactions
-                        transactions={transactions}
+                        transactions={formattedTransactions}
                         currentBalance={currentBalance}
                         labels={labels}
                         loading={transactionsLoading}

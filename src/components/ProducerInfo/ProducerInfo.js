@@ -137,7 +137,13 @@ export default ProducerInfo;
 export function Placeholder() {
     return (
         <div className="producer-information-image-placeholder">
-            <svg viewBox="0 0 85 81" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <svg
+                viewBox="0 0 85 81"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-label="Default placeholder for producer image"
+                role="img"
+            >
                 <title>Producer Profile Image Placeholder</title>
                 <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     <g transform="translate(-1141.000000, -271.000000)">

@@ -153,7 +153,7 @@ describe('<RecentTransactions /> Component', () => {
         const component = renderComponent({});
         expect(component.find('caption')).toHaveLength(1);
         expect(component.find('.recent-transactions-caption-content')).toHaveLength(0);
-        expect(component.find('.recent-transactions-current-balance-row')).toHaveLength(1);
+        expect(component.find('.recent-transactions-balance-row')).toHaveLength(1);
         expect(component.find('thead')).toHaveLength(1);
         expect(component.find('tbody')).toHaveLength(1);
         expect(component.find('th')).toHaveLength(4);
@@ -168,7 +168,7 @@ describe('<RecentTransactions /> Component', () => {
 
         expect(extendedComponent.find(Spinner)).toHaveLength(1);
         expect(extendedComponent.find('.recent-transactions-caption-content')).toHaveLength(1);
-        expect(extendedComponent.find('.recent-transactions-current-balance-row')).toHaveLength(0);
+        expect(extendedComponent.find('.recent-transactions-balance-row')).toHaveLength(0);
         expect(extendedComponent.find(Button)).toHaveLength(0);
         expect(extendedComponent.find(DisclosureArrow)).toHaveLength(7);
         expect(extendedComponent.find(RecentTransactionDetails)).toHaveLength(7);
@@ -186,7 +186,7 @@ describe('<RecentTransactions /> Component', () => {
         expect(data.at(count++).text()).toEqual(`${formatCurrency(0.81)} €`);
         expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
         expect(data.at(count++).text()).toContain(
-            `FromAmountPrice per kWhJhon Doe${formatFloat(7.74)} kWh${formatFloat(
+            `FromJhon DoeAmount${formatFloat(7.74)} kWhPrice per kWh${formatFloat(
                 2.5
             )} ctBlockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743`
         );
@@ -196,7 +196,7 @@ describe('<RecentTransactions /> Component', () => {
         expect(data.at(count++).text()).toEqual(`${formatCurrency(0.081)} €`);
         expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
         expect(data.at(count++).text()).toContain(
-            `FromAmountPrice per kWhJhon Doe${formatFloat(7.74)} kWh${formatFloat(
+            `FromJhon DoeAmount${formatFloat(7.74)} kWhPrice per kWh${formatFloat(
                 2.5
             )} ctBlockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743`
         );
@@ -205,14 +205,14 @@ describe('<RecentTransactions /> Component', () => {
         expect(data.at(count++).text()).toEqual('Bought 23 kWh from Peter');
         expect(data.at(count++).text()).toEqual(`${formatCurrency(0.8)} €`);
         expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
-        expect(data.at(count).text()).toContain(
-            `FromAmountPrice per kWhJhon Doe${formatFloat(7.74)} kWh${formatFloat(
+        expect(data.at(count++).text()).toContain(
+            `FromJhon DoeAmount${formatFloat(7.74)} kWhPrice per kWh${formatFloat(
                 2.5
             )} ctBlockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743`
         );
 
-        expect(component.find('.recent-transactions-current-balance-date').text()).toEqual('Apr 14, 2018');
-        expect(component.find('.recent-transactions-current-balance-amount').text()).toEqual(
+        expect(component.find('.recent-transactions-balance-date').text()).toEqual('Apr 14, 2018');
+        expect(component.find('.recent-transactions-balance-amount').text()).toEqual(
             `Monthly Balance: ${formatCurrency(currentBalanceDummy.balance)} €`
         );
     });

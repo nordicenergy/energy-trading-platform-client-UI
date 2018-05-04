@@ -27,6 +27,7 @@ class RecentTransactions extends React.Component {
             const { details } = transaction;
             const isExpand = this.state.expanded[index];
             const rowClasses = classNames({
+                'recent-transactions-row': true,
                 'recent-transactions-row--expand': isExpand
             });
             const detailsClasses = classNames({
@@ -107,18 +108,18 @@ class RecentTransactions extends React.Component {
                 </table>
 
                 {!pagination && (
-                    <div role="row" className="recent-transactions-current-balance-row">
+                    <div role="row" className="recent-transactions-balance-row">
                         <span
                             role="cell"
                             aria-describedby="transactionDateHeader"
-                            className="recent-transactions-current-balance-date"
+                            className="recent-transactions-balance-date"
                         >
                             {renderDate(currentBalance.date)}
                         </span>
                         <span
                             role="cell"
                             aria-describedby="transactionAmountHeader"
-                            className="recent-transactions-current-balance-amount"
+                            className="recent-transactions-balance-amount"
                         >
                             {labels.recentTransactionsMonthlyBalance}: {formatCurrency(currentBalance.balance)} €
                         </span>
