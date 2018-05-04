@@ -75,7 +75,7 @@ class TextField extends Component {
                             type={type}
                             name={name}
                             placeholder={placeholder}
-                            value={value}
+                            value={value || ''}
                             onChange={event => this.handleChange(event)}
                             onFocus={event => this.handleFocus(event)}
                             onBlur={event => this.handleBlur(event)}

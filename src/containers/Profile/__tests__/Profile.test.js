@@ -1,6 +1,6 @@
 import React from 'react';
 import { Profile } from '../Profile';
-import { shallowWithIntl } from '../../../services/intlTestHelper';
+import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import * as userActionPerformers from '../../../action_performers/users';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
 
@@ -17,6 +17,17 @@ describe('<Profile /> Container', () => {
         expect(component.find('ProfileForm')).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
         expect(component.find('h1').text()).toBe('Profile');
+    });
+
+    it('should show loader', () => {
+        const component = renderComponent(
+            {
+                loading: true
+            },
+            mountWithIntl
+        );
+
+        expect(component.find('.loader-backdrop--show')).toHaveLength(1);
     });
 
     it('should map state properties', () => {
