@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ProducerInfo, Button, Loader } from '../../components';
+import { ProducerInfo, Button, Loader, BackLink } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from './.';
 
@@ -80,6 +80,12 @@ export class Producer extends AbstractContainer {
         history.push(PATHS.buyEnergy.path);
     }
 
+    handleBackLinkClick(event) {
+        event.preventDefault();
+        const { history } = this.context.router;
+        history.push(PATHS.buyEnergy.path);
+    }
+
     navigateToOverview() {
         const { history } = this.context.router;
         history.push(PATHS.overview.path);
@@ -94,7 +100,10 @@ export class Producer extends AbstractContainer {
             <section className="producer-page" aria-busy={loading}>
                 <Loader show={loading} />
                 <section className="producer-page-info-container">
-                    <h1>{producer.name}</h1>
+                    <h1>
+                        <BackLink onClick={event => this.handleBackLinkClick(event)} />
+                        <span>{producer.name}</span>
+                    </h1>
                     <ProducerInfo {...producerInfoProps} />
                 </section>
                 <section className="producer-page-controls">

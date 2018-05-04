@@ -219,4 +219,12 @@ describe('<Producer /> Component', () => {
         const [, [error]] = notificationActions.performPushNotification.mock.calls;
         expect(error).toEqual({ message: 'Error Message', type: 'error' });
     });
+
+    it('should open buy energy page', () => {
+        const component = renderComponent();
+        component.setContext(context);
+
+        component.find('BackLink').simulate('click', { preventDefault: jest.fn() });
+        expect(context.router.history.push).toHaveBeenCalledWith('/buy_energy');
+    });
 });

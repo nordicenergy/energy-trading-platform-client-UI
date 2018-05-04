@@ -15,5 +15,6 @@
 
     .navigation-cards .nav-card-container {
         margin: 0.5rem 0;
+        flex: 1 0 auto;
     }
 }

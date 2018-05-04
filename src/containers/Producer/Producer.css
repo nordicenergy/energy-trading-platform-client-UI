@@ -3,6 +3,10 @@
     background: white;
 }
 
+.producer-page-info-container > h1 > .back-link {
+    display: none;
+}
+
 .producer-page-info-container > h1 {
     margin: 0 0 1em 0;
     padding: 0;
@@ -21,4 +25,31 @@
 .producer-page-controls button {
     margin-right: 1.5em;
     margin-top: 0.5em;
+}
+
+@media screen and (max-width: 767px) {
+    .producer-page-info-container > h1 {
+        display: flex;
+        align-items: center;
+        font-size: 1.375rem;
+    }
+
+    .producer-page-info-container > h1 > .back-link {
+        display: inline-block;
+        margin-right: 1rem;
+    }
+
+    .producer-page-info-container > h1 > span {
+        flex: 1;
+        padding-top: 0.25em;
+    }
+
+    .producer-page-controls {
+        padding: 1em;
+    }
+
+    .producer-page-controls button {
+        margin: 0.5em 0;
+        width: 100%;
+    }
 }
