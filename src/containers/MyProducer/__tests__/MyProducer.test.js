@@ -252,6 +252,6 @@ describe('<MyProducer /> Component', () => {
         component.setContext(context);
 
         component.find('BackLink').simulate('click', { preventDefault: jest.fn() });
-        expect(context.router.history.push).toHaveBeenCalledWith('/trading');
+        expect(context.router.history.push).toHaveBeenCalledWith('/');
     });
 });

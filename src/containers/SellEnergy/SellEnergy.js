@@ -75,7 +75,7 @@ export class SellEnergy extends AbstractContainer {
     handleBackLinkClick(event) {
         event.preventDefault();
         const { history } = this.context.router;
-        history.push(PATHS.trading.path);
+        history.push(PATHS.overview.path);
     }
 
     renderOffersSlider() {

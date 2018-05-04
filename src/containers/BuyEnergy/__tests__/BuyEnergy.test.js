@@ -193,7 +193,7 @@ describe('<BuyEnergy /> container', () => {
         const buyEnergy = renderComponent();
 
         buyEnergy.find('BackLink').simulate('click', { preventDefault: jest.fn() });
-        expect(routerStub.history.push).toHaveBeenCalledWith('/trading');
+        expect(routerStub.history.push).toHaveBeenCalledWith('/');
     });
 
     it('should opens producer page', () => {
