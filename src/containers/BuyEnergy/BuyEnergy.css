@@ -87,18 +87,8 @@
     }
 
     .buy-energy-page-header > h1 > .back-link {
-        display: block;
+        display: inline-block;
         margin-right: 1rem;
-        width: 2rem;
-        height: 2rem;
-    }
-
-    .buy-energy-page-header > h1 > .back-link .disclosure-arrow {
-        transform: rotate(180deg);
-    }
-
-    .buy-energy-page-header > h1 > .back-link .disclosure-arrow-border {
-        stroke: var(--button-success-color);
     }
 
     .buy-energy-page-header > h1 > span {
