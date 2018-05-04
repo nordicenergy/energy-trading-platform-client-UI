@@ -40,10 +40,7 @@ class OfferForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         const { onSubmit } = this.props;
-
-        if (typeof onSubmit === 'function') {
-            onSubmit({ ...this.state });
-        }
+        onSubmit && onSubmit({ ...this.state });
     }
 
     handleChange(event) {
@@ -84,15 +81,11 @@ class OfferForm extends Component {
     renderDeleteButton() {
         const { labels, disabled, onDelete } = this.props;
 
-        if (typeof onDelete === 'function') {
-            return (
-                <button className="offer-form-delete-button" type="button" disabled={disabled} onClick={onDelete}>
-                    <FontAwesomeIcon icon={faTrashAlt} /> {labels.deleteButton}
-                </button>
-            );
-        }
-
-        return null;
+        return onDelete ? (
+            <button className="offer-form-delete-button" type="button" disabled={disabled} onClick={onDelete}>
+                <FontAwesomeIcon icon={faTrashAlt} /> {labels.deleteButton}
+            </button>
+        ) : null;
     }
 
     render() {

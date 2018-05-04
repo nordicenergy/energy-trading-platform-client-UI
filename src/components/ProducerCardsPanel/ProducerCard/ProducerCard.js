@@ -6,14 +6,6 @@ import { WindImage, SolarImage, BiomassImage, DefaultImage } from './images';
 import './ProducerCard.css';
 
 class ProducerCard extends Component {
-    handleClick(producerId) {
-        const { onClick } = this.props;
-
-        if (typeof onClick === 'function') {
-            onClick(producerId);
-        }
-    }
-
     createImage(plantType) {
         if (plantType === PLANT_TYPES.wind) {
             return <WindImage />;
@@ -31,11 +23,11 @@ class ProducerCard extends Component {
     }
 
     render() {
-        const { className, producer, selected } = this.props;
+        const { className, producer, selected, onClick } = this.props;
         const classes = classNames('producer-card', selected && 'producer-card--selected', className);
 
         return (
-            <div className={classes} onClick={() => this.handleClick(producer.id)}>
+            <div className={classes} onClick={() => onClick && onClick(producer.id)}>
                 <div className="producer-card-price">
                     <strong>
                         {producer.price}{' '}

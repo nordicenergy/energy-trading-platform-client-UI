@@ -35,9 +35,7 @@ class LongPressButton extends Component {
 
     handlePress() {
         const { onPress } = this.props;
-        if (typeof onPress === 'function') {
-            onPress();
-        }
+        onPress && onPress();
     }
 
     handleMouseDown() {

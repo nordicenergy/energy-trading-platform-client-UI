@@ -44,31 +44,27 @@ class DateField extends Component {
         const dateFieldBounds = this.dateFieldRef.getBoundingClientRect();
         const datePickerPosition = dateFieldBounds.top >= PAGE_TOP_OFFSET ? 'top' : 'bottom';
 
-        this.setState(() => ({
+        this.setState({
             hasFocus: true,
             datePickerPosition
-        }));
+        });
     }
 
     handleChange(date) {
+        const { onChange } = this.props;
         const timestamp = parseInt(date.getTime() / SECOND, 10);
-        this.setState(
-            () => ({ value: timestamp }),
-            () => {
-                const { onChange } = this.props;
-                if (typeof onChange === 'function') {
-                    onChange(timestamp);
-                }
-            }
-        );
+
+        this.setState({ value: timestamp });
+        onChange && onChange(timestamp);
     }
 
     handleOnCancel() {
-        this.setState(() => ({ hasFocus: false }));
+        this.setState({ hasFocus: false });
     }
 
     handleConfirm(date) {
-        this.setState(() => ({ hasFocus: false }), () => this.handleChange(date));
+        this.setState({ hasFocus: false });
+        this.handleChange(date);
     }
 
     renderDatePicker() {

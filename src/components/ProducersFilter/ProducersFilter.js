@@ -34,22 +34,15 @@ class ProducersFilter extends Component {
             changedValue = [...value, name];
         }
 
-        this.setState({
-            value: changedValue
-        });
-
-        if (typeof onChange === 'function') {
-            onChange(changedValue);
-        }
+        this.setState({ value: changedValue });
+        onChange && onChange(changedValue);
     }
 
     handleDefaultOptionClick() {
         const { onChange } = this.props;
 
         this.setState({ value: [] });
-        if (typeof onChange === 'function') {
-            onChange([]);
-        }
+        onChange && onChange([]);
     }
 
     handleOpenButtonClick() {

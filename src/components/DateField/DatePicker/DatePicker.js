@@ -45,18 +45,12 @@ class DatePicker extends Component {
 
     handlePickMeUpChange(event) {
         const { onChange } = this.props;
-
-        if (typeof onChange === 'function') {
-            onChange(event.detail.date);
-        }
+        onChange && onChange(event.detail.date);
     }
 
     handleConfirmClick() {
         const { onConfirm } = this.props;
-
-        if (typeof onConfirm === 'function') {
-            onConfirm(this.datepicker.get_date());
-        }
+        onConfirm && onConfirm(this.datepicker.get_date());
     }
 
     render() {
