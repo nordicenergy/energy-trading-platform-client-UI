@@ -18,13 +18,13 @@ describe('<FilterCheckbox /> component', () => {
     it('should renders correct icon', () => {
         const filterComponent = renderComponent();
 
-        expect(filterComponent.html().includes('id="otherIcon"')).toBeTruthy();
+        expect(filterComponent.html().includes('class="other-energy-icon"')).toBeTruthy();
         filterComponent.setProps({ type: 'wind' });
-        expect(filterComponent.html().includes('id="windIcon"')).toBeTruthy();
+        expect(filterComponent.html().includes('class="wind-energy-icon"')).toBeTruthy();
         filterComponent.setProps({ type: 'solar' });
-        expect(filterComponent.html().includes('id="solarIcon"')).toBeTruthy();
+        expect(filterComponent.html().includes('class="solar-energy-icon"')).toBeTruthy();
         filterComponent.setProps({ type: 'biomass' });
-        expect(filterComponent.html().includes('id="biomassIcon"')).toBeTruthy();
+        expect(filterComponent.html().includes('class="biomass-energy-icon"')).toBeTruthy();
     });
 
     it('should calls onChange callback', () => {
