@@ -220,7 +220,7 @@ describe('<Producer /> Component', () => {
         expect(error).toEqual({ message: 'Error Message', type: 'error' });
     });
 
-    it('should open trading page', () => {
+    it('should open buy energy page', () => {
         const component = renderComponent();
         component.setContext(context);
 

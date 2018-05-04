@@ -3,6 +3,10 @@
     background: white;
 }
 
+.producer-page-info-container > h1 > .back-link {
+    display: none;
+}
+
 .producer-page-info-container > h1 {
     margin: 0 0 1em 0;
     padding: 0;
@@ -31,18 +35,8 @@
     }
 
     .producer-page-info-container > h1 > .back-link {
-        display: block;
+        display: inline-block;
         margin-right: 1rem;
-        width: 2rem;
-        height: 2rem;
-    }
-
-    .producer-page-info-container > h1 > .back-link .disclosure-arrow {
-        transform: rotate(180deg);
-    }
-
-    .producer-page-info-container > h1 > .back-link .disclosure-arrow-border {
-        stroke: var(--button-success-color);
     }
 
     .producer-page-info-container > h1 > span {

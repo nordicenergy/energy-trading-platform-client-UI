@@ -36,18 +36,8 @@
     }
 
     .my-producer-page-info-container > h1 > .back-link {
-        display: block;
+        display: inline-block;
         margin-right: 1rem;
-        width: 2rem;
-        height: 2rem;
-    }
-
-    .my-producer-page-info-container > h1 > .back-link .disclosure-arrow {
-        transform: rotate(180deg);
-    }
-
-    .my-producer-page-info-container > h1 > .back-link .disclosure-arrow-border {
-        stroke: var(--button-success-color);
     }
 
     .my-producer-page-info-container > h1 > span {
