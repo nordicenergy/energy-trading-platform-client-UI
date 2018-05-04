@@ -113,6 +113,11 @@ figure.producer-information-image img {
         flex-direction: column-reverse;
     }
 
+    section.producer-information-details > div,
+    section.producer-information-details > figure {
+        flex: 1 0 auto;
+    }
+
     figure.producer-information-image {
         margin: 0 0 1.5em;
     }
@@ -147,6 +152,7 @@ figure.producer-information-image img {
 
     span.producer-information-value,
     span.producer-information-label {
+        flex: 1 0 auto;
         font-size: 1.125rem;
     }
 

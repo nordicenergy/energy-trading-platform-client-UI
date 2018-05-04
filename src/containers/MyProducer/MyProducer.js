@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ProducerInfo, Loader, Button, DisclosureArrow } from '../../components';
+import { ProducerInfo, Loader, Button, BackLink } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
@@ -87,13 +87,7 @@ export class MyProducer extends AbstractContainer {
                 <Loader show={loading} />
                 <section className="my-producer-page-info-container">
                     <h1>
-                        <a
-                            href={PATHS.trading.path}
-                            className="back-link"
-                            onClick={event => this.handleBackLinkClick(event)}
-                        >
-                            <DisclosureArrow />
-                        </a>
+                        <BackLink onClick={event => this.handleBackLinkClick(event)} />
                         <span>{formatMessage(messages.header)}</span>
                     </h1>
                     <ProducerInfo {...producerInfoProps} />

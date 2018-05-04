@@ -46,6 +46,7 @@
     }
 
     .producer-page-info-container > h1 > span {
+        flex: 1;
         padding-top: 0.25em;
     }
 

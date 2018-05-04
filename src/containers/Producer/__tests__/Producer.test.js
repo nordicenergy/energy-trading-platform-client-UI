@@ -224,7 +224,7 @@ describe('<Producer /> Component', () => {
         const component = renderComponent();
         component.setContext(context);
 
-        component.find('.back-link').simulate('click', { preventDefault: jest.fn() });
+        component.find('BackLink').simulate('click', { preventDefault: jest.fn() });
         expect(context.router.history.push).toHaveBeenCalledWith('/buy_energy');
     });
 });
