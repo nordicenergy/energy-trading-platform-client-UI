@@ -49,9 +49,7 @@ class SelectField extends Component {
         const { onChange } = this.props;
 
         this.setState({ value: option, isFocused: false });
-        if (typeof onChange === 'function') {
-            onChange(option);
-        }
+        onChange && onChange(option);
     }
 
     renderOption(option) {

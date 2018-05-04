@@ -16,9 +16,7 @@ class OfferCard extends Component {
         event.preventDefault();
 
         const { onClick } = this.props;
-        if (typeof onClick === 'function') {
-            onClick();
-        }
+        onClick && onClick();
     }
 
     renderPeriodDate(date /* expect seconds | unix timestamp */) {

@@ -49,9 +49,7 @@ class NumberField extends Component {
         const changedValue = Number((valueFloat + step).toFixed(1));
 
         this.setState({ value: changedValue });
-        if (typeof onChange === 'function') {
-            onChange(changedValue);
-        }
+        onChange && onChange(changedValue);
     }
 
     handleOnChange(event) {
@@ -60,9 +58,7 @@ class NumberField extends Component {
         const valueFloat = Number(value);
 
         this.setState({ value: valueFloat });
-        if (typeof onChange === 'function') {
-            onChange(valueFloat);
-        }
+        onChange && onChange(valueFloat);
     }
 
     render() {

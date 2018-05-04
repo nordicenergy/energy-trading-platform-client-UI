@@ -29,6 +29,7 @@ import CoinButton from './CoinButton';
 import OfferCard from './OfferCard';
 import OffersSlider from './OffersSlider';
 import DisclosureArrow from './DisclosureArrow';
+import BackLink from './BackLink';
 
 export {
     Button,
@@ -65,5 +66,6 @@ export {
     Confirm,
     OfferCard,
     OffersSlider,
-    DisclosureArrow
+    DisclosureArrow,
+    BackLink
 };

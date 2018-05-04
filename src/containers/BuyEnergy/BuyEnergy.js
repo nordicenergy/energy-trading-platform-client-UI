@@ -8,7 +8,7 @@ import { BuyEnergy as messages } from '../../services/translations/messages';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
 import { performPushNotification } from '../../action_performers/notifications';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { Loader, DisclosureArrow, ProducerCardsPanel, ProducersFilter, OptionLinks } from '../../components';
+import { Loader, BackLink, ProducerCardsPanel, ProducersFilter, OptionLinks } from '../../components';
 import './BuyEnergy.css';
 
 const FILTER_OPTIONS = [
@@ -147,13 +147,7 @@ export class BuyEnergy extends AbstractContainer {
                 <Loader show={shouldShowFullScreenLoader} />
                 <header className="buy-energy-page-header">
                     <h1>
-                        <a
-                            href={PATHS.trading.path}
-                            className="back-link"
-                            onClick={event => this.handleBackLinkClick(event)}
-                        >
-                            <DisclosureArrow />
-                        </a>
+                        <BackLink onClick={event => this.handleBackLinkClick(event)} />
                         <span>{formatMessage(messages.pageTitle)}</span>
                     </h1>
                     <h2>

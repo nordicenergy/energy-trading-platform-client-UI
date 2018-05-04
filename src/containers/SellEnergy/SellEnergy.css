@@ -1,15 +1,19 @@
 .sell-energy-page {
+    position: relative;
+    background: white;
     color: black;
     text-align: left;
-    background: white;
-    position: relative;
 }
 
 .sell-energy-page > h1 {
     margin: 0;
-    font-size: 1.625em;
     padding: var(--page-paddings);
     padding-bottom: 1.5rem;
+    font-size: 1.625em;
+}
+
+.sell-energy-page > h1 > .back-link {
+    display: none;
 }
 
 .sell-energy-page-offers {
@@ -23,21 +27,39 @@
     font-size: 1.125em;
 }
 
-@media (min-width: 640px) {
+@media (max-width: 767px) {
+    .sell-energy-page > h1 {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1rem 1.5rem;
+        font-size: 1.375em;
+    }
+
+    .sell-energy-page > h1 > .back-link {
+        display: inline-block;
+        margin-right: 1rem;
+    }
+
+    .sell-energy-page > h1 > span {
+        padding-top: 0.225em;
+    }
+}
+
+@media (max-width: 639px) {
     .offers-slider--full-width {
         margin: 0 -1em;
     }
 }
 
 .not-allowed-backdrop {
-    display: block;
-    z-index: 1;
     position: absolute;
     top: 0;
-    left: 0;
-    bottom: 0;
     right: 0;
-    content: '';
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
     background: rgba(255, 255, 255, 0.5);
+    content: '';
     cursor: not-allowed;
 }
