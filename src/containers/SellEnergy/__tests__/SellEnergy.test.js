@@ -75,6 +75,6 @@ describe('<SellEnergy /> container', () => {
     it('should go to the trading page when back link was clicked', () => {
         const sellEnergy = renderComponent();
         sellEnergy.find('BackLink').simulate('click', { preventDefault: jest.fn() });
-        expect(routerStub.history.push).toHaveBeenCalledWith('/trading');
+        expect(routerStub.history.push).toHaveBeenCalledWith('/');
     });
 });
