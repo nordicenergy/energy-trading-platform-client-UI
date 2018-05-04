@@ -4,31 +4,37 @@ import HeaderButton from '../HeaderButton';
 import Logo from '../../Logo';
 import { mount } from 'enzyme';
 
-const localesMock = ['en', 'de'];
-const localeMock = 'en';
-const navigateToMock = jest.fn();
-const onLogoutButtonClickHandlerMock = jest.fn();
-const onLocaleChangeMock = jest.fn();
+const localesDummy = ['en', 'de'];
+const localeDummy = 'en';
+
+const breadCrumbsClickStub = jest.fn();
+const logoutClickStub = jest.fn();
+const localeChangeStub = jest.fn();
+const menuBarToggleStub = jest.fn();
+const logoClickStub = jest.fn();
+
 function renderComponent(
     {
-        notifications = [],
-        locales = localesMock,
-        navigateTo = navigateToMock,
-        onLogoutButtonClickHandler = onLogoutButtonClickHandlerMock,
-        locale = localeMock,
-        onLocaleChange = onLocaleChangeMock,
+        onLogoClick = logoClickStub,
+        onBreadCrumbsClick = breadCrumbsClickStub,
+        onLogoutClick = logoutClickStub,
+        locales = localesDummy,
+        locale = localeDummy,
+        onLocaleChange = localeChangeStub,
+        onToggleMenuBar = menuBarToggleStub,
         ...otherProps
     } = {},
     mountFn = mount
 ) {
     return mountFn(
         <Header
-            notifications={notifications}
-            navigateTo={navigateTo}
-            onLogoutButtonClickHandler={onLogoutButtonClickHandler}
+            onBreadCrumbsClick={onBreadCrumbsClick}
+            onLogoutClick={onLogoutClick}
             locales={locales}
             locale={locale}
             onLocaleChange={onLocaleChange}
+            onToggleMenuBar={onToggleMenuBar}
+            onLogoClick={onLogoClick}
             {...otherProps}
         />
     );
@@ -36,9 +42,11 @@ function renderComponent(
 
 describe('<Header /> Component', () => {
     afterEach(() => {
-        navigateToMock.mockClear();
-        onLogoutButtonClickHandlerMock.mockClear();
-        onLocaleChangeMock.mockClear();
+        breadCrumbsClickStub.mockClear();
+        logoutClickStub.mockClear();
+        localeChangeStub.mockClear();
+        menuBarToggleStub.mockClear();
+        logoClickStub.mockClear();
     });
 
     it(`should contains following controls:
@@ -49,44 +57,82 @@ describe('<Header /> Component', () => {
         const header = renderComponent({});
 
         expect(header.find('LanguageSelect')).toHaveLength(1);
-        expect(header.find('HeaderButton')).toHaveLength(1);
+        expect(header.find('HeaderButton')).toHaveLength(2);
         expect(header.find('Logo')).toHaveLength(1);
         expect(header.find('header.header-desktop')).toHaveLength(1);
     });
 
-    it('should calls navigateTo callback', () => {
+    it('should handle breadcrumbs click event', () => {
         const header = renderComponent();
         header
             .find('Breadcrumbs')
             .props()
             .onClick('/test');
-        expect(navigateToMock).toHaveBeenCalledWith('/test');
+        expect(breadCrumbsClickStub).toHaveBeenCalledWith('/test');
     });
 
-    it('should calls onLocaleChange callback', () => {
+    it('should handle locale change event', () => {
         const header = renderComponent();
         header
             .find('LanguageSelect')
             .props()
             .onChange('de');
-        expect(onLocaleChangeMock).toHaveBeenCalledWith('de');
+        expect(localeChangeStub).toHaveBeenCalledWith('de');
     });
 
-    it('should call onLogoutButtonClickHandler after clicking on logout button', () => {
+    it('should handle logout clicking', () => {
         const header = renderComponent();
         header
             .find('HeaderButton')
+            .at(1)
             .find('button')
             .simulate('click');
-        expect(onLogoutButtonClickHandlerMock).toHaveBeenCalled();
+        expect(logoutClickStub).toHaveBeenCalled();
     });
 
-    it('should not calls onLogoutButtonClickHandler callback if onLogoutButtonClickHandler is not a function', () => {
-        const header = renderComponent({ onLogoutButtonClickHandler: null });
+    it('should handle menu bar toggling', () => {
+        const header = renderComponent();
         header
             .find('HeaderButton')
+            .at(0)
             .find('button')
             .simulate('click');
-        expect(onLogoutButtonClickHandlerMock).not.toHaveBeenCalled();
+        expect(menuBarToggleStub).toHaveBeenCalled();
+    });
+
+    it('should handle logo clicking', () => {
+        const header = renderComponent();
+        header
+            .find('Logo')
+            .props()
+            .onClick();
+        expect(logoClickStub).toHaveBeenCalled();
+    });
+
+    it('should setup default event handlers', () => {
+        const header = mount(<Header />);
+        expect(header.find(Header)).toHaveLength(1);
+        header
+            .find('Logo')
+            .props()
+            .onClick();
+        header
+            .find('HeaderButton')
+            .at(0)
+            .find('button')
+            .simulate('click');
+        header
+            .find('HeaderButton')
+            .at(1)
+            .find('button')
+            .simulate('click');
+        header
+            .find('LanguageSelect')
+            .props()
+            .onChange('de');
+        header
+            .find('Breadcrumbs')
+            .props()
+            .onClick('/test');
     });
 });
