@@ -25,9 +25,7 @@ class LanguageSelect extends Component {
         const { onChange } = this.props;
 
         this.setState({ value });
-        if (typeof onChange === 'function') {
-            onChange(value);
-        }
+        onChange && onChange(value);
     }
 
     render() {

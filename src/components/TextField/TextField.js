@@ -21,18 +21,14 @@ class TextField extends Component {
         const { onFocus } = this.props;
 
         this.setState({ hasFocus: true });
-        if (typeof onFocus === 'function') {
-            onFocus(event);
-        }
+        onFocus && onFocus(event);
     }
 
     handleBlur(event) {
         const { onBlur } = this.props;
 
         this.setState({ hasFocus: false });
-        if (typeof onBlur === 'function') {
-            onBlur(event);
-        }
+        onBlur && onBlur(event);
     }
 
     handleChange(event) {
@@ -40,9 +36,7 @@ class TextField extends Component {
         const { value } = event.currentTarget;
 
         this.setState({ value });
-        if (typeof onChange === 'function') {
-            onChange(event);
-        }
+        onChange && onChange(event);
     }
 
     render() {
