@@ -84,14 +84,14 @@ caption .recent-transactions-caption-content > div:last-child {
     padding-left: 3rem;
 }
 
-.recent-transactions-container th:nth-child(0n + 2),
-.recent-transactions-container td:nth-child(0n + 2) {
+.recent-transactions-container th:nth-child(2),
+.recent-transactions-container td:nth-child(2) {
     width: 50%;
     text-align: center;
 }
 
-.recent-transactions-container th:nth-child(0n + 3),
-.recent-transactions-container td:nth-child(0n + 3) {
+.recent-transactions-container th:nth-child(3),
+.recent-transactions-container td:nth-child(3) {
     width: 15%;
     text-align: right;
 }
@@ -226,7 +226,7 @@ tr.recent-transactions-details-row--expand > td::after {
         color: var(--label-color);
     }
 
-    .recent-transactions-container tr.recent-transactions-row td:nth-child(0n + 3) {
+    .recent-transactions-container tr.recent-transactions-row td:nth-child(3) {
         padding-bottom: 0;
         font-weight: 600;
     }

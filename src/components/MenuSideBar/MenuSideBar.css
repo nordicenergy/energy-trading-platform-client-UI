@@ -1,7 +1,7 @@
 .menu-side-bar {
+    overflow-y: auto;
     width: var(--side-bar-width);
     height: 100%;
-
     background: transparent linear-gradient(to right, var(--bar-color), var(--bar-color)) no-repeat;
     background-size: var(--menu-icon-size) 100%;
     border-right: var(--border-width) solid var(--border-on-light-color);

@@ -16,3 +16,9 @@
 .trading-page .wattcoin-table-container {
     opacity: 0.4;
 }
+
+@media (max-width: 767px) {
+    .trading-page > h1 {
+        font-size: 1.375em;
+    }
+}
