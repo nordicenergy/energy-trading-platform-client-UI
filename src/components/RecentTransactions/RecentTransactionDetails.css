@@ -53,7 +53,7 @@
     text-align: left;
 }
 
-.recent-transactions-details-values > div[role='row']:nth-child(0n + 2) {
+.recent-transactions-details-values > div[role='row']:nth-child(2) {
     width: 50%;
     text-align: center;
 }

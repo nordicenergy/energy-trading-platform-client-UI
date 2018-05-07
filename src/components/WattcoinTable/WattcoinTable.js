@@ -7,21 +7,19 @@ import './WattcoinTable.css';
 class WattcoinTable extends React.Component {
     renderCountCell(label, count) {
         return (
-            <td className="wattcoin-table-count-info">
-                <div>
-                    <div className="wattcoin-table-label">{label}</div>
-                    <div className="wattcoin-table-value">{count}</div>
-                </div>
-            </td>
+            <div className="wattcoin-table-count-info" role="cell">
+                <div className="wattcoin-table-label">{label}</div>
+                <div className="wattcoin-table-value">{count}</div>
+            </div>
         );
     }
 
     renderTextualCell(label, value) {
         return (
-            <td className="wattcoin-table-textual-info">
+            <div className="wattcoin-table-textual-info" role="cell">
                 <span className="wattcoin-table-label">{label}</span>
                 <span className="wattcoin-table-value">{value}</span>
-            </td>
+            </div>
         );
     }
 
@@ -29,7 +27,7 @@ class WattcoinTable extends React.Component {
         const { onMoreClick = f => f, labels = {} } = this.props;
         const { button = 'More' } = labels;
         return (
-            <td className="wattcoin-table-total-info" colSpan="3">
+            <div className="wattcoin-table-total-info" role="cell">
                 <span>
                     <span className="wattcoin-table-label">{label}</span>
                     <span className="wattcoin-table-value">{`${total || ''}`.replace('.', ',')}</span>
@@ -37,7 +35,7 @@ class WattcoinTable extends React.Component {
                 <Button disabled className="wattcoin-table-more-button" onClick={() => onMoreClick()}>
                     {button}
                 </Button>
-            </td>
+            </div>
         );
     }
 
@@ -56,21 +54,21 @@ class WattcoinTable extends React.Component {
 
         return (
             <div className="wattcoin-table-container">
-                <table>
-                    <caption>{caption}</caption>
-                    <tbody>
-                        <tr>
-                            {this.renderTextualCell(producer, data.producer)}
-                            {this.renderTotalCell(total, data.total)}
-                        </tr>
-                        <tr>
-                            {this.renderTextualCell(energyType, data.type)}
+                <span id="wattcoin-table-caption">{caption}</span>
+                <div role="table" aria-labelledby="wattcoin-table-caption">
+                    <div role="rowgroup">
+                        <div role="row">{this.renderTextualCell(producer, data.producer)}</div>
+                        <div role="row">{this.renderTextualCell(energyType, data.type)}</div>
+                    </div>
+                    <div role="rowgroup">
+                        <div role="row">{this.renderTotalCell(total, data.total)}</div>
+                        <div role="row">
                             {this.renderCountCell(trx, count.trx)}
                             {this.renderCountCell(sent, count.sent)}
                             {this.renderCountCell(received, count.received)}
-                        </tr>
-                    </tbody>
-                </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -41,11 +41,11 @@ describe('<WattcoinTable /> Component', () => {
         - 3 ".wattcoin-table-count-info" elements;`, () => {
         const component = renderComponent(props);
 
-        expect(component.find('table').length).toEqual(1);
-        const caption = component.find('caption');
+        expect(component.find('div[role="table"]').length).toEqual(1);
+        const caption = component.find('#wattcoin-table-caption');
         expect(caption.length).toEqual(1);
         expect(caption.at(0).text()).toEqual('Wattcoin');
-        expect(component.find('tbody').length).toEqual(1);
+        expect(component.find('div[role="rowgroup"]').length).toEqual(2);
 
         const button = component.find(Button);
         expect(button.length).toEqual(1);

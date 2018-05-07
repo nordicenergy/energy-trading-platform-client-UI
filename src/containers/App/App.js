@@ -60,6 +60,12 @@ export class App extends React.Component {
         }));
     }
 
+    handleDeEmphasizedContentClick(target) {
+        if (this.state.isMenuBarOpen && target.classList && target.classList.contains('content--de-emphasized')) {
+            this.setState({ isMenuBarOpen: false });
+        }
+    }
+
     navigateTo(route) {
         this.context.router.history.push(route);
     }
@@ -168,6 +174,7 @@ export class App extends React.Component {
                         content: true,
                         'content--de-emphasized': this.state.isMenuBarOpen
                     })}
+                    onClick={event => this.handleDeEmphasizedContentClick(event.target)}
                 >
                     <div
                         aria-live="polite"

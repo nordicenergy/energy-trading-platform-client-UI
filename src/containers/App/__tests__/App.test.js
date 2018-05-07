@@ -184,4 +184,29 @@ describe('Main <App /> Component', () => {
             .onLocaleChange('de');
         expect(appActions.performSetupLocale).toHaveBeenCalledWith('de');
     });
+
+    it('should provide possibility to de-emphasize content area and revert this option', () => {
+        const component = renderComponent();
+        expect(component.find('.content--de-emphasized')).toHaveLength(0);
+
+        component
+            .find(Header)
+            .at(0)
+            .props()
+            .onToggleMenuBar();
+        expect(component.update().find('.content--de-emphasized')).toHaveLength(1);
+
+        component
+            .find('.content')
+            .at(0)
+            .props()
+            .onClick({
+                target: {
+                    classList: {
+                        contains: className => 'content--de-emphasized' === className
+                    }
+                }
+            });
+        expect(component.update().find('.content--de-emphasized')).toHaveLength(0);
+    });
 });
