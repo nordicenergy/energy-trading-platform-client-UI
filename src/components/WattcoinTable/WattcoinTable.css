@@ -47,75 +47,75 @@
 
 .wattcoin-table-container div[role='cell'] {
     box-sizing: border-box;
-    min-height: 75px;
+    min-height: 4.7rem;
     text-align: center;
 }
 
-div.wattcoin-table-textual-info {
+.wattcoin-table-textual-info {
     padding: 1.25em;
 }
 
-div.wattcoin-table-textual-info .wattcoin-table-value,
-div.wattcoin-table-textual-info .wattcoin-table-label {
+.wattcoin-table-textual-info .wattcoin-table-value,
+.wattcoin-table-textual-info .wattcoin-table-label {
     display: inline-block;
     font-size: 1rem;
     font-weight: bold;
     line-height: 1.5;
 }
 
-div.wattcoin-table-count-info .wattcoin-table-label,
-div.wattcoin-table-textual-info .wattcoin-table-label {
+.wattcoin-table-count-info .wattcoin-table-label,
+.wattcoin-table-textual-info .wattcoin-table-label {
     color: var(--table-label-color);
 }
 
-div.wattcoin-table-count-info {
+.wattcoin-table-count-info {
     flex: 1 1 auto;
     padding: 1.25em 0;
 }
 
-div.wattcoin-table-count-info + div.wattcoin-table-count-info > div {
+.wattcoin-table-count-info + .wattcoin-table-count-info > div {
     border-left: var(--border-width) solid var(--border-on-light-color);
 }
 
-div.wattcoin-table-count-info .wattcoin-table-label {
+.wattcoin-table-count-info .wattcoin-table-label {
     display: block;
     font-size: 0.75rem;
     font-weight: bold;
     line-height: 1.5;
 }
 
-div.wattcoin-table-count-info .wattcoin-table-value {
+.wattcoin-table-count-info .wattcoin-table-value {
     display: block;
     font-size: 1.25rem;
     font-weight: bold;
     line-height: 1.5;
 }
 
-div.wattcoin-table-total-info {
+.wattcoin-table-total-info {
     background: var(--table-total-cell-bg-color);
     border-bottom: var(--border-width) solid var(--border-on-light-color);
 }
 
-div.wattcoin-table-total-info > span {
+.wattcoin-table-total-info > span {
     display: inline-block;
     padding: 1rem 0 0.5rem;
     margin: 0 3.25em;
 }
 
-div.wattcoin-table-total-info .wattcoin-table-label {
+.wattcoin-table-total-info .wattcoin-table-label {
     font-size: 1.375rem;
     font-weight: 600;
     line-height: 1.45;
 }
 
-div.wattcoin-table-total-info .wattcoin-table-value {
+.wattcoin-table-total-info .wattcoin-table-value {
     font-size: 1.5rem;
     font-weight: 600;
     line-height: 1.45;
 }
 
-div.wattcoin-table-total-info .wattcoin-table-label::after,
-div.wattcoin-table-textual-info .wattcoin-table-label::after {
+.wattcoin-table-total-info .wattcoin-table-label::after,
+.wattcoin-table-textual-info .wattcoin-table-label::after {
     margin-right: 0.3rem;
     content: ':';
 }
@@ -148,31 +148,31 @@ div.wattcoin-table-textual-info .wattcoin-table-label::after {
         content: '';
     }
 
-    div.wattcoin-table-textual-info .wattcoin-table-value,
-    div.wattcoin-table-textual-info .wattcoin-table-label {
+    .wattcoin-table-textual-info .wattcoin-table-value,
+    .wattcoin-table-textual-info .wattcoin-table-label {
         font-size: 0.875rem;
         font-weight: 500;
     }
 
-    div.wattcoin-table-total-info .wattcoin-table-value,
-    div.wattcoin-table-total-info .wattcoin-table-label {
+    .wattcoin-table-total-info .wattcoin-table-value,
+    .wattcoin-table-total-info .wattcoin-table-label {
         font-weight: 500;
     }
 
-    div.wattcoin-table-count-info {
+    .wattcoin-table-count-info {
         padding: 1em 0;
     }
 
-    div.wattcoin-table-count-info + div.wattcoin-table-count-info > div {
+    .wattcoin-table-count-info + .wattcoin-table-count-info > div {
         border: none;
     }
 
-    div.wattcoin-table-count-info .wattcoin-table-label {
+    .wattcoin-table-count-info .wattcoin-table-label {
         font-size: 0.625rem;
         font-weight: 500;
     }
 
-    div.wattcoin-table-count-info .wattcoin-table-value {
+    .wattcoin-table-count-info .wattcoin-table-value {
         font-weight: 500;
     }
 }
