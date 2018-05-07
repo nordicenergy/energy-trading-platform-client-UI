@@ -73,12 +73,7 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentDidMount() {
-        const { producers } = this.props;
-
-        if (producers.length === 0) {
-            performGetProducers();
-        }
-
+        performGetProducers();
         performGetCurrentProducer();
 
         const loadCondition = () => {
@@ -123,7 +118,7 @@ export class BuyEnergy extends AbstractContainer {
     handleBackLinkClick(event) {
         event.preventDefault();
         const { history } = this.context.router;
-        history.push(PATHS.trading.path);
+        history.push(PATHS.overview.path);
     }
 
     handleFilterChange(filter) {

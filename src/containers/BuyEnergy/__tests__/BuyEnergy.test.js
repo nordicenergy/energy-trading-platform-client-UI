@@ -116,6 +116,12 @@ describe('<BuyEnergy /> container', () => {
         expect(producersActionPerformers.performGetProducers).toHaveBeenCalled();
     });
 
+    it('should call performGetProducers on did mount hook even if producers list is not empty', () => {
+        renderComponent();
+
+        expect(producersActionPerformers.performGetProducers).toHaveBeenCalled();
+    });
+
     it('should calls performGetProducers when page increase', () => {
         const buyEnergy = renderComponent({
             currentProducerLoading: true,
@@ -187,7 +193,7 @@ describe('<BuyEnergy /> container', () => {
         const buyEnergy = renderComponent();
 
         buyEnergy.find('BackLink').simulate('click', { preventDefault: jest.fn() });
-        expect(routerStub.history.push).toHaveBeenCalledWith('/trading');
+        expect(routerStub.history.push).toHaveBeenCalledWith('/');
     });
 
     it('should opens producer page', () => {
