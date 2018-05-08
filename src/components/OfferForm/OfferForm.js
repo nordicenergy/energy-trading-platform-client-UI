@@ -137,7 +137,7 @@ class OfferForm extends React.PureComponent {
         const classes = classNames('offer-form', className);
 
         return (
-            <form className={classes} onSubmit={event => this.handleSubmit(event)}>
+            <form className={classes} onSubmit={event => this.handleSubmit(event)} noValidate>
                 <div className="offer-form-fields">
                     <div className="offer-form-field offer-form-field--price-delta">
                         <DeltaField
