@@ -1,6 +1,5 @@
 .energy-amount-graph {
     position: relative;
-    min-width: 28rem;
     margin: 2.5em 0;
     padding: 1em 0;
     background: white;
@@ -39,4 +38,14 @@
     color: var(--figure-subtitle-color);
     font-size: 0.875rem;
     font-weight: bold;
+}
+
+@media (max-width: 767px) {
+    .energy-amount-graph h1 {
+        font-size: 1.125rem;
+    }
+
+    .energy-amount-graph h2 {
+        font-weight: 500;
+    }
 }
