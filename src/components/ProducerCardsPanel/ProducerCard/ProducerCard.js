@@ -7,7 +7,7 @@ import './ProducerCard.css';
 
 const ProducerCard = ({ className, producer, selected, onClick }) => {
     const classes = classNames('producer-card', selected && 'producer-card--selected', className);
-    const style = { backgroundImage: `url(${producer.picture || defaultImage}` };
+    const style = { backgroundImage: `url(${producer.picture || defaultImage})` };
 
     return (
         <div className={classes} onClick={() => onClick && onClick(producer.id)} style={style}>
