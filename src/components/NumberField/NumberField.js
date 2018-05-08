@@ -46,7 +46,7 @@ class NumberField extends Component {
         const { value } = this.getState();
         const valueFloat = isNaN(value) || !value ? 0 : Number(value);
         const step = isIncrease ? this.getStep(valueFloat) : -this.getStep(valueFloat);
-        const changedValue = Number((valueFloat + step).toFixed(1));
+        const changedValue = Number((valueFloat + step).toFixed(2));
 
         this.setState({ value: changedValue });
         onChange && onChange(changedValue);

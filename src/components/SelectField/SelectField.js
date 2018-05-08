@@ -67,10 +67,10 @@ class SelectField extends Component {
     }
 
     render() {
-        const { id, className, label, options } = this.props;
+        const { id, className, label, options, disabled } = this.props;
         const { value: selectedOption, isFocused } = this.getState();
         const listBoxId = `listbox-${id}`;
-        const classes = classNames('select-field', isFocused && 'select-field--focused', className);
+        const classes = classNames('select-field', isFocused && 'select-field--focused', disabled && 'select-field--disabled',className);
 
         return (
             <div id={id} className={classes}>
@@ -105,7 +105,8 @@ SelectField.propTypes = {
     options: PropTypes.arrayOf(OptionPropType),
     defaultValue: OptionPropType,
     value: OptionPropType,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool
 };
 SelectField.defaultProps = {
     id: Date.now(),

@@ -13,17 +13,19 @@ describe('<OfferForm /> component', () => {
 
     it('should renders with initial values', () => {
         const offerMock = {
-            salePrice: 2.9,
+            price: 2.9,
             plantType: 'biomass',
             annualProduction: '47.8',
-            capacity: '312',
+            capacity: 312,
             date: parseInt(Date.now() / 1000, 10),
-            location: 'test location',
+            city: 'test city',
+            street: 'test street',
+            postcode: 'test postcode',
             description: 'Test description'
         };
-        const offerForm = renderComponent({ formData: offerMock });
+        const offerForm = renderComponent({ offer: offerMock });
 
-        expect(offerForm.state()).toEqual(offerMock);
+        expect(offerForm.state()).toEqual({ ...offerMock, isEdited: false });
     });
 
     it('should renders with delete button', () => {
@@ -61,10 +63,22 @@ describe('<OfferForm /> component', () => {
             .props()
             .onChange(timestampMock);
         offerForm
-            .find('TextField[name="location"]')
+            .find('TextField[name="city"]')
             .props()
             .onChange({
-                currentTarget: { name: 'location', value: 'location test' }
+                currentTarget: { name: 'city', value: 'city test' }
+            });
+        offerForm
+            .find('TextField[name="street"]')
+            .props()
+            .onChange({
+                currentTarget: { name: 'street', value: 'street test' }
+            });
+        offerForm
+            .find('TextField[name="postcode"]')
+            .props()
+            .onChange({
+                currentTarget: { name: 'postcode', value: 'postcode test' }
             });
         offerForm
             .find('TextField[name="description"]')
@@ -74,12 +88,15 @@ describe('<OfferForm /> component', () => {
             });
 
         expect(offerForm.state()).toEqual({
-            salePrice: 3.5,
+            isEdited: true,
+            price: 3.5,
             plantType: 'other',
             annualProduction: 'annualProduction test',
             capacity: 'capacity test',
             date: timestampMock,
-            location: 'location test',
+            city: 'city test',
+            street: 'street test',
+            postcode: 'postcode test',
             description: 'description test'
         });
     });
@@ -89,7 +106,17 @@ describe('<OfferForm /> component', () => {
         const offerForm = renderComponent({ onSubmit: onSubmitMock });
 
         offerForm.find('form').simulate('submit', { preventDefault: jest.fn() });
-        expect(onSubmitMock).toHaveBeenCalledWith(offerForm.state());
+        expect(onSubmitMock).toHaveBeenCalledWith({
+            price: 0,
+            plantType: 'solar',
+            annualProduction: '',
+            capacity: 0,
+            date: 0,
+            city: '',
+            street: '',
+            postcode: '',
+            description: ''
+        });
     });
 
     it('should not calls onSubmit callback if onSubmit is not a function', () => {
