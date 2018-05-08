@@ -154,7 +154,10 @@ describe('<SellEnergy /> container', () => {
             description: ''
         };
         const component = renderComponent({}, mountWithIntl);
-        component.find('OfferForm').props().onSubmit(offerDummy);
+        component
+            .find('OfferForm')
+            .props()
+            .onSubmit(offerDummy);
         expect(offersActions.performAddOwnedProducerOffer).toHaveBeenCalledWith(3, offerDummy);
         expect(component.state('updated')).toBe(true);
     });

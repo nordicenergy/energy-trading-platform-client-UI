@@ -70,7 +70,12 @@ class SelectField extends Component {
         const { id, className, label, options, disabled } = this.props;
         const { value: selectedOption, isFocused } = this.getState();
         const listBoxId = `listbox-${id}`;
-        const classes = classNames('select-field', isFocused && 'select-field--focused', disabled && 'select-field--disabled',className);
+        const classes = classNames(
+            'select-field',
+            isFocused && 'select-field--focused',
+            disabled && 'select-field--disabled',
+            className
+        );
 
         return (
             <div id={id} className={classes}>
