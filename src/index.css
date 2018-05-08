@@ -92,11 +92,9 @@
     --filter-checkbox-checked-border-color: var(--steel-blue);
     --filter-checkbox-hov-border-color: var(--ming);
 
-    --producer-card-price-label-color: var(--nobel-color);
-    --producer-card-image-color: var(--jelly-bean-color);
+    --producer-card-bg-color: var(--black-pearl-color);
     --producer-card-border-color: var(--scooter-color);
     --producer-card-active-bg-color: var(--scooter-color);
-    --producer-card-hov-bg-color: var(--jelly-bean-color);
 
     --producer-filters-border-color: var(--geyser-color);
 

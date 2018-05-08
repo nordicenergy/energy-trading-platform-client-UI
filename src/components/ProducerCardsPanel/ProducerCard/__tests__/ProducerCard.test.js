@@ -19,26 +19,6 @@ describe('<ProducerCard /> component', function() {
         renderComponent();
     });
 
-    it('should renders with correct image', () => {
-        let producerCard = renderComponent();
-        expect(producerCard.html().includes('solarImage')).toBeTruthy();
-
-        producerCard = renderComponent({
-            producer: { ...producerMock, plantType: 'wind' }
-        });
-        expect(producerCard.html().includes('windImage')).toBeTruthy();
-
-        producerCard = renderComponent({
-            producer: { ...producerMock, plantType: 'biomass' }
-        });
-        expect(producerCard.html().includes('biomassImage')).toBeTruthy();
-
-        producerCard = renderComponent({
-            producer: { ...producerMock, plantType: 'default' }
-        });
-        expect(producerCard.html().includes('defaultImage')).toBeTruthy();
-    });
-
     it('should renders with selected style', () => {
         const producerCard = renderComponent({ selected: true });
 
