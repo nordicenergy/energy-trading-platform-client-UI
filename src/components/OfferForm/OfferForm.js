@@ -65,42 +65,11 @@ class OfferForm extends React.PureComponent {
         });
     }
 
-    handleChange(event) {
-        const { name, value } = event.currentTarget;
-        if (this.state.isEdited) {
-            this.setState({ [name]: value });
-        } else {
-            this.setState({
-                [name]: value,
-                isEdited: true
-            });
-        }
-    }
-
-    handleDeltaChange(name, { value }) {
-        if (this.state.isEdited) {
-            this.setState({ [name]: value });
-        } else {
-            this.setState({
-                [name]: value,
-                isEdited: true
-            });
-        }
-    }
-
-    handleSelectChange(name, option) {
-        if (this.state.isEdited) {
-            this.setState({ [name]: option.value });
-        } else {
-            this.setState({
-                [name]: option.value,
-                isEdited: true
-            });
-        }
-    }
-
-    handleDateChange(name, timestamp) {
-        this.setState({ [name]: timestamp });
+    handleChange({ name, value }) {
+        this.setState({
+            [name]: value,
+            isEdited: true
+        });
     }
 
     getSelectedOption() {
@@ -150,7 +119,7 @@ class OfferForm extends React.PureComponent {
                             initialValue={marketPrice}
                             delta={this.calculateDelta()}
                             value={this.state.price}
-                            onChange={payload => this.handleDeltaChange('price', payload)}
+                            onChange={({ value }) => this.handleChange({ name: 'price', value })}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -159,7 +128,7 @@ class OfferForm extends React.PureComponent {
                             label={labels.plantTypeField}
                             options={plantTypeOptions}
                             value={this.getSelectedOption()}
-                            onChange={option => this.handleSelectChange('plantType', option)}
+                            onChange={({ value }) => this.handleChange({ name: 'plantType', value })}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -169,7 +138,7 @@ class OfferForm extends React.PureComponent {
                             label={labels.annualProductionField}
                             addon="kWg / day"
                             value={this.state.annualProduction}
-                            onChange={event => this.handleChange(event)}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -178,7 +147,7 @@ class OfferForm extends React.PureComponent {
                             label={labels.capacityField}
                             addon="MW"
                             value={this.state.capacity}
-                            onChange={event => this.handleChange(event)}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -187,7 +156,7 @@ class OfferForm extends React.PureComponent {
                             name="date"
                             label={labels.dateField}
                             value={this.state.date}
-                            onChange={timestamp => this.handleDateChange('date', timestamp)}
+                            onChange={value => this.handleChange({ name: 'date', value })}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -195,7 +164,7 @@ class OfferForm extends React.PureComponent {
                             name="city"
                             label={labels.cityField}
                             value={this.state.city}
-                            onChange={event => this.handleChange(event)}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -203,7 +172,7 @@ class OfferForm extends React.PureComponent {
                             name="street"
                             label={labels.streetField}
                             value={this.state.street}
-                            onChange={event => this.handleChange(event)}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -211,7 +180,7 @@ class OfferForm extends React.PureComponent {
                             name="postcode"
                             label={labels.postcodeField}
                             value={this.state.postcode}
-                            onChange={event => this.handleChange(event)}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -219,7 +188,7 @@ class OfferForm extends React.PureComponent {
                             name="description"
                             label={labels.descriptionField}
                             value={this.state.description}
-                            onChange={event => this.handleChange(event)}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                 </div>

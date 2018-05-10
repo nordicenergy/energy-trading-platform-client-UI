@@ -2,7 +2,7 @@ import React from 'react';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import { SellEnergy } from '../SellEnergy';
 import * as notificationsActions from '../../../action_performers/notifications';
-import * as offersActions from '../../../action_performers/offers';
+import * as producersActions from '../../../action_performers/producers';
 import * as userActions from '../../../action_performers/users';
 
 const offersDummy = [
@@ -111,10 +111,10 @@ describe('<SellEnergy /> container', () => {
     });
 
     it('should call performGetOwnedProducer when the user was updated', () => {
-        offersActions.performGetOwnedProducerOffer = jest.fn();
+        producersActions.performGetOwnedProducerOffer = jest.fn();
         const component = renderComponent(undefined, mountWithIntl);
         component.setProps({ user: { id: 'test' } });
-        expect(offersActions.performGetOwnedProducerOffer).toHaveBeenCalledWith('test');
+        expect(producersActions.performGetOwnedProducerOffer).toHaveBeenCalledWith('test');
     });
 
     it('should call performPushNotification with error message', () => {
@@ -141,7 +141,7 @@ describe('<SellEnergy /> container', () => {
     });
 
     it('should call performAddOwnedProducerOffer with success message', () => {
-        offersActions.performAddOwnedProducerOffer = jest.fn();
+        producersActions.performAddOwnedProducerOffer = jest.fn();
         const offerDummy = {
             price: 0,
             plantType: 'solar',
@@ -158,7 +158,7 @@ describe('<SellEnergy /> container', () => {
             .find('OfferForm')
             .props()
             .onSubmit(offerDummy);
-        expect(offersActions.performAddOwnedProducerOffer).toHaveBeenCalledWith(3, offerDummy);
+        expect(producersActions.performAddOwnedProducerOffer).toHaveBeenCalledWith(3, offerDummy);
         expect(component.state('updated')).toBe(true);
     });
 });

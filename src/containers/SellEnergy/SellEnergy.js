@@ -6,7 +6,7 @@ import { SellEnergy as messages } from '../../services/translations/messages';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { OfferForm, OffersSlider, BackLink, Loader } from '../../components';
 import { performGetUserData } from '../../action_performers/users';
-import { performGetOwnedProducerOffer, performAddOwnedProducerOffer } from '../../action_performers/offers';
+import { performGetOwnedProducerOffer, performAddOwnedProducerOffer } from '../../action_performers/producers';
 import './SellEnergy.css';
 import { performPushNotification } from '../../action_performers/notifications';
 import { CURRENT_MARKET_PRICE } from '../../constants';
@@ -77,9 +77,9 @@ export class SellEnergy extends AbstractContainer {
                 }
             ],
             user: state.Users.profile.data.user,
-            ownedProducerOfferInfo: state.Offer.ownedProducerOffer.data.producer,
-            error: state.Offer.ownedProducerOffer.error || state.Users.profile.error,
-            loading: state.Offer.ownedProducerOffer.loading || state.Users.profile.loading
+            ownedProducerOfferInfo: state.Producers.ownedProducerOffer.data.producer,
+            error: state.Producers.ownedProducerOffer.error || state.Users.profile.error,
+            loading: state.Producers.ownedProducerOffer.loading || state.Users.profile.loading
         };
     }
 

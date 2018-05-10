@@ -3,7 +3,9 @@ import {
     getCurrentProducer,
     getProducers,
     selectProducer,
-    getProducerHistory
+    getProducerHistory,
+    getOwnedProducerOffer,
+    addOwnedProducerOffer
 } from '../services/api/producers';
 
 import { dispatcher } from '../store';
@@ -37,5 +39,23 @@ export function performGetProducerHistory(producerId) {
         'GET_PRODUCER_HISTORY',
         state => state.Producers.producerHistory.loading,
         [producerId]
+    );
+}
+
+export function performGetOwnedProducerOffer(userId) {
+    dispatcher.dispatchPromise(
+        getOwnedProducerOffer,
+        'GET_OWNED_PRODUCER_OFFER',
+        state => state.Producers.ownedProducerOffer.loading,
+        [userId]
+    );
+}
+
+export function performAddOwnedProducerOffer(producerId, offer) {
+    dispatcher.dispatchPromise(
+        addOwnedProducerOffer,
+        'ADD_OWNED_PRODUCER_OFFER',
+        state => state.Producers.ownedProducerOffer.loading,
+        [producerId, offer]
     );
 }
