@@ -1,5 +1,13 @@
 import Axios from 'axios';
-import { getProducer, getCurrentProducer, selectProducer, getProducers, getProducerHistory } from '../producers';
+import {
+    getProducer,
+    getCurrentProducer,
+    selectProducer,
+    getProducers,
+    getProducerHistory,
+    getOwnedProducerOffer,
+    addOwnedProducerOffer
+} from '../producers';
 import { LIMIT } from '../../../constants';
 
 describe('Producers API Service', () => {
@@ -88,5 +96,15 @@ describe('Producers API Service', () => {
                 offset: 0
             }
         });
+    });
+
+    it('should provide method for getting owned producer offer info', () => {
+        getOwnedProducerOffer('testId');
+        expect(Axios.get).toHaveBeenCalledWith('/api/user/testId/producer/getOwnedProducer');
+    });
+
+    it('should provide method for adding offer of owned producer', () => {
+        addOwnedProducerOffer('testId', { id: 'testOfferId' });
+        expect(Axios.post).toHaveBeenCalledWith('/api/producers/testId/set', { id: 'testOfferId' });
     });
 });

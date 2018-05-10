@@ -4,7 +4,9 @@ import {
     performGetCurrentProducer,
     performGetProducers,
     performSelectProducer,
-    performGetProducerHistory
+    performGetProducerHistory,
+    performGetOwnedProducerOffer,
+    performAddOwnedProducerOffer
 } from '../producers';
 
 describe('Producers action performers', () => {
@@ -88,5 +90,35 @@ describe('Producers action performers', () => {
         expect(type).toEqual('GET_PRODUCER_HISTORY');
         expect(loading).toEqual('TEST');
         expect(meta).toEqual(['testId']);
+    });
+
+    it('should call dispatch method for getting owned producer', () => {
+        performGetOwnedProducerOffer('testId');
+
+        const [[method, type, loadingFunc, meta]] = dispatcher.dispatchPromise.mock.calls;
+        const loading = loadingFunc({
+            Producers: { ownedProducerOffer: { loading: 'TEST' } }
+        });
+
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);
+        expect(method.name).toEqual('getOwnedProducerOffer');
+        expect(type).toEqual('GET_OWNED_PRODUCER_OFFER');
+        expect(loading).toEqual('TEST');
+        expect(meta).toEqual(['testId']);
+    });
+
+    it('should call dispatch method for adding owned producer offer', () => {
+        performAddOwnedProducerOffer('testId', { id: 'testId' });
+
+        const [[method, type, loadingFunc, meta]] = dispatcher.dispatchPromise.mock.calls;
+        const loading = loadingFunc({
+            Producers: { ownedProducerOffer: { loading: 'TEST' } }
+        });
+
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);
+        expect(method.name).toEqual('addOwnedProducerOffer');
+        expect(type).toEqual('ADD_OWNED_PRODUCER_OFFER');
+        expect(loading).toEqual('TEST');
+        expect(meta).toEqual(['testId', { id: 'testId' }]);
     });
 });

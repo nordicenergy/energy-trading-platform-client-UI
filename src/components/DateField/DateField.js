@@ -90,16 +90,17 @@ class DateField extends Component {
     }
 
     render() {
-        const { label, error } = this.props;
+        const { label, error, disabled } = this.props;
         const { hasFocus } = this.state;
         const addon = (
             <span className="date-field-addon">
                 <FontAwesomeIcon icon={faCalendarAlt} />
             </span>
         );
+        const classes = classNames('date-field', disabled && 'date-field--disabled');
 
         return (
-            <div className="date-field" ref={ref => (this.dateFieldRef = ref)}>
+            <div className={classes} ref={ref => (this.dateFieldRef = ref)}>
                 <TextField
                     label={label}
                     addon={addon}
@@ -121,7 +122,8 @@ DateField.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     error: PropTypes.string,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool
 };
 DateField.defaultProps = {
     datePickerLabels: {
