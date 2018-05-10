@@ -24,6 +24,8 @@ const OFFER_FIELDS = [
     'description'
 ];
 
+const DELTA_ROUNDING_VALUE = 100;
+
 class OfferForm extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -87,7 +89,7 @@ class OfferForm extends React.PureComponent {
     calculateDelta() {
         const { marketPrice } = this.props;
         const { price: salePrice } = this.state;
-        const delta = Math.round((salePrice - marketPrice) * 100) / 100;
+        const delta = Math.round((salePrice - marketPrice) * DELTA_ROUNDING_VALUE) / DELTA_ROUNDING_VALUE;
         return isNaN(delta) ? 0 : delta;
     }
 
