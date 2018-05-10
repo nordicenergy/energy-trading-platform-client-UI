@@ -69,7 +69,7 @@
     transform: scale(1.1);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
     .offer-form-fields {
         max-width: 100%;
     }
