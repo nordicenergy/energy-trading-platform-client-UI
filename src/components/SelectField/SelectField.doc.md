@@ -9,3 +9,17 @@ const options = [
 
 <SelectField label="Type of energy" options={options} />;
 ```
+
+#### SelectField with disabled options
+
+```jsx
+const options = [
+    { value: 'wind', title: 'Wind' },
+    { value: 'biomass (peat)', title: 'Biomass (peat)' },
+    { value: 'biomass (corn)', title: 'Biomass (corn)', disabled: true },
+    { value: 'solar', title: 'Solar' },
+    { value: 'renewable', title: 'Renewable', disabled: true },
+];
+
+<SelectField label="Type of energy" options={options} />;
+```

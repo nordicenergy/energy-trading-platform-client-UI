@@ -8,7 +8,8 @@ import './SelectField.css';
 
 export const OptionPropType = PropTypes.shape({
     value: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    disabled: PropTypes.bool
 });
 
 class SelectField extends Component {
@@ -52,15 +53,24 @@ class SelectField extends Component {
         onChange && onChange(option);
     }
 
+    handleDisabledOptionClick(event) {
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
     renderOption(option) {
         const { value: selectedOption } = this.getState();
         const classes = classNames({
             'options-list-item': true,
+            'options-list-item--disabled': option.disabled,
             'options-list-item--selected': selectedOption.value === option.value
         });
+        const onClick = option.disabled
+            ? event => this.handleDisabledOptionClick(event)
+            : () => this.handleOptionClick(option);
 
         return (
-            <li className={classes} key={option.value} onClick={() => this.handleOptionClick(option)}>
+            <li className={classes} key={option.value} onClick={onClick}>
                 {option.title}
             </li>
         );

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import SelectField from '../SelectField';
 
-const optionsMock = [
+const optionsDummy = [
     { value: 'wind', title: 'Wind' },
     { value: 'biomass (peat)', title: 'Biomass (peat)' },
     { value: 'biomass (corn)', title: 'Biomass (corn)' },
@@ -10,10 +10,10 @@ const optionsMock = [
     { value: 'renewable', title: 'Renewable' }
 ];
 function renderComponent(
-    { id = 'test', label = 'Test label', options = optionsMock, ...otherProps } = {},
+    { id = 'test', label = 'Test label', options = optionsDummy, ...otherProps } = {},
     mountFn = shallow
 ) {
-    return mountFn(<SelectField id={id} label={label} options={optionsMock} {...otherProps} />);
+    return mountFn(<SelectField id={id} label={label} options={options} {...otherProps} />);
 }
 
 describe('<SelectField /> component', () => {
@@ -41,6 +41,27 @@ describe('<SelectField /> component', () => {
         expect(selectField.find('.options-list-item')).toHaveLength(0);
     });
 
+    it('should not select disabled option', () => {
+        const selectField = renderComponent({
+            options: [
+                { value: 'wind', title: 'Wind' },
+                { value: 'biomass (peat)', title: 'Biomass (peat)', disabled: true },
+                { value: 'biomass (corn)', title: 'Biomass (corn)', disabled: true },
+                { value: 'solar', title: 'Solar' },
+                { value: 'renewable', title: 'Renewable' }
+            ]
+        });
+
+        selectField.setState({ isFocused: true });
+        selectField.update();
+        selectField
+            .find('.options-list-item')
+            .at(2)
+            .simulate('click', new Event('click'));
+        expect(selectField.state().isFocused).toBeTruthy();
+        expect(selectField.state().value).toEqual({ value: 'wind', title: 'Wind' });
+    });
+
     it('should update state after some option was clicked', () => {
         const selectField = renderComponent();
 
@@ -50,12 +71,12 @@ describe('<SelectField /> component', () => {
             .find('.options-list-item')
             .at(2)
             .simulate('click');
-        expect(selectField.state().value).toEqual(optionsMock[2]);
+        expect(selectField.state().value).toEqual(optionsDummy[2]);
     });
 
     it('should call onChange callback after some option was clicked', () => {
         const onChangeMock = jest.fn();
-        const selectField = renderComponent({ value: optionsMock[1], onChange: onChangeMock });
+        const selectField = renderComponent({ value: optionsDummy[1], onChange: onChangeMock });
 
         selectField.setState({ isFocused: true });
         selectField.update();
@@ -63,7 +84,7 @@ describe('<SelectField /> component', () => {
             .find('.options-list-item')
             .at(2)
             .simulate('click');
-        expect(onChangeMock).toHaveBeenCalledWith(optionsMock[2]);
+        expect(onChangeMock).toHaveBeenCalledWith(optionsDummy[2]);
     });
 
     it('should remove event listener before component unmount', () => {

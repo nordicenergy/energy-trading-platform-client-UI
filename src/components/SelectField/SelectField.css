@@ -100,6 +100,7 @@
     font-weight: 600;
     font-size: 1.125rem;
     cursor: pointer;
+    user-select: none;
 }
 
 .options-list-item:last-child {
@@ -108,6 +109,12 @@
 
 .options-list-item--selected {
     color: var(--label-color);
+}
+
+.options-list-item--disabled {
+    background: var(--disabled-select-option-bg-color) !important;
+    color: var(--label-color) !important;
+    cursor: not-allowed;
 }
 
 .options-list-item:hover {

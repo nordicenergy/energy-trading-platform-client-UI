@@ -112,6 +112,7 @@
 
     --select-option-hov-bg-color: var(--blumine-color);
     --select-option-icon-color: var(--blumine-color);
+    --disabled-select-option-bg-color: var(--athens-gray-color);
 
     --offer-card-price-color: var(--nobel-color);
     --offer-card-energy-type-color: var(--black-pearl-color);
