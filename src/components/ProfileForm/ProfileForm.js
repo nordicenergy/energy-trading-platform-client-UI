@@ -34,14 +34,11 @@ class ProfileForm extends React.PureComponent {
     }
 
     handleChange(event) {
-        const { name, value } = event.currentTarget;
+        const { name, value } = event.target;
         if (this.state.isEdited) {
             this.setState({ [name]: value });
         } else {
-            this.setState({
-                [name]: value,
-                isEdited: true
-            });
+            this.setState({ [name]: value, isEdited: true });
         }
     }
 
@@ -94,13 +91,6 @@ class ProfileForm extends React.PureComponent {
         }
     }
 
-    handleDateChange(date) {
-        this.setState({
-            birthday: date,
-            isEdited: true
-        });
-    }
-
     render() {
         const {
             state: {
@@ -145,7 +135,7 @@ class ProfileForm extends React.PureComponent {
                         label={labels.birthday}
                         value={birthday}
                         renderTo={'.profile-form'}
-                        onChange={date => this.handleDateChange(date)}
+                        onChange={event => this.handleChange(event)}
                     />
                 </div>
                 <TextField

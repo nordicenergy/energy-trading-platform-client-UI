@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import SelectField, { OptionPropType } from '../SelectField';
-import TextField from '../TextField';
 import Button from '../Button';
 import './ConfigurationForm.css';
 
@@ -10,45 +9,25 @@ class ConfigurationForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            blockChain: props.blockChainFieldOptions[0],
+            blockChain: props.blockChainFieldOptions[0].value,
             address: ''
         };
     }
 
-    handleSelectChange(name, value) {
-        this.setState({ [name]: value });
-    }
-
     handleChange(event) {
-        const { name, value } = event.currentTarget;
-        this.setState({
-            [name]: value
-        });
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
         const { onSubmit } = this.props;
-        onSubmit &&
-            onSubmit({
-                ...this.state,
-                blockChain: this.state.blockChain.value
-            });
-    }
-
-    renderAddressHelperText() {
-        const { labels } = this.props;
-
-        return (
-            <span className="address-helper-text">
-                {labels.addressFieldHelperText}: <strong>0x123f681646d4a755815f9cb19e1acc8565a0c2ac</strong>
-            </span>
-        );
+        onSubmit && onSubmit({ ...this.state });
     }
 
     render() {
-        const { className, labels, errors, blockChainFieldOptions, disabled } = this.props;
+        const { className, labels, errors, blockChainFieldOptions, addressFieldOptions, disabled } = this.props;
         const { blockChain, address } = this.state;
         const classes = classNames('configuration-form', className);
 
@@ -58,17 +37,19 @@ class ConfigurationForm extends Component {
                 <form onSubmit={event => this.handleSubmit(event)}>
                     <div className="configuration-form-field">
                         <SelectField
+                            name="blockChain"
                             label={labels.blockChainField}
                             options={blockChainFieldOptions}
                             value={blockChain}
-                            onChange={value => this.handleSelectChange('blockChain', value)}
+                            onChange={event => this.handleChange(event)}
+                            error={errors.blockChain}
                         />
                     </div>
                     <div className="configuration-form-field">
-                        <TextField
+                        <SelectField
                             name="address"
                             label={labels.addressField}
-                            helperText={this.renderAddressHelperText()}
+                            options={addressFieldOptions}
                             value={address}
                             onChange={event => this.handleChange(event)}
                             error={errors.address}
@@ -99,6 +80,7 @@ ConfigurationForm.propTypes = {
         address: PropTypes.string
     }),
     blockChainFieldOptions: PropTypes.arrayOf(OptionPropType),
+    addressFieldOptions: PropTypes.arrayOf(OptionPropType),
     disabled: PropTypes.bool,
     onSubmit: PropTypes.func
 };
@@ -107,15 +89,15 @@ ConfigurationForm.defaultProps = {
         title: 'Configuration',
         blockChainField: 'Blockchain',
         addressField: 'Your Address',
-        addressFieldHelperText: 'Example',
         button: 'Add Your Address',
         helperText: 'Assign your address to your Lition account'
     },
     errors: {},
     blockChainFieldOptions: [
-        { value: 'ethereum', title: 'Ethereum' },
-        { value: 'ledger', title: 'Ledger', disabled: true }
+        { value: 'ethereum', label: 'Ethereum' },
+        { value: 'ledger', label: 'Ledger', disabled: true }
     ],
+    addressFieldOptions: [{ value: '', label: 'Select your address', disabled: true }],
     disabled: false
 };
 

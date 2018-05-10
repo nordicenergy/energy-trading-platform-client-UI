@@ -2,14 +2,17 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DateField from '../DateField';
 
-const onChangeMock = jest.fn();
-function renderComponent({ label = 'test', onChange = onChangeMock, ...otherProps } = {}, mountFn = mount) {
-    return mountFn(<DateField {...otherProps} label={label} onChange={onChange} />);
+const onChangeStub = jest.fn();
+function renderComponent(
+    { label = 'test', name = 'test', onChange = onChangeStub, ...otherProps } = {},
+    mountFn = mount
+) {
+    return mountFn(<DateField label={label} name={name} onChange={onChange} {...otherProps} />);
 }
 
 describe('<DateField /> component', () => {
     afterEach(() => {
-        onChangeMock.mockClear();
+        onChangeStub.mockClear();
     });
 
     it('should renders without errors', () => {
@@ -59,9 +62,9 @@ describe('<DateField /> component', () => {
             .props()
             .onChange(dateMock);
         expect(dateField.state().value).toEqual(timestamp);
-        expect(onChangeMock).toHaveBeenCalledWith(timestamp);
+        expect(onChangeStub).toHaveBeenCalledWith({ target: { name: 'test', value: timestamp } });
 
-        onChangeMock.mockClear();
+        onChangeStub.mockClear();
         dateMock = new Date();
         timestamp = parseInt(dateMock.getTime() / 1000, 10);
         dateField
@@ -70,7 +73,7 @@ describe('<DateField /> component', () => {
             .onConfirm(dateMock);
         expect(dateField.state().value).toEqual(timestamp);
         expect(dateField.state().hasFocus).toBeFalsy();
-        expect(onChangeMock).toHaveBeenCalledWith(timestamp);
+        expect(onChangeStub).toHaveBeenCalledWith({ target: { name: 'test', value: timestamp } });
     });
 
     it('should not calls onChange callback', () => {
@@ -82,7 +85,7 @@ describe('<DateField /> component', () => {
             .props()
             .onCancel();
         expect(dateField.state().hasFocus).toBeFalsy();
-        expect(onChangeMock).not.toHaveBeenCalled();
+        expect(onChangeStub).not.toHaveBeenCalled();
     });
 
     it('should not calls onChange callback if onChange is not a function', () => {
@@ -95,6 +98,6 @@ describe('<DateField /> component', () => {
             .find('DatePicker')
             .props()
             .onChange(dateMock);
-        expect(onChangeMock).not.toHaveBeenCalled();
+        expect(onChangeStub).not.toHaveBeenCalled();
     });
 });

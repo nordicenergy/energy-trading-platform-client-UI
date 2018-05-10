@@ -3,17 +3,17 @@ import { shallow, mount } from 'enzyme';
 import SelectField from '../SelectField';
 
 const optionsDummy = [
-    { value: 'wind', title: 'Wind' },
-    { value: 'biomass (peat)', title: 'Biomass (peat)' },
-    { value: 'biomass (corn)', title: 'Biomass (corn)' },
-    { value: 'solar', title: 'Solar' },
-    { value: 'renewable', title: 'Renewable' }
+    { value: 'wind', label: 'Wind' },
+    { value: 'biomass (peat)', label: 'Biomass (peat)' },
+    { value: 'biomass (corn)', label: 'Biomass (corn)' },
+    { value: 'solar', label: 'Solar' },
+    { value: 'renewable', label: 'Renewable' }
 ];
 function renderComponent(
-    { id = 'test', label = 'Test label', options = optionsDummy, ...otherProps } = {},
+    { id = 'test', name = 'test', label = 'Test label', options = optionsDummy, ...otherProps } = {},
     mountFn = shallow
 ) {
-    return mountFn(<SelectField id={id} label={label} options={options} {...otherProps} />);
+    return mountFn(<SelectField id={id} name={name} label={label} options={options} {...otherProps} />);
 }
 
 describe('<SelectField /> component', () => {
@@ -21,6 +21,12 @@ describe('<SelectField /> component', () => {
         const selectField = renderComponent({}, mount);
 
         expect(selectField.instance().layoutRef.classList.contains('select-field-layout')).toBeTruthy();
+    });
+
+    it('should renders with error', () => {
+        const selectField = renderComponent({ error: 'test error' });
+
+        expect(selectField.find('.select-field-error').text()).toBe('test error');
     });
 
     it('should display options when field in focus', () => {
@@ -43,12 +49,13 @@ describe('<SelectField /> component', () => {
 
     it('should not select disabled option', () => {
         const selectField = renderComponent({
+            defaultValue: 'wind',
             options: [
-                { value: 'wind', title: 'Wind' },
-                { value: 'biomass (peat)', title: 'Biomass (peat)', disabled: true },
-                { value: 'biomass (corn)', title: 'Biomass (corn)', disabled: true },
-                { value: 'solar', title: 'Solar' },
-                { value: 'renewable', title: 'Renewable' }
+                { value: 'wind', label: 'Wind' },
+                { value: 'biomass (peat)', label: 'Biomass (peat)', disabled: true },
+                { value: 'biomass (corn)', label: '', disabled: true },
+                { value: 'solar', label: 'Solar' },
+                { value: 'renewable', label: 'Renewable' }
             ]
         });
 
@@ -59,11 +66,11 @@ describe('<SelectField /> component', () => {
             .at(2)
             .simulate('click', new Event('click'));
         expect(selectField.state().isFocused).toBeTruthy();
-        expect(selectField.state().value).toEqual({ value: 'wind', title: 'Wind' });
+        expect(selectField.state().value).toEqual('wind');
     });
 
     it('should update state after some option was clicked', () => {
-        const selectField = renderComponent();
+        const selectField = renderComponent({ options: ['wind', 'solar', 'biomass'] });
 
         selectField.setState({ isFocused: true });
         selectField.update();
@@ -71,7 +78,7 @@ describe('<SelectField /> component', () => {
             .find('.options-list-item')
             .at(2)
             .simulate('click');
-        expect(selectField.state().value).toEqual(optionsDummy[2]);
+        expect(selectField.state().value).toEqual('biomass');
     });
 
     it('should call onChange callback after some option was clicked', () => {
@@ -84,7 +91,9 @@ describe('<SelectField /> component', () => {
             .find('.options-list-item')
             .at(2)
             .simulate('click');
-        expect(onChangeMock).toHaveBeenCalledWith(optionsDummy[2]);
+        expect(onChangeMock).toHaveBeenCalledWith({
+            target: { name: 'test', value: 'biomass (corn)' }
+        });
     });
 
     it('should remove event listener before component unmount', () => {

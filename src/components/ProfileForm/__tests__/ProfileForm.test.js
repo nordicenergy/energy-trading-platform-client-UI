@@ -98,7 +98,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="firstName"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'firstName',
                     value: 'test'
                 }
@@ -111,14 +111,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="firstName"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'firstName',
                 value: 'test'
             }
         });
         expect(component.state().firstName).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'lastName',
                 value: 'test2'
             }
@@ -134,7 +134,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="lastName"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'lastName',
                     value: 'test'
                 }
@@ -147,14 +147,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="lastName"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'lastName',
                 value: 'test'
             }
         });
         expect(component.state().lastName).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'lastName',
                 value: 'test2'
             }
@@ -169,7 +169,7 @@ describe('<ProfileForm /> component', () => {
         component
             .find('DateField')
             .props()
-            .onChange('test');
+            .onChange({ target: { name: 'birthday', value: 'test' } });
         expect(component.state().birthday).toBe('test');
     });
 
@@ -177,9 +177,9 @@ describe('<ProfileForm /> component', () => {
         const component = renderComponent();
 
         const field = component.find('DateField');
-        field.props().onChange('test');
+        field.props().onChange({ target: { name: 'birthday', value: 'test' } });
         expect(component.state().birthday).toBe('test');
-        field.props().onChange('test2');
+        field.props().onChange({ target: { name: 'birthday', value: 'test2' } });
         expect(component.state().birthday).toBe('test2');
         expect(component.state().isEdited).toBe(true);
     });
@@ -191,7 +191,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="city"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'city',
                     value: 'test'
                 }
@@ -204,14 +204,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="city"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'city',
                 value: 'test'
             }
         });
         expect(component.state().city).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'city',
                 value: 'test2'
             }
@@ -227,7 +227,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="street"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'street',
                     value: 'test'
                 }
@@ -240,14 +240,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="street"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'street',
                 value: 'test'
             }
         });
         expect(component.state().street).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'street',
                 value: 'test2'
             }
@@ -263,7 +263,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="streetNumber"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'streetNumber',
                     value: 'test'
                 }
@@ -276,14 +276,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="streetNumber"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'streetNumber',
                 value: 'test'
             }
         });
         expect(component.state().streetNumber).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'streetNumber',
                 value: 'test2'
             }
@@ -299,7 +299,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="postcode"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'postcode',
                     value: 'test'
                 }
@@ -312,14 +312,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="postcode"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'postcode',
                 value: 'test'
             }
         });
         expect(component.state().postcode).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'postcode',
                 value: 'test2'
             }
@@ -335,7 +335,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="IBAN"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'IBAN',
                     value: 'test'
                 }
@@ -348,14 +348,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="IBAN"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'IBAN',
                 value: 'test'
             }
         });
         expect(component.state().IBAN).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'IBAN',
                 value: 'test2'
             }
@@ -371,7 +371,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="email"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'email',
                     value: 'test'
                 }
@@ -384,14 +384,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="email"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'email',
                 value: 'test'
             }
         });
         expect(component.state().email).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'email',
                 value: 'test2'
             }
@@ -407,7 +407,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="oldPassword"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'oldPassword',
                     value: 'test'
                 }
@@ -420,14 +420,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="oldPassword"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'oldPassword',
                 value: 'test'
             }
         });
         expect(component.state().oldPassword).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'oldPassword',
                 value: 'test2'
             }
@@ -443,7 +443,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="newPassword"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'newPassword',
                     value: 'test'
                 }
@@ -456,14 +456,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="newPassword"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'newPassword',
                 value: 'test'
             }
         });
         expect(component.state().newPassword).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'newPassword',
                 value: 'test2'
             }
@@ -479,7 +479,7 @@ describe('<ProfileForm /> component', () => {
             .find('TextField[name="confirmNewPassword"]')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'confirmNewPassword',
                     value: 'test'
                 }
@@ -492,14 +492,14 @@ describe('<ProfileForm /> component', () => {
 
         const field = component.find('TextField[name="confirmNewPassword"]');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'confirmNewPassword',
                 value: 'test'
             }
         });
         expect(component.state().confirmNewPassword).toBe('test');
         field.props().onChange({
-            currentTarget: {
+            target: {
                 name: 'confirmNewPassword',
                 value: 'test2'
             }

@@ -2,12 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import LanguageSelect from '../LanguageSelect';
 
-const localesMock = ['en', 'de'];
-const localeMock = 'en';
-const onChangeMock = jest.fn();
+const localesDummy = ['en', 'de'];
+const localeDummy = 'en';
+const onChangeStub = jest.fn();
 
 function renderComponent(
-    { locales = localesMock, locale = localeMock, onChange = onChangeMock, ...otherProps } = {},
+    { locales = localesDummy, locale = localeDummy, onChange = onChangeStub, ...otherProps } = {},
     mountFn = shallow
 ) {
     return mountFn(<LanguageSelect locales={locales} value={locale} onChange={onChange} {...otherProps} />);
@@ -15,7 +15,7 @@ function renderComponent(
 
 describe('<LanguageSelect /> component', () => {
     afterEach(() => {
-        onChangeMock.mockClear();
+        onChangeStub.mockClear();
     });
 
     it('should renders without errors', () => {
@@ -28,8 +28,8 @@ describe('<LanguageSelect /> component', () => {
         languageSelect
             .find('SelectField')
             .props()
-            .onChange({ value: 'de', title: 'DE' });
-        expect(onChangeMock).toHaveBeenCalledWith('de');
+            .onChange({ target: { value: 'de', name: '' } });
+        expect(onChangeStub).toHaveBeenCalledWith('de');
     });
 
     it('should not calls onChange callback if onChange is not a function', () => {
@@ -38,7 +38,6 @@ describe('<LanguageSelect /> component', () => {
         languageSelect
             .find('SelectField')
             .props()
-            .onChange({ value: 'de', title: 'DE' });
-        expect(onChangeMock).not.toHaveBeenCalled();
+            .onChange({ target: { value: 'de', name: '' } });
     });
 });
