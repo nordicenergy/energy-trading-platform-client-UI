@@ -62,7 +62,7 @@ describe('<DateField /> component', () => {
             .props()
             .onChange(dateMock);
         expect(dateField.state().value).toEqual(timestamp);
-        expect(onChangeStub).toHaveBeenCalledWith({ target: { name: 'test', value: timestamp } });
+        expect(onChangeStub).toHaveBeenCalledWith({ name: 'test', value: timestamp });
 
         onChangeStub.mockClear();
         dateMock = new Date();
@@ -73,7 +73,7 @@ describe('<DateField /> component', () => {
             .onConfirm(dateMock);
         expect(dateField.state().value).toEqual(timestamp);
         expect(dateField.state().hasFocus).toBeFalsy();
-        expect(onChangeStub).toHaveBeenCalledWith({ target: { name: 'test', value: timestamp } });
+        expect(onChangeStub).toHaveBeenCalledWith({ name: 'test', value: timestamp });
     });
 
     it('should not calls onChange callback', () => {

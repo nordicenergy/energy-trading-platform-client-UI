@@ -55,7 +55,7 @@ class DateField extends Component {
         const timestamp = parseInt(date.getTime() / SECOND, 10);
 
         this.setState({ value: timestamp });
-        onChange && onChange({ target: { name, value: timestamp } });
+        onChange && onChange({ name, value: timestamp });
     }
 
     handleOnCancel() {

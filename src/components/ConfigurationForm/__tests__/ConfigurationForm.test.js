@@ -44,11 +44,11 @@ describe('<ConfigurationForm /> component', () => {
         configurationForm
             .find('SelectField[name="blockChain"]')
             .props()
-            .onChange({ target: { name: 'blockChain', value: 'test' } });
+            .onChange({ name: 'blockChain', value: 'test' });
         configurationForm
             .find('SelectField[name="address"]')
             .props()
-            .onChange({ target: { name: 'address', value: 'abc' } });
+            .onChange({ name: 'address', value: 'abc' });
         expect(configurationForm.state()).toEqual({
             blockChain: 'test',
             address: 'abc'

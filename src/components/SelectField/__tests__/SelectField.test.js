@@ -91,9 +91,7 @@ describe('<SelectField /> component', () => {
             .find('.options-list-item')
             .at(2)
             .simulate('click');
-        expect(onChangeMock).toHaveBeenCalledWith({
-            target: { name: 'test', value: 'biomass (corn)' }
-        });
+        expect(onChangeMock).toHaveBeenCalledWith({ name: 'test', value: 'biomass (corn)' });
     });
 
     it('should remove event listener before component unmount', () => {

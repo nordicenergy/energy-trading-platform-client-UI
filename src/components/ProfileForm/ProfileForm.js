@@ -33,8 +33,7 @@ class ProfileForm extends React.PureComponent {
         }
     }
 
-    handleChange(event) {
-        const { name, value } = event.target;
+    handleChange({ name, value }) {
         if (this.state.isEdited) {
             this.setState({ [name]: value });
         } else {
@@ -115,7 +114,7 @@ class ProfileForm extends React.PureComponent {
                     label={labels.firstName}
                     name="firstName"
                     value={firstName}
-                    onChange={event => this.handleChange(event)}
+                    onChange={({ target }) => this.handleChange(target)}
                     required
                     error={errors.firstName}
                 />
@@ -123,7 +122,7 @@ class ProfileForm extends React.PureComponent {
                     label={labels.lastName}
                     name="lastName"
                     value={lastName}
-                    onChange={event => this.handleChange(event)}
+                    onChange={({ target }) => this.handleChange(target)}
                     required
                     error={errors.lastName}
                 />
@@ -135,7 +134,7 @@ class ProfileForm extends React.PureComponent {
                         label={labels.birthday}
                         value={birthday}
                         renderTo={'.profile-form'}
-                        onChange={event => this.handleChange(event)}
+                        onChange={payload => this.handleChange(payload)}
                     />
                 </div>
                 <TextField
@@ -143,28 +142,28 @@ class ProfileForm extends React.PureComponent {
                     name="city"
                     value={city}
                     error={errors.city}
-                    onChange={event => this.handleChange(event)}
+                    onChange={({ target }) => this.handleChange(target)}
                 />
                 <TextField
                     label={labels.street}
                     name="street"
                     value={street}
                     error={errors.street}
-                    onChange={event => this.handleChange(event)}
+                    onChange={({ target }) => this.handleChange(target)}
                 />
                 <TextField
                     label={labels.streetNumber}
                     name="streetNumber"
                     value={streetNumber}
                     error={errors.streetNumber}
-                    onChange={event => this.handleChange(event)}
+                    onChange={({ target }) => this.handleChange(target)}
                 />
                 <TextField
                     label={labels.postcode}
                     name="postcode"
                     value={postcode}
                     error={errors.postcode}
-                    onChange={event => this.handleChange(event)}
+                    onChange={({ target }) => this.handleChange(target)}
                 />
                 <TextField
                     label={labels.iban}
@@ -172,7 +171,7 @@ class ProfileForm extends React.PureComponent {
                     value={IBAN}
                     error={errors.IBAN}
                     required
-                    onChange={event => this.handleChange(event)}
+                    onChange={({ target }) => this.handleChange(target)}
                 />
                 <TextField
                     label={labels.email}
@@ -181,7 +180,7 @@ class ProfileForm extends React.PureComponent {
                     value={email}
                     error={errors.email}
                     required
-                    onChange={event => this.handleChange(event)}
+                    onChange={({ target }) => this.handleChange(target)}
                 />
                 <div className="change-password-container">
                     <TextField
@@ -190,7 +189,7 @@ class ProfileForm extends React.PureComponent {
                         type="password"
                         error={errors.oldPassword}
                         value={oldPassword}
-                        onChange={event => this.handleChange(event)}
+                        onChange={({ target }) => this.handleChange(target)}
                     />
                     <TextField
                         label={labels.newPassword}
@@ -198,7 +197,7 @@ class ProfileForm extends React.PureComponent {
                         type="password"
                         value={newPassword}
                         error={errors.password}
-                        onChange={event => this.handleChange(event)}
+                        onChange={({ target }) => this.handleChange(target)}
                     />
                     <TextField
                         label={labels.confirmNewPassword}
@@ -206,7 +205,7 @@ class ProfileForm extends React.PureComponent {
                         type="password"
                         value={confirmNewPassword}
                         error={errors.confirmNewPassword}
-                        onChange={event => this.handleChange(event)}
+                        onChange={({ target }) => this.handleChange(target)}
                     />
                 </div>
                 <div className="button-container">

@@ -1,10 +1,10 @@
 ```jsx
 const options = [
-    { value: 'wind', title: 'Wind' },
-    { value: 'biomass (peat)', title: 'Biomass (peat)' },
-    { value: 'biomass (corn)', title: 'Biomass (corn)' },
-    { value: 'solar', title: 'Solar' },
-    { value: 'renewable', title: 'Renewable' },
+    { value: 'wind', label: 'Wind' },
+    { value: 'biomass (peat)', label: 'Biomass (peat)' },
+    { value: 'biomass (corn)', label: 'Biomass (corn)' },
+    { value: 'solar', label: 'Solar' },
+    { value: 'renewable', label: 'Renewable' },
 ];
 
 <SelectField label="Type of energy" options={options} />;
@@ -14,11 +14,11 @@ const options = [
 
 ```jsx
 const options = [
-    { value: 'wind', title: 'Wind' },
-    { value: 'biomass (peat)', title: 'Biomass (peat)' },
-    { value: 'biomass (corn)', title: 'Biomass (corn)', disabled: true },
-    { value: 'solar', title: 'Solar' },
-    { value: 'renewable', title: 'Renewable', disabled: true },
+    { value: 'wind', label: 'Wind' },
+    { value: 'biomass (peat)', label: 'Biomass (peat)' },
+    { value: 'biomass (corn)', label: 'Biomass (corn)', disabled: true },
+    { value: 'solar', label: 'Solar' },
+    { value: 'renewable', label: 'Renewable', disabled: true },
 ];
 
 <SelectField label="Type of energy" options={options} />;

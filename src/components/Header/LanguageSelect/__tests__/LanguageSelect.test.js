@@ -28,7 +28,7 @@ describe('<LanguageSelect /> component', () => {
         languageSelect
             .find('SelectField')
             .props()
-            .onChange({ target: { value: 'de', name: '' } });
+            .onChange({ value: 'de', name: '' });
         expect(onChangeStub).toHaveBeenCalledWith('de');
     });
 
@@ -38,6 +38,6 @@ describe('<LanguageSelect /> component', () => {
         languageSelect
             .find('SelectField')
             .props()
-            .onChange({ target: { value: 'de', name: '' } });
+            .onChange({ value: 'de', name: '' });
     });
 });

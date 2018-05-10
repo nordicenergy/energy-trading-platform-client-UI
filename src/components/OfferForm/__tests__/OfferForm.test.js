@@ -41,11 +41,11 @@ describe('<OfferForm /> component', () => {
         offerForm
             .find('DeltaField')
             .props()
-            .onChange({ target: { name: 'price', value: 3.5, delta: 1 } });
+            .onChange({ name: 'price', value: 3.5, delta: 1 });
         offerForm
-            .find('SelectField')
+            .find('SelectField[name="plantType"]')
             .props()
-            .onChange({ target: { value: 'other', name: 'plantType' } });
+            .onChange({ value: 'other', name: 'plantType' });
         offerForm
             .find('TextField[name="annualProduction"]')
             .props()
@@ -59,9 +59,9 @@ describe('<OfferForm /> component', () => {
                 target: { name: 'capacity', value: 'capacity test' }
             });
         offerForm
-            .find('DateField')
+            .find('DateField[name="date"]')
             .props()
-            .onChange({ target: { name: 'date', value: timestampMock } });
+            .onChange({ name: 'date', value: timestampMock });
         offerForm
             .find('TextField[name="city"]')
             .props()

@@ -51,7 +51,7 @@ class SelectField extends Component {
         const { onChange, name } = this.props;
 
         this.setState({ value, isFocused: false });
-        onChange && onChange({ target: { name, value } });
+        onChange && onChange({ name, value });
     }
 
     getSelectedOption() {

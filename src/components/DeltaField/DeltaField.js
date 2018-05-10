@@ -26,8 +26,8 @@ class DeltaField extends Component {
         const { initialValue } = this.getState();
         const value = Number((initialValue + delta).toFixed(2));
 
-        this.setState({ delta: delta, value });
-        onChange && onChange({ target: { delta, value, name } });
+        this.setState({ delta, value });
+        onChange && onChange({ delta, value, name });
     }
 
     render() {

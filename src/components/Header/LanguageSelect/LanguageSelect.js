@@ -21,9 +21,8 @@ class LanguageSelect extends Component {
         return { ...this.state, ...pick(this.props, ['value']) };
     }
 
-    handleChange(event) {
+    handleChange({ value }) {
         const { onChange } = this.props;
-        const { value } = event.target;
 
         this.setState({ value });
         onChange && onChange(value);
@@ -39,8 +38,8 @@ class LanguageSelect extends Component {
                 <SelectField
                     className="select-field--language"
                     options={locales.map(LanguageSelect.getSelectOption)}
-                    value={value.toUpperCase()}
-                    onChange={option => this.handleChange(option)}
+                    value={value && value.toUpperCase()}
+                    onChange={payload => this.handleChange(payload)}
                 />
             </div>
         );

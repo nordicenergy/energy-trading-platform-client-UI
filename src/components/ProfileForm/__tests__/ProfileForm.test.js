@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import ProfileForm from '../ProfileForm';
 
-const labelsMock = {
+const labelsDummy = {
     save: 'Save',
     firstName: 'First name',
     lastName: 'Last name',
@@ -58,23 +58,23 @@ const stateWithoutPassword = {
     streetNumber: ''
 };
 
-const onForgotPasswordLinkClickMock = jest.fn();
-const onSubmitMock = jest.fn();
+const onForgotPasswordLinkClickStub = jest.fn();
+const onSubmitStub = jest.fn();
 function renderComponent(
     {
-        labels = labelsMock,
-        onForgotPasswordLinkClick = onForgotPasswordLinkClickMock,
-        onSubmit = onSubmitMock,
+        labels = labelsDummy,
+        onForgotPasswordLinkClick = onForgotPasswordLinkClickStub,
+        onSubmit = onSubmitStub,
         profile = {}
     } = {},
     mountFn = shallow
 ) {
-    return mountFn(<ProfileForm labels={labels} profile={profile} onSubmit={onSubmitMock} errors={{}} />);
+    return mountFn(<ProfileForm labels={labels} profile={profile} onSubmit={onSubmitStub} errors={{}} />);
 }
 
 describe('<ProfileForm /> component', () => {
     beforeEach(() => {
-        onSubmitMock.mockClear();
+        onSubmitStub.mockClear();
     });
 
     it('should renders without errors', () => {
@@ -169,7 +169,7 @@ describe('<ProfileForm /> component', () => {
         component
             .find('DateField')
             .props()
-            .onChange({ target: { name: 'birthday', value: 'test' } });
+            .onChange({ name: 'birthday', value: 'test' });
         expect(component.state().birthday).toBe('test');
     });
 
@@ -177,9 +177,9 @@ describe('<ProfileForm /> component', () => {
         const component = renderComponent();
 
         const field = component.find('DateField');
-        field.props().onChange({ target: { name: 'birthday', value: 'test' } });
+        field.props().onChange({ name: 'birthday', value: 'test' });
         expect(component.state().birthday).toBe('test');
-        field.props().onChange({ target: { name: 'birthday', value: 'test2' } });
+        field.props().onChange({ name: 'birthday', value: 'test2' });
         expect(component.state().birthday).toBe('test2');
         expect(component.state().isEdited).toBe(true);
     });
@@ -512,7 +512,7 @@ describe('<ProfileForm /> component', () => {
         const component = renderComponent();
 
         component.find('form').simulate('submit', { preventDefault: () => null });
-        expect(onSubmitMock).toHaveBeenCalledWith(stateWithoutPassword);
+        expect(onSubmitStub).toHaveBeenCalledWith(stateWithoutPassword);
     });
 
     it('should call onSubmit with password callback when form was submitted', () => {
@@ -521,6 +521,6 @@ describe('<ProfileForm /> component', () => {
         component.setState({ oldPassword: 'asd' });
 
         component.find('form').simulate('submit', { preventDefault: () => null });
-        expect(onSubmitMock).toHaveBeenCalledWith({ ...stateWithPassword, oldPassword: 'asd' });
+        expect(onSubmitStub).toHaveBeenCalledWith({ ...stateWithPassword, oldPassword: 'asd' });
     });
 });

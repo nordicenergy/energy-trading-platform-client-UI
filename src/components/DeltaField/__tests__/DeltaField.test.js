@@ -30,11 +30,7 @@ describe('<DeltaField /> component', () => {
             .props()
             .onChange(0.4);
         expect(deltaField.state()).toEqual({ initialValue: 2.5, delta: 0.4, value: 2.9 });
-        expect(onChangeStub).toHaveBeenCalledWith(
-            expect.objectContaining({
-                target: { value: 2.9, delta: 0.4 }
-            })
-        );
+        expect(onChangeStub).toHaveBeenCalledWith(expect.objectContaining({ value: 2.9, delta: 0.4 }));
     });
 
     it('should not calls onChange callback if onChange is not a function', () => {

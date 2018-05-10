@@ -14,8 +14,7 @@ class ConfigurationForm extends Component {
         };
     }
 
-    handleChange(event) {
-        const { name, value } = event.target;
+    handleChange({ name, value }) {
         this.setState({ [name]: value });
     }
 
@@ -41,7 +40,7 @@ class ConfigurationForm extends Component {
                             label={labels.blockChainField}
                             options={blockChainFieldOptions}
                             value={blockChain}
-                            onChange={event => this.handleChange(event)}
+                            onChange={payload => this.handleChange(payload)}
                             error={errors.blockChain}
                         />
                     </div>
@@ -51,7 +50,7 @@ class ConfigurationForm extends Component {
                             label={labels.addressField}
                             options={addressFieldOptions}
                             value={address}
-                            onChange={event => this.handleChange(event)}
+                            onChange={payload => this.handleChange(payload)}
                             error={errors.address}
                         />
                     </div>
