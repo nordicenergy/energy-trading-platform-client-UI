@@ -46,10 +46,10 @@ class SelectField extends Component {
     }
 
     handleOptionClick(option) {
-        const { onChange } = this.props;
+        const { onChange, name } = this.props;
 
         this.setState({ value: option, isFocused: false });
-        onChange && onChange(option);
+        onChange && onChange({ ...option, name });
     }
 
     renderOption(option) {
@@ -111,7 +111,8 @@ SelectField.propTypes = {
     defaultValue: OptionPropType,
     value: OptionPropType,
     onChange: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    name: PropTypes.string
 };
 SelectField.defaultProps = {
     id: Date.now(),

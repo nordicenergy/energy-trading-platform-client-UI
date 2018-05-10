@@ -125,10 +125,11 @@ class OfferForm extends React.PureComponent {
                     <div className="offer-form-field">
                         <SelectField
                             disabled
+                            name="plantType"
                             label={labels.plantTypeField}
                             options={plantTypeOptions}
                             value={this.getSelectedOption()}
-                            onChange={({ value }) => this.handleChange({ name: 'plantType', value })}
+                            onChange={option => this.handleChange(option)}
                         />
                     </div>
                     <div className="offer-form-field">

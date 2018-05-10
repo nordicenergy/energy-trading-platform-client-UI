@@ -45,7 +45,7 @@ describe('<OfferForm /> component', () => {
         offerForm
             .find('SelectField')
             .props()
-            .onChange({ value: 'other', title: 'Other' });
+            .onChange({ value: 'other', title: 'Other', name: 'plantType' });
         offerForm
             .find('TextField[name="annualProduction"]')
             .props()
