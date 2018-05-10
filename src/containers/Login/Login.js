@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
-import { LoginForm, Logo, Illustration, Loader } from '../../components';
+import { LoginForm, Logo, Illustration } from '../../components';
 import { performLogin } from '../../action_performers/users';
+import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { Login as messages } from '../../services/translations/messages';
-
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-
 import './Login.css';
 
 export class Login extends AbstractContainer {
@@ -27,19 +26,22 @@ export class Login extends AbstractContainer {
         };
     }
 
-    componentWillReceiveProps({ loading, login, error }) {
-        const loaded = this.props.loading !== loading && !loading;
+    componentDidUpdate(prevProps) {
+        const { loading, login, error } = this.props;
+        const loaded = prevProps.loading !== loading && !loading;
 
         if (loaded && login.authentication && login.authentication.authenticationToken) {
             this.handleSuccessfulAuthentication();
         }
 
-        if (error) {
+        if (error !== prevProps.error && error) {
             performPushNotification({
                 type: 'error',
                 message: error.message
             });
         }
+
+        performSetupLoaderVisibility(loading);
     }
 
     handleSuccessfulAuthentication() {
@@ -101,7 +103,6 @@ export class Login extends AbstractContainer {
         return (
             <div className="login-container" aria-busy={loading}>
                 <div className="login-container-layout">
-                    <Loader show={loading} />
                     <div className="login-container-hero">
                         <Illustration className="illustration--login" />
                     </div>
