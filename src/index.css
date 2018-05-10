@@ -26,7 +26,6 @@
     --mandys-pink-color: #f4bdbd;
     --azalea-color: #fbdede;
     --transparent-geyser-color: rgba(217, 224, 229, 0.3);
-    --rolling-stone-color: #757e85;
     --stone-gray-color: rgba(240, 244, 247, 0.6);
     --hit-gray-color: #aab4bb;
     --nobel-color: #b5b5b5;
@@ -137,7 +136,6 @@
     --slider-bullet-color: var(--tower-gray-color);
     --slider-active-bullet-color: var(--blumine-color);
 
-    --configuration-form-hash-color: var(--rolling-stone-color);
     --configuration-form-shadow-color: var(--transparent-geyser-color);
 
     /* Common sizes */

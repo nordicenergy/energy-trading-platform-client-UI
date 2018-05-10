@@ -26,10 +26,6 @@
     margin-bottom: 3em;
 }
 
-.address-helper-text > strong {
-    color: var(--configuration-form-hash-color);
-}
-
 .configuration-form-actions {
     text-align: center;
 }
