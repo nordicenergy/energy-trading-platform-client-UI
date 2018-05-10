@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import pick from 'lodash.pick';
@@ -12,52 +12,66 @@ import DateField from '../DateField';
 import Button from '../Button';
 import './OfferForm.css';
 
-class OfferForm extends Component {
+const OFFER_FIELDS = [
+    'price',
+    'plantType',
+    'annualProduction',
+    'capacity',
+    'date',
+    'street',
+    'city',
+    'postcode',
+    'description'
+];
+
+const DELTA_ROUNDING_VALUE = 100;
+
+class OfferForm extends React.PureComponent {
     constructor(props) {
         super(props);
 
         const [firstOption] = props.plantTypeOptions;
         this.state = {
-            salePrice: props.marketPrice,
+            isEdited: false,
+            price: 0,
             plantType: firstOption.value,
             annualProduction: '',
-            capacity: '',
-            date: '',
-            location: '',
+            capacity: 0,
+            date: 0,
+            city: '',
+            street: '',
+            postcode: '',
             description: '',
-            ...pick(props.formData, [
-                'salePrice',
-                'plantType',
-                'annualProduction',
-                'capacity',
-                'date',
-                'location',
-                'description'
-            ])
+            ...pick(props.offer, OFFER_FIELDS)
         };
+    }
+
+    componentDidUpdate() {
+        if (!this.state.isEdited) {
+            this.setState({
+                ...this.state,
+                ...pick(this.props.offer, OFFER_FIELDS)
+            });
+        }
     }
 
     handleSubmit(event) {
         event.preventDefault();
         const { onSubmit } = this.props;
-        onSubmit && onSubmit({ ...this.state });
+        onSubmit &&
+            onSubmit({
+                ...pick(this.state, OFFER_FIELDS)
+            });
+        this.setState({
+            isEdited: false
+        });
     }
 
-    handleChange(event) {
-        const { name, value } = event.currentTarget;
-        this.setState({ [name]: value });
-    }
-
-    handleDeltaChange(name, { value }) {
-        this.setState({ [name]: value });
-    }
-
-    handleSelectChange(name, option) {
-        this.setState({ [name]: option.value });
-    }
-
-    handleDateChange(name, timestamp) {
-        this.setState({ [name]: timestamp });
+    handleChange({ name, value }) {
+        this.setState({
+            [name]: value,
+            isEdited: true
+        });
     }
 
     getSelectedOption() {
@@ -74,8 +88,9 @@ class OfferForm extends Component {
 
     calculateDelta() {
         const { marketPrice } = this.props;
-        const { salePrice } = this.state;
-        return Math.round((salePrice - marketPrice) * 10) / 10;
+        const { price: salePrice } = this.state;
+        const delta = Math.round((salePrice - marketPrice) * DELTA_ROUNDING_VALUE) / DELTA_ROUNDING_VALUE;
+        return isNaN(delta) ? 0 : delta;
     }
 
     renderDeleteButton() {
@@ -93,7 +108,7 @@ class OfferForm extends Component {
         const classes = classNames('offer-form', className);
 
         return (
-            <form className={classes} onSubmit={event => this.handleSubmit(event)}>
+            <form className={classes} onSubmit={event => this.handleSubmit(event)} noValidate>
                 <div className="offer-form-fields">
                     <div className="offer-form-field offer-form-field--price-delta">
                         <DeltaField
@@ -105,25 +120,28 @@ class OfferForm extends Component {
                             }}
                             initialValue={marketPrice}
                             delta={this.calculateDelta()}
-                            value={this.state.salePrice}
-                            onChange={payload => this.handleDeltaChange('salePrice', payload)}
+                            value={this.state.price}
+                            onChange={({ value }) => this.handleChange({ name: 'price', value })}
                         />
                     </div>
                     <div className="offer-form-field">
                         <SelectField
+                            disabled
+                            name="plantType"
                             label={labels.plantTypeField}
                             options={plantTypeOptions}
                             value={this.getSelectedOption()}
-                            onChange={option => this.handleSelectChange('plantType', option)}
+                            onChange={option => this.handleChange(option)}
                         />
                     </div>
                     <div className="offer-form-field">
                         <TextField
+                            disabled
                             name="annualProduction"
                             label={labels.annualProductionField}
                             addon="kWg / day"
                             value={this.state.annualProduction}
-                            onChange={event => this.handleChange(event)}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -132,23 +150,40 @@ class OfferForm extends Component {
                             label={labels.capacityField}
                             addon="MW"
                             value={this.state.capacity}
-                            onChange={event => this.handleChange(event)}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                     <div className="offer-form-field">
                         <DateField
+                            disabled
                             name="date"
                             label={labels.dateField}
                             value={this.state.date}
-                            onChange={timestamp => this.handleDateChange('date', timestamp)}
+                            onChange={value => this.handleChange({ name: 'date', value })}
                         />
                     </div>
                     <div className="offer-form-field">
                         <TextField
-                            name="location"
-                            label={labels.locationField}
-                            value={this.state.location}
-                            onChange={event => this.handleChange(event)}
+                            name="city"
+                            label={labels.cityField}
+                            value={this.state.city}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
+                        />
+                    </div>
+                    <div className="offer-form-field">
+                        <TextField
+                            name="street"
+                            label={labels.streetField}
+                            value={this.state.street}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
+                        />
+                    </div>
+                    <div className="offer-form-field">
+                        <TextField
+                            name="postcode"
+                            label={labels.postcodeField}
+                            value={this.state.postcode}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -156,7 +191,7 @@ class OfferForm extends Component {
                             name="description"
                             label={labels.descriptionField}
                             value={this.state.description}
-                            onChange={event => this.handleChange(event)}
+                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
                         />
                     </div>
                 </div>
@@ -189,13 +224,15 @@ OfferForm.propTypes = {
     }),
     plantTypeOptions: PropTypes.arrayOf(OptionPropType),
     marketPrice: PropTypes.number,
-    formData: PropTypes.shape({
-        salePrice: PropTypes.number,
+    offer: PropTypes.shape({
+        price: PropTypes.number,
         plantType: PropTypes.string,
         annualProduction: PropTypes.string,
-        capacity: PropTypes.string,
         date: PropTypes.number,
-        location: PropTypes.string,
+        capacity: PropTypes.number,
+        city: PropTypes.string,
+        street: PropTypes.string,
+        postcode: PropTypes.string,
         description: PropTypes.string
     }),
     disabled: PropTypes.bool,
@@ -204,15 +241,17 @@ OfferForm.propTypes = {
 };
 OfferForm.defaultProps = {
     labels: {
-        salePriceFieldBefore: 'Current Market Price:',
+        salePriceFieldBefore: 'Current Market Price',
         salePriceField: 'Delta to Market Price',
-        salePriceFieldAfter: 'Sale price:',
+        salePriceFieldAfter: 'Sale price',
         salePriceFieldUnits: 'cent',
         plantTypeField: 'Type of energy',
         annualProductionField: 'Annual Production',
         capacityField: 'Peak Capacity',
         dateField: 'Selected since',
-        locationField: 'Location',
+        cityField: 'City',
+        streetField: 'Street',
+        postcodeField: 'Postcode',
         descriptionField: 'Description',
         submitButton: 'Add Offer',
         deleteButton: 'Delete the offer'
@@ -223,8 +262,8 @@ OfferForm.defaultProps = {
         { value: PLANT_TYPES.biomass, title: 'Biomass' },
         { value: PLANT_TYPES.other, title: 'Other' }
     ],
-    marketPrice: 0,
-    formData: {},
+    marketPrice: 2.5,
+    offer: {},
     disabled: false
 };
 

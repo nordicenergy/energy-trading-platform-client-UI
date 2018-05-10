@@ -22,6 +22,11 @@
     font-family: inherit;
 }
 
+.text-field--disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
 .text-field-layout {
     position: relative;
     display: flex;

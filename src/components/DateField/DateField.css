@@ -24,3 +24,8 @@
     bottom: -0.5625rem;
     transform: translateY(100%);
 }
+
+.date-field--disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}

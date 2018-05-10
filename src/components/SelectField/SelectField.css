@@ -23,6 +23,11 @@
     transform: scaleX(0);
 }
 
+.select-field--disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
 .select-field--focused .select-field-layout::after {
     background: linear-gradient(to right, var(--hover-icon-color), var(--active-item-color));
     transition-duration: 200ms;

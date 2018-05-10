@@ -47,10 +47,10 @@ class SelectField extends Component {
     }
 
     handleOptionClick(option) {
-        const { onChange } = this.props;
+        const { onChange, name } = this.props;
 
         this.setState({ value: option, isFocused: false });
-        onChange && onChange(option);
+        onChange && onChange({ ...option, name });
     }
 
     handleDisabledOptionClick(event) {
@@ -77,10 +77,15 @@ class SelectField extends Component {
     }
 
     render() {
-        const { id, className, label, options } = this.props;
+        const { id, className, label, options, disabled } = this.props;
         const { value: selectedOption, isFocused } = this.getState();
         const listBoxId = `listbox-${id}`;
-        const classes = classNames('select-field', isFocused && 'select-field--focused', className);
+        const classes = classNames(
+            'select-field',
+            isFocused && 'select-field--focused',
+            disabled && 'select-field--disabled',
+            className
+        );
 
         return (
             <div id={id} className={classes}>
@@ -115,7 +120,9 @@ SelectField.propTypes = {
     options: PropTypes.arrayOf(OptionPropType),
     defaultValue: OptionPropType,
     value: OptionPropType,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool,
+    name: PropTypes.string
 };
 SelectField.defaultProps = {
     id: Date.now(),
