@@ -31,6 +31,7 @@ import OffersSlider from './OffersSlider';
 import DisclosureArrow from './DisclosureArrow';
 import BackLink from './BackLink';
 import ConfigurationForm from './ConfigurationForm';
+import MetaMaskAlert from './MetaMaskAlert';
 
 export {
     Button,
@@ -69,5 +70,6 @@ export {
     OffersSlider,
     DisclosureArrow,
     BackLink,
-    ConfigurationForm
+    ConfigurationForm,
+    MetaMaskAlert
 };

@@ -44,7 +44,7 @@ class Dispatcher {
     dispatchAction(type, payload, error, loading, meta) {
         const { store } = this;
 
-        store.dispatch(this.createAction(type, payload, error && error.response && error.response.data, loading, meta));
+        store.dispatch(this.createAction(type, payload, error, loading, meta));
     }
 
     /**
@@ -64,8 +64,8 @@ class Dispatcher {
             this.dispatchAction(type, null, null, true, args);
 
             operation(...args)
-                .then(res => this.dispatchAction(type, res && res.data, null, false, args))
-                .catch(err => this.dispatchAction(type, null, err, false, args));
+                .then(result => this.dispatchAction(type, result && result.data, null, false, args))
+                .catch(err => this.dispatchAction(type, null, err && err.response && err.response.data, false, args));
         }
     }
 

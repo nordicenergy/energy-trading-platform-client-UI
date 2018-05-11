@@ -309,8 +309,7 @@ describe('<Overview /> Component', () => {
         - 1 <NavigationCardsPanel /> component;
         - 1 <RecentTransactions /> component;
         - 1 <Loader /> component;
-        - <div> element with class "overview-page";
-        - <h1> element`, () => {
+        - <section> element with class "overview-page";`, () => {
         const component = renderContainer();
 
         expect(component.find('section.overview-page')).toHaveLength(1);

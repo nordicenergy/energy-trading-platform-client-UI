@@ -2,9 +2,8 @@ import Axios from 'axios';
 import { getRecentTransactions } from '../transactions';
 
 describe('Transactions API Service', () => {
-    beforeEach(done => {
+    beforeEach(() => {
         Axios.get = jest.fn();
-        done();
     });
     it('should provide method for getting recent transactions', async () => {
         Axios.get

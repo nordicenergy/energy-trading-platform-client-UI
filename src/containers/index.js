@@ -16,6 +16,7 @@ import BuyEnergy from './BuyEnergy';
 import ShowTransactions from './ShowTransactions';
 import Producer from './Producer';
 import Trading from './Trading';
+import DirectTrading from './DirectTrading';
 
 export {
     AbstractContainer,
@@ -35,5 +36,6 @@ export {
     MyProducer,
     ShowTransactions,
     Producer,
-    Trading
+    Trading,
+    DirectTrading
 };

@@ -47,7 +47,7 @@ describe('Main <App /> Component', () => {
     it('should setup correct translations', () => {
         const component = renderComponent(context);
         component.setContext(context);
-        expect(context.intl.formatMessage.mock.calls.length).toEqual(14);
+        expect(context.intl.formatMessage.mock.calls.length).toEqual(15);
     });
 
     it('should returns correct props', () => {
@@ -113,6 +113,7 @@ describe('Main <App /> Component', () => {
                 path: '/submit_meter'
             },
             { active: false, icon: 'faChartBar', id: 'trading', label: 'test', path: '/trading' },
+            { active: false, icon: 'faSuitcase', id: 'direct_trading', label: 'test', path: '/direct_trading' },
             { active: false, icon: 'faUser', id: 'profile', label: 'test', path: '/profile' }
         ]);
     });
