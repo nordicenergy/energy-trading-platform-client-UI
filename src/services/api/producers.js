@@ -22,7 +22,7 @@ export function getProducer(id) {
 
 export function getCurrentMarketPrice() {
     return Axios.get(`${SESSION_API_URL}/producers/${LITION_STANDARD_PLANT_ID}/get`).then(response => {
-        const price = response.data && response.data.producer.price;
+        const price = response.data && response.data.producer && response.data.producer.price;
         return {
             data: price
         };
