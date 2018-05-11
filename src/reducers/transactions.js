@@ -50,6 +50,17 @@ export function transactionsReducer(state = initialState, action) {
                 }
             };
         }
+        // FIXME cover by unit tests
+        case 'GET_OPEN_TRADE_POSITIONS': {
+            return {
+                ...state,
+                openTradePositions: {
+                    data: action.payload ? action.payload : state.openTradePositions.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
         default:
             return state;
     }

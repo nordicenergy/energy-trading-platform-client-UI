@@ -61,15 +61,19 @@ export class SellEnergy extends AbstractContainer {
     componentDidUpdate(prevProps) {
         const { formatMessage } = this.context.intl;
         const { user, loading, error, ownedProducerOfferInfo } = this.props;
-        if (prevProps.user !== user) {
+        if (user && user.id && prevProps.user !== user) {
             performGetOwnedProducerOffer(user.id);
         }
 
-        if (prevProps.ownedProducerOfferInfo !== ownedProducerOfferInfo) {
+        if (
+            ownedProducerOfferInfo &&
+            ownedProducerOfferInfo.id &&
+            prevProps.ownedProducerOfferInfo !== ownedProducerOfferInfo
+        ) {
             performGetOwnedProducerOffersHistory(ownedProducerOfferInfo.id);
         }
 
-        if (!loading && this.state.updated && this.props.ownedProducerOfferInfo !== prevProps.ownedProducerOfferInfo) {
+        if (!loading && this.state.updated && ownedProducerOfferInfo !== prevProps.ownedProducerOfferInfo) {
             performPushNotification({
                 type: 'success',
                 message: formatMessage(messages.addedOfferSuccessMessage)
