@@ -71,6 +71,7 @@
     --hover-icon-color: var(--emerald-color);
 
     --general-text-color: var(--blumine-color);
+    --general-dark-text-color: var(--black-pearl-color);
     --label-color: var(--tower-gray-color);
 
     --input-border: var(--porcelain-color);
@@ -138,6 +139,9 @@
     --slider-active-bullet-color: var(--blumine-color);
 
     --configuration-form-shadow-color: var(--transparent-geyser-color);
+
+    --trade-position-shadow-color: var(--stone-gray-color);
+    --trade-position-general-color: var(--big-stone-color);
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;

@@ -32,6 +32,8 @@ import DisclosureArrow from './DisclosureArrow';
 import BackLink from './BackLink';
 import ConfigurationForm from './ConfigurationForm';
 import MetaMaskAlert from './MetaMaskAlert';
+import SortToolbar from './SortToolbar';
+import TradePositionsList from './TradePositionsList';
 
 export {
     Button,
@@ -71,5 +73,7 @@ export {
     DisclosureArrow,
     BackLink,
     ConfigurationForm,
-    MetaMaskAlert
+    MetaMaskAlert,
+    SortToolbar,
+    TradePositionsList
 };
