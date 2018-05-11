@@ -32,6 +32,7 @@ import DisclosureArrow from './DisclosureArrow';
 import BackLink from './BackLink';
 import ConfigurationForm from './ConfigurationForm';
 import SortToolbar from './SortToolbar';
+import TradePositionsList from './TradePositionsList';
 
 export {
     Button,
@@ -71,5 +72,6 @@ export {
     DisclosureArrow,
     BackLink,
     ConfigurationForm,
-    SortToolbar
+    SortToolbar,
+    TradePositionsList
 };
