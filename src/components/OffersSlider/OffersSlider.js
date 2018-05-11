@@ -13,6 +13,7 @@ class OffersSlider extends Component {
             autoHeight: true,
             grabCursor: true,
             watchOverflow: true,
+            observer: true,
             containerModifierClass: 'offers-slider-container-',
             slideClass: 'offers-slider-slide',
             wrapperClass: 'offers-slider-wrapper',
