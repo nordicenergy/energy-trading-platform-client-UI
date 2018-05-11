@@ -14,6 +14,8 @@ export const DATE_FORMAT = 'MMM DD, YYYY';
 export const LOCALES = ['en', 'de'];
 export const [DEFAULT_LOCALE] = LOCALES;
 
+export const CURRENT_MARKET_PRICE = 2.5;
+
 export const META_MASK_LINK = 'https://metamask.io';
 
 export const META_MASK_DOWNLOAD_LINKS = {

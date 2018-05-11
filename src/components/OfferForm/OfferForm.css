@@ -69,6 +69,12 @@
     transform: scale(1.1);
 }
 
+@media (max-width: 1023px) {
+    .offer-form-fields {
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 767px) {
     .offer-form-field {
         padding: 0 1em;

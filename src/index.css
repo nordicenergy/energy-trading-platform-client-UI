@@ -9,6 +9,7 @@
     --transparent-black-pearl-color: rgba(5, 26, 45, 0.8);
     --big-stone-color: #142739;
     --pickled-bluewood-color: #2c3d4d;
+    --transparent-blumine-color: rgba(30, 87, 123, 0.3);
     --dark-blumine-color: #194d6d;
     --blumine-color: #1e577b;
     --ming: #3c6e8c;
@@ -25,7 +26,6 @@
     --mandys-pink-color: #f4bdbd;
     --azalea-color: #fbdede;
     --transparent-geyser-color: rgba(217, 224, 229, 0.3);
-    --transparent-blumine-color: rgba(30, 87, 123, 0.3);
     --stone-gray-color: rgba(240, 244, 247, 0.6);
     --hit-gray-color: #aab4bb;
     --nobel-color: #b5b5b5;
@@ -113,6 +113,7 @@
 
     --select-option-hov-bg-color: var(--blumine-color);
     --select-option-icon-color: var(--blumine-color);
+    --disabled-select-option-bg-color: var(--athens-gray-color);
 
     --offer-card-price-color: var(--nobel-color);
     --offer-card-energy-type-color: var(--black-pearl-color);
@@ -135,6 +136,8 @@
     --slider-control-color: var(--blumine-color);
     --slider-bullet-color: var(--tower-gray-color);
     --slider-active-bullet-color: var(--blumine-color);
+
+    --configuration-form-shadow-color: var(--transparent-geyser-color);
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;

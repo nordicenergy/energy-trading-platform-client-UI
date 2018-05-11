@@ -78,6 +78,12 @@
     "app.tradingPage.wattcoinTable.producer": "Producer",
     "app.tradingPage.wattcoinTable.energyType": "Type of energy",
 
+    "app.directTrading.pageTitle": "Advanced Trading",
+    "app.directTrading.pageSubTitle": "Advanced trading energy trader access to blockchain",
+    "app.directTrading.metaMask.messageStart": "Please use a",
+    "app.directTrading.metaMask.messageTail": "browser plugin to allow direct energy trading from your client!",
+    "app.directTrading.metaMask.linksLabel": "MetaMask for ",
+
     "app.buyEnergyPage.pageTitle": "Buy Energy",
     "app.buyEnergyPage.selectedProducerLabel": "Current Selection:",
     "app.buyEnergyPage.filterLabel": "Filter by",
@@ -126,7 +132,23 @@
     "app.profilePage.errors.emptyBankAccountNumber": "Enter your bank account number.",
     "app.profilePage.errors.passwordsMismatch": "Passwords don't match.",
     "app.profilePage.errors.invalidEmail": "Invalid email address.",
+    "app.profilePage.updatedProfileSuccessMessage": "Profile successfully updated.",
 
     "app.sellEnergyPage.pageTitle": "Sell Energy",
-    "app.sellEnergyPage.offersSectionTitle": "My offers"
+    "app.sellEnergyPage.offersSectionTitle": "My offers",
+    "app.sellEnergyPage.salePriceFieldBefore": "Current Market Price",
+    "app.sellEnergyPage.salePriceField": "Delta to Market Price",
+    "app.sellEnergyPage.salePriceFieldAfter": "Sale price",
+    "app.sellEnergyPage.salePriceFieldUnits": "cent",
+    "app.sellEnergyPage.plantTypeField": "Type of energy",
+    "app.sellEnergyPage.annualProductionField": "Annual Production",
+    "app.sellEnergyPage.capacityField": "Peak Capacity",
+    "app.sellEnergyPage.dateField": "Selected since",
+    "app.sellEnergyPage.cityField": "City",
+    "app.sellEnergyPage.streetField": "Street",
+    "app.sellEnergyPage.postcodeField": "Postcode",
+    "app.sellEnergyPage.descriptionField": "Description",
+    "app.sellEnergyPage.submitButton": "Add Offer",
+    "app.sellEnergyPage.deleteButton": "Delete the offer",
+    "app.sellEnergyPage.addedOfferSuccessMessage": "Offer successfully added."
 }

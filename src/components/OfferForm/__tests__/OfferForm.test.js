@@ -13,17 +13,19 @@ describe('<OfferForm /> component', () => {
 
     it('should renders with initial values', () => {
         const offerMock = {
-            salePrice: 2.9,
+            price: 2.9,
             plantType: 'biomass',
             annualProduction: '47.8',
-            capacity: '312',
+            capacity: 312,
             date: parseInt(Date.now() / 1000, 10),
-            location: 'test location',
+            city: 'test city',
+            street: 'test street',
+            postcode: 'test postcode',
             description: 'Test description'
         };
-        const offerForm = renderComponent({ formData: offerMock });
+        const offerForm = renderComponent({ offer: offerMock });
 
-        expect(offerForm.state()).toEqual(offerMock);
+        expect(offerForm.state()).toEqual({ ...offerMock, isEdited: false });
     });
 
     it('should renders with delete button', () => {
@@ -39,47 +41,62 @@ describe('<OfferForm /> component', () => {
         offerForm
             .find('DeltaField')
             .props()
-            .onChange({ value: 3.5, delta: 1 });
+            .onChange({ name: 'price', value: 3.5, delta: 1 });
         offerForm
-            .find('SelectField')
+            .find('SelectField[name="plantType"]')
             .props()
-            .onChange({ value: 'other', title: 'Other' });
+            .onChange({ value: 'other', name: 'plantType' });
         offerForm
             .find('TextField[name="annualProduction"]')
             .props()
             .onChange({
-                currentTarget: { name: 'annualProduction', value: 'annualProduction test' }
+                target: { name: 'annualProduction', value: 'annualProduction test' }
             });
         offerForm
             .find('TextField[name="capacity"]')
             .props()
             .onChange({
-                currentTarget: { name: 'capacity', value: 'capacity test' }
+                target: { name: 'capacity', value: 'capacity test' }
             });
         offerForm
-            .find('DateField')
+            .find('DateField[name="date"]')
             .props()
-            .onChange(timestampMock);
+            .onChange({ name: 'date', value: timestampMock });
         offerForm
-            .find('TextField[name="location"]')
+            .find('TextField[name="city"]')
             .props()
             .onChange({
-                currentTarget: { name: 'location', value: 'location test' }
+                target: { name: 'city', value: 'city test' }
+            });
+        offerForm
+            .find('TextField[name="street"]')
+            .props()
+            .onChange({
+                target: { name: 'street', value: 'street test' }
+            });
+        offerForm
+            .find('TextField[name="postcode"]')
+            .props()
+            .onChange({
+                target: { name: 'postcode', value: 'postcode test' }
             });
         offerForm
             .find('TextField[name="description"]')
             .props()
             .onChange({
-                currentTarget: { name: 'description', value: 'description test' }
+                target: { name: 'description', value: 'description test' }
             });
 
         expect(offerForm.state()).toEqual({
-            salePrice: 3.5,
+            isEdited: true,
+            price: 3.5,
             plantType: 'other',
             annualProduction: 'annualProduction test',
             capacity: 'capacity test',
             date: timestampMock,
-            location: 'location test',
+            city: 'city test',
+            street: 'street test',
+            postcode: 'postcode test',
             description: 'description test'
         });
     });
@@ -89,7 +106,17 @@ describe('<OfferForm /> component', () => {
         const offerForm = renderComponent({ onSubmit: onSubmitMock });
 
         offerForm.find('form').simulate('submit', { preventDefault: jest.fn() });
-        expect(onSubmitMock).toHaveBeenCalledWith(offerForm.state());
+        expect(onSubmitMock).toHaveBeenCalledWith({
+            price: 0,
+            plantType: 'solar',
+            annualProduction: '',
+            capacity: 0,
+            date: 0,
+            city: '',
+            street: '',
+            postcode: '',
+            description: ''
+        });
     });
 
     it('should not calls onSubmit callback if onSubmit is not a function', () => {

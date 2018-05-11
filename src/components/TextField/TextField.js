@@ -33,7 +33,7 @@ class TextField extends Component {
 
     handleChange(event) {
         const { onChange } = this.props;
-        const { value } = event.currentTarget;
+        const { value } = event.target;
 
         this.setState({ value });
         onChange && onChange(event);
@@ -60,6 +60,7 @@ class TextField extends Component {
             hasFocus && 'text-field--focused',
             error && 'text-field--error',
             darkMode && 'text-field--dark',
+            disabled && 'text-field--disabled',
             className
         );
 
@@ -103,7 +104,7 @@ TextField.propTypes = {
     name: PropTypes.string,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     defaultValue: PropTypes.string,
     hasFocus: PropTypes.bool,
     onChange: PropTypes.func,

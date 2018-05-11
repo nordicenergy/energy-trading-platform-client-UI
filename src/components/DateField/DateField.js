@@ -51,11 +51,11 @@ class DateField extends Component {
     }
 
     handleChange(date) {
-        const { onChange } = this.props;
+        const { onChange, name } = this.props;
         const timestamp = parseInt(date.getTime() / SECOND, 10);
 
         this.setState({ value: timestamp });
-        onChange && onChange(timestamp);
+        onChange && onChange({ name, value: timestamp });
     }
 
     handleOnCancel() {
@@ -90,16 +90,17 @@ class DateField extends Component {
     }
 
     render() {
-        const { label, error } = this.props;
+        const { label, error, disabled } = this.props;
         const { hasFocus } = this.state;
         const addon = (
             <span className="date-field-addon">
                 <FontAwesomeIcon icon={faCalendarAlt} />
             </span>
         );
+        const classes = classNames('date-field', disabled && 'date-field--disabled');
 
         return (
-            <div className="date-field" ref={ref => (this.dateFieldRef = ref)}>
+            <div className={classes} ref={ref => (this.dateFieldRef = ref)}>
                 <TextField
                     label={label}
                     addon={addon}
@@ -118,10 +119,12 @@ DateField.propTypes = {
     className: PropTypes.string,
     label: PropTypes.string.isRequired,
     datePickerLabels: DateLabelsPropType,
+    name: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     error: PropTypes.string,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool
 };
 DateField.defaultProps = {
     datePickerLabels: {

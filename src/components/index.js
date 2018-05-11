@@ -30,6 +30,7 @@ import OfferCard from './OfferCard';
 import OffersSlider from './OffersSlider';
 import DisclosureArrow from './DisclosureArrow';
 import BackLink from './BackLink';
+import ConfigurationForm from './ConfigurationForm';
 import MetaMaskAlert from './MetaMaskAlert';
 
 export {
@@ -69,5 +70,6 @@ export {
     OffersSlider,
     DisclosureArrow,
     BackLink,
+    ConfigurationForm,
     MetaMaskAlert
 };

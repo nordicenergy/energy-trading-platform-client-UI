@@ -6,20 +6,22 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/fontawesome-free-solid';
 import './SelectField.css';
 
-export const OptionPropType = PropTypes.shape({
-    value: PropTypes.string,
-    title: PropTypes.string
-});
+export const OptionPropType = PropTypes.oneOfType([
+    PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+        disabled: PropTypes.bool
+    }),
+    PropTypes.string
+]);
 
 class SelectField extends Component {
     constructor(props) {
         super(props);
 
-        const [firstOption] = props.options;
-
         this.handleBodyClick = this.handleBodyClick.bind(this);
         this.state = {
-            value: props.defaultValue || firstOption,
+            value: props.defaultValue,
             isFocused: false
         };
     }
@@ -45,32 +47,74 @@ class SelectField extends Component {
         });
     }
 
-    handleOptionClick(option) {
-        const { onChange } = this.props;
+    handleOptionClick(value) {
+        const { onChange, name } = this.props;
 
-        this.setState({ value: option, isFocused: false });
-        onChange && onChange(option);
+        this.setState({ value, isFocused: false });
+        onChange && onChange({ name, value });
     }
 
-    renderOption(option) {
-        const { value: selectedOption } = this.getState();
-        const classes = classNames({
-            'options-list-item': true,
-            'options-list-item--selected': selectedOption.value === option.value
-        });
+    getSelectedOption() {
+        const { options } = this.props;
+        const { value } = this.state;
+        const [selectedOption] = options;
 
-        return (
-            <li className={classes} key={option.value} onClick={() => this.handleOptionClick(option)}>
-                {option.title}
-            </li>
-        );
+        for (let i = 0; i < options.length; i += 1) {
+            const option = options[i];
+            if (value === option.value || value === option) {
+                return option;
+            }
+        }
+
+        return selectedOption;
+    }
+
+    renderOptions(selectedOption) {
+        const { options } = this.props;
+        const renderedOptions = [];
+
+        for (let i = 0; i < options.length; i += 1) {
+            const option = options[i];
+            let isSelected, label, value;
+
+            if (typeof option === 'string') {
+                label = option;
+                value = option;
+                isSelected = selectedOption === value;
+            } else {
+                label = option.label || option.value;
+                value = option.value;
+                isSelected = selectedOption.value === value;
+            }
+
+            const classes = classNames(
+                'options-list-item',
+                option.disabled && 'options-list-item--disabled',
+                isSelected && 'options-list-item--selected'
+            );
+            const onClick = option.disabled ? event => event.preventDefault() : () => this.handleOptionClick(value);
+
+            renderedOptions.push(
+                <li key={i} className={classes} onClick={onClick}>
+                    {label}
+                </li>
+            );
+        }
+
+        return renderedOptions;
     }
 
     render() {
-        const { id, className, label, options } = this.props;
-        const { value: selectedOption, isFocused } = this.getState();
+        const { id, className, label, disabled, error } = this.props;
+        const { isFocused } = this.getState();
         const listBoxId = `listbox-${id}`;
-        const classes = classNames('select-field', isFocused && 'select-field--focused', className);
+        const classes = classNames(
+            'select-field',
+            isFocused && 'select-field--focused',
+            disabled && 'select-field--disabled',
+            className
+        );
+        const selectedOption = this.getSelectedOption();
 
         return (
             <div id={id} className={classes}>
@@ -83,16 +127,21 @@ class SelectField extends Component {
                         aria-controls={listBoxId}
                     >
                         <div role="button" className="select-control">
-                            <strong className="select-control-text">{selectedOption && selectedOption.title}</strong>
+                            <strong className="select-control-text">{selectedOption.label || selectedOption}</strong>
                             <FontAwesomeIcon className="select-control-icon" icon={faChevronDown} />
                         </div>
                         {isFocused && (
                             <ul id={listBoxId} className="options-list" role="listbox">
-                                {options.map(this.renderOption.bind(this))}
+                                {this.renderOptions(selectedOption)}
                             </ul>
                         )}
                     </div>
                 </div>
+                {error && (
+                    <div role="alert" className="select-field-error">
+                        {error}
+                    </div>
+                )}
             </div>
         );
     }
@@ -101,15 +150,19 @@ class SelectField extends Component {
 SelectField.propTypes = {
     className: PropTypes.string,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    name: PropTypes.string,
     label: PropTypes.string,
     options: PropTypes.arrayOf(OptionPropType),
     defaultValue: OptionPropType,
     value: OptionPropType,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool,
+    error: PropTypes.string
 };
 SelectField.defaultProps = {
     id: Date.now(),
-    options: []
+    options: [],
+    defaultValue: ''
 };
 
 export default SelectField;

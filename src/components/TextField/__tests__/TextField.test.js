@@ -90,7 +90,7 @@ describe('<TextField /> component', () => {
     it('should calls onChange callback when input value was changed', () => {
         const textField = renderComponent();
         const eventMock = {
-            currentTarget: {
+            target: {
                 value: 'test'
             }
         };
@@ -102,7 +102,7 @@ describe('<TextField /> component', () => {
     it('should not calls onChange if onChange is not a function', () => {
         const textField = renderComponent({ onChange: null });
         const eventMock = {
-            currentTarget: {
+            target: {
                 value: 'test'
             }
         };

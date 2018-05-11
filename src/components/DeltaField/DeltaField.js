@@ -18,16 +18,16 @@ class DeltaField extends Component {
     }
 
     getState() {
-        return { ...this.state, ...pick(this.props, ['delta', 'value']) };
+        return { ...this.state, ...pick(this.props, ['delta', 'value', 'initialValue']) };
     }
 
     handleChange(delta) {
-        const { onChange } = this.props;
-        const { initialValue } = this.state;
-        const value = Number((initialValue + delta).toFixed(1));
+        const { onChange, name } = this.props;
+        const { initialValue } = this.getState();
+        const value = Number((initialValue + delta).toFixed(2));
 
-        this.setState({ delta: delta, value });
-        onChange && onChange({ delta, value });
+        this.setState({ delta, value });
+        onChange && onChange({ delta, value, name });
     }
 
     render() {
@@ -40,7 +40,7 @@ class DeltaField extends Component {
                 <table className={classes} cellSpacing={0}>
                     <tbody>
                         <tr className="delta-field-value-row">
-                            <td>{labels.beforeLabel}</td>
+                            <td>{labels.beforeLabel}:</td>
                             <td>
                                 {initialValue} <small>{labels.units}</small>
                             </td>
@@ -54,7 +54,7 @@ class DeltaField extends Component {
                             {labels.units && <td>{labels.units}</td>}
                         </tr>
                         <tr className="delta-field-value-row">
-                            <td>{labels.afterLabel}</td>
+                            <td>{labels.afterLabel}:</td>
                             <td>
                                 {value} <small>{labels.units}</small>
                             </td>
@@ -69,6 +69,7 @@ class DeltaField extends Component {
 
 DeltaField.propTypes = {
     className: PropTypes.string,
+    name: PropTypes.string,
     labels: PropTypes.shape({
         beforeLabel: PropTypes.string.isRequired,
         inputLabel: PropTypes.string.isRequired,

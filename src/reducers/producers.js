@@ -10,7 +10,8 @@ export const initialState = {
         },
         error: null,
         loading: false
-    }
+    },
+    ownedProducerOffer: { data: { producer: {} }, error: null, loading: false }
 };
 
 export function producersReducer(state = initialState, action) {
@@ -78,6 +79,24 @@ export function producersReducer(state = initialState, action) {
                 }
             };
         }
+        case 'GET_OWNED_PRODUCER_OFFER':
+            return {
+                ...state,
+                ownedProducerOffer: {
+                    data: action.payload ? action.payload : state.ownedProducerOffer.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        case 'ADD_OWNED_PRODUCER_OFFER':
+            return {
+                ...state,
+                ownedProducerOffer: {
+                    data: action.payload ? action.payload : state.ownedProducerOffer.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
         default:
             return state;
     }

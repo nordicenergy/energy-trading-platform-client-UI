@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { getUserData } from './users';
-import { SESSION_API_URL, LIMIT } from '../../constants';
+import { SESSION_API_URL, LIMIT, CURRENT_MARKET_PRICE } from '../../constants';
 
 export function getProducer(id) {
     const result = { data: { producer: {} } };
@@ -13,7 +13,7 @@ export function getProducer(id) {
                 location: locationTag`${producer.street}, ${producer.postcode} ${producer.city}, ${producer.country}`,
                 annualProduction: producer.productionOfLastDay,
                 purchased: producer.energyPurchased,
-                marketPrice: 2.5,
+                marketPrice: CURRENT_MARKET_PRICE,
                 ethereumAddress: producer.dlAddress
             };
         }
@@ -81,4 +81,12 @@ export function getCurrentProducer() {
         const { data } = response;
         return getProducer(data && data.user && data.user.currentProducerId);
     });
+}
+
+export function getOwnedProducerOffer(userId) {
+    return Axios.get(`${SESSION_API_URL}/user/${userId}/producer/getOwnedProducer`);
+}
+
+export function addOwnedProducerOffer(producerId, offer) {
+    return Axios.post(`${SESSION_API_URL}/producers/${producerId}/set`, offer);
 }

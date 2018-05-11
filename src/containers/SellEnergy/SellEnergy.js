@@ -4,8 +4,12 @@ import { connect } from 'react-redux';
 import { PATHS } from '../../services/routes';
 import { SellEnergy as messages } from '../../services/translations/messages';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { OfferForm, OffersSlider, BackLink } from '../../components';
+import { OfferForm, OffersSlider, BackLink, Loader } from '../../components';
+import { performGetUserData } from '../../action_performers/users';
+import { performGetOwnedProducerOffer, performAddOwnedProducerOffer } from '../../action_performers/producers';
 import './SellEnergy.css';
+import { performPushNotification } from '../../action_performers/notifications';
+import { CURRENT_MARKET_PRICE } from '../../constants';
 
 export class SellEnergy extends AbstractContainer {
     constructor(props, context) {
@@ -21,9 +25,12 @@ export class SellEnergy extends AbstractContainer {
             }
         ];
         super(props, context, breadcrumbs);
+        this.state = {
+            updated: false
+        };
     }
 
-    static mapStateToProps(/* state */) {
+    static mapStateToProps(state) {
         return {
             offers: [
                 {
@@ -68,14 +75,51 @@ export class SellEnergy extends AbstractContainer {
                     energyType: 'solar',
                     price: 4
                 }
-            ]
+            ],
+            user: state.Users.profile.data.user,
+            ownedProducerOfferInfo: state.Producers.ownedProducerOffer.data.producer,
+            error: state.Producers.ownedProducerOffer.error || state.Users.profile.error,
+            loading: state.Producers.ownedProducerOffer.loading || state.Users.profile.loading
         };
+    }
+
+    componentDidMount() {
+        performGetUserData();
+    }
+
+    componentDidUpdate(prevProps) {
+        const { formatMessage } = this.context.intl;
+        const { user, loading, error } = this.props;
+        if (prevProps.user !== user) {
+            performGetOwnedProducerOffer(user.id);
+        }
+
+        if (!loading && this.state.updated && this.props.ownedProducerOfferInfo !== prevProps.ownedProducerOfferInfo) {
+            performPushNotification({
+                type: 'success',
+                message: formatMessage(messages.addedOfferSuccessMessage)
+            });
+            this.setState({
+                updated: false
+            });
+        }
+
+        if (!loading && error && error !== prevProps.error) {
+            performPushNotification({ message: error.message, type: 'error' });
+        }
     }
 
     handleBackLinkClick(event) {
         event.preventDefault();
         const { history } = this.context.router;
         history.push(PATHS.overview.path);
+    }
+
+    submitOffer(offerData) {
+        performAddOwnedProducerOffer(this.props.ownedProducerOfferInfo.id, offerData);
+        this.setState({
+            updated: true
+        });
     }
 
     renderOffersSlider() {
@@ -95,18 +139,22 @@ export class SellEnergy extends AbstractContainer {
     }
 
     render() {
-        const { formatMessage } = this.context.intl;
+        const labels = this.prepareLabels(messages);
 
         return (
             <section className="sell-energy-page">
+                <Loader show={this.props.loading} />
                 <h1>
                     <BackLink onClick={event => this.handleBackLinkClick(event)} />
-                    <span>{formatMessage(messages.pageTitle)}</span>
+                    <span>{labels.pageTitle}</span>
                 </h1>
-                <OfferForm />
+                <OfferForm
+                    labels={labels}
+                    offer={this.props.ownedProducerOfferInfo}
+                    marketPrice={CURRENT_MARKET_PRICE}
+                    onSubmit={offerData => this.submitOffer(offerData)}
+                />
                 {this.renderOffersSlider()}
-                {/* TODO remove (including styles) after complete implementation */}
-                <div className="not-allowed-backdrop" />
             </section>
         );
     }

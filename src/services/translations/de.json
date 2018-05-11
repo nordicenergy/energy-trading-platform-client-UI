@@ -43,6 +43,7 @@
     "app.footer.about": "Über uns",
     "app.footer.termsAndConditions": "Terms & Conditions",
     "app.footer.service": "Fragen & Service",
+    "app.footer.faq": "FAQ",
     "app.footer.address": "2018 Lition. Alle Rechte vorbehalten.",
 
     "app.navigationCardsPanel.myProducer": "Mein Erzeuger",
@@ -78,6 +79,12 @@
     "app.tradingPage.wattcoinTable.total": "Summe",
     "app.tradingPage.wattcoinTable.producer": "Kraftwerke",
     "app.tradingPage.wattcoinTable.energyType": "Energieart",
+
+    "app.directTrading.pageTitle": "Advanced Trading",
+    "app.directTrading.pageSubTitle": "Advanced trading energy trader access to blockchain",
+    "app.directTrading.metaMask.messageStart": "Please use a",
+    "app.directTrading.metaMask.messageTail": "browser plugin to allow direct energy trading from your client!",
+    "app.directTrading.metaMask.linksLabel": "MetaMask for ",
 
     "app.buyEnergyPage.pageTitle": "Energie kaufen",
     "app.buyEnergyPage.selectedProducerLabel": "aktuelle Auswahl:",
@@ -127,7 +134,23 @@
     "app.profilePage.errors.emptyBankAccountNumber": "Kontonummer eingeben.",
     "app.profilePage.errors.passwordsMismatch": "Passwort stimmt nicht.",
     "app.profilePage.errors.invalidEmail": "Ungültige E-Mail.",
+    "app.profilePage.updatedProfileSuccessMessage": "Profile successfully updated.",
 
     "app.sellEnergyPage.pageTitle": "Sell Energy",
-    "app.sellEnergyPage.offersSectionTitle": "My offers"
+    "app.sellEnergyPage.offersSectionTitle": "My offers",
+    "app.sellEnergyPage.salePriceFieldBefore": "Current Market Price",
+    "app.sellEnergyPage.salePriceField": "Delta to Market Price",
+    "app.sellEnergyPage.salePriceFieldAfter": "Sale price",
+    "app.sellEnergyPage.salePriceFieldUnits": "cent",
+    "app.sellEnergyPage.plantTypeField": "Type of energy",
+    "app.sellEnergyPage.annualProductionField": "Annual Production",
+    "app.sellEnergyPage.capacityField": "Peak Capacity",
+    "app.sellEnergyPage.dateField": "Selected since",
+    "app.sellEnergyPage.cityField": "City",
+    "app.sellEnergyPage.streetField": "Street",
+    "app.sellEnergyPage.postcodeField": "Postcode",
+    "app.sellEnergyPage.descriptionField": "Description",
+    "app.sellEnergyPage.submitButton": "Add Offer",
+    "app.sellEnergyPage.deleteButton": "Delete the offer",
+    "app.sellEnergyPage.addedOfferSuccessMessage": "Offer successfully added."
 }
