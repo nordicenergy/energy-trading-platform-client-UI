@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import BackLink from '../BackLink';
 import TextField from '../TextField';
 import DateField from '../DateField';
 import SortToolbar from '../SortToolbar';
@@ -13,6 +14,7 @@ class TradePositionsList extends Component {
             id,
             className,
             labels,
+            onBackClick,
             tradeVolume,
             onTradeVolumeChange,
             dateFilter,
@@ -25,7 +27,10 @@ class TradePositionsList extends Component {
 
         return (
             <div className={classes}>
-                <h3>{labels.title}</h3>
+                <h3>
+                    <BackLink onClick={onBackClick} />
+                    <span>{labels.title}</span>
+                </h3>
                 <form className="trade-positions-list-toolbar" aria-controls={id}>
                     <TextField
                         label={labels.tradeVolumeField}
@@ -66,6 +71,7 @@ TradePositionsList.propTypes = {
         tradeVolumeField: PropTypes.string,
         filterByDateField: PropTypes.string
     }),
+    onBackClick: PropTypes.func,
     tradeVolume: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     onTradeVolumeChange: PropTypes.func,
     dateFilter: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

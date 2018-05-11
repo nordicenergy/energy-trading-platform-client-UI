@@ -43,6 +43,7 @@ function renderComponent({ tradePositions = tradePositionsDummy, ...otherProps }
 describe('<TradePositionsList /> component', () => {
     it(`should renders:
     - h3 title;
+    - <BackLink />
     - toolbar form;
     - <TextField />;
     - <DateField />;
@@ -51,6 +52,7 @@ describe('<TradePositionsList /> component', () => {
 
         expect(tradePositionsList.find('.trade-positions-list > h3')).toHaveLength(1);
         expect(tradePositionsList.find('.trade-positions-list > form')).toHaveLength(1);
+        expect(tradePositionsList.find('BackLink')).toHaveLength(1);
         expect(tradePositionsList.find('TextField')).toHaveLength(1);
         expect(tradePositionsList.find('DateField')).toHaveLength(1);
         expect(tradePositionsList.find('TradePosition')).toHaveLength(3);
@@ -60,6 +62,17 @@ describe('<TradePositionsList /> component', () => {
         const tradePositionsList = renderComponent({ sortOptions: sortOptionsDummy });
 
         expect(tradePositionsList.find('SortToolbar')).toHaveLength(1);
+    });
+
+    it('should calls onBackClick callback', () => {
+        const onBackClickStub = jest.fn();
+        const tradePositionsList = renderComponent({ onBackClick: onBackClickStub });
+
+        tradePositionsList
+            .find('BackLink')
+            .props()
+            .onClick();
+        expect(onBackClickStub).toHaveBeenCalled();
     });
 
     it('should calls onTradeVolumeChange callback', () => {

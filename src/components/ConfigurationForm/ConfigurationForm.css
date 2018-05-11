@@ -5,6 +5,7 @@
     border-radius: 0.25em;
     background: white;
     box-shadow: 0 0.25em 1em var(--configuration-form-shadow-color);
+    text-align: left;
     font-size: 1rem;
 }
 
@@ -24,6 +25,10 @@
 
 .configuration-form-field {
     margin-bottom: 3em;
+}
+
+.select-field--hash .options-list-item {
+    font-size: 1em;
 }
 
 .configuration-form-actions {
