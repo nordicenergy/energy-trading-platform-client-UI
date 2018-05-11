@@ -22,17 +22,14 @@
     text-align: left;
 }
 
-.direct-trading-page .meta-mask-alert {
-    top: var(--menu-icon-size);
-    left: var(--side-bar-width);
-    height: calc(100% - var(--menu-icon-size));
-    width: calc(100% - var(--side-bar-width));
+.direct-trading-page .meta-mask-alert .meta-mask-alert-dialog {
+    margin-top: var(--menu-icon-size);
+    margin-left: var(--side-bar-width);
 }
 
 @media screen and (max-width: 1023px) {
-    .direct-trading-page .meta-mask-alert {
-        left: var(--menu-icon-size);
-        width: calc(100% - var(--menu-icon-size));
+    .direct-trading-page .meta-mask-alert .meta-mask-alert-dialog {
+        margin-left: var(--menu-icon-size);
     }
 }
 
@@ -45,9 +42,8 @@
         font-size: 0.875rem;
     }
 
-    .direct-trading-page .meta-mask-alert {
-        left: 0;
-        width: 100%;
+    .direct-trading-page .meta-mask-alert .meta-mask-alert-dialog {
+        margin-left: 0;
     }
 }
 

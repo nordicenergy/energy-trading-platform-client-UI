@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import { SESSION_API_URL, LIMIT } from '../../constants';
 import { PATHS } from '../routes';
+import web3Service from '../web3';
 
 export function getRecentTransactions(userId, page = 0) {
     const currentBalance = {};
@@ -32,5 +33,39 @@ export function getRecentTransactions(userId, page = 0) {
             });
             response.data.transactions = transactions;
             return response;
+        });
+}
+
+// FIXME cover by unit tests, rewrite to async/await
+export function getOpenTradePositions(/* address, abi */) {
+    const intermediateData = { producers: [] };
+    const result = { data: [] };
+
+    return Axios.get(`${SESSION_API_URL}/producers/direct`, {
+        params: { limit: 1000, offset: 0 }
+    })
+        .then(response => {
+            if (response.data && Array.isArray(response.data.producers)) {
+                const { producers } = response.data;
+                intermediateData.producers = producers;
+                return web3Service.getCurrentBids();
+            }
+            return [];
+        })
+        .then((bids = {}) => {
+            const { data = [] } = bids;
+            result.data = data.map(bid => {
+                const { producers } = intermediateData;
+                const position = {};
+                position.offerAddress = bid.producer;
+                position.producerName = (producers.find(p => p.dlAddress === bid.producer) || {}).name || '';
+                position.offerIssued = bid.day;
+                position.validOn = '';
+                position.energyOffered = '';
+                position.energyAvailable = bid.energy;
+                position.price = bid.price;
+                return position;
+            });
+            return result;
         });
 }
