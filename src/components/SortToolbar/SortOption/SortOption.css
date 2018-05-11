@@ -24,7 +24,7 @@
 }
 
 .sort-option--active {
-    color: #30acc1;
+    color: var(--active-item-color);
 }
 
 .sort-option .svg-inline--fa {
