@@ -60,12 +60,16 @@ export class SellEnergy extends AbstractContainer {
 
     componentDidUpdate(prevProps) {
         const { formatMessage } = this.context.intl;
-        const { user = {}, loading, error, ownedProducerOfferInfo = {} } = this.props;
-        if (user.id && prevProps.user !== user) {
+        const { user, loading, error, ownedProducerOfferInfo } = this.props;
+        if (user && user.id && prevProps.user !== user) {
             performGetOwnedProducerOffer(user.id);
         }
 
-        if (ownedProducerOfferInfo.id && prevProps.ownedProducerOfferInfo !== ownedProducerOfferInfo) {
+        if (
+            ownedProducerOfferInfo &&
+            ownedProducerOfferInfo.id &&
+            prevProps.ownedProducerOfferInfo !== ownedProducerOfferInfo
+        ) {
             performGetOwnedProducerOffersHistory(ownedProducerOfferInfo.id);
         }
 
