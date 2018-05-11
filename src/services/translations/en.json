@@ -38,6 +38,7 @@
     "app.menuBar.documents": "My Documents",
     "app.menuBar.submitMetric": "Submit Meter Readings",
     "app.menuBar.trading": "Trading",
+    "app.menuBar.directTrading": "Direct Trading",
     "app.menuBar.profile": "Profile",
 
     "app.footer.about": "About Us",

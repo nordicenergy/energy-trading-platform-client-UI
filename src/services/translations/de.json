@@ -38,6 +38,7 @@
     "app.menuBar.documents": "Meine Dokumente",
     "app.menuBar.submitMeter": "Zählerstand eingeben",
     "app.menuBar.trading": "Trading",
+    "app.menuBar.directTrading": "Direct Trading",
     "app.menuBar.profile": "Profil",
 
     "app.footer.about": "Über uns",

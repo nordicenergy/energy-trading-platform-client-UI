@@ -73,17 +73,18 @@ export class DirectTrading extends AbstractContainer {
         return (
             <div style={{ width: '60%', height: '300px', background: 'white', padding: '4em' }}>
                 <p>Configuration Placeholder</p>
-                <small>{addresses.join(',')}</small>
+                <div>{addresses.join(',')}</div>
                 <button onClick={() => this.setState({ isConfigured: true })}>OK</button>
             </div>
         );
     }
 
-    renderOpenTradePositionsTable() {
+    renderOpenTradePositionsTable(positions = []) {
         // TODO TBD - place correct component here
         return (
             <div style={{ width: '60%', height: '300px', background: 'white', padding: '4em' }}>
-                Open Trade Positions
+                <p>Open Trade Positions</p>
+                <div>{positions.map(p => JSON.stringify(p))}</div>
             </div>
         );
     }

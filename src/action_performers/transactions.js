@@ -1,4 +1,4 @@
-import { getRecentTransactions } from '../services/api/transactions';
+import { getRecentTransactions, getOpenTradePositions } from '../services/api/transactions';
 import web3Service from '../services/web3';
 
 import { dispatcher } from '../store';
@@ -20,6 +20,11 @@ export function performGetAvailableAddresses() {
     );
 }
 
+// FIXME cover by unit tests
 export function performGetOpenTradePositions() {
-    // TODO TBD
+    dispatcher.dispatchPromise(
+        getOpenTradePositions,
+        'GET_OPEN_TRADE_POSITIONS',
+        state => state.Transactions.openTradePositions.loading
+    );
 }
