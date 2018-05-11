@@ -40,4 +40,9 @@ describe('<LanguageSelect /> component', () => {
             .props()
             .onChange({ value: 'de', name: '' });
     });
+
+    it('should provide property to select field in lowercase', () => {
+        const languageSelect = renderComponent({ value: 'EN' });
+        expect(languageSelect.find('SelectField').props().value).toEqual('en');
+    })
 });
