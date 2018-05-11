@@ -127,7 +127,9 @@ class SelectField extends Component {
                         aria-controls={listBoxId}
                     >
                         <div role="button" className="select-control">
-                            <strong className="select-control-text">{selectedOption.label || selectedOption}</strong>
+                            <strong className="select-control-text">
+                                {(selectedOption && selectedOption.label) || selectedOption}
+                            </strong>
                             <FontAwesomeIcon className="select-control-icon" icon={faChevronDown} />
                         </div>
                         {isFocused && (
