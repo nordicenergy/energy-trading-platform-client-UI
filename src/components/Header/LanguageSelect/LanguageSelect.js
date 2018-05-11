@@ -38,7 +38,7 @@ class LanguageSelect extends Component {
                 <SelectField
                     className="select-field--language"
                     options={locales.map(LanguageSelect.getSelectOption)}
-                    value={value && value.toLowerCase()}
+                    value={value}
                     onChange={payload => this.handleChange(payload)}
                 />
             </div>
