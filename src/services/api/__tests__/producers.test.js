@@ -7,7 +7,8 @@ import {
     getProducerHistory,
     getOwnedProducerOffer,
     addOwnedProducerOffer,
-    getCurrentMarketPrice, getOwnedProducerOffersHistory
+    getCurrentMarketPrice,
+    getOwnedProducerOffersHistory
 } from '../producers';
 import { LIMIT } from '../../../constants';
 
