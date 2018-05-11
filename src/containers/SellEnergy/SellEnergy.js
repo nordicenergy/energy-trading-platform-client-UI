@@ -69,7 +69,7 @@ export class SellEnergy extends AbstractContainer {
             performGetOwnedProducerOffersHistory(ownedProducerOfferInfo.id);
         }
 
-        if (!loading && this.state.updated && this.props.ownedProducerOfferInfo !== prevProps.ownedProducerOfferInfo) {
+        if (!loading && this.state.updated && ownedProducerOfferInfo !== prevProps.ownedProducerOfferInfo) {
             performPushNotification({
                 type: 'success',
                 message: formatMessage(messages.addedOfferSuccessMessage)
