@@ -4,7 +4,7 @@ import moment from 'moment';
 import './OfferCard.css';
 
 export const OfferPropType = PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     startPeriod: PropTypes.number,
     endPeriod: PropTypes.number,
     price: PropTypes.number,

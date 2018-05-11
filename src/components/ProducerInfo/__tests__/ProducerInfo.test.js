@@ -95,19 +95,19 @@ describe('<ProducerInfo /> Component', () => {
         const newProps = {
             ...props,
             details: {
-                price: 2.4,
-                marketPrice: 1.2
-            }
+                price: 2.4
+            },
+            marketPrice: 1.2
         };
         const component = renderComponent(newProps);
-        const { labels, details } = newProps;
+        const { labels, details, marketPrice } = newProps;
 
         const priceRow = component.find('.producer-information-row');
         expect(priceRow.length).toEqual(1);
         expect(priceRow.at(0).text()).toContain(labels.price);
         expect(priceRow.at(0).text()).toContain(labels.marketPrice);
         expect(priceRow.at(0).text()).toContain(`${formatFloat(details.price)}`);
-        expect(priceRow.at(0).text()).toContain(`${formatFloat(details.marketPrice)}`);
+        expect(priceRow.at(0).text()).toContain(`${formatFloat(marketPrice)}`);
 
         expect(component.find('.producer-information-market-value').length).toEqual(1);
         expect(component.find('small').length).toEqual(1);

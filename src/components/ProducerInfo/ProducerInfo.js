@@ -9,8 +9,8 @@ const MAP_SERVICE_URL = 'http://maps.google.com/?q=';
 
 class ProducerInfo extends React.Component {
     renderPrice() {
-        const { labels, details } = this.props;
-        const { marketPrice, price } = details;
+        const { labels, details, marketPrice } = this.props;
+        const { price } = details;
 
         return (
             <React.Fragment>
@@ -107,7 +107,6 @@ ProducerInfo.propTypes = {
     details: PropTypes.shape({
         name: PropTypes.string,
         price: PropTypes.number,
-        marketPrice: PropTypes.number,
         energyType: PropTypes.string,
         annualProduction: PropTypes.number,
         purchased: PropTypes.number,
@@ -129,7 +128,8 @@ ProducerInfo.propTypes = {
         location: PropTypes.string
     }),
     description: PropTypes.string,
-    picture: PropTypes.string
+    picture: PropTypes.string,
+    marketPrice: PropTypes.number
 };
 
 export default ProducerInfo;

@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { getUserData } from './users';
-import { SESSION_API_URL, LIMIT, CURRENT_MARKET_PRICE } from '../../constants';
+import { SESSION_API_URL, LIMIT, LITION_STANDARD_PLANT_ID } from '../../constants';
 
 export function getProducer(id) {
     const result = { data: { producer: {} } };
@@ -13,11 +13,19 @@ export function getProducer(id) {
                 location: locationTag`${producer.street}, ${producer.postcode} ${producer.city}, ${producer.country}`,
                 annualProduction: producer.productionOfLastDay,
                 purchased: producer.energyPurchased,
-                marketPrice: CURRENT_MARKET_PRICE,
                 ethereumAddress: producer.dlAddress
             };
         }
         return result;
+    });
+}
+
+export function getCurrentMarketPrice() {
+    return Axios.get(`${SESSION_API_URL}/producers/${LITION_STANDARD_PLANT_ID}/get`).then(response => {
+        const price = response.data && response.data.producer.price;
+        return {
+            data: price
+        };
     });
 }
 
@@ -89,4 +97,19 @@ export function getOwnedProducerOffer(userId) {
 
 export function addOwnedProducerOffer(producerId, offer) {
     return Axios.post(`${SESSION_API_URL}/producers/${producerId}/set`, offer);
+}
+
+export function getOwnedProducerOffersHistory(producerId) {
+    return Axios.get(`${SESSION_API_URL}/producers/${producerId}/offer/history`).then(response => {
+        const { data = {} } = response;
+        const { offers = [] } = data;
+        const formattedOffers = offers.map(offer => ({
+            startPeriod: offer.start,
+            endPeriod: offer.end,
+            price: offer.price
+        }));
+        return {
+            data: formattedOffers
+        };
+    });
 }

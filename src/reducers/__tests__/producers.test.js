@@ -52,6 +52,20 @@ describe('Producers reducer:', () => {
             expect(result.ownedProducerOffer.error).toBeNull();
             expect(result.ownedProducerOffer.data).toEqual(initialState.ownedProducerOffer.data);
         });
+
+        it('should handle GET_OWNED_PRODUCER_OFFERS_HISTORY', () => {
+            const result = producersReducer(initialState, ACTIONS.getOwnedProducerOffersHistory.pending);
+            expect(result.ownedProducerOffersHistory.loading).toBeTruthy();
+            expect(result.ownedProducerOffersHistory.error).toBeNull();
+            expect(result.ownedProducerOffersHistory.data).toEqual(initialState.ownedProducerOffersHistory.data);
+        });
+
+        it('should handle GET_CURRENT_MARKET_PRICE', () => {
+            const result = producersReducer(initialState, ACTIONS.getCurrentMarketPrice.pending);
+            expect(result.currentMarketPrice.loading).toBeTruthy();
+            expect(result.currentMarketPrice.error).toBeNull();
+            expect(result.currentMarketPrice.data).toEqual(initialState.currentMarketPrice.data);
+        });
     });
 
     describe('Error cases:', () => {
@@ -102,6 +116,20 @@ describe('Producers reducer:', () => {
             expect(result.ownedProducerOffer.loading).toBeFalsy();
             expect(result.ownedProducerOffer.error).toEqual(ACTIONS.addOwnedProducerOffer.fail.error);
             expect(result.ownedProducerOffer.data).toEqual(initialState.ownedProducerOffer.data);
+        });
+
+        it('should handle GET_OWNED_PRODUCER_OFFERS_HISTORY', () => {
+            const result = producersReducer(initialState, ACTIONS.getOwnedProducerOffersHistory.fail);
+            expect(result.ownedProducerOffersHistory.loading).toBeFalsy();
+            expect(result.ownedProducerOffersHistory.error).toEqual(ACTIONS.getOwnedProducerOffersHistory.fail.error);
+            expect(result.ownedProducerOffersHistory.data).toEqual(initialState.ownedProducerOffersHistory.data);
+        });
+
+        it('should handle GET_CURRENT_MARKET_PRICE', () => {
+            const result = producersReducer(initialState, ACTIONS.getCurrentMarketPrice.fail);
+            expect(result.currentMarketPrice.loading).toBeFalsy();
+            expect(result.currentMarketPrice.error).toEqual(ACTIONS.getCurrentMarketPrice.fail.error);
+            expect(result.currentMarketPrice.data).toEqual(initialState.currentMarketPrice.data);
         });
     });
 
@@ -206,6 +234,22 @@ describe('Producers reducer:', () => {
             expect(result.ownedProducerOffer.loading).toBeFalsy();
             expect(result.ownedProducerOffer.error).toBeNull();
             expect(result.ownedProducerOffer.data).toEqual(ACTIONS.addOwnedProducerOffer.success.payload);
+        });
+
+        it('should handle GET_OWNED_PRODUCER_OFFERS_HISTORY', () => {
+            const result = producersReducer(initialState, ACTIONS.getOwnedProducerOffersHistory.success);
+            expect(result.ownedProducerOffersHistory.loading).toBeFalsy();
+            expect(result.ownedProducerOffersHistory.error).toBeNull();
+            expect(result.ownedProducerOffersHistory.data).toEqual(
+                ACTIONS.getOwnedProducerOffersHistory.success.payload
+            );
+        });
+
+        it('should handle GET_CURRENT_MARKET_PRICE', () => {
+            const result = producersReducer(initialState, ACTIONS.getCurrentMarketPrice.success);
+            expect(result.currentMarketPrice.loading).toBeFalsy();
+            expect(result.currentMarketPrice.error).toBeNull();
+            expect(result.currentMarketPrice.data).toEqual(ACTIONS.getCurrentMarketPrice.success.payload);
         });
     });
 });
@@ -566,6 +610,80 @@ function fixtures() {
                         description: 'description test'
                     }
                 ]
+            }
+        },
+        getOwnedProducerOffersHistory: {
+            success: {
+                type: 'GET_OWNED_PRODUCER_OFFERS_HISTORY',
+                payload: [
+                    {
+                        startPeriod: 1502236800,
+                        endPeriod: 1505001600,
+                        price: 2.9
+                    },
+                    {
+                        startPeriod: 1502236800,
+                        endPeriod: 1505001600,
+                        price: 3.2
+                    },
+                    {
+                        startPeriod: 1502236800,
+                        endPeriod: 1505001600,
+                        price: 4
+                    },
+                    {
+                        startPeriod: 1502236800,
+                        endPeriod: 1505001600,
+                        price: 2.9
+                    },
+                    {
+                        startPeriod: 1502236800,
+                        endPeriod: 1505001600,
+                        price: 3.2
+                    },
+                    {
+                        startPeriod: 1502236800,
+                        endPeriod: 1505001600,
+                        price: 4
+                    }
+                ],
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'GET_OWNED_PRODUCER_OFFERS_HISTORY',
+                payload: null,
+                error: { message: 'Offers history error message' },
+                loading: false
+            },
+            pending: {
+                type: 'GET_OWNED_PRODUCER_OFFERS_HISTORY',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
+        getCurrentMarketPrice: {
+            success: {
+                type: 'GET_CURRENT_MARKET_PRICE',
+                payload: 2.5,
+                error: null,
+                loading: false,
+                meta: []
+            },
+            fail: {
+                type: 'GET_CURRENT_MARKET_PRICE',
+                payload: null,
+                error: { message: 'Response error' },
+                loading: false,
+                meta: []
+            },
+            pending: {
+                type: 'GET_CURRENT_MARKET_PRICE',
+                payload: null,
+                error: null,
+                loading: true,
+                meta: []
             }
         }
     };

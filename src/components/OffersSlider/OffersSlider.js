@@ -67,8 +67,8 @@ class OffersSlider extends Component {
                     </button>
                     <div className="offers-slider-container" ref={ref => (this.sliderContainerRef = ref)}>
                         <div className="offers-slider-wrapper">
-                            {offers.map(offer => (
-                                <div key={offer.id} className="offers-slider-slide">
+                            {offers.map((offer, index) => (
+                                <div key={`${index}-${offer.price}`} className="offers-slider-slide">
                                     <OfferCard offer={offer} onClick={() => onOfferClick(offer.id)} />
                                 </div>
                             ))}
@@ -93,7 +93,8 @@ OffersSlider.propTypes = {
     onOfferClick: PropTypes.func
 };
 OffersSlider.defaultProps = {
-    offers: []
+    offers: [],
+    onOfferClick: f => f
 };
 
 export default OffersSlider;

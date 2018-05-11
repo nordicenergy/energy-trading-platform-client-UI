@@ -5,7 +5,9 @@ import {
     selectProducer,
     getProducerHistory,
     getOwnedProducerOffer,
-    addOwnedProducerOffer
+    addOwnedProducerOffer,
+    getOwnedProducerOffersHistory,
+    getCurrentMarketPrice
 } from '../services/api/producers';
 
 import { dispatcher } from '../store';
@@ -57,5 +59,23 @@ export function performAddOwnedProducerOffer(producerId, offer) {
         'ADD_OWNED_PRODUCER_OFFER',
         state => state.Producers.ownedProducerOffer.loading,
         [producerId, offer]
+    );
+}
+
+export function performGetOwnedProducerOffersHistory(userId) {
+    dispatcher.dispatchPromise(
+        getOwnedProducerOffersHistory,
+        'GET_OWNED_PRODUCER_OFFERS_HISTORY',
+        state => state.Producers.ownedProducerOffersHistory.loading,
+        [userId]
+    );
+}
+
+export function performGetCurrentMarketPrice() {
+    dispatcher.dispatchPromise(
+        getCurrentMarketPrice,
+        'GET_CURRENT_MARKET_PRICE',
+        state => state.Producers.currentMarketPrice.loading,
+        []
     );
 }
