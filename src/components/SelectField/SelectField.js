@@ -56,7 +56,7 @@ class SelectField extends Component {
 
     getSelectedOption() {
         const { options } = this.props;
-        const { value } = this.state;
+        const { value } = this.getState();
         const [selectedOption] = options;
 
         for (let i = 0; i < options.length; i += 1) {
