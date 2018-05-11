@@ -2,18 +2,18 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import SelectField from '../SelectField';
 
-const optionsMock = [
-    { value: 'wind', title: 'Wind' },
-    { value: 'biomass (peat)', title: 'Biomass (peat)' },
-    { value: 'biomass (corn)', title: 'Biomass (corn)' },
-    { value: 'solar', title: 'Solar' },
-    { value: 'renewable', title: 'Renewable' }
+const optionsDummy = [
+    { value: 'wind', label: 'Wind' },
+    { value: 'biomass (peat)', label: 'Biomass (peat)' },
+    { value: 'biomass (corn)', label: 'Biomass (corn)' },
+    { value: 'solar', label: 'Solar' },
+    { value: 'renewable', label: 'Renewable' }
 ];
 function renderComponent(
-    { id = 'test', label = 'Test label', options = optionsMock, ...otherProps } = {},
+    { id = 'test', name = 'test', label = 'Test label', options = optionsDummy, ...otherProps } = {},
     mountFn = shallow
 ) {
-    return mountFn(<SelectField id={id} label={label} options={optionsMock} {...otherProps} />);
+    return mountFn(<SelectField id={id} name={name} label={label} options={options} {...otherProps} />);
 }
 
 describe('<SelectField /> component', () => {
@@ -21,6 +21,12 @@ describe('<SelectField /> component', () => {
         const selectField = renderComponent({}, mount);
 
         expect(selectField.instance().layoutRef.classList.contains('select-field-layout')).toBeTruthy();
+    });
+
+    it('should renders with error', () => {
+        const selectField = renderComponent({ error: 'test error' });
+
+        expect(selectField.find('.select-field-error').text()).toBe('test error');
     });
 
     it('should display options when field in focus', () => {
@@ -41,8 +47,30 @@ describe('<SelectField /> component', () => {
         expect(selectField.find('.options-list-item')).toHaveLength(0);
     });
 
+    it('should not select disabled option', () => {
+        const selectField = renderComponent({
+            defaultValue: 'wind',
+            options: [
+                { value: 'wind', label: 'Wind' },
+                { value: 'biomass (peat)', label: 'Biomass (peat)', disabled: true },
+                { value: 'biomass (corn)', label: '', disabled: true },
+                { value: 'solar', label: 'Solar' },
+                { value: 'renewable', label: 'Renewable' }
+            ]
+        });
+
+        selectField.setState({ isFocused: true });
+        selectField.update();
+        selectField
+            .find('.options-list-item')
+            .at(2)
+            .simulate('click', new Event('click'));
+        expect(selectField.state().isFocused).toBeTruthy();
+        expect(selectField.state().value).toEqual('wind');
+    });
+
     it('should update state after some option was clicked', () => {
-        const selectField = renderComponent();
+        const selectField = renderComponent({ options: ['wind', 'solar', 'biomass'] });
 
         selectField.setState({ isFocused: true });
         selectField.update();
@@ -50,12 +78,12 @@ describe('<SelectField /> component', () => {
             .find('.options-list-item')
             .at(2)
             .simulate('click');
-        expect(selectField.state().value).toEqual(optionsMock[2]);
+        expect(selectField.state().value).toEqual('biomass');
     });
 
     it('should call onChange callback after some option was clicked', () => {
         const onChangeMock = jest.fn();
-        const selectField = renderComponent({ value: optionsMock[1], onChange: onChangeMock });
+        const selectField = renderComponent({ value: optionsDummy[1], onChange: onChangeMock });
 
         selectField.setState({ isFocused: true });
         selectField.update();
@@ -63,7 +91,7 @@ describe('<SelectField /> component', () => {
             .find('.options-list-item')
             .at(2)
             .simulate('click');
-        expect(onChangeMock).toHaveBeenCalledWith(optionsMock[2]);
+        expect(onChangeMock).toHaveBeenCalledWith({ name: 'test', value: 'biomass (corn)' });
     });
 
     it('should remove event listener before component unmount', () => {

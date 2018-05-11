@@ -54,7 +54,7 @@ class NumberField extends Component {
 
     handleOnChange(event) {
         const { onChange } = this.props;
-        const { value } = event.currentTarget;
+        const { value } = event.target;
         const valueFloat = Number(value);
 
         this.setState({ value: valueFloat });

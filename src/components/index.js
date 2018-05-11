@@ -30,6 +30,7 @@ import OfferCard from './OfferCard';
 import OffersSlider from './OffersSlider';
 import DisclosureArrow from './DisclosureArrow';
 import BackLink from './BackLink';
+import ConfigurationForm from './ConfigurationForm';
 
 export {
     Button,
@@ -67,5 +68,6 @@ export {
     OfferCard,
     OffersSlider,
     DisclosureArrow,
-    BackLink
+    BackLink,
+    ConfigurationForm
 };

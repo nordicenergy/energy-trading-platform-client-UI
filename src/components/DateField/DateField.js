@@ -51,11 +51,11 @@ class DateField extends Component {
     }
 
     handleChange(date) {
-        const { onChange } = this.props;
+        const { onChange, name } = this.props;
         const timestamp = parseInt(date.getTime() / SECOND, 10);
 
         this.setState({ value: timestamp });
-        onChange && onChange(timestamp);
+        onChange && onChange({ name, value: timestamp });
     }
 
     handleOnCancel() {
@@ -119,6 +119,7 @@ DateField.propTypes = {
     className: PropTypes.string,
     label: PropTypes.string.isRequired,
     datePickerLabels: DateLabelsPropType,
+    name: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     error: PropTypes.string,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

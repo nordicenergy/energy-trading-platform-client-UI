@@ -38,7 +38,7 @@ describe('<RestorePasswordForm /> component', () => {
             .find('TextField.email-field')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'email',
                     value: 'email@example.com'
                 }

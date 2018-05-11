@@ -56,7 +56,7 @@ describe('<ProducersFilter /> component', () => {
             .find('FilterCheckbox[name="reset"]')
             .props()
             .onChange({
-                currentTarget: { name: 'all' }
+                target: { name: 'all' }
             });
         expect(producersFilter.state().value).toEqual([]);
 
@@ -64,7 +64,7 @@ describe('<ProducersFilter /> component', () => {
             .find('FilterCheckbox[name="wind"]')
             .props()
             .onChange({
-                currentTarget: { name: 'wind' }
+                target: { name: 'wind' }
             });
         expect(producersFilter.state().value).toEqual(['wind']);
 
@@ -73,7 +73,7 @@ describe('<ProducersFilter /> component', () => {
             .find('FilterCheckbox[name="solar"]')
             .props()
             .onChange({
-                currentTarget: { name: 'solar' }
+                target: { name: 'solar' }
             });
         expect(producersFilter.state().value).toEqual(['wind']);
 
@@ -81,7 +81,7 @@ describe('<ProducersFilter /> component', () => {
             .find('FilterCheckbox[name="wind"]')
             .props()
             .onChange({
-                currentTarget: { name: 'wind' }
+                target: { name: 'wind' }
             });
         expect(producersFilter.state().value).toEqual([]);
     });
@@ -94,7 +94,7 @@ describe('<ProducersFilter /> component', () => {
             .find('FilterCheckbox[name="wind"]')
             .props()
             .onChange({
-                currentTarget: { name: 'wind' }
+                target: { name: 'wind' }
             });
         expect(onChangeMock).toHaveBeenCalledWith(['wind']);
 
@@ -103,7 +103,7 @@ describe('<ProducersFilter /> component', () => {
             .find('FilterCheckbox[name="reset"]')
             .props()
             .onChange({
-                currentTarget: { name: 'all' }
+                target: { name: 'all' }
             });
         expect(onChangeMock).toHaveBeenCalledWith([]);
     });

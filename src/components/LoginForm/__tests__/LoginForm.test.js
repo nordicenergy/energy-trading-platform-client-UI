@@ -41,7 +41,7 @@ describe('<LoginForm /> component', () => {
             .find('TextField.username-field')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'username',
                     value: 'test'
                 }
@@ -56,7 +56,7 @@ describe('<LoginForm /> component', () => {
             .find('TextField.password-field')
             .props()
             .onChange({
-                currentTarget: {
+                target: {
                     name: 'password',
                     value: 'test'
                 }
