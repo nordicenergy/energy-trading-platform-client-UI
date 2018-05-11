@@ -25,6 +25,6 @@ export function performGetOpenTradePositions() {
     dispatcher.dispatchPromise(
         getOpenTradePositions,
         'GET_OPEN_TRADE_POSITIONS',
-        state => state.Transactions.availableAddresses.loading
+        state => state.Transactions.openTradePositions.loading
     );
 }
