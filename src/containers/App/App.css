@@ -26,6 +26,7 @@
 }
 
 .menu-container {
+    z-index: 8;
     width: auto;
     height: 100%;
     max-width: 100vw;
@@ -42,7 +43,6 @@
     .menu-container {
         position: absolute;
         overflow: hidden;
-        z-index: 8;
         height: calc(100% - 4.5rem);
         width: var(--menu-icon-size);
         background: white;

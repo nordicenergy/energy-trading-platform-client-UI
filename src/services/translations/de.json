@@ -18,6 +18,8 @@
     "app.breadCrumbs.producer": "Erzeuger auswählen",
     "app.breadCrumbs.sellEnergy": "Energie verkaufen",
     "app.breadCrumbs.buyEnergy": "Energie kaufen",
+    "app.breadCrumbs.trading": "Trading",
+    "app.breadCrumbs.directTrading": "Direct Trading",
 
     "app.restorePasswordPage.formTitle": "Passwort zurücksetzen",
     "app.restorePasswordPage.emailField": "Deine E-Mail",

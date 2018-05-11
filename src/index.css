@@ -61,6 +61,7 @@
     --sign-pages-bg-color: var(--black-pearl-color);
     --bar-color: var(--black-pearl-color);
     --figure-subtitle-color: var(--bali-hai-color);
+    --page-subheader-color: var(--big-stone-color);
 
     --footer-border-color: var(--geyser-color);
 
@@ -158,7 +159,7 @@ html,
     height: 100%;
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
     :root {
         --page-paddings: 1.5rem 1rem 1rem;
     }
