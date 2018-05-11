@@ -131,14 +131,14 @@ describe('<MyProducer /> Component', () => {
     });
 
     it(`should contains following controls:
-        - <div> with class "my-producer-page";
+        - <section> with class "my-producer-page";
         - 1 <h1>;
         - 1 <Button> component;
         - 1 <Loader> component";
         - 1 <ProducerInfo> component";`, () => {
         const component = renderContainer();
 
-        expect(component.find('.my-producer-page')).toHaveLength(1);
+        expect(component.find('section.my-producer-page')).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
         expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);

@@ -18,6 +18,8 @@
     "app.breadCrumbs.producer": "Erzeuger auswählen",
     "app.breadCrumbs.sellEnergy": "Energie verkaufen",
     "app.breadCrumbs.buyEnergy": "Energie kaufen",
+    "app.breadCrumbs.trading": "Trading",
+    "app.breadCrumbs.directTrading": "Direct Trading",
 
     "app.restorePasswordPage.formTitle": "Passwort zurücksetzen",
     "app.restorePasswordPage.emailField": "Deine E-Mail",
@@ -41,6 +43,7 @@
     "app.footer.about": "Über uns",
     "app.footer.termsAndConditions": "Terms & Conditions",
     "app.footer.service": "Fragen & Service",
+    "app.footer.faq": "FAQ",
     "app.footer.address": "2018 Lition. Alle Rechte vorbehalten.",
 
     "app.navigationCardsPanel.myProducer": "Mein Erzeuger",
@@ -76,6 +79,12 @@
     "app.tradingPage.wattcoinTable.total": "Summe",
     "app.tradingPage.wattcoinTable.producer": "Kraftwerke",
     "app.tradingPage.wattcoinTable.energyType": "Energieart",
+
+    "app.directTrading.pageTitle": "Advanced Trading",
+    "app.directTrading.pageSubTitle": "Advanced trading energy trader access to blockchain",
+    "app.directTrading.metaMask.messageStart": "Please use a",
+    "app.directTrading.metaMask.messageTail": "browser plugin to allow direct energy trading from your client!",
+    "app.directTrading.metaMask.linksLabel": "MetaMask for ",
 
     "app.buyEnergyPage.pageTitle": "Energie kaufen",
     "app.buyEnergyPage.selectedProducerLabel": "aktuelle Auswahl:",

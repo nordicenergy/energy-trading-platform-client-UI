@@ -22,12 +22,12 @@ class DeltaField extends Component {
     }
 
     handleChange(delta) {
-        const { onChange } = this.props;
+        const { onChange, name } = this.props;
         const { initialValue } = this.getState();
         const value = Number((initialValue + delta).toFixed(2));
 
-        this.setState({ delta: delta, value });
-        onChange && onChange({ delta, value });
+        this.setState({ delta, value });
+        onChange && onChange({ delta, value, name });
     }
 
     render() {
@@ -69,6 +69,7 @@ class DeltaField extends Component {
 
 DeltaField.propTypes = {
     className: PropTypes.string,
+    name: PropTypes.string,
     labels: PropTypes.shape({
         beforeLabel: PropTypes.string.isRequired,
         inputLabel: PropTypes.string.isRequired,

@@ -24,7 +24,7 @@ class ProducersFilter extends Component {
     handleChange(event) {
         const { onChange } = this.props;
         const { value } = this.getState();
-        const { name } = event.currentTarget;
+        const { name } = event.target;
         const isIncludesName = value.indexOf(name) > -1;
         let changedValue;
 

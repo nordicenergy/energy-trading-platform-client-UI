@@ -33,7 +33,7 @@ class TextField extends Component {
 
     handleChange(event) {
         const { onChange } = this.props;
-        const { value } = event.currentTarget;
+        const { value } = event.target;
 
         this.setState({ value });
         onChange && onChange(event);

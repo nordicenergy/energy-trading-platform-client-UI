@@ -22,7 +22,7 @@ describe('<NumberField /> component', () => {
         const numberField = renderComponent();
 
         numberField.find('.number-field-input').simulate('change', {
-            currentTarget: { value: 123 }
+            target: { value: 123 }
         });
         expect(numberField.state().value).toBe(123);
     });
@@ -32,7 +32,7 @@ describe('<NumberField /> component', () => {
         const numberField = renderComponent({ onChange: onChangeMock });
 
         numberField.find('.number-field-input').simulate('change', {
-            currentTarget: { value: 123 }
+            target: { value: 123 }
         });
         expect(onChangeMock).toHaveBeenCalledWith(123);
     });

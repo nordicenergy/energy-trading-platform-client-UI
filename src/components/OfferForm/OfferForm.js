@@ -74,18 +74,6 @@ class OfferForm extends React.PureComponent {
         });
     }
 
-    getSelectedOption() {
-        const { plantTypeOptions } = this.props;
-        const { plantType } = this.state;
-
-        for (let i = 0; i < plantTypeOptions.length; i += 1) {
-            const option = plantTypeOptions[i];
-            if (option.value === plantType) {
-                return option;
-            }
-        }
-    }
-
     calculateDelta() {
         const { marketPrice } = this.props;
         const { price: salePrice } = this.state;
@@ -112,6 +100,7 @@ class OfferForm extends React.PureComponent {
                 <div className="offer-form-fields">
                     <div className="offer-form-field offer-form-field--price-delta">
                         <DeltaField
+                            name="price"
                             labels={{
                                 beforeLabel: labels.salePriceFieldBefore,
                                 inputLabel: labels.salePriceField,
@@ -121,7 +110,7 @@ class OfferForm extends React.PureComponent {
                             initialValue={marketPrice}
                             delta={this.calculateDelta()}
                             value={this.state.price}
-                            onChange={({ value }) => this.handleChange({ name: 'price', value })}
+                            onChange={payload => this.handleChange(payload)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -130,8 +119,8 @@ class OfferForm extends React.PureComponent {
                             name="plantType"
                             label={labels.plantTypeField}
                             options={plantTypeOptions}
-                            value={this.getSelectedOption()}
-                            onChange={option => this.handleChange(option)}
+                            value={this.state.plantType}
+                            onChange={payload => this.handleChange(payload)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -141,7 +130,7 @@ class OfferForm extends React.PureComponent {
                             label={labels.annualProductionField}
                             addon="kWg / day"
                             value={this.state.annualProduction}
-                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
+                            onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -150,7 +139,7 @@ class OfferForm extends React.PureComponent {
                             label={labels.capacityField}
                             addon="MW"
                             value={this.state.capacity}
-                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
+                            onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -159,7 +148,7 @@ class OfferForm extends React.PureComponent {
                             name="date"
                             label={labels.dateField}
                             value={this.state.date}
-                            onChange={value => this.handleChange({ name: 'date', value })}
+                            onChange={payload => this.handleChange(payload)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -167,7 +156,7 @@ class OfferForm extends React.PureComponent {
                             name="city"
                             label={labels.cityField}
                             value={this.state.city}
-                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
+                            onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -175,7 +164,7 @@ class OfferForm extends React.PureComponent {
                             name="street"
                             label={labels.streetField}
                             value={this.state.street}
-                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
+                            onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -183,7 +172,7 @@ class OfferForm extends React.PureComponent {
                             name="postcode"
                             label={labels.postcodeField}
                             value={this.state.postcode}
-                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
+                            onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -191,7 +180,7 @@ class OfferForm extends React.PureComponent {
                             name="description"
                             label={labels.descriptionField}
                             value={this.state.description}
-                            onChange={({ currentTarget }) => this.handleChange(currentTarget)}
+                            onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
                 </div>
@@ -257,10 +246,10 @@ OfferForm.defaultProps = {
         deleteButton: 'Delete the offer'
     },
     plantTypeOptions: [
-        { value: PLANT_TYPES.solar, title: 'Solar' },
-        { value: PLANT_TYPES.wind, title: 'Wind' },
-        { value: PLANT_TYPES.biomass, title: 'Biomass' },
-        { value: PLANT_TYPES.other, title: 'Other' }
+        { value: PLANT_TYPES.solar, label: 'Solar' },
+        { value: PLANT_TYPES.wind, label: 'Wind' },
+        { value: PLANT_TYPES.biomass, label: 'Biomass' },
+        { value: PLANT_TYPES.other, label: 'Other' }
     ],
     marketPrice: 2.5,
     offer: {},

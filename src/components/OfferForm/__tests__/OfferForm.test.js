@@ -41,50 +41,50 @@ describe('<OfferForm /> component', () => {
         offerForm
             .find('DeltaField')
             .props()
-            .onChange({ value: 3.5, delta: 1 });
+            .onChange({ name: 'price', value: 3.5, delta: 1 });
         offerForm
-            .find('SelectField')
+            .find('SelectField[name="plantType"]')
             .props()
-            .onChange({ value: 'other', title: 'Other', name: 'plantType' });
+            .onChange({ value: 'other', name: 'plantType' });
         offerForm
             .find('TextField[name="annualProduction"]')
             .props()
             .onChange({
-                currentTarget: { name: 'annualProduction', value: 'annualProduction test' }
+                target: { name: 'annualProduction', value: 'annualProduction test' }
             });
         offerForm
             .find('TextField[name="capacity"]')
             .props()
             .onChange({
-                currentTarget: { name: 'capacity', value: 'capacity test' }
+                target: { name: 'capacity', value: 'capacity test' }
             });
         offerForm
-            .find('DateField')
+            .find('DateField[name="date"]')
             .props()
-            .onChange(timestampMock);
+            .onChange({ name: 'date', value: timestampMock });
         offerForm
             .find('TextField[name="city"]')
             .props()
             .onChange({
-                currentTarget: { name: 'city', value: 'city test' }
+                target: { name: 'city', value: 'city test' }
             });
         offerForm
             .find('TextField[name="street"]')
             .props()
             .onChange({
-                currentTarget: { name: 'street', value: 'street test' }
+                target: { name: 'street', value: 'street test' }
             });
         offerForm
             .find('TextField[name="postcode"]')
             .props()
             .onChange({
-                currentTarget: { name: 'postcode', value: 'postcode test' }
+                target: { name: 'postcode', value: 'postcode test' }
             });
         offerForm
             .find('TextField[name="description"]')
             .props()
             .onChange({
-                currentTarget: { name: 'description', value: 'description test' }
+                target: { name: 'description', value: 'description test' }
             });
 
         expect(offerForm.state()).toEqual({

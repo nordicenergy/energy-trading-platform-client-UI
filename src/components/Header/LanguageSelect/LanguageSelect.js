@@ -7,7 +7,7 @@ import './LanguageSelect.css';
 
 class LanguageSelect extends Component {
     static getSelectOption(locale) {
-        return { value: locale, title: locale.toUpperCase() };
+        return { value: locale, label: locale.toUpperCase() };
     }
 
     constructor(props) {
@@ -38,8 +38,8 @@ class LanguageSelect extends Component {
                 <SelectField
                     className="select-field--language"
                     options={locales.map(LanguageSelect.getSelectOption)}
-                    value={LanguageSelect.getSelectOption(value)}
-                    onChange={option => this.handleChange(option)}
+                    value={value && value.toUpperCase()}
+                    onChange={payload => this.handleChange(payload)}
                 />
             </div>
         );

@@ -16,7 +16,8 @@ import {
     BuyEnergy,
     SellEnergy,
     ShowTransactions,
-    Trading
+    Trading,
+    DirectTrading
 } from '../containers';
 import { Breadcrumbs as messages } from '../services/translations/messages';
 
@@ -40,6 +41,11 @@ export const PATHS = {
         path: '/trading',
         icon: 'faChartBar',
         label: messages.trading
+    },
+    directTrading: {
+        id: 'direct_trading',
+        path: '/direct_trading',
+        label: messages.directTrading
     },
     profile: {
         id: 'profile',
@@ -120,6 +126,7 @@ const AppMainLayout = () => {
                 <App>
                     <OverviewRoute />
                     <Route exact path={PATHS.trading.path} component={Trading} />
+                    <Route exact path={PATHS.directTrading.path} component={DirectTrading} />
                     {/*<Route path={PATHS.documents.path} component={Documents} />*/}
                     {/*<Route path={PATHS.submit_meter.path} component={SubmitMeter} />*/}
                     <Route path={PATHS.profile.path} component={Profile} />
