@@ -31,6 +31,7 @@ import OffersSlider from './OffersSlider';
 import DisclosureArrow from './DisclosureArrow';
 import BackLink from './BackLink';
 import ConfigurationForm from './ConfigurationForm';
+import MetaMaskAlert from './MetaMaskAlert';
 import SortToolbar from './SortToolbar';
 import TradePositionsList from './TradePositionsList';
 
@@ -72,6 +73,7 @@ export {
     DisclosureArrow,
     BackLink,
     ConfigurationForm,
+    MetaMaskAlert,
     SortToolbar,
     TradePositionsList
 };

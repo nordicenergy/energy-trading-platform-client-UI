@@ -4,7 +4,7 @@ const { ACTIONS } = fixtures();
 
 describe('Transactions reducer:', () => {
     describe('Pending cases:', () => {
-        it('should handle GET_RECENT_TRANSACTIONS', done => {
+        it('should handle GET_RECENT_TRANSACTIONS', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.pending);
             expect(result.recentTransactions.loading).toEqual(true);
             expect(result.recentTransactions.error).toEqual(null);
@@ -13,12 +13,18 @@ describe('Transactions reducer:', () => {
                 transactions: [],
                 numberOfTransactions: 0
             });
-
-            done();
+        });
+        it('should handle GET_AVAILABLE_ADDRESSES', () => {
+            const result = transactionsReducer(initialState, ACTIONS.getAvailableAddresses.pending);
+            expect(result.availableAddresses.loading).toEqual(true);
+            expect(result.availableAddresses.error).toEqual(null);
+            expect(result.availableAddresses.data).toEqual({
+                addresses: []
+            });
         });
     });
     describe('Error cases:', () => {
-        it('should handle GET_RECENT_TRANSACTIONS', done => {
+        it('should handle GET_RECENT_TRANSACTIONS', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.fail);
             expect(result.recentTransactions.loading).toEqual(false);
             expect(result.recentTransactions.error).toEqual('Error Message');
@@ -27,18 +33,28 @@ describe('Transactions reducer:', () => {
                 transactions: [],
                 numberOfTransactions: 0
             });
-
-            done();
+        });
+        it('should handle GET_AVAILABLE_ADDRESSES', () => {
+            const result = transactionsReducer(initialState, ACTIONS.getAvailableAddresses.fail);
+            expect(result.availableAddresses.loading).toEqual(false);
+            expect(result.availableAddresses.error).toEqual('Error Message');
+            expect(result.availableAddresses.data).toEqual({
+                addresses: []
+            });
         });
     });
     describe('Success cases:', () => {
-        it('should handle GET_RECENT_TRANSACTIONS', done => {
+        it('should handle GET_RECENT_TRANSACTIONS', () => {
             const result = transactionsReducer(initialState, ACTIONS.getRecentTransactions.success);
             expect(result.recentTransactions.loading).toEqual(false);
             expect(result.recentTransactions.error).toEqual(null);
             expect(result.recentTransactions.data).toEqual(ACTIONS.getRecentTransactions.success.payload);
-
-            done();
+        });
+        it('should handle GET_AVAILABLE_ADDRESSES', () => {
+            const result = transactionsReducer(initialState, ACTIONS.getAvailableAddresses.success);
+            expect(result.availableAddresses.loading).toEqual(false);
+            expect(result.availableAddresses.error).toEqual(null);
+            expect(result.availableAddresses.data).toEqual(ACTIONS.getAvailableAddresses.success.payload);
         });
     });
 });
@@ -92,6 +108,31 @@ function fixtures() {
                 error: null,
                 loading: true,
                 meta: ['testId', 0]
+            }
+        },
+        getAvailableAddresses: {
+            success: {
+                type: 'GET_AVAILABLE_ADDRESSES',
+                payload: {
+                    addresses: [
+                        '0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe',
+                        '0xDCc6960376d6C6dEa93647383FfB245CfCed97Cf'
+                    ]
+                },
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'GET_AVAILABLE_ADDRESSES',
+                payload: null,
+                error: 'Error Message',
+                loading: false
+            },
+            pending: {
+                type: 'GET_AVAILABLE_ADDRESSES',
+                payload: null,
+                error: null,
+                loading: true
             }
         }
     };

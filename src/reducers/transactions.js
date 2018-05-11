@@ -3,6 +3,18 @@ export const initialState = {
         data: { currentBalance: {}, transactions: [], numberOfTransactions: 0 },
         error: null,
         loading: false
+    },
+    availableAddresses: {
+        data: {
+            addresses: []
+        },
+        error: null,
+        loading: false
+    },
+    openTradePositions: {
+        data: [],
+        error: null,
+        loading: false
     }
 };
 
@@ -23,6 +35,16 @@ export function transactionsReducer(state = initialState, action) {
                                   : payload.transactions
                           }
                         : state.recentTransactions.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
+        case 'GET_AVAILABLE_ADDRESSES': {
+            return {
+                ...state,
+                availableAddresses: {
+                    data: action.payload ? action.payload : state.availableAddresses.data,
                     loading: action.loading,
                     error: action.error
                 }

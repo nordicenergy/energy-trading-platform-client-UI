@@ -23,7 +23,7 @@ describe('<Trading /> Container', () => {
     });
 
     it(`should contains following controls:
-        - <div> with class "trading-page";
+        - <section> with class "trading-page";
         - <NavigationCardsPanel>;
         - <WattcoinTable>;
         - <EnergyAmountGraph>;

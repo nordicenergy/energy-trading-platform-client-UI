@@ -17,6 +17,10 @@ const messages = defineMessages({
         id: 'app.menuBar.trading',
         defaultMessage: 'Trading'
     },
+    directTrading: {
+        id: 'app.menuBar.directTrading',
+        defaultMessage: 'Direct Trading'
+    },
     profile: {
         id: 'app.menuBar.profile',
         defaultMessage: 'Profile'

@@ -82,6 +82,7 @@ export class App extends React.Component {
             documents: 'faBook',
             submit_meter: 'faCalculator',
             trading: 'faChartBar',
+            directTrading: 'faSuitcase',
             profile: 'faUser'
         };
 
@@ -115,6 +116,13 @@ export class App extends React.Component {
                 label: formatMessage(messages.trading),
                 active: headRoute === PATHS.trading.id,
                 path: PATHS.trading.path
+            },
+            {
+                id: PATHS.directTrading.id,
+                icon: icons.directTrading,
+                label: formatMessage(messages.directTrading),
+                active: headRoute === PATHS.directTrading.id,
+                path: PATHS.directTrading.path
             },
             {
                 id: PATHS.profile.id,

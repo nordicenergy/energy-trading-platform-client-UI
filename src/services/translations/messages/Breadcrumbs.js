@@ -24,6 +24,14 @@ const messages = defineMessages({
     buyEnergy: {
         id: 'app.breadCrumbs.buyEnergy',
         defaultMessage: 'Buy Energy'
+    },
+    trading: {
+        id: 'app.breadCrumbs.trading',
+        defaultMessage: 'Trading'
+    },
+    directTrading: {
+        id: 'app.breadCrumbs.directTrading',
+        defaultMessage: 'Direct Trading'
     }
 });
 

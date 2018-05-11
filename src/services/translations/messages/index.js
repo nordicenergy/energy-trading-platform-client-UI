@@ -13,3 +13,4 @@ export { default as About } from './About';
 export { default as FAQ } from './FAQ';
 export { default as SellEnergy } from './SellEnergy';
 export { default as TermsAndConditions } from './TermsAndConditions';
+export { default as DirectTrading } from './DirectTrading';
