@@ -146,40 +146,10 @@ export class DirectTrading extends AbstractContainer {
     }
 
     renderOpenTradePositionsTable(tradePositions = [], labels) {
-        // TODO replace with real trade position
-        const tradePositionsDummy = [
-            {
-                offerAddress: '0x123f681646d4a755815f9cb19e1acc8565a0c2ac',
-                producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss',
-                offerIssued: parseInt(Date.now() / 1000, 10),
-                validOn: parseInt(Date.now() / 1000, 10),
-                energyOffered: 3800,
-                energyAvailable: 3500,
-                price: 3.5
-            },
-            {
-                offerAddress: '0x456f681646d4a755815f9cb19e1acc8565a0c2ac',
-                producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss',
-                offerIssued: parseInt(Date.now() / 1000, 10),
-                validOn: parseInt(Date.now() / 1000, 10),
-                energyOffered: 3800,
-                energyAvailable: 3500,
-                price: 3.5
-            },
-            {
-                offerAddress: '0x789f681646d4a755815f9cb19e1acc8565a0c2ac',
-                producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss',
-                offerIssued: parseInt(Date.now() / 1000, 10),
-                validOn: parseInt(Date.now() / 1000, 10),
-                energyOffered: 3800,
-                energyAvailable: 3500,
-                price: 3.5
-            }
-        ];
         return (
             <TradePositionsList
                 onBackClick={() => this.handleBackClick()}
-                tradePositions={tradePositionsDummy}
+                tradePositions={tradePositions.slice(0, 25)}
                 labels={{
                     title: labels.metaMaskTradePositionsTitle,
                     tradeVolumeField: labels.metaMaskTradePositionsTradeVolumeField,

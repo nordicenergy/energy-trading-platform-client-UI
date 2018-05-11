@@ -1,3 +1,5 @@
+// FIXME cover by unit test, add format functions
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -27,7 +29,7 @@ const TradePosition = ({ className, labels, tradePosition }) => {
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.producerName}</span>
-                    <strong>{tradePosition.producerName}</strong>
+                    <strong>{tradePosition.producerName || 'unknown'}</strong>
                 </div>
             </div>
             <div className="trade-position-data">
@@ -37,7 +39,11 @@ const TradePosition = ({ className, labels, tradePosition }) => {
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.validOn}</span>
-                    <strong>{moment(new Date(tradePosition.validOn * 1000)).format(DATE_FORMAT)}</strong>
+                    <strong>
+                        {(tradePosition.validOn &&
+                            moment(new Date(tradePosition.validOn * 1000)).format(DATE_FORMAT)) ||
+                            '--'}
+                    </strong>
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.energyOffered}</span>
@@ -50,7 +56,7 @@ const TradePosition = ({ className, labels, tradePosition }) => {
                 <div className="trade-position-entry">
                     <span>{labels.price}</span>
                     <strong>
-                        {tradePosition.price} <span translate="no">ct/kWh</span>
+                        {(tradePosition.price / 1000).toFixed(2)} <span translate="no">ct/kWh</span>
                     </strong>
                 </div>
             </div>

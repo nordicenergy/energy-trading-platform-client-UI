@@ -68,7 +68,7 @@ const messages = defineMessages({
     metaMaskErrorsAddress: {
         id: 'app.directTrading.metaMask.errors.address',
         defineMessage: 'Select one of address.'
-    },
+    }
 });
 
 export default messages;
