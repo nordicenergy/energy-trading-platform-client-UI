@@ -7,6 +7,7 @@ import configureMockStore from 'redux-mock-store';
 
 import * as notificationActions from '../../../action_performers/notifications';
 import * as txActions from '../../../action_performers/transactions';
+import { performGetOpenTradePositions } from '../../../action_performers/transactions';
 
 const context = {
     intl: {
@@ -76,6 +77,22 @@ describe('<DirectTrading /> Component', () => {
         // TODO add Alert, OpenTradePositionsTable and ConfigurationForm check
     });
 
+    it('should renders with ConfigurationForm', () => {
+        const component = renderComponent();
+
+        component.setState({ isMetaMaskInstalled: true, isConfigured: false });
+        component.update();
+        expect(component.find('ConfigurationForm')).toHaveLength(1);
+    });
+
+    it('should renders with TradePositionsList', () => {
+        const component = renderComponent();
+
+        component.setState({ isMetaMaskInstalled: true, isConfigured: true });
+        component.update();
+        expect(component.find('TradePositionsList')).toHaveLength(1);
+    });
+
     it('should returns correct props map', () => {
         const stateDummy = {
             Transactions: {
@@ -98,6 +115,49 @@ describe('<DirectTrading /> Component', () => {
             error: 'test_error',
             loading: 'test_loading'
         });
+    });
+
+    it('should reset formData when back link was clicked', () => {
+        const component = renderComponent();
+
+        component.setState({
+            isMetaMaskInstalled: true,
+            isConfigured: true,
+            formData: { blockChain: 'ethereum', address: 'abc' }
+        });
+        component.update();
+        component
+            .find('TradePositionsList')
+            .props()
+            .onBackClick();
+
+        expect(component.instance().state.formData).toEqual({ blockChain: 'ethereum', address: '' });
+    });
+
+    it('should not calls performGetOpenTradePositions if formData is not valid', () => {
+        jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+        const component = renderContainer();
+
+        component.setState({ isMetaMaskInstalled: true, isConfigured: false });
+        component
+            .find('ConfigurationForm')
+            .props()
+            .onSubmit({ blockChain: 'test', address: '' });
+
+        expect(txActions.performGetOpenTradePositions).not.toHaveBeenCalled();
+        console.warn.mockRestore();
+    });
+
+    it('should calls performGetOpenTradePositions if formData not valid', () => {
+        const component = renderContainer();
+
+        component.setState({ isMetaMaskInstalled: true, isConfigured: false });
+        component
+            .find('ConfigurationForm')
+            .props()
+            .onSubmit({ blockChain: 'test', address: 'abc' });
+
+        expect(txActions.performGetOpenTradePositions).toHaveBeenCalledWith('abc');
     });
 
     it('should perform related actions on did mount step', () => {

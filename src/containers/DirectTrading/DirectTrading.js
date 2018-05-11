@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MetaMaskAlert, Loader } from '../../components';
+import Validator from 'async-validator';
+import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import { MetaMaskAlert, ConfigurationForm, TradePositionsList, Loader } from '../../components';
 import web3Service from '../../services/web3';
 import { DirectTrading as messages } from '../../services/translations/messages';
 import { performGetAvailableAddresses, performGetOpenTradePositions } from '../../action_performers/transactions';
 import { performPushNotification } from '../../action_performers/notifications';
 import { META_MASK_DOWNLOAD_LINKS, META_MASK_LINK } from '../../constants';
-
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
-
 import './DirectTrading.css';
+
+const DEFAULT_FORM_DATA = {
+    blockChain: 'ethereum',
+    address: ''
+};
 
 export class DirectTrading extends AbstractContainer {
     constructor(props, context, breadcrumbs) {
@@ -18,7 +22,12 @@ export class DirectTrading extends AbstractContainer {
 
         this.state = {
             isConfigured: false,
-            isMetaMaskInstalled: web3Service.hasMetaMaskProvider()
+            isMetaMaskInstalled: web3Service.hasMetaMaskProvider(),
+            formData: DEFAULT_FORM_DATA,
+            formErrors: {
+                blockChain: '',
+                address: ''
+            }
         };
     }
 
@@ -39,16 +48,62 @@ export class DirectTrading extends AbstractContainer {
 
     componentDidUpdate(prevProps, prevState) {
         const { loading, error } = this.props;
-        const { isConfigured, isMetaMaskInstalled } = this.state;
+        const { isConfigured, isMetaMaskInstalled, formData } = this.state;
         const configured = isConfigured && isConfigured !== prevState.isConfigured;
 
         if (isMetaMaskInstalled && configured) {
-            performGetOpenTradePositions();
+            performGetOpenTradePositions(formData.address);
         }
 
         if (!loading && error && error !== prevProps.error) {
             performPushNotification({ message: error.message, type: 'error' });
         }
+    }
+
+    prepareValidator() {
+        const labels = this.prepareLabels(messages);
+        const validationSchema = {
+            blockChain: {
+                type: 'string',
+                required: true,
+                message: labels.metaMaskErrorsBlockChain
+            },
+            address: {
+                type: 'string',
+                required: true,
+                message: labels.metaMaskErrorsAddress
+            }
+        };
+
+        return new Validator(validationSchema);
+    }
+
+    handleBackClick() {
+        this.setState({ isConfigured: false, formData: DEFAULT_FORM_DATA });
+    }
+
+    handleSubmit(formData) {
+        const validator = this.prepareValidator();
+
+        validator.validate(formData, errors => {
+            if (errors) {
+                this.setState({
+                    formErrors: errors.reduce(
+                        (errorsState, { field, message }) => ({
+                            ...errorsState,
+                            [field]: message
+                        }),
+                        {}
+                    )
+                });
+            } else {
+                this.setState({
+                    isConfigured: true,
+                    formData,
+                    formErrors: { blockChain: '', address: '' }
+                });
+            }
+        });
     }
 
     renderMetaMaskAlert(labels) {
@@ -68,23 +123,70 @@ export class DirectTrading extends AbstractContainer {
         );
     }
 
-    renderConfigurationForm(addresses = []) {
-        // TODO TBD - place correct component here
+    renderConfigurationForm(addresses = [], labels) {
+        const { formErrors } = this.state;
+        const addressesWithDefaultOption = [
+            { value: null, label: labels.metaMaskConfigurationFormAddressPlaceholder }
+        ].concat(addresses);
+
         return (
-            <div style={{ width: '60%', height: '300px', background: 'white', padding: '4em' }}>
-                <p>Configuration Placeholder</p>
-                <small>{addresses.join(',')}</small>
-                <button onClick={() => this.setState({ isConfigured: true })}>OK</button>
-            </div>
+            <ConfigurationForm
+                addressFieldOptions={addressesWithDefaultOption}
+                onSubmit={formData => this.handleSubmit(formData)}
+                errors={formErrors}
+                labels={{
+                    title: labels.metaMaskConfigurationFormTitle,
+                    blockChainField: labels.metaMaskConfigurationFormBlockChainField,
+                    addressField: labels.metaMaskConfigurationFormAddressField,
+                    button: labels.metaMaskConfigurationFormButton,
+                    helperText: labels.metaMaskConfigurationFormHelperText
+                }}
+            />
         );
     }
 
-    renderOpenTradePositionsTable() {
-        // TODO TBD - place correct component here
+    renderOpenTradePositionsTable(tradePositions = [], labels) {
+        // TODO replace with real trade position
+        const tradePositionsDummy = [
+            {
+                offerAddress: '0x123f681646d4a755815f9cb19e1acc8565a0c2ac',
+                producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss',
+                offerIssued: parseInt(Date.now() / 1000, 10),
+                validOn: parseInt(Date.now() / 1000, 10),
+                energyOffered: 3800,
+                energyAvailable: 3500,
+                price: 3.5
+            },
+            {
+                offerAddress: '0x456f681646d4a755815f9cb19e1acc8565a0c2ac',
+                producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss',
+                offerIssued: parseInt(Date.now() / 1000, 10),
+                validOn: parseInt(Date.now() / 1000, 10),
+                energyOffered: 3800,
+                energyAvailable: 3500,
+                price: 3.5
+            },
+            {
+                offerAddress: '0x789f681646d4a755815f9cb19e1acc8565a0c2ac',
+                producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss',
+                offerIssued: parseInt(Date.now() / 1000, 10),
+                validOn: parseInt(Date.now() / 1000, 10),
+                energyOffered: 3800,
+                energyAvailable: 3500,
+                price: 3.5
+            }
+        ];
         return (
-            <div style={{ width: '60%', height: '300px', background: 'white', padding: '4em' }}>
-                Open Trade Positions
-            </div>
+            <TradePositionsList
+                onBackClick={() => this.handleBackClick()}
+                tradePositions={tradePositionsDummy}
+                labels={{
+                    title: labels.metaMaskTradePositionsTitle,
+                    tradeVolumeField: labels.metaMaskTradePositionsTradeVolumeField,
+                    filterByDateField: labels.metaMaskTradePositionsFilterByDateField,
+                    sortToolbarTitle: labels.metaMaskTradePositionsSortToolbarTitle
+                }}
+            />
         );
     }
 
@@ -98,8 +200,8 @@ export class DirectTrading extends AbstractContainer {
                 <h1>{labels.pageTitle}</h1>
                 <h2>{labels.pageSubTitle}</h2>
                 {this.renderMetaMaskAlert(labels)}
-                {!this.state.isConfigured ? this.renderConfigurationForm(availableAddresses) : null}
-                {this.state.isConfigured ? this.renderOpenTradePositionsTable(openTradePositions) : null}
+                {!this.state.isConfigured ? this.renderConfigurationForm(availableAddresses, labels) : null}
+                {this.state.isConfigured ? this.renderOpenTradePositionsTable(openTradePositions, labels) : null}
             </section>
         );
     }
