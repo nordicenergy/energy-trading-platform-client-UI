@@ -47,6 +47,7 @@ class ConfigurationForm extends Component {
                     <div className="configuration-form-field">
                         <SelectField
                             name="address"
+                            className="select-field--hash"
                             label={labels.addressField}
                             options={addressFieldOptions}
                             value={address}
@@ -71,7 +72,6 @@ ConfigurationForm.propTypes = {
         title: PropTypes.string,
         blockChainField: PropTypes.string,
         addressField: PropTypes.string,
-        addressFieldHelperText: PropTypes.string,
         button: PropTypes.string,
         helperText: PropTypes.string
     }),
