@@ -6,10 +6,14 @@ import { SellEnergy as messages } from '../../services/translations/messages';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { OfferForm, OffersSlider, BackLink, Loader } from '../../components';
 import { performGetUserData } from '../../action_performers/users';
-import { performGetOwnedProducerOffer, performAddOwnedProducerOffer } from '../../action_performers/producers';
+import {
+    performGetOwnedProducerOffer,
+    performAddOwnedProducerOffer,
+    performGetOwnedProducerOffersHistory,
+    performGetCurrentMarketPrice
+} from '../../action_performers/producers';
 import './SellEnergy.css';
 import { performPushNotification } from '../../action_performers/notifications';
-import { CURRENT_MARKET_PRICE } from '../../constants';
 
 export class SellEnergy extends AbstractContainer {
     constructor(props, context) {
@@ -32,66 +36,37 @@ export class SellEnergy extends AbstractContainer {
 
     static mapStateToProps(state) {
         return {
-            offers: [
-                {
-                    id: '01',
-                    startPeriod: 1502236800,
-                    endPeriod: 1505001600,
-                    energyType: 'wind',
-                    price: 2.9
-                },
-                {
-                    id: '02',
-                    startPeriod: 1502236800,
-                    endPeriod: 1505001600,
-                    energyType: 'biomass',
-                    price: 3.2
-                },
-                {
-                    id: '03',
-                    startPeriod: 1502236800,
-                    endPeriod: 1505001600,
-                    energyType: 'solar',
-                    price: 4
-                },
-                {
-                    id: '04',
-                    startPeriod: 1502236800,
-                    endPeriod: 1505001600,
-                    energyType: 'wind',
-                    price: 2.9
-                },
-                {
-                    id: '05',
-                    startPeriod: 1502236800,
-                    endPeriod: 1505001600,
-                    energyType: 'biomass',
-                    price: 3.2
-                },
-                {
-                    id: '06',
-                    startPeriod: 1502236800,
-                    endPeriod: 1505001600,
-                    energyType: 'solar',
-                    price: 4
-                }
-            ],
+            offers: state.Producers.ownedProducerOffersHistory.data,
             user: state.Users.profile.data.user,
             ownedProducerOfferInfo: state.Producers.ownedProducerOffer.data.producer,
-            error: state.Producers.ownedProducerOffer.error || state.Users.profile.error,
-            loading: state.Producers.ownedProducerOffer.loading || state.Users.profile.loading
+            error:
+                state.Producers.ownedProducerOffer.error ||
+                state.Users.profile.error ||
+                state.Producers.ownedProducerOffersHistory.error ||
+                state.Producers.currentMarketPrice.error,
+            loading:
+                state.Producers.ownedProducerOffer.loading ||
+                state.Users.profile.loading ||
+                state.Producers.ownedProducerOffersHistory.loading ||
+                state.Producers.currentMarketPrice.loading,
+            currentMarketPrice: state.Producers.currentMarketPrice.data
         };
     }
 
     componentDidMount() {
         performGetUserData();
+        performGetCurrentMarketPrice();
     }
 
     componentDidUpdate(prevProps) {
         const { formatMessage } = this.context.intl;
-        const { user, loading, error } = this.props;
+        const { user, loading, error, ownedProducerOfferInfo } = this.props;
         if (prevProps.user !== user) {
             performGetOwnedProducerOffer(user.id);
+        }
+
+        if (prevProps.ownedProducerOfferInfo !== ownedProducerOfferInfo) {
+            performGetOwnedProducerOffersHistory(ownedProducerOfferInfo.id);
         }
 
         if (!loading && this.state.updated && this.props.ownedProducerOfferInfo !== prevProps.ownedProducerOfferInfo) {
@@ -123,14 +98,20 @@ export class SellEnergy extends AbstractContainer {
     }
 
     renderOffersSlider() {
-        const { offers } = this.props;
+        const { offers, ownedProducerOfferInfo } = this.props;
         const { formatMessage } = this.context.intl;
+
+        const formattedOffers = offers.map(offer => ({
+            ...offer,
+            id: ownedProducerOfferInfo.id,
+            energyType: ownedProducerOfferInfo.plantType
+        }));
 
         if (offers && offers.length > 0) {
             return (
                 <div className="sell-energy-page-offers">
                     <h2>{formatMessage(messages.offersSectionTitle)}</h2>
-                    <OffersSlider className="offers-slider--full-width" offers={offers} />
+                    <OffersSlider className="offers-slider--full-width" offers={formattedOffers} />
                 </div>
             );
         }
@@ -151,7 +132,7 @@ export class SellEnergy extends AbstractContainer {
                 <OfferForm
                     labels={labels}
                     offer={this.props.ownedProducerOfferInfo}
-                    marketPrice={CURRENT_MARKET_PRICE}
+                    marketPrice={this.props.currentMarketPrice}
                     onSubmit={offerData => this.submitOffer(offerData)}
                 />
                 {this.renderOffersSlider()}
@@ -171,7 +152,12 @@ SellEnergy.contextTypes = {
     }).isRequired
 };
 SellEnergy.propTypes = {
-    offers: PropTypes.arrayOf(PropTypes.object)
+    offers: PropTypes.arrayOf(PropTypes.object),
+    ownedProducerOfferInfo: PropTypes.object,
+    currentMarketPrice: PropTypes.number,
+    loading: PropTypes.bool,
+    error: PropTypes.object,
+    user: PropTypes.object
 };
 
 export default connect(SellEnergy.mapStateToProps)(SellEnergy);

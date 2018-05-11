@@ -7,45 +7,33 @@ import * as userActions from '../../../action_performers/users';
 
 const offersDummy = [
     {
-        id: '01',
         startPeriod: 1502236800,
         endPeriod: 1505001600,
-        energyType: 'wind',
         price: 2.9
     },
     {
-        id: '02',
         startPeriod: 1502236800,
         endPeriod: 1505001600,
-        energyType: 'biomass',
         price: 3.2
     },
     {
-        id: '03',
         startPeriod: 1502236800,
         endPeriod: 1505001600,
-        energyType: 'solar',
         price: 4
     },
     {
-        id: '04',
         startPeriod: 1502236800,
         endPeriod: 1505001600,
-        energyType: 'wind',
         price: 2.9
     },
     {
-        id: '05',
         startPeriod: 1502236800,
         endPeriod: 1505001600,
-        energyType: 'biomass',
         price: 3.2
     },
     {
-        id: '06',
         startPeriod: 1502236800,
         endPeriod: 1505001600,
-        energyType: 'solar',
         price: 4
     }
 ];
@@ -68,6 +56,8 @@ const ownedProducerDummy = {
     energyPurchased: 2400
 };
 
+const currentMarketPrice = 2.5;
+
 const routerStub = {
     history: {
         push: jest.fn()
@@ -78,9 +68,17 @@ function renderComponent(
     { offers = offersDummy, ownedProducerInfo = ownedProducerDummy, ...otherProps } = {},
     mountFn = shallowWithIntl
 ) {
-    return mountFn(<SellEnergy offers={offers} ownedProducerOfferInfo={ownedProducerInfo} {...otherProps} />, {
-        context: { router: routerStub }
-    });
+    return mountFn(
+        <SellEnergy
+            offers={offers}
+            ownedProducerOfferInfo={ownedProducerInfo}
+            currentMarketPrice={currentMarketPrice}
+            {...otherProps}
+        />,
+        {
+            context: { router: routerStub }
+        }
+    );
 }
 
 describe('<SellEnergy /> container', () => {
@@ -93,8 +91,53 @@ describe('<SellEnergy /> container', () => {
         expect(sellEnergy.find('OffersSlider')).toHaveLength(1);
     });
 
+    it('should return correct props', () => {
+        const stateMock = {
+            Producers: {
+                ownedProducerOffer: {
+                    data: {
+                        producer: ownedProducerDummy
+                    },
+                    loading: false,
+                    error: null
+                },
+                ownedProducerOffersHistory: {
+                    data: offersDummy,
+                    error: null,
+                    loading: false
+                },
+                currentMarketPrice: {
+                    data: currentMarketPrice,
+                    error: null,
+                    loading: false
+                }
+            },
+            Users: {
+                profile: {
+                    data: {
+                        user: {
+                            id: 'testUserId'
+                        }
+                    },
+                    loading: false,
+                    error: null
+                }
+            }
+        };
+        const props = SellEnergy.mapStateToProps(stateMock);
+
+        expect(props).toEqual({
+            offers: offersDummy,
+            user: { id: 'testUserId' },
+            ownedProducerOfferInfo: ownedProducerDummy,
+            currentMarketPrice: 2.5,
+            error: null,
+            loading: false
+        });
+    });
+
     it('should not render offers slider if offers are not given', () => {
-        const sellEnergy = renderComponent({ offers: null });
+        const sellEnergy = renderComponent({ offers: [] });
         expect(sellEnergy.find('OffersSlider')).toHaveLength(0);
     });
 
@@ -106,8 +149,10 @@ describe('<SellEnergy /> container', () => {
 
     it('should call performGetUserData when component is mounted', () => {
         userActions.performGetUserData = jest.fn();
+        producersActions.performGetCurrentMarketPrice = jest.fn();
         renderComponent(undefined, mountWithIntl);
         expect(userActions.performGetUserData).toHaveBeenCalled();
+        expect(producersActions.performGetCurrentMarketPrice).toHaveBeenCalled();
     });
 
     it('should call performGetOwnedProducer when the user was updated', () => {
@@ -115,6 +160,13 @@ describe('<SellEnergy /> container', () => {
         const component = renderComponent(undefined, mountWithIntl);
         component.setProps({ user: { id: 'test' } });
         expect(producersActions.performGetOwnedProducerOffer).toHaveBeenCalledWith('test');
+    });
+
+    it('should call performGetOwnedProducerOffersHistory when the user was updated', () => {
+        producersActions.performGetOwnedProducerOffersHistory = jest.fn();
+        const component = renderComponent(undefined, mountWithIntl);
+        component.setProps({ ownedProducerOfferInfo: { id: 'test' } });
+        expect(producersActions.performGetOwnedProducerOffersHistory).toHaveBeenCalledWith('test');
     });
 
     it('should call performPushNotification with error message', () => {

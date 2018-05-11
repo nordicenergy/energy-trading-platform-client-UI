@@ -5,7 +5,11 @@ import { ProducerInfo, Button, Loader, BackLink } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from './.';
 
-import { performGetProducer, performSelectProducer } from '../../action_performers/producers';
+import {
+    performGetProducer,
+    performSelectProducer,
+    performGetCurrentMarketPrice
+} from '../../action_performers/producers';
 import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
 
@@ -16,10 +20,17 @@ import './Producer.css';
 export class Producer extends AbstractContainer {
     static mapStateToProps(state) {
         return {
-            loading: state.Producers.producer.loading || state.Producers.selectedProducer.loading,
+            loading:
+                state.Producers.producer.loading ||
+                state.Producers.selectedProducer.loading ||
+                state.Producers.currentMarketPrice.loading,
             producer: state.Producers.producer.data,
             selectedProducer: state.Producers.selectedProducer.data,
-            error: state.Producers.producer.error || state.Producers.selectedProducer.error
+            error:
+                state.Producers.producer.error ||
+                state.Producers.selectedProducer.error ||
+                state.Producers.currentMarketPrice.error,
+            currentMarketPrice: state.Producers.currentMarketPrice.data
         };
     }
 
@@ -27,6 +38,7 @@ export class Producer extends AbstractContainer {
         const { match: { params } = {} } = this.props;
         performGetProducer(params.producerId);
         this.setupProducerBreadcrumbs();
+        performGetCurrentMarketPrice();
     }
 
     componentDidUpdate(prevProps) {
@@ -93,7 +105,7 @@ export class Producer extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { loading, producer = {} } = this.props;
+        const { loading, producer = {}, currentMarketPrice } = this.props;
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
 
         return (
@@ -104,7 +116,7 @@ export class Producer extends AbstractContainer {
                         <BackLink onClick={event => this.handleBackLinkClick(event)} />
                         <span>{producer.name}</span>
                     </h1>
-                    <ProducerInfo {...producerInfoProps} />
+                    <ProducerInfo {...producerInfoProps} marketPrice={currentMarketPrice} />
                 </section>
                 <section className="producer-page-controls">
                     <Button className="producer-page-back-to-producers" onClick={() => this.backToProducers()}>
@@ -138,7 +150,8 @@ Producer.propTypes = {
     }),
     loading: PropTypes.bool,
     producer: PropTypes.object,
-    error: PropTypes.object
+    error: PropTypes.object,
+    currentMarketPrice: PropTypes.number
 };
 
 Producer.defaultProps = {

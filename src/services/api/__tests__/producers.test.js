@@ -6,7 +6,9 @@ import {
     getProducers,
     getProducerHistory,
     getOwnedProducerOffer,
-    addOwnedProducerOffer
+    addOwnedProducerOffer,
+    getCurrentMarketPrice,
+    getOwnedProducerOffersHistory
 } from '../producers';
 import { LIMIT } from '../../../constants';
 
@@ -106,5 +108,15 @@ describe('Producers API Service', () => {
     it('should provide method for adding offer of owned producer', () => {
         addOwnedProducerOffer('testId', { id: 'testOfferId' });
         expect(Axios.post).toHaveBeenCalledWith('/api/producers/testId/set', { id: 'testOfferId' });
+    });
+
+    it('should provide method for getting current market price', () => {
+        getCurrentMarketPrice();
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/1/get');
+    });
+
+    it('should provide method for getting owned producer offers history', () => {
+        getOwnedProducerOffersHistory('testId');
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/testId/offer/history');
     });
 });

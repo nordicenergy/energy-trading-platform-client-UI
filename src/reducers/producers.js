@@ -11,7 +11,9 @@ export const initialState = {
         error: null,
         loading: false
     },
-    ownedProducerOffer: { data: { producer: {} }, error: null, loading: false }
+    ownedProducerOffer: { data: { producer: {} }, error: null, loading: false },
+    ownedProducerOffersHistory: { data: [], error: null, loading: false },
+    currentMarketPrice: { data: 0, error: null, loading: false }
 };
 
 export function producersReducer(state = initialState, action) {
@@ -93,6 +95,24 @@ export function producersReducer(state = initialState, action) {
                 ...state,
                 ownedProducerOffer: {
                     data: action.payload ? action.payload : state.ownedProducerOffer.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        case 'GET_OWNED_PRODUCER_OFFERS_HISTORY':
+            return {
+                ...state,
+                ownedProducerOffersHistory: {
+                    data: action.payload ? action.payload : state.ownedProducerOffersHistory.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        case 'GET_CURRENT_MARKET_PRICE':
+            return {
+                ...state,
+                currentMarketPrice: {
+                    data: action.payload ? action.payload : state.currentMarketPrice.data,
                     loading: action.loading,
                     error: action.error
                 }

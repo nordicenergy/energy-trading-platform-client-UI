@@ -15,7 +15,6 @@ const store = mockStore({
             data: {
                 name: 'Peter Producer',
                 price: 2.4,
-                marketPrice: 2.5,
                 annualProduction: 3000,
                 purchased: 1300,
                 capacity: 8,
@@ -34,6 +33,11 @@ const store = mockStore({
         },
         selectedProducer: {
             data: {},
+            loading: false,
+            error: null
+        },
+        currentMarketPrice: {
+            data: 2.5,
             loading: false,
             error: null
         }
@@ -59,6 +63,7 @@ const props = {
         id: 1,
         name: 'test'
     },
+    currentMarketPrice: 2.5,
     selectedProducer: {},
     error: null
 };
@@ -82,6 +87,7 @@ describe('<Producer /> Component', () => {
         context.intl.formatMessage.mockReturnValue('test');
         producersActions.performGetProducer = jest.fn();
         producersActions.performSelectProducer = jest.fn();
+        producersActions.performGetCurrentMarketPrice = jest.fn();
         appActions.performSetupBreadcrumbs = jest.fn();
         notificationActions.performPushNotification = jest.fn();
     });
@@ -113,11 +119,11 @@ describe('<Producer /> Component', () => {
                 location: 'Lippendorf, Neukieritzsch',
                 name: 'Peter Producer',
                 price: 2.4,
-                marketPrice: 2.5,
                 purchased: 1300,
                 selectedSince: 'Sep 12 - Feb 22',
                 ethereumAddress: '123'
             },
+            marketPrice: 2.5,
             labels: {
                 annualProduction: 'Annual Production',
                 capacity: 'Peak Capacity',
@@ -146,6 +152,11 @@ describe('<Producer /> Component', () => {
                     data: 'test_selected_data',
                     error: 'test_error',
                     loading: 'test_loading'
+                },
+                currentMarketPrice: {
+                    data: 'test_price',
+                    error: 'test_error',
+                    loading: 'test_loading'
                 }
             }
         };
@@ -154,7 +165,8 @@ describe('<Producer /> Component', () => {
             producer: 'test_producer_data',
             selectedProducer: 'test_selected_data',
             error: 'test_error',
-            loading: 'test_loading'
+            loading: 'test_loading',
+            currentMarketPrice: 'test_price'
         });
     });
 
@@ -164,6 +176,7 @@ describe('<Producer /> Component', () => {
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(1);
         const [[arg1]] = producersActions.performGetProducer.mock.calls;
         expect(arg1).toEqual('1');
+        expect(producersActions.performGetCurrentMarketPrice.mock.calls.length).toEqual(1);
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
         const [[bArg1], [bArg2]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual(undefined);

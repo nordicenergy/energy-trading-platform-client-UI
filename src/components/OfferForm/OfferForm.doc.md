@@ -14,7 +14,9 @@ const labels = {
     annualProductionField: 'Annual Production',
     capacityField: 'Peak Capacity',
     dateField: 'Selected since',
-    locationField: 'Location',
+    cityField: 'City',
+    streetField: 'Street',
+    postcodeField: 'Postcode',
     descriptionField: 'Description',
     submitButton: 'Save',
     deleteButton: 'Delete the offer'
