@@ -1,0 +1,69 @@
+.trade-position {
+    box-sizing: border-box;
+    padding: 1.375em 2em;
+    width: 100%;
+    border: var(--border-width) solid var(--border-on-light-color);
+    border-radius: 0.25em;
+    background: white;
+    box-shadow: 0 0.25em 1em var(--trade-position-shadow-color);
+    font-size: 1rem;
+}
+
+.trade-position-data {
+    display: flex;
+}
+
+.trade-position-data > * {
+    flex: 1;
+}
+
+.trade-position-entry {
+    display: block;
+    margin: 0;
+    font-size: 0.875em;
+}
+
+.trade-position-entry > * {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-size: inherit;
+}
+
+.trade-position-entry > span {
+    margin-bottom: 0.715em;
+    color: var(--label-color);
+    font-weight: 400;
+}
+
+.trade-position-entry > strong {
+    color: var(--trade-position-general-color);
+    word-break: break-all;
+    font-weight: 600;
+}
+
+.trade-position-data--primary {
+    margin-bottom: 1.25em;
+    padding-bottom: 1.25em;
+    border-bottom: var(--border-width) solid var(--border-on-light-color);
+}
+
+.trade-position-data--primary .trade-position-entry > strong {
+    color: var(--general-text-color);
+}
+
+@media (max-width: 767px) {
+    .trade-position-data {
+        flex-wrap: wrap;
+    }
+
+    .trade-position-data > * {
+        flex: 0 0 100%;
+        margin-bottom: 1em;
+    }
+
+    .trade-position-data > *:last-child {
+        margin-bottom: 0;
+    }
+}

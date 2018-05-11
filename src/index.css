@@ -139,6 +139,9 @@
 
     --configuration-form-shadow-color: var(--transparent-geyser-color);
 
+    --trade-position-shadow-color: var(--stone-gray-color);
+    --trade-position-general-color: var(--big-stone-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
