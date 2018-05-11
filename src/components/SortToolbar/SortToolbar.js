@@ -15,13 +15,15 @@ class SortToolbar extends Component {
     handleSortOptionChange(sortParam) {
         const { onChange } = this.props;
         const { sortParams } = this.state;
-        const newSortParams = { ...sortParams, ...sortParam };
+        let newSortParams = { ...sortParams, ...sortParam };
 
-        Object.keys(newSortParams).forEach(key => {
+        newSortParams = Object.keys(newSortParams).reduce((object, key) => {
             if (!newSortParams[key]) {
-                delete newSortParams[key];
+                return object;
             }
-        });
+
+            return { ...object, [key]: newSortParams[key] };
+        }, {});
 
         this.setState({ sortParams: newSortParams });
         onChange && onChange(newSortParams);
