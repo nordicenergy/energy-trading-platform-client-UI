@@ -155,18 +155,32 @@ describe('<SellEnergy /> container', () => {
         expect(producersActions.performGetCurrentMarketPrice).toHaveBeenCalled();
     });
 
-    it('should call performGetOwnedProducer when the user was updated', () => {
+    it('should call performGetOwnedProducerOffer when the user was updated', () => {
         producersActions.performGetOwnedProducerOffer = jest.fn();
         const component = renderComponent(undefined, mountWithIntl);
         component.setProps({ user: { id: 'test' } });
         expect(producersActions.performGetOwnedProducerOffer).toHaveBeenCalledWith('test');
     });
 
-    it('should call performGetOwnedProducerOffersHistory when the user was updated', () => {
+    it('should not call performGetOwnedProducerOffer when the user was updated but it is empty', () => {
+        producersActions.performGetOwnedProducerOffer = jest.fn();
+        const component = renderComponent(undefined, mountWithIntl);
+        component.setProps({ user: {} });
+        expect(producersActions.performGetOwnedProducerOffer).toHaveBeenCalledTimes(0);
+    });
+
+    it('should call performGetOwnedProducerOffersHistory when the owned producer was updated', () => {
         producersActions.performGetOwnedProducerOffersHistory = jest.fn();
         const component = renderComponent(undefined, mountWithIntl);
         component.setProps({ ownedProducerOfferInfo: { id: 'test' } });
         expect(producersActions.performGetOwnedProducerOffersHistory).toHaveBeenCalledWith('test');
+    });
+
+    it('should not call performGetOwnedProducerOffersHistory when the owned producer was updated but it is empty', () => {
+        producersActions.performGetOwnedProducerOffersHistory = jest.fn();
+        const component = renderComponent(undefined, mountWithIntl);
+        component.setProps({ ownedProducerOfferInfo: {} });
+        expect(producersActions.performGetOwnedProducerOffersHistory).toHaveBeenCalledTimes(0);
     });
 
     it('should call performPushNotification with error message', () => {
