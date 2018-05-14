@@ -60,7 +60,8 @@ class RecentTransactions extends React.Component {
                                         from: labels.recentTransactionsDetailsFrom,
                                         amount: labels.recentTransactionsDetailsAmount,
                                         price: labels.recentTransactionsDetailsPrice,
-                                        hash: labels.recentTransactionsDetailsHash
+                                        hash: labels.recentTransactionsDetailsHash,
+                                        status: labels.recentTransactionsDetailsStatus
                                     }}
                                     {...details}
                                 />
@@ -172,7 +173,8 @@ RecentTransactions.propTypes = {
         recentTransactionsDetailsFrom: PropTypes.string,
         recentTransactionsDetailsAmount: PropTypes.string,
         recentTransactionsDetailsPrice: PropTypes.string,
-        recentTransactionsDetailsHash: PropTypes.string
+        recentTransactionsDetailsHash: PropTypes.string,
+        recentTransactionsDetailsStatus: PropTypes.string
     }),
     onButtonClick: PropTypes.func
 };

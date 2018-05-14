@@ -53,6 +53,10 @@ const messages = defineMessages({
         id: 'app.recentTransactionsDetails.hash',
         defaultMessage: 'Blockchain-Transaction'
     },
+    recentTransactionsDetailsStatus: {
+        id: 'app.recentTransactionsDetails.status',
+        defineMessages: 'Status'
+    },
     recentTransactionsDescriptionFrom: {
         id: 'app.recentTransactionsDescription.from',
         defaultMessage: 'from'

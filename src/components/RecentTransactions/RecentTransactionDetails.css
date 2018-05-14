@@ -53,8 +53,9 @@
     text-align: left;
 }
 
-.recent-transactions-details-values > div[role='row']:nth-child(2) {
-    width: 50%;
+.recent-transactions-details-values > div[role='row']:nth-child(2),
+.recent-transactions-details-values > div[role='row']:nth-child(3) {
+    width: 25%;
     text-align: center;
 }
 

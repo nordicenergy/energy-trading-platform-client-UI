@@ -22,6 +22,7 @@ export function getRecentTransactions(userId, page = 0) {
             transactions.forEach(tx => {
                 tx.details = {
                     hash: tx.transactionHash || '--',
+                    status: tx.blockchainStatus || '--',
                     price: tx.price || 0,
                     amount: tx.energyAmount || 0,
                     from: tx.producerName || '--',
