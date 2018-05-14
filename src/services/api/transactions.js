@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { SESSION_API_URL, LIMIT } from '../../constants';
+import { SESSION_API_URL, LIMIT, ROPSTEN_EHTERSCAN_LINK } from '../../constants';
 import { PATHS } from '../routes';
 import web3Service from '../web3';
 
@@ -56,15 +56,20 @@ export function getOpenTradePositions(/* address, abi */) {
             const { data = [] } = bids;
             result.data = data.map(bid => {
                 const { producers } = intermediateData;
-                const position = {};
-                position.offerAddress = bid.producer;
-                position.producerName = (producers.find(p => p.dlAddress === bid.producer) || {}).name || '';
-                position.offerIssued = bid.day;
-                position.validOn = '';
-                position.energyOffered = '';
-                position.energyAvailable = bid.energy;
-                position.price = bid.price;
-                return position;
+                const relatedProducer = producers.find(({ dlAddress }) => dlAddress === bid.producer) || {};
+                return {
+                    offerAddressUrl: `${ROPSTEN_EHTERSCAN_LINK}/address/${bid.producer}`,
+                    offerAddress: bid.producer,
+                    producerUrl: relatedProducer.id
+                        ? `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${relatedProducer.id}`
+                        : null,
+                    producerName: relatedProducer.name || '',
+                    offerIssued: parseInt(bid.day, 10),
+                    validOn: 0,
+                    energyOffered: 0,
+                    energyAvailable: parseInt(bid.energy / 1000, 10),
+                    price: parseFloat(bid.price / 1000)
+                };
             });
             return result;
         });

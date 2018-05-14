@@ -51,8 +51,8 @@ class TradePositionsList extends Component {
                 </form>
                 {tradePositions.length > 0 && (
                     <ul id={id} className="trade-positions">
-                        {tradePositions.map(tradePosition => (
-                            <li key={tradePosition.offerAddress}>
+                        {tradePositions.map((tradePosition, index) => (
+                            <li key={`${tradePosition.offerAddress}-${index}`}>
                                 <TradePosition tradePosition={tradePosition} />
                             </li>
                         ))}

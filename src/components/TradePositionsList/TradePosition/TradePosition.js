@@ -1,5 +1,3 @@
-// FIXME cover by unit test, add format functions
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -8,7 +6,9 @@ import { DATE_FORMAT } from '../../../constants';
 import './TradePosition.css';
 
 export const TradePositionPropType = PropTypes.shape({
+    offerAddressUrl: PropTypes.string,
     offerAddress: PropTypes.string,
+    producerUrl: PropTypes.string,
     producerName: PropTypes.string,
     offerIssued: PropTypes.number,
     validOn: PropTypes.number,
@@ -16,38 +16,45 @@ export const TradePositionPropType = PropTypes.shape({
     energyAvailable: PropTypes.number,
     price: PropTypes.number
 });
+const DEFAULT_PLACEHOLDER = '--';
 
 const TradePosition = ({ className, labels, tradePosition }) => {
     const classes = classNames('trade-position', className);
+    const producerName =
+        tradePosition.producerUrl && tradePosition.producerName ? (
+            <a target="_blank" href={tradePosition.producerUrl}>
+                {tradePosition.producerName}
+            </a>
+        ) : (
+            <strong>{labels.producerNamePlaceholder}</strong>
+        );
 
     return (
         <div className={classes}>
             <div className="trade-position-data trade-position-data--primary">
                 <div className="trade-position-entry">
                     <span>{labels.offerAddress}</span>
-                    <strong>{tradePosition.offerAddress}</strong>
+                    <a target="_blank" href={tradePosition.offerAddressUrl}>
+                        {tradePosition.offerAddress}
+                    </a>
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.producerName}</span>
-                    <strong>{tradePosition.producerName || 'unknown'}</strong>
+                    {producerName}
                 </div>
             </div>
             <div className="trade-position-data">
                 <div className="trade-position-entry">
                     <span>{labels.offerIssued}</span>
-                    <strong>{moment(new Date(tradePosition.offerIssued * 1000)).format(`${DATE_FORMAT} h:mm`)}</strong>
+                    <strong>{formatOfferIssued(tradePosition.offerIssued)}</strong>
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.validOn}</span>
-                    <strong>
-                        {(tradePosition.validOn &&
-                            moment(new Date(tradePosition.validOn * 1000)).format(DATE_FORMAT)) ||
-                            '--'}
-                    </strong>
+                    <strong>{formatValidOn(tradePosition.validOn)}</strong>
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.energyOffered}</span>
-                    <strong>{tradePosition.energyOffered}</strong>
+                    <strong>{tradePosition.energyOffered || DEFAULT_PLACEHOLDER}</strong>
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.energyAvailable}</span>
@@ -56,7 +63,7 @@ const TradePosition = ({ className, labels, tradePosition }) => {
                 <div className="trade-position-entry">
                     <span>{labels.price}</span>
                     <strong>
-                        {(tradePosition.price / 1000).toFixed(2)} <span translate="no">ct/kWh</span>
+                        {formatPrice(tradePosition.price)} <span translate="no">ct/kWh</span>
                     </strong>
                 </div>
             </div>
@@ -64,9 +71,31 @@ const TradePosition = ({ className, labels, tradePosition }) => {
     );
 };
 
+function formatOfferIssued(offerIssued) {
+    if (!offerIssued) {
+        return DEFAULT_PLACEHOLDER;
+    }
+
+    return moment(new Date(offerIssued * 1000)).format(`${DATE_FORMAT} h:mm`);
+}
+
+function formatValidOn(validOn) {
+    if (!validOn) {
+        return DEFAULT_PLACEHOLDER;
+    }
+
+    return moment(new Date(validOn * 1000)).format(DATE_FORMAT);
+}
+
+function formatPrice(price) {
+    const numberFormat = new Intl.NumberFormat([], { minimumFractionDigits: 2 });
+    return numberFormat.format(price);
+}
+
 TradePosition.propTypes = {
     className: PropTypes.string,
     labels: PropTypes.shape({
+        producerNamePlaceholder: PropTypes.string,
         offerAddress: PropTypes.string,
         producerName: PropTypes.string,
         offerIssued: PropTypes.string,
@@ -79,6 +108,7 @@ TradePosition.propTypes = {
 };
 TradePosition.defaultProps = {
     labels: {
+        producerNamePlaceholder: 'Unknown',
         offerAddress: 'Offer Address',
         producerName: 'Producer',
         offerIssued: 'Offer Issued',

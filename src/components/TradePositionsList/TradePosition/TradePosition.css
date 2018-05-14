@@ -37,20 +37,27 @@
     font-weight: 400;
 }
 
-.trade-position-entry > strong {
+.trade-position-entry > strong,
+.trade-position-entry > a {
     color: var(--trade-position-general-color);
+    text-decoration: none;
     word-break: break-all;
     font-weight: 600;
+    transition: color 0.3s ease-out;
+}
+
+.trade-position-entry > a {
+    color: var(--general-text-color);
+}
+
+.trade-position-entry > a:hover {
+    color: var(--button-primary-hov-color);
 }
 
 .trade-position-data--primary {
     margin-bottom: 1.25em;
     padding-bottom: 1.25em;
     border-bottom: var(--border-width) solid var(--border-on-light-color);
-}
-
-.trade-position-data--primary .trade-position-entry > strong {
-    color: var(--general-text-color);
 }
 
 @media (max-width: 767px) {

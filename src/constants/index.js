@@ -24,3 +24,5 @@ export const META_MASK_DOWNLOAD_LINKS = {
     opera: 'https://addons.opera.com/en/extensions/details/metamask',
     brave: 'https://brave.com'
 };
+
+export const ROPSTEN_EHTERSCAN_LINK = 'https://ropsten.etherscan.io';
