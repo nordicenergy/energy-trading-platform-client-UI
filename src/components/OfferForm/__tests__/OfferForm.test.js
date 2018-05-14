@@ -21,7 +21,8 @@ describe('<OfferForm /> component', () => {
             city: 'test city',
             street: 'test street',
             postcode: 'test postcode',
-            description: 'Test description'
+            description: 'Test description',
+            name: 'Test name'
         };
         const offerForm = renderComponent({ offer: offerMock });
 
@@ -42,6 +43,12 @@ describe('<OfferForm /> component', () => {
             .find('DeltaField')
             .props()
             .onChange({ name: 'price', value: 3.5, delta: 1 });
+        offerForm
+            .find('TextField[name="name"]')
+            .props()
+            .onChange({
+                target: { name: 'name', value: 'name test' }
+            });
         offerForm
             .find('SelectField[name="plantType"]')
             .props()
@@ -91,6 +98,7 @@ describe('<OfferForm /> component', () => {
             isEdited: true,
             price: 3.5,
             plantType: 'other',
+            name: 'name test',
             annualProduction: 'annualProduction test',
             capacity: 'capacity test',
             date: timestampMock,
@@ -115,7 +123,8 @@ describe('<OfferForm /> component', () => {
             city: '',
             street: '',
             postcode: '',
-            description: ''
+            description: '',
+            name: ''
         });
     });
 

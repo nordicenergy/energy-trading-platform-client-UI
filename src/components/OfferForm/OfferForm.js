@@ -21,7 +21,8 @@ const OFFER_FIELDS = [
     'street',
     'city',
     'postcode',
-    'description'
+    'description',
+    'name'
 ];
 
 const DELTA_ROUNDING_VALUE = 100;
@@ -42,6 +43,7 @@ class OfferForm extends React.PureComponent {
             street: '',
             postcode: '',
             description: '',
+            name: '',
             ...pick(props.offer, OFFER_FIELDS)
         };
     }
@@ -111,6 +113,14 @@ class OfferForm extends React.PureComponent {
                             delta={this.calculateDelta()}
                             value={this.state.price}
                             onChange={payload => this.handleChange(payload)}
+                        />
+                    </div>
+                    <div className="offer-form-field">
+                        <TextField
+                            name="name"
+                            label={labels.nameField}
+                            value={this.state.name}
+                            onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
                     <div className="offer-form-field">
@@ -235,6 +245,7 @@ OfferForm.defaultProps = {
         salePriceFieldAfter: 'Sale price',
         salePriceFieldUnits: 'cent',
         plantTypeField: 'Type of energy',
+        nameField: 'Name',
         annualProductionField: 'Annual Production',
         capacityField: 'Peak Capacity',
         dateField: 'Selected since',

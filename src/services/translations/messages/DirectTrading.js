@@ -31,19 +31,19 @@ const messages = defineMessages({
     },
     metaMaskConfigurationFormAddressField: {
         id: 'app.directTrading.metaMask.configurationForm.addressField',
-        defaultMessage: 'Your Address'
+        defaultMessage: 'Contract Address'
     },
     metaMaskConfigurationFormAddressPlaceholder: {
         id: 'app.directTrading.metaMask.configurationForm.addressPlaceholder',
-        defaultMessage: 'Select your address'
+        defaultMessage: 'Select contract address'
     },
     metaMaskConfigurationFormButton: {
         id: 'app.directTrading.metaMask.configurationForm.button',
-        defaultMessage: 'Add Your Address'
+        defaultMessage: 'Add Contract Address'
     },
     metaMaskConfigurationFormHelperText: {
         id: 'app.directTrading.metaMask.configurationForm.helperText',
-        defaultMessage: 'Assign your address to your Lition account'
+        defaultMessage: 'Assign contract address to your Lition account'
     },
     metaMaskTradePositionsTitle: {
         id: 'app.directTrading.metaMask.tradePositions.title',
