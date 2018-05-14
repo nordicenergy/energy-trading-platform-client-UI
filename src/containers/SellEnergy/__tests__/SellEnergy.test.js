@@ -217,7 +217,8 @@ describe('<SellEnergy /> container', () => {
             city: '',
             street: '',
             postcode: '',
-            description: ''
+            description: '',
+            name: ''
         };
         const component = renderComponent({}, mountWithIntl);
         component
