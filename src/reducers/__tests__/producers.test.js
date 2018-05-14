@@ -567,7 +567,8 @@ function fixtures() {
                         city: 'city test',
                         street: 'street test',
                         postcode: 'postcode test',
-                        description: 'description test'
+                        description: 'description test',
+                        name: 'name test'
                     }
                 ]
             },
@@ -587,7 +588,8 @@ function fixtures() {
                         city: 'city test',
                         street: 'street test',
                         postcode: 'postcode test',
-                        description: 'description test'
+                        description: 'description test',
+                        name: 'name test'
                     }
                 ]
             },
@@ -607,7 +609,8 @@ function fixtures() {
                         city: 'city test',
                         street: 'street test',
                         postcode: 'postcode test',
-                        description: 'description test'
+                        description: 'description test',
+                        name: 'name test'
                     }
                 ]
             }
