@@ -1,5 +1,5 @@
 const liveContract = {
-    address: '0xd9b784d5f61E60bdF0E8Cc03aeD488f612E957ad',
+    address: '0x3f3c80ceA2d44419fBDA23Be3575fd403c5b4481',
     abi: [
         {
             constant: true,
