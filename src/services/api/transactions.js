@@ -2,7 +2,7 @@ import Axios from 'axios';
 import { SESSION_API_URL, LIMIT, BLOCKCHAIN_NETWORK_LINKS } from '../../constants';
 import { PATHS } from '../routes';
 import web3Service, { META_MASK_NETWORKS } from '../web3';
-import { formatCurrency, formatDateTime } from '../formatter';
+import { formatCurrency, formatDateTime, formatFloat } from '../formatter';
 
 export function getRecentTransactions(userId, page = 0) {
     const currentBalance = {};
@@ -69,9 +69,7 @@ export function getOpenTradePositions(/* address, abi */) {
                 const { producers } = intermediateData;
                 const relatedProducer = producers.find(({ dlAddress }) => dlAddress === bid.producer) || {};
                 return {
-                    offerAddressUrl: blockChainNetworkUrl
-                        ? `${blockChainNetworkUrl}/${bid.producer}`
-                        : '',
+                    offerAddressUrl: blockChainNetworkUrl ? `${blockChainNetworkUrl}/${bid.producer}` : '',
                     offerAddress: bid.producer,
                     producerUrl: relatedProducer.id
                         ? `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${relatedProducer.id}`
@@ -80,7 +78,7 @@ export function getOpenTradePositions(/* address, abi */) {
                     offerIssued: formatDateTime(bid.day),
                     validOn: '--',
                     energyOffered: '--',
-                    energyAvailable: parseInt(bid.energy / 1000, 10),
+                    energyAvailable: formatFloat(bid.energy / 100000),
                     price: formatCurrency(bid.price / 1000)
                 };
             });
