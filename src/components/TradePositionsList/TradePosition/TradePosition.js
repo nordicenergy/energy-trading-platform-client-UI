@@ -17,6 +17,14 @@ export const TradePositionPropType = PropTypes.shape({
 
 const TradePosition = ({ className, labels, tradePosition }) => {
     const classes = classNames('trade-position', className);
+    const offerAddress =
+        tradePosition.offerAddressUrl && tradePosition.offerAddress ? (
+            <a target="_blank" href={tradePosition.offerAddressUrl}>
+                {tradePosition.offerAddress}
+            </a>
+        ) : (
+            <strong>{tradePosition.offerAddress}</strong>
+        );
     const producerName =
         tradePosition.producerUrl && tradePosition.producerName ? (
             <a target="_blank" href={tradePosition.producerUrl}>
@@ -31,9 +39,7 @@ const TradePosition = ({ className, labels, tradePosition }) => {
             <div className="trade-position-data trade-position-data--primary">
                 <div className="trade-position-entry">
                     <span>{labels.offerAddress}</span>
-                    <a target="_blank" href={tradePosition.offerAddressUrl}>
-                        {tradePosition.offerAddress}
-                    </a>
+                    {offerAddress}
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.producerName}</span>

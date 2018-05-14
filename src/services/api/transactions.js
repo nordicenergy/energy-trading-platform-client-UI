@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { SESSION_API_URL, LIMIT, BLOCKCHAIN_NETWORK_LINKS } from '../../constants';
 import { PATHS } from '../routes';
-import web3Service from '../web3';
+import web3Service, { META_MASK_NETWORKS } from '../web3';
 import { formatCurrency, formatDateTime } from '../formatter';
 
 export function getRecentTransactions(userId, page = 0) {
@@ -50,17 +50,28 @@ export function getOpenTradePositions(/* address, abi */) {
             if (response.data && Array.isArray(response.data.producers)) {
                 const { producers } = response.data;
                 intermediateData.producers = producers;
-                return web3Service.getCurrentBids();
+                return Promise.all([web3Service.getCurrentBids(), web3Service.getNetworkId()]);
             }
             return [];
         })
-        .then((bids = {}) => {
+        .then(([bids = {}, network = {}]) => {
             const { data = [] } = bids;
+            const { data: { id: networkId } = {} } = network;
+            let blockChainNetworkUrl = '';
+
+            if (networkId === META_MASK_NETWORKS.ropsten) {
+                blockChainNetworkUrl = `${BLOCKCHAIN_NETWORK_LINKS.ropsten}/address`;
+            } else if (networkId === META_MASK_NETWORKS.live) {
+                blockChainNetworkUrl = `${BLOCKCHAIN_NETWORK_LINKS.ethereum}/address`;
+            }
+
             result.data = data.map(bid => {
                 const { producers } = intermediateData;
                 const relatedProducer = producers.find(({ dlAddress }) => dlAddress === bid.producer) || {};
                 return {
-                    offerAddressUrl: `${BLOCKCHAIN_NETWORK_LINKS.ropsten}/address/${bid.producer}`,
+                    offerAddressUrl: blockChainNetworkUrl
+                        ? `${blockChainNetworkUrl}/${bid.producer}`
+                        : '',
                     offerAddress: bid.producer,
                     producerUrl: relatedProducer.id
                         ? `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${relatedProducer.id}`
