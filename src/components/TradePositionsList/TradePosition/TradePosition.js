@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
-import { DATE_FORMAT } from '../../../constants';
 import './TradePosition.css';
 
 export const TradePositionPropType = PropTypes.shape({
@@ -10,13 +8,12 @@ export const TradePositionPropType = PropTypes.shape({
     offerAddress: PropTypes.string,
     producerUrl: PropTypes.string,
     producerName: PropTypes.string,
-    offerIssued: PropTypes.number,
-    validOn: PropTypes.number,
-    energyOffered: PropTypes.number,
-    energyAvailable: PropTypes.number,
-    price: PropTypes.number
+    offerIssued: PropTypes.string,
+    validOn: PropTypes.string,
+    energyOffered: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    energyAvailable: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    price: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 });
-const DEFAULT_PLACEHOLDER = '--';
 
 const TradePosition = ({ className, labels, tradePosition }) => {
     const classes = classNames('trade-position', className);
@@ -46,15 +43,15 @@ const TradePosition = ({ className, labels, tradePosition }) => {
             <div className="trade-position-data">
                 <div className="trade-position-entry">
                     <span>{labels.offerIssued}</span>
-                    <strong>{formatOfferIssued(tradePosition.offerIssued)}</strong>
+                    <strong>{tradePosition.offerIssued}</strong>
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.validOn}</span>
-                    <strong>{formatValidOn(tradePosition.validOn)}</strong>
+                    <strong>{tradePosition.validOn}</strong>
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.energyOffered}</span>
-                    <strong>{tradePosition.energyOffered || DEFAULT_PLACEHOLDER}</strong>
+                    <strong>{tradePosition.energyOffered}</strong>
                 </div>
                 <div className="trade-position-entry">
                     <span>{labels.energyAvailable}</span>
@@ -63,34 +60,13 @@ const TradePosition = ({ className, labels, tradePosition }) => {
                 <div className="trade-position-entry">
                     <span>{labels.price}</span>
                     <strong>
-                        {formatPrice(tradePosition.price)} <span translate="no">ct/kWh</span>
+                        {tradePosition.price} <span translate="no">ct/kWh</span>
                     </strong>
                 </div>
             </div>
         </div>
     );
 };
-
-function formatOfferIssued(offerIssued) {
-    if (!offerIssued) {
-        return DEFAULT_PLACEHOLDER;
-    }
-
-    return moment(new Date(offerIssued * 1000)).format(`${DATE_FORMAT} h:mm`);
-}
-
-function formatValidOn(validOn) {
-    if (!validOn) {
-        return DEFAULT_PLACEHOLDER;
-    }
-
-    return moment(new Date(validOn * 1000)).format(DATE_FORMAT);
-}
-
-function formatPrice(price) {
-    const numberFormat = new Intl.NumberFormat([], { minimumFractionDigits: 2 });
-    return numberFormat.format(price);
-}
 
 TradePosition.propTypes = {
     className: PropTypes.string,
