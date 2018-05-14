@@ -1,5 +1,5 @@
 import { dispatcher } from '../../store';
-import { performSetupBreadcrumbs, performSetupLocale } from '../app';
+import { performSetupBreadcrumbs, performSetupLoaderVisibility, performSetupLocale } from '../app';
 
 describe('Users action performers', () => {
     beforeEach(() => {
@@ -7,7 +7,7 @@ describe('Users action performers', () => {
         dispatcher.dispatchPromise = jest.fn();
     });
 
-    it('should call dispatch method for get user data', () => {
+    it('should call dispatch method for setting breadcrumbs', () => {
         performSetupBreadcrumbs([
             {
                 id: 'testId',
@@ -27,6 +27,16 @@ describe('Users action performers', () => {
                 path: '/test'
             }
         ]);
+    });
+
+    it('should call dispatch method for setting loader visibility', () => {
+        performSetupLoaderVisibility(true);
+
+        const [firstCall] = dispatcher.dispatchAction.mock.calls;
+        const [type, payload] = firstCall;
+        expect(dispatcher.dispatchAction).toHaveBeenCalledTimes(1);
+        expect(type).toEqual('SETUP_LOADER_VISIBILITY');
+        expect(payload).toEqual(true);
     });
 
     it('should call dispatch method for get localization content', () => {

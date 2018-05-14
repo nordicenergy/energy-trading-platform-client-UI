@@ -1,5 +1,6 @@
 import AbstractContainer from './AbstractContainer';
 import Notifications from './Notifications';
+import PageLoader from './PageLoader';
 import App from './App';
 import Login from './Login';
 import RestorePassword from './RestorePassword';
@@ -21,6 +22,7 @@ import DirectTrading from './DirectTrading';
 export {
     AbstractContainer,
     Notifications,
+    PageLoader,
     App,
     Login,
     RestorePassword,

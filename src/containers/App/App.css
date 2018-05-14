@@ -11,6 +11,7 @@
     position: relative;
     display: flex;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     flex-direction: column;
     width: 100%;
     background-color: var(--app-bg-color);
