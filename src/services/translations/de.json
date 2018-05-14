@@ -62,6 +62,7 @@
     "app.recentTransactionsDetails.amount": "Amount",
     "app.recentTransactionsDetails.price": "Price per kWh",
     "app.recentTransactionsDetails.hash": "Blockchain-Transaction",
+    "app.recentTransactionsDetails.status": "Status",
     "app.recentTransactionsDescription.from": "from",
     "app.recentTransactionsDescription.bought": "Bought",
 

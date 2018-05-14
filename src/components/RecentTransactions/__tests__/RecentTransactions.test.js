@@ -16,7 +16,8 @@ const labelsMock = {
     recentTransactionsDetailsFrom: 'From',
     recentTransactionsDetailsAmount: 'Amount',
     recentTransactionsDetailsPrice: 'Price per kWh',
-    recentTransactionsDetailsHash: 'Blockchain-Transaction'
+    recentTransactionsDetailsHash: 'Blockchain-Transaction',
+    recentTransactionsDetailsStatus: 'Status'
 };
 
 const transactionsDummy = [
@@ -27,6 +28,7 @@ const transactionsDummy = [
         transactionAmount: 0.81,
         details: {
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            status: 'success',
             price: 2.5,
             amount: 7.74,
             from: 'Jhon Doe',
@@ -40,6 +42,7 @@ const transactionsDummy = [
         transactionAmount: 0.081,
         details: {
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            status: 'success',
             price: 2.5,
             amount: 7.74,
             from: 'Jhon Doe',
@@ -53,6 +56,7 @@ const transactionsDummy = [
         transactionAmount: 0.8,
         details: {
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            status: 'success',
             price: 2.5,
             amount: 7.74,
             from: 'Jhon Doe',
@@ -66,6 +70,7 @@ const transactionsDummy = [
         transactionAmount: 0.8,
         details: {
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            status: 'success',
             price: 2.5,
             amount: 7.74,
             from: 'Jhon Doe',
@@ -79,6 +84,7 @@ const transactionsDummy = [
         transactionAmount: 0.8,
         details: {
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            status: 'success',
             price: 2.5,
             amount: 7.74,
             from: 'Jhon Doe',
@@ -92,6 +98,7 @@ const transactionsDummy = [
         transactionAmount: 0.8,
         details: {
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            status: 'success',
             price: 2.5,
             amount: 7.74,
             from: 'Jhon Doe',
@@ -105,6 +112,7 @@ const transactionsDummy = [
         transactionAmount: 0.8,
         details: {
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
+            status: 'success',
             price: 2.5,
             amount: 7.74,
             from: 'Jhon Doe',
@@ -186,7 +194,7 @@ describe('<RecentTransactions /> Component', () => {
         expect(data.at(count++).text()).toEqual(`${formatCurrency(0.81)} €`);
         expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
         expect(data.at(count++).text()).toContain(
-            `FromJhon DoeAmount${formatFloat(7.74)} kWhPrice per kWh${formatFloat(
+            `FromJhon DoeStatussuccessAmount${formatFloat(7.74)} kWhPrice per kWh${formatFloat(
                 2.5
             )} ctBlockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743`
         );
@@ -196,7 +204,7 @@ describe('<RecentTransactions /> Component', () => {
         expect(data.at(count++).text()).toEqual(`${formatCurrency(0.081)} €`);
         expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
         expect(data.at(count++).text()).toContain(
-            `FromJhon DoeAmount${formatFloat(7.74)} kWhPrice per kWh${formatFloat(
+            `FromJhon DoeStatussuccessAmount${formatFloat(7.74)} kWhPrice per kWh${formatFloat(
                 2.5
             )} ctBlockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743`
         );
@@ -206,7 +214,7 @@ describe('<RecentTransactions /> Component', () => {
         expect(data.at(count++).text()).toEqual(`${formatCurrency(0.8)} €`);
         expect(data.at(count++).text()).toEqual(''); // Action Expand / Collapse
         expect(data.at(count++).text()).toContain(
-            `FromJhon DoeAmount${formatFloat(7.74)} kWhPrice per kWh${formatFloat(
+            `FromJhon DoeStatussuccessAmount${formatFloat(7.74)} kWhPrice per kWh${formatFloat(
                 2.5
             )} ctBlockchain-Transaction9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743`
         );

@@ -4,7 +4,7 @@ import { formatFloat } from '../../services/formatter';
 
 import './RecentTransactionDetails.css';
 
-const RecentTransactionDetails = ({ labels, hash, price, amount, from, fromUrl, url }) => (
+const RecentTransactionDetails = ({ labels, status, hash, price, amount, from, fromUrl, url }) => (
     <div role="table" className="recent-transactions-details">
         <div className="recent-transactions-details-values" role="rowgroup">
             <div role="row">
@@ -14,6 +14,10 @@ const RecentTransactionDetails = ({ labels, hash, price, amount, from, fromUrl, 
                         {from}
                     </a>
                 </div>
+            </div>
+            <div role="row">
+                <div role="columnheader">{labels.status}</div>
+                <div role="cell">{status}</div>
             </div>
             <div role="row">
                 <div role="columnheader">{labels.amount}</div>
@@ -40,12 +44,14 @@ const RecentTransactionDetails = ({ labels, hash, price, amount, from, fromUrl, 
 RecentTransactionDetails.propTypes = {
     labels: PropTypes.shape({
         from: PropTypes.string,
+        status: PropTypes.string,
         amount: PropTypes.string,
         price: PropTypes.string,
         hash: PropTypes.string,
         url: PropTypes.string
     }),
     from: PropTypes.string,
+    status: PropTypes.string,
     amount: PropTypes.number,
     price: PropTypes.number,
     hash: PropTypes.string,
