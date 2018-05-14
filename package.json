@@ -75,7 +75,7 @@
     },
     "proxy": {
         "/api": {
-            "target": "http://aws1.lition.io",
+            "target": "http://fe.staging.lition.io",
             "changeOrigin": true
         }
     }
