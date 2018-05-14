@@ -126,7 +126,7 @@ export class DirectTrading extends AbstractContainer {
     renderConfigurationForm(addresses = [], labels) {
         const { formErrors } = this.state;
         const addressesWithDefaultOption = [
-            { value: null, label: labels.metaMaskConfigurationFormAddressPlaceholder }
+            { value: null, label: labels.metaMaskConfigurationFormAddressPlaceholder, disabled: true }
         ].concat(addresses);
 
         return (
