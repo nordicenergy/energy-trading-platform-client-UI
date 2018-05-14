@@ -1,17 +1,24 @@
 import Web3 from 'web3';
-import web3Service from '../web3';
+import web3Service, { META_MASK_NETWORKS } from '../web3';
 
-const addresses = ['0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe', '0xDCc6960376d6C6dEa93647383FfB245CfCed97Cf'];
+const ropstenAddresses = ['0xa705D64d383349F5c198afed7C3292d24EaBa48d'];
+const liveAddresses = ['0x3f3c80ceA2d44419fBDA23Be3575fd403c5b4481'];
 
 describe('Web3 Service', () => {
     beforeEach(() => {
         web3Service.web3.eth = {
+            net: { getId: jest.fn() },
             getAccounts: jest.fn()
         };
         web3Service.web3.eth.getAccounts
-            .mockReturnValueOnce(Promise.resolve([...addresses]))
+            .mockReturnValueOnce(Promise.resolve([]))
+            .mockReturnValueOnce(Promise.resolve([]))
             .mockReturnValueOnce(Promise.reject('Error'))
             .mockReturnValueOnce(new Promise(() => {}));
+
+        web3Service.web3.eth.net.getId
+            .mockReturnValueOnce(Promise.resolve(META_MASK_NETWORKS.ropsten))
+            .mockReturnValue(Promise.resolve(META_MASK_NETWORKS.live));
     });
 
     it('should create web3 instance with metamask provider by default', () => {
@@ -25,8 +32,11 @@ describe('Web3 Service', () => {
     it(
         'should provide method for getting available addresses',
         async () => {
-            const response = await web3Service.getAddresses();
-            expect(response.data).toEqual({ addresses });
+            const ropstenResponse = await web3Service.getAddresses();
+            expect(ropstenResponse.data).toEqual({ addresses: ropstenAddresses });
+
+            const liveResponse = await web3Service.getAddresses();
+            expect(liveResponse.data).toEqual({ addresses: liveAddresses });
 
             try {
                 await web3Service.getAddresses();

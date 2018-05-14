@@ -3,6 +3,10 @@ import Web3 from 'web3';
 import ropstenContract from './ropsten';
 import liveContract from './live';
 
+export const META_MASK_NETWORKS = {
+    ropsten: 3,
+    live: 1
+};
 const TIMEOUT = 5000;
 const TIMEOUT_ERROR = wrapError(new Error('MetaMask timeout error'));
 
@@ -32,15 +36,43 @@ class Web3Service {
     getAddresses() {
         return new Promise(async (resolve, reject) => {
             const handler = setTimeout(() => reject(TIMEOUT_ERROR), TIMEOUT);
+            const addresses = [];
 
             try {
-                const addresses = await this.web3.eth.getAccounts();
+                const { data } = (await this.getNetworkId()) || {};
+
+                switch (data.id) {
+                    case META_MASK_NETWORKS.live:
+                        addresses.push(liveContract.address);
+                        break;
+
+                    case META_MASK_NETWORKS.ropsten:
+                        addresses.push(ropstenContract.address);
+                        break;
+
+                    default:
+                        return reject(wrapError(new Error('Network with no Lition smart contracts')));
+                }
+
+                await this.web3.eth.getAccounts();
                 clearTimeout(handler);
                 resolve(wrapResult({ addresses }));
             } catch (error) {
                 clearTimeout(handler);
                 reject(wrapError(error));
             }
+
+            // TODO in future we will use real meta mask addresses
+            // const handler = setTimeout(() => reject(TIMEOUT_ERROR), TIMEOUT);
+            //
+            // try {
+            //     const addresses = await this.web3.eth.getAccounts();
+            //     clearTimeout(handler);
+            //     resolve(wrapResult({ addresses }));
+            // } catch (error) {
+            //     clearTimeout(handler);
+            //     reject(wrapError(error));
+            // }
         });
     }
 
@@ -74,12 +106,12 @@ class Web3Service {
 
                 if (!address) {
                     switch (data.id) {
-                        case 1:
+                        case META_MASK_NETWORKS.live:
                             address = liveContract.address;
                             abi = liveContract.abi;
                             break;
 
-                        case 3:
+                        case META_MASK_NETWORKS.ropsten:
                             address = ropstenContract.address;
                             abi = ropstenContract.abi;
                             break;

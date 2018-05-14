@@ -5,9 +5,9 @@ import ConfigurationForm from '../ConfigurationForm';
 const labelsDummy = {
     title: 'Configuration',
     blockChainField: 'Blockchain',
-    addressField: 'Your Address',
-    button: 'Add Your Address',
-    helperText: 'Assign your address to your Lition account'
+    addressField: 'Contract Address',
+    button: 'Add Contract Address',
+    helperText: 'Assign contract address to your Lition account'
 };
 function renderComponent({ labels = labelsDummy, ...otherProps } = {}, mountFn = shallow) {
     return mountFn(<ConfigurationForm labels={labels} {...otherProps} />);

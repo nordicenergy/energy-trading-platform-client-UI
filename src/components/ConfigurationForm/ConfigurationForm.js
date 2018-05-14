@@ -87,16 +87,16 @@ ConfigurationForm.defaultProps = {
     labels: {
         title: 'Configuration',
         blockChainField: 'Blockchain',
-        addressField: 'Your Address',
-        button: 'Add Your Address',
-        helperText: 'Assign your address to your Lition account'
+        addressField: 'Contract Address',
+        button: 'Add Contract Address',
+        helperText: 'Assign contract address to your Lition account'
     },
     errors: {},
     blockChainFieldOptions: [
         { value: 'ethereum', label: 'Ethereum' },
         { value: 'ledger', label: 'Ledger', disabled: true }
     ],
-    addressFieldOptions: [{ value: '', label: 'Select your address', disabled: true }],
+    addressFieldOptions: [{ value: '', label: 'Select contract address', disabled: true }],
     disabled: false
 };
 
