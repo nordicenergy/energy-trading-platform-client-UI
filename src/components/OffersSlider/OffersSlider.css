@@ -72,12 +72,6 @@
     display: none;
 }
 
-@media (max-width: 860px) {
-    .offers-slider-pagination {
-        justify-content: flex-start !important;
-    }
-}
-
 @media (min-width: 640px) {
     .offers-slider-layout {
         padding: 0;
@@ -87,15 +81,20 @@
         display: none;
     }
 
+    .offers-slider-pagination-wrapper {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+
     .offers-slider-pagination {
         position: relative;
-        display: flex;
         overflow: hidden;
-        justify-content: center;
+        display: flex;
         padding: 1em 0 0;
     }
 
-    .offers-slider-pagination::after {
+    .offers-slider-pagination-wrapper::after {
         position: absolute;
         top: 0;
         right: 0;
