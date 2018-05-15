@@ -4,6 +4,7 @@ import { SellEnergy } from '../SellEnergy';
 import * as notificationsActions from '../../../action_performers/notifications';
 import * as producersActions from '../../../action_performers/producers';
 import * as userActions from '../../../action_performers/users';
+import * as appActions from '../../../action_performers/app';
 
 const offersDummy = [
     {
@@ -82,6 +83,10 @@ function renderComponent(
 }
 
 describe('<SellEnergy /> container', () => {
+    beforeEach(() => {
+        appActions.performSetupLoaderVisibility = jest.fn();
+    });
+
     afterEach(() => {
         routerStub.history.push.mockClear();
     });
@@ -227,5 +232,16 @@ describe('<SellEnergy /> container', () => {
             .onSubmit(offerDummy);
         expect(producersActions.performAddOwnedProducerOffer).toHaveBeenCalledWith(3, offerDummy);
         expect(component.state('updated')).toBe(true);
+    });
+
+    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+        const sellEnergy = renderComponent();
+
+        sellEnergy.setProps({ loading: true });
+        sellEnergy.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
+        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
+        expect(firstCallArg).toBeTruthy();
+        expect(secondCallArg).toBeFalsy();
     });
 });

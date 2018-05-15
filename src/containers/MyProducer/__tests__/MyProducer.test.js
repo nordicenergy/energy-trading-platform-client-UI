@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import MyProducerContainer, { MyProducer } from '../MyProducer';
-import { ProducerInfo, Loader, Button } from '../../../components';
+import { ProducerInfo, Button } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 import * as usersActions from '../../../action_performers/users';
@@ -125,6 +125,7 @@ describe('<MyProducer /> Component', () => {
         producersActions.performGetProducer = jest.fn();
         producersActions.performGetProducerHistory = jest.fn();
         producersActions.performGetCurrentMarketPrice = jest.fn();
+        appActions.performSetupLoaderVisibility = jest.fn();
         appActions.performSetupBreadcrumbs = jest.fn();
         usersActions.performGetUserData = jest.fn();
         notificationActions.performPushNotification = jest.fn();
@@ -134,13 +135,11 @@ describe('<MyProducer /> Component', () => {
         - <section> with class "my-producer-page";
         - 1 <h1>;
         - 1 <Button> component;
-        - 1 <Loader> component";
         - 1 <ProducerInfo> component";`, () => {
         const component = renderContainer();
 
         expect(component.find('section.my-producer-page')).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
-        expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(1);
     });
@@ -268,5 +267,16 @@ describe('<MyProducer /> Component', () => {
 
         component.find('BackLink').simulate('click', { preventDefault: jest.fn() });
         expect(context.router.history.push).toHaveBeenCalledWith('/');
+    });
+
+    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+        const myProducer = renderComponent();
+
+        myProducer.setProps({ loading: true });
+        myProducer.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
+        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
+        expect(firstCallArg).toBeTruthy();
+        expect(secondCallArg).toBeFalsy();
     });
 });

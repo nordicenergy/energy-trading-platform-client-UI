@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavigationCardsPanel, RecentTransactions, Loader } from '../../components';
+import { NavigationCardsPanel, RecentTransactions } from '../../components';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import { performGetUserData } from '../../action_performers/users';
+import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
 import { Overview as messages } from '../../services/translations/messages';
@@ -37,6 +38,8 @@ export class Overview extends AbstractContainer {
         if (!loading && error && error !== prevProps.error) {
             performPushNotification({ message: error.message, type: 'error' });
         }
+
+        performSetupLoaderVisibility(loading);
     }
 
     navigateTo(route) {
@@ -76,7 +79,6 @@ export class Overview extends AbstractContainer {
 
         return (
             <section className="overview-page" aria-busy={loading}>
-                <Loader show={loading} />
                 <NavigationCardsPanel
                     navigationCards={navigationCards}
                     onCardClick={route => this.navigateTo(route)}

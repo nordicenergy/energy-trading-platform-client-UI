@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { RecentTransactions, Loader, BackLink } from '../../components';
+import { RecentTransactions, BackLink } from '../../components';
 import { performGetUserData } from '../../action_performers/users';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
+import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
 
@@ -69,6 +70,8 @@ export class ShowTransactions extends AbstractContainer {
         if (!loading && error && error !== prevProps.error) {
             performPushNotification({ message: error.message, type: 'error' });
         }
+
+        performSetupLoaderVisibility(loading);
     }
 
     componentWillUnmount() {
@@ -98,7 +101,6 @@ export class ShowTransactions extends AbstractContainer {
 
         return (
             <section className="show-transaction-page" aria-busy={loading}>
-                <Loader show={loading} />
                 <h1>
                     <BackLink onClick={event => this.backToOverviewPage(event)} />
                     <span>{labels.header}</span>

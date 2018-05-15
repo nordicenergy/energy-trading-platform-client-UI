@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { PATHS } from '../../services/routes';
 import { SellEnergy as messages } from '../../services/translations/messages';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { OfferForm, OffersSlider, BackLink, Loader } from '../../components';
+import { OfferForm, OffersSlider, BackLink } from '../../components';
 import { performGetUserData } from '../../action_performers/users';
 import {
     performGetOwnedProducerOffer,
@@ -13,6 +13,7 @@ import {
     performGetCurrentMarketPrice
 } from '../../action_performers/producers';
 import './SellEnergy.css';
+import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 
 export class SellEnergy extends AbstractContainer {
@@ -86,6 +87,8 @@ export class SellEnergy extends AbstractContainer {
         if (!loading && error && error !== prevProps.error) {
             performPushNotification({ message: error.message, type: 'error' });
         }
+
+        performSetupLoaderVisibility(loading);
     }
 
     handleBackLinkClick(event) {
@@ -128,7 +131,6 @@ export class SellEnergy extends AbstractContainer {
 
         return (
             <section className="sell-energy-page">
-                <Loader show={this.props.loading} />
                 <h1>
                     <BackLink onClick={event => this.handleBackLinkClick(event)} />
                     <span>{labels.pageTitle}</span>
