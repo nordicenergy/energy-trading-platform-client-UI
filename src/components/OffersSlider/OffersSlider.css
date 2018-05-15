@@ -82,13 +82,13 @@
     }
 
     .offers-slider-pagination-wrapper {
+        position: relative;
         display: flex;
         width: 100%;
         justify-content: center;
     }
 
     .offers-slider-pagination {
-        position: relative;
         overflow: hidden;
         display: flex;
         padding: 1em 0 0;
