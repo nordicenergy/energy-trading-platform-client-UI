@@ -33,7 +33,7 @@ export const META_MASK_DOWNLOAD_LINKS = {
     brave: 'https://brave.com'
 };
 
-export const BLOCKCHAIN_NETWORK_LINKS = {
-    ethereum: 'https://etherscan.io',
+export const BLOCKCHAIN_SCANNER_URLS = {
+    live: 'https://etherscan.io',
     ropsten: 'https://ropsten.etherscan.io'
 };

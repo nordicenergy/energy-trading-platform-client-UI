@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { SESSION_API_URL, LIMIT, BLOCKCHAIN_NETWORK_LINKS } from '../../constants';
+import { SESSION_API_URL, LIMIT, BLOCKCHAIN_SCANNER_URLS } from '../../constants';
 import { PATHS } from '../routes';
 import web3Service, { META_MASK_NETWORKS } from '../web3';
 import { formatCurrency, formatDateTime, formatFloat } from '../formatter';
@@ -56,24 +56,18 @@ export function getOpenTradePositions(/* address, abi */) {
         .then(([bids = {}, network = {}]) => {
             const { data = [] } = bids;
             const { data: { id: networkId } = {} } = network;
-            let blockChainNetworkUrl = '';
 
-            if (networkId === META_MASK_NETWORKS.ropsten) {
-                blockChainNetworkUrl = `${BLOCKCHAIN_NETWORK_LINKS.ropsten}/address`;
-            } else if (networkId === META_MASK_NETWORKS.live) {
-                blockChainNetworkUrl = `${BLOCKCHAIN_NETWORK_LINKS.ethereum}/address`;
-            }
+            const networkName = Object.keys(META_MASK_NETWORKS).find(key => META_MASK_NETWORKS[key] === networkId);
+            const scannerURL = `${BLOCKCHAIN_SCANNER_URLS[networkName]}/address`;
 
             result.data = data.map(bid => {
                 const { producers } = intermediateData;
-                const relatedProducer = producers.find(({ dlAddress }) => dlAddress === bid.producer) || {};
+                const producer = producers.find(({ dlAddress }) => dlAddress === bid.producer);
                 return {
-                    offerAddressUrl: blockChainNetworkUrl ? `${blockChainNetworkUrl}/${bid.producer}` : '',
+                    offerAddressUrl: networkName ? `${scannerURL}/${bid.producer}` : '',
                     offerAddress: bid.producer,
-                    producerUrl: relatedProducer.id
-                        ? `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${relatedProducer.id}`
-                        : null,
-                    producerName: relatedProducer.name || '',
+                    producerUrl: producer ? `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${producer.id}` : null,
+                    producerName: producer.name || '',
                     offerIssued: formatDateTime(bid.day),
                     validOn: '--',
                     energyOffered: '--',
