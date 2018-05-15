@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { PLANT_TYPES } from '../../constants';
 import { PATHS } from '../../services/routes';
-import { convertPlantType } from '../../services/plantType';
+import { convertPlantType } from '../../services/translations/enums';
 import { BuyEnergy as messages } from '../../services/translations/messages';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
 import { performPushNotification } from '../../action_performers/notifications';

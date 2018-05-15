@@ -12,10 +12,10 @@ export default function configureAxios() {
 
     Axios.interceptors.response.use(null, error => {
         if (error.response && error.response.status === 401) {
-            dispatcher.dispatchAction('LOGIN', null, error.response, false);
+            return dispatcher.dispatchAction('LOGIN', null, error.response, false);
         }
         if (error.response && error.response.status === 403) {
-            history.push('/');
+            return history.push('/');
         }
         throw error;
     });
@@ -27,6 +27,10 @@ export default function configureAxios() {
         const accessToken = getToken();
 
         if (accessToken) {
+            if (!config.headers) {
+                config.headers = {};
+            }
+
             config.headers.Authorization = `Bearer ${accessToken}`;
         }
 

@@ -1,9 +1,11 @@
 import Axios from 'axios';
-import { getRecentTransactions } from '../transactions';
+import { getRecentTransactions, getOpenTradePositions } from '../transactions';
+import web3Service from '../../web3';
 
 describe('Transactions API Service', () => {
     beforeEach(() => {
         Axios.get = jest.fn();
+        web3Service.getCurrentBids = jest.fn();
     });
     it('should provide method for getting recent transactions', async () => {
         Axios.get
@@ -69,5 +71,33 @@ describe('Transactions API Service', () => {
                 }
             ]
         });
+    });
+
+    it('should provide method for getting recent transactions', async () => {
+        Axios.get
+            .mockReturnValueOnce(Promise.resolve({ data: { producers: [{ dlAddress: '1', name: 'test name' }] } }))
+            .mockReturnValueOnce(Promise.resolve({ data: { producers: undefined } }))
+            .mockReturnValueOnce(Promise.resolve({ data: { producers: [] } }));
+        web3Service.getCurrentBids
+            .mockReturnValueOnce(
+                Promise.resolve({ data: [{ producer: '1', day: 'test', energy: 'test', price: 'test' }] })
+            )
+            .mockReturnValue(Promise.resolve(undefined));
+
+        await expect(getOpenTradePositions()).resolves.toEqual({
+            data: [
+                {
+                    energyAvailable: 'test',
+                    energyOffered: '',
+                    offerAddress: '1',
+                    offerIssued: 'test',
+                    price: 'test',
+                    producerName: 'test name',
+                    validOn: ''
+                }
+            ]
+        });
+        await expect(getOpenTradePositions()).resolves.toEqual({ data: [] });
+        await expect(getOpenTradePositions()).resolves.toEqual({ data: [] });
     });
 });

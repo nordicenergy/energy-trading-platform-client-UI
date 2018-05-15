@@ -1,6 +1,6 @@
 import Producer from './Producer';
 import { Producer as messages } from '../../services/translations/messages';
-import { convertPlantType } from '../../services/plantType';
+import { convertPlantType } from '../../services/translations/enums';
 
 function prepareProducerInfoProps(translate, producer) {
     return {

@@ -7,6 +7,13 @@ export const PLANT_TYPES = {
     other: 'default'
 };
 
+export const TRANSACTION_STATUSES = {
+    success: 'success',
+    fail: 'failure',
+    pending: 'pending',
+    waitingForOffer: 'waitingForOffer'
+};
+
 export const LIMIT = 10;
 
 export const DATE_FORMAT = 'MMM DD, YYYY';

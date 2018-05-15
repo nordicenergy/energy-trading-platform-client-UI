@@ -37,7 +37,6 @@ export function getRecentTransactions(userId, page = 0) {
         });
 }
 
-// FIXME cover by unit tests, rewrite to async/await
 export function getOpenTradePositions(/* address, abi */) {
     const intermediateData = { producers: [] };
     const result = { data: [] };

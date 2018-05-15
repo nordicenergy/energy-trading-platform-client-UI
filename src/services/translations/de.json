@@ -12,6 +12,12 @@
     "app.plantType.wind": "Windkraftanlage",
     "app.plantType.other": "Sonstige",
 
+    "app.txStatuses.pending": "Pending",
+    "app.txStatuses.fail": "Failure",
+    "app.txStatuses.waitingForOffer": "Waiting For Offer",
+    "app.txStatuses.success": "Success",
+    "app.txStatuses.unknown": "Unknown",
+
     "app.breadCrumbs.overview": "Überblick",
     "app.breadCrumbs.showTransactions": "Transaktionen anzeigen",
     "app.breadCrumbs.myProducer": "Meine Erzeuger",
