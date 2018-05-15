@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './LongPressButton.css';
-import {ENTER_KEY_CODE} from "../../../constants";
+import { ENTER_KEY_CODE } from '../../../constants';
 
 const UPDATE_VALUE_INTERVAL = 50; // milliseconds.
 const UPDATE_VALUE_DELAY = 300; // milliseconds.
