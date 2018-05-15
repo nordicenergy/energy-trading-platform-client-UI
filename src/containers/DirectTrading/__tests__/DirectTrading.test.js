@@ -1,13 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import DirectTradingContainer, { DirectTrading } from '../DirectTrading';
-import { Loader } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 
 import * as notificationActions from '../../../action_performers/notifications';
 import * as txActions from '../../../action_performers/transactions';
-import { performGetOpenTradePositions } from '../../../action_performers/transactions';
+import * as appActions from '../../../action_performers/app';
 
 const context = {
     intl: {
@@ -62,17 +61,16 @@ describe('<DirectTrading /> Component', () => {
 
         txActions.performGetAvailableAddresses = jest.fn();
         txActions.performGetOpenTradePositions = jest.fn();
+        appActions.performSetupLoaderVisibility = jest.fn();
         notificationActions.performPushNotification = jest.fn();
     });
 
     it(`should contains following controls:
-        - 1 <Loader /> component;
         - 1 <section> element with "direct-trading-page";
         - 1 <h1> element;`, () => {
         const component = renderContainer();
 
         expect(component.find('section.direct-trading-page')).toHaveLength(1);
-        expect(component.find(Loader)).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
         // TODO add Alert, OpenTradePositionsTable and ConfigurationForm check
     });
@@ -172,5 +170,16 @@ describe('<DirectTrading /> Component', () => {
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[error]] = notificationActions.performPushNotification.mock.calls;
         expect(error).toEqual({ message: 'Error Message', type: 'error' });
+    });
+
+    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+        const directTrading = renderComponent();
+
+        directTrading.setProps({ loading: true });
+        directTrading.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
+        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
+        expect(firstCallArg).toBeTruthy();
+        expect(secondCallArg).toBeFalsy();
     });
 });

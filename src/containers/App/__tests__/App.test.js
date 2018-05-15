@@ -23,6 +23,7 @@ describe('Main <App /> Component', () => {
         context.intl.formatMessage.mockReturnValue('test');
         usersActions.performLogout = jest.fn();
         appActions.performSetupLocale = jest.fn();
+        appActions.performSetupLoaderVisibility = jest.fn();
         window.confirm = () => true;
     });
 
@@ -209,5 +210,16 @@ describe('Main <App /> Component', () => {
                 }
             });
         expect(component.update().find('.content--de-emphasized')).toHaveLength(0);
+    });
+
+    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+        const app = renderComponent();
+
+        app.setProps({ loading: true });
+        app.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
+        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
+        expect(firstCallArg).toBeTruthy();
+        expect(secondCallArg).toBeFalsy();
     });
 });

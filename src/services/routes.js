@@ -3,6 +3,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import { getToken } from './browserStorage';
 import {
     Notifications,
+    PageLoader,
     App,
     Login,
     RestorePassword,
@@ -144,6 +145,7 @@ const AppMainLayout = () => {
 export const Routes = () => (
     <div id="routes">
         <Notifications />
+        <PageLoader />
         <Switch>
             <PublicRoute path="/login" component={Login} />
             <PublicRoute path="/restore-password" component={RestorePassword} />

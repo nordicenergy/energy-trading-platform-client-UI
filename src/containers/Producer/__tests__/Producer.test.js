@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ProducerContainer, { Producer } from '../Producer';
-import { ProducerInfo, Loader, Button } from '../../../components';
+import { ProducerInfo, Button } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 import * as producersActions from '../../../action_performers/producers';
@@ -89,6 +89,7 @@ describe('<Producer /> Component', () => {
         producersActions.performSelectProducer = jest.fn();
         producersActions.performGetCurrentMarketPrice = jest.fn();
         appActions.performSetupBreadcrumbs = jest.fn();
+        appActions.performSetupLoaderVisibility = jest.fn();
         notificationActions.performPushNotification = jest.fn();
     });
 
@@ -96,13 +97,11 @@ describe('<Producer /> Component', () => {
         - <section> with class "producer-page";
         - 1 <h1>;
         - 2 <Button> component";
-        - 1 <Loader> component";
         - 1 <ProducerInfo> component";`, () => {
         const component = renderContainer();
 
         expect(component.find('section.producer-page')).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
-        expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(2);
     });
@@ -239,5 +238,16 @@ describe('<Producer /> Component', () => {
 
         component.find('BackLink').simulate('click', { preventDefault: jest.fn() });
         expect(context.router.history.push).toHaveBeenCalledWith('/buy_energy');
+    });
+
+    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+        const producer = renderComponent();
+
+        producer.setProps({ loading: true });
+        producer.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
+        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
+        expect(firstCallArg).toBeTruthy();
+        expect(secondCallArg).toBeFalsy();
     });
 });

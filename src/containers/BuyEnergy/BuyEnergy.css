@@ -1,6 +1,6 @@
 .buy-energy-page {
     display: flex;
-    flex: 1 0 auto;
+    flex: 1 1 0%;
     flex-direction: column;
     height: 100%;
     text-align: left;
@@ -102,5 +102,11 @@
     .buy-energy-page-header > h2 > strong {
         display: inline-block;
         width: 100%;
+    }
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .buy-energy-page {
+        flex: 1 1 auto;
     }
 }

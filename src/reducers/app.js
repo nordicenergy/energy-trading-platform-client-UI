@@ -1,5 +1,6 @@
 export const initialState = {
     breadCrumbs: { data: [] },
+    loader: { data: false },
     localization: {
         data: {
             locale: localStorage.getItem('locale'),
@@ -19,6 +20,13 @@ export function appReducer(state = initialState, action) {
                 ...state,
                 breadCrumbs: {
                     data: newBreadcrumbs
+                }
+            };
+        case 'SETUP_LOADER_VISIBILITY':
+            return {
+                ...state,
+                loader: {
+                    data: action.payload
                 }
             };
         case 'SETUP_LOCALE':

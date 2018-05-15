@@ -1,13 +1,14 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import OverviewContainer, { Overview } from '../Overview';
-import { NavigationCardsPanel, Loader, RecentTransactions } from '../../../components';
+import { NavigationCardsPanel, RecentTransactions } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 
 import * as usersActions from '../../../action_performers/users';
 import * as notificationActions from '../../../action_performers/notifications';
 import * as txActions from '../../../action_performers/transactions';
+import * as appActions from '../../../action_performers/app';
 import { formatFloat } from '../../../services/formatter';
 
 const context = {
@@ -303,19 +304,18 @@ describe('<Overview /> Component', () => {
         usersActions.performGetUserData = jest.fn();
         txActions.performGetRecentTransactions = jest.fn();
         notificationActions.performPushNotification = jest.fn();
+        appActions.performSetupLoaderVisibility = jest.fn();
     });
 
     it(`should contains following controls:
         - 1 <NavigationCardsPanel /> component;
         - 1 <RecentTransactions /> component;
-        - 1 <Loader /> component;
         - <section> element with class "overview-page";`, () => {
         const component = renderContainer();
 
         expect(component.find('section.overview-page')).toHaveLength(1);
         expect(component.find(NavigationCardsPanel)).toHaveLength(1);
         expect(component.find(RecentTransactions)).toHaveLength(1);
-        expect(component.find(Loader)).toHaveLength(1);
     });
 
     it('should call prepare common function', () => {
@@ -443,5 +443,16 @@ describe('<Overview /> Component', () => {
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[error]] = notificationActions.performPushNotification.mock.calls;
         expect(error).toEqual({ message: 'Error Message', type: 'error' });
+    });
+
+    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+        const overview = renderComponent();
+
+        overview.setProps({ loading: true });
+        overview.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
+        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
+        expect(firstCallArg).toBeTruthy();
+        expect(secondCallArg).toBeFalsy();
     });
 });

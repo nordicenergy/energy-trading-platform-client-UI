@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ProducerInfo, Loader, Button, BackLink } from '../../components';
+import { ProducerInfo, Button, BackLink } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
@@ -10,6 +10,7 @@ import {
     performGetProducerHistory,
     performGetCurrentMarketPrice
 } from '../../action_performers/producers';
+import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
 
@@ -66,6 +67,8 @@ export class MyProducer extends AbstractContainer {
         if (!loading && error && error !== oldError) {
             performPushNotification({ message: error.message, type: 'error' });
         }
+
+        performSetupLoaderVisibility(loading);
     }
 
     fetchProducer() {
@@ -95,7 +98,6 @@ export class MyProducer extends AbstractContainer {
 
         return (
             <section className="my-producer-page" aria-busy={loading}>
-                <Loader show={loading} />
                 <section className="my-producer-page-info-container">
                     <h1>
                         <BackLink onClick={event => this.handleBackLinkClick(event)} />

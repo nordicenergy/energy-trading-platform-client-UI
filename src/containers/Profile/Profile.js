@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { performGetUserData, performUpdateUserData } from '../../action_performers/users';
+import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { Profile as messages } from '../../services/translations/messages';
-import { ProfileForm, Loader } from '../../components';
+import { ProfileForm } from '../../components';
 import './Profile.css';
 
 export class Profile extends AbstractContainer {
@@ -47,6 +48,8 @@ export class Profile extends AbstractContainer {
                 message: this.props.error.message
             });
         }
+
+        performSetupLoaderVisibility(this.props.loading);
     }
 
     prepareValidator() {
@@ -169,7 +172,6 @@ export class Profile extends AbstractContainer {
         const labels = this.prepareLabels(messages);
         return (
             <section className="profile-page">
-                <Loader show={this.props.loading} />
                 <h1>{formatMessage(messages.header)}</h1>
                 <div className="profile-form-container">
                     <ProfileForm
