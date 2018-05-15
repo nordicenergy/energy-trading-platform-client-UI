@@ -160,7 +160,7 @@ tr.recent-transactions-details-row--expand > td::after {
 }
 
 .recent-transactions-button-container {
-    padding: 1.33em 0;
+    padding: 1.33em 1em;
     text-align: center;
 }
 
