@@ -47,10 +47,10 @@ describe('<FilterCheckbox /> component', () => {
     it('should calls onChange callback only on enter key press', () => {
         const filterCheckbox = renderComponent();
 
-        filterCheckbox.find('.filter-checkbox').simulate('keyPress', { which: 13 });
+        filterCheckbox.find('.filter-checkbox').simulate('keyUp', { keyCode: 13 });
         expect(stubs.onChangeMock).toHaveBeenCalledTimes(1);
 
-        filterCheckbox.find('.filter-checkbox').simulate('keyPress', { which: 11 });
+        filterCheckbox.find('.filter-checkbox').simulate('keyUp', { keyCode: 11 });
         expect(stubs.onChangeMock).toHaveBeenCalledTimes(1);
     });
 });

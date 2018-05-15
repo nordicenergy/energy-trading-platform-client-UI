@@ -64,7 +64,7 @@ export class FAQ extends AbstractContainer {
     }
 
     handleQuestionEnterPress(event, id) {
-        if (event.which === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE) {
             this.toggleExpandQuestion(id);
         }
     }
@@ -87,14 +87,14 @@ export class FAQ extends AbstractContainer {
                                     tabIndex={0}
                                     className="title"
                                     onClick={() => this.toggleExpandQuestion(id)}
-                                    onKeyPress={event => this.handleQuestionEnterPress(event, id)}
+                                    onKeyUp={event => this.handleQuestionEnterPress(event, id)}
                                 >
                                     {question}
                                 </div>
                                 <DisclosureArrow
                                     onClick={() => this.toggleExpandQuestion(id)}
                                     expanded={isExpanded}
-                                    onKeyPress={event => this.handleQuestionEnterPress(event, id)}
+                                    onKeyUp={event => this.handleQuestionEnterPress(event, id)}
                                 />
                             </div>
                             <div className="answer-container">{answer}</div>

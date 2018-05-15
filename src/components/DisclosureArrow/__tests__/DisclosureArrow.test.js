@@ -38,13 +38,13 @@ describe('<DisclosureArrow /> Component', () => {
         component
             .find('svg')
             .at(0)
-            .simulate('keyPress', { which: 13 });
+            .simulate('keyUp', { keyCode: 13 });
         expect(onClickMock).toHaveBeenCalledTimes(1);
 
         component
             .find('svg')
             .at(0)
-            .simulate('keyPress', { which: 11 });
+            .simulate('keyUp', { keyCode: 11 });
         expect(onClickMock).toHaveBeenCalledTimes(1);
     });
 });

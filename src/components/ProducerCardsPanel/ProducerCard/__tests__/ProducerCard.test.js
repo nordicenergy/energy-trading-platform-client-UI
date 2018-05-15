@@ -53,10 +53,10 @@ describe('<ProducerCard /> component', function() {
     it('should call onClick callback only on enter key press', () => {
         const producerCard = renderComponent();
 
-        producerCard.simulate('keyPress', { which: 13 });
+        producerCard.simulate('keyUp', { keyCode: 13 });
         expect(onClickStub).toHaveBeenCalledTimes(1);
 
-        producerCard.simulate('keyPress', { which: 11 });
+        producerCard.simulate('keyUp', { keyCode: 11 });
         expect(onClickStub).toHaveBeenCalledTimes(1);
 
         onClickStub.mockClear();

@@ -29,6 +29,17 @@ describe('<LongPressButton /> component', () => {
         expect(longPressButton.state().isPressed).toBeFalsy();
     });
 
+    it('should updates state and calls onPress if button was pressed by enter key', () => {
+        const longPressButton = renderComponent();
+
+        longPressButton.find('button').simulate('keydown', { keyCode: 13 });
+        expect(longPressButton.state().isPressed).toBeTruthy();
+        expect(onPressMock).toHaveBeenCalled();
+
+        longPressButton.find('button').simulate('keyup', { keyCode: 13 });
+        expect(longPressButton.state().isPressed).toBeFalsy();
+    });
+
     it('should not calls onPress if onPress is not a function', () => {
         const longPressButton = renderComponent({ onPress: null });
 

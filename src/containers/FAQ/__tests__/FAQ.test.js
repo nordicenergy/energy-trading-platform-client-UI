@@ -114,7 +114,7 @@ describe('<FAQ /> Component', () => {
         component
             .find('.title')
             .at(0)
-            .simulate('keyPress', { which: 13 });
+            .simulate('keyUp', { keyCode: 13 });
         expect(component.state('expandedIds')).toEqual(['testId1']);
     });
 
@@ -144,7 +144,7 @@ describe('<FAQ /> Component', () => {
         component
             .find('DisclosureArrow')
             .at(0)
-            .simulate('keyPress', { which: 13 });
+            .simulate('keyUp', { keyCode: 13 });
         expect(component.state('expandedIds')).toEqual(['testId1']);
     });
 

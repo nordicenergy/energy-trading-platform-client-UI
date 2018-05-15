@@ -103,7 +103,7 @@ describe('<SelectField /> component', () => {
         selectField
             .find('.options-list-item')
             .at(2)
-            .simulate('keyPress', { which: 13 });
+            .simulate('keyUp', { keyCode: 13 });
         expect(onChangeMock).toHaveBeenCalledWith({ name: 'test', value: 'biomass (corn)' });
     });
 
@@ -112,7 +112,7 @@ describe('<SelectField /> component', () => {
         selectField.setState({
             isFocused: false
         });
-        selectField.find('.select-field-layout').simulate('keyPress', { which: 13 });
+        selectField.find('.select-field-layout').simulate('keyUp', { keyCode: 13 });
         expect(selectField.state('isFocused')).toEqual(true);
     });
 

@@ -57,7 +57,7 @@ class SelectField extends Component {
 
     handleOptionEnterPress(event, value) {
         const { onChange, name } = this.props;
-        if (event.which === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE) {
             this.setState({ value, isFocused: false });
             onChange && onChange({ name, value });
         }
@@ -111,7 +111,7 @@ class SelectField extends Component {
                     tabIndex={0}
                     role="option"
                     aria-selected="true"
-                    onKeyPress={event => this.handleOptionEnterPress(event, value)}
+                    onKeyUp={event => this.handleOptionEnterPress(event, value)}
                 >
                     {label}
                 </li>
@@ -122,7 +122,7 @@ class SelectField extends Component {
     }
 
     handleFieldEnterPress(event) {
-        if (event.which === 13) {
+        if (event.keyCode === 13) {
             this.setState({
                 isFocused: !this.state.isFocused
             });
@@ -147,7 +147,7 @@ class SelectField extends Component {
                     className="select-field-layout"
                     ref={ref => (this.layoutRef = ref)}
                     tabIndex={disabled ? -1 : 0}
-                    onKeyPress={event => this.handleFieldEnterPress(event)}
+                    onKeyUp={event => this.handleFieldEnterPress(event)}
                 >
                     {label && <label className="select-field-label">{label}</label>}
                     <div

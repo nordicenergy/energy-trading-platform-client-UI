@@ -8,7 +8,7 @@ import { ENTER_KEY_CODE } from '../../constants';
 
 class Breadcrumbs extends React.Component {
     handleBreadcrumbEnterPress(event, path) {
-        if (event.which === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE) {
             this.props.onClick(path);
         }
     }
@@ -26,7 +26,7 @@ class Breadcrumbs extends React.Component {
                 <a
                     aria-label={rootBreadCrumb.label}
                     className="icon-breadcrumb"
-                    onKeyPress={event => this.handleBreadcrumbEnterPress(event, rootBreadCrumb.path)}
+                    onKeyUp={event => this.handleBreadcrumbEnterPress(event, rootBreadCrumb.path)}
                     onClick={() => {
                         onClick(rootBreadCrumb.path);
                     }}
@@ -52,7 +52,7 @@ class Breadcrumbs extends React.Component {
                     <a
                         aria-label={item.label}
                         className="breadcrumb"
-                        onKeyPress={event => this.handleBreadcrumbEnterPress(event, item.path)}
+                        onKeyUp={event => this.handleBreadcrumbEnterPress(event, item.path)}
                         onClick={() => onClick(item.path)}
                         tabIndex={0}
                     >

@@ -8,7 +8,7 @@ import './FilterCheckbox.css';
 class FilterCheckbox extends React.Component {
     handleFilterEnterPress(event) {
         const { onChange, name } = this.props;
-        if (event.which === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE) {
             onChange({
                 target: {
                     name
@@ -34,7 +34,7 @@ class FilterCheckbox extends React.Component {
         const { className, label, name, checked, onChange } = this.props;
         const classes = classNames('filter-checkbox', className);
         return (
-            <label className={classes} onKeyPress={event => this.handleFilterEnterPress(event)} tabIndex={0}>
+            <label className={classes} onKeyUp={event => this.handleFilterEnterPress(event)} tabIndex={0}>
                 <input
                     className="filter-checkbox-input"
                     type="checkbox"

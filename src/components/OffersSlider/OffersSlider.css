@@ -72,6 +72,12 @@
     display: none;
 }
 
+@media (max-width: 860px) {
+    .offers-slider-pagination {
+        justify-content: flex-start !important;
+    }
+}
+
 @media (min-width: 640px) {
     .offers-slider-layout {
         padding: 0;

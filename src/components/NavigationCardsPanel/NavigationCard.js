@@ -14,7 +14,7 @@ const ICONS_TYPES = {
 
 class NavigationCard extends React.Component {
     handlerCardEnterPress(event) {
-        if (event.which === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE) {
             this.props.onCardClickHandler();
         }
     }
@@ -27,7 +27,7 @@ class NavigationCard extends React.Component {
             <div
                 className="nav-card-container"
                 onClick={() => onCardClickHandler()}
-                onKeyPress={event => this.handlerCardEnterPress(event)}
+                onKeyUp={event => this.handlerCardEnterPress(event)}
                 tabIndex={0}
             >
                 <div className="nav-card">

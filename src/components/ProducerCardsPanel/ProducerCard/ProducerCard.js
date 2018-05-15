@@ -7,7 +7,7 @@ import './ProducerCard.css';
 
 class ProducerCard extends React.Component {
     handlerCardEnterPress(event, id) {
-        if (event.which === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE) {
             this.props.onClick(id);
         }
     }
@@ -21,7 +21,7 @@ class ProducerCard extends React.Component {
             <div
                 className={classes}
                 onClick={() => onClick && onClick(producer.id)}
-                onKeyPress={event => this.handlerCardEnterPress(event, producer.id)}
+                onKeyUp={event => this.handlerCardEnterPress(event, producer.id)}
                 style={style}
                 tabIndex={0}
             >

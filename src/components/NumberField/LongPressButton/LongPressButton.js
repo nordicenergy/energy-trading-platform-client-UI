@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './LongPressButton.css';
+import {ENTER_KEY_CODE} from "../../../constants";
 
 const UPDATE_VALUE_INTERVAL = 50; // milliseconds.
 const UPDATE_VALUE_DELAY = 300; // milliseconds.
@@ -38,6 +39,19 @@ class LongPressButton extends Component {
         onPress && onPress();
     }
 
+    handleKeyDown(event) {
+        if (event.keyCode === ENTER_KEY_CODE) {
+            this.setState({ isPressed: true });
+            this.handlePress();
+        }
+    }
+
+    handleKeyUp(event) {
+        if (event.keyCode === ENTER_KEY_CODE) {
+            this.setState({ isPressed: false });
+        }
+    }
+
     handleMouseDown() {
         this.setState({ isPressed: true });
         this.handlePress();
@@ -57,6 +71,8 @@ class LongPressButton extends Component {
                 className={classes}
                 onMouseDown={() => this.handleMouseDown()}
                 onMouseUp={() => this.handleMouseUp()}
+                onKeyDown={event => this.handleKeyDown(event)}
+                onKeyUp={event => this.handleKeyUp(event)}
             >
                 {sign}
             </button>

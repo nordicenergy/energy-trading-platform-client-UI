@@ -7,7 +7,7 @@ import { ENTER_KEY_CODE } from '../../constants';
 class DisclosureArrow extends React.Component {
     handleArrowEnterPress(event) {
         const { onClick } = this.props;
-        if (event.which === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE) {
             onClick && onClick();
         }
     }
@@ -20,7 +20,7 @@ class DisclosureArrow extends React.Component {
                 role="button"
                 className={classNames('disclosure-arrow', { 'disclosure-arrow--expanded': expanded })}
                 onClick={onClick}
-                onKeyPress={event => this.handleArrowEnterPress(event)}
+                onKeyUp={event => this.handleArrowEnterPress(event)}
                 width="40px"
                 height="40px"
                 viewBox="0 0 40 40"

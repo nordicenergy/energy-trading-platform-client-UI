@@ -21,7 +21,7 @@ class RecentTransactions extends React.Component {
     }
 
     handleRowEnterPress(event, index, isExpand) {
-        if (event.which === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE) {
             this.expandRow(index, isExpand);
         }
     }
@@ -53,7 +53,7 @@ class RecentTransactions extends React.Component {
                         tabIndex={0}
                         className={rowClasses}
                         onClick={() => this.expandRow(index, isExpand)}
-                        onKeyPress={event => this.handleRowEnterPress(event, index, isExpand)}
+                        onKeyUp={event => this.handleRowEnterPress(event, index, isExpand)}
                     >
                         <td>{renderDate(transaction.date)}</td>
                         <td>{transaction.description}</td>
