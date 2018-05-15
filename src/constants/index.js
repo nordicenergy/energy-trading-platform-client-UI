@@ -7,6 +7,13 @@ export const PLANT_TYPES = {
     other: 'default'
 };
 
+export const TRANSACTION_STATUSES = {
+    success: 'success',
+    fail: 'failure',
+    pending: 'pending',
+    waitingForOffer: 'waitingForOffer'
+};
+
 export const LIMIT = 10;
 
 export const DATE_FORMAT = 'MMM DD, YYYY';
@@ -26,7 +33,7 @@ export const META_MASK_DOWNLOAD_LINKS = {
     brave: 'https://brave.com'
 };
 
-export const BLOCKCHAIN_NETWORK_LINKS = {
-    ethereum: 'https://etherscan.io',
+export const BLOCKCHAIN_SCANNER_URLS = {
+    live: 'https://etherscan.io',
     ropsten: 'https://ropsten.etherscan.io'
 };

@@ -28,11 +28,42 @@ describe('Producers API Service', () => {
         Axios.post.mockClear();
     });
 
-    it('should provide method for getting specific producer', () => {
-        Axios.get.mockReturnValue(Promise.resolve({ data: { producers: [] } }));
+    it('should provide method for getting specific producer', async () => {
+        Axios.get.mockReturnValue(
+            Promise.resolve({
+                data: {
+                    producer: {
+                        street: 'October',
+                        postcode: '230000',
+                        city: 'Seit',
+                        country: 'Zakovia',
+                        productionOfLastDay: 200,
+                        energyPurchased: 100,
+                        dlAddress: '0x1'
+                    }
+                }
+            })
+        );
 
-        getProducer('testId');
+        const producer = await getProducer('testId');
         expect(Axios.get).toHaveBeenCalledWith('/api/producers/testId/get');
+        expect(producer).toEqual({
+            data: {
+                producer: {
+                    annualProduction: 200,
+                    city: 'Seit',
+                    country: 'Zakovia',
+                    dlAddress: '0x1',
+                    energyPurchased: 100,
+                    ethereumAddress: '0x1',
+                    location: 'October, 230000 Seit, Zakovia',
+                    postcode: '230000',
+                    productionOfLastDay: 200,
+                    purchased: 100,
+                    street: 'October'
+                }
+            }
+        });
     });
 
     // TODO uncomment after completing end-point

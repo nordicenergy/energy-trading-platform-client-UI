@@ -7,12 +7,13 @@ import { performGetRecentTransactions } from '../../action_performers/transactio
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
-
+import { formatFloat } from '../../services/formatter';
+import { convertTransactionStatus } from '../../services/translations/enums';
 import { ShowTransactions as messages } from '../../services/translations/messages';
+
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
 import './ShowTransactions.css';
-import { formatFloat } from '../../services/formatter';
 
 export class ShowTransactions extends AbstractContainer {
     constructor(props, context) {
@@ -86,6 +87,7 @@ export class ShowTransactions extends AbstractContainer {
     }
 
     render() {
+        const { formatMessage } = this.context.intl;
         const labels = this.prepareLabels(messages);
         const {
             recentTransactions: { transactions = [], currentBalance = 0 },
@@ -96,7 +98,11 @@ export class ShowTransactions extends AbstractContainer {
             ...tx,
             description: `${labels.recentTransactionsDescriptionBought} ${formatFloat(tx.energyAmount)} kWh ${
                 labels.recentTransactionsDescriptionFrom
-            } "${tx.producerName}"`
+            } "${tx.producerName}"`,
+            details: {
+                ...tx.details,
+                status: formatMessage(convertTransactionStatus(tx.details && tx.details.status))
+            }
         }));
 
         return (

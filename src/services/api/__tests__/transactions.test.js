@@ -1,9 +1,13 @@
 import Axios from 'axios';
-import { getRecentTransactions } from '../transactions';
+import { getRecentTransactions, getOpenTradePositions } from '../transactions';
+import web3Service, { META_MASK_NETWORKS } from '../../web3';
+import { BLOCKCHAIN_SCANNER_URLS } from '../../../constants';
 
 describe('Transactions API Service', () => {
     beforeEach(() => {
         Axios.get = jest.fn();
+        web3Service.getCurrentBids = jest.fn();
+        web3Service.getNetworkId = jest.fn();
     });
     it('should provide method for getting recent transactions', async () => {
         Axios.get
@@ -68,6 +72,46 @@ describe('Transactions API Service', () => {
                     transactionHash: '0x4c6c11de80fa544341fc97fd4fb6755adbe6006a424f5a1029b632b7ce81ed25'
                 }
             ]
+        });
+    });
+
+    it('should provide method for getting recent transactions', async () => {
+        const bidsDummy = { data: [{ producer: '0x1', day: 1526398769827, energy: 200000, price: 250 }] };
+        const producersDummy = { data: { producers: [{ id: '123', dlAddress: '0x1', name: 'test name' }] } };
+        const expectedTestData = {
+            energyAvailable: '2',
+            energyOffered: '--',
+            offerAddress: '0x1',
+            offerIssued: 'Aug 27, 50339 01:17',
+            price: '0.25',
+            producerName: 'test name',
+            producerUrl: '/buy_energy/producer/123',
+            validOn: '--'
+        };
+
+        Axios.get
+            .mockReturnValueOnce(Promise.resolve(producersDummy))
+            .mockReturnValueOnce(Promise.resolve({ data: { producers: undefined } }))
+            .mockReturnValueOnce(Promise.resolve({ data: { producers: [] } }))
+            .mockReturnValueOnce(Promise.resolve(producersDummy));
+
+        web3Service.getNetworkId
+            .mockReturnValueOnce(Promise.resolve({ data: { id: META_MASK_NETWORKS.ropsten } }))
+            .mockReturnValue(Promise.resolve({ data: { id: META_MASK_NETWORKS.live } }));
+
+        web3Service.getCurrentBids
+            .mockReturnValueOnce(Promise.resolve(bidsDummy))
+            .mockReturnValueOnce(Promise.resolve(undefined))
+            .mockReturnValueOnce(Promise.resolve(bidsDummy));
+
+        await expect(getOpenTradePositions()).resolves.toEqual({
+            data: [{ ...expectedTestData, offerAddressUrl: `${BLOCKCHAIN_SCANNER_URLS.ropsten}/address/0x1` }]
+        });
+        await expect(getOpenTradePositions()).resolves.toEqual({ data: [] });
+        await expect(getOpenTradePositions()).resolves.toEqual({ data: [] });
+
+        await expect(getOpenTradePositions()).resolves.toEqual({
+            data: [{ ...expectedTestData, offerAddressUrl: `${BLOCKCHAIN_SCANNER_URLS.live}/address/0x1` }]
         });
     });
 });
