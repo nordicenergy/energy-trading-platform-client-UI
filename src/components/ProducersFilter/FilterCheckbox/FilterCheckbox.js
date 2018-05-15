@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { OtherEnergyIcon, WindEnergyIcon, SolarEnergyIcon, BiomassEnergyIcon } from './icons';
-import { PLANT_TYPES, ENTER_KEY_CODE } from '../../../constants';
+import { PLANT_TYPES, KEYBOARD_KEY_VALUES } from '../../../constants';
 import './FilterCheckbox.css';
 
 class FilterCheckbox extends React.Component {
     handleFilterEnterPress(event) {
         const { onChange, name } = this.props;
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
             onChange({
                 target: {
                     name

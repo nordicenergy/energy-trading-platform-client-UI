@@ -69,13 +69,13 @@ describe('<Breadcrumbs /> Component', () => {
         component
             .find('a')
             .at(1)
-            .simulate('keyUp', { keyCode: 13 });
+            .simulate('keyUp', { key: 'Enter' });
         expect(onClick).toHaveBeenCalledTimes(1);
         expect(onClick).toHaveBeenCalledWith('trading/wattcoin');
         component
             .find('a')
             .at(1)
-            .simulate('keyUp', { keyCode: 11 });
+            .simulate('keyUp', { key: 'Tab' });
         expect(onClick).toHaveBeenCalledTimes(1);
     });
 });

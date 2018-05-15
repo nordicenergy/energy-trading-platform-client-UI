@@ -8,7 +8,7 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { performPushNotification } from '../../action_performers/notifications';
-import { ENTER_KEY_CODE } from '../../constants';
+import { KEYBOARD_KEY_VALUES } from '../../constants';
 
 export class FAQ extends AbstractContainer {
     constructor(props) {
@@ -64,7 +64,7 @@ export class FAQ extends AbstractContainer {
     }
 
     handleQuestionEnterPress(event, id) {
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
             this.toggleExpandQuestion(id);
         }
     }

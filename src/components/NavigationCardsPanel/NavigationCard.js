@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ENTER_KEY_CODE } from '../../constants';
+import { KEYBOARD_KEY_VALUES } from '../../constants';
 import './NavigationCard.css';
 import MyProducerIcon from './MyProducerIcon';
 import BuyEnergyIcon from './BuyEnergyIcon';
@@ -14,7 +14,7 @@ const ICONS_TYPES = {
 
 class NavigationCard extends React.Component {
     handlerCardEnterPress(event) {
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
             this.props.onCardClickHandler();
         }
     }

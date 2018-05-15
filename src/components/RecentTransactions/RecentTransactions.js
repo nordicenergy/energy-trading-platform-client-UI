@@ -5,7 +5,7 @@ import moment from 'moment/moment';
 import { DisclosureArrow, Button } from '../.';
 import Spinner from '../Loader/Spinner';
 import RecentTransactionDetails from './RecentTransactionDetails';
-import { DATE_FORMAT, ENTER_KEY_CODE } from '../../constants';
+import { DATE_FORMAT, KEYBOARD_KEY_VALUES } from '../../constants';
 import { formatCurrency } from '../../services/formatter';
 
 import './RecentTransactions.css';
@@ -21,7 +21,7 @@ class RecentTransactions extends React.Component {
     }
 
     handleRowEnterPress(event, index, isExpand) {
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
             this.expandRow(index, isExpand);
         }
     }

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import pick from 'lodash.pick';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/fontawesome-free-solid';
-import { ENTER_KEY_CODE } from '../../constants';
+import { KEYBOARD_KEY_VALUES } from '../../constants';
 import './SelectField.css';
 
 export const OptionPropType = PropTypes.oneOfType([
@@ -57,7 +57,7 @@ class SelectField extends Component {
 
     handleOptionEnterPress(event, value) {
         const { onChange, name } = this.props;
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
             this.setState({ value, isFocused: false });
             onChange && onChange({ name, value });
         }
@@ -122,7 +122,7 @@ class SelectField extends Component {
     }
 
     handleFieldEnterPress(event) {
-        if (event.keyCode === 13) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
             this.setState({
                 isFocused: !this.state.isFocused
             });

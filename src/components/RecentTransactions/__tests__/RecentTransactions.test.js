@@ -255,22 +255,22 @@ describe('<RecentTransactions /> Component', () => {
         component
             .find(DisclosureArrow)
             .at(3)
-            .simulate('keyUp', { keyCode: 13 });
+            .simulate('keyUp', { key: 'Enter' });
         expect(component.state()).toEqual({ expanded: [undefined, undefined, undefined, true] });
         component
             .find(DisclosureArrow)
             .at(3)
-            .simulate('keyUp', { keyCode: 13 });
+            .simulate('keyUp', { key: 'Enter' });
         component
             .find(DisclosureArrow)
             .at(2)
-            .simulate('keyUp', { keyCode: 13 });
+            .simulate('keyUp', { key: 'Enter' });
         expect(component.state()).toEqual({ expanded: [undefined, undefined, true, false] });
 
         component
             .find(DisclosureArrow)
             .at(2)
-            .simulate('keyUp', { keyCode: 11 });
+            .simulate('keyUp', { key: 'Tab' });
         expect(component.state()).toEqual({ expanded: [undefined, undefined, true, false] });
     });
 
@@ -279,7 +279,7 @@ describe('<RecentTransactions /> Component', () => {
         component
             .find('.recent-transactions-row')
             .at(3)
-            .simulate('keyUp', { keyCode: 13 });
+            .simulate('keyUp', { key: 'Enter' });
         expect(component.state()).toEqual({ expanded: [undefined, undefined, undefined, true] });
     });
 });

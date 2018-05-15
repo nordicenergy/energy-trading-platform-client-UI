@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './DisclosureArrow.css';
-import { ENTER_KEY_CODE } from '../../constants';
+import { KEYBOARD_KEY_VALUES } from '../../constants';
 
 class DisclosureArrow extends React.Component {
     handleArrowEnterPress(event) {
         const { onClick } = this.props;
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
             onClick && onClick();
         }
     }

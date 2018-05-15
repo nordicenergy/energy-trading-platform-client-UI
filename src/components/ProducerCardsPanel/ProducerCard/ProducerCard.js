@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { PLANT_TYPES, ENTER_KEY_CODE } from '../../../constants';
+import { PLANT_TYPES, KEYBOARD_KEY_VALUES } from '../../../constants';
 import defaultImage from './defaultImage.png';
 import './ProducerCard.css';
 
 class ProducerCard extends React.Component {
     handlerCardEnterPress(event, id) {
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
             this.props.onClick(id);
         }
     }

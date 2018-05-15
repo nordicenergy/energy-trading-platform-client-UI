@@ -114,7 +114,7 @@ describe('<FAQ /> Component', () => {
         component
             .find('.title')
             .at(0)
-            .simulate('keyUp', { keyCode: 13 });
+            .simulate('keyUp', { key: 'Enter' });
         expect(component.state('expandedIds')).toEqual(['testId1']);
     });
 
@@ -144,7 +144,7 @@ describe('<FAQ /> Component', () => {
         component
             .find('DisclosureArrow')
             .at(0)
-            .simulate('keyUp', { keyCode: 13 });
+            .simulate('keyUp', { key: 'Enter' });
         expect(component.state('expandedIds')).toEqual(['testId1']);
     });
 

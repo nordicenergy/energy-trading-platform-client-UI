@@ -77,9 +77,9 @@ describe('<NavigationCard /> Component', () => {
         };
         const component = renderComponent(props);
 
-        component.find('.nav-card-container').simulate('keyUp', { keyCode: 13 });
+        component.find('.nav-card-container').simulate('keyUp', { key: 'Enter' });
         expect(onCardClickHandler).toHaveBeenCalledTimes(1);
-        component.find('.nav-card-container').simulate('keyUp', { keyCode: 11 });
+        component.find('.nav-card-container').simulate('keyUp', { key: 'Tab' });
         expect(onCardClickHandler).toHaveBeenCalledTimes(1);
     });
 });

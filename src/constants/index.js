@@ -26,7 +26,9 @@ export const META_MASK_DOWNLOAD_LINKS = {
     brave: 'https://brave.com'
 };
 
-export const ENTER_KEY_CODE = 13;
+export const KEYBOARD_KEY_VALUES = {
+    ENTER: 'Enter'
+};
 
 export const BLOCKCHAIN_NETWORK_LINKS = {
     ethereum: 'https://etherscan.io',

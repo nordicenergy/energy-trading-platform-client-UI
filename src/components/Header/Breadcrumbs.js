@@ -4,11 +4,11 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import icons from '@fortawesome/fontawesome-free-solid';
 import classNames from 'classnames';
 import './Breadcrumbs.css';
-import { ENTER_KEY_CODE } from '../../constants';
+import { KEYBOARD_KEY_VALUES } from '../../constants';
 
 class Breadcrumbs extends React.Component {
     handleBreadcrumbEnterPress(event, path) {
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
             this.props.onClick(path);
         }
     }

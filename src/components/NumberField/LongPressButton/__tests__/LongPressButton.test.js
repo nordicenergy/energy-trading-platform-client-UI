@@ -32,11 +32,11 @@ describe('<LongPressButton /> component', () => {
     it('should updates state and calls onPress if button was pressed by enter key', () => {
         const longPressButton = renderComponent();
 
-        longPressButton.find('button').simulate('keydown', { keyCode: 13 });
+        longPressButton.find('button').simulate('keydown', { key: 'Enter' });
         expect(longPressButton.state().isPressed).toBeTruthy();
         expect(onPressMock).toHaveBeenCalled();
 
-        longPressButton.find('button').simulate('keyup', { keyCode: 13 });
+        longPressButton.find('button').simulate('keyup', { key: 'Enter' });
         expect(longPressButton.state().isPressed).toBeFalsy();
     });
 
