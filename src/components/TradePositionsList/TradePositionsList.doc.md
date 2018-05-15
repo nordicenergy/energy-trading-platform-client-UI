@@ -1,28 +1,34 @@
 ```jsx
 const tradePositions = [
     {
+        offerAddressUrl: 'http://offer.address.test/0x123f681646d4a755815f9cb19e1acc8565a0c2ac',
         offerAddress: '0x123f681646d4a755815f9cb19e1acc8565a0c2ac',
+        producerUrl: 'http://producer.test/1',
         producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss',
-        offerIssued: parseInt(Date.now() / 1000, 10),
-        validOn: parseInt(Date.now() / 1000, 10),
+        offerIssued: 'May 06, 2018 3:00',
+        validOn: 'May 25, 2018',
         energyOffered: 3800,
         energyAvailable: 3500,
         price: 3.5
     },
     {
-        offerAddress: '0x456f681646d4a755815f9cb19e1acc8565a0c2ac',
+        offerAddressUrl: 'http://offer.address.test/0x123f681646d4a755815f9cb19e1acc8565a0c2ac',
+        offerAddress: '0x123f681646d4a755815f9cb19e1acc8565a0c2ac',
+        producerUrl: 'http://producer.test/1',
         producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss',
-        offerIssued: parseInt(Date.now() / 1000, 10),
-        validOn: parseInt(Date.now() / 1000, 10),
+        offerIssued: 'May 06, 2018 3:00',
+        validOn: 'May 25, 2018',
         energyOffered: 3800,
         energyAvailable: 3500,
         price: 3.5
     },
     {
-        offerAddress: '0x789f681646d4a755815f9cb19e1acc8565a0c2ac',
+        offerAddressUrl: 'http://offer.address.test/0x123f681646d4a755815f9cb19e1acc8565a0c2ac',
+        offerAddress: '0x123f681646d4a755815f9cb19e1acc8565a0c2ac',
+        producerUrl: 'http://producer.test/1',
         producerName: 'Bio-Erdgas-Anlage in der ehemaligen Schultheiss',
-        offerIssued: parseInt(Date.now() / 1000, 10),
-        validOn: parseInt(Date.now() / 1000, 10),
+        offerIssued: 'May 06, 2018 3:00',
+        validOn: 'May 25, 2018',
         energyOffered: 3800,
         energyAvailable: 3500,
         price: 3.5

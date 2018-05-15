@@ -163,6 +163,7 @@
     "app.sellEnergyPage.salePriceFieldAfter": "Sale price",
     "app.sellEnergyPage.salePriceFieldUnits": "cent",
     "app.sellEnergyPage.plantTypeField": "Type of energy",
+    "app.sellEnergyPage.nameField": "Name",
     "app.sellEnergyPage.annualProductionField": "Annual Production",
     "app.sellEnergyPage.capacityField": "Peak Capacity",
     "app.sellEnergyPage.dateField": "Selected since",

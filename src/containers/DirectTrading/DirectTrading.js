@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { MetaMaskAlert, ConfigurationForm, TradePositionsList, Loader } from '../../components';
+import { MetaMaskAlert, ConfigurationForm, TradePositionsList } from '../../components';
 import web3Service from '../../services/web3';
 import { DirectTrading as messages } from '../../services/translations/messages';
 import { performGetAvailableAddresses, performGetOpenTradePositions } from '../../action_performers/transactions';
+import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { META_MASK_DOWNLOAD_LINKS, META_MASK_LINK } from '../../constants';
 import './DirectTrading.css';
@@ -58,6 +59,8 @@ export class DirectTrading extends AbstractContainer {
         if (!loading && error && error !== prevProps.error) {
             performPushNotification({ message: error.message, type: 'error' });
         }
+
+        performSetupLoaderVisibility(loading);
     }
 
     prepareValidator() {
@@ -126,7 +129,7 @@ export class DirectTrading extends AbstractContainer {
     renderConfigurationForm(addresses = [], labels) {
         const { formErrors } = this.state;
         const addressesWithDefaultOption = [
-            { value: null, label: labels.metaMaskConfigurationFormAddressPlaceholder }
+            { value: null, label: labels.metaMaskConfigurationFormAddressPlaceholder, disabled: true }
         ].concat(addresses);
 
         return (
@@ -166,7 +169,6 @@ export class DirectTrading extends AbstractContainer {
 
         return (
             <section className="direct-trading-page" aria-busy={loading}>
-                <Loader show={loading} />
                 <h1>{labels.pageTitle}</h1>
                 <h2>{labels.pageSubTitle}</h2>
                 {this.renderMetaMaskAlert(labels)}

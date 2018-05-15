@@ -57,6 +57,10 @@ const messages = defineMessages({
         id: 'app.sellEnergyPage.descriptionField',
         defaultMessage: 'Description'
     },
+    nameField: {
+        id: 'app.sellEnergyPage.nameField',
+        defaultMessage: 'Name'
+    },
     submitButton: {
         id: 'app.sellEnergyPage.submitButton',
         defaultMessage: 'Add Offer'

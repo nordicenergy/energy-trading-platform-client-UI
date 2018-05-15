@@ -4,10 +4,10 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { LOCALES, DEFAULT_LOCALE } from '../../constants';
 import { PATHS } from '../../services/routes';
-import { performSetupLocale } from '../../action_performers/app';
+import { performSetupLocale, performSetupLoaderVisibility } from '../../action_performers/app';
 import { performLogout } from '../../action_performers/users';
 import { App as messages } from '../../services/translations/messages';
-import { Loader, MenuSideBar, Header, Footer, Confirm } from '../../components';
+import { MenuSideBar, Header, Footer, Confirm } from '../../components';
 import './App.css';
 
 export class App extends React.Component {
@@ -26,12 +26,15 @@ export class App extends React.Component {
         this.state = { isConfirmVisible: false, isMenuBarOpen: false };
     }
 
-    componentWillReceiveProps(nextProps) {
-        const loggedOut = this.props.loggingOut !== nextProps.loggingOut && !nextProps.loggingOut;
+    componentDidUpdate(prevProps) {
+        const { loggingOut, loading } = this.props;
+        const loggedOut = prevProps.loggingOut !== loggingOut && !loggingOut;
 
         if (loggedOut) {
             this.navigateTo('/login');
         }
+
+        performSetupLoaderVisibility(loading);
     }
 
     setupLocale() {
@@ -71,7 +74,7 @@ export class App extends React.Component {
     }
 
     render() {
-        const { loading, locale } = this.props;
+        const { locale } = this.props;
         const { isConfirmVisible } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
@@ -163,7 +166,6 @@ export class App extends React.Component {
                     onConfirm={() => performLogout()}
                     onCancel={() => this.handleLogoutCancel()}
                 />
-                <Loader show={loading} />
                 <Header
                     logoutLabel={formatMessage(messages.logoutLabel)}
                     onLogoutClick={() => this.logout(formatMessage(messages.logoutConfirm))}

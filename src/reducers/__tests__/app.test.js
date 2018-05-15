@@ -15,6 +15,13 @@ describe('App reducer:', () => {
         });
     });
 
+    describe('Loader:', () => {
+        it('should handle SETUP_LOADER_VISIBILITY', () => {
+            const result = appReducer(initialState, ACTIONS.setupLoaderVisibility);
+            expect(result.loader.data).toEqual(ACTIONS.setupLoaderVisibility.payload);
+        });
+    });
+
     describe('Pending cases:', () => {
         it('should handle SETUP_LOCALE', () => {
             const result = appReducer(initialState, ACTIONS.setupLocale.pending);
@@ -59,6 +66,10 @@ function fixtures() {
                     path: '/test'
                 }
             ]
+        },
+        setupLoaderVisibility: {
+            type: 'SETUP_LOADER_VISIBILITY',
+            payload: true
         },
         resetBreadcrumbs: {
             type: 'SETUP_BREADCRUMBS',

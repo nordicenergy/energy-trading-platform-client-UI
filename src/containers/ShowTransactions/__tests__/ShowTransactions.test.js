@@ -324,6 +324,7 @@ describe('<ShowTransactions /> Component', () => {
         usersActions.performGetUserData = jest.fn();
         txActions.performGetRecentTransactions = jest.fn();
         notificationActions.performPushNotification = jest.fn();
+        appActions.performSetupLoaderVisibility = jest.fn();
         appActions.performSetupBreadcrumbs = jest.fn();
 
         jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerMock);
@@ -333,14 +334,12 @@ describe('<ShowTransactions /> Component', () => {
 
     it(`should contains following controls:
         - 1 <RecentTransactions /> component;
-        - 1 <Loader /> component;
         - 2 <section> elements;
         - 1 <h1> element;`, () => {
         const component = renderContainer();
 
         expect(component.find('section.show-transaction-page')).toHaveLength(1);
         expect(component.find('section')).toHaveLength(2);
-        expect(component.find(Loader)).toHaveLength(1);
         expect(component.find(RecentTransactions)).toHaveLength(1);
         expect(component.find(BackLink)).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
@@ -462,5 +461,16 @@ describe('<ShowTransactions /> Component', () => {
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[error]] = notificationActions.performPushNotification.mock.calls;
         expect(error).toEqual({ message: 'Error Message', type: 'error' });
+    });
+
+    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+        const showTransactions = renderComponent();
+
+        showTransactions.setProps({ loading: true });
+        showTransactions.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
+        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
+        expect(firstCallArg).toBeTruthy();
+        expect(secondCallArg).toBeFalsy();
     });
 });

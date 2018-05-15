@@ -6,9 +6,10 @@ import { PATHS } from '../../services/routes';
 import { convertPlantType } from '../../services/translations/enums';
 import { BuyEnergy as messages } from '../../services/translations/messages';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
+import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { Loader, BackLink, ProducerCardsPanel, ProducersFilter, OptionLinks } from '../../components';
+import { BackLink, ProducerCardsPanel, ProducersFilter, OptionLinks } from '../../components';
 import './BuyEnergy.css';
 
 const FILTER_OPTIONS = [
@@ -91,6 +92,7 @@ export class BuyEnergy extends AbstractContainer {
     componentDidUpdate(prevProps, prevState) {
         const { error: oldError } = prevProps;
         const { currentProducerLoading, producersLoading, error: newError } = this.props;
+        const shouldShowFullScreenLoader = (currentProducerLoading || producersLoading) && this.state.page === 0;
 
         if (prevState.page !== this.state.page || prevState.filter !== this.state.filter) {
             performGetProducers({ page: this.state.page, filter: this.state.filter });
@@ -99,6 +101,8 @@ export class BuyEnergy extends AbstractContainer {
         if (!currentProducerLoading && !producersLoading && newError && newError !== oldError) {
             performPushNotification({ message: newError.message, type: 'error' });
         }
+
+        performSetupLoaderVisibility(shouldShowFullScreenLoader);
     }
 
     componentWillUnmount() {
@@ -132,14 +136,12 @@ export class BuyEnergy extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { currentProducerLoading, currentProducer, producersLoading, producers } = this.props;
+        const { currentProducer, producersLoading, producers } = this.props;
         const { filter, page } = this.state;
-        const shouldShowFullScreenLoader = (currentProducerLoading || producersLoading) && page === 0;
         const shouldShowListLoader = producersLoading && page >= 1;
 
         return (
-            <section className="buy-energy-page" aria-busy={shouldShowFullScreenLoader}>
-                <Loader show={shouldShowFullScreenLoader} />
+            <section className="buy-energy-page">
                 <header className="buy-energy-page-header">
                     <h1>
                         <BackLink onClick={event => this.handleBackLinkClick(event)} />

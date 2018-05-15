@@ -6,6 +6,7 @@ import { store } from './store';
 import { LocalizationProvider } from './providers';
 import history from './services/history';
 import { Routes } from './services/routes';
+import setupPolyfills from './polyfills';
 import configureAxios from './services/axios';
 import registerServiceWorker from './services/registerServiceWorker';
 import './index.css';
@@ -22,6 +23,7 @@ function bootstrap() {
         document.getElementById('root')
     );
 }
+setupPolyfills();
 configureAxios();
 bootstrap();
 registerServiceWorker();

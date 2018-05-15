@@ -3,6 +3,7 @@ import { shallowWithIntl } from '../../../services/intlTestHelper';
 import { BuyEnergy } from '../BuyEnergy';
 import * as producersActionPerformers from '../../../action_performers/producers';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
+import * as appActionPerformers from '../../../action_performers/app';
 
 const producersDummy = [
     { id: 0, price: 2.9, plantType: 'solar', name: 'John Doe' },
@@ -53,6 +54,7 @@ describe('<BuyEnergy /> container', () => {
         jest.spyOn(producersActionPerformers, 'performGetCurrentProducer').mockImplementation(jest.fn());
         jest.spyOn(producersActionPerformers, 'performGetProducers').mockImplementation(jest.fn());
         jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        jest.spyOn(appActionPerformers, 'performSetupLoaderVisibility').mockImplementation(jest.fn());
         jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerElement);
         jest.spyOn(mainContainerElement, 'addEventListener');
         jest.spyOn(mainContainerElement, 'removeEventListener');
@@ -60,6 +62,7 @@ describe('<BuyEnergy /> container', () => {
 
     afterEach(() => {
         producersActionPerformers.performGetProducers.mockClear();
+        appActionPerformers.performSetupLoaderVisibility.mockClear();
         routerStub.history.push.mockClear();
     });
 
@@ -148,6 +151,17 @@ describe('<BuyEnergy /> container', () => {
             .onChange(['wind']);
         buyEnergy.instance().componentDidUpdate({}, {});
         expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 0, filter: ['wind'] });
+    });
+
+    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+        const buyEnergy = renderComponent();
+
+        buyEnergy.setProps({ currentProducerLoading: true, producersLoading: true });
+        buyEnergy.setProps({ currentProducerLoading: false, producersLoading: false });
+        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
+        const [[firstCallArg], [secondCallArg]] = appActionPerformers.performSetupLoaderVisibility.mock.calls;
+        expect(firstCallArg).toBeTruthy();
+        expect(secondCallArg).toBeFalsy();
     });
 
     it('should call performPushNotification if error has occurred', () => {
