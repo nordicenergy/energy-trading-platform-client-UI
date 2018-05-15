@@ -94,6 +94,28 @@ describe('<SelectField /> component', () => {
         expect(onChangeMock).toHaveBeenCalledWith({ name: 'test', value: 'biomass (corn)' });
     });
 
+    it('should call onChange callback after some option was selected by enter key press', () => {
+        const onChangeMock = jest.fn();
+        const selectField = renderComponent({ value: optionsDummy[1], onChange: onChangeMock });
+
+        selectField.setState({ isFocused: true });
+        selectField.update();
+        selectField
+            .find('.options-list-item')
+            .at(2)
+            .simulate('keyPress', { which: 13 });
+        expect(onChangeMock).toHaveBeenCalledWith({ name: 'test', value: 'biomass (corn)' });
+    });
+
+    it('should be focused by enter key press on field', () => {
+        const selectField = renderComponent({ value: optionsDummy[1] });
+        selectField.setState({
+            isFocused: false
+        });
+        selectField.find('.select-field-layout').simulate('keyPress', { which: 13 });
+        expect(selectField.state('isFocused')).toEqual(true);
+    });
+
     it('should remove event listener before component unmount', () => {
         jest.spyOn(document.body, 'removeEventListener');
 

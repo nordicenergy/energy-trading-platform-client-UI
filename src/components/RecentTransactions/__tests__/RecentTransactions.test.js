@@ -249,4 +249,37 @@ describe('<RecentTransactions /> Component', () => {
             .simulate('click');
         expect(component.state()).toEqual({ expanded: [undefined, undefined, true, false] });
     });
+
+    it('should provide possibility to expand / collapse row only on enter key press', () => {
+        const component = renderComponent({}, mount);
+        component
+            .find(DisclosureArrow)
+            .at(3)
+            .simulate('keyPress', { which: 13 });
+        expect(component.state()).toEqual({ expanded: [undefined, undefined, undefined, true] });
+        component
+            .find(DisclosureArrow)
+            .at(3)
+            .simulate('keyPress', { which: 13 });
+        component
+            .find(DisclosureArrow)
+            .at(2)
+            .simulate('keyPress', { which: 13 });
+        expect(component.state()).toEqual({ expanded: [undefined, undefined, true, false] });
+
+        component
+            .find(DisclosureArrow)
+            .at(2)
+            .simulate('keyPress', { which: 11 });
+        expect(component.state()).toEqual({ expanded: [undefined, undefined, true, false] });
+    });
+
+    it('should provide possibility to expand / collapse row only on enter key press on row', () => {
+        const component = renderComponent({}, mount);
+        component
+            .find('.recent-transactions-row')
+            .at(3)
+            .simulate('keyPress', { which: 13 });
+        expect(component.state()).toEqual({ expanded: [undefined, undefined, undefined, true] });
+    });
 });

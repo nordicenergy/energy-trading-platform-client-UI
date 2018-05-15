@@ -35,7 +35,7 @@ describe('<ProducerCard /> component', function() {
         expect(producerCard.hasClass('producer-card--selected')).toBeTruthy();
     });
 
-    it('should calls onClick callback', () => {
+    it('should call onClick callback', () => {
         const producerCard = renderComponent();
 
         producerCard.simulate('click');
@@ -44,9 +44,21 @@ describe('<ProducerCard /> component', function() {
         onClickStub.mockClear();
     });
 
-    it('should not calls onClick callback if onClick is not function', () => {
+    it('should not call onClick callback if onClick is not function', () => {
         const producerCard = renderComponent({ onClick: null });
 
         producerCard.simulate('click');
+    });
+
+    it('should call onClick callback only on enter key press', () => {
+        const producerCard = renderComponent();
+
+        producerCard.simulate('keyPress', { which: 13 });
+        expect(onClickStub).toHaveBeenCalledTimes(1);
+
+        producerCard.simulate('keyPress', { which: 11 });
+        expect(onClickStub).toHaveBeenCalledTimes(1);
+
+        onClickStub.mockClear();
     });
 });

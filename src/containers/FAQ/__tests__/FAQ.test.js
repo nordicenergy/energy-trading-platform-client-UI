@@ -109,6 +109,15 @@ describe('<FAQ /> Component', () => {
         expect(component.state('expandedIds')).toEqual(['testId1']);
     });
 
+    it('should expand question answer by enter key pressing on title', () => {
+        const component = renderComponent();
+        component
+            .find('.title')
+            .at(0)
+            .simulate('keyPress', { which: 13 });
+        expect(component.state('expandedIds')).toEqual(['testId1']);
+    });
+
     it('should collapse question answer by clicking on title', () => {
         const component = renderComponent();
         component.setState({
@@ -127,6 +136,15 @@ describe('<FAQ /> Component', () => {
             .find('DisclosureArrow')
             .at(0)
             .simulate('click');
+        expect(component.state('expandedIds')).toEqual(['testId1']);
+    });
+
+    it('should expand question answer by enter key pressing on disclosure arrow', () => {
+        const component = renderComponent();
+        component
+            .find('DisclosureArrow')
+            .at(0)
+            .simulate('keyPress', { which: 13 });
         expect(component.state('expandedIds')).toEqual(['testId1']);
     });
 

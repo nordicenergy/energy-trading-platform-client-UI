@@ -5,7 +5,7 @@ import moment from 'moment/moment';
 import { DisclosureArrow, Button } from '../.';
 import Spinner from '../Loader/Spinner';
 import RecentTransactionDetails from './RecentTransactionDetails';
-import { DATE_FORMAT } from '../../constants';
+import { DATE_FORMAT, ENTER_KEY_CODE } from '../../constants';
 import { formatCurrency } from '../../services/formatter';
 
 import './RecentTransactions.css';
@@ -18,6 +18,18 @@ class RecentTransactions extends React.Component {
         this.state = {
             expanded: []
         };
+    }
+
+    handleRowEnterPress(event, index, isExpand) {
+        if (event.which === ENTER_KEY_CODE) {
+            this.expandRow(index, isExpand);
+        }
+    }
+
+    expandRow(index, isExpand) {
+        const newExpanded = [...this.state.expanded];
+        newExpanded[index] = !isExpand;
+        this.setState({ expanded: newExpanded });
     }
 
     renderTableRows() {
@@ -38,12 +50,10 @@ class RecentTransactions extends React.Component {
             return (
                 <React.Fragment key={`${transaction.id}-${index}`}>
                     <tr
+                        tabIndex={0}
                         className={rowClasses}
-                        onClick={() => {
-                            const newExpanded = [...this.state.expanded];
-                            newExpanded[index] = !isExpand;
-                            this.setState({ expanded: newExpanded });
-                        }}
+                        onClick={() => this.expandRow(index, isExpand)}
+                        onKeyPress={event => this.handleRowEnterPress(event, index, isExpand)}
                     >
                         <td>{renderDate(transaction.date)}</td>
                         <td>{transaction.description}</td>

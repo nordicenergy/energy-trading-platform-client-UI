@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ENTER_KEY_CODE } from '../../constants';
 import './NavigationCard.css';
 import MyProducerIcon from './MyProducerIcon';
 import BuyEnergyIcon from './BuyEnergyIcon';
@@ -11,21 +12,36 @@ const ICONS_TYPES = {
     sell_energy: SellEnergyIcon
 };
 
-const NavigationCard = ({ title, type, onCardClickHandler }) => {
-    const Icon = ICONS_TYPES[type];
-    return (
-        <div className="nav-card-container" onClick={() => onCardClickHandler()}>
-            <div className="nav-card">
-                <div className="nav-card-image-container">
-                    <Icon />
-                </div>
-                <div className="nav-card-title-container">
-                    <p className="nav-card-title">{title}</p>
+class NavigationCard extends React.Component {
+    handlerCardEnterPress(event) {
+        if (event.which === ENTER_KEY_CODE) {
+            this.props.onCardClickHandler();
+        }
+    }
+
+    render() {
+        const { title, type, onCardClickHandler } = this.props;
+        const Icon = ICONS_TYPES[type];
+
+        return (
+            <div
+                className="nav-card-container"
+                onClick={() => onCardClickHandler()}
+                onKeyPress={event => this.handlerCardEnterPress(event)}
+                tabIndex={0}
+            >
+                <div className="nav-card">
+                    <div className="nav-card-image-container">
+                        <Icon />
+                    </div>
+                    <div className="nav-card-title-container">
+                        <p className="nav-card-title">{title}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
 NavigationCard.propTypes = {
     title: PropTypes.string,

@@ -85,7 +85,8 @@
     transition: color 0.3s ease-out;
 }
 
-.meta-mask-alert a:hover {
+.meta-mask-alert a:hover,
+.meta-mask-alert a:focus {
     color: var(--button-primary-hov-color);
 }
 

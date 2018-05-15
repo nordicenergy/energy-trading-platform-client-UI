@@ -59,4 +59,23 @@ describe('<Breadcrumbs /> Component', () => {
         expect(onClick).toHaveBeenCalledTimes(2);
         expect(onClick).toHaveBeenCalledWith('trading');
     });
+
+    it('should call onClick event handler only on enter key press', () => {
+        const onClick = jest.fn();
+        const component = renderComponent({
+            onClick
+        });
+
+        component
+            .find('a')
+            .at(1)
+            .simulate('keyPress', { which: 13 });
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(onClick).toHaveBeenCalledWith('trading/wattcoin');
+        component
+            .find('a')
+            .at(1)
+            .simulate('keyPress', { which: 11 });
+        expect(onClick).toHaveBeenCalledTimes(1);
+    });
 });

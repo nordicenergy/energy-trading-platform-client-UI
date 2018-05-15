@@ -13,7 +13,14 @@
 
 .reset-password-link {
     color: inherit;
+    transition: color 0.2s ease-in;
     text-decoration: none;
+}
+
+.reset-password-link:hover,
+.reset-password-link:focus {
+    outline: none;
+    color: white;
 }
 
 @media (max-width: 1023px) {

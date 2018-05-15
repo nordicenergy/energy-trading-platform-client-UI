@@ -26,6 +26,8 @@ export const META_MASK_DOWNLOAD_LINKS = {
     brave: 'https://brave.com'
 };
 
+export const ENTER_KEY_CODE = 13;
+
 export const BLOCKCHAIN_NETWORK_LINKS = {
     ethereum: 'https://etherscan.io',
     ropsten: 'https://ropsten.etherscan.io'

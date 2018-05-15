@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import pick from 'lodash.pick';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/fontawesome-free-solid';
+import { ENTER_KEY_CODE } from '../../constants';
 import './SelectField.css';
 
 export const OptionPropType = PropTypes.oneOfType([
@@ -54,6 +55,14 @@ class SelectField extends Component {
         onChange && onChange({ name, value });
     }
 
+    handleOptionEnterPress(event, value) {
+        const { onChange, name } = this.props;
+        if (event.which === ENTER_KEY_CODE) {
+            this.setState({ value, isFocused: false });
+            onChange && onChange({ name, value });
+        }
+    }
+
     getSelectedOption() {
         const { options } = this.props;
         const { value } = this.getState();
@@ -95,13 +104,29 @@ class SelectField extends Component {
             const onClick = option.disabled ? event => event.preventDefault() : () => this.handleOptionClick(value);
 
             renderedOptions.push(
-                <li key={i} className={classes} onClick={onClick}>
+                <li
+                    key={i}
+                    className={classes}
+                    onClick={onClick}
+                    tabIndex={0}
+                    role="option"
+                    aria-selected="true"
+                    onKeyPress={event => this.handleOptionEnterPress(event, value)}
+                >
                     {label}
                 </li>
             );
         }
 
         return renderedOptions;
+    }
+
+    handleFieldEnterPress(event) {
+        if (event.which === 13) {
+            this.setState({
+                isFocused: !this.state.isFocused
+            });
+        }
     }
 
     render() {
@@ -118,7 +143,12 @@ class SelectField extends Component {
 
         return (
             <div id={id} className={classes}>
-                <div className="select-field-layout" ref={ref => (this.layoutRef = ref)}>
+                <div
+                    className="select-field-layout"
+                    ref={ref => (this.layoutRef = ref)}
+                    tabIndex={disabled ? -1 : 0}
+                    onKeyPress={event => this.handleFieldEnterPress(event)}
+                >
                     {label && <label className="select-field-label">{label}</label>}
                     <div
                         className="select-field-input"

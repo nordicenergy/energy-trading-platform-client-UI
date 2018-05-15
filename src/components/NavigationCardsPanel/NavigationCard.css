@@ -10,7 +10,12 @@
     transition: var(--transition-duration) var(--transition-function);
 }
 
-.nav-card-container:hover {
+.nav-card-container:focus {
+    outline: none;
+}
+
+.nav-card-container:hover,
+.nav-card-container:focus {
     color: white;
     background-color: var(--navigation-bg-color);
 }
@@ -42,11 +47,13 @@
     transition: var(--transition-duration) var(--transition-function);
 }
 
-.nav-card-container:hover svg .fillArea {
+.nav-card-container:hover svg .fillArea,
+.nav-card-container:focus svg .fillArea {
     opacity: 0.3;
     fill: white;
 }
-.nav-card-container:hover svg .strokeLine {
+.nav-card-container:hover svg .strokeLine,
+.nav-card-container:focus svg .strokeLine {
     stroke: white;
 }
 

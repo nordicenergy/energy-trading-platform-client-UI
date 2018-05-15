@@ -8,6 +8,7 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { performPushNotification } from '../../action_performers/notifications';
+import { ENTER_KEY_CODE } from '../../constants';
 
 export class FAQ extends AbstractContainer {
     constructor(props) {
@@ -62,6 +63,12 @@ export class FAQ extends AbstractContainer {
         }
     }
 
+    handleQuestionEnterPress(event, id) {
+        if (event.which === ENTER_KEY_CODE) {
+            this.toggleExpandQuestion(id);
+        }
+    }
+
     render() {
         const { formatMessage } = this.context.intl;
         return (
@@ -76,10 +83,19 @@ export class FAQ extends AbstractContainer {
                             aria-live="polite"
                         >
                             <div className="title-container">
-                                <div className="title" onClick={() => this.toggleExpandQuestion(id)}>
+                                <div
+                                    tabIndex={0}
+                                    className="title"
+                                    onClick={() => this.toggleExpandQuestion(id)}
+                                    onKeyPress={event => this.handleQuestionEnterPress(event, id)}
+                                >
                                     {question}
                                 </div>
-                                <DisclosureArrow onClick={() => this.toggleExpandQuestion(id)} expanded={isExpanded} />
+                                <DisclosureArrow
+                                    onClick={() => this.toggleExpandQuestion(id)}
+                                    expanded={isExpanded}
+                                    onKeyPress={event => this.handleQuestionEnterPress(event, id)}
+                                />
                             </div>
                             <div className="answer-container">{answer}</div>
                         </div>

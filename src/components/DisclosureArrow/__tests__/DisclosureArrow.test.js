@@ -30,4 +30,21 @@ describe('<DisclosureArrow /> Component', () => {
             .simulate('click');
         expect(onClickMock).toHaveBeenCalled();
     });
+
+    it('should handle only enter key press', () => {
+        const onClickMock = jest.fn();
+        const component = renderComponent({ onClick: onClickMock });
+
+        component
+            .find('svg')
+            .at(0)
+            .simulate('keyPress', { which: 13 });
+        expect(onClickMock).toHaveBeenCalledTimes(1);
+
+        component
+            .find('svg')
+            .at(0)
+            .simulate('keyPress', { which: 11 });
+        expect(onClickMock).toHaveBeenCalledTimes(1);
+    });
 });

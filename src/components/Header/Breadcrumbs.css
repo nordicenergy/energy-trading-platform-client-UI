@@ -11,6 +11,10 @@
     color: var(--breadcrumb-item-color);
 }
 
+.breadcrumb-item:focus {
+    outline: none;
+}
+
 .breadcrumb-item a {
     cursor: pointer;
     color: inherit;
@@ -18,8 +22,10 @@
     text-decoration: none;
 }
 
-.breadcrumb-item a:hover {
+.breadcrumb-item a:hover,
+.breadcrumb-item a:focus {
     color: white;
+    outline: none;
 }
 
 .icon-breadcrumb {
