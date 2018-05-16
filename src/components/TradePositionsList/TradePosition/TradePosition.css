@@ -61,6 +61,10 @@
 }
 
 @media (max-width: 767px) {
+    .trade-position {
+        text-align: center;
+    }
+
     .trade-position-data {
         flex-wrap: wrap;
     }

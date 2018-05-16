@@ -44,3 +44,10 @@
     font-weight: 700;
     font-size: 0.75em;
 }
+
+@media (max-width: 767px) {
+    .configuration-form {
+        padding-right: 1.5em;
+        padding-left: 1.5em;
+    }
+}

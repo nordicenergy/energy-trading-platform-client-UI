@@ -9,8 +9,9 @@ class ConfigurationForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            blockChain: props.blockChainFieldOptions[0].value,
-            address: ''
+            blockChain: '',
+            address: '',
+            ...props.formData
         };
     }
 
@@ -68,6 +69,8 @@ class ConfigurationForm extends Component {
 
 ConfigurationForm.propTypes = {
     className: PropTypes.string,
+    blockChainFieldOptions: PropTypes.arrayOf(OptionPropType),
+    addressFieldOptions: PropTypes.arrayOf(OptionPropType),
     labels: PropTypes.shape({
         title: PropTypes.string,
         blockChainField: PropTypes.string,
@@ -75,15 +78,22 @@ ConfigurationForm.propTypes = {
         button: PropTypes.string,
         helperText: PropTypes.string
     }),
+    disabled: PropTypes.bool,
+    formData: PropTypes.shape({
+        blockChain: PropTypes.string,
+        address: PropTypes.string
+    }),
     errors: PropTypes.shape({
         address: PropTypes.string
     }),
-    blockChainFieldOptions: PropTypes.arrayOf(OptionPropType),
-    addressFieldOptions: PropTypes.arrayOf(OptionPropType),
-    disabled: PropTypes.bool,
     onSubmit: PropTypes.func
 };
 ConfigurationForm.defaultProps = {
+    blockChainFieldOptions: [
+        { value: 'ethereum', label: 'Ethereum' },
+        { value: 'ledger', label: 'Ledger', disabled: true }
+    ],
+    addressFieldOptions: [{ value: '', label: 'Select contract address', disabled: true }],
     labels: {
         title: 'Configuration',
         blockChainField: 'Blockchain',
@@ -91,13 +101,9 @@ ConfigurationForm.defaultProps = {
         button: 'Add Contract Address',
         helperText: 'Assign contract address to your Lition account'
     },
-    errors: {},
-    blockChainFieldOptions: [
-        { value: 'ethereum', label: 'Ethereum' },
-        { value: 'ledger', label: 'Ledger', disabled: true }
-    ],
-    addressFieldOptions: [{ value: '', label: 'Select contract address', disabled: true }],
-    disabled: false
+    disabled: false,
+    formData: {},
+    errors: {}
 };
 
 export default ConfigurationForm;

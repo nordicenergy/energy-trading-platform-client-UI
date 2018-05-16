@@ -55,6 +55,15 @@
 }
 
 @media (max-width: 767px) {
+    .trade-positions-list {
+        padding-right: 1em;
+        padding-left: 1em;
+    }
+
+    .trade-positions-list > h3 {
+        font-size: 1em;
+    }
+
     .trade-positions-list-toolbar > .text-field,
     .trade-positions-list-toolbar > .date-field {
         flex: 0 0 100%;
