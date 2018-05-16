@@ -195,22 +195,22 @@ export class DirectTrading extends AbstractContainer {
         const { filter } = this.state;
         const filteredTradePositions = tradePositions
             .filter(tradePosition => {
-                if (filter.offerIssued && filter.energyAvailable) {
-                    return (
-                        tradePosition.offerIssuedTimestamp > filter.offerIssued &&
-                        tradePosition.offerIssuedTimestamp <= filter.offerIssued + DAY_SECONDS &&
-                        tradePosition.energyAvailableFloat >= parseFloat(filter.energyAvailable.replace(',', '.'))
-                    );
-                } else if (filter.offerIssued) {
-                    return (
-                        tradePosition.offerIssuedTimestamp > filter.offerIssued &&
-                        tradePosition.offerIssuedTimestamp <= filter.offerIssued + DAY_SECONDS
-                    );
-                } else if (filter.energyAvailable) {
-                    return tradePosition.energyAvailableFloat >= parseFloat(filter.energyAvailable.replace(',', '.'));
+                let isPass = true;
+
+                if (filter.offerIssued) {
+                    isPass =
+                        isPass &&
+                        (tradePosition.offerIssuedTimestamp > filter.offerIssued &&
+                            tradePosition.offerIssuedTimestamp <= filter.offerIssued + DAY_SECONDS);
                 }
 
-                return true;
+                if (filter.energyAvailable) {
+                    isPass =
+                        isPass &&
+                        tradePosition.energyAvailableFloat >= parseFloat(filter.energyAvailable.replace(',', '.'));
+                }
+
+                return isPass;
             })
             .slice(0, TRADE_POSITIONS_LIMIT);
 
