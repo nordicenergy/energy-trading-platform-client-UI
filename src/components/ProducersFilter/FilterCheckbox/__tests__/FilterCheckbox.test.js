@@ -2,23 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import FilterCheckbox from '../FilterCheckbox';
 
-const stubs = {
-    onChangeMock: jest.fn()
-};
+const onChangeMock = jest.fn();
+
 function renderComponent(
-    { type = 'default', label = 'all', onChange = stubs.onChangeMock, ...otherProps } = {},
+    { type = 'default', label = 'all', onChange = onChangeMock, ...otherProps } = {},
     mountFn = shallow
 ) {
     return mountFn(<FilterCheckbox type={type} label={label} onChange={onChange} {...otherProps} />);
 }
 
 describe('<FilterCheckbox /> component', () => {
-    beforeEach(() => {
-        stubs.onChangeMock = jest.fn();
-    });
-
     afterEach(() => {
-        stubs.onChangeMock.mockClear();
+        onChangeMock.mockClear();
     });
 
     it('should renders without errors', () => {
@@ -41,16 +36,16 @@ describe('<FilterCheckbox /> component', () => {
         const filterCheckbox = renderComponent();
 
         filterCheckbox.find('input').simulate('change');
-        expect(stubs.onChangeMock).toHaveBeenCalled();
+        expect(onChangeMock).toHaveBeenCalled();
     });
 
     it('should calls onChange callback only on enter key press', () => {
         const filterCheckbox = renderComponent();
 
         filterCheckbox.find('.filter-checkbox').simulate('keyUp', { key: 'Enter' });
-        expect(stubs.onChangeMock).toHaveBeenCalledTimes(1);
+        expect(onChangeMock).toHaveBeenCalledTimes(1);
 
         filterCheckbox.find('.filter-checkbox').simulate('keyUp', { key: 'Tab' });
-        expect(stubs.onChangeMock).toHaveBeenCalledTimes(1);
+        expect(onChangeMock).toHaveBeenCalledTimes(1);
     });
 });
