@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import pick from 'lodash.pick';
 import moment from 'moment/moment';
-import { DATE_FORMAT } from '../../constants';
+import { DATE_FORMAT, KEYBOARD_KEY_VALUES } from '../../constants';
 import TextField from '../TextField';
 import DatePicker, { DateLabelsPropType } from './DatePicker';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -19,6 +19,7 @@ class DateField extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            initialValue: '',
             value: parseInt(props.defaultValue, 10),
             hasFocus: false,
             datePickerPosition: 'top'
@@ -41,25 +42,41 @@ class DateField extends Component {
     }
 
     handleFocus() {
+        const { value } = this.getState();
         const dateFieldBounds = this.dateFieldRef.getBoundingClientRect();
         const datePickerPosition = dateFieldBounds.top >= PAGE_TOP_OFFSET ? 'top' : 'bottom';
 
         this.setState({
+            initialValue: value,
             hasFocus: true,
             datePickerPosition
         });
     }
 
+    handleKeyDown(event) {
+        if (event.key === KEYBOARD_KEY_VALUES.BACKSPACE || event.key === KEYBOARD_KEY_VALUES.DELETE) {
+            const { onChange, name } = this.props;
+            const value = '';
+
+            this.setState({ hasFocus: false, value });
+            onChange && onChange({ name, value });
+        }
+    }
+
     handleChange(date) {
         const { onChange, name } = this.props;
-        const timestamp = parseInt(date.getTime() / SECOND, 10);
+        const value = parseInt(date.getTime() / SECOND, 10);
 
-        this.setState({ value: timestamp });
-        onChange && onChange({ name, value: timestamp });
+        this.setState({ value });
+        onChange && onChange({ name, value });
     }
 
     handleOnCancel() {
-        this.setState({ hasFocus: false });
+        const { initialValue } = this.getState();
+        const { onChange, name } = this.props;
+
+        this.setState({ hasFocus: false, value: initialValue });
+        onChange && onChange({ name, value: initialValue });
     }
 
     handleConfirm(date) {
@@ -108,6 +125,7 @@ class DateField extends Component {
                     error={error}
                     hasFocus={hasFocus}
                     onFocus={event => this.handleFocus(event)}
+                    onKeyDown={event => this.handleKeyDown(event)}
                 />
                 {this.renderDatePicker()}
             </div>
