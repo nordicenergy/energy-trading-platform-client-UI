@@ -56,8 +56,8 @@ describe('<TradePositionsList /> component', () => {
     - 3 <TradePosition />;`, () => {
         const tradePositionsList = renderComponent();
 
-        expect(tradePositionsList.find('.trade-positions-list > h3')).toHaveLength(1);
-        expect(tradePositionsList.find('.trade-positions-list > form')).toHaveLength(1);
+        expect(tradePositionsList.find('.trade-positions-list-layout > h3')).toHaveLength(1);
+        expect(tradePositionsList.find('.trade-positions-list-layout > form')).toHaveLength(1);
         expect(tradePositionsList.find('BackLink')).toHaveLength(1);
         expect(tradePositionsList.find('TextField')).toHaveLength(1);
         expect(tradePositionsList.find('DateField')).toHaveLength(1);

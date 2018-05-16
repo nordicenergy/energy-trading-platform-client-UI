@@ -27,37 +27,43 @@ class TradePositionsList extends Component {
 
         return (
             <div className={classes}>
-                <h3>
-                    <BackLink onClick={onBackClick} />
-                    <span>{labels.title}</span>
-                </h3>
-                <form className="trade-positions-list-toolbar" aria-controls={id}>
-                    <TextField
-                        label={labels.tradeVolumeField}
-                        addon="kWh"
-                        value={tradeVolume}
-                        onChange={onTradeVolumeChange}
-                    />
-                    <DateField label={labels.filterByDateField} dateFilter={dateFilter} onChange={onDateFilterChange} />
-                    {sortOptions.length > 0 && (
-                        <div className="trade-positions-list-sort-toolbar">
-                            <SortToolbar
-                                labels={{ title: labels.sortToolbarTitle }}
-                                sortOptions={sortOptions}
-                                onChange={onSortParametersChange}
-                            />
-                        </div>
+                <div className="trade-positions-list-layout">
+                    <h3>
+                        <BackLink onClick={onBackClick} />
+                        <span>{labels.title}</span>
+                    </h3>
+                    <form className="trade-positions-list-toolbar" aria-controls={id}>
+                        <TextField
+                            label={labels.tradeVolumeField}
+                            addon="kWh"
+                            value={tradeVolume}
+                            onChange={onTradeVolumeChange}
+                        />
+                        <DateField
+                            label={labels.filterByDateField}
+                            dateFilter={dateFilter}
+                            onChange={onDateFilterChange}
+                        />
+                        {sortOptions.length > 0 && (
+                            <div className="trade-positions-list-sort-toolbar">
+                                <SortToolbar
+                                    labels={{ title: labels.sortToolbarTitle }}
+                                    sortOptions={sortOptions}
+                                    onChange={onSortParametersChange}
+                                />
+                            </div>
+                        )}
+                    </form>
+                    {tradePositions.length > 0 && (
+                        <ul id={id} className="trade-positions">
+                            {tradePositions.map((tradePosition, index) => (
+                                <li key={`${tradePosition.offerAddress}-${index}`}>
+                                    <TradePosition tradePosition={tradePosition} />
+                                </li>
+                            ))}
+                        </ul>
                     )}
-                </form>
-                {tradePositions.length > 0 && (
-                    <ul id={id} className="trade-positions">
-                        {tradePositions.map((tradePosition, index) => (
-                            <li key={`${tradePosition.offerAddress}-${index}`}>
-                                <TradePosition tradePosition={tradePosition} />
-                            </li>
-                        ))}
-                    </ul>
-                )}
+                </div>
             </div>
         );
     }

@@ -1,3 +1,9 @@
+export const KEYBOARD_KEY_VALUES = {
+    ENTER: 'Enter',
+    BACKSPACE: 'Backspace',
+    DELETE: 'Delete'
+};
+
 export const SESSION_API_URL = '/api';
 
 export const PLANT_TYPES = {
@@ -7,14 +13,14 @@ export const PLANT_TYPES = {
     other: 'default'
 };
 
+export const LIMIT = 10;
+
 export const TRANSACTION_STATUSES = {
     success: 'success',
     fail: 'failure',
     pending: 'pending',
     waitingForOffer: 'waitingForOffer'
 };
-
-export const LIMIT = 10;
 
 export const DATE_FORMAT = 'MMM DD, YYYY';
 export const DATETIME_FORMAT = 'MMM DD, YYYY hh:mm';
@@ -33,11 +39,11 @@ export const META_MASK_DOWNLOAD_LINKS = {
     brave: 'https://brave.com'
 };
 
-export const KEYBOARD_KEY_VALUES = {
-    ENTER: 'Enter'
-};
+export const BLOCKCHAIN_NETWORKS = ['ethereum', 'ledger'];
 
 export const BLOCKCHAIN_SCANNER_URLS = {
     live: 'https://etherscan.io',
     ropsten: 'https://ropsten.etherscan.io'
 };
+
+export const TRADE_POSITIONS_LIMIT = 25;

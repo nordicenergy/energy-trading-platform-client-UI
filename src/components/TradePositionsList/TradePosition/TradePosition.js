@@ -19,7 +19,7 @@ const TradePosition = ({ className, labels, tradePosition }) => {
     const classes = classNames('trade-position', className);
     const offerAddress =
         tradePosition.offerAddressUrl && tradePosition.offerAddress ? (
-            <a target="_blank" href={tradePosition.offerAddressUrl}>
+            <a target="_blank" href={tradePosition.offerAddressUrl} rel="external noopener noreferrer">
                 {tradePosition.offerAddress}
             </a>
         ) : (

@@ -9,13 +9,23 @@ import { DirectTrading as messages } from '../../services/translations/messages'
 import { performGetAvailableAddresses, performGetOpenTradePositions } from '../../action_performers/transactions';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { META_MASK_DOWNLOAD_LINKS, META_MASK_LINK } from '../../constants';
+import { META_MASK_DOWNLOAD_LINKS, META_MASK_LINK, BLOCKCHAIN_NETWORKS, TRADE_POSITIONS_LIMIT } from '../../constants';
 import './DirectTrading.css';
 
+const [ethereumNetwork, ledgerNetwork] = BLOCKCHAIN_NETWORKS;
+const DAY_SECONDS = 86400;
 const DEFAULT_FORM_DATA = {
-    blockChain: 'ethereum',
+    blockChain: ethereumNetwork,
     address: ''
 };
+const DEFAULT_FILTER = {
+    energyAvailable: '',
+    offerIssued: ''
+};
+const BLOCKCHAIN_NETWORKS_OPTIONS = [
+    { value: ethereumNetwork, label: 'Ethereum' },
+    { value: ledgerNetwork, label: 'Ledger', disabled: true }
+];
 
 export class DirectTrading extends AbstractContainer {
     constructor(props, context, breadcrumbs) {
@@ -28,7 +38,8 @@ export class DirectTrading extends AbstractContainer {
             formErrors: {
                 blockChain: '',
                 address: ''
-            }
+            },
+            filter: DEFAULT_FILTER
         };
     }
 
@@ -82,7 +93,37 @@ export class DirectTrading extends AbstractContainer {
     }
 
     handleBackClick() {
-        this.setState({ isConfigured: false, formData: DEFAULT_FORM_DATA });
+        this.setState({
+            isConfigured: false,
+            formData: DEFAULT_FORM_DATA,
+            filter: DEFAULT_FILTER,
+            sortParams: {}
+        });
+    }
+
+    handleDateFilterChange({ value: timestamp }) {
+        const { filter } = this.state;
+
+        this.setState({
+            filter: {
+                ...filter,
+                offerIssued: timestamp - timestamp % DAY_SECONDS
+            }
+        });
+    }
+
+    handleTradeVolumeChange(event) {
+        const { filter } = this.state;
+        const { value } = event.target;
+
+        if (/^\d*(\.|,)?\d*$/.test(value)) {
+            this.setState({
+                filter: {
+                    ...filter,
+                    energyAvailable: value
+                }
+            });
+        }
     }
 
     handleSubmit(formData) {
@@ -127,16 +168,15 @@ export class DirectTrading extends AbstractContainer {
     }
 
     renderConfigurationForm(addresses = [], labels) {
-        const { formErrors } = this.state;
+        const { formData, formErrors } = this.state;
         const addressesWithDefaultOption = [
             { value: null, label: labels.metaMaskConfigurationFormAddressPlaceholder, disabled: true }
         ].concat(addresses);
 
         return (
             <ConfigurationForm
+                blockChainFieldOptions={BLOCKCHAIN_NETWORKS_OPTIONS}
                 addressFieldOptions={addressesWithDefaultOption}
-                onSubmit={formData => this.handleSubmit(formData)}
-                errors={formErrors}
                 labels={{
                     title: labels.metaMaskConfigurationFormTitle,
                     blockChainField: labels.metaMaskConfigurationFormBlockChainField,
@@ -144,15 +184,44 @@ export class DirectTrading extends AbstractContainer {
                     button: labels.metaMaskConfigurationFormButton,
                     helperText: labels.metaMaskConfigurationFormHelperText
                 }}
+                onSubmit={formData => this.handleSubmit(formData)}
+                formData={formData}
+                errors={formErrors}
             />
         );
     }
 
     renderOpenTradePositionsTable(tradePositions = [], labels) {
+        const { filter } = this.state;
+        const filteredTradePositions = tradePositions
+            .filter(tradePosition => {
+                let isPass = true;
+
+                if (filter.offerIssued) {
+                    isPass =
+                        isPass &&
+                        (tradePosition.offerIssuedTimestamp > filter.offerIssued &&
+                            tradePosition.offerIssuedTimestamp <= filter.offerIssued + DAY_SECONDS);
+                }
+
+                if (filter.energyAvailable) {
+                    isPass =
+                        isPass &&
+                        tradePosition.energyAvailableFloat >= parseFloat(filter.energyAvailable.replace(',', '.'));
+                }
+
+                return isPass;
+            })
+            .slice(0, TRADE_POSITIONS_LIMIT);
+
         return (
             <TradePositionsList
                 onBackClick={() => this.handleBackClick()}
-                tradePositions={tradePositions.slice(0, 25)}
+                onTradeVolumeChange={event => this.handleTradeVolumeChange(event)}
+                onDateFilterChange={payload => this.handleDateFilterChange(payload)}
+                tradeVolume={filter.energyAvailable}
+                dateFilter={filter.offerIssued}
+                tradePositions={filteredTradePositions}
                 labels={{
                     title: labels.metaMaskTradePositionsTitle,
                     tradeVolumeField: labels.metaMaskTradePositionsTradeVolumeField,

@@ -2,21 +2,39 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import TextField from '../TextField';
 
-const onChangeMock = jest.fn();
-const onFocusMock = jest.fn();
-const onBlurMock = jest.fn();
+const onChangeStub = jest.fn();
+const onFocusStub = jest.fn();
+const onBlurStub = jest.fn();
+const onKeyDownStub = jest.fn();
 function renderComponent(
-    { label = 'Test', onChange = onChangeMock, onFocus = onFocusMock, onBlur = onBlurMock, ...otherProps } = {},
+    {
+        label = 'Test',
+        onChange = onChangeStub,
+        onFocus = onFocusStub,
+        onBlur = onBlurStub,
+        onKeyDown = onKeyDownStub,
+        ...otherProps
+    } = {},
     mountFn = shallow
 ) {
-    return mountFn(<TextField {...otherProps} label={label} onChange={onChange} onFocus={onFocus} onBlur={onBlur} />);
+    return mountFn(
+        <TextField
+            {...otherProps}
+            label={label}
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            onKeyDown={onKeyDown}
+        />
+    );
 }
 
 describe('<TextField /> component', () => {
     beforeEach(() => {
-        onChangeMock.mockClear();
-        onFocusMock.mockClear();
-        onBlurMock.mockClear();
+        onChangeStub.mockClear();
+        onFocusStub.mockClear();
+        onBlurStub.mockClear();
+        onKeyDownStub.mockClear();
     });
 
     it(`should renders:
@@ -30,19 +48,19 @@ describe('<TextField /> component', () => {
     });
 
     it('should renders with helper text', () => {
-        const helperTextMock = 'Test helper text';
-        const textField = renderComponent({ helperText: helperTextMock });
+        const helperTextDummy = 'Test helper text';
+        const textField = renderComponent({ helperText: helperTextDummy });
 
         expect(textField.find('.text-field-helper-text')).toHaveLength(1);
-        expect(textField.find('.text-field-helper-text').text()).toBe(helperTextMock);
+        expect(textField.find('.text-field-helper-text').text()).toBe(helperTextDummy);
     });
 
     it('should renders with addon', () => {
-        const addonMock = 'Test addon';
-        const textField = renderComponent({ addon: addonMock });
+        const addonDummy = 'Test addon';
+        const textField = renderComponent({ addon: addonDummy });
 
         expect(textField.find('.text-field-addon')).toHaveLength(1);
-        expect(textField.find('.text-field-addon').text()).toBe(addonMock);
+        expect(textField.find('.text-field-addon').text()).toBe(addonDummy);
     });
 
     it('should renders with error', () => {
@@ -65,7 +83,7 @@ describe('<TextField /> component', () => {
         const textField = renderComponent();
 
         textField.find('.text-field-input').simulate('focus');
-        expect(onFocusMock).toHaveBeenCalled();
+        expect(onFocusStub).toHaveBeenCalled();
     });
 
     it('should not calls onFocus if onFocus is not a function', () => {
@@ -78,7 +96,7 @@ describe('<TextField /> component', () => {
         const textField = renderComponent();
 
         textField.find('.text-field-input').simulate('blur');
-        expect(onBlurMock).toHaveBeenCalled();
+        expect(onBlurStub).toHaveBeenCalled();
     });
 
     it('should not calls onBlur if onBlur is not a function', () => {
@@ -89,25 +107,34 @@ describe('<TextField /> component', () => {
 
     it('should calls onChange callback when input value was changed', () => {
         const textField = renderComponent();
-        const eventMock = {
+        const eventDummy = {
             target: {
                 value: 'test'
             }
         };
 
-        textField.find('.text-field-input').simulate('change', eventMock);
-        expect(onChangeMock).toHaveBeenCalledWith(eventMock);
+        textField.find('.text-field-input').simulate('change', eventDummy);
+        expect(onChangeStub).toHaveBeenCalledWith(eventDummy);
     });
 
     it('should not calls onChange if onChange is not a function', () => {
         const textField = renderComponent({ onChange: null });
-        const eventMock = {
+        const eventDummy = {
             target: {
                 value: 'test'
             }
         };
 
-        textField.find('.text-field-input').simulate('change', eventMock);
-        expect(onChangeMock).not.toHaveBeenCalled();
+        textField.find('.text-field-input').simulate('change', eventDummy);
+    });
+
+    it('should calls onKeyDown callback', () => {
+        const textField = renderComponent();
+        const eventDummy = {
+            key: 'Enter'
+        };
+
+        textField.find('.text-field-input').simulate('keyDown', eventDummy);
+        expect(onKeyDownStub).toHaveBeenCalledWith(eventDummy);
     });
 });

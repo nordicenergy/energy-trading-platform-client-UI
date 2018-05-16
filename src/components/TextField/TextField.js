@@ -49,12 +49,12 @@ class TextField extends Component {
             name,
             disabled,
             placeholder,
-            value,
             addon,
             helperText,
-            error
+            error,
+            onKeyDown
         } = this.props;
-        const { hasFocus } = this.getState();
+        const { value, hasFocus } = this.getState();
         const classes = classNames(
             'text-field',
             hasFocus && 'text-field--focused',
@@ -76,10 +76,12 @@ class TextField extends Component {
                             type={type}
                             name={name}
                             placeholder={placeholder}
+                            autoComplete={name}
                             value={value || ''}
                             onChange={event => this.handleChange(event)}
                             onFocus={event => this.handleFocus(event)}
                             onBlur={event => this.handleBlur(event)}
+                            onKeyDown={onKeyDown}
                         />
                         {addon && <span className="text-field-addon">{addon}</span>}
                     </span>
@@ -110,6 +112,7 @@ TextField.propTypes = {
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
+    onKeyDown: PropTypes.func,
     addon: PropTypes.node,
     helperText: PropTypes.node,
     error: PropTypes.string

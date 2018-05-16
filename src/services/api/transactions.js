@@ -67,11 +67,13 @@ export function getOpenTradePositions(/* address, abi */) {
                     offerAddressUrl: networkName ? `${scannerURL}/${bid.producer}` : '',
                     offerAddress: bid.producer,
                     producerUrl: producer ? `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${producer.id}` : null,
-                    producerName: producer.name || '',
+                    producerName: (producer && producer.name) || '',
                     offerIssued: formatDateTime(bid.day),
+                    offerIssuedTimestamp: parseInt(bid.day, 10),
                     validOn: '--',
                     energyOffered: '--',
                     energyAvailable: formatFloat(bid.energy / 100000),
+                    energyAvailableFloat: parseFloat(bid.energy / 100000),
                     price: formatCurrency(bid.price / 1000)
                 };
             });

@@ -1,10 +1,16 @@
 .trade-positions-list {
-    padding: 2em calc(50% - 35em);
+    padding: 2em 1.5em;
     border-radius: 0.25em;
     background: white;
     box-shadow: 0 0.25em 1em rgba(217, 224, 229, 0.3);
     text-align: left;
     font-size: 1rem;
+}
+
+.trade-positions-list-layout {
+    margin: 0 auto;
+    max-width: 70em;
+    width: 100%;
 }
 
 .trade-positions-list > h3 {
@@ -55,6 +61,15 @@
 }
 
 @media (max-width: 767px) {
+    .trade-positions-list {
+        padding-right: 1em;
+        padding-left: 1em;
+    }
+
+    .trade-positions-list > h3 {
+        font-size: 1em;
+    }
+
     .trade-positions-list-toolbar > .text-field,
     .trade-positions-list-toolbar > .date-field {
         flex: 0 0 100%;

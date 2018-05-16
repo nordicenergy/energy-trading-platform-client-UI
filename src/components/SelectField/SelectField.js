@@ -66,7 +66,7 @@ class SelectField extends Component {
     getSelectedOption() {
         const { options } = this.props;
         const { value } = this.getState();
-        const [selectedOption] = options;
+        const [selectedOption = {}] = options;
 
         for (let i = 0; i < options.length; i += 1) {
             const option = options[i];
@@ -158,7 +158,9 @@ class SelectField extends Component {
                     >
                         <div role="button" className="select-control">
                             <strong className="select-control-text">
-                                {(selectedOption && selectedOption.label) || selectedOption}
+                                {typeof selectedOption === 'string'
+                                    ? selectedOption
+                                    : selectedOption.label || selectedOption.value}
                             </strong>
                             <FontAwesomeIcon className="select-control-icon" icon={faChevronDown} />
                         </div>
