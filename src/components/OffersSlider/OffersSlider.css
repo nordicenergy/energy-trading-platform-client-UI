@@ -81,15 +81,20 @@
         display: none;
     }
 
-    .offers-slider-pagination {
+    .offers-slider-pagination-wrapper {
         position: relative;
         display: flex;
-        overflow: hidden;
+        width: 100%;
         justify-content: center;
+    }
+
+    .offers-slider-pagination {
+        overflow: hidden;
+        display: flex;
         padding: 1em 0 0;
     }
 
-    .offers-slider-pagination::after {
+    .offers-slider-pagination-wrapper::after {
         position: absolute;
         top: 0;
         right: 0;

@@ -19,7 +19,12 @@
     appearance: none;
 }
 
-.sort-option:hover {
+.sort-option:focus {
+    outline: none;
+}
+
+.sort-option:hover,
+.sort-option:focus {
     background-color: var(--athens-gray-color);
 }
 

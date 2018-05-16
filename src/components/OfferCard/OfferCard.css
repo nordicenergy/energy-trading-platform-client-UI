@@ -66,8 +66,14 @@
     transition: color 0.2s ease-in;
 }
 
+.offer-card .period-info a:focus {
+    outline: none;
+}
+
 .offer-card .edit-button:hover,
-.offer-card .period-info a:hover {
+.offer-card .edit-button:focus,
+.offer-card .period-info a:hover,
+.offer-card .period-info a:focus {
     color: var(--button-hover-color);
 }
 

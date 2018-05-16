@@ -47,6 +47,7 @@ const store = mockStore({
                         description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.81,
                         details: {
+                            status: 'success',
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                             price: 2.5,
                             amount: 7.74,
@@ -63,6 +64,7 @@ const store = mockStore({
                         description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.081,
                         details: {
+                            status: 'success',
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                             price: 2.5,
                             amount: 7.74,
@@ -79,6 +81,7 @@ const store = mockStore({
                         description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
+                            status: 'success',
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                             price: 2.5,
                             amount: 7.74,
@@ -95,6 +98,7 @@ const store = mockStore({
                         description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
+                            status: 'success',
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                             price: 2.5,
                             amount: 7.74,
@@ -111,6 +115,7 @@ const store = mockStore({
                         description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
+                            status: 'success',
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                             price: 2.5,
                             amount: 7.74,
@@ -127,6 +132,7 @@ const store = mockStore({
                         description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
+                            status: 'success',
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                             price: 2.5,
                             amount: 7.74,
@@ -143,6 +149,7 @@ const store = mockStore({
                         description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                         transactionAmount: 0.8,
                         details: {
+                            status: 'success',
                             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                             price: 2.5,
                             amount: 7.74,
@@ -174,6 +181,7 @@ const props = {
                 description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.81,
                 details: {
+                    status: 'success',
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                     price: 2.5,
                     amount: 7.74,
@@ -190,6 +198,7 @@ const props = {
                 description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.081,
                 details: {
+                    status: 'success',
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                     price: 2.5,
                     amount: 7.74,
@@ -206,6 +215,7 @@ const props = {
                 description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
+                    status: 'success',
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                     price: 2.5,
                     amount: 7.74,
@@ -222,6 +232,7 @@ const props = {
                 description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
+                    status: 'success',
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                     price: 2.5,
                     amount: 7.74,
@@ -238,6 +249,7 @@ const props = {
                 description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
+                    status: 'success',
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                     price: 2.5,
                     amount: 7.74,
@@ -254,6 +266,7 @@ const props = {
                 description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
+                    status: 'success',
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                     price: 2.5,
                     amount: 7.74,
@@ -270,6 +283,7 @@ const props = {
                 description: `Bought ${formatFloat(7.13)} kWh from "Alice"`,
                 transactionAmount: 0.8,
                 details: {
+                    status: 'success',
                     hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
                     price: 2.5,
                     amount: 7.74,
@@ -343,7 +357,12 @@ describe('<Overview /> Component', () => {
                 recentTransactionsDescriptionFrom: 'from',
                 sellEnergy: 'Sell Energy'
             },
-            transactions: [...props.recentTransactions.transactions]
+            transactions: [
+                ...props.recentTransactions.transactions.map(tx => ({
+                    ...tx,
+                    details: { ...tx.details, status: 'Success' }
+                }))
+            ]
         });
 
         const cards = component.find(NavigationCardsPanel).at(0);

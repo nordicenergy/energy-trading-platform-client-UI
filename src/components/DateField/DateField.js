@@ -119,6 +119,7 @@ class DateField extends Component {
         return (
             <div className={classes} ref={ref => (this.dateFieldRef = ref)}>
                 <TextField
+                    disabled={disabled}
                     label={label}
                     addon={addon}
                     value={this.getFormattedDate()}

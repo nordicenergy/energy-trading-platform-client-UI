@@ -82,7 +82,9 @@ class OffersSlider extends Component {
                         <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                 </div>
-                <div ref={ref => (this.sliderPaginationRef = ref)} className="offers-slider-pagination" />
+                <div className="offers-slider-pagination-wrapper">
+                    <div ref={ref => (this.sliderPaginationRef = ref)} className="offers-slider-pagination" />
+                </div>
             </div>
         );
     }

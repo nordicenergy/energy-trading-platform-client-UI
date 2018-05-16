@@ -15,6 +15,13 @@ export const PLANT_TYPES = {
 
 export const LIMIT = 10;
 
+export const TRANSACTION_STATUSES = {
+    success: 'success',
+    fail: 'failure',
+    pending: 'pending',
+    waitingForOffer: 'waitingForOffer'
+};
+
 export const DATE_FORMAT = 'MMM DD, YYYY';
 export const DATETIME_FORMAT = 'MMM DD, YYYY hh:mm';
 

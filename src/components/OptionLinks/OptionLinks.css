@@ -26,9 +26,14 @@
     border-right: none;
 }
 
-.option-links > a:hover {
+.option-links > a:hover,
+.option-links > a:focus {
     background: var(--option-link-hov-bg-color);
     color: var(--option-link-hov-color);
+}
+
+.option-links > a:focus {
+    outline: none;
 }
 
 .option-links > a > span {

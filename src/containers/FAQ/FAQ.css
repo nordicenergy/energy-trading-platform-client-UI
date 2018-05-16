@@ -44,12 +44,17 @@
     transition: 0.2s color ease-in;
 }
 
+.faq-page .question-container .title:focus {
+    outline: none;
+}
+
 .faq-page .question-container.expanded .title,
 .faq-page .question-container.expanded .title:hover {
     color: var(--question-active-color);
 }
 
-.faq-page .question-container .title:hover {
+.faq-page .question-container .title:hover,
+.faq-page .question-container .title:focus {
     color: var(--question-hover-color);
 }
 

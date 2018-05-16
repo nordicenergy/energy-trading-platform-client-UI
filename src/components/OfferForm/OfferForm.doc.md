@@ -11,6 +11,7 @@ const labels = {
     salePriceFieldAfter: 'Sale price:',
     salePriceFieldUnits: 'cent',
     plantTypeField: 'Type of energy',
+    nameField: 'Name',
     annualProductionField: 'Annual Production',
     capacityField: 'Peak Capacity',
     dateField: 'Selected since',

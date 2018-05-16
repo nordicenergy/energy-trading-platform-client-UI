@@ -19,6 +19,10 @@
     will-change: color, background;
 }
 
+.menu-item:focus {
+    outline: none;
+}
+
 .menu-item--active {
     color: white;
     background: var(--active-item-color);
@@ -39,14 +43,11 @@
     text-align: center;
 }
 
-.menu-item:hover .menu-item-icon svg {
-    transform: scale(1);
+.menu-item:hover .menu-item-icon svg,
+.menu-item:focus .menu-item-icon svg {
+    transform: scale(1.2);
     will-change: transform;
     transition: transform 0.2s;
-}
-
-.menu-item:hover .menu-item-icon svg {
-    transform: scale(1.2);
 }
 
 .menu-item-label {
@@ -65,7 +66,8 @@
     will-change: color, background;
 }
 
-.menu-item:hover .menu-item-label {
+.menu-item:hover .menu-item-label,
+.menu-item:focus .menu-item-label {
     background: var(--navigation-bg-color);
     color: white;
     transition: 0.2s;
@@ -101,11 +103,13 @@
     opacity: 0.4;
 }
 
-.menu-item--disabled:hover .menu-item-label {
+.menu-item--disabled:hover .menu-item-label,
+.menu-item--disabled:focus .menu-item-label {
     background: inherit;
     color: inherit;
 }
 
-.menu-item--disabled:hover .menu-item-icon svg {
+.menu-item--disabled:hover .menu-item-icon svg,
+.menu-item--disabled:focus .menu-item-icon svg {
     transform: scale(1);
 }

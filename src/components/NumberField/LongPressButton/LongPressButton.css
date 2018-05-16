@@ -18,6 +18,8 @@
     appearance: none;
 }
 
-.long-press-button:hover {
+.long-press-button:hover,
+.long-press-button:focus {
+    outline: none;
     background: var(--button-hover-color);
 }

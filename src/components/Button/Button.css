@@ -31,8 +31,10 @@
     background: var(--button-success-color);
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
     background: var(--button-hover-color);
+    outline: none;
     box-shadow: 0 0.25rem 0.5rem var(--button-shadow-color);
 }
 

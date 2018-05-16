@@ -38,7 +38,6 @@ export function getRecentTransactions(userId, page = 0) {
         });
 }
 
-// FIXME cover by unit tests, rewrite to async/await
 export function getOpenTradePositions(/* address, abi */) {
     const intermediateData = { producers: [] };
     const result = { data: [] };
@@ -57,24 +56,18 @@ export function getOpenTradePositions(/* address, abi */) {
         .then(([bids = {}, network = {}]) => {
             const { data = [] } = bids;
             const { data: { id: networkId } = {} } = network;
-            let blockChainNetworkUrl = '';
 
-            if (networkId === META_MASK_NETWORKS.ropsten) {
-                blockChainNetworkUrl = `${BLOCKCHAIN_SCANNER_URLS.ropsten}/address`;
-            } else if (networkId === META_MASK_NETWORKS.live) {
-                blockChainNetworkUrl = `${BLOCKCHAIN_SCANNER_URLS.live}/address`;
-            }
+            const networkName = Object.keys(META_MASK_NETWORKS).find(key => META_MASK_NETWORKS[key] === networkId);
+            const scannerURL = `${BLOCKCHAIN_SCANNER_URLS[networkName]}/address`;
 
             result.data = data.map(bid => {
                 const { producers } = intermediateData;
-                const relatedProducer = producers.find(({ dlAddress }) => dlAddress === bid.producer) || {};
+                const producer = producers.find(({ dlAddress }) => dlAddress === bid.producer);
                 return {
-                    offerAddressUrl: blockChainNetworkUrl ? `${blockChainNetworkUrl}/${bid.producer}` : '',
+                    offerAddressUrl: networkName ? `${scannerURL}/${bid.producer}` : '',
                     offerAddress: bid.producer,
-                    producerUrl: relatedProducer.id
-                        ? `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${relatedProducer.id}`
-                        : null,
-                    producerName: relatedProducer.name || '',
+                    producerUrl: producer ? `${PATHS.buyEnergy.path}/${PATHS.producer.id}/${producer.id}` : null,
+                    producerName: producer.name || '',
                     offerIssued: formatDateTime(bid.day),
                     offerIssuedTimestamp: parseInt(bid.day, 10),
                     validOn: '--',

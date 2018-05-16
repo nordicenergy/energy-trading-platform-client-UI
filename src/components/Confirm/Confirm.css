@@ -78,7 +78,8 @@
     appearance: none;
 }
 
-.confirm-dialog-actions > *:hover {
+.confirm-dialog-actions > *:hover,
+.confirm-dialog-actions > *:focus {
     background: var(--button-hover-color);
     color: white;
 }
