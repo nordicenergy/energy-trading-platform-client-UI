@@ -1,3 +1,9 @@
+export const KEYBOARD_KEY_VALUES = {
+    ENTER: 'Enter',
+    BACKSPACE: 'Backspace',
+    DELETE: 'Delete'
+};
+
 export const SESSION_API_URL = '/api';
 
 export const PLANT_TYPES = {
@@ -26,7 +32,11 @@ export const META_MASK_DOWNLOAD_LINKS = {
     brave: 'https://brave.com'
 };
 
-export const BLOCKCHAIN_NETWORK_LINKS = {
-    ethereum: 'https://etherscan.io',
+export const BLOCKCHAIN_NETWORKS = ['ethereum', 'ledger'];
+
+export const BLOCKCHAIN_SCANNER_URLS = {
+    live: 'https://etherscan.io',
     ropsten: 'https://ropsten.etherscan.io'
 };
+
+export const TRADE_POSITIONS_LIMIT = 25;

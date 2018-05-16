@@ -17,6 +17,47 @@ const context = {
     }
 };
 
+const tradePositionsDummy = [
+    {
+        offerAddressUrl: 'https://ropsten.etherscan.io/address/0x8927Ef66Df3ab92560010482a685D113F7250305',
+        offerAddress: '0x8927Ef66Df3ab92560010482a685D113F7250305',
+        producerUrl: null,
+        producerName: '',
+        offerIssued: 'May 16, 2018 03:00',
+        offerIssuedTimestamp: 1526428800,
+        validOn: '--',
+        energyOffered: '--',
+        energyAvailable: '10',
+        energyAvailableFloat: 10,
+        price: '5,70'
+    },
+    {
+        offerAddressUrl: 'https://ropsten.etherscan.io/address/0x04cCa77c4FdfDFa588018dE41C86fE809A847C3A',
+        offerAddress: '0x04cCa77c4FdfDFa588018dE41C86fE809A847C3A',
+        producerUrl: null,
+        producerName: '',
+        offerIssued: 'May 17, 2018 03:00',
+        offerIssuedTimestamp: 1526518800,
+        validOn: '--',
+        energyOffered: '--',
+        energyAvailable: '20',
+        energyAvailableFloat: 20,
+        price: '2,50'
+    },
+    {
+        offerAddressUrl: 'https://ropsten.etherscan.io/address/0x366479cA03c80aDfD47147d72D329A7B8B7Ea40F',
+        offerAddress: '0x366479cA03c80aDfD47147d72D329A7B8B7Ea40F',
+        producerUrl: null,
+        producerName: '',
+        offerIssued: 'May 18, 2018 03:00',
+        offerIssuedTimestamp: 1526605200,
+        validOn: '--',
+        energyOffered: '--',
+        energyAvailable: '30',
+        energyAvailableFloat: 30,
+        price: '3,10'
+    }
+];
 const mockStore = configureMockStore();
 const store = mockStore({
     Transactions: {
@@ -181,5 +222,60 @@ describe('<DirectTrading /> Component', () => {
         const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
+    });
+
+    it('should filter trade positions by trade volume', () => {
+        const directTrading = renderComponent();
+
+        directTrading.setState({
+            isMetaMaskInstalled: true,
+            isConfigured: true
+        });
+        directTrading.setProps({ openTradePositions: tradePositionsDummy });
+        directTrading
+            .find('TradePositionsList')
+            .props()
+            .onTradeVolumeChange({ target: { value: '15,50' } });
+        directTrading.update();
+        expect(directTrading.find('TradePositionsList').props().tradePositions).toEqual([
+            tradePositionsDummy[1],
+            tradePositionsDummy[2]
+        ]);
+    });
+
+    it('should filter trade positions by date', () => {
+        const directTrading = renderComponent();
+
+        directTrading.setState({
+            isMetaMaskInstalled: true,
+            isConfigured: true
+        });
+        directTrading.setProps({ openTradePositions: tradePositionsDummy });
+        directTrading
+            .find('TradePositionsList')
+            .props()
+            .onDateFilterChange({ value: 1526425200 });
+        directTrading.update();
+        expect(directTrading.find('TradePositionsList').props().tradePositions).toEqual([tradePositionsDummy[0]]);
+    });
+
+    it('should filter trade positions by date and trade volume', () => {
+        const directTrading = renderComponent();
+
+        directTrading.setState({
+            isMetaMaskInstalled: true,
+            isConfigured: true
+        });
+        directTrading.setProps({ openTradePositions: tradePositionsDummy });
+        directTrading
+            .find('TradePositionsList')
+            .props()
+            .onTradeVolumeChange({ target: { value: '15,50' } });
+        directTrading
+            .find('TradePositionsList')
+            .props()
+            .onDateFilterChange({ value: 1526425200 });
+        directTrading.update();
+        expect(directTrading.find('TradePositionsList').props().tradePositions).toEqual([]);
     });
 });

@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { SESSION_API_URL, LIMIT, BLOCKCHAIN_NETWORK_LINKS } from '../../constants';
+import { SESSION_API_URL, LIMIT, BLOCKCHAIN_SCANNER_URLS } from '../../constants';
 import { PATHS } from '../routes';
 import web3Service, { META_MASK_NETWORKS } from '../web3';
 import { formatCurrency, formatDateTime, formatFloat } from '../formatter';
@@ -60,9 +60,9 @@ export function getOpenTradePositions(/* address, abi */) {
             let blockChainNetworkUrl = '';
 
             if (networkId === META_MASK_NETWORKS.ropsten) {
-                blockChainNetworkUrl = `${BLOCKCHAIN_NETWORK_LINKS.ropsten}/address`;
+                blockChainNetworkUrl = `${BLOCKCHAIN_SCANNER_URLS.ropsten}/address`;
             } else if (networkId === META_MASK_NETWORKS.live) {
-                blockChainNetworkUrl = `${BLOCKCHAIN_NETWORK_LINKS.ethereum}/address`;
+                blockChainNetworkUrl = `${BLOCKCHAIN_SCANNER_URLS.live}/address`;
             }
 
             result.data = data.map(bid => {
@@ -76,9 +76,11 @@ export function getOpenTradePositions(/* address, abi */) {
                         : null,
                     producerName: relatedProducer.name || '',
                     offerIssued: formatDateTime(bid.day),
+                    offerIssuedTimestamp: parseInt(bid.day, 10),
                     validOn: '--',
                     energyOffered: '--',
                     energyAvailable: formatFloat(bid.energy / 100000),
+                    energyAvailableFloat: parseFloat(bid.energy / 100000),
                     price: formatCurrency(bid.price / 1000)
                 };
             });
