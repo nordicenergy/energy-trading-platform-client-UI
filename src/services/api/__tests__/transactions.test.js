@@ -2,6 +2,7 @@ import Axios from 'axios';
 import { getRecentTransactions, getOpenTradePositions } from '../transactions';
 import web3Service, { META_MASK_NETWORKS } from '../../web3';
 import { BLOCKCHAIN_SCANNER_URLS } from '../../../constants';
+import { formatDateTime } from '../../../services/formatter';
 
 describe('Transactions API Service', () => {
     beforeEach(() => {
@@ -82,7 +83,7 @@ describe('Transactions API Service', () => {
             energyAvailable: '2',
             energyOffered: '--',
             offerAddress: '0x1',
-            offerIssued: 'Aug 27, 50339 01:17',
+            offerIssued: formatDateTime(1526398769827),
             price: '0.25',
             producerName: 'test name',
             producerUrl: '/buy_energy/producer/123',
