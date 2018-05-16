@@ -77,20 +77,39 @@ describe('Transactions API Service', () => {
     });
 
     it('should provide method for getting recent transactions', async () => {
-        const bidsDummy = { data: [{ producer: '0x1', day: 1526398769827, energy: 200000, price: 250 }] };
-        const producersDummy = { data: { producers: [{ id: '123', dlAddress: '0x1', name: 'test name' }] } };
-        const expectedTestData = {
-            energyAvailable: '2',
-            energyAvailableFloat: 2.0,
-            energyOffered: '--',
-            offerAddress: '0x1',
-            offerIssued: formatDateTime(1526398769827),
-            offerIssuedTimestamp: 1526398769827,
-            price: '0.25',
-            producerName: 'test name',
-            producerUrl: '/buy_energy/producer/123',
-            validOn: '--'
+        const bidsDummy = {
+            data: [
+                { producer: '0x1', day: 1526398769827, energy: 200000, price: 250 },
+                { producer: '0x2', day: 1526398769800, energy: 300000, price: 350 }
+            ]
         };
+        const producersDummy = { data: { producers: [{ id: '123', dlAddress: '0x1', name: 'test name' }] } };
+        const expectedTestData = [
+            {
+                energyAvailable: '2',
+                energyAvailableFloat: 2.0,
+                energyOffered: '--',
+                offerAddress: '0x1',
+                offerIssued: formatDateTime(1526398769827),
+                offerIssuedTimestamp: 1526398769827,
+                price: '0.25',
+                producerName: 'test name',
+                producerUrl: '/buy_energy/producer/123',
+                validOn: '--'
+            },
+            {
+                energyAvailable: '3',
+                energyAvailableFloat: 3.0,
+                energyOffered: '--',
+                offerAddress: '0x2',
+                offerIssued: formatDateTime(1526398769800),
+                offerIssuedTimestamp: 1526398769800,
+                price: '0.35',
+                producerName: '',
+                producerUrl: null,
+                validOn: '--'
+            }
+        ];
 
         Axios.get
             .mockReturnValueOnce(Promise.resolve(producersDummy))
@@ -108,13 +127,19 @@ describe('Transactions API Service', () => {
             .mockReturnValueOnce(Promise.resolve(bidsDummy));
 
         await expect(getOpenTradePositions()).resolves.toEqual({
-            data: [{ ...expectedTestData, offerAddressUrl: `${BLOCKCHAIN_SCANNER_URLS.ropsten}/address/0x1` }]
+            data: expectedTestData.map(testData => ({
+                ...testData,
+                offerAddressUrl: `${BLOCKCHAIN_SCANNER_URLS.ropsten}/address/${testData.offerAddress}`
+            }))
         });
         await expect(getOpenTradePositions()).resolves.toEqual({ data: [] });
         await expect(getOpenTradePositions()).resolves.toEqual({ data: [] });
 
         await expect(getOpenTradePositions()).resolves.toEqual({
-            data: [{ ...expectedTestData, offerAddressUrl: `${BLOCKCHAIN_SCANNER_URLS.live}/address/0x1` }]
+            data: expectedTestData.map(testData => ({
+                ...testData,
+                offerAddressUrl: `${BLOCKCHAIN_SCANNER_URLS.live}/address/${testData.offerAddress}`
+            }))
         });
     });
 });
