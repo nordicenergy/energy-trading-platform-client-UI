@@ -148,6 +148,17 @@ describe('<FAQ /> Component', () => {
         expect(component.state('expandedIds')).toEqual(['testId1']);
     });
 
+    it('should call onKeyUp event handler on disclosure arrow', () => {
+        const component = renderComponent();
+        component.instance().handleQuestionEnterPress = jest.fn();
+        component
+            .find('DisclosureArrow')
+            .at(0)
+            .props()
+            .onKeyUp({ key: 'Enter' });
+        expect(component.instance().handleQuestionEnterPress).toHaveBeenCalled();
+    });
+
     it('should collapse question answer by clicking on disclosure arrow', () => {
         const component = renderComponent();
         component.setState({

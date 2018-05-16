@@ -473,4 +473,22 @@ describe('<ShowTransactions /> Component', () => {
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
     });
+
+    it('should call scroll handler of the container', () => {
+        const showTransactions = renderComponent();
+        const dummyEvent = {
+            target: {
+                scrollTop: 10,
+                clientHeight: 10,
+                scrollHeight: 10
+            }
+        };
+        showTransactions.setProps({
+            hasNextTransactions: true,
+            transactionsLoading: false
+        });
+        showTransactions.instance().scrollHandler(dummyEvent);
+        jest.runAllTimers();
+        expect(showTransactions.state('page')).toBe(1);
+    });
 });

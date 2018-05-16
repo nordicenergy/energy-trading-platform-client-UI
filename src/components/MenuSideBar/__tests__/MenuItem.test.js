@@ -50,4 +50,15 @@ describe('<MenuItem /> Component', () => {
             .simulate('click');
         expect(props.onClick.mock.calls.length).toEqual(0);
     });
+
+    it('should set default values at missing props and should not throw an error', () => {
+        const props = { icon: 'faCoffee', label: 'Item' };
+        const component = renderComponent(props);
+
+        component
+            .find('.menu-item')
+            .at(0)
+            .simulate('click');
+        expect(component.exists()).toBeTruthy();
+    });
 });

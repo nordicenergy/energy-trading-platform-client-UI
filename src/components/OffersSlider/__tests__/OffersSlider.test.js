@@ -90,4 +90,15 @@ describe('<OffersSlider /> component', () => {
             .onClick();
         expect(onOfferClickMock).toHaveBeenCalledWith('02');
     });
+
+    it('should set default values at missing props and should not throw an error', () => {
+        const offersSlider = renderComponent();
+
+        offersSlider
+            .find('OfferCard')
+            .at(1)
+            .props()
+            .onClick();
+        expect(offersSlider.exists()).toBeTruthy();
+    });
 });

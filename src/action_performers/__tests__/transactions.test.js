@@ -1,6 +1,11 @@
 import { dispatcher } from '../../store';
 
-import { performGetAvailableAddresses, performGetRecentTransactions } from '../transactions';
+import {
+    performGetAvailableAddresses,
+    performGetRecentTransactions,
+    performGetOpenTradePositions
+} from '../transactions';
+import { getOpenTradePositions } from '../../services/api/transactions';
 
 describe('Transactions action performers', () => {
     beforeEach(() => {
@@ -35,6 +40,22 @@ describe('Transactions action performers', () => {
         expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
         expect(method.name).toEqual('bound getAddresses');
         expect(type).toEqual('GET_AVAILABLE_ADDRESSES');
+        expect(loading).toEqual('TEST');
+        expect(meta).toEqual(undefined);
+    });
+
+    it('should call dispatch method for getting open trade positions', () => {
+        performGetOpenTradePositions();
+
+        const [firstCall] = dispatcher.dispatchPromise.mock.calls;
+        const [method, type, loadingFunc, meta] = firstCall;
+        const loading = loadingFunc({
+            Transactions: { openTradePositions: { loading: 'TEST' } }
+        });
+
+        expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
+        expect(method.name).toEqual('getOpenTradePositions');
+        expect(type).toEqual('GET_OPEN_TRADE_POSITIONS');
         expect(loading).toEqual('TEST');
         expect(meta).toEqual(undefined);
     });

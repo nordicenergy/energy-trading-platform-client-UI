@@ -39,11 +39,17 @@ describe('<Trading /> Container', () => {
         expect(headers.at(0).text()).toEqual('Trading');
     });
 
-    it('should setup correct translations', () => {
+    it('should setup correctly map state to props translations', () => {
         const component = renderComponent(context);
         component.setContext(context);
 
         expect(context.intl.formatMessage.mock.calls.length).toEqual(13);
+    });
+
+    it('should setup correct translations', () => {
+        const props = Trading.mapStateToProps({});
+
+        expect(props).toEqual({});
     });
 
     it('should setup correct callbacks and handle related events for wattcoin table', () => {
@@ -72,5 +78,17 @@ describe('<Trading /> Container', () => {
             total: 0.03,
             type: 'Solar panels'
         });
+    });
+
+    it('should provide possibility to navigate to needed route', () => {
+        const component = renderComponent();
+        component.setContext(context);
+
+        component
+            .find(NavigationCardsPanel)
+            .at(0)
+            .props()
+            .onCardClick('/testRoute');
+        expect(context.router.history.push).toHaveBeenCalledWith('/testRoute');
     });
 });

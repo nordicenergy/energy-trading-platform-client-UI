@@ -222,4 +222,14 @@ describe('Main <App /> Component', () => {
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
     });
+
+    it('should navigate to overview page', () => {
+        const app = renderComponent(context);
+        app.setContext(context);
+        app
+            .find('Header')
+            .props()
+            .onLogoClick();
+        expect(context.router.history.push).toHaveBeenCalledWith('/');
+    });
 });
