@@ -12,6 +12,12 @@
     "app.plantType.wind": "Wind",
     "app.plantType.other": "Other",
 
+    "app.txStatuses.pending": "Pending",
+    "app.txStatuses.fail": "Failure",
+    "app.txStatuses.waitingForOffer": "Waiting For Offer",
+    "app.txStatuses.success": "Success",
+    "app.txStatuses.unknown": "Unknown",
+
     "app.breadCrumbs.overview": "Trading",
     "app.breadCrumbs.showTransactions": "Show Transactions",
     "app.breadCrumbs.myProducer": "My Producer",

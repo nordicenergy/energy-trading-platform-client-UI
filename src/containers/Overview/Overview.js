@@ -13,6 +13,7 @@ import { formatFloat } from '../../services/formatter';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
 import './Overview.css';
+import { convertTransactionStatus } from '../../services/translations/enums';
 
 export class Overview extends AbstractContainer {
     static mapStateToProps(state) {
@@ -51,13 +52,18 @@ export class Overview extends AbstractContainer {
     }
 
     render() {
+        const { formatMessage } = this.context.intl;
         const labels = this.prepareLabels(messages);
         const { recentTransactions: { transactions = [], currentBalance = 0 }, loading } = this.props;
         const formattedTransactions = transactions.map(tx => ({
             ...tx,
             description: `${labels.recentTransactionsDescriptionBought} ${formatFloat(tx.energyAmount)} kWh ${
                 labels.recentTransactionsDescriptionFrom
-            } "${tx.producerName}"`
+            } "${tx.producerName}"`,
+            details: {
+                ...tx.details,
+                status: formatMessage(convertTransactionStatus(tx.details && tx.details.status))
+            }
         }));
         const navigationCards = [
             {
