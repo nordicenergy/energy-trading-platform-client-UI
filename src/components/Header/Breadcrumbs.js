@@ -4,8 +4,15 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import icons from '@fortawesome/fontawesome-free-solid';
 import classNames from 'classnames';
 import './Breadcrumbs.css';
+import { KEYBOARD_KEY_VALUES } from '../../constants';
 
 class Breadcrumbs extends React.Component {
+    handleBreadcrumbEnterPress(event, path) {
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
+            this.props.onClick(path);
+        }
+    }
+
     renderBreadcrumbsItems() {
         const { items, onClick } = this.props;
         const [rootBreadCrumb = {}, ...breadCrumbs] = items;
@@ -19,9 +26,11 @@ class Breadcrumbs extends React.Component {
                 <a
                     aria-label={rootBreadCrumb.label}
                     className="icon-breadcrumb"
+                    onKeyUp={event => this.handleBreadcrumbEnterPress(event, rootBreadCrumb.path)}
                     onClick={() => {
                         onClick(rootBreadCrumb.path);
                     }}
+                    tabIndex={0}
                 >
                     {rootBreadcrumbLabel}
                 </a>
@@ -40,7 +49,13 @@ class Breadcrumbs extends React.Component {
                     })}
                     key={item.id}
                 >
-                    <a aria-label={item.label} className="breadcrumb" onClick={() => onClick(item.path)}>
+                    <a
+                        aria-label={item.label}
+                        className="breadcrumb"
+                        onKeyUp={event => this.handleBreadcrumbEnterPress(event, item.path)}
+                        onClick={() => onClick(item.path)}
+                        tabIndex={0}
+                    >
                         {breadcrumbLabel}
                     </a>
                     {!isLastItem && (

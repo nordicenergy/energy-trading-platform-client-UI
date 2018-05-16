@@ -57,7 +57,8 @@ span.producer-information-value a {
     text-decoration: none;
 }
 
-span.producer-information-value a:hover {
+span.producer-information-value a:hover,
+span.producer-information-value a:focus {
     color: var(--general-text-color);
     transition: color 0.2s ease-in;
 }

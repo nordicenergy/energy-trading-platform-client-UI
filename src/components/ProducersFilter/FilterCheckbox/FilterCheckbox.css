@@ -49,12 +49,18 @@
     color: white;
 }
 
-.filter-checkbox .filter-checkbox-label:hover {
+.filter-checkbox .filter-checkbox-label:hover,
+.filter-checkbox:focus .filter-checkbox-label {
     background: var(--filter-checkbox-hov-bg-color);
     color: white;
 }
 
-.filter-checkbox .filter-checkbox-label:hover > .filter-checkbox-icon {
+.filter-checkbox:focus {
+    outline: none;
+}
+
+.filter-checkbox .filter-checkbox-label:hover > .filter-checkbox-icon,
+.filter-checkbox:focus .filter-checkbox-label > .filter-checkbox-icon {
     border-right: var(--border-width) solid var(--filter-checkbox-hov-border-color);
     color: white;
 }

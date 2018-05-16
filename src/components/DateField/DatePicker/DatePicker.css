@@ -181,6 +181,12 @@
     appearance: none;
 }
 
+.date-picker-actions > button:hover,
+.date-picker-actions > button:focus {
+    outline: none;
+    background: var(--datepicker-hov-day-color);
+}
+
 .date-picker-actions > button:last-child {
     margin-right: 0;
 }

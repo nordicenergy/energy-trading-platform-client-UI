@@ -10,7 +10,7 @@
 .offer-form-field {
     box-sizing: border-box;
     margin-bottom: 3em;
-    padding-left: 2em;
+    padding: 0 2em;
     width: 100%;
 }
 

@@ -51,7 +51,9 @@
     content: '';
 }
 
-.app-footer nav a:hover {
+.app-footer nav a:hover,
+.app-footer nav a:focus {
+    outline: none;
     color: var(--general-text-color);
     transition: color 0.2s ease-in;
 }

@@ -67,4 +67,19 @@ describe('<NavigationCard /> Component', () => {
         component.find('.nav-card-container').simulate('click');
         expect(onCardClickHandler).toHaveBeenCalled();
     });
+
+    it(`should call onCardClickHandler only on enter key press`, () => {
+        const onCardClickHandler = jest.fn();
+        const props = {
+            title: 'My Producer',
+            type: 'my_producer',
+            onCardClickHandler
+        };
+        const component = renderComponent(props);
+
+        component.find('.nav-card-container').simulate('keyUp', { key: 'Enter' });
+        expect(onCardClickHandler).toHaveBeenCalledTimes(1);
+        component.find('.nav-card-container').simulate('keyUp', { key: 'Tab' });
+        expect(onCardClickHandler).toHaveBeenCalledTimes(1);
+    });
 });

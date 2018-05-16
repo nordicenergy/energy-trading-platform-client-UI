@@ -2,44 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { OtherEnergyIcon, WindEnergyIcon, SolarEnergyIcon, BiomassEnergyIcon } from './icons';
-import { PLANT_TYPES } from '../../../constants';
+import { PLANT_TYPES, KEYBOARD_KEY_VALUES } from '../../../constants';
 import './FilterCheckbox.css';
 
-const FilterCheckbox = ({ className, type, label, name, checked, onChange }) => {
-    const classes = classNames('filter-checkbox', className);
-    let icon = null;
-
-    switch (type) {
-        case PLANT_TYPES.wind:
-            icon = <WindEnergyIcon />;
-            break;
-        case PLANT_TYPES.solar:
-            icon = <SolarEnergyIcon />;
-            break;
-        case PLANT_TYPES.biomass:
-            icon = <BiomassEnergyIcon />;
-            break;
-        default:
-            icon = <OtherEnergyIcon />;
-            break;
+class FilterCheckbox extends React.Component {
+    handleFilterEnterPress(event) {
+        const { onChange, name } = this.props;
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
+            onChange({
+                target: {
+                    name
+                }
+            });
+        }
     }
 
-    return (
-        <label className={classes}>
-            <input
-                className="filter-checkbox-input"
-                type="checkbox"
-                name={name}
-                checked={checked}
-                onChange={onChange}
-            />
-            <span className="filter-checkbox-label">
-                <span className="filter-checkbox-icon">{icon}</span>
-                <span className="filter-checkbox-text">{label}</span>
-            </span>
-        </label>
-    );
-};
+    renderIcon() {
+        switch (this.props.type) {
+            case PLANT_TYPES.wind:
+                return <WindEnergyIcon />;
+            case PLANT_TYPES.solar:
+                return <SolarEnergyIcon />;
+            case PLANT_TYPES.biomass:
+                return <BiomassEnergyIcon />;
+            default:
+                return <OtherEnergyIcon />;
+        }
+    }
+
+    render() {
+        const { className, label, name, checked, onChange } = this.props;
+        const classes = classNames('filter-checkbox', className);
+        return (
+            <label className={classes} onKeyUp={event => this.handleFilterEnterPress(event)} tabIndex={0}>
+                <input
+                    className="filter-checkbox-input"
+                    type="checkbox"
+                    name={name}
+                    checked={checked}
+                    onChange={onChange}
+                />
+                <span className="filter-checkbox-label">
+                    <span className="filter-checkbox-icon">{this.renderIcon()}</span>
+                    <span className="filter-checkbox-text">{label}</span>
+                </span>
+            </label>
+        );
+    }
+}
 
 FilterCheckbox.propTypes = {
     className: PropTypes.string,
