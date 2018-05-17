@@ -56,10 +56,6 @@ const messages = defineMessages({
     switchBack: {
         id: 'app.producerPage.switchBack',
         defaultMessage: 'Switch back to Lition Standard'
-    },
-    transactionHash: {
-        id: 'app.producerPage.transactionHash',
-        defaultMessage: 'Transaction hash'
     }
 });
 

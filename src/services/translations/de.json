@@ -126,7 +126,6 @@
     "app.producerPage.selectButton": "Kraftwerk auswählen",
     "app.producerPage.switchBack": "Zurück zum Lition Standardtarif",
     "app.producerPage.showButton": "Erzeuger anzeigen",
-    "app.producerPage.transactionHash": "Transaktions hash",
     "app.producerPage.ethereumAddress": "Ethereum Address",
 
     "app.header.logoutConfirmMessage": "Sind Sie sicher, dass Sie sich vom Portal abmelden möchten?",

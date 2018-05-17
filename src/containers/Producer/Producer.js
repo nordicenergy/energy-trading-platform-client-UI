@@ -43,7 +43,6 @@ export class Producer extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
-        const { formatMessage } = this.context.intl;
         const { producer: prevProducer = {}, selectedProducer: prevSelectedProducer = {}, error: oldError } = prevProps;
         const { producer = {}, selectedProducer = {}, error, loading } = this.props;
 
@@ -53,9 +52,7 @@ export class Producer extends AbstractContainer {
 
         if (prevSelectedProducer !== selectedProducer) {
             performPushNotification({
-                message: `${selectedProducer.message} ${formatMessage(messages.transactionHash)}: ${
-                    selectedProducer.dlTransactionHash
-                }`,
+                message: selectedProducer.message,
                 type: 'success'
             });
             this.navigateToOverview();

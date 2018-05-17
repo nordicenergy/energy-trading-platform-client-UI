@@ -216,7 +216,7 @@ describe('<Producer /> Component', () => {
         const [[arg]] = producersActions.performSelectProducer.mock.calls;
         expect(arg).toEqual(1);
 
-        component.setProps({ selectedProducer: { id: 1, message: 'Test', dlTransactionHash: '1234' } });
+        component.setProps({ selectedProducer: { id: 1, message: 'Test' } });
         const { push } = context.router.history;
         expect(push.mock.calls.length).toEqual(1);
         const [[route]] = push.mock.calls;
@@ -224,7 +224,7 @@ describe('<Producer /> Component', () => {
 
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[success]] = notificationActions.performPushNotification.mock.calls;
-        expect(success).toEqual({ message: 'Test test: 1234', type: 'success' });
+        expect(success).toEqual({ message: 'Test', type: 'success' });
 
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(2);
