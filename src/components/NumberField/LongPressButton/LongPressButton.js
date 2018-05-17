@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './LongPressButton.css';
-import { KEYBOARD_KEY_VALUES } from '../../../constants';
+import { KEYBOARD_KEY_VALUES, MOUSE_BUTTONS_VALUES } from '../../../constants';
 
 const UPDATE_VALUE_INTERVAL = 50; // milliseconds.
 const UPDATE_VALUE_DELAY = 300; // milliseconds.
@@ -52,9 +52,11 @@ class LongPressButton extends Component {
         }
     }
 
-    handleMouseDown() {
-        this.setState({ isPressed: true });
-        this.handlePress();
+    handleMouseDown(event) {
+        if (event.button === MOUSE_BUTTONS_VALUES.LEFT) {
+            this.setState({ isPressed: true });
+            this.handlePress();
+        }
     }
 
     handleMouseUp() {
@@ -69,7 +71,7 @@ class LongPressButton extends Component {
             <button
                 type="button"
                 className={classes}
-                onMouseDown={() => this.handleMouseDown()}
+                onMouseDown={event => this.handleMouseDown(event)}
                 onMouseUp={() => this.handleMouseUp()}
                 onKeyDown={event => this.handleKeyDown(event)}
                 onKeyUp={event => this.handleKeyUp(event)}

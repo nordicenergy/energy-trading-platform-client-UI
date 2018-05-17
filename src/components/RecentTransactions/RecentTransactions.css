@@ -203,6 +203,7 @@ tr.recent-transactions-details-row--expand > td::after {
     }
 
     .recent-transactions-container caption {
+        display: block;
         padding: 1rem 0.5rem 0.5rem;
         margin: 0;
         font-size: 1.125rem;
