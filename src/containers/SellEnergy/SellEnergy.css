@@ -27,7 +27,7 @@
     font-size: 1.125em;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
     .sell-energy-page > h1 {
         display: flex;
         align-items: center;
