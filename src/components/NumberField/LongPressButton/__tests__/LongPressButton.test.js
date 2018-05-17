@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import LongPressButton from '../LongPressButton';
+import { MOUSE_BUTTONS_VALUES } from '../../../../constants';
 
-const onPressMock = jest.fn();
-function renderComponent({ onPress = onPressMock, ...otherProps } = {}, mountFn = shallow) {
+const onPressStub = jest.fn();
+function renderComponent({ onPress = onPressStub, ...otherProps } = {}, mountFn = shallow) {
     return mountFn(<LongPressButton {...otherProps} onPress={onPress} />);
 }
 
@@ -11,22 +12,27 @@ describe('<LongPressButton /> component', () => {
     jest.useFakeTimers();
 
     afterEach(() => {
-        onPressMock.mockClear();
+        onPressStub.mockClear();
     });
 
     it('should renders without errors', () => {
         renderComponent();
     });
 
-    it('should updates state and calls onPress if button was pressed', () => {
+    it('should updates state and calls onPress if only left button was pressed', () => {
         const longPressButton = renderComponent();
 
-        longPressButton.find('button').simulate('mousedown');
+        longPressButton.find('button').simulate('mousedown', { button: MOUSE_BUTTONS_VALUES.LEFT });
         expect(longPressButton.state().isPressed).toBeTruthy();
-        expect(onPressMock).toHaveBeenCalled();
+        expect(onPressStub).toHaveBeenCalled();
 
         longPressButton.find('button').simulate('mouseup');
         expect(longPressButton.state().isPressed).toBeFalsy();
+
+        longPressButton.find('button').simulate('mousedown', { button: MOUSE_BUTTONS_VALUES.RIGHT });
+        longPressButton.find('button').simulate('mousedown', { button: MOUSE_BUTTONS_VALUES.MIDDLE });
+        expect(longPressButton.state().isPressed).toBeFalsy();
+        expect(onPressStub).toHaveBeenCalledTimes(1);
     });
 
     it('should updates state and calls onPress if button was pressed by enter key', () => {
@@ -34,7 +40,7 @@ describe('<LongPressButton /> component', () => {
 
         longPressButton.find('button').simulate('keydown', { key: 'Enter' });
         expect(longPressButton.state().isPressed).toBeTruthy();
-        expect(onPressMock).toHaveBeenCalled();
+        expect(onPressStub).toHaveBeenCalled();
 
         longPressButton.find('button').simulate('keyup', { key: 'Enter' });
         expect(longPressButton.state().isPressed).toBeFalsy();
@@ -50,8 +56,8 @@ describe('<LongPressButton /> component', () => {
     it('should not calls onPress if onPress is not a function', () => {
         const longPressButton = renderComponent({ onPress: null });
 
-        longPressButton.find('button').simulate('mousedown');
-        expect(onPressMock).not.toHaveBeenCalled();
+        longPressButton.find('button').simulate('mousedown', { button: MOUSE_BUTTONS_VALUES.LEFT });
+        expect(onPressStub).not.toHaveBeenCalled();
     });
 
     it('should calls onPress during button was pressing', () => {
@@ -68,9 +74,9 @@ describe('<LongPressButton /> component', () => {
         const [[callback, delay]] = window.setInterval.mock.calls;
         expect(delay).toBe(50);
         callback();
-        expect(onPressMock).toHaveBeenCalled();
+        expect(onPressStub).toHaveBeenCalled();
 
-        onPressMock.mockClear();
+        onPressStub.mockClear();
         window.clearTimeout.mockClear();
         longPressButton.setState({ isPressed: false });
         expect(window.clearTimeout).toHaveBeenCalledWith('test id');

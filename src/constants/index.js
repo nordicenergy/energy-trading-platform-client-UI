@@ -4,6 +4,12 @@ export const KEYBOARD_KEY_VALUES = {
     DELETE: 'Delete'
 };
 
+export const MOUSE_BUTTONS_VALUES = {
+    LEFT: 0,
+    MIDDLE: 1,
+    RIGHT: 2
+};
+
 export const SESSION_API_URL = '/api';
 
 export const PLANT_TYPES = {
