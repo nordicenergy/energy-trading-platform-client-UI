@@ -50,4 +50,18 @@ describe('<Footer /> Component', () => {
         expect(id).toEqual('#item2');
         expect(component.find('.footer-item--active').length).toEqual(1);
     });
+
+    it('should set default values at missing props and should not throw an error', () => {
+        const component = renderComponent({
+            navItems: props.navItems
+        });
+        component
+            .find('a')
+            .at(0)
+            .simulate('click');
+        expect(component.exists()).toBeTruthy();
+
+        const anotherFooterComponent = renderComponent();
+        expect(anotherFooterComponent.exists()).toBeTruthy();
+    });
 });

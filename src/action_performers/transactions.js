@@ -20,7 +20,6 @@ export function performGetAvailableAddresses() {
     );
 }
 
-// FIXME cover by unit tests
 export function performGetOpenTradePositions() {
     dispatcher.dispatchPromise(
         getOpenTradePositions,

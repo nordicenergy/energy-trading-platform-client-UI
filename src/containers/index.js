@@ -5,8 +5,6 @@ import App from './App';
 import Login from './Login';
 import RestorePassword from './RestorePassword';
 import Overview from './Overview';
-import Documents from './Documents';
-import SubmitMeter from './SubmitMeter';
 import Profile from './Profile';
 import About from './About';
 import TermsAndConditions from './TermsAndConditions';
@@ -27,8 +25,6 @@ export {
     Login,
     RestorePassword,
     Overview,
-    Documents,
-    SubmitMeter,
     Profile,
     FAQ,
     About,

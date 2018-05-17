@@ -38,6 +38,13 @@ describe('<LongPressButton /> component', () => {
 
         longPressButton.find('button').simulate('keyup', { key: 'Enter' });
         expect(longPressButton.state().isPressed).toBeFalsy();
+
+        longPressButton.find('button').simulate('keydown', { key: 'Enter' });
+        longPressButton.find('button').simulate('keyup', { key: 'Backspace' });
+        expect(longPressButton.state().isPressed).toBeTruthy();
+
+        longPressButton.find('button').simulate('keyup', { key: 'Enter' });
+        longPressButton.find('button').simulate('keydown', { key: 'Backspace' });
     });
 
     it('should not calls onPress if onPress is not a function', () => {

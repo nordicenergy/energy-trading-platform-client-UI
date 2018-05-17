@@ -10,4 +10,10 @@ describe('<AbstractContainer />', () => {
         component.unmount();
         expect(AbstractContainer.prototype.scrollToTop).toHaveBeenCalled();
     });
+
+    it('should set default scrollhandler and should not throw an error', () => {
+        const component = mount(<AbstractContainer />);
+        component.instance().scrollHandler();
+        expect(component.exists()).toBeTruthy();
+    });
 });

@@ -1,4 +1,6 @@
 import { transactionsReducer, initialState } from '../transactions';
+import { formatCurrency, formatDateTime, formatFloat } from '../../services/formatter';
+import { PATHS } from '../../services/routes';
 
 const { ACTIONS } = fixtures();
 
@@ -22,6 +24,12 @@ describe('Transactions reducer:', () => {
                 addresses: []
             });
         });
+        it('should handle GET_OPEN_TRADE_POSITIONS', () => {
+            const result = transactionsReducer(initialState, ACTIONS.getOpenTradePositions.pending);
+            expect(result.openTradePositions.loading).toEqual(true);
+            expect(result.openTradePositions.error).toEqual(null);
+            expect(result.openTradePositions.data).toEqual([]);
+        });
     });
     describe('Error cases:', () => {
         it('should handle GET_RECENT_TRANSACTIONS', () => {
@@ -42,6 +50,12 @@ describe('Transactions reducer:', () => {
                 addresses: []
             });
         });
+        it('should handle GET_OPEN_TRADE_POSITIONS', () => {
+            const result = transactionsReducer(initialState, ACTIONS.getOpenTradePositions.fail);
+            expect(result.openTradePositions.loading).toEqual(false);
+            expect(result.openTradePositions.error).toEqual('Error Message');
+            expect(result.openTradePositions.data).toEqual([]);
+        });
     });
     describe('Success cases:', () => {
         it('should handle GET_RECENT_TRANSACTIONS', () => {
@@ -55,6 +69,12 @@ describe('Transactions reducer:', () => {
             expect(result.availableAddresses.loading).toEqual(false);
             expect(result.availableAddresses.error).toEqual(null);
             expect(result.availableAddresses.data).toEqual(ACTIONS.getAvailableAddresses.success.payload);
+        });
+        it('should handle GET_OPEN_TRADE_POSITIONS', () => {
+            const result = transactionsReducer(initialState, ACTIONS.getOpenTradePositions.success);
+            expect(result.openTradePositions.loading).toEqual(false);
+            expect(result.openTradePositions.error).toEqual(null);
+            expect(result.openTradePositions.data).toEqual(ACTIONS.getOpenTradePositions.success.payload);
         });
     });
 });
@@ -130,6 +150,40 @@ function fixtures() {
             },
             pending: {
                 type: 'GET_AVAILABLE_ADDRESSES',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
+        getOpenTradePositions: {
+            success: {
+                type: 'GET_OPEN_TRADE_POSITIONS',
+                payload: {
+                    data: [
+                        {
+                            offerAddressUrl: 'scannerURL/producer',
+                            offerAddress: 'producer',
+                            producerUrl: 'PATHS.buyEnergyPath/producerIdPath/producerId',
+                            producerName: '',
+                            offerIssued: '',
+                            validOn: '--',
+                            energyOffered: '--',
+                            energyAvailable: '',
+                            price: ''
+                        }
+                    ]
+                },
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'GET_OPEN_TRADE_POSITIONS',
+                payload: null,
+                error: 'Error Message',
+                loading: false
+            },
+            pending: {
+                type: 'GET_OPEN_TRADE_POSITIONS',
                 payload: null,
                 error: null,
                 loading: true

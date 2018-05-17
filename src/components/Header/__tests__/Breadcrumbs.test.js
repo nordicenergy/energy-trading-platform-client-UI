@@ -1,6 +1,6 @@
 import React from 'react';
 import Breadcrumbs from '../Breadcrumbs';
-import Logo from '../../Logo';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { mount } from 'enzyme';
 
 function renderComponent({
@@ -60,6 +60,16 @@ describe('<Breadcrumbs /> Component', () => {
         expect(onClick).toHaveBeenCalledWith('trading');
     });
 
+    it('should call onKeyUp event handler', () => {
+        const component = renderComponent({});
+        component.instance().handleBreadcrumbEnterPress = jest.fn();
+        component
+            .find('a')
+            .at(0)
+            .simulate('keyUp', { key: 'Enter' });
+        expect(component.instance().handleBreadcrumbEnterPress).toHaveBeenCalled();
+    });
+
     it('should call onClick event handler only on enter key press', () => {
         const onClick = jest.fn();
         const component = renderComponent({
@@ -77,5 +87,30 @@ describe('<Breadcrumbs /> Component', () => {
             .at(1)
             .simulate('keyUp', { key: 'Tab' });
         expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('should render icon in breadcrumbs', () => {
+        const component = renderComponent({
+            items: [
+                {
+                    id: 'trading',
+                    label: 'Trading',
+                    path: 'trading',
+                    icon: 'faChartBar'
+                },
+                {
+                    id: 'wattcoin',
+                    label: 'Wattcoin',
+                    path: 'trading/wattcoin',
+                    icon: 'faBook'
+                },
+                {
+                    id: 'test1',
+                    label: 'Test1',
+                    path: 'trading/test1'
+                }
+            ]
+        });
+        expect(component.find(FontAwesomeIcon)).toHaveLength(4);
     });
 });
