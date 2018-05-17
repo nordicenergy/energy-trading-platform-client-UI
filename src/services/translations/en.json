@@ -124,7 +124,6 @@
     "app.producerPage.selectButton": "Select Producer",
     "app.producerPage.switchBack": "Switch back to Lition Standard",
     "app.producerPage.showButton": "Show producers",
-    "app.producerPage.transactionHash": "Transaction hash",
     "app.producerPage.ethereumAddress": "Ethereum Address",
 
     "app.header.logoutConfirmMessage": "Are you sure that you'd like to logout from the system?",
