@@ -8,6 +8,7 @@ const transactions = [
         description: 'Bought 23 kWh Alice',
         transactionAmount: 0.81,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -21,6 +22,7 @@ const transactions = [
         description: 'Monthly invoice',
         transactionAmount: 0.081,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -34,6 +36,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -47,6 +50,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -60,6 +64,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -73,6 +78,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -86,6 +92,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -110,7 +117,8 @@ const labels = {
     recentTransactionsDetailsFrom: 'From',
     recentTransactionsDetailsAmount: 'Amount',
     recentTransactionsDetailsPrice: 'Price per kWh',
-    recentTransactionsDetailsHash: 'Blockchain-Transaction'
+    recentTransactionsDetailsHash: 'Blockchain-Transaction',
+    recentTransactionsDetailsStatus: 'Status'
 }
 
 const wrapperStyles = {
@@ -131,6 +139,7 @@ const transactions = [
         description: 'Bought 23 kWh Alice',
         transactionAmount: 0.81,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -144,6 +153,7 @@ const transactions = [
         description: 'Monthly invoice',
         transactionAmount: 0.081,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -157,6 +167,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -170,6 +181,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -183,6 +195,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -196,6 +209,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -209,6 +223,7 @@ const transactions = [
         description: 'Bought 23 kWh from Peter',
         transactionAmount: 0.8,
         details: {
+            status: "Success",
             hash: '9d98edfe27bb7f489fb1ced93d2b6e4093e5e40e5103356a602fecfc8d154743',
             price: 2.5,
             amount: 7.74,
@@ -233,7 +248,8 @@ const labels = {
     recentTransactionsDetailsFrom: 'From',
     recentTransactionsDetailsAmount: 'Amount',
     recentTransactionsDetailsPrice: 'Price per kWh',
-    recentTransactionsDetailsHash: 'Blockchain-Transaction'
+    recentTransactionsDetailsHash: 'Blockchain-Transaction',
+    recentTransactionsDetailsStatus: 'Status'
 }
 
 const wrapperStyles = {

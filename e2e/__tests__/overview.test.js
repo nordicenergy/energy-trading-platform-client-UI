@@ -1,8 +1,10 @@
-import factory, { TIMEOUT } from '../page_objects';
+import config from '../config';
+import factory from '../page_objects';
 
+const { timeout, credentials } = config;
 let overviewPage, pageFactory;
 
-describe('Work with overview page', () => {
+describe('Walk through overview page', () => {
     beforeAll(async () => {
         pageFactory = await factory();
     });
@@ -16,18 +18,19 @@ describe('Work with overview page', () => {
         async () => {
             const loginPage = await pageFactory.createLoginPage();
             await loginPage.open();
-            overviewPage = await loginPage.login('powerclouduser', 'powercloudpass');
+            overviewPage = await loginPage.login(credentials.username, credentials.password);
+            await overviewPage.open();
         },
-        TIMEOUT
+        timeout
     );
 
     test(
-        'User can open wattcoin page for more details about recent transactions',
+        'User can open "Show Transactions" page for more details about recent transactions',
         async () => {
             await overviewPage.open();
             await overviewPage.clickMoreOnRecentTransactions();
         },
-        TIMEOUT
+        timeout
     );
 
     test(
@@ -36,7 +39,7 @@ describe('Work with overview page', () => {
             await overviewPage.open();
             await overviewPage.clickMyProducer();
         },
-        TIMEOUT
+        timeout
     );
 
     test(
@@ -45,7 +48,7 @@ describe('Work with overview page', () => {
             await overviewPage.open();
             await overviewPage.clickBuyEnergy();
         },
-        TIMEOUT
+        timeout
     );
 
     test(
@@ -54,6 +57,6 @@ describe('Work with overview page', () => {
             await overviewPage.open();
             await overviewPage.clickSellEnergy();
         },
-        TIMEOUT
+        timeout
     );
 });
