@@ -1,5 +1,7 @@
-import factory, { TIMEOUT } from '../page_objects';
+import config from '../config';
+import factory from '../page_objects';
 
+const { timeout, credentials } = config;
 let loginPage, overviewPage, pageFactory;
 
 describe('Sign-in / login app processes', () => {
@@ -16,9 +18,9 @@ describe('Sign-in / login app processes', () => {
         'User can login into the app',
         async () => {
             await loginPage.open();
-            overviewPage = await loginPage.login('powerclouduser', 'powercloudpass');
+            overviewPage = await loginPage.login(credentials.username, credentials.password);
         },
-        TIMEOUT
+        timeout
     );
 
     test(
@@ -27,7 +29,7 @@ describe('Sign-in / login app processes', () => {
             await overviewPage.open();
             await overviewPage.logout();
         },
-        TIMEOUT
+        timeout
     );
 
     test(
@@ -36,6 +38,6 @@ describe('Sign-in / login app processes', () => {
             await loginPage.open();
             await loginPage.clickForgotPassword();
         },
-        TIMEOUT
+        timeout
     );
 });
