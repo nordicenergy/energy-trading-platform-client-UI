@@ -4,7 +4,7 @@ const config = {
         username: 'powerclouduser',
         password: 'powercloudpass'
     },
-    timeout: 16000,
+    timeout: 20000,
     headless: true,
 
     mobileOptions: {
