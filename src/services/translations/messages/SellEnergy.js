@@ -72,6 +72,34 @@ const messages = defineMessages({
     addedOfferSuccessMessage: {
         id: 'app.sellEnergyPage.addedOfferSuccessMessage',
         defaultMessage: 'Offer successfully added.'
+    },
+    capacityEmptyFieldError: {
+        id: 'app.sellEnergyPage.capacityEmptyFieldError',
+        defaultMessage: 'Capacity field should not be empty'
+    },
+    capacityInvalidFieldError: {
+        id: 'app.sellEnergyPage.capacityInvalidFieldError',
+        defaultMessage: 'Capacity should be a number'
+    },
+    cityFieldError: {
+        id: 'app.sellEnergyPage.cityFieldError',
+        defaultMessage: 'City field should not be empty'
+    },
+    streetFieldError: {
+        id: 'app.sellEnergyPage.streetFieldError',
+        defaultMessage: 'Street field should not be empty'
+    },
+    postcodeFieldError: {
+        id: 'app.sellEnergyPage.postcodeFieldError',
+        defaultMessage: 'Postcode field should not be empty'
+    },
+    descriptionFieldError: {
+        id: 'app.sellEnergyPage.descriptionFieldError',
+        defaultMessage: 'Description field should not be empty'
+    },
+    nameFieldError: {
+        id: 'app.sellEnergyPage.nameFieldError',
+        defaultMessage: 'Name field should not be empty'
     }
 });
 

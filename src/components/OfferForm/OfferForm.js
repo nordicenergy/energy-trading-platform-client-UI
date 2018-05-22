@@ -52,7 +52,8 @@ class OfferForm extends React.PureComponent {
         if (!this.state.isEdited) {
             this.setState({
                 ...this.state,
-                ...pick(this.props.offer, OFFER_FIELDS)
+                ...pick(this.props.offer, OFFER_FIELDS),
+                isEdited: false
             });
         }
     }
@@ -64,9 +65,6 @@ class OfferForm extends React.PureComponent {
             onSubmit({
                 ...pick(this.state, OFFER_FIELDS)
             });
-        this.setState({
-            isEdited: false
-        });
     }
 
     handleChange({ name, value }) {
@@ -120,6 +118,7 @@ class OfferForm extends React.PureComponent {
                             name="name"
                             label={labels.nameField}
                             value={this.state.name}
+                            error={this.props.errors.name}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -149,6 +148,7 @@ class OfferForm extends React.PureComponent {
                             label={labels.capacityField}
                             addon="MW"
                             value={this.state.capacity}
+                            error={this.props.errors.capacity}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -166,6 +166,7 @@ class OfferForm extends React.PureComponent {
                             name="city"
                             label={labels.cityField}
                             value={this.state.city}
+                            error={this.props.errors.city}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -174,6 +175,7 @@ class OfferForm extends React.PureComponent {
                             name="street"
                             label={labels.streetField}
                             value={this.state.street}
+                            error={this.props.errors.street}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -182,6 +184,7 @@ class OfferForm extends React.PureComponent {
                             name="postcode"
                             label={labels.postcodeField}
                             value={this.state.postcode}
+                            error={this.props.errors.postcode}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -190,6 +193,7 @@ class OfferForm extends React.PureComponent {
                             name="description"
                             label={labels.descriptionField}
                             value={this.state.description}
+                            error={this.props.errors.description}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -208,10 +212,10 @@ class OfferForm extends React.PureComponent {
 OfferForm.propTypes = {
     className: PropTypes.string,
     labels: PropTypes.shape({
-        deltaPriceFieldBefore: PropTypes.string,
-        deltaPriceField: PropTypes.string,
-        deltaPriceFieldAfter: PropTypes.string,
-        deltaPriceFieldUnits: PropTypes.string,
+        salePriceFieldBefore: PropTypes.string,
+        salePriceField: PropTypes.string,
+        salePriceFieldAfter: PropTypes.string,
+        salePriceFieldUnits: PropTypes.string,
         plantTypeField: PropTypes.string,
         annualProductionField: PropTypes.string,
         capacityField: PropTypes.string,
@@ -226,12 +230,21 @@ OfferForm.propTypes = {
     offer: PropTypes.shape({
         price: PropTypes.number,
         plantType: PropTypes.string,
+        name: PropTypes.string,
         annualProduction: PropTypes.string,
         date: PropTypes.number,
         capacity: PropTypes.number,
         city: PropTypes.string,
         street: PropTypes.string,
         postcode: PropTypes.string,
+        description: PropTypes.string
+    }),
+    errors: PropTypes.shape({
+        capacity: PropTypes.string,
+        city: PropTypes.string,
+        street: PropTypes.string,
+        postcode: PropTypes.string,
+        name: PropTypes.string,
         description: PropTypes.string
     }),
     disabled: PropTypes.bool,

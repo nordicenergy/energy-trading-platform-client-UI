@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import OfferForm from '../OfferForm';
 
 function renderComponent({ ...otherProps } = {}, mountFn = shallow) {
-    return mountFn(<OfferForm {...otherProps} />);
+    return mountFn(<OfferForm {...otherProps} errors={{}} />);
 }
 
 describe('<OfferForm /> component', () => {

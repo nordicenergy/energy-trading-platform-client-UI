@@ -15,6 +15,7 @@ import {
 import './SellEnergy.css';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
+import Validator from 'async-validator';
 
 export class SellEnergy extends AbstractContainer {
     constructor(props, context) {
@@ -31,7 +32,8 @@ export class SellEnergy extends AbstractContainer {
         ];
         super(props, context, breadcrumbs);
         this.state = {
-            updated: false
+            updated: false,
+            errors: {}
         };
     }
 
@@ -91,6 +93,61 @@ export class SellEnergy extends AbstractContainer {
         performSetupLoaderVisibility(loading);
     }
 
+    prepareValidator() {
+        const { formatMessage } = this.context.intl;
+        const validationSchema = {
+            capacity: [
+                {
+                    validator(rule, value, callback) {
+                        if (!value || value.length === 0) {
+                            return callback({
+                                message: formatMessage(messages.capacityEmptyFieldError)
+                            });
+                        }
+                        return callback();
+                    }
+                },
+                {
+                    validator(rule, value, callback) {
+                        if (!isFinite(value)) {
+                            return callback({
+                                message: formatMessage(messages.capacityInvalidFieldError)
+                            });
+                        }
+                        return callback();
+                    }
+                }
+            ],
+            city: {
+                type: 'string',
+                required: true,
+                message: formatMessage(messages.cityFieldError)
+            },
+            street: {
+                type: 'string',
+                required: true,
+                message: formatMessage(messages.streetFieldError)
+            },
+            postcode: {
+                type: 'string',
+                required: true,
+                message: formatMessage(messages.postcodeFieldError)
+            },
+            description: {
+                type: 'string',
+                required: true,
+                message: formatMessage(messages.descriptionFieldError)
+            },
+            name: {
+                type: 'string',
+                required: true,
+                message: formatMessage(messages.nameFieldError)
+            }
+        };
+
+        return new Validator(validationSchema);
+    }
+
     handleBackLinkClick(event) {
         event.preventDefault();
         const { history } = this.context.router;
@@ -98,9 +155,26 @@ export class SellEnergy extends AbstractContainer {
     }
 
     submitOffer(offerData) {
-        performAddOwnedProducerOffer(this.props.ownedProducerOfferInfo.id, offerData);
-        this.setState({
-            updated: true
+        const validator = this.prepareValidator();
+
+        validator.validate(offerData, errors => {
+            if (errors) {
+                this.setState({
+                    errors: errors.reduce(
+                        (errorsState, { field, message }) => ({
+                            ...errorsState,
+                            [field]: message
+                        }),
+                        {}
+                    )
+                });
+            } else {
+                this.setState({
+                    errors: {},
+                    updated: true
+                });
+                performAddOwnedProducerOffer(this.props.ownedProducerOfferInfo.id, offerData);
+            }
         });
     }
 
@@ -139,6 +213,7 @@ export class SellEnergy extends AbstractContainer {
                     labels={labels}
                     offer={this.props.ownedProducerOfferInfo}
                     marketPrice={this.props.currentMarketPrice}
+                    errors={this.state.errors}
                     onSubmit={offerData => this.submitOffer(offerData)}
                 />
                 {this.renderOffersSlider()}
