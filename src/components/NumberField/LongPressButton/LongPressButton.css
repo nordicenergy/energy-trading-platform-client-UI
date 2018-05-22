@@ -18,8 +18,10 @@
     appearance: none;
 }
 
-.long-press-button:hover,
 .long-press-button:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
+}
+
+.long-press-button:hover {
     background: var(--button-hover-color);
 }

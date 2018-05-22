@@ -17,11 +17,10 @@
 }
 
 .disclosure-arrow:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
 .disclosure-arrow:hover .disclosure-arrow-border,
-.disclosure-arrow:focus .disclosure-arrow-border,
 .disclosure-arrow--expanded .disclosure-arrow-border {
     stroke: var(--label-color);
 }

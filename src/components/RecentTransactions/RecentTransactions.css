@@ -65,11 +65,10 @@ caption .recent-transactions-caption-content > div:last-child {
 }
 
 .recent-transactions-container .recent-transactions-row:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
-.recent-transactions-container .recent-transactions-row--expand td,
-.recent-transactions-container .recent-transactions-row:focus td {
+.recent-transactions-container .recent-transactions-row--expand td {
     color: var(--label-color);
     transition: 0.6s;
 }

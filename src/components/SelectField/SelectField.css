@@ -128,8 +128,11 @@
     cursor: not-allowed;
 }
 
-.options-list-item:hover,
 .options-list-item:focus {
+    outline: var(--focused-control-outline);
+}
+
+.options-list-item:hover {
     background: var(--select-option-hov-bg-color);
     color: white;
 }

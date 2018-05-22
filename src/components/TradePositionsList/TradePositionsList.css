@@ -52,6 +52,10 @@
     list-style: none;
 }
 
+.trade-position-data a:focus {
+    outline: var(--focused-control-outline);
+}
+
 .trade-positions > * {
     margin-bottom: 0.5em;
 }

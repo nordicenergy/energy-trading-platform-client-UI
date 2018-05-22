@@ -19,7 +19,7 @@
 }
 
 .header-button:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
 .header-button-icon-container {
@@ -27,8 +27,7 @@
     top: 0.1em;
 }
 
-.header-button:hover,
-.header-button:focus {
+.header-button:hover {
     color: var(--hover-icon-color);
 }
 

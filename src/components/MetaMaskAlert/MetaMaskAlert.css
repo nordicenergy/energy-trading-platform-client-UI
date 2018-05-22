@@ -85,8 +85,11 @@
     transition: color 0.3s ease-out;
 }
 
-.meta-mask-alert a:hover,
 .meta-mask-alert a:focus {
+    outline: var(--focused-control-outline);
+}
+
+.meta-mask-alert a:hover {
     color: var(--button-primary-hov-color);
 }
 

@@ -36,8 +36,11 @@
     transition: 200ms ease-in;
 }
 
-.select-field--language.select-field--focused .select-control-text,
 .select-field--language .select-field-layout:focus .select-control-text {
+    outline: var(--focused-control-outline);
+}
+
+.select-field--language.select-field--focused .select-control-text {
     color: var(--label-color);
 }
 

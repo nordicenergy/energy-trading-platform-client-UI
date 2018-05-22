@@ -78,8 +78,11 @@
     appearance: none;
 }
 
-.confirm-dialog-actions > *:hover,
 .confirm-dialog-actions > *:focus {
+    outline: var(--focused-control-outline);
+}
+
+.confirm-dialog-actions > *:hover {
     background: var(--button-hover-color);
     color: white;
 }

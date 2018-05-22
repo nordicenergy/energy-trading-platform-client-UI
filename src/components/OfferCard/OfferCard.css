@@ -32,7 +32,7 @@
 }
 
 .offer-card .edit-button:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
 .offer-card .offer-id {
@@ -67,13 +67,11 @@
 }
 
 .offer-card .period-info a:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
 .offer-card .edit-button:hover,
-.offer-card .edit-button:focus,
-.offer-card .period-info a:hover,
-.offer-card .period-info a:focus {
+.offer-card .period-info a:hover {
     color: var(--button-hover-color);
 }
 

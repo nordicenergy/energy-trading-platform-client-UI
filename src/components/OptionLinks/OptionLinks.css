@@ -26,14 +26,13 @@
     border-right: none;
 }
 
-.option-links > a:hover,
-.option-links > a:focus {
+.option-links > a:hover {
     background: var(--option-link-hov-bg-color);
     color: var(--option-link-hov-color);
 }
 
 .option-links > a:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
 .option-links > a > span {

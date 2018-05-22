@@ -45,7 +45,7 @@
 }
 
 .faq-page .question-container .title:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
 .faq-page .question-container.expanded .title,
@@ -53,8 +53,7 @@
     color: var(--question-active-color);
 }
 
-.faq-page .question-container .title:hover,
-.faq-page .question-container .title:focus {
+.faq-page .question-container .title:hover {
     color: var(--question-hover-color);
 }
 

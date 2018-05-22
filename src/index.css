@@ -15,7 +15,7 @@
     --ming: #3c6e8c;
     --calypso-color: #2b658a;
     --jelly-bean-color: #2771ab;
-    --steel-blue: #4083b5;
+    --steel-blue-color: #4083b5;
     --scooter-color: #30acc1;
     --pelorous-color: #45afbf;
     --bali-hai-color: #809dad;
@@ -91,7 +91,7 @@
     --checked-filter-checkbox-bg-color: var(--jelly-bean-color);
     --filter-checkbox-icon-color: var(--jelly-bean-color);
     --filter-checkbox-border-color: var(--athens-gray-color);
-    --filter-checkbox-checked-border-color: var(--steel-blue);
+    --filter-checkbox-checked-border-color: var(--steel-blue-color);
     --filter-checkbox-hov-border-color: var(--ming);
 
     --producer-card-bg-color: var(--black-pearl-color);
@@ -142,6 +142,8 @@
 
     --trade-position-shadow-color: var(--stone-gray-color);
     --trade-position-general-color: var(--big-stone-color);
+
+    --focused-control-outline: var(--border-width) dotted var(--steel-blue-color);
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;
