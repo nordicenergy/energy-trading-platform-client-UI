@@ -17,9 +17,11 @@
     text-decoration: none;
 }
 
-.reset-password-link:hover,
 .reset-password-link:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
+}
+
+.reset-password-link:hover {
     color: white;
 }
 

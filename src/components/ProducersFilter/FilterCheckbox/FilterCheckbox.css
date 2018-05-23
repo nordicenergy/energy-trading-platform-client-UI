@@ -49,18 +49,20 @@
     color: white;
 }
 
-.filter-checkbox .filter-checkbox-label:hover,
-.filter-checkbox:focus .filter-checkbox-label {
+.filter-checkbox .filter-checkbox-label:hover {
     background: var(--filter-checkbox-hov-bg-color);
     color: white;
 }
 
-.filter-checkbox:focus {
+.filter-checkbox {
     outline: none;
 }
 
-.filter-checkbox .filter-checkbox-label:hover > .filter-checkbox-icon,
-.filter-checkbox:focus .filter-checkbox-label > .filter-checkbox-icon {
+.filter-checkbox:focus .filter-checkbox-label {
+    outline: var(--focused-control-outline);
+}
+
+.filter-checkbox .filter-checkbox-label:hover > .filter-checkbox-icon {
     border-right: var(--border-width) solid var(--filter-checkbox-hov-border-color);
     color: white;
 }

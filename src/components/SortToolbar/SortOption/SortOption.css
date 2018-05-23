@@ -20,11 +20,10 @@
 }
 
 .sort-option:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
-.sort-option:hover,
-.sort-option:focus {
+.sort-option:hover {
     background-color: var(--athens-gray-color);
 }
 

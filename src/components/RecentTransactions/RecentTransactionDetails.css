@@ -18,11 +18,10 @@
 }
 
 .recent-transactions-details a:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
-.recent-transactions-details a:hover,
-.recent-transactions-details a:focus {
+.recent-transactions-details a:hover {
     color: var(--button-primary-hov-color);
 }
 

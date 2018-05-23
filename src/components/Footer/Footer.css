@@ -51,8 +51,11 @@
     content: '';
 }
 
-.app-footer nav a:hover,
 .app-footer nav a:focus {
+    outline: var(--focused-control-outline);
+}
+
+.app-footer nav a:hover {
     outline: none;
     color: var(--general-text-color);
     transition: color 0.2s ease-in;

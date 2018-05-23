@@ -20,7 +20,7 @@
 }
 
 .menu-item:focus {
-    outline: none;
+    outline: var(--focused-control-outline);
 }
 
 .menu-item--active {
@@ -43,8 +43,7 @@
     text-align: center;
 }
 
-.menu-item:hover .menu-item-icon svg,
-.menu-item:focus .menu-item-icon svg {
+.menu-item:hover .menu-item-icon svg {
     transform: scale(1.2);
     will-change: transform;
     transition: transform 0.2s;
@@ -66,8 +65,7 @@
     will-change: color, background;
 }
 
-.menu-item:hover .menu-item-label,
-.menu-item:focus .menu-item-label {
+.menu-item:hover .menu-item-label {
     background: var(--navigation-bg-color);
     color: white;
     transition: 0.2s;

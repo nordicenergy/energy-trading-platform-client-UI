@@ -5,3 +5,7 @@
     max-width: 2.125rem;
     max-height: 2.125rem;
 }
+
+.back-link:focus {
+    outline: var(--focused-control-outline);
+}

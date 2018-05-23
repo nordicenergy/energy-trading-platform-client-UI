@@ -52,3 +52,7 @@
 .toast-close-button:hover {
     opacity: 0.75;
 }
+
+.toast-close-button:focus {
+    outline: var(--focused-control-outline);
+}

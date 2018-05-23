@@ -7,7 +7,19 @@ Header example:
 Header example with breadcrumbs:
 
 ```jsx
-const path = '/trading/my_producer/john_doe';
+const breadCrumbs = [
+    {
+         id: 'trading',
+         label: 'Trading',
+         icon: 'faChartBar',
+         path: '#breadcrumbs'
+    },
+    {
+        id: 'wattcoin',
+        label: 'Wattcoin',
+        path: '#breadcrumbs'
+    }
+];
 
 const iconsTypes = {
     '': 'faHome',
@@ -16,5 +28,5 @@ const iconsTypes = {
     trading: 'faChartBar',
     profile: 'faUser'
 };
-<Header path={path} iconsTypes={iconsTypes} locales={['en', 'de']} locale="en" onLocaleChange={() => null} />;
+<Header breadCrumbs={breadCrumbs} iconsTypes={iconsTypes} locales={['en', 'de']} locale="en" onLocaleChange={() => null} />;
 ```

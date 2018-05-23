@@ -11,8 +11,8 @@
     color: var(--breadcrumb-item-color);
 }
 
-.breadcrumb-item:focus {
-    outline: none;
+.breadcrumb-item a:focus {
+    outline: var(--focused-control-outline);
 }
 
 .breadcrumb-item a {
@@ -22,10 +22,8 @@
     text-decoration: none;
 }
 
-.breadcrumb-item a:hover,
-.breadcrumb-item a:focus {
+.breadcrumb-item a:hover {
     color: white;
-    outline: none;
 }
 
 .icon-breadcrumb {
