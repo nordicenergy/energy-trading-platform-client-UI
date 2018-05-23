@@ -188,11 +188,11 @@
     "app.sellEnergyPage.deleteButton": "Delete the offer",
     "app.sellEnergyPage.addedOfferSuccessMessage": "Offer successfully added.",
 
-    "app.sellEnergyPage.capacityEmptyFieldError": "Capacity field should not be empty",
-    "app.sellEnergyPage.capacityInvalidFieldError": "Capacity should be a number",
-    "app.sellEnergyPage.cityFieldError": "City field should not be empty",
-    "app.sellEnergyPage.streetFieldError": "Street field should not be empty",
-    "app.sellEnergyPage.postcodeFieldError": "Postcode field should not be empty",
-    "app.sellEnergyPage.descriptionFieldError": "Description field should not be empty",
-    "app.sellEnergyPage.nameFieldError": "Name field should not be empty"
+    "app.sellEnergyPage.capacityEmptyFieldError": "Capacity field should not be empty.",
+    "app.sellEnergyPage.capacityInvalidFieldError": "Capacity should be a number.",
+    "app.sellEnergyPage.cityFieldError": "City field should not be empty.",
+    "app.sellEnergyPage.streetFieldError": "Street field should not be empty.",
+    "app.sellEnergyPage.postcodeFieldError": "Postcode field should not be empty.",
+    "app.sellEnergyPage.descriptionFieldError": "Description field should not be empty.",
+    "app.sellEnergyPage.nameFieldError": "Name field should not be empty."
 }
