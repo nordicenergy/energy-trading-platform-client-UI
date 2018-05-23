@@ -217,13 +217,13 @@ describe('<SellEnergy /> container', () => {
             price: 0,
             plantType: 'solar',
             annualProduction: '',
-            capacity: 0,
+            capacity: '11',
             date: 0,
-            city: '',
-            street: '',
-            postcode: '',
-            description: '',
-            name: ''
+            city: 'test city',
+            street: 'test street',
+            postcode: '111',
+            description: 'test description',
+            name: 'test name'
         };
         const component = renderComponent({}, mountWithIntl);
         component
@@ -232,6 +232,61 @@ describe('<SellEnergy /> container', () => {
             .onSubmit(offerDummy);
         expect(producersActions.performAddOwnedProducerOffer).toHaveBeenCalledWith(3, offerDummy);
         expect(component.state('updated')).toBe(true);
+    });
+
+    it('should validate fields', () => {
+        producersActions.performAddOwnedProducerOffer = jest.fn();
+        const offerDummy = {
+            price: 0,
+            plantType: '',
+            annualProduction: '',
+            capacity: '',
+            date: 0,
+            city: '',
+            street: '',
+            postcode: '',
+            description: '',
+            name: ''
+        };
+        // Disable console warning for the test.
+        jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+        const component = renderComponent({}, mountWithIntl);
+        component
+            .find('OfferForm')
+            .props()
+            .onSubmit(offerDummy);
+        expect(producersActions.performAddOwnedProducerOffer).not.toHaveBeenCalled();
+        expect(component.state().errors).toHaveProperty('capacity');
+        expect(component.state().errors).toHaveProperty('city');
+        expect(component.state().errors).toHaveProperty('street');
+        expect(component.state().errors).toHaveProperty('postcode');
+        expect(component.state().errors).toHaveProperty('description');
+        expect(component.state().errors).toHaveProperty('name');
+    });
+
+    it('should validate capacity field and check whether it a number', () => {
+        producersActions.performAddOwnedProducerOffer = jest.fn();
+        const offerDummy = {
+            price: 0,
+            plantType: 'solar',
+            annualProduction: '',
+            capacity: '11aaa',
+            date: 0,
+            city: 'test city',
+            street: 'test street',
+            postcode: '111',
+            description: 'test description',
+            name: 'test name'
+        };
+        // Disable console warning for the test.
+        jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+        const component = renderComponent({}, mountWithIntl);
+        component
+            .find('OfferForm')
+            .props()
+            .onSubmit(offerDummy);
+        expect(producersActions.performAddOwnedProducerOffer).not.toHaveBeenCalled();
+        expect(component.state().errors).toHaveProperty('capacity');
     });
 
     it('should calls performSetupLoaderVisibility when receive new loading property', () => {
