@@ -98,24 +98,15 @@ export class SellEnergy extends AbstractContainer {
         const validationSchema = {
             capacity: [
                 {
-                    validator(rule, value, callback) {
-                        if (!value || value.length === 0) {
-                            return callback({
-                                message: formatMessage(messages.capacityEmptyFieldError)
-                            });
-                        }
-                        return callback();
-                    }
+                    required: true,
+                    message: formatMessage(messages.capacityEmptyFieldError)
                 },
                 {
-                    validator(rule, value, callback) {
-                        if (!isFinite(value)) {
-                            return callback({
-                                message: formatMessage(messages.capacityInvalidFieldError)
-                            });
-                        }
-                        return callback();
-                    }
+                    type: 'number',
+                    transform(value) {
+                        return Number(value);
+                    },
+                    message: formatMessage(messages.capacityInvalidFieldError)
                 }
             ],
             city: {

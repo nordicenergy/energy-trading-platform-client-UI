@@ -92,7 +92,7 @@ class OfferForm extends React.PureComponent {
     }
 
     render() {
-        const { className, labels, plantTypeOptions, marketPrice, disabled } = this.props;
+        const { className, labels, plantTypeOptions, marketPrice, disabled, errors } = this.props;
         const classes = classNames('offer-form', className);
 
         return (
@@ -118,7 +118,7 @@ class OfferForm extends React.PureComponent {
                             name="name"
                             label={labels.nameField}
                             value={this.state.name}
-                            error={this.props.errors.name}
+                            error={errors.name}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -148,7 +148,7 @@ class OfferForm extends React.PureComponent {
                             label={labels.capacityField}
                             addon="MW"
                             value={this.state.capacity}
-                            error={this.props.errors.capacity}
+                            error={errors.capacity}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -166,7 +166,7 @@ class OfferForm extends React.PureComponent {
                             name="city"
                             label={labels.cityField}
                             value={this.state.city}
-                            error={this.props.errors.city}
+                            error={errors.city}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -175,7 +175,7 @@ class OfferForm extends React.PureComponent {
                             name="street"
                             label={labels.streetField}
                             value={this.state.street}
-                            error={this.props.errors.street}
+                            error={errors.street}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -184,7 +184,7 @@ class OfferForm extends React.PureComponent {
                             name="postcode"
                             label={labels.postcodeField}
                             value={this.state.postcode}
-                            error={this.props.errors.postcode}
+                            error={errors.postcode}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
@@ -193,7 +193,7 @@ class OfferForm extends React.PureComponent {
                             name="description"
                             label={labels.descriptionField}
                             value={this.state.description}
-                            error={this.props.errors.description}
+                            error={errors.description}
                             onChange={({ target }) => this.handleChange(target)}
                         />
                     </div>
