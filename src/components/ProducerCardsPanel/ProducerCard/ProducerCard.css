@@ -32,11 +32,8 @@
     transition: opacity 200ms ease-in;
 }
 
-.producer-card:focus {
-    outline: var(--focused-control-outline);
-}
-
-.producer-card:hover::before {
+.producer-card:hover::before,
+.producer-card:focus::before {
     opacity: 0.75;
 }
 
