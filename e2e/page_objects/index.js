@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import config from '../config';
-const { host, headless, desktopOptions, mobileOptions, tabletOptions, tvOptions } = config;
+const { host, headless, timeout, desktopOptions, mobileOptions, tabletOptions, tvOptions } = config;
 
 import createLoginPage from './login';
 import createOverviewPage from './overview';
@@ -26,6 +26,7 @@ async function factory() {
 
         const pageInstance = await browser.newPage();
         await pageInstance.setViewport(deviceOptions);
+        await pageInstance.setDefaultNavigationTimeout(timeout);
         const pageOptions = { url: host };
 
         return {
@@ -50,6 +51,7 @@ async function initBrowser({ height, width, headless }) {
     return await puppeteer.launch({
         headless,
         slowMo: 80,
+        timeout,
         args: [`--window-size=${width},${height}`]
     });
 }
