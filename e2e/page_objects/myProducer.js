@@ -22,8 +22,8 @@ export class MyProducerPage extends AbstractPageObject {
     }
 
     async openProducerList() {
-        await this.page.waitForSelector('.my-producer-page-controls button');
-        await this.page.click('.my-producer-page-controls button');
+        await this.page.waitForSelector('.my-producer-page-controls button:first-child');
+        await this.page.click('.my-producer-page-controls button:first-child');
         await this.page.waitForSelector('.buy-energy-page');
         return createBuyEnergyPage(this.page, this.options);
     }
