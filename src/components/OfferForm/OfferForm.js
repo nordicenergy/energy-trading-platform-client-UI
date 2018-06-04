@@ -277,6 +277,7 @@ OfferForm.defaultProps = {
     ],
     marketPrice: 2.5,
     offer: {},
+    errors: {},
     disabled: false
 };
 
