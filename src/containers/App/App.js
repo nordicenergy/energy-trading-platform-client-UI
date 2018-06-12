@@ -103,7 +103,7 @@ export class App extends React.Component {
                 label: formatMessage(messages.documents),
                 active: headRoute === PATHS.documents.id,
                 path: PATHS.documents.path,
-                disabled: true
+                disabled: false
             },
             {
                 id: PATHS.submit_meter.id,
