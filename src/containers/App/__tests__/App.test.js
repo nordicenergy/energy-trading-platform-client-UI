@@ -104,7 +104,7 @@ describe('Main <App /> Component', () => {
 
         expect(menu.props().items).toEqual([
             { active: true, icon: 'faHome', id: '', label: 'test', path: '/' },
-            { active: false, disabled: false, icon: 'faBook', id: 'documents', label: 'test', path: '/documents' },
+            { active: false, icon: 'faBook', id: 'documents', label: 'test', path: '/documents' },
             {
                 active: false,
                 disabled: true,

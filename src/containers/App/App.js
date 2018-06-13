@@ -102,8 +102,7 @@ export class App extends React.Component {
                 icon: icons.documents,
                 label: formatMessage(messages.documents),
                 active: headRoute === PATHS.documents.id,
-                path: PATHS.documents.path,
-                disabled: false
+                path: PATHS.documents.path
             },
             {
                 id: PATHS.submit_meter.id,
