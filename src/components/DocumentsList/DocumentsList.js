@@ -16,7 +16,7 @@ class DocumentsList extends React.Component {
                 <td>{document.Name || '-'}</td>
                 <td>
                     <div className="document-download-icon">
-                        <a href={`${SESSION_API_URL}${document.link}`} download target="_blank">
+                        <a href={document.link ? `${SESSION_API_URL}${document.link}` : null} download target="_blank">
                             <FontAwesomeIcon icon={icons.faDownload} />
                         </a>
                     </div>
