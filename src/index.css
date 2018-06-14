@@ -129,6 +129,9 @@
     --disclosure-arrow-hover-color: var(--pelorous-color);
     --disclosure-arrow-border-color: var(--transparent-blumine-color);
 
+    --download-icon-border-color: var(--transparent-blumine-color);
+    --download-icon-color: var(--blumine-color);
+
     --answer-text-color: var(--big-stone-color);
     --question-hover-color: var(--pelorous-color);
     --question-active-color: var(--tower-gray-color);

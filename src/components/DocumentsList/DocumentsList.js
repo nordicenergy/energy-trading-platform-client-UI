@@ -4,23 +4,19 @@ import icons from '@fortawesome/fontawesome-free-solid';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import Spinner from '../Loader/Spinner';
-import { formatDate } from '../../services/formatter';
 
 import './DocumentsList.css';
+import { SESSION_API_URL } from '../../constants';
 
 class DocumentsList extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-    }
-
     renderTableRows(documents) {
         return documents.map(document => (
             <tr key={document.id} className="document-list-row">
-                <td>{formatDate(document.date)}</td>
-                <td>{document.description || '-'}</td>
+                <td>{document.dateOfCreation || '-'}</td>
+                <td>{document.Name || '-'}</td>
                 <td>
                     <div className="document-download-icon">
-                        <a href={document.url}>
+                        <a href={`${SESSION_API_URL}${document.link}`} download target="_blank">
                             <FontAwesomeIcon icon={icons.faDownload} />
                         </a>
                     </div>
@@ -33,7 +29,7 @@ class DocumentsList extends React.Component {
         const { pagination, loading, documents } = this.props;
 
         return (
-            <div role="table" className="document-list-container">
+            <div className="document-list-container">
                 <table>
                     <tbody>{this.renderTableRows(documents)}</tbody>
                 </table>
@@ -50,10 +46,10 @@ class DocumentsList extends React.Component {
 DocumentsList.propTypes = {
     documents: PropTypes.arrayOf(
         PropTypes.shape({
-            date: PropTypes.number,
-            description: PropTypes.string,
-            url: PropTypes.string,
-            id: PropTypes.string.required
+            dateOfCreation: PropTypes.string,
+            Name: PropTypes.string,
+            link: PropTypes.string,
+            id: PropTypes.number.required
         })
     ),
     pagination: PropTypes.bool,

@@ -5,14 +5,14 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Spinner from '../../Loader/Spinner';
 
 const DOCUMENTS_MOCKS = [
-    { id: '1', date: 1523707200, description: 'Invoice', url: 'https://test_url1' },
-    { id: '2', date: 1523807200, description: 'Monthly Installment', url: 'https://test_url2' },
-    { id: '3', date: 1523907200, description: 'Annual bill', url: 'https://test_url3' },
-    { id: '4', date: 1523207200, description: 'Monthly Installment', url: 'https://test_url4' },
-    { id: '5', date: 1523307200, description: 'Monthly Installment', url: 'https://test_url5' },
-    { id: '6', date: 1523407200, description: 'Monthly Installment', url: 'https://test_url6' },
-    { id: '7', date: 1523507200, description: 'Monthly Installment', url: 'https://test_url7' },
-    { id: '8', date: undefined, description: undefined, url: undefined }
+    { id: 1, dateOfCreation: '2017-01-31', Name: 'Invoice', link: '/test1.pdf' },
+    { id: 2, dateOfCreation: '2017-02-31', Name: 'Monthly Installment', link: '/test2.pdf' },
+    { id: 3, dateOfCreation: '2017-03-31', Name: 'Annual bill', link: '/test3.pdf' },
+    { id: 4, dateOfCreation: '2017-04-31', Name: 'Monthly Installment', link: '/test4.pdf' },
+    { id: 5, dateOfCreation: '2017-05-31', Name: 'Monthly Installment', link: '/test5.pdf' },
+    { id: 6, dateOfCreation: '2017-06-31', Name: 'Monthly Installment', link: '/test6.pdf' },
+    { id: 7, dateOfCreation: '2017-07-31', Name: 'Monthly Installment', link: '/test7.pdf' },
+    { id: 8, dateOfCreation: undefined, Name: undefined, link: undefined }
 ];
 
 function renderComponent({ loading = false, pagination = false, documents = [] } = {}, renderer = mount) {
@@ -51,7 +51,7 @@ describe('<DocumentsList /> Component', () => {
         const rowData = component.find('td');
         let count = 0;
 
-        expect(rowData.at(count++).text()).toEqual('Apr 14, 2018');
+        expect(rowData.at(count++).text()).toEqual('2017-01-31');
         expect(rowData.at(count++).text()).toEqual('Invoice');
 
         const iconTd = rowData.at(count++);
@@ -61,6 +61,7 @@ describe('<DocumentsList /> Component', () => {
                 .find('a')
                 .at(0)
                 .prop('href')
-        ).toEqual('https://test_url1');
+                .includes('/test1.pdf')
+        ).toBeTruthy();
     });
 });

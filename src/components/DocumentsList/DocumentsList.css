@@ -56,11 +56,11 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: var(--border-width) solid var(--transparent-blumine-color);
+    border: var(--border-width) solid var(--download-icon-border-color);
 }
 
 .document-download-icon svg {
-    color: var(--blumine-color);
+    color: var(--download-icon-color);
 }
 
 @media (max-width: 767px) {
