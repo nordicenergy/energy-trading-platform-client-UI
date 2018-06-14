@@ -15,20 +15,8 @@ const DOCUMENTS_MOCKS = [
     { id: '8', date: undefined, description: undefined, url: undefined }
 ];
 
-function renderComponent({
-        loading = false,
-        pagination = false,
-        documents = [],
-    } = {},
-    renderer = mount
-) {
-    return renderer(
-        <DocumentsList
-            documents={documents}
-            loading={loading}
-            pagination={pagination}
-        />
-    );
+function renderComponent({ loading = false, pagination = false, documents = [] } = {}, renderer = mount) {
+    return renderer(<DocumentsList documents={documents} loading={loading} pagination={pagination} />);
 }
 
 describe('<DocumentsList /> Component', () => {
@@ -68,7 +56,11 @@ describe('<DocumentsList /> Component', () => {
 
         const iconTd = rowData.at(count++);
         const link = iconTd.find('a').at(0);
-        expect(link.find('a').at(0).prop('href')).toEqual('https://test_url1');
+        expect(
+            link
+                .find('a')
+                .at(0)
+                .prop('href')
+        ).toEqual('https://test_url1');
     });
-
 });

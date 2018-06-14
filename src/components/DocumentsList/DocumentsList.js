@@ -15,7 +15,7 @@ class DocumentsList extends React.Component {
 
     renderTableRows(documents) {
         return documents.map(document => (
-            <tr key={document.id} className='document-list-row'>
+            <tr key={document.id} className="document-list-row">
                 <td>{formatDate(document.date)}</td>
                 <td>{document.description || '-'}</td>
                 <td>
