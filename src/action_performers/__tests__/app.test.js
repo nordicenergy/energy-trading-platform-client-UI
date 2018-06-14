@@ -42,15 +42,33 @@ describe('Users action performers', () => {
     it('should call dispatch method for get localization content', () => {
         performSetupLocale('en');
 
-        const [[method, type, loadingFunc, meta]] = dispatcher.dispatchPromise.mock.calls;
-        const loading = loadingFunc({
-            App: { localization: { loading: 'TEST' } }
+        const [[setupLocaleType, setupLocalePayload]] = dispatcher.dispatchAction.mock.calls;
+
+        const [
+            [getAboutUsMethod, getAboutUsType, getAboutUsLoadingFunc, getAboutUsMeta],
+            [getFaqMethod, getFaqType, getFaqLoadingFunc, getFaqMeta]
+        ] = dispatcher.dispatchPromise.mock.calls;
+        const aboutUsLoading = getAboutUsLoadingFunc({
+            App: { localization: { loading: { aboutUs: 'TEST' } } }
         });
 
-        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);
-        expect(method.name).toEqual('getLocalizationContent');
-        expect(type).toEqual('SETUP_LOCALE');
-        expect(loading).toEqual('TEST');
-        expect(meta).toEqual(['en']);
+        const faqLoading = getFaqLoadingFunc({
+            App: { localization: { loading: { faq: 'TEST' } } }
+        });
+
+        expect(dispatcher.dispatchAction).toHaveBeenCalledTimes(1);
+        expect(setupLocaleType).toBe('SETUP_LOCALE');
+        expect(setupLocalePayload).toBe('en');
+
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(2);
+        expect(getAboutUsMethod.name).toEqual('getAboutUsContent');
+        expect(getAboutUsType).toEqual('GET_ABOUT_US');
+        expect(aboutUsLoading).toEqual('TEST');
+        expect(getAboutUsMeta).toEqual(['en']);
+
+        expect(getFaqMethod.name).toEqual('getFAQContent');
+        expect(getFaqType).toEqual('GET_FAQ');
+        expect(faqLoading).toEqual('TEST');
+        expect(getFaqMeta).toEqual(['en']);
     });
 });

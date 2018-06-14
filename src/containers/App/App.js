@@ -15,7 +15,7 @@ export class App extends React.Component {
         return {
             loggingOut: Users.logout.loading,
             breadCrumbs: App.breadCrumbs.data,
-            loading: App.localization.loading,
+            loading: App.localization.loading.faq || App.localization.loading.aboutUs,
             locale: App.localization.data.locale
         };
     }

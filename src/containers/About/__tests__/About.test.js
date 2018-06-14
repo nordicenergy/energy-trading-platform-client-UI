@@ -17,6 +17,12 @@ const store = mockStore({
         localization: {
             data: {
                 aboutUs: ['test1', 'test2']
+            },
+            loading: {
+                aboutUs: false
+            },
+            error: {
+                aboutUs: null
             }
         }
     }
@@ -58,13 +64,17 @@ describe('<About /> Component', () => {
                 localization: {
                     data: {
                         aboutUs: 'test_data'
-                    }
+                    },
+                    loading: { aboutUs: false },
+                    error: { aboutUs: null }
                 }
             }
         };
         const props = About.mapStateToProps(stateDummy);
         expect(props).toEqual({
-            paragraphs: 'test_data'
+            paragraphs: 'test_data',
+            loading: false,
+            error: null
         });
     });
 

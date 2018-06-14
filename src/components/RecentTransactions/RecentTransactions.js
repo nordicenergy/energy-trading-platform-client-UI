@@ -7,6 +7,8 @@ import Spinner from '../Loader/Spinner';
 import RecentTransactionDetails from './RecentTransactionDetails';
 import { DATE_FORMAT, KEYBOARD_KEY_VALUES } from '../../constants';
 import { formatCurrency } from '../../services/formatter';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import icons from '@fortawesome/fontawesome-free-solid';
 
 import './RecentTransactions.css';
 
@@ -32,6 +34,18 @@ class RecentTransactions extends React.Component {
         this.setState({ expanded: newExpanded });
     }
 
+    shouldRenderIcon(date) {
+        return moment(new Date(date * 1000)).isAfter(new Date(), 'day');
+    }
+
+    renderIcon() {
+        return (
+            <span className="future-transaction-icon">
+                <FontAwesomeIcon icon={icons.faHistory} />
+            </span>
+        );
+    }
+
     renderTableRows() {
         const { labels, transactions, pagination: unlimited } = this.props;
 
@@ -46,6 +60,7 @@ class RecentTransactions extends React.Component {
                 'recent-transactions-details-row': true,
                 'recent-transactions-details-row--expand': isExpand
             });
+            const shouldShowIcon = this.shouldRenderIcon(transaction.date);
 
             return (
                 <React.Fragment key={`${transaction.id}-${index}`}>
@@ -55,7 +70,10 @@ class RecentTransactions extends React.Component {
                         onClick={() => this.expandRow(index, isExpand)}
                         onKeyUp={event => this.handleRowEnterPress(event, index, isExpand)}
                     >
-                        <td>{renderDate(transaction.date)}</td>
+                        <td>
+                            {renderDate(transaction.date)}
+                            {shouldShowIcon && this.renderIcon()}
+                        </td>
                         <td>{transaction.description}</td>
                         <td>{formatCurrency(transaction.transactionAmount)} €</td>
                         <td>

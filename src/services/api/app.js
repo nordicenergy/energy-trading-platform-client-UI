@@ -6,18 +6,19 @@ export function getAboutUsContent(locale) {
         params: { lang: locale }
     }).then(response => {
         const { data } = response;
-        return data.introductionText.split('\n');
+        return {
+            data: data.introductionText.split('\n')
+        };
     });
 }
 
 export function getFAQContent(locale) {
     return Axios.get(`${SESSION_API_URL}/content/FAQ`, {
         params: { lang: locale }
-    }).then(response => response.data && response.data.faq);
-}
-
-export function getLocalizationContent(locale) {
-    return Promise.all([getAboutUsContent(locale), getFAQContent(locale)]).then(([aboutUs, faq]) => ({
-        data: { aboutUs, faq }
-    }));
+    }).then(response => {
+        const faqData = response.data && response.data.faq;
+        return {
+            data: faqData
+        };
+    });
 }

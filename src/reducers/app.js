@@ -7,8 +7,14 @@ export const initialState = {
             aboutUs: [],
             faq: []
         },
-        loading: false,
-        error: null
+        loading: {
+            faq: false,
+            aboutUs: false
+        },
+        error: {
+            faq: null,
+            aboutUs: null
+        }
     }
 };
 
@@ -29,9 +35,28 @@ export function appReducer(state = initialState, action) {
                     data: action.payload
                 }
             };
+        case 'GET_FAQ':
+            const faqData = action && action.payload;
+            return {
+                ...state,
+                localization: {
+                    data: faqData ? { ...state.localization.data, faq: faqData } : state.localization.data,
+                    loading: { ...state.localization.loading, faq: action.loading },
+                    error: { ...state.localization.error, faq: action.error }
+                }
+            };
+        case 'GET_ABOUT_US':
+            const aboutUsData = action && action.payload;
+            return {
+                ...state,
+                localization: {
+                    data: aboutUsData ? { ...state.localization.data, aboutUs: aboutUsData } : state.localization.data,
+                    loading: { ...state.localization.loading, aboutUs: action.loading },
+                    error: { ...state.localization.error, aboutUs: action.error }
+                }
+            };
         case 'SETUP_LOCALE':
-            const payload = action && action.payload;
-            const [locale] = action.meta;
+            const locale = action && action.payload;
             let newLocale = state.localization.data.locale;
 
             if (locale) {
@@ -42,9 +67,8 @@ export function appReducer(state = initialState, action) {
             return {
                 ...state,
                 localization: {
-                    data: payload ? { ...payload, locale } : { ...state.localization.data, locale: newLocale },
-                    loading: action.loading,
-                    error: action.error
+                    ...state.localization,
+                    data: { ...state.localization.data, locale: newLocale }
                 }
             };
         default:

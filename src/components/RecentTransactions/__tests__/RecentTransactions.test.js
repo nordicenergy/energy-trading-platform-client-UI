@@ -184,6 +184,15 @@ describe('<RecentTransactions /> Component', () => {
         expect(extendedComponent.find('td')).toHaveLength(35);
     });
 
+    it('should render icon if transaction date is one day later than today', () => {
+        const secondsInOneDay = 86400;
+        const transactions = [
+            { ...transactionsDummy[0], id: '11', date: new Date().getTime() / 1000 + secondsInOneDay }
+        ];
+        const component = renderComponent({ transactions });
+        expect(component.find('.future-transaction-icon')).toHaveLength(1);
+    });
+
     it('should display correct data in table', () => {
         const component = renderComponent({});
         const data = component.find('td');

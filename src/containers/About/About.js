@@ -11,15 +11,15 @@ export class About extends AbstractContainer {
     static mapStateToProps(state) {
         return {
             paragraphs: state.App.localization.data.aboutUs,
-            error: state.App.localization.error,
-            loading: state.App.localization.loading
+            error: state.App.localization.error.aboutUs,
+            loading: state.App.localization.loading.aboutUs
         };
     }
 
     componentDidMount() {
         const { error, loading } = this.props;
         if (!loading && error) {
-            performPushNotification({ message: 'Could not load content', type: 'error' });
+            this.showError();
         }
     }
 
@@ -27,8 +27,13 @@ export class About extends AbstractContainer {
         const { error, loading } = this.props;
 
         if (!loading && error && error !== prevProps.error) {
-            performPushNotification({ message: 'Could not load content', type: 'error' });
+            this.showError();
         }
+    }
+
+    showError() {
+        const { formatMessage } = this.context.intl;
+        performPushNotification({ message: formatMessage(messages.error), type: 'error' });
     }
 
     render() {
