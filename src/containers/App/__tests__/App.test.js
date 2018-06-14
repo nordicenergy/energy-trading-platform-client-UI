@@ -63,9 +63,14 @@ describe('Main <App /> Component', () => {
                 },
                 localization: {
                     data: {
-                        locale: 'en'
+                        locale: 'en',
+                        aboutUs: [],
+                        faq: []
                     },
-                    loading: false
+                    loading: {
+                        aboutUs: false,
+                        faq: false
+                    }
                 }
             }
         };

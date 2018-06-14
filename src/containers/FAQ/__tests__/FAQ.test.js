@@ -29,6 +29,14 @@ const store = mockStore({
                         answer: 'answer2'
                     }
                 ]
+            },
+            loading: {
+                faq: false,
+                aboutUs: false
+            },
+            error: {
+                faq: null,
+                aboutUs: null
             }
         }
     }
@@ -90,13 +98,21 @@ describe('<FAQ /> Component', () => {
                 localization: {
                     data: {
                         faq: ['test_data']
+                    },
+                    loading: {
+                        faq: false
+                    },
+                    error: {
+                        faq: null
                     }
                 }
             }
         };
         const props = FAQ.mapStateToProps(stateDummy);
         expect(props).toEqual({
-            questions: ['test_data']
+            questions: ['test_data'],
+            loading: false,
+            error: null
         });
     });
 
