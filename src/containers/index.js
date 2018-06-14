@@ -16,7 +16,7 @@ import ShowTransactions from './ShowTransactions';
 import Producer from './Producer';
 import Trading from './Trading';
 import DirectTrading from './DirectTrading';
-import Documents from './Documents';
+import MyDocuments from './MyDocuments';
 
 export {
     AbstractContainer,
@@ -37,5 +37,5 @@ export {
     Producer,
     Trading,
     DirectTrading,
-    Documents
+    MyDocuments
 };

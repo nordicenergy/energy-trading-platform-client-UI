@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import DocumentsContainer from '../Documents';
+import MyDocumentsContainer from '../MyDocuments';
 import { mountWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 
@@ -10,17 +10,17 @@ const store = mockStore({});
 function renderContainer() {
     return mountWithIntl(
         <Provider store={store}>
-            <DocumentsContainer context={{}} />
+            <MyDocumentsContainer context={{}} />
         </Provider>
     );
 }
 
-describe('<Documents /> Component', () => {
+describe('<MyDocuments /> Component', () => {
     it(`should contains following controls:
         - h1 with correct tittle`, () => {
         const component = renderContainer();
 
         expect(component.find('h1')).toHaveLength(1);
-        expect(component.find('h1').text()).toEqual('Documents page');
+        expect(component.find('h1').text()).toEqual('MyDocuments page');
     });
 });

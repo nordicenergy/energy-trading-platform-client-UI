@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
-import './Documents.css';
+import './MyDocuments.css';
 
-export class Documents extends AbstractContainer {
+export class MyDocuments extends AbstractContainer {
     render() {
         return (
             <div>
-                <h1>Documents page</h1>
+                <h1>MyDocuments page</h1>
             </div>
         );
     }
 }
 
-export default connect(Documents.mapStateToProps)(Documents);
+export default connect(MyDocuments.mapStateToProps)(MyDocuments);
