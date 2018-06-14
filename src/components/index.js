@@ -34,6 +34,7 @@ import ConfigurationForm from './ConfigurationForm';
 import MetaMaskAlert from './MetaMaskAlert';
 import SortToolbar from './SortToolbar';
 import TradePositionsList from './TradePositionsList';
+import DocumentsList from './DocumentsList';
 
 export {
     Button,
@@ -75,5 +76,6 @@ export {
     ConfigurationForm,
     MetaMaskAlert,
     SortToolbar,
-    TradePositionsList
+    TradePositionsList,
+    DocumentsList
 };
