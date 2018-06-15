@@ -27,3 +27,13 @@ export function performGetOpenTradePositions() {
         state => state.Transactions.openTradePositions.loading
     );
 }
+
+// TODO cover by unit tests
+export function performPerformTransaction(tradePosition) {
+    dispatcher.dispatchPromise(
+        web3Service.performTransaction.bind(web3Service),
+        'PERFORM_TRANSACTION',
+        state => state.Transactions.performedTransaction.loading,
+        [tradePosition]
+    );
+}

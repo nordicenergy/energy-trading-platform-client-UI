@@ -15,6 +15,11 @@ export const initialState = {
         data: [],
         error: null,
         loading: false
+    },
+    performedTransaction: {
+        data: {},
+        error: null,
+        loading: false
     }
 };
 
@@ -55,6 +60,16 @@ export function transactionsReducer(state = initialState, action) {
                 ...state,
                 openTradePositions: {
                     data: action.payload ? action.payload : state.openTradePositions.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
+        case 'PERFORM_TRANSACTION': {
+            return {
+                ...state,
+                performedTransaction: {
+                    data: action.payload ? action.payload : state.performedTransaction.data,
                     loading: action.loading,
                     error: action.error
                 }

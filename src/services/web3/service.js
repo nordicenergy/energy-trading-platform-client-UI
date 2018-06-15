@@ -151,6 +151,21 @@ class Web3Service {
             }
         });
     }
+
+    // FIXME cover by unit tests
+    performTransaction(/* tradePosition */) {
+        // TODO parse `tradePosition` object and get needed params address, producer, day, price, energy
+        // TODO call this.getContract and receive needed contract argument
+
+        // TODO move logic of `buyEnergy()` function from https://bitbucket.org/lition/blockchain/src/master/lbi/src/lbi.js
+
+        // please wrap all functionality by timers and error formatter as did in other methods
+
+        return Promise.resolve({
+            // TODO return `transactionHash`
+            hash: '0x123a1234c1234b1234b1334234d332434234f234c3'
+        });
+    }
 }
 
 function wrapError(error) {

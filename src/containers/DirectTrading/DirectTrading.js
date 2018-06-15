@@ -6,7 +6,12 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { MetaMaskAlert, ConfigurationForm, TradePositionsList } from '../../components';
 import web3Service from '../../services/web3';
 import { DirectTrading as messages } from '../../services/translations/messages';
-import { performGetAvailableAddresses, performGetOpenTradePositions } from '../../action_performers/transactions';
+import {
+    performGetAvailableAddresses,
+    performGetOpenTradePositions,
+    // TODO cover by unit tests
+    performPerformTransaction
+} from '../../action_performers/transactions';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { META_MASK_DOWNLOAD_LINKS, META_MASK_LINK, BLOCKCHAIN_NETWORKS, TRADE_POSITIONS_LIMIT } from '../../constants';
@@ -45,10 +50,17 @@ export class DirectTrading extends AbstractContainer {
 
     static mapStateToProps(state) {
         return {
-            loading: state.Transactions.openTradePositions.loading || state.Transactions.availableAddresses.loading,
+            loading:
+                state.Transactions.openTradePositions.loading ||
+                state.Transactions.availableAddresses.loading ||
+                state.Transactions.performedTransaction.loading,
             openTradePositions: state.Transactions.openTradePositions.data,
             availableAddresses: state.Transactions.availableAddresses.data.addresses,
-            error: state.Transactions.openTradePositions.error || state.Transactions.availableAddresses.error
+            performedTransaction: state.Transactions.performedTransaction.data,
+            error:
+                state.Transactions.openTradePositions.error ||
+                state.Transactions.availableAddresses.error ||
+                state.Transactions.performedTransaction.error
         };
     }
 
@@ -59,7 +71,7 @@ export class DirectTrading extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { loading, error } = this.props;
+        const { performedTransaction, loading, error } = this.props;
         const { isConfigured, isMetaMaskInstalled, formData } = this.state;
         const configured = isConfigured && isConfigured !== prevState.isConfigured;
 
@@ -69,6 +81,11 @@ export class DirectTrading extends AbstractContainer {
 
         if (!loading && error && error !== prevProps.error) {
             performPushNotification({ message: error.message, type: 'error' });
+        }
+
+        if (performedTransaction !== prevProps.performedTransaction) {
+            // TODO show popup - https://projects.invisionapp.com/share/2JGCP87HMKP#/screens/303084172_Advanced_Transactions_List_Popup
+            // TODO and add `txHash` and `txHashUrl` for specific trade position
         }
 
         performSetupLoaderVisibility(loading);
@@ -219,6 +236,7 @@ export class DirectTrading extends AbstractContainer {
                 onBackClick={() => this.handleBackClick()}
                 onTradeVolumeChange={event => this.handleTradeVolumeChange(event)}
                 onDateFilterChange={payload => this.handleDateFilterChange(payload)}
+                onPerformTransaction={position => performPerformTransaction(position)}
                 tradeVolume={filter.energyAvailable}
                 dateFilter={filter.offerIssued}
                 tradePositions={filteredTradePositions}

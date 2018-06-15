@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './TradePosition.css';
+import { Button } from '../../.';
 
 export const TradePositionPropType = PropTypes.shape({
     offerAddressUrl: PropTypes.string,
@@ -12,11 +13,12 @@ export const TradePositionPropType = PropTypes.shape({
     validOn: PropTypes.string,
     energyOffered: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     energyAvailable: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    price: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    txHash: PropTypes.string,
+    txHashUrl: PropTypes.string
 });
 
-const TradePosition = ({ className, labels, tradePosition }) => {
-    const classes = classNames('trade-position', className);
+const TradePosition = ({ className, labels, tradePosition, onPerform }) => {
     const offerAddress =
         tradePosition.offerAddressUrl && tradePosition.offerAddress ? (
             <a target="_blank" href={tradePosition.offerAddressUrl} rel="external noopener noreferrer">
@@ -33,6 +35,13 @@ const TradePosition = ({ className, labels, tradePosition }) => {
         ) : (
             <strong>{labels.producerNamePlaceholder}</strong>
         );
+    const hash =
+        tradePosition.txHashUrl && tradePosition.txHash ? (
+            <a target="_blank" href={tradePosition.txHashUrl} rel="external noopener noreferrer">
+                {tradePosition.txHash}
+            </a>
+        ) : null;
+    const classes = classNames({ 'trade-position': true, 'trade-position-tx--performed': !!hash });
 
     return (
         <div className={classes}>
@@ -46,7 +55,7 @@ const TradePosition = ({ className, labels, tradePosition }) => {
                     {producerName}
                 </div>
             </div>
-            <div className="trade-position-data">
+            <div className="trade-position-data trade-position-data--primary">
                 <div className="trade-position-entry">
                     <span>{labels.offerIssued}</span>
                     <strong>{tradePosition.offerIssued}</strong>
@@ -70,6 +79,16 @@ const TradePosition = ({ className, labels, tradePosition }) => {
                     </strong>
                 </div>
             </div>
+            <div className="trade-position-tx">
+                {hash ? (
+                    <div className="trade-position-entry">
+                        <span>{labels.transaction}</span>
+                        {hash}
+                    </div>
+                ) : (
+                    <Button onClick={() => onPerform(tradePosition)}>{labels.performTransaction}</Button>
+                )}
+            </div>
         </div>
     );
 };
@@ -84,9 +103,12 @@ TradePosition.propTypes = {
         validOn: PropTypes.string,
         energyOffered: PropTypes.string,
         energyAvailable: PropTypes.string,
-        price: PropTypes.string
+        price: PropTypes.string,
+        transaction: PropTypes.string,
+        performTransaction: PropTypes.string
     }),
-    tradePosition: TradePositionPropType.isRequired
+    tradePosition: TradePositionPropType.isRequired,
+    onPerform: PropTypes.func
 };
 TradePosition.defaultProps = {
     labels: {
@@ -97,9 +119,12 @@ TradePosition.defaultProps = {
         validOn: 'Valid on',
         energyOffered: 'kWh offered',
         energyAvailable: 'kWh available',
-        price: 'Price'
+        price: 'Price',
+        transaction: 'Transaction Hash',
+        performTransaction: 'Perform Transaction'
     },
-    tradePosition: {}
+    tradePosition: {},
+    onPerform: f => f
 };
 
 export default TradePosition;
