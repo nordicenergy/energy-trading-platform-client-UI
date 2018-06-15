@@ -15,7 +15,11 @@ class DocumentsList extends React.Component {
             return (
                 <tr key={document.id} className="document-list-row">
                     <td>{document.dateOfCreation || '-'}</td>
-                    <td><a href={link} download target="_blank">{document.Name || '-'}</a></td>
+                    <td>
+                        <a href={link} download target="_blank">
+                            {document.Name || '-'}
+                        </a>
+                    </td>
                     <td>
                         <a href={link} download target="_blank">
                             <div className="document-download-icon">
