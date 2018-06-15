@@ -10,19 +10,22 @@ import { SESSION_API_URL } from '../../constants';
 
 class DocumentsList extends React.Component {
     renderTableRows(documents) {
-        return documents.map(document => (
-            <tr key={document.id} className="document-list-row">
-                <td>{document.dateOfCreation || '-'}</td>
-                <td>{document.Name || '-'}</td>
-                <td>
-                    <div className="document-download-icon">
-                        <a href={document.link ? `${SESSION_API_URL}${document.link}` : null} download target="_blank">
-                            <FontAwesomeIcon icon={icons.faDownload} />
+        return documents.map(document => {
+            const link = document.link ? `${SESSION_API_URL}${document.link}` : null;
+            return (
+                <tr key={document.id} className="document-list-row">
+                    <td>{document.dateOfCreation || '-'}</td>
+                    <td><a href={link} download target="_blank">{document.Name || '-'}</a></td>
+                    <td>
+                        <a href={link} download target="_blank">
+                            <div className="document-download-icon">
+                                <FontAwesomeIcon icon={icons.faDownload} />
+                            </div>
                         </a>
-                    </div>
-                </td>
-            </tr>
-        ));
+                    </td>
+                </tr>
+            );
+        });
     }
 
     render() {

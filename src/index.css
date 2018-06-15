@@ -125,11 +125,10 @@
 
     --about-us-info-text-color: var(--big-stone-color);
 
-    --disclosure-arrow-active-color: var(--geyser-color);
-    --disclosure-arrow-hover-color: var(--pelorous-color);
-    --disclosure-arrow-border-color: var(--transparent-blumine-color);
+    --table-control-active-color: var(--geyser-color);
+    --table-control-hover-color: var(--tower-gray-color);
+    --table-control-border-color: var(--transparent-blumine-color);
 
-    --download-icon-border-color: var(--transparent-blumine-color);
     --download-icon-color: var(--blumine-color);
 
     --answer-text-color: var(--big-stone-color);

@@ -34,7 +34,21 @@
 .document-list-container td:nth-child(2) {
     width: 50%;
     text-align: center;
-    color: var(--blumine-color);
+}
+
+.document-list-container td:nth-child(2) a {
+    text-decoration: none;
+    color: var(--general-text-color);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.document-list-container td:nth-child(2) a:hover {
+    color: var(--table-control-hover-color);
+}
+
+.document-list-container td:nth-child(2) a:focus {
+    outline: var(--focused-control-outline);
 }
 
 .document-list-container td:last-child {
@@ -42,6 +56,15 @@
     text-align: right;
     text-align: -webkit-right;
     padding-left: 2rem;
+}
+
+.document-list-container td:last-child a{
+    display: block;
+    width: 2.2em;
+}
+
+.document-list-container td:last-child a:focus {
+    outline: var(--focused-control-outline);
 }
 
 .document-list-loader {
@@ -56,11 +79,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: var(--border-width) solid var(--download-icon-border-color);
+    border: var(--border-width) solid var(--table-control-border-color);
+    color: var(--download-icon-color);
 }
 
-.document-download-icon svg {
-    color: var(--download-icon-color);
+.document-download-icon:hover svg {
+    color: var(--table-control-hover-color);
 }
 
 @media (max-width: 767px) {
