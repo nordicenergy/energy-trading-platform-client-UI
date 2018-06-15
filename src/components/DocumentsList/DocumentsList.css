@@ -1,0 +1,124 @@
+.document-list-container {
+    font-size: 1.125rem;
+    background-color: white;
+    padding: 1.78em 2em 0;
+    box-sizing: border-box;
+    width: 100%;
+    box-shadow: var(--main-boxes-shadow);
+    border-radius: 0.25em;
+}
+
+.document-list-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.document-list-container td {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+    color: var(--table-text-color);
+    padding: 0.6em 0 0.4em;
+}
+
+.document-list-container tr + tr {
+    border-top: var(--border-width) solid var(--border-on-light-color);
+}
+
+.document-list-container td:first-child {
+    width: 15%;
+    text-align: left;
+    padding-left: 3rem;
+}
+
+.document-list-container td:nth-child(2) {
+    width: 50%;
+    text-align: center;
+}
+
+.document-list-container td:nth-child(2) a {
+    text-decoration: none;
+    color: var(--general-text-color);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.document-list-container td:nth-child(2) a:hover {
+    color: var(--table-control-hover-color);
+}
+
+.document-list-container td:nth-child(2) a:focus {
+    outline: var(--focused-control-outline);
+}
+
+.document-list-container td:last-child {
+    width: 10%;
+    text-align: right;
+    text-align: -webkit-right;
+    padding-left: 2rem;
+}
+
+.document-list-container td:last-child a {
+    display: inline-block;
+}
+
+.document-list-container td:last-child a:focus {
+    outline: var(--focused-control-outline);
+}
+
+.document-list-loader {
+    text-align: center;
+    padding: 1em;
+}
+
+.document-download-icon {
+    width: 2.1em;
+    height: 2.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: var(--border-width) solid var(--table-control-border-color);
+    color: var(--download-icon-color);
+}
+
+.document-download-icon:hover svg {
+    color: var(--table-control-hover-color);
+}
+
+@media (max-width: 767px) {
+    .document-list-container {
+        padding: 0;
+    }
+
+    .document-list-container tr.document-list-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem;
+    }
+
+    .document-list-container tr.document-list-row td {
+        width: 100%;
+        padding: 0.5rem 0;
+        text-align: center;
+    }
+
+    .document-list-container tr.document-list-row td:first-child {
+        padding-top: 1rem;
+        color: var(--label-color);
+    }
+
+    .document-list-container tr.document-list-row td:nth-child(2) {
+        padding-bottom: 0;
+        font-weight: 600;
+    }
+
+    .document-list-container tr.document-list-row td:last-child {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
