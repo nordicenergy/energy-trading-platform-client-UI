@@ -64,4 +64,25 @@ describe('<DocumentsList /> Component', () => {
                 .includes('/test1.pdf')
         ).toBeTruthy();
     });
+
+    it('should display correct data in table when some properties are undefined', () => {
+        const component = renderComponent({
+            documents: DOCUMENTS_MOCKS
+        });
+        const row = component.find('tr').at(7);
+        const rowData = row.find('td');
+        let count = 0;
+
+        expect(rowData.at(count++).text()).toEqual('-');
+        expect(rowData.at(count++).text()).toEqual('-');
+
+        const iconTd = rowData.at(count++);
+        const link = iconTd.find('a').at(0);
+        expect(
+            link
+                .find('a')
+                .at(0)
+                .prop('href')
+        ).toEqual(null);
+    });
 });
