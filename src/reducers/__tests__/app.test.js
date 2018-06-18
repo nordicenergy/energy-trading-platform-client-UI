@@ -23,33 +23,65 @@ describe('App reducer:', () => {
     });
 
     describe('Pending cases:', () => {
-        it('should handle SETUP_LOCALE', () => {
-            const result = appReducer(initialState, ACTIONS.setupLocale.pending);
-            const [locale] = ACTIONS.setupLocale.fail.meta;
-            expect(result.localization.loading).toEqual(true);
-            expect(result.localization.error).toEqual(null);
-            expect(result.localization.data).toEqual({ ...initialState.localization.data, locale });
+        it('should handle GET_ABOUT_US', () => {
+            const result = appReducer(initialState, ACTIONS.getAboutUs.pending);
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: true });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
+            expect(result.localization.data).toEqual(initialState.localization.data);
+        });
+
+        it('should handle GET_FAQ', () => {
+            const result = appReducer(initialState, ACTIONS.getFaq.pending);
+            expect(result.localization.loading).toEqual({ faq: true, aboutUs: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
+            expect(result.localization.data).toEqual(initialState.localization.data);
         });
     });
 
     describe('Error cases:', () => {
-        it('should handle SETUP_LOCALE', () => {
-            const result = appReducer(initialState, ACTIONS.setupLocale.fail);
-            const [locale] = ACTIONS.setupLocale.fail.meta;
-            expect(result.localization.loading).toEqual(false);
-            expect(result.localization.error).toEqual(ACTIONS.setupLocale.fail.error);
-            expect(result.localization.data).toEqual({ ...initialState.localization.data, locale });
+        it('should handle GET_ABOUT_US', () => {
+            const result = appReducer(initialState, ACTIONS.getAboutUs.fail);
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
+            expect(result.localization.error).toEqual({ aboutUs: ACTIONS.getAboutUs.fail.error, faq: null });
+            expect(result.localization.data).toEqual(initialState.localization.data);
+        });
+
+        it('should handle GET_FAQ', () => {
+            const result = appReducer(initialState, ACTIONS.getFaq.fail);
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
+            expect(result.localization.error).toEqual({ aboutUs: null, faq: ACTIONS.getFaq.fail.error });
+            expect(result.localization.data).toEqual(initialState.localization.data);
         });
     });
 
     describe('Success cases:', () => {
         it('should handle SETUP_LOCALE', () => {
-            const result = appReducer(initialState, ACTIONS.setupLocale.success);
-            expect(result.localization.loading).toEqual(false);
-            expect(result.localization.error).toEqual(null);
+            const result = appReducer(initialState, ACTIONS.setupLocale);
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
             expect(result.localization.data).toEqual({
-                ...ACTIONS.setupLocale.success.payload,
-                locale: ACTIONS.setupLocale.success.meta[0]
+                ...initialState.localization.data,
+                locale: ACTIONS.setupLocale.payload
+            });
+        });
+
+        it('should handle GET_ABOUT_US', () => {
+            const result = appReducer(initialState, ACTIONS.getAboutUs.success);
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
+            expect(result.localization.data).toEqual({
+                ...initialState.localization.data,
+                aboutUs: ACTIONS.getAboutUs.success.payload
+            });
+        });
+
+        it('should handle GET_FAQ', () => {
+            const result = appReducer(initialState, ACTIONS.getFaq.success);
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
+            expect(result.localization.data).toEqual({
+                ...initialState.localization.data,
+                faq: ACTIONS.getFaq.success.payload
             });
         });
     });
@@ -76,28 +108,52 @@ function fixtures() {
             payload: undefined
         },
         setupLocale: {
+            type: 'SETUP_LOCALE',
+            payload: 'en'
+        },
+        getAboutUs: {
             success: {
-                type: 'SETUP_LOCALE',
-                payload: {
-                    aboutUs: 'about us content',
-                    FAQ: ['faq 1', 'faq 2']
-                },
+                type: 'GET_ABOUT_US',
+                payload: ['about us info'],
                 error: null,
-                loading: false,
-                meta: ['en']
-            },
-            fail: {
-                type: 'SETUP_LOCALE',
-                payload: null,
-                error: { message: 'Response error' },
                 loading: false,
                 meta: ['en']
             },
             pending: {
-                type: 'SETUP_LOCALE',
-                payload: null,
+                type: 'GET_ABOUT_US',
+                payload: [],
                 error: null,
                 loading: true,
+                meta: ['en']
+            },
+            fail: {
+                type: 'GET_ABOUT_US',
+                payload: [],
+                error: 'error message',
+                loading: false,
+                meta: ['en']
+            }
+        },
+        getFaq: {
+            success: {
+                type: 'GET_FAQ',
+                payload: ['q1', 'q2'],
+                error: null,
+                loading: false,
+                meta: ['en']
+            },
+            pending: {
+                type: 'GET_FAQ',
+                payload: [],
+                error: null,
+                loading: true,
+                meta: ['en']
+            },
+            fail: {
+                type: 'GET_FAQ',
+                payload: [],
+                error: 'error message',
+                loading: false,
                 meta: ['en']
             }
         }

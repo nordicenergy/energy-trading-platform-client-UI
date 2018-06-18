@@ -21,8 +21,8 @@ export class FAQ extends AbstractContainer {
     static mapStateToProps(state) {
         return {
             questions: state.App.localization.data.faq,
-            error: state.App.localization.error,
-            loading: state.App.localization.loading
+            error: state.App.localization.error.faq,
+            loading: state.App.localization.loading.faq
         };
     }
 
