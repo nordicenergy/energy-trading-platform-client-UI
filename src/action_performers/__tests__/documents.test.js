@@ -11,7 +11,7 @@ describe('Documents action performers', () => {
 
         const [[method, type, loadingFunc, meta]] = dispatcher.dispatchPromise.mock.calls;
         const loading = loadingFunc({
-            Documents: { documents: { loading: 'TEST' } }
+            Documents: { documentsList: { loading: 'TEST' } }
         });
 
         expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(1);

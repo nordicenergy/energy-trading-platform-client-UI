@@ -1,54 +1,50 @@
-export function getDocuments(/* userId */) {
+export function getDocuments(/* page */) {
     return new Promise(resolve =>
-        setTimeout(resolve, 3000, {
+        setTimeout(resolve, 1000, {
             data: {
+                numberOfDocuments: 8,
                 documents: [
-                    {
-                        id: 1,
-                        dateOfCreation: '2017-01-31',
-                        Name: 'Invoice.pdf',
-                        link: '/test1.pdf'
-                    },
+                    { id: 1, type: 'invoice', date: 1521911833, name: 'Invoice.pdf', description: 'Annual bill' },
                     {
                         id: 2,
-                        dateOfCreation: '2017-01-30',
-                        Name: 'Monthly Installment.pdf',
-                        link: '/test2.pdf'
+                        type: 'archivedDocument',
+                        date: 1521911833,
+                        name: 'Monthly Installment.pdf',
+                        description: 'Annual bill'
                     },
-                    {
-                        id: 3,
-                        dateOfCreation: '2017-01-29',
-                        Name: 'Annual bill.pdf',
-                        link: '/test3.pdf'
-                    },
+                    { id: 3, type: 'invoice', date: 1521911833, name: 'Annual bill.pdf', description: 'Annual bill' },
                     {
                         id: 4,
-                        dateOfCreation: '2017-01-28',
-                        Name: 'Monthly Installment.pdf',
-                        link: '/test4.pdf'
+                        type: 'invoice',
+                        date: 1521911833,
+                        name: 'Monthly Installment.pdf',
+                        description: 'Annual bill'
                     },
                     {
                         id: 5,
-                        dateOfCreation: '2017-01-27',
-                        Name: 'Monthly Installment.pdf',
-                        link: '/test5.pdf'
+                        type: 'invoice',
+                        date: 1521911833,
+                        name: 'Monthly Installment.pdf',
+                        description: 'Annual bill'
                     },
                     {
                         id: 6,
-                        dateOfCreation: '2017-01-26',
-                        Name: 'Monthly Installment.pdf',
-                        link: '/test6.pdf'
+                        type: 'invoice',
+                        date: 1521911833,
+                        name: 'Monthly Installment.pdf',
+                        description: 'Annual bill'
                     },
                     {
                         id: 7,
-                        dateOfCreation: '2017-01-25',
-                        Name: 'Monthly Installment.pdf',
-                        link: '/test7.pdf'
+                        type: 'archivedDocument',
+                        date: 1521911833,
+                        name: 'Monthly Installment.pdf',
+                        description: 'Annual bill'
                     },
-                    { id: 8, dateOfCreation: undefined, Name: undefined, url: undefined }
+                    { id: 8, type: undefined, date: undefined, name: undefined, description: undefined }
                 ]
             }
         })
     );
-    // return Axios.get(`${SESSION_API_URL}/documents/${userId}`);
+    // TODO: return Axios.get(`${SESSION_API_URL}/documents/${userId}`);
 }

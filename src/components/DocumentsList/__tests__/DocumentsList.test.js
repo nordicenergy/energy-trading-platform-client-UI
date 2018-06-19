@@ -5,14 +5,14 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Spinner from '../../Loader/Spinner';
 
 const DOCUMENTS_MOCKS = [
-    { id: 1, dateOfCreation: '2017-01-31', Name: 'Invoice', link: '/test1.pdf' },
-    { id: 2, dateOfCreation: '2017-02-31', Name: 'Monthly Installment', link: '/test2.pdf' },
-    { id: 3, dateOfCreation: '2017-03-31', Name: 'Annual bill', link: '/test3.pdf' },
-    { id: 4, dateOfCreation: '2017-04-31', Name: 'Monthly Installment', link: '/test4.pdf' },
-    { id: 5, dateOfCreation: '2017-05-31', Name: 'Monthly Installment', link: '/test5.pdf' },
-    { id: 6, dateOfCreation: '2017-06-31', Name: 'Monthly Installment', link: '/test6.pdf' },
-    { id: 7, dateOfCreation: '2017-07-31', Name: 'Monthly Installment', link: '/test7.pdf' },
-    { id: 8, dateOfCreation: undefined, Name: undefined, link: undefined }
+    { id: 1, type: 'invoice', date: 1521911833, name: 'Invoice.pdf', description: 'Annual bill' },
+    { id: 2, type: 'archivedDocument', date: 1521211833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 3, type: 'invoice', date: 1523911833, name: 'Annual bill.pdf', description: 'Annual bill' },
+    { id: 4, type: 'invoice', date: 1521941833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 5, type: 'invoice', date: 1521511833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 6, type: 'invoice', date: 1521961833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 7, type: 'archivedDocument', date: 1521711833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 8, type: undefined, date: undefined, name: undefined, description: undefined }
 ];
 
 function renderComponent({ loading = false, pagination = false, documents = [] } = {}, renderer = mount) {
@@ -51,8 +51,8 @@ describe('<DocumentsList /> Component', () => {
         const rowData = component.find('td');
         let count = 0;
 
-        expect(rowData.at(count++).text()).toEqual('2017-01-31');
-        expect(rowData.at(count++).text()).toEqual('Invoice');
+        expect(rowData.at(count++).text()).toEqual('Mar 24, 2018');
+        expect(rowData.at(count++).text()).toEqual('Invoice.pdf');
 
         const iconTd = rowData.at(count++);
         const link = iconTd.find('a').at(0);
@@ -61,8 +61,7 @@ describe('<DocumentsList /> Component', () => {
                 .find('a')
                 .at(0)
                 .prop('href')
-                .includes('/test1.pdf')
-        ).toBeTruthy();
+        ).toEqual('/api/documents/download/1');
     });
 
     it('should display correct data in table when some properties are undefined', () => {
@@ -83,6 +82,6 @@ describe('<DocumentsList /> Component', () => {
                 .find('a')
                 .at(0)
                 .prop('href')
-        ).toEqual(null);
+        ).toEqual('/api/documents/download/8');
     });
 });

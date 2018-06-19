@@ -10,55 +10,73 @@ import { performPushNotification } from '../../action_performers/notifications';
 import { performGetDocuments } from '../../action_performers/documents';
 import { Documents as messages } from '../../services/translations/messages';
 import { DocumentsList } from '../../components';
-import { performGetUserData } from '../../action_performers/users';
 
 export class MyDocuments extends AbstractContainer {
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = { page: 0 };
+    }
+
     static mapStateToProps(state) {
+        const { data: docData } = state.Documents.documentsList;
+
         return {
-            loading: state.Documents.documents.loading || state.Users.profile.loading,
-            error: state.Documents.documents.error || state.Users.profile.error,
-            documents: state.Documents.documents.data,
-            profile: state.Users.profile.data
+            loading: state.Documents.documentsList.loading,
+            documentsLoading: state.Documents.documentsList.loading,
+            hasNextDocuments: docData.numberOfDocuments > docData.documents.length,
+            documents: docData.documents,
+            error: state.Documents.documentsList.error
         };
     }
 
     componentDidMount() {
-        performGetUserData();
-        this.fetchDocuments();
+        performGetDocuments(this.state.page);
+
+        const loadCondition = () => {
+            const { hasNextDocuments, documentsLoading } = this.props;
+            return hasNextDocuments && !documentsLoading;
+        };
+        const loadCallback = () => {
+            this.setState(state => ({
+                page: state.page + 1
+            }));
+        };
+        this.setupScrollHandler(loadCondition, loadCallback);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         const { loading, error } = this.props;
-        const { profile: { user: prevUser = {} } = {}, error: oldError } = prevProps;
-        const { profile: { user = {} } = {} } = this.props;
 
-        if (!loading && error && error !== oldError) {
-            performPushNotification({ message: error.message, type: 'error' });
+        if (prevState.page !== this.state.page) {
+            performGetDocuments(this.state.page);
         }
 
-        if (user.id !== prevUser.id) {
-            this.fetchDocuments();
+        if (!loading && error && error !== prevProps.error) {
+            performPushNotification({ message: error.message, type: 'error' });
         }
 
         performSetupLoaderVisibility(loading);
     }
 
-    fetchDocuments() {
-        const { profile: { user } = {} } = this.props;
-        if (user && user.id) {
-            performGetDocuments(user.id);
-        }
+    componentWillUnmount() {
+        this.removeScrollHandler();
+        this.scrollToTop();
     }
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { documents } = this.props;
+        const { documents = [], documentsLoading, loading } = this.props;
         const hasDocuments = documents.length > 0;
 
         return (
-            <section className="my-documents-page">
+            <section className="my-documents-page" aria-busy={loading}>
                 <h1>{formatMessage(messages.header)}</h1>
-                {hasDocuments ? <DocumentsList documents={documents} /> : null}
+                <section>
+                    {hasDocuments ? (
+                        <DocumentsList documents={documents} loading={documentsLoading} pagination />
+                    ) : null}
+                </section>
             </section>
         );
     }
@@ -71,14 +89,14 @@ MyDocuments.contextTypes = {
 };
 MyDocuments.propTypes = {
     loading: PropTypes.bool,
-    documents: PropTypes.array,
-    profile: PropTypes.object,
-    error: PropTypes.object
+    error: PropTypes.object,
+    documentsLoading: PropTypes.bool,
+    documentsList: PropTypes.object
 };
 MyDocuments.defaultProps = {
     loading: false,
-    documents: [],
-    profile: {},
+    documentsLoading: false,
+    documentsList: {},
     error: null
 };
 

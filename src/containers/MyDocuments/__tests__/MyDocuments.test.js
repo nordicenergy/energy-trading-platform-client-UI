@@ -7,17 +7,16 @@ import { DocumentsList } from '../../../components';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
 import * as appActions from '../../../action_performers/app';
 import * as documentsActions from '../../../action_performers/documents';
-import * as userActions from '../../../action_performers/users';
 
 const DOCUMENTS_MOCKS = [
-    { id: 1, dateOfCreation: '2017-01-31', Name: 'Invoice', link: '/test1.pdf' },
-    { id: 2, dateOfCreation: '2017-02-31', Name: 'Monthly Installment', link: '/test2.pdf' },
-    { id: 3, dateOfCreation: '2017-03-31', Name: 'Annual bill', link: '/test3.pdf' },
-    { id: 4, dateOfCreation: '2017-04-31', Name: 'Monthly Installment', link: '/test4.pdf' },
-    { id: 5, dateOfCreation: '2017-05-31', Name: 'Monthly Installment', link: '/test5.pdf' },
-    { id: 6, dateOfCreation: '2017-06-31', Name: 'Monthly Installment', link: '/test6.pdf' },
-    { id: 7, dateOfCreation: '2017-07-31', Name: 'Monthly Installment', link: '/test7.pdf' },
-    { id: 8, dateOfCreation: undefined, Name: undefined, link: undefined }
+    { id: 1, type: 'invoice', date: 1521911833, name: 'Invoice.pdf', description: 'Annual bill' },
+    { id: 2, type: 'archivedDocument', date: 1521911833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 3, type: 'invoice', date: 1521911833, name: 'Annual bill.pdf', description: 'Annual bill' },
+    { id: 4, type: 'invoice', date: 1521911833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 5, type: 'invoice', date: 1521911833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 6, type: 'invoice', date: 1521911833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 7, type: 'archivedDocument', date: 1521911833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
+    { id: 8, type: undefined, date: undefined, name: undefined, description: undefined }
 ];
 
 function renderComponent(props = {}, mountFn = shallowWithIntl) {
@@ -25,47 +24,53 @@ function renderComponent(props = {}, mountFn = shallowWithIntl) {
 }
 
 describe('<MyDocuments /> Component', () => {
+    jest.useFakeTimers();
+    const mainContainerMock = document.createElement('div');
+
     beforeEach(() => {
         documentsActions.performGetDocuments = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
-        userActions.performGetUserData = jest.fn();
+
+        jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerMock);
+        jest.spyOn(mainContainerMock, 'addEventListener');
+        jest.spyOn(mainContainerMock, 'removeEventListener');
     });
 
     it('should DocumentsList component with correct props', () => {
         const component = renderComponent({
-            documents: DOCUMENTS_MOCKS
+            documents: DOCUMENTS_MOCKS,
+            hasNextDocuments: false,
+            documentsLoading: false
         });
 
-        expect(documentsActions.performGetDocuments).toHaveBeenCalledTimes(0);
-        expect(userActions.performGetUserData).toHaveBeenCalledTimes(1);
+        expect(documentsActions.performGetDocuments).toHaveBeenCalledTimes(1);
 
         expect(component.find(DocumentsList)).toHaveLength(1);
         expect(component.find(DocumentsList).props().documents).toEqual(DOCUMENTS_MOCKS);
+        expect(component.find(DocumentsList).props().loading).toEqual(false);
+        expect(component.find(DocumentsList).props().pagination).toEqual(true);
     });
 
     it('should map state properties', () => {
         const stateMock = {
             Documents: {
-                documents: {
+                documentsList: {
                     loading: true,
-                    data: { foo: 'bar' },
+                    data: { documents: DOCUMENTS_MOCKS, numberOfDocuments: 9 },
                     error: 'Error message'
-                }
-            },
-            Users: {
-                profile: {
-                    loading: false,
-                    data: { id: 2 },
-                    error: 'Error message 2'
                 }
             }
         };
         const props = MyDocuments.mapStateToProps(stateMock);
 
-        expect(props.loading).toEqual(stateMock.Documents.documents.loading);
-        expect(props.documents).toEqual(stateMock.Documents.documents.data);
-        expect(props.profile).toEqual(stateMock.Users.profile.data);
-        expect(props.error).toEqual(stateMock.Documents.documents.error);
+        expect(props.loading).toEqual(stateMock.Documents.documentsList.loading);
+        expect(props.documentsLoading).toEqual(stateMock.Documents.documentsList.loading);
+        expect(props.hasNextDocuments).toEqual(
+            stateMock.Documents.documentsList.data.numberOfDocuments >
+                stateMock.Documents.documentsList.data.documents.length
+        );
+        expect(props.documents).toEqual(stateMock.Documents.documentsList.data.documents);
+        expect(props.error).toEqual(stateMock.Documents.documentsList.error);
     });
 
     it('should shows server error if smth is failed', () => {
@@ -96,17 +101,39 @@ describe('<MyDocuments /> Component', () => {
         expect(secondCallArg).toBeFalsy();
     });
 
-    it('should calls performGetDocuments when we have user id', () => {
-        renderComponent({ profile: { user: { id: 1 } } });
+    it('should calls performGetDocuments when we have new page number', () => {
+        const component = renderComponent();
 
+        expect(documentsActions.performGetDocuments).toHaveBeenCalledWith(0);
+        component.setState({ page: 1 });
         expect(documentsActions.performGetDocuments).toHaveBeenCalledWith(1);
     });
 
-    it('should calls performGetDocuments when receive new user data', () => {
+    it('should handler scroll event', () => {
         const component = renderComponent();
+        const handleScrollMock = component.instance().scrollHandler;
 
-        component.setProps({ profile: { user: { id: 2 } } });
+        expect(mainContainerMock.addEventListener).toHaveBeenCalledWith('scroll', component.instance().scrollHandler);
 
-        expect(documentsActions.performGetDocuments).toHaveBeenCalledWith(2);
+        component.unmount();
+        expect(mainContainerMock.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);
+    });
+
+    it('should call scroll handler of the container', () => {
+        const showTransactions = renderComponent();
+        const dummyEvent = {
+            target: {
+                scrollTop: 10,
+                clientHeight: 10,
+                scrollHeight: 10
+            }
+        };
+        showTransactions.setProps({
+            hasNextDocuments: true,
+            documentsLoading: false
+        });
+        showTransactions.instance().scrollHandler(dummyEvent);
+        jest.runAllTimers();
+        expect(showTransactions.state('page')).toBe(1);
     });
 });

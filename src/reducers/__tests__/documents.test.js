@@ -6,27 +6,28 @@ describe('Documents reducer:', () => {
     describe('Pending cases:', () => {
         it('should handle GET_DOCUMENTS', () => {
             const result = documentsReducer(initialState, ACTIONS.getDocuments.pending);
-            expect(result.documents.loading).toBeTruthy();
-            expect(result.documents.error).toBeNull();
-            expect(result.documents.data).toEqual(initialState.documents.data);
+            expect(result.documentsList.loading).toBeTruthy();
+            expect(result.documentsList.error).toBeNull();
+            expect(result.documentsList.data).toEqual(initialState.documentsList.data);
+            ``;
         });
     });
 
     describe('Error cases:', () => {
         it('should handle GET_DOCUMENTS', () => {
             const result = documentsReducer(initialState, ACTIONS.getDocuments.fail);
-            expect(result.documents.loading).toBeFalsy();
-            expect(result.documents.error).toEqual(ACTIONS.getDocuments.fail.error);
-            expect(result.documents.data).toEqual(initialState.documents.data);
+            expect(result.documentsList.loading).toBeFalsy();
+            expect(result.documentsList.error).toEqual(ACTIONS.getDocuments.fail.error);
+            expect(result.documentsList.data).toEqual(initialState.documentsList.data);
         });
     });
 
     describe('Success cases:', () => {
         it('should handle GET_DOCUMENTS', () => {
             const result = documentsReducer(initialState, ACTIONS.getDocuments.success);
-            expect(result.documents.loading).toBeFalsy();
-            expect(result.documents.error).toBeNull();
-            expect(result.documents.data).toEqual(ACTIONS.getDocuments.success.payload.documents);
+            expect(result.documentsList.loading).toBeFalsy();
+            expect(result.documentsList.error).toBeNull();
+            expect(result.documentsList.data).toEqual(ACTIONS.getDocuments.success.payload);
         });
     });
 });
@@ -37,23 +38,27 @@ function fixtures() {
             success: {
                 type: 'GET_DOCUMENTS',
                 payload: {
+                    numberOfDocuments: 8,
                     documents: [
                         {
                             id: 1,
-                            dateOfCreation: '2017-01-31',
-                            Name: 'Invoice',
-                            link: '/test1.pdf'
+                            date: 1521911833,
+                            description: 'Annual bill',
+                            type: 'invoice',
+                            name: 'Invoice'
                         },
                         {
                             id: 2,
-                            dateOfCreation: '2017-01-30',
-                            Name: 'Monthly Installment',
-                            link: '/test2.pdf'
+                            date: '2017-01-30',
+                            description: 'Annual bill',
+                            type: 'invoice',
+                            name: 'Monthly Installment'
                         }
                     ]
                 },
                 error: null,
-                loading: false
+                loading: false,
+                meta: [0]
             },
             fail: {
                 type: 'GET_DOCUMENTS',
