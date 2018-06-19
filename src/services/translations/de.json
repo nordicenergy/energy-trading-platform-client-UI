@@ -196,5 +196,7 @@
     "app.sellEnergyPage.streetFieldError": "Street field should not be empty.",
     "app.sellEnergyPage.postcodeFieldError": "Postcode field should not be empty.",
     "app.sellEnergyPage.descriptionFieldError": "Description field should not be empty.",
-    "app.sellEnergyPage.nameFieldError": "Name field should not be empty."
+    "app.sellEnergyPage.nameFieldError": "Name field should not be empty.",
+
+    "app.documentsPage.header": "Meine Dokumente"
 }
