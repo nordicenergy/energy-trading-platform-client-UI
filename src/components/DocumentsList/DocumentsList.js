@@ -7,23 +7,20 @@ import Spinner from '../Loader/Spinner';
 import { formatDate } from '../../services/formatter';
 
 import './DocumentsList.css';
-import { SESSION_API_URL } from '../../constants';
 
 class DocumentsList extends React.Component {
     renderTableRows(documents) {
         return documents.map(document => {
-            // TODO: Build correct url
-            const link = `${SESSION_API_URL}/documents/download/${document.id}`;
             return (
                 <tr key={document.id} className="document-list-row">
                     <td>{document.date ? formatDate(document.date) : '-'}</td>
                     <td>
-                        <a href={link} download target="_blank">
+                        <a href={document.url} download target="_blank">
                             {document.name || '-'}
                         </a>
                     </td>
                     <td>
-                        <a href={link} download target="_blank">
+                        <a href={document.url} download target="_blank">
                             <div className="document-download-icon">
                                 <FontAwesomeIcon icon={icons.faDownload} />
                             </div>

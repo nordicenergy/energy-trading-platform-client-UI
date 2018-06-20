@@ -5,14 +5,49 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Spinner from '../../Loader/Spinner';
 
 const DOCUMENTS_MOCKS = [
-    { id: 1, type: 'invoice', date: 1521911833, name: 'Invoice.pdf', description: 'Annual bill' },
-    { id: 2, type: 'archivedDocument', date: 1521211833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
-    { id: 3, type: 'invoice', date: 1523911833, name: 'Annual bill.pdf', description: 'Annual bill' },
-    { id: 4, type: 'invoice', date: 1521941833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
-    { id: 5, type: 'invoice', date: 1521511833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
-    { id: 6, type: 'invoice', date: 1521961833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
-    { id: 7, type: 'archivedDocument', date: 1521711833, name: 'Monthly Installment.pdf', description: 'Annual bill' },
-    { id: 8, type: undefined, date: undefined, name: undefined, description: undefined }
+    { id: 1, type: 'invoice', date: 1521911833, name: 'Invoice.pdf', description: 'Annual bill', url: 'test1.pdf' },
+    {
+        id: 2,
+        type: 'archivedDocument',
+        date: 1521211833,
+        name: 'Monthly Installment.pdf',
+        description: 'Annual bill',
+        url: 'test2.pdf'
+    },
+    { id: 3, type: 'invoice', date: 1523911833, name: 'Annual bill.pdf', description: 'Annual bill', url: 'test3.pdf' },
+    {
+        id: 4,
+        type: 'invoice',
+        date: 1521941833,
+        name: 'Monthly Installment.pdf',
+        description: 'Annual bill',
+        url: 'test4.pdf'
+    },
+    {
+        id: 5,
+        type: 'invoice',
+        date: 1521511833,
+        name: 'Monthly Installment.pdf',
+        description: 'Annual bill',
+        url: 'test5.pdf'
+    },
+    {
+        id: 6,
+        type: 'invoice',
+        date: 1521961833,
+        name: 'Monthly Installment.pdf',
+        description: 'Annual bill',
+        url: 'test6.pdf'
+    },
+    {
+        id: 7,
+        type: 'archivedDocument',
+        date: 1521711833,
+        name: 'Monthly Installment.pdf',
+        description: 'Annual bill',
+        url: 'test7.pdf'
+    },
+    { id: 8, type: undefined, date: undefined, name: undefined, description: undefined, url: null }
 ];
 
 function renderComponent({ loading = false, pagination = false, documents = [] } = {}, renderer = mount) {
@@ -61,7 +96,7 @@ describe('<DocumentsList /> Component', () => {
                 .find('a')
                 .at(0)
                 .prop('href')
-        ).toEqual('/api/documents/download/1');
+        ).toEqual('test1.pdf');
     });
 
     it('should display correct data in table when some properties are undefined', () => {
@@ -82,6 +117,6 @@ describe('<DocumentsList /> Component', () => {
                 .find('a')
                 .at(0)
                 .prop('href')
-        ).toEqual('/api/documents/download/8');
+        ).toEqual(null);
     });
 });
