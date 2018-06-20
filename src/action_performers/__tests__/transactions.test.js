@@ -38,14 +38,14 @@ describe('Transactions action performers', () => {
         });
 
         expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
-        expect(method.name).toEqual('bound getAddresses');
+        expect(method.name).toEqual('bound getUserAddresses');
         expect(type).toEqual('GET_AVAILABLE_ADDRESSES');
         expect(loading).toEqual('TEST');
         expect(meta).toEqual(undefined);
     });
 
     it('should call dispatch method for getting open trade positions', () => {
-        performGetOpenTradePositions();
+        performGetOpenTradePositions(1);
 
         const [firstCall] = dispatcher.dispatchPromise.mock.calls;
         const [method, type, loadingFunc, meta] = firstCall;
@@ -57,6 +57,6 @@ describe('Transactions action performers', () => {
         expect(method.name).toEqual('getOpenTradePositions');
         expect(type).toEqual('GET_OPEN_TRADE_POSITIONS');
         expect(loading).toEqual('TEST');
-        expect(meta).toEqual(undefined);
+        expect(meta).toEqual([1]);
     });
 });

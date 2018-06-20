@@ -13,9 +13,9 @@ export function formatCurrency(value) {
 }
 
 export function formatDate(value) {
-    return moment(new Date(value * 1000)).format(DATE_FORMAT);
+    return moment.utc(new Date(value * 1000)).format(DATE_FORMAT);
 }
 
 export function formatDateTime(value) {
-    return moment(new Date(value * 1000)).format(DATETIME_FORMAT);
+    return moment.utc(new Date(value * 1000)).format(DATETIME_FORMAT);
 }

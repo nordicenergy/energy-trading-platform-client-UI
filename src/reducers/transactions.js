@@ -20,6 +20,11 @@ export const initialState = {
         data: {},
         error: null,
         loading: false
+    },
+    ledgerNetworks: {
+        data: {},
+        error: null,
+        loading: false
     }
 };
 
@@ -66,8 +71,30 @@ export function transactionsReducer(state = initialState, action) {
             };
         }
         case 'PERFORM_TRANSACTION': {
+            const [{ offerAddress, offerIssuedTimestamp }] = action.meta;
+            const openTradePositionsList = state.openTradePositions.data;
+            const performedTransactionIndex = openTradePositionsList.findIndex(
+                position =>
+                    position.offerAddress === offerAddress && position.offerIssuedTimestamp === offerIssuedTimestamp
+            );
+            const updatedOpenTradePositions =
+                performedTransactionIndex >= 0 && action.payload
+                    ? [
+                          ...openTradePositionsList.slice(0, performedTransactionIndex),
+                          {
+                              ...openTradePositionsList[performedTransactionIndex],
+                              txHash: action.payload.txHash,
+                              txHashUrl: action.payload.txHashUrl
+                          },
+                          ...openTradePositionsList.slice(performedTransactionIndex + 1)
+                      ]
+                    : openTradePositionsList;
             return {
                 ...state,
+                openTradePositions: {
+                    ...state.openTradePositions,
+                    data: updatedOpenTradePositions
+                },
                 performedTransaction: {
                     data: action.payload ? action.payload : state.performedTransaction.data,
                     loading: action.loading,
@@ -75,6 +102,15 @@ export function transactionsReducer(state = initialState, action) {
                 }
             };
         }
+        case 'GET_LEDGERS':
+            return {
+                ...state,
+                ledgerNetworks: {
+                    data: action.payload ? action.payload : state.ledgerNetworks.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
         default:
             return state;
     }

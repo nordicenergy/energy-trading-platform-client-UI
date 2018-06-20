@@ -59,7 +59,9 @@ class ConfigurationForm extends Component {
                     <div className="configuration-form-actions">
                         <Button disabled={disabled}>{labels.button}</Button>
                         <br />
-                        <small>{labels.helperText}</small>
+                        {/*
+                            TODO: change or remove text
+                        <small>{labels.helperText}</small>*/}
                     </div>
                 </form>
             </div>
