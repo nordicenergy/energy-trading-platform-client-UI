@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { MetaMaskAlert, ConfigurationForm, TradePositionsList } from '../../components';
+import { MetaMaskAlert, ConfigurationForm, TradePositionsList, Confirm } from '../../components';
 import web3Service from '../../services/web3';
 import { DirectTrading as messages } from '../../services/translations/messages';
 import {
@@ -48,7 +48,8 @@ export class DirectTrading extends AbstractContainer {
                 blockChain: '',
                 address: ''
             },
-            filter: DEFAULT_FILTER
+            filter: DEFAULT_FILTER,
+            showConfirmationDialog: false
         };
     }
 
@@ -85,8 +86,9 @@ export class DirectTrading extends AbstractContainer {
         const { performedTransaction, loading, error, user } = this.props;
         const { isConfigured, isMetaMaskInstalled } = this.state;
         const configured = isConfigured && isConfigured !== prevState.isConfigured;
+        const isNewTransactionPerformed = performedTransaction !== prevProps.performedTransaction;
 
-        if (isMetaMaskInstalled && configured && user) {
+        if ((isMetaMaskInstalled && configured && user && user.id) || isNewTransactionPerformed) {
             performGetOpenTradePositions(user.id);
         }
 
@@ -94,12 +96,13 @@ export class DirectTrading extends AbstractContainer {
             performPushNotification({ message: error.message, type: 'error' });
         }
 
-        if (performedTransaction !== prevProps.performedTransaction) {
-            // TODO show popup - https://projects.invisionapp.com/share/2JGCP87HMKP#/screens/303084172_Advanced_Transactions_List_Popup
-            // TODO and add `txHash` and `txHashUrl` for specific trade position
-        }
-
         performSetupLoaderVisibility(loading);
+
+        if (isNewTransactionPerformed && !loading) {
+            this.setState({
+                showConfirmationDialog: true
+            });
+        }
     }
 
     prepareValidator() {
@@ -265,12 +268,34 @@ export class DirectTrading extends AbstractContainer {
         );
     }
 
+    handleConfirmButton() {
+        this.setState({
+            showConfirmationDialog: false
+        });
+    }
+
+    renderConfirmationDialog() {
+        const { txHash } = this.props.performedTransaction;
+        const { formatMessage } = this.context.intl;
+        return (
+            <Confirm
+                onConfirm={() => this.handleConfirmButton()}
+                labels={{
+                    confirmButton: 'OK',
+                    message: `${formatMessage(messages.confirmationDialogMessage)} ${txHash}`
+                }}
+                show={this.state.showConfirmationDialog}
+            />
+        );
+    }
+
     render() {
         const { loading, openTradePositions, availableAddresses } = this.props;
         const labels = this.prepareLabels(messages);
 
         return (
             <section className="direct-trading-page" aria-busy={loading}>
+                {this.renderConfirmationDialog()}
                 <h1>{labels.pageTitle}</h1>
                 <h2>{labels.pageSubTitle}</h2>
                 {this.renderMetaMaskAlert(labels)}

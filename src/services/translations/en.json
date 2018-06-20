@@ -103,6 +103,7 @@
     "app.directTrading.metaMask.tradePositions.sortToolbarTitle": "Sort by",
     "app.directTrading.metaMask.errors.blockChain": "Select blockchain network.",
     "app.directTrading.metaMask.errors.address": "Select one of address.",
+    "app.directTrading.confirmationDialog.successMessage": "Transaction is pending. Transaction hash is",
 
     "app.buyEnergyPage.pageTitle": "Buy Energy",
     "app.buyEnergyPage.selectedProducerLabel": "Current Selection:",

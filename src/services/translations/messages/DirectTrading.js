@@ -68,6 +68,10 @@ const messages = defineMessages({
     metaMaskErrorsAddress: {
         id: 'app.directTrading.metaMask.errors.address',
         defineMessage: 'Select one of address.'
+    },
+    confirmationDialogMessage: {
+        id: 'app.directTrading.confirmationDialog.successMessage',
+        defineMessage: 'Transaction is pending. Transaction hash is'
     }
 });
 
