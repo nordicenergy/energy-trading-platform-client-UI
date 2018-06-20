@@ -7,7 +7,7 @@ export function getDocuments(page = 0) {
         if (!['invoice', 'archivedDocument'].includes(document.type)) {
             return null;
         }
-        let url = `/v0.1/documents/download?contractId=700`;
+        let url = `${SESSION_API_URL}/documents/download?contractId=700`;
         if (document.type === 'invoice') {
             url += `&invoiceNumber=${document.id}`;
         }
