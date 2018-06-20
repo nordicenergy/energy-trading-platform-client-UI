@@ -4,24 +4,23 @@ import icons from '@fortawesome/fontawesome-free-solid';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import Spinner from '../Loader/Spinner';
+import { formatDate } from '../../services/formatter';
 
 import './DocumentsList.css';
-import { SESSION_API_URL } from '../../constants';
 
 class DocumentsList extends React.Component {
     renderTableRows(documents) {
         return documents.map(document => {
-            const link = document.link ? `${SESSION_API_URL}${document.link}` : null;
             return (
                 <tr key={document.id} className="document-list-row">
-                    <td>{document.dateOfCreation || '-'}</td>
+                    <td>{document.date ? formatDate(document.date) : '-'}</td>
                     <td>
-                        <a href={link} download target="_blank">
-                            {document.Name || '-'}
+                        <a href={document.url} download target="_blank">
+                            {document.name || '-'}
                         </a>
                     </td>
                     <td>
-                        <a href={link} download target="_blank">
+                        <a href={document.url} download target="_blank">
                             <div className="document-download-icon">
                                 <FontAwesomeIcon icon={icons.faDownload} />
                             </div>
@@ -53,9 +52,9 @@ class DocumentsList extends React.Component {
 DocumentsList.propTypes = {
     documents: PropTypes.arrayOf(
         PropTypes.shape({
-            dateOfCreation: PropTypes.string,
-            Name: PropTypes.string,
-            link: PropTypes.string,
+            date: PropTypes.number,
+            name: PropTypes.string,
+            description: PropTypes.string,
             id: PropTypes.number.required
         })
     ),
