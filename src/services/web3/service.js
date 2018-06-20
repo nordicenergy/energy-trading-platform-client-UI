@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+import moment from 'moment';
 
 import ropstenContract from './contracts/ropsten';
 import liveContract from './contracts/live';
@@ -29,8 +30,36 @@ class Web3Service {
         }
     }
 
+    buyEnergy(contract, address, producer, day, price, energy, gasPrice) {
+        if (!gasPrice) {
+            gasPrice = 20000000000; // 20 Gwei
+        }
+        const fn = contract.methods['buy_energy(address,uint32,uint32,uint64)'](producer, day, price, energy);
+        const options = {
+            from: address,
+            gas: 200000,
+            gasPrice: gasPrice
+        };
+        return fn.send(options);
+    }
+
     hasMetaMaskProvider() {
         return this.isMetaMaskPluginInstalled;
+    }
+
+    getUserAddresses() {
+        return new Promise(async (resolve, reject) => {
+            const handler = setTimeout(() => reject(TIMEOUT_ERROR), TIMEOUT);
+            try {
+                const addresses = await this.web3.eth.getAccounts();
+
+                clearTimeout(handler);
+                resolve(wrapResult({ addresses }));
+            } catch (error) {
+                clearTimeout(handler);
+                reject(wrapError(error));
+            }
+        });
     }
 
     getAddresses() {
@@ -147,6 +176,53 @@ class Web3Service {
                 });
             } catch (error) {
                 clearTimeout(handler);
+                reject(wrapError(error));
+            }
+        });
+    }
+
+    // FIXME cover by unit tests
+    performTransaction(tradePosition, contractAddress, ledger) {
+        const { energyAvailableFloat, price, producerAddress } = tradePosition;
+        const energyPriceUnitsMultiplier = 1000;
+        const energyUnitsMultiplier = 1000000;
+        const todayDate = moment.utc().startOf('day');
+        const tomorrowDate = todayDate.add(1, 'days').unix();
+        const formattedPrice = parseFloat(price.split(',').join('.')) * energyPriceUnitsMultiplier;
+        const formattedEnergy = energyAvailableFloat * energyUnitsMultiplier;
+
+        return new Promise(async (resolve, reject) => {
+            try {
+                let abi;
+
+                switch (ledger) { // TODO: move to constants
+                    case 'ethereumRopsten':
+                        abi = ropstenContract.abi;
+                        break;
+                    case 'ethereumMain':
+                        abi = liveContract.abi;
+                        break;
+                    default:
+                        return reject(NETWORK_ERROR);
+                }
+
+                const { data: contract } = await this.getContract(contractAddress, abi);
+                const [address] = await this.web3.eth.getAccounts();
+                const transactionResponse = await this.buyEnergy(
+                    contract,
+                    address,
+                    producerAddress,
+                    tomorrowDate,
+                    formattedPrice,
+                    formattedEnergy
+                );
+                resolve({
+                    data: {
+                        txHash: transactionResponse.transactionHash,
+                        txTimestamp: tomorrowDate
+                    }
+                });
+            } catch (error) {
                 reject(wrapError(error));
             }
         });

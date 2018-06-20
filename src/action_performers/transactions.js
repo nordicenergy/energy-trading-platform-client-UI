@@ -1,4 +1,9 @@
-import { getRecentTransactions, getOpenTradePositions } from '../services/api/transactions';
+import {
+    getRecentTransactions,
+    getOpenTradePositions,
+    performExactTransaction,
+    getLedgers
+} from '../services/api/transactions';
 import web3Service from '../services/web3';
 
 import { dispatcher } from '../store';
@@ -14,16 +19,31 @@ export function performGetRecentTransactions(userId, page) {
 
 export function performGetAvailableAddresses() {
     dispatcher.dispatchPromise(
-        web3Service.getAddresses.bind(web3Service),
+        web3Service.getUserAddresses.bind(web3Service),
         'GET_AVAILABLE_ADDRESSES',
         state => state.Transactions.availableAddresses.loading
     );
 }
 
-export function performGetOpenTradePositions() {
+export function performGetOpenTradePositions(userId) {
     dispatcher.dispatchPromise(
         getOpenTradePositions,
         'GET_OPEN_TRADE_POSITIONS',
-        state => state.Transactions.openTradePositions.loading
+        state => state.Transactions.openTradePositions.loading,
+        [userId]
     );
+}
+
+// TODO cover by unit tests
+export function performPerformTransaction(tradePosition, contractAddress, ledger, ledgerAddress) {
+    dispatcher.dispatchPromise(
+        performExactTransaction,
+        'PERFORM_TRANSACTION',
+        state => state.Transactions.performedTransaction.loading,
+        [tradePosition, contractAddress, ledger, ledgerAddress]
+    );
+}
+
+export function performGetLedgerNetworks() {
+    dispatcher.dispatchPromise(getLedgers, 'GET_LEDGERS', state => state.Transactions.ledgerNetworks.loading);
 }

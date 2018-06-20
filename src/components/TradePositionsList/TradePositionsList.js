@@ -21,9 +21,12 @@ class TradePositionsList extends Component {
             onDateFilterChange,
             sortOptions,
             onSortParametersChange,
+            onPerformTransaction,
             tradePositions
         } = this.props;
         const classes = classNames('trade-positions-list', className);
+
+        // TODO define labels for each TradePosition
 
         return (
             <div className={classes}>
@@ -58,7 +61,10 @@ class TradePositionsList extends Component {
                         <ul id={id} className="trade-positions">
                             {tradePositions.map((tradePosition, index) => (
                                 <li key={`${tradePosition.offerAddress}-${index}`}>
-                                    <TradePosition tradePosition={tradePosition} />
+                                    <TradePosition
+                                        tradePosition={tradePosition}
+                                        onPerform={position => onPerformTransaction(position)}
+                                    />
                                 </li>
                             ))}
                         </ul>
@@ -89,6 +95,7 @@ TradePositionsList.propTypes = {
         })
     ),
     onSortParametersChange: PropTypes.func,
+    onPerformTransaction: PropTypes.func,
     tradePositions: PropTypes.arrayOf(TradePositionPropType)
 };
 TradePositionsList.defaultProps = {
@@ -99,6 +106,9 @@ TradePositionsList.defaultProps = {
         filterByDateField: 'Filter by Date',
         sortToolbarTitle: 'Sort by'
     },
+    // TODO cover by unit tests
+    onSortParametersChange: f => f,
+    onPerformTransaction: f => f,
     tradeVolume: '',
     dateFilter: '',
     sortOptions: [],

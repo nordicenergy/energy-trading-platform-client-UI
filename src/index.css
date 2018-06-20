@@ -144,6 +144,7 @@
 
     --trade-position-shadow-color: var(--stone-gray-color);
     --trade-position-general-color: var(--big-stone-color);
+    --trade-position-performed-color: var(--emerald-color);
 
     --focused-control-outline: var(--border-width) dotted var(--steel-blue-color);
 

@@ -48,6 +48,7 @@
 .confirm-dialog-message {
     display: block;
     padding: 1.625em 2.625em;
+    word-wrap: break-word;
     background: white;
     border-top-left-radius: 0.25em;
     border-top-right-radius: 0.25em;

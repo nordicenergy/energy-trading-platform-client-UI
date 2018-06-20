@@ -15,6 +15,16 @@ export const initialState = {
         data: [],
         error: null,
         loading: false
+    },
+    performedTransaction: {
+        data: {},
+        error: null,
+        loading: false
+    },
+    ledgerNetworks: {
+        data: {},
+        error: null,
+        loading: false
     }
 };
 
@@ -60,6 +70,25 @@ export function transactionsReducer(state = initialState, action) {
                 }
             };
         }
+        case 'PERFORM_TRANSACTION': {
+            return {
+                ...state,
+                performedTransaction: {
+                    data: action.payload ? action.payload : state.performedTransaction.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
+        case 'GET_LEDGERS':
+            return {
+                ...state,
+                ledgerNetworks: {
+                    data: action.payload ? action.payload : state.ledgerNetworks.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
         default:
             return state;
     }

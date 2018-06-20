@@ -17,6 +17,17 @@
     flex: 1;
 }
 
+.trade-position-tx {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.trade-position-tx--performed {
+    border: calc(var(--border-width) + 0.125rem) solid var(--trade-position-performed-color);
+}
+
 .trade-position-entry {
     display: block;
     margin: 0;

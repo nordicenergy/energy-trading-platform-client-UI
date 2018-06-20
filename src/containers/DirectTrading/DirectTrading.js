@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { MetaMaskAlert, ConfigurationForm, TradePositionsList } from '../../components';
+import { MetaMaskAlert, ConfigurationForm, TradePositionsList, Confirm } from '../../components';
 import web3Service from '../../services/web3';
 import { DirectTrading as messages } from '../../services/translations/messages';
-import { performGetAvailableAddresses, performGetOpenTradePositions } from '../../action_performers/transactions';
+import {
+    performGetAvailableAddresses,
+    performGetOpenTradePositions,
+    // TODO cover by unit tests
+    performPerformTransaction,
+    performGetLedgerNetworks
+} from '../../action_performers/transactions';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
+import { performGetUserData } from '../../action_performers/users';
 import { META_MASK_DOWNLOAD_LINKS, META_MASK_LINK, BLOCKCHAIN_NETWORKS, TRADE_POSITIONS_LIMIT } from '../../constants';
 import './DirectTrading.css';
 
@@ -27,6 +34,8 @@ const BLOCKCHAIN_NETWORKS_OPTIONS = [
     { value: ledgerNetwork, label: 'Ledger', disabled: true }
 ];
 
+// TODO: refactor this, choose more informative names
+
 export class DirectTrading extends AbstractContainer {
     constructor(props, context, breadcrumbs) {
         super(props, context, breadcrumbs);
@@ -39,32 +48,48 @@ export class DirectTrading extends AbstractContainer {
                 blockChain: '',
                 address: ''
             },
-            filter: DEFAULT_FILTER
+            filter: DEFAULT_FILTER,
+            showConfirmationDialog: false
         };
     }
 
     static mapStateToProps(state) {
         return {
-            loading: state.Transactions.openTradePositions.loading || state.Transactions.availableAddresses.loading,
+            loading:
+                state.Transactions.openTradePositions.loading ||
+                state.Transactions.availableAddresses.loading ||
+                state.Transactions.performedTransaction.loading ||
+                state.Transactions.ledgerNetworks.loading ||
+                state.Users.profile.loading,
             openTradePositions: state.Transactions.openTradePositions.data,
             availableAddresses: state.Transactions.availableAddresses.data.addresses,
-            error: state.Transactions.openTradePositions.error || state.Transactions.availableAddresses.error
+            performedTransaction: state.Transactions.performedTransaction.data,
+            error:
+                state.Transactions.openTradePositions.error ||
+                state.Transactions.availableAddresses.error ||
+                state.Transactions.performedTransaction.error ||
+                state.Transactions.ledgerNetworks.error,
+            user: state.Users.profile.data.user,
+            ledgerNetworks: state.Transactions.ledgerNetworks.data
         };
     }
 
     componentDidMount() {
         if (this.state.isMetaMaskInstalled) {
             performGetAvailableAddresses();
+            performGetLedgerNetworks();
+            performGetUserData();
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { loading, error } = this.props;
-        const { isConfigured, isMetaMaskInstalled, formData } = this.state;
+        const { performedTransaction, loading, error, user } = this.props;
+        const { isConfigured, isMetaMaskInstalled } = this.state;
         const configured = isConfigured && isConfigured !== prevState.isConfigured;
+        const isNewTransactionPerformed = performedTransaction !== prevProps.performedTransaction;
 
-        if (isMetaMaskInstalled && configured) {
-            performGetOpenTradePositions(formData.address);
+        if ((isMetaMaskInstalled && configured && user && user.id) || isNewTransactionPerformed) {
+            performGetOpenTradePositions(user.id);
         }
 
         if (!loading && error && error !== prevProps.error) {
@@ -72,6 +97,12 @@ export class DirectTrading extends AbstractContainer {
         }
 
         performSetupLoaderVisibility(loading);
+
+        if (isNewTransactionPerformed && !loading) {
+            this.setState({
+                showConfirmationDialog: true
+            });
+        }
     }
 
     prepareValidator() {
@@ -192,7 +223,8 @@ export class DirectTrading extends AbstractContainer {
     }
 
     renderOpenTradePositionsTable(tradePositions = [], labels) {
-        const { filter } = this.state;
+        const { filter, formData } = this.state;
+        const { ledger } = this.props.user;
         const filteredTradePositions = tradePositions
             .filter(tradePosition => {
                 let isPass = true;
@@ -213,12 +245,16 @@ export class DirectTrading extends AbstractContainer {
                 return isPass;
             })
             .slice(0, TRADE_POSITIONS_LIMIT);
+        const address = (this.props.ledgerNetworks[ledger] && this.props.ledgerNetworks[ledger].addresses[0]) || [];
 
         return (
             <TradePositionsList
                 onBackClick={() => this.handleBackClick()}
                 onTradeVolumeChange={event => this.handleTradeVolumeChange(event)}
                 onDateFilterChange={payload => this.handleDateFilterChange(payload)}
+                onPerformTransaction={position =>
+                    performPerformTransaction(position, address, ledger, formData.address)
+                }
                 tradeVolume={filter.energyAvailable}
                 dateFilter={filter.offerIssued}
                 tradePositions={filteredTradePositions}
@@ -232,12 +268,34 @@ export class DirectTrading extends AbstractContainer {
         );
     }
 
+    handleConfirmButton() {
+        this.setState({
+            showConfirmationDialog: false
+        });
+    }
+
+    renderConfirmationDialog() {
+        const { txHash } = this.props.performedTransaction;
+        const { formatMessage } = this.context.intl;
+        return (
+            <Confirm
+                onConfirm={() => this.handleConfirmButton()}
+                labels={{
+                    confirmButton: 'OK',
+                    message: `${formatMessage(messages.confirmationDialogMessage)} ${txHash}`
+                }}
+                show={this.state.showConfirmationDialog}
+            />
+        );
+    }
+
     render() {
         const { loading, openTradePositions, availableAddresses } = this.props;
         const labels = this.prepareLabels(messages);
 
         return (
             <section className="direct-trading-page" aria-busy={loading}>
+                {this.renderConfirmationDialog()}
                 <h1>{labels.pageTitle}</h1>
                 <h2>{labels.pageSubTitle}</h2>
                 {this.renderMetaMaskAlert(labels)}

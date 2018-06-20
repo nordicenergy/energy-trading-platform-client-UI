@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import TradePosition from '../TradePosition';
+import { Button } from '../../../.';
 
 const tradePositionDummy = {
     offerAddressUrl: 'http://offer.address.test/0x123f681646d4a755815f9cb19e1acc8565a0c2ac',
@@ -35,6 +36,8 @@ describe('<TradePosition /> component', () => {
                 .props().href
         ).toBe(tradePositionDummy.producerUrl);
         expect(tradePosition.find('.trade-position-entry strong')).toHaveLength(5);
+        expect(tradePosition.find('.trade-position-tx--performed')).toHaveLength(0);
+        expect(tradePosition.find(Button)).toHaveLength(1);
     });
 
     it('should replace empty producer name with placeholder placeholder', () => {
@@ -48,5 +51,14 @@ describe('<TradePosition /> component', () => {
                 .at(0)
                 .text()
         ).toBe('Unknown');
+    });
+
+    it('should position as marked when transaction was performed', () => {
+        const tradePosition = renderComponent({
+            tradePosition: { ...tradePositionDummy, txHash: '0x1234', txHashUrl: 'http://eth.scan.com/0x1234' }
+        });
+        expect(tradePosition.find(Button)).toHaveLength(0);
+        expect(tradePosition.find('.trade-position-tx--performed')).toHaveLength(1);
+        expect(tradePosition.find('.trade-position-entry')).toHaveLength(8);
     });
 });
