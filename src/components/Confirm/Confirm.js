@@ -5,7 +5,7 @@ import './Confirm.css';
 
 const Confirm = ({ className, labels, show, onConfirm, onCancel }) => {
     const classes = classNames('confirm', show && 'confirm--show', className);
- // TODO: improve test coverage
+    // TODO: improve test coverage
     return (
         <div aria-hidden={!show} className={classes}>
             <dialog className="confirm-dialog" open={show}>
