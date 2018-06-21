@@ -41,7 +41,7 @@ export function getRecentTransactions(userId, page = 0) {
 export function getOpenTradePositions(userId /* address, abi */) {
     const intermediateData = { producers: [] };
     const result = { data: [] };
-    let scannerURL;
+    let networkName;
 
     return Axios.get(`${SESSION_API_URL}/producers/direct`, {
         params: { limit: 1000, offset: 0 }
@@ -59,8 +59,8 @@ export function getOpenTradePositions(userId /* address, abi */) {
             const { data = [] } = bids;
             const { data: { id: networkId } = {} } = network;
 
-            const networkName = Object.keys(META_MASK_NETWORKS).find(key => META_MASK_NETWORKS[key] === networkId);
-            scannerURL = `${BLOCKCHAIN_SCANNER_URLS[networkName]}/address`;
+            networkName = Object.keys(META_MASK_NETWORKS).find(key => META_MASK_NETWORKS[key] === networkId);
+            const scannerURL = `${BLOCKCHAIN_SCANNER_URLS[networkName]}/address`;
 
             result.data = data.map(bid => {
                 const { producers } = intermediateData;
@@ -92,6 +92,7 @@ export function getOpenTradePositions(userId /* address, abi */) {
             const { transactions = [] } = response.data;
             const [transactionData] = transactions;
             // todo: find better solution to identify performed transaction
+            const transactionBaseUrl = `${BLOCKCHAIN_SCANNER_URLS[networkName]}/tx`;
             result.data = result.data.map(tradePosition => {
                 if (
                     tradePosition.producerId === transactionData.producerID &&
@@ -101,7 +102,7 @@ export function getOpenTradePositions(userId /* address, abi */) {
                     return {
                         ...tradePosition,
                         txHash: transactionData.transactionHash,
-                        txHashUrl: `${scannerURL}/${transactionData.transactionHash}`
+                        txHashUrl: `${transactionBaseUrl}/${transactionData.transactionHash}`
                     };
                 }
                 return tradePosition;
