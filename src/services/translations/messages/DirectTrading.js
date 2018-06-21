@@ -55,23 +55,28 @@ const messages = defineMessages({
     },
     metaMaskTradePositionsFilterByDateField: {
         id: 'app.directTrading.metaMask.tradePositions.filterByDateField',
-        defineMessage: 'Filter by Date'
+        defaultMessage: 'Filter by Date'
     },
     metaMaskTradePositionsSortToolbarTitle: {
         id: 'app.directTrading.metaMask.tradePositions.sortToolbarTitle',
-        defineMessage: 'Sort by'
+        defaultMessage: 'Sort by'
     },
     metaMaskErrorsBlockChain: {
         id: 'app.directTrading.metaMask.errors.blockChain',
-        defineMessage: 'Select blockchain network.'
+        defaultMessage: 'Select blockchain network.'
     },
     metaMaskErrorsAddress: {
         id: 'app.directTrading.metaMask.errors.address',
-        defineMessage: 'Select one of address.'
+        defaultMessage: 'Select one of address.'
     },
-    confirmationDialogMessage: {
+    confirmationTransactionDialogMessage: {
         id: 'app.directTrading.confirmationDialog.successMessage',
-        defineMessage: 'Transaction is pending. Transaction hash is'
+        defaultMessage: 'Transaction is pending. Transaction hash is'
+    },
+    confirmationStatusDialogMessage: {
+        id: 'app.directTrading.confirmationDialog.statusInfoMessage',
+        defaultMessage:
+            'User ledger address registration is in progress. Next step will be available after registration will be succeed.'
     }
 });
 

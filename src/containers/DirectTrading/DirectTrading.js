@@ -11,7 +11,8 @@ import {
     performGetOpenTradePositions,
     // TODO cover by unit tests
     performPerformTransaction,
-    performGetLedgerNetworks
+    performGetLedgerNetworks,
+    performRegisterLedgerAddress
 } from '../../action_performers/transactions';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
@@ -34,6 +35,8 @@ const BLOCKCHAIN_NETWORKS_OPTIONS = [
     { value: ledgerNetwork, label: 'Ledger', disabled: true }
 ];
 
+const SUCCESS_LEDGER_STATUS = 'success';
+
 // TODO: refactor this, choose more informative names
 
 export class DirectTrading extends AbstractContainer {
@@ -49,7 +52,8 @@ export class DirectTrading extends AbstractContainer {
                 address: ''
             },
             filter: DEFAULT_FILTER,
-            showConfirmationDialog: false
+            showConfirmationDialog: false,
+            dialogMessage: ''
         };
     }
 
@@ -60,7 +64,8 @@ export class DirectTrading extends AbstractContainer {
                 state.Transactions.availableAddresses.loading ||
                 state.Transactions.performedTransaction.loading ||
                 state.Transactions.ledgerNetworks.loading ||
-                state.Users.profile.loading,
+                state.Users.profile.loading ||
+                state.Transactions.ledgerStatus.loading,
             openTradePositions: state.Transactions.openTradePositions.data,
             availableAddresses: state.Transactions.availableAddresses.data.addresses,
             performedTransaction: state.Transactions.performedTransaction.data,
@@ -68,9 +73,12 @@ export class DirectTrading extends AbstractContainer {
                 state.Transactions.openTradePositions.error ||
                 state.Transactions.availableAddresses.error ||
                 state.Transactions.performedTransaction.error ||
-                state.Transactions.ledgerNetworks.error,
+                state.Transactions.ledgerNetworks.error ||
+                state.Transactions.ledgerStatus.error ||
+                state.Users.profile.error,
             user: state.Users.profile.data.user,
-            ledgerNetworks: state.Transactions.ledgerNetworks.data
+            ledgerNetworks: state.Transactions.ledgerNetworks.data,
+            ledgerStatus: state.Transactions.ledgerStatus.data
         };
     }
 
@@ -83,10 +91,23 @@ export class DirectTrading extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { performedTransaction, loading, error, user } = this.props;
+        const { performedTransaction, loading, error, user, ledgerStatus } = this.props;
         const { isConfigured, isMetaMaskInstalled } = this.state;
+        const { formatMessage } = this.context.intl;
         const configured = isConfigured && isConfigured !== prevState.isConfigured;
+        const isLedgerStatusChanged = ledgerStatus.status && ledgerStatus !== prevProps.ledgerStatus;
+        const isLedgerStatusSuccessful = ledgerStatus.status === SUCCESS_LEDGER_STATUS;
         const isNewTransactionPerformed = performedTransaction !== prevProps.performedTransaction;
+
+        performSetupLoaderVisibility(loading);
+
+        if (isLedgerStatusChanged) {
+            this.setState({
+                isConfigured: isLedgerStatusSuccessful,
+                showConfirmationDialog: !isLedgerStatusSuccessful,
+                dialogMessage: isLedgerStatusSuccessful ? '' : formatMessage(messages.confirmationStatusDialogMessage)
+            });
+        }
 
         if ((isMetaMaskInstalled && configured && user && user.id) || isNewTransactionPerformed) {
             performGetOpenTradePositions(user.id);
@@ -96,11 +117,12 @@ export class DirectTrading extends AbstractContainer {
             performPushNotification({ message: error.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(loading);
-
         if (isNewTransactionPerformed && !loading) {
             this.setState({
-                showConfirmationDialog: true
+                showConfirmationDialog: true,
+                dialogMessage: `${formatMessage(messages.confirmationTransactionDialogMessage)} ${
+                    performedTransaction.txHash
+                }`
             });
         }
     }
@@ -158,6 +180,7 @@ export class DirectTrading extends AbstractContainer {
     }
 
     handleSubmit(formData) {
+        const { ledger } = this.props.user;
         const validator = this.prepareValidator();
 
         validator.validate(formData, errors => {
@@ -172,8 +195,8 @@ export class DirectTrading extends AbstractContainer {
                     )
                 });
             } else {
+                performRegisterLedgerAddress(ledger, formData.address);
                 this.setState({
-                    isConfigured: true,
                     formData,
                     formErrors: { blockChain: '', address: '' }
                 });
@@ -223,7 +246,7 @@ export class DirectTrading extends AbstractContainer {
     }
 
     renderOpenTradePositionsTable(tradePositions = [], labels) {
-        const { filter, formData } = this.state;
+        const { filter } = this.state;
         const { ledger } = this.props.user;
         const filteredTradePositions = tradePositions
             .filter(tradePosition => {
@@ -245,16 +268,15 @@ export class DirectTrading extends AbstractContainer {
                 return isPass;
             })
             .slice(0, TRADE_POSITIONS_LIMIT);
-        const address = (this.props.ledgerNetworks[ledger] && this.props.ledgerNetworks[ledger].addresses[0]) || [];
+        const [contractAddress = ''] =
+            (this.props.ledgerNetworks[ledger] && this.props.ledgerNetworks[ledger].addresses) || [];
 
         return (
             <TradePositionsList
                 onBackClick={() => this.handleBackClick()}
                 onTradeVolumeChange={event => this.handleTradeVolumeChange(event)}
                 onDateFilterChange={payload => this.handleDateFilterChange(payload)}
-                onPerformTransaction={position =>
-                    performPerformTransaction(position, address, ledger, formData.address)
-                }
+                onPerformTransaction={position => performPerformTransaction(position, contractAddress, ledger)}
                 tradeVolume={filter.energyAvailable}
                 dateFilter={filter.offerIssued}
                 tradePositions={filteredTradePositions}
@@ -275,14 +297,13 @@ export class DirectTrading extends AbstractContainer {
     }
 
     renderConfirmationDialog() {
-        const { txHash } = this.props.performedTransaction;
-        const { formatMessage } = this.context.intl;
+        const { dialogMessage } = this.state;
         return (
             <Confirm
                 onConfirm={() => this.handleConfirmButton()}
                 labels={{
                     confirmButton: 'OK',
-                    message: `${formatMessage(messages.confirmationDialogMessage)} ${txHash}`
+                    message: dialogMessage
                 }}
                 show={this.state.showConfirmationDialog}
             />

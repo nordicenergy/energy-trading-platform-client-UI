@@ -50,7 +50,7 @@ export function getOpenTradePositions(userId /* address, abi */) {
             if (response.data && Array.isArray(response.data.producers)) {
                 const { producers } = response.data;
                 intermediateData.producers = producers;
-                return Promise.all([web3Service.getCurrentBids(), web3Service.getNetworkId()]);
+                return Promise.all([web3Service.getCurrentBids(), web3Service.getNetworkId()]); // todo: remove getting networkId and replace by ledger
             }
             return [];
         })
@@ -112,15 +112,22 @@ export function getOpenTradePositions(userId /* address, abi */) {
         });
 }
 
-export function performExactTransaction(tradePosition, contractAddress, ledger, ledgerAddress) {
+export function registerLedgerAddress(ledger, ledgerAddress) {
+    return Axios.put(`${SESSION_API_URL}/trading/buyEnergy/registerAddress`, { ledger, ledgerAddress }).then(
+        response => {
+            const { data = {} } = response;
+            const { ledgerStatus } = data;
+            return { data: ledgerStatus };
+        }
+    );
+}
+
+export function performExactTransaction(tradePosition, contractAddress, ledger) {
     const result = {};
-    return Axios.put(`${SESSION_API_URL}/trading/buyEnergy/registerAddress`, { ledger, ledgerAddress })
-        .then(() => {
-            return Promise.all([
-                web3Service.getNetworkId(),
-                web3Service.performTransaction(tradePosition, contractAddress, ledger)
-            ]);
-        })
+    return Promise.all([
+        web3Service.getNetworkId(),
+        web3Service.performTransaction(tradePosition, contractAddress, ledger)
+    ])
         .then(([network = {}, transaction = {}]) => {
             const { data: { id: networkId } = {} } = network;
             const { data: transactionData } = transaction;
@@ -147,7 +154,7 @@ export function performExactTransaction(tradePosition, contractAddress, ledger, 
         });
 }
 
-export function getLedgers() {
+export function getLedgerNetworks() {
     return Axios.get(`${SESSION_API_URL}/trading/ledgers`).then(response => {
         const { data = {} } = response;
         const ledgerNetworks = {};

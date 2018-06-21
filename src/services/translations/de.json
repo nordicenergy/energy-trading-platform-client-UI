@@ -106,6 +106,7 @@
     "app.directTrading.metaMask.errors.blockChain": "Select blockchain network.",
     "app.directTrading.metaMask.errors.address": "Select one of address.",
     "app.directTrading.confirmationDialog.successMessage": "Transaction is pending. Transaction hash is",
+    "app.directTrading.confirmationDialog.statusInfoMessage": "User ledger address registration is in progress. Next step will be available after registration will be succeed.",
 
     "app.buyEnergyPage.pageTitle": "Energie kaufen",
     "app.buyEnergyPage.selectedProducerLabel": "aktuelle Auswahl:",
