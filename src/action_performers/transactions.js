@@ -46,7 +46,11 @@ export function performPerformTransaction(tradePosition, contractAddress, ledger
 }
 
 export function performGetLedgerNetworks() {
-    dispatcher.dispatchPromise(getLedgerNetworks, 'GET_LEDGER_NETWORKS', state => state.Transactions.ledgerNetworks.loading);
+    dispatcher.dispatchPromise(
+        getLedgerNetworks,
+        'GET_LEDGER_NETWORKS',
+        state => state.Transactions.ledgerNetworks.loading
+    );
 }
 
 export function performRegisterLedgerAddress(ledger, ledgerAddress) {
