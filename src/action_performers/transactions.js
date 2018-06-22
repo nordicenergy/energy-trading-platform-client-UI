@@ -2,7 +2,8 @@ import {
     getRecentTransactions,
     getOpenTradePositions,
     performExactTransaction,
-    getLedgers
+    getLedgerNetworks,
+    registerLedgerAddress
 } from '../services/api/transactions';
 import web3Service from '../services/web3';
 
@@ -45,5 +46,18 @@ export function performPerformTransaction(tradePosition, contractAddress, ledger
 }
 
 export function performGetLedgerNetworks() {
-    dispatcher.dispatchPromise(getLedgers, 'GET_LEDGERS', state => state.Transactions.ledgerNetworks.loading);
+    dispatcher.dispatchPromise(
+        getLedgerNetworks,
+        'GET_LEDGER_NETWORKS',
+        state => state.Transactions.ledgerNetworks.loading
+    );
+}
+
+export function performRegisterLedgerAddress(ledger, ledgerAddress) {
+    dispatcher.dispatchPromise(
+        registerLedgerAddress,
+        'REGISTER_LEDGER',
+        state => state.Transactions.ledgerStatus.loading,
+        [ledger, ledgerAddress]
+    );
 }
