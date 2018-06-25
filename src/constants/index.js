@@ -53,3 +53,8 @@ export const BLOCKCHAIN_SCANNER_URLS = {
 };
 
 export const TRADE_POSITIONS_LIMIT = 25;
+
+export const DOCUMENT_TYPES = {
+    INVOICE: 'invoice',
+    ARCHIVED: 'archivedDocument'
+};
