@@ -9,7 +9,6 @@ import { DirectTrading as messages } from '../../services/translations/messages'
 import {
     performGetAvailableAddresses,
     performGetOpenTradePositions,
-    // TODO cover by unit tests
     performPerformTransaction,
     performGetLedgerNetworks,
     performRegisterLedgerAddress
@@ -36,8 +35,6 @@ const BLOCKCHAIN_NETWORKS_OPTIONS = [
 ];
 
 const SUCCESS_LEDGER_STATUS = 'success';
-
-// TODO: refactor this, choose more informative names
 
 export class DirectTrading extends AbstractContainer {
     constructor(props, context, breadcrumbs) {
@@ -110,7 +107,7 @@ export class DirectTrading extends AbstractContainer {
         }
 
         if ((isMetaMaskInstalled && configured && user && user.id) || isNewTransactionPerformed) {
-            performGetOpenTradePositions(user.id);
+            performGetOpenTradePositions(user.id, user.ledger);
         }
 
         if (!loading && error && error !== prevProps.error) {
@@ -246,7 +243,7 @@ export class DirectTrading extends AbstractContainer {
     }
 
     renderOpenTradePositionsTable(tradePositions = [], labels) {
-        const { filter } = this.state;
+        const { filter, formData } = this.state;
         const { ledger } = this.props.user;
         const filteredTradePositions = tradePositions
             .filter(tradePosition => {
@@ -276,7 +273,9 @@ export class DirectTrading extends AbstractContainer {
                 onBackClick={() => this.handleBackClick()}
                 onTradeVolumeChange={event => this.handleTradeVolumeChange(event)}
                 onDateFilterChange={payload => this.handleDateFilterChange(payload)}
-                onPerformTransaction={position => performPerformTransaction(position, contractAddress, ledger)}
+                onPerformTransaction={position =>
+                    performPerformTransaction(position, contractAddress, ledger, formData.address)
+                }
                 tradeVolume={filter.energyAvailable}
                 dateFilter={filter.offerIssued}
                 tradePositions={filteredTradePositions}

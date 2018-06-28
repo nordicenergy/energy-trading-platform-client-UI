@@ -106,7 +106,6 @@ TradePositionsList.defaultProps = {
         filterByDateField: 'Filter by Date',
         sortToolbarTitle: 'Sort by'
     },
-    // TODO cover by unit tests
     onSortParametersChange: f => f,
     onPerformTransaction: f => f,
     tradeVolume: '',

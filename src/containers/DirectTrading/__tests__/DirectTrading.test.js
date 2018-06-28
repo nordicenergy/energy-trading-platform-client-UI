@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import DirectTradingContainer, { DirectTrading } from '../DirectTrading';
-import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
+import { mountWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 
 import * as notificationActions from '../../../action_performers/notifications';
@@ -72,6 +72,40 @@ const store = mockStore({
             },
             loading: false,
             error: null
+        },
+        ledgerNetworks: {
+            loading: false,
+            data: {
+                ethereumRopsten: { addresses: ['contractAddressTest'] }
+            },
+            error: null
+        },
+        performedTransaction: {
+            data: {
+                txHash: '0x4d0f7b1fc6c0dee1475b37cfdb264e4ca1bd0142d4360bfaec1e7efc031ac70f',
+                txHashUrl: 'testUrl'
+            },
+            loading: false,
+            error: null
+        },
+        ledgerStatus: {
+            loading: false,
+            data: {
+                status: 'success'
+            },
+            error: null
+        }
+    },
+    Users: {
+        profile: {
+            loading: false,
+            data: {
+                user: {
+                    id: 1,
+                    ledger: 'ethereumRopsten'
+                }
+            },
+            error: null
         }
     }
 });
@@ -80,7 +114,21 @@ const props = {
     openTradePositions: [],
     availableAddresses: ['0x11f4d0A3c12e86B4b5F39B213F7E19D048276DAe', '0xDCc6960376d6C6dEa93647383FfB245CfCed97Cf'],
     loading: false,
-    error: null
+    error: null,
+    ledgerStatus: {
+        status: 'success'
+    },
+    ledgerNetworks: {
+        ethereumRopsten: { addresses: ['contractAddressTest'] }
+    },
+    user: {
+        id: 1,
+        ledger: 'ethereumRopsten'
+    },
+    performedTransaction: {
+        txHash: '0x4d0f7b1fc6c0dee1475b37cfdb264e4ca1bd0142d4360bfaec1e7efc031ac70f',
+        txHashUrl: 'testUrl'
+    }
 };
 
 function renderContainer() {
@@ -92,17 +140,18 @@ function renderContainer() {
 }
 
 function renderComponent() {
-    return shallowWithIntl(<DirectTrading {...props} context={context} />);
+    return mountWithIntl(<DirectTrading {...props} context={context} />);
 }
 
 // FIXME
-describe.skip('<DirectTrading /> Component', () => {
+describe('<DirectTrading /> Component', () => {
     beforeEach(() => {
         context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
 
         txActions.performGetAvailableAddresses = jest.fn();
         txActions.performGetOpenTradePositions = jest.fn();
+        txActions.performPerformTransaction = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
         notificationActions.performPushNotification = jest.fn();
     });
@@ -145,6 +194,30 @@ describe.skip('<DirectTrading /> Component', () => {
                     data: { addresses: 'test_data' },
                     error: 'test_error',
                     loading: 'test_loading'
+                },
+                ledgerNetworks: {
+                    loading: false,
+                    data: 'test_networks_data',
+                    error: null
+                },
+                performedTransaction: {
+                    data: 'test_performed_transaction_data',
+                    loading: false,
+                    error: null
+                },
+                ledgerStatus: {
+                    loading: false,
+                    data: 'test_status_data',
+                    error: null
+                }
+            },
+            Users: {
+                profile: {
+                    loading: false,
+                    data: {
+                        user: 'test_user_data'
+                    },
+                    error: null
                 }
             }
         };
@@ -153,7 +226,11 @@ describe.skip('<DirectTrading /> Component', () => {
             openTradePositions: [],
             availableAddresses: 'test_data',
             error: 'test_error',
-            loading: 'test_loading'
+            loading: 'test_loading',
+            ledgerStatus: 'test_status_data',
+            ledgerNetworks: 'test_networks_data',
+            user: 'test_user_data',
+            performedTransaction: 'test_performed_transaction_data'
         });
     });
 
@@ -188,16 +265,21 @@ describe.skip('<DirectTrading /> Component', () => {
         console.warn.mockRestore();
     });
 
-    it('should calls performGetOpenTradePositions if formData not valid', () => {
-        const component = renderContainer();
+    it('should calls performGetOpenTradePositions if formData is valid', () => {
+        const component = renderComponent();
 
+        component.setProps({
+            ledgerStatus: { status: 'pending' }
+        });
         component.setState({ isMetaMaskInstalled: true, isConfigured: false });
+        component.setProps({
+            ledgerStatus: { status: 'success' }
+        });
         component
             .find('ConfigurationForm')
             .props()
             .onSubmit({ blockChain: 'test', address: 'abc' });
-
-        expect(txActions.performGetOpenTradePositions).toHaveBeenCalledWith('abc');
+        expect(txActions.performGetOpenTradePositions).toHaveBeenCalledWith(1, 'ethereumRopsten');
     });
 
     it('should perform related actions on did mount step', () => {
@@ -278,5 +360,59 @@ describe.skip('<DirectTrading /> Component', () => {
             .onDateFilterChange({ value: 1526425200 });
         directTrading.update();
         expect(directTrading.find('TradePositionsList').props().tradePositions).toEqual([]);
+    });
+
+    it('should show confirmation dialog with message', () => {
+        const component = renderComponent();
+
+        component.setProps({
+            performedTransaction: {
+                txHash: 'new_tx_hash',
+                txHashUrl: 'new_tx_hash_url'
+            },
+            loading: false
+        });
+
+        expect(component.state().showConfirmationDialog).toBeTruthy();
+    });
+
+    it('should close confirmation dialog', () => {
+        const component = renderComponent();
+
+        component.setState({
+            showConfirmationDialog: true
+        });
+
+        component
+            .find('Confirm')
+            .at(0)
+            .props()
+            .onConfirm();
+        expect(component.state().showConfirmationDialog).toBeFalsy();
+    });
+
+    it('should call performPerformTransaction callback', () => {
+        const component = renderComponent();
+
+        component.setState({
+            isConfigured: true,
+            isMetaMaskInstalled: true,
+            formData: {
+                address: 'testAddress'
+            }
+        });
+        component.setProps({ openTradePositions: tradePositionsDummy });
+
+        component
+            .find('TradePosition')
+            .at(0)
+            .props()
+            .onPerform(tradePositionsDummy[0]);
+        expect(txActions.performPerformTransaction).toHaveBeenCalledWith(
+            tradePositionsDummy[0],
+            'contractAddressTest',
+            'ethereumRopsten',
+            'testAddress'
+        );
     });
 });

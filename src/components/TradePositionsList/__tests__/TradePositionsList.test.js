@@ -119,4 +119,53 @@ describe('<TradePositionsList /> component', () => {
             .onChange(parametersDummy);
         expect(onSortParametersChangeStub).toHaveBeenCalledWith(parametersDummy);
     });
+
+    it('should calls default onTradeVolumeChange if callback is not provided', () => {
+        const tradePositionsList = renderComponent({ sortOptions: sortOptionsDummy });
+
+        const testValue = tradePositionsList
+            .find('SortToolbar')
+            .props()
+            .onChange('test');
+        expect(testValue).toBe('test');
+    });
+
+    it('should call onPerformTransaction callback', () => {
+        const tradePositionDummy = {
+            producerId: 19,
+            producerAddress: '0x63d8d1489508E9b6B1661Ce1DfEBBBdDc424193A',
+            offerAddressUrl: 'https://ropsten.etherscan.io/address/0x63d8d1489508E9b6B1661Ce1DfEBBBdDc424193A',
+            offerAddress: '0x63d8d1489508E9b6B1661Ce1DfEBBBdDc424193A',
+            producerUrl: '/buy_energy/producer/19',
+            producerName: 'Photovoltaik-Anlage in Mariendorf',
+            offerIssued: 'May 05, 2018 12:00',
+            offerIssuedTimestamp: 1525478400,
+            validOn: '--',
+            energyOffered: '--',
+            energyAvailable: '39,9',
+            energyAvailableFloat: 39.9,
+            price: '3,20',
+            priceFloat: 3.2
+        };
+        const onPerformTransactionStub = jest.fn();
+        const tradePositionsList = renderComponent({
+            onPerformTransaction: onPerformTransactionStub
+        });
+        tradePositionsList
+            .find('TradePosition')
+            .at(0)
+            .props()
+            .onPerform(tradePositionDummy);
+        expect(onPerformTransactionStub).toHaveBeenCalledWith(tradePositionDummy);
+    });
+
+    it('should call default onPerformTransaction if callback is not provided', () => {
+        const tradePositionsList = renderComponent();
+        const testValue = tradePositionsList
+            .find('TradePosition')
+            .at(0)
+            .props()
+            .onPerform('test');
+        expect(testValue).toBe('test');
+    });
 });

@@ -48,7 +48,7 @@ export const META_MASK_DOWNLOAD_LINKS = {
 export const BLOCKCHAIN_NETWORKS = ['ethereum', 'ledger'];
 
 export const BLOCKCHAIN_SCANNER_URLS = {
-    live: 'https://etherscan.io',
+    main: 'https://etherscan.io',
     ropsten: 'https://ropsten.etherscan.io'
 };
 

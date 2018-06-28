@@ -53,6 +53,30 @@ describe('<TradePosition /> component', () => {
         ).toBe('Unknown');
     });
 
+    it('should call onPerform callback', () => {
+        const onPerformStub = jest.fn();
+        const tradePosition = renderComponent({
+            tradePosition: tradePositionDummy,
+            onPerform: onPerformStub
+        });
+        tradePosition
+            .find('Button')
+            .props()
+            .onClick();
+        expect(onPerformStub).toHaveBeenCalledWith(tradePositionDummy);
+    });
+
+    it('should call onPerform which is provided by default', () => {
+        const tradePosition = renderComponent({
+            tradePosition: tradePositionDummy
+        });
+        const testValue = tradePosition
+            .find('Button')
+            .props()
+            .onClick();
+        expect(testValue).toEqual(tradePositionDummy);
+    });
+
     it('should position as marked when transaction was performed', () => {
         const tradePosition = renderComponent({
             tradePosition: { ...tradePositionDummy, txHash: '0x1234', txHashUrl: 'http://eth.scan.com/0x1234' }

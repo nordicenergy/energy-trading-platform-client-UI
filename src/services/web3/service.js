@@ -6,7 +6,12 @@ import liveContract from './contracts/live';
 
 export const META_MASK_NETWORKS = {
     ropsten: 3,
-    live: 1
+    main: 1
+};
+
+export const LEDGERS = {
+    ropsten: 'ethereumRopsten',
+    main: 'ethereumMain'
 };
 export const TIMEOUT = 5000;
 export const TIMEOUT_ERROR = wrapError(new Error('MetaMask timeout error'));
@@ -30,17 +35,29 @@ class Web3Service {
         }
     }
 
-    buyEnergy(contract, address, producer, day, price, energy, gasPrice) {
-        if (!gasPrice) {
-            gasPrice = 20000000000; // 20 Gwei
-        }
-        const fn = contract.methods['buy_energy(address,uint32,uint32,uint64)'](producer, day, price, energy);
-        const options = {
-            from: address,
-            gas: 200000,
-            gasPrice: gasPrice
-        };
-        return fn.send(options);
+    buyEnergy(contract, ledgerAddress, producerAddress, transactionDate, price, energy, gasPrice) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                if (!gasPrice) {
+                    gasPrice = 20000000000; // 20 Gwei
+                }
+                const fn = contract.methods['buy_energy(address,uint32,uint32,uint64)'](
+                    producerAddress,
+                    transactionDate,
+                    price,
+                    energy
+                );
+                const options = {
+                    from: ledgerAddress,
+                    gas: 200000,
+                    gasPrice: gasPrice
+                };
+                const result = await fn.send(options);
+                resolve(result);
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 
     hasMetaMaskProvider() {
@@ -62,57 +79,12 @@ class Web3Service {
         });
     }
 
-    getAddresses() {
-        return new Promise(async (resolve, reject) => {
-            const handler = setTimeout(() => reject(TIMEOUT_ERROR), TIMEOUT);
-            const addresses = [];
-
-            try {
-                const { data } = (await this.getNetworkId()) || {};
-
-                switch (data.id) {
-                    case META_MASK_NETWORKS.live:
-                        addresses.push(liveContract.address);
-                        break;
-
-                    case META_MASK_NETWORKS.ropsten:
-                        addresses.push(ropstenContract.address);
-                        break;
-
-                    default:
-                        return reject(NETWORK_ERROR);
-                }
-
-                // simulate real behavior, check that user already login in metamask plugin
-                await this.web3.eth.getAccounts();
-
-                clearTimeout(handler);
-                resolve(wrapResult({ addresses }));
-            } catch (error) {
-                clearTimeout(handler);
-                reject(wrapError(error));
-            }
-
-            // TODO in future we will use real meta mask addresses
-            // const handler = setTimeout(() => reject(TIMEOUT_ERROR), TIMEOUT);
-            //
-            // try {
-            //     const addresses = await this.web3.eth.getAccounts();
-            //     clearTimeout(handler);
-            //     resolve(wrapResult({ addresses }));
-            // } catch (error) {
-            //     clearTimeout(handler);
-            //     reject(wrapError(error));
-            // }
-        });
-    }
-
-    getCurrentBids(contract) {
+    getCurrentBids(ledger, contract) {
         return new Promise(async (resolve, reject) => {
             const handler = setTimeout(() => reject(TIMEOUT_ERROR), TIMEOUT);
 
             try {
-                const { data } = contract ? { data: contract } : await this.getContract();
+                const { data } = contract ? { data: contract } : await this.getContract(ledger);
                 const events =
                     data && data.getPastEvents
                         ? await data.getPastEvents('BidMade', {
@@ -120,7 +92,6 @@ class Web3Service {
                               toBlock: 'pending'
                           })
                         : [];
-
                 clearTimeout(handler);
                 resolve(wrapResult(events.map(({ returnValues = {} }) => ({ ...returnValues }))));
             } catch (error) {
@@ -130,24 +101,21 @@ class Web3Service {
         });
     }
 
-    getContract(address, abi) {
+    getContract(ledger, address, abi) {
         return new Promise(async (resolve, reject) => {
             try {
-                const { data } = (await this.getNetworkId()) || {};
-
                 if (!address) {
                     // TODO temporary fallback on blockchain side
-                    switch (data.id) {
-                        case META_MASK_NETWORKS.live:
+                    switch (ledger) {
+                        case LEDGERS.main:
                             address = liveContract.address;
                             abi = liveContract.abi;
                             break;
 
-                        case META_MASK_NETWORKS.ropsten:
+                        case LEDGERS.ropsten:
                             address = ropstenContract.address;
                             abi = ropstenContract.abi;
                             break;
-
                         default:
                             return reject(NETWORK_ERROR);
                     }
@@ -157,9 +125,11 @@ class Web3Service {
                     return reject(wrapError(new Error(`Invalid address: ${address}`)));
                 }
 
-                resolve(wrapResult(new this.web3.eth.Contract(abi, address)));
+                const contract = new this.web3.eth.Contract(abi, address);
+
+                resolve(wrapResult(contract));
             } catch (error) {
-                reject(wrapError(error));
+                reject(error);
             }
         });
     }
@@ -181,8 +151,7 @@ class Web3Service {
         });
     }
 
-    // FIXME cover by unit tests
-    performTransaction(tradePosition, contractAddress, ledger) {
+    performTransaction(tradePosition, contractAddress, ledger, ledgerAddress) {
         const { energyAvailableFloat, price, producerAddress } = tradePosition;
         const energyPriceUnitsMultiplier = 1000;
         const energyUnitsMultiplier = 1000000;
@@ -195,33 +164,32 @@ class Web3Service {
             try {
                 let abi;
 
-                switch (ledger) { // TODO: move to constants
-                    case 'ethereumRopsten':
+                switch (ledger) {
+                    case LEDGERS.ropsten:
                         abi = ropstenContract.abi;
                         break;
-                    case 'ethereumMain':
+                    case LEDGERS.main:
                         abi = liveContract.abi;
                         break;
                     default:
                         return reject(NETWORK_ERROR);
                 }
 
-                const { data: contract } = await this.getContract(contractAddress, abi);
-                const [address] = await this.web3.eth.getAccounts();
+                const { data: contract } = await this.getContract(ledger, contractAddress, abi);
                 const transactionResponse = await this.buyEnergy(
                     contract,
-                    address,
+                    ledgerAddress,
                     producerAddress,
                     tomorrowDate,
                     formattedPrice,
                     formattedEnergy
                 );
-                resolve({
-                    data: {
+                resolve(
+                    wrapResult({
                         txHash: transactionResponse.transactionHash,
                         txTimestamp: tomorrowDate
-                    }
-                });
+                    })
+                );
             } catch (error) {
                 reject(wrapError(error));
             }

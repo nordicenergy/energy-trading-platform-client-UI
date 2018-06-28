@@ -26,16 +26,15 @@ export function performGetAvailableAddresses() {
     );
 }
 
-export function performGetOpenTradePositions(userId) {
+export function performGetOpenTradePositions(userId, ledger) {
     dispatcher.dispatchPromise(
         getOpenTradePositions,
         'GET_OPEN_TRADE_POSITIONS',
         state => state.Transactions.openTradePositions.loading,
-        [userId]
+        [userId, ledger]
     );
 }
 
-// TODO cover by unit tests
 export function performPerformTransaction(tradePosition, contractAddress, ledger, ledgerAddress) {
     dispatcher.dispatchPromise(
         performExactTransaction,
