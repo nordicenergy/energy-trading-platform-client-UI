@@ -257,6 +257,12 @@ tr.recent-transactions-details-row--expand > td::after {
         transform: scale(2) rotate(-90deg);
     }
 
+    .recent-transactions-container tr.recent-transactions-row .future-transaction-icon svg {
+        width: 1rem;
+        height: 1rem;
+        transform: scale(1);
+    }
+
     .recent-transactions-container tr.recent-transactions-row circle {
         display: none;
     }
