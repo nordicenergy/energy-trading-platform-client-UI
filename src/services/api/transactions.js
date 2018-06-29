@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { SESSION_API_URL, LIMIT, BLOCKCHAIN_SCANNER_URLS } from '../../constants';
 import { PATHS } from '../routes';
-import web3Service, { META_MASK_NETWORKS } from '../web3';
+import web3Service, { LEDGERS } from '../web3';
 import { formatCurrency, formatDateTime, formatFloat } from '../formatter';
 
 export function getRecentTransactions(userId, page = 0) {
@@ -38,7 +38,7 @@ export function getRecentTransactions(userId, page = 0) {
         });
 }
 
-export function getOpenTradePositions(userId /* address, abi */) {
+export function getOpenTradePositions(userId, ledger) {
     const intermediateData = { producers: [] };
     const result = { data: [] };
     let networkName;
@@ -50,16 +50,15 @@ export function getOpenTradePositions(userId /* address, abi */) {
             if (response.data && Array.isArray(response.data.producers)) {
                 const { producers } = response.data;
                 intermediateData.producers = producers;
-                return Promise.all([web3Service.getCurrentBids(), web3Service.getNetworkId()]); // todo: remove getting networkId and replace by ledger
+                return web3Service.getCurrentBids(ledger);
             }
             return [];
         })
-        .then(([bids = {}, network = {}]) => {
+        .then((bids = {}) => {
             const lastTransactionLimit = 1;
             const { data = [] } = bids;
-            const { data: { id: networkId } = {} } = network;
 
-            networkName = Object.keys(META_MASK_NETWORKS).find(key => META_MASK_NETWORKS[key] === networkId);
+            networkName = Object.keys(LEDGERS).find(key => LEDGERS[key] === ledger);
             const scannerURL = `${BLOCKCHAIN_SCANNER_URLS[networkName]}/address`;
 
             result.data = data.map(bid => {
@@ -122,16 +121,13 @@ export function registerLedgerAddress(ledger, ledgerAddress) {
     );
 }
 
-export function performExactTransaction(tradePosition, contractAddress, ledger) {
+export function performExactTransaction(tradePosition, contractAddress, ledger, ledgerAddress) {
     const result = {};
-    return Promise.all([
-        web3Service.getNetworkId(),
-        web3Service.performTransaction(tradePosition, contractAddress, ledger)
-    ])
-        .then(([network = {}, transaction = {}]) => {
-            const { data: { id: networkId } = {} } = network;
+    return web3Service
+        .performTransaction(tradePosition, contractAddress, ledger, ledgerAddress)
+        .then((transaction = {}) => {
             const { data: transactionData } = transaction;
-            const networkName = Object.keys(META_MASK_NETWORKS).find(key => META_MASK_NETWORKS[key] === networkId);
+            const networkName = Object.keys(LEDGERS).find(key => LEDGERS[key] === ledger);
             const scannerURL = `${BLOCKCHAIN_SCANNER_URLS[networkName]}/tx`;
 
             result.data = {
