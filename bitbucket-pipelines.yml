@@ -2,7 +2,19 @@ image: node:9.9
 
 pipelines:
   branches: # Automated triggers on commits to branches
-    master: # -- When committing to master branch auto-deploy to staging environment
+    master: # -- When committing to master branch auto-deploy to production environment
+    - step:
+        script:
+          - export CI=false
+          - npm install
+          - npm test
+          - npm run build
+          - npm run styleguide:build
+          - mkdir build/docs
+          - scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html_tmp
+          - ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.prod.lition.io sudo systemctl reload httpd
+    staging: # -- When committing to staging branch auto-deploy to staging environment
     - step:
         script:
           - export CI=false
