@@ -30,6 +30,18 @@ describe('Transactions reducer:', () => {
             expect(result.openTradePositions.error).toEqual(null);
             expect(result.openTradePositions.data).toEqual([]);
         });
+        it('should handle REGISTER_LEDGER', () => {
+            const result = transactionsReducer(initialState, ACTIONS.registerLedgerAddress.pending);
+            expect(result.ledgerStatus.loading).toEqual(true);
+            expect(result.ledgerStatus.error).toEqual(null);
+            expect(result.ledgerStatus.data).toEqual({});
+        });
+        it('should handle PERFORM_TRANSACTION', () => {
+            const result = transactionsReducer(initialState, ACTIONS.performTransaction.pending);
+            expect(result.performedTransaction.loading).toEqual(true);
+            expect(result.performedTransaction.error).toEqual(null);
+            expect(result.performedTransaction.data).toEqual({});
+        });
     });
     describe('Error cases:', () => {
         it('should handle GET_RECENT_TRANSACTIONS', () => {
@@ -56,6 +68,18 @@ describe('Transactions reducer:', () => {
             expect(result.openTradePositions.error).toEqual('Error Message');
             expect(result.openTradePositions.data).toEqual([]);
         });
+        it('should handle REGISTER_LEDGER', () => {
+            const result = transactionsReducer(initialState, ACTIONS.registerLedgerAddress.fail);
+            expect(result.ledgerStatus.loading).toEqual(false);
+            expect(result.ledgerStatus.error).toEqual('error message');
+            expect(result.ledgerStatus.data).toEqual({});
+        });
+        it('should handle PERFORM_TRANSACTION', () => {
+            const result = transactionsReducer(initialState, ACTIONS.performTransaction.fail);
+            expect(result.performedTransaction.loading).toEqual(false);
+            expect(result.performedTransaction.error).toEqual('error message');
+            expect(result.performedTransaction.data).toEqual({});
+        });
     });
     describe('Success cases:', () => {
         it('should handle GET_RECENT_TRANSACTIONS', () => {
@@ -75,6 +99,18 @@ describe('Transactions reducer:', () => {
             expect(result.openTradePositions.loading).toEqual(false);
             expect(result.openTradePositions.error).toEqual(null);
             expect(result.openTradePositions.data).toEqual(ACTIONS.getOpenTradePositions.success.payload);
+        });
+        it('should handle REGISTER_LEDGER', () => {
+            const result = transactionsReducer(initialState, ACTIONS.registerLedgerAddress.success);
+            expect(result.ledgerStatus.loading).toEqual(false);
+            expect(result.ledgerStatus.error).toEqual(null);
+            expect(result.ledgerStatus.data).toEqual({ status: ACTIONS.registerLedgerAddress.success.payload });
+        });
+        it('should handle PERFORM_TRANSACTION', () => {
+            const result = transactionsReducer(initialState, ACTIONS.performTransaction.success);
+            expect(result.performedTransaction.loading).toEqual(false);
+            expect(result.performedTransaction.error).toEqual(null);
+            expect(result.performedTransaction.data).toEqual(ACTIONS.performTransaction.success.payload);
         });
     });
 });
@@ -187,6 +223,49 @@ function fixtures() {
                 payload: null,
                 error: null,
                 loading: true
+            }
+        },
+        registerLedgerAddress: {
+            success: {
+                type: 'REGISTER_LEDGER',
+                payload: 'success',
+                loading: false,
+                error: null
+            },
+            pending: {
+                type: 'REGISTER_LEDGER',
+                payload: null,
+                loading: true,
+                error: null
+            },
+            fail: {
+                type: 'REGISTER_LEDGER',
+                payload: null,
+                loading: false,
+                error: 'error message'
+            }
+        },
+        performTransaction: {
+            success: {
+                type: 'PERFORM_TRANSACTION',
+                payload: {
+                    txHash: 'testHash',
+                    txHashUrl: 'testHashUrl'
+                },
+                loading: false,
+                error: null
+            },
+            pending: {
+                type: 'PERFORM_TRANSACTION',
+                payload: null,
+                loading: true,
+                error: null
+            },
+            fail: {
+                type: 'PERFORM_TRANSACTION',
+                payload: null,
+                loading: false,
+                error: 'error message'
             }
         }
     };
