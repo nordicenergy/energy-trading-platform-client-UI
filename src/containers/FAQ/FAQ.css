@@ -37,7 +37,7 @@
 
 .faq-page .question-container .title {
     color: var(--general-text-color);
-    cursor: pointer;
+    cursor: help;
     font-size: 1.125rem;
     font-weight: bold;
     line-height: 1.5;
@@ -48,8 +48,8 @@
     outline: var(--focused-control-outline);
 }
 
-.faq-page .question-container.expanded .title,
-.faq-page .question-container.expanded .title:hover {
+.faq-page .question-container.question-container--expanded .title,
+.faq-page .question-container.question-container--expanded .title:hover {
     color: var(--question-active-color);
 }
 
@@ -68,7 +68,7 @@
     transition: opacity 0.2s;
 }
 
-.faq-page .question-container.expanded .answer-container {
+.faq-page .question-container.question-container--expanded .answer-container {
     pointer-events: auto;
     height: auto;
     opacity: 1;

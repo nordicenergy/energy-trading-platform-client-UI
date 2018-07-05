@@ -74,16 +74,19 @@ export class FAQ extends AbstractContainer {
         return (
             <div className="faq-page">
                 <h1>{formatMessage(messages.header)}</h1>
-                {this.props.questions.map(({ question, answer, id }) => {
+                {this.props.questions.map(({ question, answer, id }, index) => {
                     const isExpanded = this.state.expandedIds.indexOf(id) > -1;
                     return (
                         <div
-                            className={classNames('question-container', { expanded: isExpanded })}
+                            className={classNames('question-container', { 'question-container--expanded': isExpanded })}
                             key={id}
+                            role="region"
                             aria-live="polite"
                         >
                             <div className="title-container">
                                 <div
+                                    aria-controls={`${id}-${index}`}
+                                    aria-expanded={isExpanded}
                                     tabIndex={0}
                                     className="title"
                                     onClick={() => this.toggleExpandQuestion(id)}
@@ -97,7 +100,9 @@ export class FAQ extends AbstractContainer {
                                     onKeyUp={event => this.handleQuestionEnterPress(event, id)}
                                 />
                             </div>
-                            <div className="answer-container">{answer}</div>
+                            <div id={`${id}-${index}`} aria-hidden={!isExpanded} className="answer-container">
+                                {answer}
+                            </div>
                         </div>
                     );
                 })}

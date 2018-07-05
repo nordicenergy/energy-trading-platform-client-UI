@@ -8,6 +8,7 @@
     opacity: 0;
     transition-duration: 200ms;
     pointer-events: none;
+    cursor: wait;
 }
 
 .loader-backdrop--full-screen {

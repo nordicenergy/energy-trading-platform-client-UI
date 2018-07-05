@@ -123,6 +123,7 @@ describe('<FAQ /> Component', () => {
             .at(0)
             .simulate('click');
         expect(component.state('expandedIds')).toEqual(['testId1']);
+        expect(component.find('.question-container--expanded')).toHaveLength(1);
     });
 
     it('should expand question answer by enter key pressing on title', () => {
