@@ -11,8 +11,7 @@ pipelines:
           #- npm run build
           #- npm run styleguide:build
           #- mkdir build/docs
-          - ssh -v -T fe.staging.lition.io -x "exit"
-          - ssh -v -T fe.prod.lition.io -x "exit"
+          - ssh-add -l
 
           #- scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html_tmp
           #- ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
