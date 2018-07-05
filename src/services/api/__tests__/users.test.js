@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { login, logout, getUserData } from '../users';
+import { login, logout, getUserData, updateUserData } from '../users';
 
 describe('Users API Service', () => {
     beforeAll(() => {
@@ -44,5 +44,36 @@ describe('Users API Service', () => {
         getUserData();
 
         expect(Axios.get).toHaveBeenCalledWith('/api/user/getUserData');
+    });
+
+    it('should provide possibility to update user data', () => {
+        const newUserDataDummy = {
+            firstName: 'Hans',
+            lastName: 'Wurst',
+            birthday: 1530748800,
+            IBAN: 'DE00 0000 0000 0000 0000 00',
+            email: 'nachrichtentechnik.kiel@googlemail.com',
+            street: 'Hoppenbrook',
+            postcode: '24145',
+            city: 'Kiel',
+            streetNumber: '5'
+        };
+        Axios.post.mockReturnValue(
+            Promise.resolve({
+                data: {
+                    firstName: 'Hans',
+                    lastName: 'Wurst',
+                    birthday: 1530748800,
+                    IBAN: 'DE00 0000 0000 0000 0000 00',
+                    email: 'nachrichtentechnik.kiel@googlemail.com',
+                    street: 'Hoppenbrook',
+                    postcode: '24145',
+                    city: 'Kiel',
+                    streetNumber: '5'
+                }
+            })
+        );
+        updateUserData(newUserDataDummy);
+        expect(Axios.post).toHaveBeenCalledWith('/api/user/updateUserData', newUserDataDummy);
     });
 });
