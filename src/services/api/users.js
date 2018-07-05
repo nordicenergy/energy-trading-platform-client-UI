@@ -15,7 +15,7 @@ export function getUserData() {
         // TODO: remove after date format will be unix timestamp
         const { data = {} } = response;
         const { user = {} } = data;
-        const birthdayData = user.birthday ? user.birthday : '';
+        const birthdayData = user.birthday || '';
         const [year, month, day] = birthdayData.split('-');
         const formattedBirthdayData = new Date(`${year}-${month}-${day}`);
         return {
