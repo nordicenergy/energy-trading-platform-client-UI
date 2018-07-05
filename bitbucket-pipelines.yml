@@ -11,6 +11,7 @@ pipelines:
           #- npm run build
           #- npm run styleguide:build
           #- mkdir build/docs
+          - eval `ssh-agent`
           - ssh-add -l
 
           #- scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html_tmp
