@@ -26,10 +26,10 @@ describe('Walk through profile page', () => {
     );
 
     test(
-        'User can edit some form field and try to save',
+        'User can save profile data and see notification',
         async () => {
             await profilePage.open();
-            await profilePage.tryToSaveEmptyRequiredField();
+            await profilePage.tryToSave();
         },
         timeout
     );
