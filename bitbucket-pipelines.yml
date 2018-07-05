@@ -11,8 +11,10 @@ pipelines:
           #- npm run build
           #- npm run styleguide:build
           #- mkdir build/docs
-          - touch /tmp/test.txt
-          - scp -v /tmp/test.txt ec2-user@fe.prod.lition.io:/tmp/
+          - ls -l ./
+          - ssh -T hg@bitbucket.org
+
+
           #- scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html_tmp
           #- ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
           #- ssh ec2-user@fe.prod.lition.io sudo systemctl reload httpd
