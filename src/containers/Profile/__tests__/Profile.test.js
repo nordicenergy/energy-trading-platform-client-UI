@@ -143,12 +143,15 @@ describe('<Profile /> Container', () => {
             oldPassword: 'oldPassword'
         };
         jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
-        jest.spyOn(userActionPerformers, 'performUpdateUserData').mockImplementation(() => {
+        jest.spyOn(userActionPerformers, 'performUpdateUserData').mockImplementation(profileData => {
             component.setProps({
-                loading: true
+                loading: false,
+                profile: profileData
             });
         });
-
+        component.setProps({
+            loading: true
+        });
         component
             .find('ProfileForm')
             .props()

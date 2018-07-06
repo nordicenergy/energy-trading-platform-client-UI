@@ -34,7 +34,7 @@ describe('Walk through show my producer page', () => {
         timeout
     );
 
-    test(
+    test.skip(
         'User can open producer list',
         async () => {
             await myProducerPage.open();
