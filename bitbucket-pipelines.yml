@@ -4,29 +4,16 @@ pipelines:
   branches: # Automated triggers on commits to branches
     master: # -- When committing to master branch auto-deploy to production environment
     - step:
-        caches:
-          - node
-        name: npm setup dependancies
         script:
           - export CI=false
           - npm install
-    - step:
-        caches:
-          - node
-        name: run tests against setup
-        script:
           - npm test
           - npm run build
           - npm run styleguide:build
           - mkdir build/docs
-    - step:
-       caches:
-         - node
-       name: deploy to staging host
-       script:
-          - scp -r build/* ec2-user@fe.stagin.lition.io:/var/www/html_tmp
-          - ssh ec2-user@fe.stagin.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
-          - ssh ec2-user@fe.stagin.lition.io sudo systemctl reload httpd
+          - scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
+          - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
     staging: # -- When committing to staging branch auto-deploy to staging environment
     - step:
         script:
@@ -47,39 +34,14 @@ pipelines:
           - ssh ec2-user@fe.prod.lition.io -x "exit"
           - ssh ec2-user@fe.staging.lition.io -x "exit"
     deploy_to_production: # Deploy to production server (prod.lition.io / kundenportal.lition.de)
-    - step: #Step 1: Compile
-        caches:
-          - node
-        name: Prepare build
+    - step:
         script:
           - export CI=false
-          #- apt-get update
           - npm install
-    - step: #Step 2: Do tests
-        caches:
-          - node
-        name: Do tests
-        deployment: test
-        script:
           - npm test
-    - step: #Step 3: Compile
-        caches:
-          - node
-        name: Compile
-        script:
           - npm run build
           - npm run styleguide:build
           - mkdir build/docs
-          - cp -r styleguide/* build/docs
-          #- scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
-          #- ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
-          #- ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
-    - step: #Step 4: Deploy to staging
-        caches:
-          - node
-        name: Deploy to Production
-        deployment: production
-        script:
-          - scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html
+          - scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html_tmp
           - ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
           - ssh ec2-user@fe.prod.lition.io sudo systemctl reload httpd
