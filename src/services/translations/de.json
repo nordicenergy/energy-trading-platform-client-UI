@@ -108,6 +108,7 @@
     "app.directTrading.confirmationDialog.successMessage": "Transaction is pending. Transaction hash is",
     "app.directTrading.confirmationDialog.statusInfoMessage":
         "User ledger address registration is in progress. Next step will be available after registration will be succeed.",
+    "app.directTrading.wrongNetworkNotificationMessage": "Wrong ledger network is chosen",
 
     "app.buyEnergyPage.pageTitle": "Energie kaufen",
     "app.buyEnergyPage.selectedProducerLabel": "aktuelle Auswahl:",

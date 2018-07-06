@@ -297,8 +297,22 @@ describe('Transactions API Service', () => {
                     }
                 })
             );
+
+        web3Service.getNetworkId
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: { id: 1 }
+                })
+            )
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: { id: 3 }
+                })
+            );
+
         await expect(getLedgerNetworks()).resolves.toEqual({
             data: {
+                selectedLedgerNetwork: 'ethereumMain',
                 ethereumMain: {
                     addresses: ['0xaff8701cab']
                 }
@@ -306,6 +320,7 @@ describe('Transactions API Service', () => {
         });
         await expect(getLedgerNetworks()).resolves.toEqual({
             data: {
+                selectedLedgerNetwork: 'ethereumRopsten',
                 ethereumMain: {
                     addresses: ['0xaff8701cab', '0xaff8701cac']
                 }
