@@ -66,6 +66,7 @@ pipelines:
         name: S1.npm setup dependancies
         script:
           - export CI=false
+          - npm cache clean --force
           - npm install
     - step:
         caches:
