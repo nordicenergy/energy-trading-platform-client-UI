@@ -46,7 +46,7 @@ class ProducerInfo extends React.Component {
     renderRow(label, value, smallerText) {
         const renderValue = typeof value === 'function' ? value : this.renderValue.bind(null, value, smallerText);
         return (
-            <div className="producer-information-row">
+            <div role="listitem" className="producer-information-row">
                 <p>
                     <span className="producer-information-label">{label}</span>
                     <span className="producer-information-value" translate="no">
@@ -83,7 +83,7 @@ class ProducerInfo extends React.Component {
         return (
             <section className="producer-information">
                 <section className="producer-information-details">
-                    <div>
+                    <div role="list">
                         {name && this.renderRow(labels.name, name)}
                         {price > 0 && this.renderRow(labels.price, this.renderPrice.bind(this))}
                         {energyType && this.renderRow(labels.energyType, energyType)}

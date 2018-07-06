@@ -41,6 +41,7 @@
     color: var(--general-text-color);
     font-size: 1rem;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .document-list-container td:nth-child(2) a:hover {
@@ -60,6 +61,7 @@
 
 .document-list-container td:last-child a {
     display: inline-block;
+    cursor: pointer;
 }
 
 .document-list-container td:last-child a:focus {
@@ -83,6 +85,16 @@
 }
 
 .document-download-icon:hover svg {
+    color: var(--table-control-hover-color);
+}
+
+.document-list-row--disabled td:nth-child(2) a,
+.document-list-row--disabled td:last-child a {
+    color: var(--table-control-hover-color);
+    cursor: not-allowed;
+}
+
+.document-list-row--disabled .document-download-icon svg {
     color: var(--table-control-hover-color);
 }
 

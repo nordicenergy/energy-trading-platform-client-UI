@@ -26,7 +26,7 @@ const props = {
 };
 
 
-<div style={{ backgroundColor: '#f3f3f3', padding: '10px' }}>
+<div style={{ backgroundColor: '#f3f3f3', margin: '10px', padding: '10px', textAlign: 'center' }}>
     <WattcoinTable {...props} />
 </div>
 ```

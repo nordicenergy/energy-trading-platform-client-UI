@@ -20,6 +20,15 @@ export class ProfilePage extends AbstractPageObject {
         await this.page.waitForSelector('.profile-form-container .text-field-error');
         return this;
     }
+
+    async tryToSave() {
+        await this.page.waitForFunction(
+            '!!document.querySelector(".profile-form-container input[name=firstName]").value'
+        );
+        await this.page.click('.profile-form-container .button-container button');
+        await this.page.waitForSelector('.toast');
+        return this;
+    }
 }
 
 async function createProfilePage(browserPage, options) {

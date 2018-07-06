@@ -20,8 +20,7 @@ const DOCUMENTS_MOCKS = [
         type: 'invoice',
         date: 1521941833,
         name: 'Monthly Installment.pdf',
-        description: 'Annual bill',
-        url: 'test4.pdf'
+        description: 'Annual bill'
     },
     {
         id: 5,
@@ -68,6 +67,7 @@ describe('<DocumentsList /> Component', () => {
         expect(component.find('tr')).toHaveLength(8);
         expect(component.find('td')).toHaveLength(24);
         expect(component.find(FontAwesomeIcon)).toHaveLength(8);
+        expect(component.find('.document-list-row--disabled')).toHaveLength(2);
     });
 
     it('should show spinner when loading and pagination are enabled', () => {
@@ -89,7 +89,7 @@ describe('<DocumentsList /> Component', () => {
         expect(rowData.at(count++).text()).toEqual('Mar 24, 2018');
         expect(rowData.at(count++).text()).toEqual('Invoice.pdf');
 
-        const iconTd = rowData.at(count++);
+        const iconTd = rowData.at(count);
         const link = iconTd.find('a').at(0);
         expect(
             link
@@ -110,7 +110,7 @@ describe('<DocumentsList /> Component', () => {
         expect(rowData.at(count++).text()).toEqual('-');
         expect(rowData.at(count++).text()).toEqual('-');
 
-        const iconTd = rowData.at(count++);
+        const iconTd = rowData.at(count);
         const link = iconTd.find('a').at(0);
         expect(
             link

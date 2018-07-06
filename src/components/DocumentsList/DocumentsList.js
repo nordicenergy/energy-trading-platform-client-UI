@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import icons from '@fortawesome/fontawesome-free-solid';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
@@ -11,8 +12,13 @@ import './DocumentsList.css';
 class DocumentsList extends React.Component {
     renderTableRows(documents) {
         return documents.map(document => {
+            const classes = classNames({
+                'document-list-row--disabled': !document.url,
+                'document-list-row': true
+            });
+
             return (
-                <tr key={document.id} className="document-list-row">
+                <tr key={document.id} className={classes}>
                     <td>{document.date ? formatDate(document.date) : '-'}</td>
                     <td>
                         <a href={document.url} download target="_blank">

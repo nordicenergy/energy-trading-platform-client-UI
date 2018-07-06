@@ -1,21 +1,9 @@
 import Web3 from 'web3';
 import moment from 'moment';
+import { BUY_ENERGY_METHOD, GAS_PRICE, GAS, LEDGERS, TIMEOUT, NETWORK_ERROR, TIMEOUT_ERROR } from './constants';
 
 import ropstenContract from './contracts/ropsten';
 import liveContract from './contracts/live';
-
-export const META_MASK_NETWORKS = {
-    ropsten: 3,
-    main: 1
-};
-
-export const LEDGERS = {
-    ropsten: 'ethereumRopsten',
-    main: 'ethereumMain'
-};
-export const TIMEOUT = 5000;
-export const TIMEOUT_ERROR = wrapError(new Error('MetaMask timeout error'));
-export const NETWORK_ERROR = wrapError(new Error('Network with no Lition smart contracts'));
 
 class Web3Service {
     constructor() {
@@ -38,21 +26,13 @@ class Web3Service {
     buyEnergy(contract, ledgerAddress, producerAddress, transactionDate, price, energy, gasPrice) {
         return new Promise(async (resolve, reject) => {
             try {
-                if (!gasPrice) {
-                    gasPrice = 20000000000; // 20 Gwei
-                }
-                const fn = contract.methods['buy_energy(address,uint32,uint32,uint64)'](
-                    producerAddress,
-                    transactionDate,
-                    price,
-                    energy
-                );
-                const options = {
+                const costSender = contract.methods[BUY_ENERGY_METHOD](producerAddress, transactionDate, price, energy);
+
+                const result = await costSender.send({
                     from: ledgerAddress,
-                    gas: 200000,
-                    gasPrice: gasPrice
-                };
-                const result = await fn.send(options);
+                    gas: GAS,
+                    gasPrice: gasPrice || GAS_PRICE
+                });
                 resolve(result);
             } catch (error) {
                 reject(error);
@@ -198,9 +178,7 @@ class Web3Service {
 }
 
 function wrapError(error) {
-    return {
-        response: { data: error }
-    };
+    return { response: { data: error } };
 }
 
 function wrapResult(data) {
