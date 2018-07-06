@@ -15,6 +15,7 @@
 .trading-page .energy-amount-graph,
 .trading-page .wattcoin-table-container {
     opacity: 0.4;
+    cursor: not-allowed;
 }
 
 @media screen and (max-width: 767px) {
