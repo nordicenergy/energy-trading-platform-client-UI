@@ -15,13 +15,13 @@ export function getUserData() {
         const { data = {} } = response;
         const { user = {} } = data;
         const birthdayData = user.birthday || '';
-        const [day, month, year] = birthdayData.split('.');
+        const [year, month, day] = birthdayData.split('-');
         const formattedBirthdayData = new Date(`${year}-${month}-${day}`);
         return {
             data: {
                 user: {
                     ...user,
-                    birthday: formattedBirthdayData.getTime()
+                    birthday: moment(formattedBirthdayData).unix()
                 }
             }
         };
@@ -29,10 +29,5 @@ export function getUserData() {
 }
 
 export function updateUserData(userData) {
-    // TODO replace on real api call
-    return Promise.resolve({
-        data: {
-            user: userData
-        }
-    });
+    return Axios.post(`${SESSION_API_URL}/user/updateUserData`, userData);
 }
