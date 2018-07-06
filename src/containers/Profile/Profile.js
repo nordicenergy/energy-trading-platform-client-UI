@@ -31,9 +31,9 @@ export class Profile extends AbstractContainer {
         performGetUserData();
     }
 
-    componentDidUpdate({ loading }) {
-        const loaded = this.props.loading !== loading && !loading;
-        if (loaded && this.state.updated) {
+    componentDidUpdate({ loading, profile }) {
+        const loaded = this.props.loading !== loading && loading;
+        if (!this.props.error && loaded && profile !== this.props.profile && this.state.updated) {
             performPushNotification({
                 type: 'success',
                 message: 'Profile successfully updated.'
@@ -42,7 +42,7 @@ export class Profile extends AbstractContainer {
                 updated: false
             });
         }
-        if (this.props.error && this.props.error.message) {
+        if (this.props.error) {
             performPushNotification({
                 type: 'error',
                 message: this.props.error.message

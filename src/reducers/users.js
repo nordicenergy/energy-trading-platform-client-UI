@@ -48,13 +48,15 @@ export function usersReducer(state = initialState, action) {
             };
         }
         case 'UPDATE_USER_DATA': {
-            const updatedProfileData = action.payload ? action.payload : state.profile.data;
+            const updatedProfileData = action.payload ? action.payload : state.profile.data.user;
             return {
                 ...state,
                 profile: {
                     data: {
-                        ...state.profile.data,
-                        ...updatedProfileData
+                        user: {
+                            ...state.profile.data.user,
+                            ...updatedProfileData
+                        }
                     },
                     loading: action.loading,
                     error: action.error

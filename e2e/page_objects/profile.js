@@ -11,11 +11,13 @@ export class ProfilePage extends AbstractPageObject {
         await this.page.waitForFunction(
             '!!document.querySelector(".profile-form-container input[name=firstName]").value'
         );
-        await this.page.evaluate(
-            () => (document.querySelector('.profile-form-container input[name=firstName]').value = '')
-        );
+        await this.page.focus('.profile-form-container input[name=firstName]');
+        await this.page.keyboard.down('Shift');
+        await this.page.keyboard.press('Home');
+        await this.page.keyboard.up('Shift');
+        await this.page.keyboard.press('Backspace');
         await this.page.click('.profile-form-container .button-container button');
-        await this.page.waitForSelector('.profile-page .text-field-error');
+        await this.page.waitForSelector('.profile-form-container .text-field-error');
         return this;
     }
 }

@@ -103,7 +103,7 @@ describe('Users reducer:', () => {
             const result = usersReducer(initialState, ACTIONS.updateUserData.success);
             expect(result.profile.loading).toEqual(false);
             expect(result.profile.error).toEqual(null);
-            expect(result.profile.data).toEqual(ACTIONS.updateUserData.success.payload);
+            expect(result.profile.data).toEqual({ user: ACTIONS.updateUserData.success.payload });
         });
     });
 });
@@ -197,23 +197,21 @@ function fixtures() {
             success: {
                 type: 'UPDATE_USER_DATA',
                 payload: {
-                    user: {
-                        id: 0,
-                        firstName: 'string',
-                        address: 'Huyssenallee 2, 45128 Essen',
-                        dateOfBirth: 'Jan 11, 1987',
-                        name: 'John Smith',
-                        email: 'johnsmith@gmail.com',
-                        bankAccountNumber: '11122333455556666666',
-                        lastName: 'string',
-                        currentProducerId: '1234567',
-                        currentProducerName: 'Peter Producer',
-                        currentProducerPicture: '/plantImg/peter_producer.jpg',
-                        lastBillAvailable: true,
-                        lastBillAmount: '35.24',
-                        lastBillDate: 'December;',
-                        userStatus: 'string'
-                    }
+                    id: 0,
+                    firstName: 'string',
+                    address: 'Huyssenallee 2, 45128 Essen',
+                    dateOfBirth: 'Jan 11, 1987',
+                    name: 'John Smith',
+                    email: 'johnsmith@gmail.com',
+                    bankAccountNumber: '11122333455556666666',
+                    lastName: 'string',
+                    currentProducerId: '1234567',
+                    currentProducerName: 'Peter Producer',
+                    currentProducerPicture: '/plantImg/peter_producer.jpg',
+                    lastBillAvailable: true,
+                    lastBillAmount: '35.24',
+                    lastBillDate: 'December;',
+                    userStatus: 'string'
                 },
                 error: null,
                 loading: false
