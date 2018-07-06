@@ -15,6 +15,8 @@ pipelines:
           - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
           - ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
     staging: # -- When committing to staging branch auto-deploy to staging environment
+    - step:
+        script:
           - export CI=false
           - npm install
           - npm test
@@ -33,6 +35,7 @@ pipelines:
           - ssh ec2-user@fe.staging.lition.io -x "exit"
     deploy_to_production: # Deploy to production server (prod.lition.io / kundenportal.lition.de)
     - step: #Step 1: Compile
+        script:
           - export CI=false
           - npm install
           - npm test
