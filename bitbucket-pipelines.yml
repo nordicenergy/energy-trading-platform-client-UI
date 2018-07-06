@@ -43,6 +43,6 @@ pipelines:
           - npm run styleguide:build
           - mkdir build/docs
           - cp -r styleguide/* build/docs
-          - scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html
+          - scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html_tmp/
           - ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
           - ssh ec2-user@fe.prod.lition.io sudo systemctl reload httpd
