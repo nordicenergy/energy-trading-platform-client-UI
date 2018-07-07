@@ -27,6 +27,7 @@
     --azalea-color: #fbdede;
     --transparent-geyser-color: rgba(217, 224, 229, 0.3);
     --stone-gray-color: rgba(240, 244, 247, 0.6);
+    --rolling-stone-color: #757e85;
     --hit-gray-color: #aab4bb;
     --nobel-color: #b5b5b5;
     --tower-gray-color: #b1bac1;
@@ -73,6 +74,7 @@
     --general-text-color: var(--blumine-color);
     --general-dark-text-color: var(--black-pearl-color);
     --label-color: var(--tower-gray-color);
+    --input-helper-text-color: var(--rolling-stone-color);
 
     --input-border: var(--porcelain-color);
     --border-on-light-color: var(--athens-gray-color);
