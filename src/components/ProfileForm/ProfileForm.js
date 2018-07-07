@@ -23,12 +23,19 @@ class ProfileForm extends React.PureComponent {
         };
     }
 
-    componentDidUpdate() {
-        const { profile = {} } = this.props;
+    componentDidUpdate(prevProps) {
+        const { profile = {}, isSuccessfullyUpdated } = this.props;
         if (!this.state.isEdited) {
             this.setState({
                 ...this.state,
                 ...profile
+            });
+        }
+        if (profile !== prevProps.profile && isSuccessfullyUpdated) {
+            this.setState({
+                newPassword: '',
+                oldPassword: '',
+                confirmNewPassword: ''
             });
         }
     }
@@ -71,7 +78,7 @@ class ProfileForm extends React.PureComponent {
                 postcode,
                 city,
                 streetNumber,
-                password: newPassword,
+                newPassword,
                 confirmNewPassword,
                 oldPassword
             });
@@ -235,7 +242,8 @@ const errorsShape = PropTypes.shape({
 ProfileForm.propTypes = {
     profile: profileShape,
     onSubmit: PropTypes.func,
-    errors: errorsShape
+    errors: errorsShape,
+    isSuccessfullyUpdated: PropTypes.bool
 };
 
 export default ProfileForm;
