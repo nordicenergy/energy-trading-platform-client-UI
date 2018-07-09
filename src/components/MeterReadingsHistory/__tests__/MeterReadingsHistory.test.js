@@ -25,13 +25,8 @@ const MOCK_DATA = [
     }
 ];
 
-function renderComponent(
-    { data = [], title = '', consumptionUnitLabel = '' } = {},
-    renderer = shallow
-) {
-    return renderer(
-        <MeterReadingsHistory data={data} title={title} consumptionUnitLabel={consumptionUnitLabel} />
-    );
+function renderComponent({ data = [], title = '', consumptionUnitLabel = '' } = {}, renderer = shallow) {
+    return renderer(<MeterReadingsHistory data={data} title={title} consumptionUnitLabel={consumptionUnitLabel} />);
 }
 
 describe('<MeterReadingsHistory /> Component', () => {
