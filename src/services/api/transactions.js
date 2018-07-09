@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { SESSION_API_URL, LIMIT, BLOCKCHAIN_SCANNER_URLS } from '../../constants';
 import { PATHS } from '../routes';
-import web3Service, { LEDGERS } from '../web3';
+import web3Service, { LEDGERS, META_MASK_NETWORKS } from '../web3';
 import { formatCurrency, formatDateTime, formatFloat } from '../formatter';
 
 export function getRecentTransactions(userId, page = 0) {
@@ -151,20 +151,27 @@ export function performExactTransaction(tradePosition, contractAddress, ledger, 
 }
 
 export function getLedgerNetworks() {
-    return Axios.get(`${SESSION_API_URL}/trading/ledgers`).then(response => {
-        const { data = {} } = response;
-        const ledgerNetworks = {};
-        data.ledgers.forEach(ledger => {
-            if (!Object.keys(ledgerNetworks).includes(ledger.id)) {
-                ledgerNetworks[ledger.id] = {
-                    addresses: []
-                };
-            }
-            ledgerNetworks[ledger.id].addresses.push(ledger.contractAddress);
-        });
+    const ledgerNetworks = {};
+    return Axios.get(`${SESSION_API_URL}/trading/ledgers`)
+        .then(response => {
+            const { data = {} } = response;
+            data.ledgers.forEach(ledger => {
+                if (!Object.keys(ledgerNetworks).includes(ledger.id)) {
+                    ledgerNetworks[ledger.id] = {
+                        addresses: []
+                    };
+                }
+                ledgerNetworks[ledger.id].addresses.push(ledger.contractAddress);
+            });
 
-        return {
-            data: ledgerNetworks
-        };
-    });
+            return web3Service.getNetworkId();
+        })
+        .then((network = {}) => {
+            const { data: { id: networkId } = {} } = network;
+            const networkName = Object.keys(META_MASK_NETWORKS).find(key => META_MASK_NETWORKS[key] === networkId);
+            ledgerNetworks.selectedLedgerNetwork = networkName ? LEDGERS[networkName] : '';
+            return {
+                data: ledgerNetworks
+            };
+        });
 }

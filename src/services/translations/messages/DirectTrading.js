@@ -77,6 +77,10 @@ const messages = defineMessages({
         id: 'app.directTrading.confirmationDialog.statusInfoMessage',
         defaultMessage:
             'User ledger address registration is in progress. Next step will be available after registration will be succeed.'
+    },
+    wrongNetworkNotificationMessage: {
+        id: 'app.directTrading.wrongNetworkNotificationMessage',
+        defaultMessage: 'Wrong ledger network is chosen'
     }
 });
 

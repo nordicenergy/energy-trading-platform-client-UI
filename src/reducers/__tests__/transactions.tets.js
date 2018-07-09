@@ -42,6 +42,12 @@ describe('Transactions reducer:', () => {
             expect(result.performedTransaction.error).toEqual(null);
             expect(result.performedTransaction.data).toEqual({});
         });
+        it('should handle GET_LEDGER_NETWORKS', () => {
+            const result = transactionsReducer(initialState, ACTIONS.getLedgerNetworks.pending);
+            expect(result.ledgerNetworks.loading).toEqual(true);
+            expect(result.ledgerNetworks.error).toEqual(null);
+            expect(result.ledgerNetworks.data).toEqual({});
+        });
     });
     describe('Error cases:', () => {
         it('should handle GET_RECENT_TRANSACTIONS', () => {
@@ -80,6 +86,12 @@ describe('Transactions reducer:', () => {
             expect(result.performedTransaction.error).toEqual('error message');
             expect(result.performedTransaction.data).toEqual({});
         });
+        it('should handle GET_LEDGER_NETWORKS', () => {
+            const result = transactionsReducer(initialState, ACTIONS.getLedgerNetworks.fail);
+            expect(result.ledgerNetworks.loading).toEqual(false);
+            expect(result.ledgerNetworks.error).toEqual('error message');
+            expect(result.ledgerNetworks.data).toEqual({});
+        });
     });
     describe('Success cases:', () => {
         it('should handle GET_RECENT_TRANSACTIONS', () => {
@@ -111,6 +123,12 @@ describe('Transactions reducer:', () => {
             expect(result.performedTransaction.loading).toEqual(false);
             expect(result.performedTransaction.error).toEqual(null);
             expect(result.performedTransaction.data).toEqual(ACTIONS.performTransaction.success.payload);
+        });
+        it('should handle GET_LEDGER_NETWORKS', () => {
+            const result = transactionsReducer(initialState, ACTIONS.getLedgerNetworks.success);
+            expect(result.ledgerNetworks.loading).toEqual(false);
+            expect(result.ledgerNetworks.error).toEqual(null);
+            expect(result.ledgerNetworks.data).toEqual(ACTIONS.getLedgerNetworks.success.payload);
         });
     });
 });
@@ -266,6 +284,31 @@ function fixtures() {
                 payload: null,
                 loading: false,
                 error: 'error message'
+            }
+        },
+        getLedgerNetworks: {
+            success: {
+                type: 'GET_LEDGER_NETWORKS',
+                payload: {
+                    selectedLedgerNetwork: 'ethereumRopsten',
+                    ethereumMain: {
+                        addresses: ['0xaff8701cab', '0xaff8701cac']
+                    }
+                },
+                loading: false,
+                error: null
+            },
+            fail: {
+                type: 'GET_LEDGER_NETWORKS',
+                payload: {},
+                loading: false,
+                error: 'error message'
+            },
+            pending: {
+                type: 'GET_LEDGER_NETWORKS',
+                payload: {},
+                loading: true,
+                error: null
             }
         }
     };
