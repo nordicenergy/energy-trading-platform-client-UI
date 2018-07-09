@@ -23,9 +23,9 @@ pipelines:
           - npm run build
           - npm run styleguide:build
           - mkdir build/docs
-          - scp -r build/* ec2-user@fe.stagin.lition.io:/var/www/html_tmp
-          - ssh ec2-user@fe.stagin.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
-          - ssh ec2-user@fe.stagin.lition.io sudo systemctl reload httpd
+          - scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
+          - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
   custom: # Pipelines that are triggered manually
     test_ssh: # Deploy to production server (prod.lition.io / kundenportal.lition.de)
     - step:
