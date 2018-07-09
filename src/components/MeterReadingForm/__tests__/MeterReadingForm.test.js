@@ -16,8 +16,13 @@ const MOCK_FORM_DATA = {
     comment: 'new comment'
 };
 
-function renderComponent({ errors = {}, onSubmit = () => {}, labels = DEFAULT_LABELS } = {}, renderer = shallow) {
-    return renderer(<MeterReadingForm errors={errors} labels={labels} onSubmit={onSubmit} />);
+function renderComponent(
+    { errors = {}, onSubmit = () => {}, labels = DEFAULT_LABELS, numberOfMeter = 1234 } = {},
+    renderer = shallow
+) {
+    return renderer(
+        <MeterReadingForm errors={errors} labels={labels} onSubmit={onSubmit} numberOfMeter={numberOfMeter} />
+    );
 }
 
 describe('<MeterReadingForm /> Component', () => {
@@ -63,9 +68,7 @@ describe('<MeterReadingForm /> Component', () => {
         expect(
             meterReadingTextField
                 .html()
-                .includes(
-                    '<span>Number of meter: <span class="meter-reading-form-field-helper-text">1225678936</span></span>'
-                )
+                .includes('<span>Number of meter: <span class="meter-reading-form-field-helper-text">1234</span></span>')
         ).toEqual(true);
 
         const commentTextField = textFields.at(1);
