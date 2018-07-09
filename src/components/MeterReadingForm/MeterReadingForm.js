@@ -99,7 +99,7 @@ MeterReadingForm.defaultProps = {
         submitButton: 'Submit'
     },
     errors: {},
-    numberOfMeter: 1225678936
+    numberOfMeter: 123
 };
 
 export default MeterReadingForm;
