@@ -31,7 +31,7 @@ export class Profile extends AbstractContainer {
         performGetUserData();
     }
 
-    componentDidUpdate({ loading, profile }) {
+    componentDidUpdate({ loading, profile, error }) {
         const loaded = this.props.loading !== loading && loading;
         if (!this.props.error && loaded && profile !== this.props.profile && this.state.updated) {
             performPushNotification({
@@ -42,7 +42,7 @@ export class Profile extends AbstractContainer {
                 updated: false
             });
         }
-        if (this.props.error) {
+        if (this.props.error && this.props.error !== error) {
             performPushNotification({
                 type: 'error',
                 message: this.props.error.message
@@ -100,8 +100,8 @@ export class Profile extends AbstractContainer {
                 type: 'string',
                 message: formatMessage(messages.emptyIban)
             },
-            password(rule, value, callback, source) {
-                if (source.password !== undefined && source.password.length === 0) {
+            newPassword(rule, value, callback, source) {
+                if (source.newPassword !== undefined && source.newPassword.length === 0) {
                     return callback({
                         message: formatMessage(messages.emptyPassword)
                     });
@@ -129,7 +129,7 @@ export class Profile extends AbstractContainer {
                 },
                 {
                     validator(rule, value, callback, source) {
-                        if (source.password !== source.confirmNewPassword) {
+                        if (source.newPassword !== source.confirmNewPassword) {
                             return callback({
                                 message: formatMessage(messages.passwordsMismatch)
                             });
@@ -158,11 +158,11 @@ export class Profile extends AbstractContainer {
                     )
                 });
             } else {
+                performUpdateUserData(profile);
                 this.setState({
                     errors: {},
                     updated: true
                 });
-                performUpdateUserData(profile);
             }
         });
     }
@@ -170,11 +170,13 @@ export class Profile extends AbstractContainer {
     render() {
         const { locale, formatMessage } = this.context.intl;
         const labels = this.prepareLabels(messages);
+        const isProfileSuccessfullyUpdated = !this.props.loading && this.state.updated && !this.props.error;
         return (
             <section className="profile-page">
                 <h1>{formatMessage(messages.header)}</h1>
                 <div className="profile-form-container">
                     <ProfileForm
+                        isSuccessfullyUpdated={isProfileSuccessfullyUpdated}
                         locale={locale}
                         labels={labels}
                         profile={this.props.profile}

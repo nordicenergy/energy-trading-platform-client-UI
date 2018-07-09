@@ -41,7 +41,7 @@ const stateWithPassword = {
     postcode: '',
     city: '',
     streetNumber: '',
-    password: '',
+    newPassword: '',
     confirmNewPassword: '',
     oldPassword: ''
 };
@@ -65,7 +65,8 @@ function renderComponent(
         labels = labelsDummy,
         onForgotPasswordLinkClick = onForgotPasswordLinkClickStub,
         onSubmit = onSubmitStub,
-        profile = {}
+        profile = {},
+        isSuccessfullyUpdated = true
     } = {},
     mountFn = shallow
 ) {
@@ -522,5 +523,16 @@ describe('<ProfileForm /> component', () => {
 
         component.find('form').simulate('submit', { preventDefault: () => null });
         expect(onSubmitStub).toHaveBeenCalledWith({ ...stateWithPassword, oldPassword: 'asd' });
+    });
+
+    it('should clear passwords fields in case success of profile update', () => {
+        const component = renderComponent();
+        component.setProps({
+            isSuccessfullyUpdated: true,
+            profile: { firstName: 'newFirstName' }
+        });
+        expect(component.state().newPassword).toBe('');
+        expect(component.state().confirmNewPassword).toBe('');
+        expect(component.state().oldPassword).toBe('');
     });
 });

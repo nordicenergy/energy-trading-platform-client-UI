@@ -50,7 +50,7 @@ describe('<Profile /> Container', () => {
             postcode: '',
             city: '',
             streetNumber: '',
-            password: '',
+            newPassword: '',
             confirmNewPassword: '',
             oldPassword: 'ss'
         };
@@ -71,7 +71,7 @@ describe('<Profile /> Container', () => {
         expect(component.state().errors).toHaveProperty('postcode');
         expect(component.state().errors).toHaveProperty('city');
         expect(component.state().errors).toHaveProperty('streetNumber');
-        expect(component.state().errors).toHaveProperty('password');
+        expect(component.state().errors).toHaveProperty('newPassword');
         expect(component.state().errors).toHaveProperty('confirmNewPassword');
 
         console.warn.mockRestore();
@@ -89,7 +89,7 @@ describe('<Profile /> Container', () => {
             postcode: '',
             city: '',
             streetNumber: '',
-            password: 'aa',
+            newPassword: 'aa',
             confirmNewPassword: 'asd',
             oldPassword: ''
         };
@@ -138,12 +138,15 @@ describe('<Profile /> Container', () => {
             postcode: '111',
             city: 'city',
             streetNumber: '1',
-            password: 'password',
+            newPassword: 'password',
             confirmNewPassword: 'password',
             oldPassword: 'oldPassword'
         };
         jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         jest.spyOn(userActionPerformers, 'performUpdateUserData').mockImplementation(profileData => {
+            component.setState({
+                updated: true
+            });
             component.setProps({
                 loading: false,
                 profile: profileData
