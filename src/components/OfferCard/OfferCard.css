@@ -80,7 +80,7 @@
     font-size: 1rem;
     padding: 1em 2em;
     justify-content: space-between;
-    box-shadow: 0 -0.25em 1em 0 var(--offer-card-box-shadow);
+    box-shadow: 0 -0.25em 1em 0 var(--offer-card-box-shadow-color);
     border-radius: 0 0 0.25em 0.25em;
 }
 
