@@ -12,8 +12,8 @@ export function formatCurrency(value) {
     return formatFloat(value, { minimumFractionDigits: 2 });
 }
 
-export function formatDate(value) {
-    return moment.utc(new Date(value * 1000)).format(DATE_FORMAT);
+export function formatDate(value, format = DATE_FORMAT) {
+    return moment.utc(new Date(value * 1000)).format(format);
 }
 
 export function formatDateTime(value) {
