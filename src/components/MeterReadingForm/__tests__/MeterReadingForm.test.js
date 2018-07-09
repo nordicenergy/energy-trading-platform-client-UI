@@ -30,7 +30,6 @@ describe('<MeterReadingForm /> Component', () => {
         - <TextField /> elements;
         - <DateField /> element;
         - <Button /> elements;
-        with specific properties
     `, () => {
         const component = renderComponent();
 

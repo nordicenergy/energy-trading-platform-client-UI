@@ -4,17 +4,17 @@
 }
 
 .meter-reading-form-fields {
-    max-width: 35.625rem;
+    max-width: 35.625em;
 }
 
-.meter-reading-form-field {
+.meter-reading-form-fields > div {
     box-sizing: border-box;
-    margin-bottom: 3em;
-    padding: 0 2em;
+    margin-bottom: 4em;
+    padding: 0 3em;
     width: 100%;
 }
 
-.meter-reading-form-field:first-child {
+.meter-reading-form-fields > div:first-child {
     margin-bottom: 2.2em;
 }
 
@@ -26,7 +26,7 @@
     display: flex;
     align-items: center;
     padding-left: 2em;
-    min-height: 5rem;
+    min-height: 5em;
 }
 
 .meter-reading-form-actions::after {
@@ -43,7 +43,7 @@
 }
 
 @media (max-width: 767px) {
-    .meter-reading-form-field {
+    .meter-reading-form-fields > div {
         padding: 0 1em;
     }
 

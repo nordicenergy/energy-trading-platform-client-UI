@@ -34,7 +34,7 @@ class MeterReadingForm extends React.PureComponent {
         return (
             <form className="meter-reading-form" onSubmit={event => this.handleSubmit(event)} noValidate>
                 <div className="meter-reading-form-fields">
-                    <div className="meter-reading-form-field">
+                    <div>
                         <TextField
                             name="meterReadings"
                             label={labels.meterReadingsField}
@@ -45,12 +45,12 @@ class MeterReadingForm extends React.PureComponent {
                             helperText={
                                 <span>
                                     Number of meter:{' '}
-                                    <span className="meter-reading-form-field-helper-text">{numberOfMeter}</span>
+                                    <span className="meter-reading-form-field-helper-text">{numberOfMeter || ''}</span>
                                 </span>
                             }
                         />
                     </div>
-                    <div className="meter-reading-form-field">
+                    <div>
                         <DateField
                             name="date"
                             label={labels.dateField}
@@ -58,7 +58,7 @@ class MeterReadingForm extends React.PureComponent {
                             onChange={payload => this.handleChange(payload)}
                         />
                     </div>
-                    <div className="meter-reading-form-field">
+                    <div>
                         <TextField
                             name="comment"
                             label={labels.commentField}
@@ -99,7 +99,7 @@ MeterReadingForm.defaultProps = {
         submitButton: 'Submit'
     },
     errors: {},
-    numberOfMeter: 123
+    numberOfMeter: null
 };
 
 export default MeterReadingForm;

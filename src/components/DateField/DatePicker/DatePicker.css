@@ -4,7 +4,7 @@
     padding: 1.75em 1em;
     max-width: 100%;
     width: 20.5rem;
-    border: var(--border-width) solid var(--input-border);
+    border: var(--border-width) solid var(--input-border-color);
     border-radius: 0.25em;
     background: white;
     box-shadow: 0 0.3125rem 1.25rem rgba(0, 0, 0, 0.05);
@@ -32,7 +32,7 @@
 .date-picker.date-picker--top::before {
     bottom: -0.5625rem;
     border-width: 0.5625rem 0.5625rem 0 0.5625rem;
-    border-color: var(--input-border) transparent transparent transparent;
+    border-color: var(--input-border-color) transparent transparent transparent;
 }
 
 .date-picker.date-picker--top::after {
@@ -44,7 +44,7 @@
 .date-picker.date-picker--bottom::before {
     top: -0.5625rem;
     border-width: 0 0.5625rem 0.5625rem 0.5625rem;
-    border-color: transparent transparent var(--input-border) transparent;
+    border-color: transparent transparent var(--input-border-color) transparent;
 }
 
 .date-picker.date-picker--bottom::after {
