@@ -10,16 +10,16 @@ const MeterReadingsHistory = ({ title, data, consumptionUnitLabel }) => {
         <table className="meter-readings-history">
             <caption>{title}</caption>
             <tbody>
-            {data.map((item, index) => {
-                return (
-                    <tr key={`${item.date}${index}`}>
-                        <td>{item.date ? formatDate(item.date, MONTH_DAY_DATE_FORMAT) : '-'} </td>
-                        <td>
-                            {Number.isFinite(item.value) ? item.value : '-'} {consumptionUnitLabel || '-'}
-                        </td>
-                    </tr>
-                );
-            })}
+                {data.map((item, index) => {
+                    return (
+                        <tr key={`${item.date}${index}`}>
+                            <td>{item.date ? formatDate(item.date, MONTH_DAY_DATE_FORMAT) : '-'} </td>
+                            <td>
+                                {Number.isFinite(item.value) ? item.value : '-'} {consumptionUnitLabel || '-'}
+                            </td>
+                        </tr>
+                    );
+                })}
             </tbody>
         </table>
     );
