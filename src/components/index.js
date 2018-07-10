@@ -35,6 +35,7 @@ import MetaMaskAlert from './MetaMaskAlert';
 import SortToolbar from './SortToolbar';
 import TradePositionsList from './TradePositionsList';
 import DocumentsList from './DocumentsList';
+import MeterReadingForm from './MeterReadingForm';
 import MeterReadingsHistory from './MeterReadingsHistory';
 
 export {
@@ -79,5 +80,6 @@ export {
     SortToolbar,
     TradePositionsList,
     DocumentsList,
+    MeterReadingForm,
     MeterReadingsHistory
 };

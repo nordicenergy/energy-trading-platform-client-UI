@@ -33,7 +33,7 @@
     align-items: center;
     justify-content: space-between;
     height: 2.5em;
-    border-bottom: 0.062em solid var(--input-border);
+    border-bottom: 0.062em solid var(--input-border-color);
 }
 
 .text-field-layout::after {
