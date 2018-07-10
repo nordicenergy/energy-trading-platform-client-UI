@@ -3,12 +3,13 @@
     background: white;
     text-align: left;
     border-collapse: collapse;
+    font-size: 1rem;
 }
 
 .meter-readings-history caption {
     padding: 2.5em 0 0 0;
     color: var(--general-dark-text-color);
-    font-size: 1.125rem;
+    font-size: 1.125em;
     font-weight: 600;
     line-height: 1.65;
     text-align: center;
@@ -23,7 +24,7 @@
 
 .meter-readings-history tr td {
     padding: 2.2em 0 2.1em 1.1em;
-    font-size: 0.875rem;
+    font-size: 0.875em;
     font-weight: 600;
     line-height: 1.5;
 }
