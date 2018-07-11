@@ -202,5 +202,12 @@
     "app.sellEnergyPage.descriptionFieldError": "Description field should not be empty.",
     "app.sellEnergyPage.nameFieldError": "Name field should not be empty.",
 
-    "app.documentsPage.header": "Meine Dokumente"
+    "app.documentsPage.header": "Meine Dokumente",
+
+    "app.submitMeterReadingsPage.header": "Zählerstände übermitteln",
+    "app.submitMeterReadingsPage.labels.meterReadingsField": "Zählerstände",
+    "app.submitMeterReadingsPage.labels.dateField": "Datum des Lesens",
+    "app.submitMeterReadingsPage.labels.commentField": "Kommentar",
+    "app.submitMeterReadingsPage.labels.submitButton": "Einreichen",
+    "app.submitMeterReadingsPage.labels.meterNumberTitle": "Anzahl der Meter"
 }

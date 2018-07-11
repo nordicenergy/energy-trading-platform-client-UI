@@ -10,7 +10,6 @@
 .meter-reading-form-fields > div {
     box-sizing: border-box;
     margin-bottom: 4em;
-    padding: 0 3em;
     width: 100%;
 }
 
@@ -25,7 +24,6 @@
 .meter-reading-form-actions {
     display: flex;
     align-items: center;
-    padding-left: 2em;
     min-height: 5em;
 }
 
@@ -44,12 +42,12 @@
 
 @media (max-width: 767px) {
     .meter-reading-form-fields > div {
-        padding: 0 1em;
+        padding: 0;
     }
 
     .meter-reading-form-actions {
         display: block;
-        padding: 2em 1em;
+        padding: 0 0 2em 0;
         min-height: 0;
         text-align: center;
     }

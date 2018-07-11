@@ -200,5 +200,12 @@
     "app.sellEnergyPage.descriptionFieldError": "Description field should not be empty.",
     "app.sellEnergyPage.nameFieldError": "Name field should not be empty.",
 
-    "app.documentsPage.header": "My Documents"
+    "app.documentsPage.header": "My Documents",
+
+    "app.submitMeterReadingsPage.header": "Submit Meter readings",
+    "app.submitMeterReadingsPage.labels.meterReadingsField": "Meter readings",
+    "app.submitMeterReadingsPage.labels.dateField": "Date of reading",
+    "app.submitMeterReadingsPage.labels.commentField": "Comment",
+    "app.submitMeterReadingsPage.labels.submitButton": "Submit",
+    "app.submitMeterReadingsPage.labels.meterNumberTitle": "Number of meter"
 }

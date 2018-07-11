@@ -16,3 +16,4 @@ export { default as TermsAndConditions } from './TermsAndConditions';
 export { default as DirectTrading } from './DirectTrading';
 export { default as TransactionStatuses } from './TransactionStatuses';
 export { default as Documents } from './Documents';
+export { default as SubmitMeterReadings } from './SubmitMeterReadings';

@@ -109,8 +109,7 @@ export class App extends React.Component {
                 icon: icons.submit_meter,
                 label: formatMessage(messages.submitMeter),
                 active: headRoute === PATHS.submit_meter.id,
-                path: PATHS.submit_meter.path,
-                disabled: true
+                path: PATHS.submit_meter.path
             },
             {
                 id: PATHS.trading.id,

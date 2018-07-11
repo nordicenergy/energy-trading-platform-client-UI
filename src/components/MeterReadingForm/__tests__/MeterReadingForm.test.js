@@ -7,7 +7,8 @@ const DEFAULT_LABELS = {
     meterReadingsField: 'Meter readings',
     dateField: 'Date of reading',
     commentField: 'Comment',
-    submitButton: 'Submit'
+    submitButton: 'Submit',
+    meterNumberTitle: 'Number of meter'
 };
 
 const MOCK_FORM_DATA = {
@@ -44,7 +45,8 @@ describe('<MeterReadingForm /> Component', () => {
                 meterReadingsField: 'Meter readings test',
                 dateField: 'Date of reading test',
                 commentField: 'Comment test',
-                submitButton: 'Submit test'
+                submitButton: 'Submit test',
+                meterNumberTitle: 'Number of meter'
             },
             errors: {
                 meterReadings: 'meterReadings error',

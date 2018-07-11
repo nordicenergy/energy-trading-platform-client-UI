@@ -11,7 +11,7 @@ class MeterReadingForm extends React.PureComponent {
 
         this.state = {
             meterReadings: '',
-            date: '',
+            date: null,
             comment: ''
         };
     }
@@ -44,7 +44,7 @@ class MeterReadingForm extends React.PureComponent {
                             error={errors.meterReadings}
                             helperText={
                                 <span>
-                                    Number of meter:{' '}
+                                    {labels.meterNumberTitle}:{' '}
                                     <span className="meter-reading-form-field-helper-text">{numberOfMeter || ''}</span>
                                 </span>
                             }
@@ -55,6 +55,7 @@ class MeterReadingForm extends React.PureComponent {
                             name="date"
                             label={labels.dateField}
                             value={date}
+                            error={errors.date}
                             onChange={payload => this.handleChange(payload)}
                         />
                     </div>
