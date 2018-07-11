@@ -85,7 +85,6 @@ export class SubmitMeter extends AbstractContainer {
                 });
             }
             // TODO: performSubmitMeterReading(meterReading);
-            console.log('performSubmitMeterReading', meterReading);
             this.setState({ errors: {} });
         });
     }

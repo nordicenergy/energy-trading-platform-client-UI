@@ -13,7 +13,7 @@ export function getMeterReadingsHistory() {
 }
 
 export function submitMeterReading() {
-    // TODO: Ues real endpoint
+    // TODO: Ues real endpoint and data
     return Promise.resolve({ data: { status: 'OK' } });
 }
 
