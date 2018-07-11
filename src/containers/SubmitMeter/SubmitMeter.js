@@ -58,6 +58,7 @@ export class SubmitMeter extends AbstractContainer {
     }
 
     prepareValidator() {
+        const { formatMessage } = this.context.intl;
         const validationSchema = {
             meterReadings: {
                 type: 'number',
@@ -65,16 +66,16 @@ export class SubmitMeter extends AbstractContainer {
                 transform(value) {
                     return (value && Number(value)) || value;
                 },
-                message: 'Meter readings is not a number'
+                message: formatMessage(messages.meterReadingNumber)
             },
             date: {
                 required: true,
-                message: 'Date is required'
+                message: formatMessage(messages.dateRequired)
             },
             comment: {
                 type: 'string',
                 required: true,
-                message: 'Comment is not a string'
+                message: formatMessage(messages.commentString)
             }
         };
 

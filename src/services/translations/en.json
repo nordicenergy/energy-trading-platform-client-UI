@@ -207,5 +207,8 @@
     "app.submitMeterReadingsPage.labels.dateField": "Date of reading",
     "app.submitMeterReadingsPage.labels.commentField": "Comment",
     "app.submitMeterReadingsPage.labels.submitButton": "Submit",
-    "app.submitMeterReadingsPage.labels.meterNumberTitle": "Number of meter"
+    "app.submitMeterReadingsPage.labels.meterNumberTitle": "Number of meter",
+    "app.submitMeterReadingsPage.errors.meterReadingNumber": "Meter readings is not a number",
+    "app.submitMeterReadingsPage.errors.dateRequired": "Date is required",
+    "app.submitMeterReadingsPage.errors.commentString": "Comment is not a string"
 }
