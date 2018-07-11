@@ -32,14 +32,8 @@ const DEFAULT_PROPS = {
     errors: {}
 };
 
-
-function renderComponent(
-    props = {},
-    renderer = shallow
-) {
-    return renderer(
-        <MeterReadingForm { ...DEFAULT_PROPS} {...props} />
-    );
+function renderComponent(props = {}, renderer = shallow) {
+    return renderer(<MeterReadingForm {...DEFAULT_PROPS} {...props} />);
 }
 
 describe('<MeterReadingForm /> Component', () => {
