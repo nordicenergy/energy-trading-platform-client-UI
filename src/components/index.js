@@ -36,6 +36,7 @@ import SortToolbar from './SortToolbar';
 import TradePositionsList from './TradePositionsList';
 import DocumentsList from './DocumentsList';
 import MeterReadingForm from './MeterReadingForm';
+import MeterReadingsHistory from './MeterReadingsHistory';
 
 export {
     Button,
@@ -79,5 +80,6 @@ export {
     SortToolbar,
     TradePositionsList,
     DocumentsList,
-    MeterReadingForm
+    MeterReadingForm,
+    MeterReadingsHistory
 };
