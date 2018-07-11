@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import MeterReadingForm from '../MeterReadingForm';
 import { TextField, DateField, Button } from '../../index';
 
@@ -17,12 +17,28 @@ const MOCK_FORM_DATA = {
     comment: 'new comment'
 };
 
+const INIT_METER_READING = {
+    meterReadings: '',
+    date: null,
+    comment: ''
+};
+
+const DEFAULT_PROPS = {
+    labels: DEFAULT_LABELS,
+    onSubmit: () => {},
+    numberOfMeter: 1234,
+    locale: 'en',
+    isSuccessfullySubmitted: false,
+    errors: {}
+};
+
+
 function renderComponent(
-    { errors = {}, onSubmit = () => {}, labels = DEFAULT_LABELS, numberOfMeter = 1234 } = {},
+    props = {},
     renderer = shallow
 ) {
     return renderer(
-        <MeterReadingForm errors={errors} labels={labels} onSubmit={onSubmit} numberOfMeter={numberOfMeter} />
+        <MeterReadingForm { ...DEFAULT_PROPS} {...props} />
     );
 }
 
@@ -51,7 +67,8 @@ describe('<MeterReadingForm /> Component', () => {
             errors: {
                 meterReadings: 'meterReadings error',
                 comment: 'comment error'
-            }
+            },
+            locale: 'en'
         });
         component.setState(MOCK_FORM_DATA);
 
@@ -85,6 +102,7 @@ describe('<MeterReadingForm /> Component', () => {
         expect(dateField.props().name).toEqual('date');
         expect(dateField.props().label).toEqual('Date of reading test');
         expect(dateField.props().value).toEqual('new date');
+        expect(dateField.props().locale).toEqual('en');
         expect(typeof dateField.props().onChange).toBe('function');
 
         const submitButton = buttons.at(0);
@@ -137,5 +155,22 @@ describe('<MeterReadingForm /> Component', () => {
             date: 'new date',
             comment: 'new comment'
         });
+    });
+
+    it('should set default state data after meter reading has successfully submitted', () => {
+        const component = renderComponent();
+        component.setState(MOCK_FORM_DATA);
+
+        component.setProps({ isSuccessfullySubmitted: false });
+
+        expect(component.state().meterReadings).toEqual(MOCK_FORM_DATA.meterReadings);
+        expect(component.state().date).toEqual(MOCK_FORM_DATA.date);
+        expect(component.state().comment).toEqual(MOCK_FORM_DATA.comment);
+
+        component.setProps({ isSuccessfullySubmitted: true });
+
+        expect(component.state().meterReadings).toEqual(INIT_METER_READING.meterReadings);
+        expect(component.state().date).toEqual(INIT_METER_READING.date);
+        expect(component.state().comment).toEqual(INIT_METER_READING.comment);
     });
 });

@@ -12,9 +12,9 @@ export function getMeterReadingsHistory() {
     });
 }
 
-export function submitMeterReading() {
+export function submitMeterReading(meterReading) {
     // TODO: Ues real endpoint and data
-    return Promise.resolve({ data: { status: 'OK' } });
+    return Promise.resolve({ data: { status: 'OK', meterReading } });
 }
 
 export function getMeterNumber() {

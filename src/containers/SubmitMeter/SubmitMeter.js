@@ -5,7 +5,11 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { MeterReadingForm } from '../../components';
 
 import './SubmitMeter.css';
-import { performGetMeterReadingsHistory, performGetMeterNumber } from '../../action_performers/consumption';
+import {
+    performGetMeterReadingsHistory,
+    performGetMeterNumber,
+    performSubmitMeterReading
+} from '../../action_performers/consumption';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { SubmitMeterReadings as messages } from '../../services/translations/messages';
@@ -25,8 +29,16 @@ export class SubmitMeter extends AbstractContainer {
             meterReadingsHistory: state.Consumption.meterReadingsHistory.data,
             // TODO: Change it after integrate real endpoint
             meterNumber: state.Consumption.meterNumber.data.meterNumber,
-            loading: state.Consumption.meterReadingsHistory.loading || state.Consumption.meterNumber.loading,
-            error: state.Consumption.meterReadingsHistory.error || state.Consumption.meterNumber.error
+            // TODO: Change it after integrate real endpoint
+            submittedMeterReading: state.Consumption.submittedMeterReading,
+            loading:
+                state.Consumption.meterReadingsHistory.loading ||
+                state.Consumption.submittedMeterReading.loading ||
+                state.Consumption.meterNumber.loading,
+            error:
+                state.Consumption.meterReadingsHistory.error ||
+                state.Consumption.meterNumber.error ||
+                state.Consumption.submittedMeterReading.error
         };
     }
 
@@ -84,24 +96,27 @@ export class SubmitMeter extends AbstractContainer {
                     )
                 });
             }
-            // TODO: performSubmitMeterReading(meterReading);
+            performSubmitMeterReading(meterReading);
             this.setState({ errors: {} });
         });
     }
 
     render() {
-        const { formatMessage } = this.context.intl;
+        const { formatMessage, locale } = this.context.intl;
         const labels = this.prepareLabels(messages);
-        const { loading, meterNumber } = this.props;
+        const { loading, meterNumber, submittedMeterReading } = this.props;
         const { errors } = this.state;
+        const isMeterReadingSuccessfullySubmit = !submittedMeterReading.loading && !submittedMeterReading.error;
 
         return (
             <section className="submit-meter-readings-page" aria-busy={loading}>
                 <section>
                     <h1>{formatMessage(messages.header)}</h1>
                     <MeterReadingForm
+                        isSuccessfullySubmitted={isMeterReadingSuccessfullySubmit}
                         errors={errors}
                         labels={labels}
+                        locale={locale}
                         numberOfMeter={meterNumber}
                         onSubmit={meterReading => this.submitMeterReading(meterReading)}
                     />
@@ -125,7 +140,12 @@ SubmitMeter.propTypes = {
         isSeriesBasedOnLiveData: PropTypes.bool
     }).isRequired,
     loading: PropTypes.bool,
-    meterNumber: PropTypes.number
+    meterNumber: PropTypes.number,
+    submittedMeterReading: PropTypes.shape({
+        data: PropTypes.object,
+        loading: PropTypes.bool,
+        error: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    }).isRequired
 };
 
 export default connect(SubmitMeter.mapStateToProps)(SubmitMeter);

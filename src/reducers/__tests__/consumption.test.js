@@ -16,6 +16,12 @@ describe('Consumption reducer:', () => {
             expect(result.meterNumber.error).toBeNull();
             expect(result.meterNumber.data).toEqual(initialState.meterNumber.data);
         });
+        it('should handle SUBMIT_METER_READING', () => {
+            const result = consumptionReducer(initialState, ACTIONS.submitMeterReading.pending);
+            expect(result.submittedMeterReading.loading).toBeTruthy();
+            expect(result.submittedMeterReading.error).toBeNull();
+            expect(result.submittedMeterReading.data).toEqual(initialState.submittedMeterReading.data);
+        });
     });
 
     describe('Error cases:', () => {
@@ -31,6 +37,12 @@ describe('Consumption reducer:', () => {
             expect(result.meterNumber.error).toEqual(ACTIONS.getMeterNumber.fail.error);
             expect(result.meterNumber.data).toEqual(initialState.meterNumber.data);
         });
+        it('should handle SUBMIT_METER_READING', () => {
+            const result = consumptionReducer(initialState, ACTIONS.submitMeterReading.fail);
+            expect(result.submittedMeterReading.loading).toBeFalsy();
+            expect(result.submittedMeterReading.error).toEqual(ACTIONS.submitMeterReading.fail.error);
+            expect(result.submittedMeterReading.data).toEqual(initialState.submittedMeterReading.data);
+        });
     });
 
     describe('Success cases:', () => {
@@ -45,6 +57,12 @@ describe('Consumption reducer:', () => {
             expect(result.meterNumber.loading).toBeFalsy();
             expect(result.meterNumber.error).toBeNull();
             expect(result.meterNumber.data).toEqual(ACTIONS.getMeterNumber.success.payload);
+        });
+        it('should handle SUBMIT_METER_READING', () => {
+            const result = consumptionReducer(initialState, ACTIONS.submitMeterReading.success);
+            expect(result.submittedMeterReading.loading).toBeFalsy();
+            expect(result.submittedMeterReading.error).toBeNull();
+            expect(result.submittedMeterReading.data).toEqual(ACTIONS.submitMeterReading.success.payload);
         });
     });
 });
@@ -101,6 +119,28 @@ function fixtures() {
             },
             pending: {
                 type: 'GET_METER_NUMBER',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
+        submitMeterReading: {
+            success: {
+                type: 'SUBMIT_METER_READING',
+                payload: {
+                    status: 'OK' // TODO: Change it after explore real data from server
+                },
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'SUBMIT_METER_READING',
+                payload: null,
+                error: { message: 'Response error' },
+                loading: false
+            },
+            pending: {
+                type: 'SUBMIT_METER_READING',
                 payload: null,
                 error: null,
                 loading: true
