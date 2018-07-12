@@ -29,6 +29,7 @@ export const TRANSACTION_STATUSES = {
 };
 
 export const DATE_FORMAT = 'MMM DD, YYYY';
+export const MONTH_DAY_DATE_FORMAT = 'MMM DD';
 export const DATETIME_FORMAT = 'MMM DD, YYYY hh:mm';
 
 export const LOCALES = ['en', 'de'];
