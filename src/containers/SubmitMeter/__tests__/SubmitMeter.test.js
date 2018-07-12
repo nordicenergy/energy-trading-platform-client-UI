@@ -120,14 +120,17 @@ describe('<SubmitMeter /> Component', () => {
         };
         const component = renderComponent();
 
-        component.find(MeterReadingForm).props().onSubmit(meterReading);
+        component
+            .find(MeterReadingForm)
+            .props()
+            .onSubmit(meterReading);
 
         expect(component.state().errors).toEqual({});
         expect(component.find(MeterReadingForm).props().errors).toEqual({});
         expect(consumptionActions.performSubmitMeterReading).toHaveBeenCalledWith(meterReading);
     });
 
-    it('should don\'t call performSubmitMeterReading when meter submitted with incorrect data', () => {
+    it("should don't call performSubmitMeterReading when meter submitted with incorrect data", () => {
         const meterReading = {
             meterReadings: 123,
             date: 312441234,
@@ -135,19 +138,28 @@ describe('<SubmitMeter /> Component', () => {
         };
         const component = renderComponent();
 
-        component.find(MeterReadingForm).props().onSubmit({ ...meterReading, meterReadings: undefined });
+        component
+            .find(MeterReadingForm)
+            .props()
+            .onSubmit({ ...meterReading, meterReadings: undefined });
         expect(component.state().errors).toEqual({
-            "meterReadings": "Meter readings is not a number"
+            meterReadings: 'Meter readings is not a number'
         });
 
-        component.find(MeterReadingForm).props().onSubmit({ ...meterReading, date: undefined });
+        component
+            .find(MeterReadingForm)
+            .props()
+            .onSubmit({ ...meterReading, date: undefined });
         expect(component.state().errors).toEqual({
-            "date": "Date is required"
+            date: 'Date is required'
         });
 
-        component.find(MeterReadingForm).props().onSubmit({ ...meterReading, comment: undefined });
+        component
+            .find(MeterReadingForm)
+            .props()
+            .onSubmit({ ...meterReading, comment: undefined });
         expect(component.state().errors).toEqual({
-            "comment": "Comment is not a string"
+            comment: 'Comment is not a string'
         });
     });
 
@@ -160,7 +172,9 @@ describe('<SubmitMeter /> Component', () => {
         expect(meterReadingsHistory).toHaveLength(1);
         expect(meterReadingsHistory.props().data).toEqual(MOCK_METER_READINGS_HISTORY.consumptions);
         expect(meterReadingsHistory.props().title).toEqual('History');
-        expect(meterReadingsHistory.props().consumptionUnitLabel).toEqual(MOCK_METER_READINGS_HISTORY.consumptionUnitLabel);
+        expect(meterReadingsHistory.props().consumptionUnitLabel).toEqual(
+            MOCK_METER_READINGS_HISTORY.consumptionUnitLabel
+        );
         expect(meterReadingsHistory.props().noDataMessage).toEqual('Sorry, not live metering data available for you…');
     });
 
@@ -173,7 +187,9 @@ describe('<SubmitMeter /> Component', () => {
         expect(meterReadingsHistory).toHaveLength(1);
         expect(meterReadingsHistory.props().data).toEqual([]);
         expect(meterReadingsHistory.props().title).toEqual('History');
-        expect(meterReadingsHistory.props().consumptionUnitLabel).toEqual(MOCK_METER_READINGS_HISTORY.consumptionUnitLabel);
+        expect(meterReadingsHistory.props().consumptionUnitLabel).toEqual(
+            MOCK_METER_READINGS_HISTORY.consumptionUnitLabel
+        );
         expect(meterReadingsHistory.props().noDataMessage).toEqual('Sorry, not live metering data available for you…');
     });
 
@@ -202,13 +218,13 @@ describe('<SubmitMeter /> Component', () => {
 
         expect(props.loading).toEqual(
             stateMock.Consumption.meterReadingsHistory.loading ||
-            stateMock.Consumption.submittedMeterReading.loading ||
-            stateMock.Consumption.meterNumber.loading
+                stateMock.Consumption.submittedMeterReading.loading ||
+                stateMock.Consumption.meterNumber.loading
         );
         expect(props.error).toEqual(
             stateMock.Consumption.meterReadingsHistory.error ||
-            stateMock.Consumption.meterNumber.error ||
-            stateMock.Consumption.submittedMeterReading.error
+                stateMock.Consumption.meterNumber.error ||
+                stateMock.Consumption.submittedMeterReading.error
         );
         expect(props.meterReadingsHistory).toEqual(stateMock.Consumption.meterReadingsHistory.data);
         expect(props.meterNumber).toEqual(stateMock.Consumption.meterNumber.data.meterNumber);
