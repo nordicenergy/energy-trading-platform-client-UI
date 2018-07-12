@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { MeterReadingForm } from '../../components';
+import { MeterReadingForm, MeterReadingsHistory } from '../../components';
 
 import './SubmitMeter.css';
 import {
@@ -105,8 +105,17 @@ export class SubmitMeter extends AbstractContainer {
     render() {
         const { formatMessage, locale } = this.context.intl;
         const labels = this.prepareLabels(messages);
-        const { loading, meterNumber, submittedMeterReading } = this.props;
-        const { errors } = this.state;
+        const {
+            props: {
+                loading,
+                meterNumber,
+                submittedMeterReading,
+                meterReadingsHistory: { isSeriesBasedOnLiveData, consumptions, consumptionUnitLabel }
+            },
+            state: { errors }
+        } = this;
+
+        const historyData = isSeriesBasedOnLiveData ? consumptions : [];
         const isMeterReadingSuccessfullySubmit = !submittedMeterReading.loading && !submittedMeterReading.error;
 
         return (
@@ -122,7 +131,14 @@ export class SubmitMeter extends AbstractContainer {
                         onSubmit={meterReading => this.submitMeterReading(meterReading)}
                     />
                 </section>
-                <aside>history</aside>
+                <aside>
+                    <MeterReadingsHistory
+                        data={historyData}
+                        title="History"
+                        consumptionUnitLabel={consumptionUnitLabel}
+                        noDataMessage={labels.noData}
+                    />
+                </aside>
             </section>
         );
     }

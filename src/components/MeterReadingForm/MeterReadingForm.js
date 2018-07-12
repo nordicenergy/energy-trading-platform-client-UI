@@ -104,7 +104,8 @@ MeterReadingForm.propTypes = {
     isSuccessfullySubmitted: PropTypes.bool,
     errors: PropTypes.shape({
         meterReadings: PropTypes.string,
-        commentField: PropTypes.string
+        comment: PropTypes.string,
+        date: PropTypes.string
     })
 };
 MeterReadingForm.defaultProps = {
@@ -112,7 +113,8 @@ MeterReadingForm.defaultProps = {
         meterReadingsField: 'Meter readings',
         dateField: 'Date of reading',
         commentField: 'Comment',
-        submitButton: 'Submit'
+        submitButton: 'Submit',
+        meterNumberTitle: 'Number of meter'
     },
     onSubmit: () => {},
     numberOfMeter: null,

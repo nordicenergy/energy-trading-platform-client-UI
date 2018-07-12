@@ -1,5 +1,4 @@
 .submit-meter-readings-page {
-    padding: var(--page-paddings);
     height: 100%;
     box-sizing: border-box;
     background-color: white;
@@ -10,10 +9,12 @@
 
 .submit-meter-readings-page > section {
     width: 100%;
+    padding: var(--page-paddings);
 }
 
 .submit-meter-readings-page > aside {
-    width: 30em;
+    width: 50em;
+    border-left: var(--border-width) solid var(--border-on-light-color);
 }
 
 .submit-meter-readings-page section > h1 {

@@ -25,6 +25,10 @@ const messages = defineMessages({
         id: 'app.submitMeterReadingsPage.labels.meterNumberTitle',
         defaultMessage: 'Number of meter'
     },
+    noData: {
+        id: 'app.submitMeterReadingsPage.messages.noData',
+        defaultMessage: 'Sorry, not live metering data available for you…'
+    },
     meterReadingNumber: {
         id: 'app.submitMeterReadingsPage.errors.meterReadingNumber',
         defaultMessage: 'Meter readings is not a number'
