@@ -134,7 +134,7 @@ export class SubmitMeter extends AbstractContainer {
                 <aside>
                     <MeterReadingsHistory
                         data={historyData}
-                        title="History"
+                        title={labels.historyCaption}
                         consumptionUnitLabel={consumptionUnitLabel}
                         noDataMessage={labels.noData}
                     />

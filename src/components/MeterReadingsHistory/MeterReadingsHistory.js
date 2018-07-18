@@ -13,7 +13,8 @@ const MeterReadingsHistory = ({ title, data, consumptionUnitLabel, noDataMessage
                 <caption>{title}</caption>
                 <tbody>
                     {data.map((item, index) => {
-                        const value = Number.isFinite(item.consumption) ? formatFloat(item.consumption) : '-';
+                        const isConsumptionValid = item.consumption != null && isFinite(item.consumption);
+                        const value = isConsumptionValid ? formatFloat(item.consumption) : '-';
                         return (
                             <tr key={`${item.date}${index}`}>
                                 <td>{item.date ? formatDate(item.date, MONTH_DAY_DATE_FORMAT) : '-'} </td>

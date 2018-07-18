@@ -40,6 +40,10 @@ const messages = defineMessages({
     commentString: {
         id: 'app.submitMeterReadingsPage.errors.commentString',
         defaultMessage: 'Comment is not a string'
+    },
+    historyCaption: {
+        id: 'app.submitMeterReadingsPage.labels.historyCaption',
+        defaultMessage: 'History'
     }
 });
 

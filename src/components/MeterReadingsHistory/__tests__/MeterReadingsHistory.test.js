@@ -74,7 +74,7 @@ describe('<MeterReadingsHistory /> Component', () => {
 
         expect(trs.at(count++).text()).toEqual('Mar 24 9,950.3 kWh');
         expect(trs.at(count++).text()).toEqual('Apr 05 0 kWh');
-        expect(trs.at(count++).text()).toEqual('Jan 01 - kWh');
+        expect(trs.at(count++).text()).toEqual('Jan 01 1 kWh');
         expect(trs.at(count++).text()).toEqual('- - kWh');
         expect(trs.at(count).text()).toEqual('- - kWh');
     });

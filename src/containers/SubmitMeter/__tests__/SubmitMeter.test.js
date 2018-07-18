@@ -70,6 +70,7 @@ describe('<SubmitMeter /> Component', () => {
         expect(meterReadingForm.props().errors).toEqual({});
         expect(meterReadingForm.props().labels).toEqual({
             header: 'Submit Meter readings',
+            historyCaption: 'History',
             meterReadingsField: 'Meter readings',
             dateField: 'Date of reading',
             commentField: 'Comment',
@@ -97,6 +98,7 @@ describe('<SubmitMeter /> Component', () => {
         expect(meterReadingForm.props().errors).toEqual({});
         expect(meterReadingForm.props().labels).toEqual({
             header: 'Submit Meter readings',
+            historyCaption: 'History',
             meterReadingsField: 'Meter readings',
             dateField: 'Date of reading',
             commentField: 'Comment',
