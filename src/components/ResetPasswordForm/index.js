@@ -1,1 +1,1 @@
-export { default } from './R';
+export { default } from './ResetPasswordForm';
