@@ -112,7 +112,6 @@ describe('Main <App /> Component', () => {
             { active: false, icon: 'faBook', id: 'documents', label: 'test', path: '/documents' },
             {
                 active: false,
-                disabled: true,
                 icon: 'faCalculator',
                 id: 'submit_meter',
                 label: 'test',

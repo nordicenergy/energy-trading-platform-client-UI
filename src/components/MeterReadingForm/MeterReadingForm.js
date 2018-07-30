@@ -5,15 +5,28 @@ import DateField from '../DateField';
 import Button from '../Button';
 import './MeterReadingForm.css';
 
+const initMeterReading = {
+    meterReadings: '',
+    date: null,
+    comment: ''
+};
+
 class MeterReadingForm extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            meterReadings: '',
-            date: '',
-            comment: ''
+            ...initMeterReading
         };
+    }
+
+    componentDidUpdate(prevProps) {
+        const { isSuccessfullySubmitted } = this.props;
+        const isSubmitted = !prevProps.isSuccessfullySubmitted && isSuccessfullySubmitted;
+
+        if (isSubmitted) {
+            this.setState({ ...initMeterReading });
+        }
     }
 
     handleSubmit(event) {
@@ -29,7 +42,7 @@ class MeterReadingForm extends React.PureComponent {
     }
 
     render() {
-        const { props: { labels, errors, numberOfMeter }, state: { meterReadings, date, comment } } = this;
+        const { props: { labels, errors, numberOfMeter, locale }, state: { meterReadings, date, comment } } = this;
 
         return (
             <form className="meter-reading-form" onSubmit={event => this.handleSubmit(event)} noValidate>
@@ -44,7 +57,7 @@ class MeterReadingForm extends React.PureComponent {
                             error={errors.meterReadings}
                             helperText={
                                 <span>
-                                    Number of meter:{' '}
+                                    {labels.meterNumberTitle}:{' '}
                                     <span className="meter-reading-form-field-helper-text">{numberOfMeter || ''}</span>
                                 </span>
                             }
@@ -53,8 +66,10 @@ class MeterReadingForm extends React.PureComponent {
                     <div>
                         <DateField
                             name="date"
+                            locale={locale}
                             label={labels.dateField}
                             value={date}
+                            error={errors.date}
                             onChange={payload => this.handleChange(payload)}
                         />
                     </div>
@@ -85,21 +100,27 @@ MeterReadingForm.propTypes = {
     }),
     onSubmit: PropTypes.func,
     numberOfMeter: PropTypes.number,
+    locale: PropTypes.string,
+    isSuccessfullySubmitted: PropTypes.bool,
     errors: PropTypes.shape({
         meterReadings: PropTypes.string,
-        commentField: PropTypes.string
+        comment: PropTypes.string,
+        date: PropTypes.string
     })
 };
 MeterReadingForm.defaultProps = {
-    onSubmit: () => {},
     labels: {
         meterReadingsField: 'Meter readings',
         dateField: 'Date of reading',
         commentField: 'Comment',
-        submitButton: 'Submit'
+        submitButton: 'Submit',
+        meterNumberTitle: 'Number of meter'
     },
-    errors: {},
-    numberOfMeter: null
+    onSubmit: () => {},
+    numberOfMeter: null,
+    locale: 'en',
+    isSuccessfullySubmitted: false,
+    errors: {}
 };
 
 export default MeterReadingForm;
