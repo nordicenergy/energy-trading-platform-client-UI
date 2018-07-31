@@ -13,7 +13,7 @@ export class MyProducerPage extends AbstractPageObject {
         const viewport = await this.page.viewport();
         const breadcrumbsSelector = viewport.isMobile
             ? 'a.back-link'
-            : '.breadcrumbs .breadcrumb-item:first-child a.icon-breadcrumb';
+            : '.breadcrumbs .breadcrumb-item:first-child .icon-breadcrumb';
 
         await this.page.waitForSelector(breadcrumbsSelector);
         await this.page.click(breadcrumbsSelector);

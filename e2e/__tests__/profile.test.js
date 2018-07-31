@@ -2,12 +2,15 @@ import config from '../config';
 import factory from '../page_objects';
 
 const { timeout, credentials } = config;
-let profilePage, pageFactory;
+let pageFactory;
 
 describe('Walk through profile page', () => {
     beforeAll(async () => {
         pageFactory = await factory();
-    });
+        const loginPage = await pageFactory.createLoginPage();
+        await loginPage.open();
+        await loginPage.login(credentials.username, credentials.password);
+    }, timeout);
 
     afterAll(() => {
         pageFactory.destruct();
@@ -16,10 +19,7 @@ describe('Walk through profile page', () => {
     test(
         'User can open profile page after success login',
         async () => {
-            const loginPage = await pageFactory.createLoginPage();
-            await loginPage.open();
-            await loginPage.login(credentials.username, credentials.password);
-            profilePage = await pageFactory.createProfilePage();
+            const profilePage = await pageFactory.createProfilePage();
             await profilePage.open();
         },
         timeout
@@ -28,6 +28,7 @@ describe('Walk through profile page', () => {
     test(
         'User can save profile data and see notification',
         async () => {
+            const profilePage = await pageFactory.createProfilePage();
             await profilePage.open();
             await profilePage.tryToSave();
         },
