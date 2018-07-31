@@ -2,12 +2,15 @@ import config from '../config';
 import factory from '../page_objects';
 
 const { timeout, credentials } = config;
-let myProducerPage, pageFactory;
+let pageFactory;
 
 describe('Walk through show my producer page', () => {
     beforeAll(async () => {
         pageFactory = await factory();
-    });
+        const loginPage = await pageFactory.createLoginPage();
+        await loginPage.open();
+        await loginPage.login(credentials.username, credentials.password);
+    }, timeout);
 
     afterAll(() => {
         pageFactory.destruct();
@@ -16,10 +19,7 @@ describe('Walk through show my producer page', () => {
     test(
         'User can open show my producer page after success login',
         async () => {
-            const loginPage = await pageFactory.createLoginPage();
-            await loginPage.open();
-            await loginPage.login(credentials.username, credentials.password);
-            myProducerPage = await pageFactory.createMyProducerPage();
+            const myProducerPage = await pageFactory.createMyProducerPage();
             await myProducerPage.open();
         },
         timeout
@@ -28,6 +28,7 @@ describe('Walk through show my producer page', () => {
     test(
         'User can back to overview page through breadcrumbs',
         async () => {
+            const myProducerPage = await pageFactory.createMyProducerPage();
             await myProducerPage.open();
             await myProducerPage.clickOnLevelUpInBreadcrumbs();
         },
@@ -37,6 +38,7 @@ describe('Walk through show my producer page', () => {
     test.skip(
         'User can open producer list',
         async () => {
+            const myProducerPage = await pageFactory.createMyProducerPage();
             await myProducerPage.open();
             await myProducerPage.openProducerList();
         },

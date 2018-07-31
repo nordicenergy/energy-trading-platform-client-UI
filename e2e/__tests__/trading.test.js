@@ -7,7 +7,10 @@ let tradingPage, pageFactory;
 describe('Walk through trading page', () => {
     beforeAll(async () => {
         pageFactory = await factory();
-    });
+        const loginPage = await pageFactory.createLoginPage();
+        await loginPage.open();
+        await loginPage.login(credentials.username, credentials.password);
+    }, timeout);
 
     afterAll(() => {
         pageFactory.destruct();
@@ -16,10 +19,7 @@ describe('Walk through trading page', () => {
     test(
         'User can open trading page after success login',
         async () => {
-            const loginPage = await pageFactory.createLoginPage();
-            await loginPage.open();
-            await loginPage.login(credentials.username, credentials.password);
-            tradingPage = await pageFactory.createTradingPage();
+            const tradingPage = await pageFactory.createTradingPage();
             await tradingPage.open();
         },
         timeout
@@ -28,6 +28,7 @@ describe('Walk through trading page', () => {
     test(
         'User can check information about his energy producer',
         async () => {
+            const tradingPage = await pageFactory.createTradingPage();
             await tradingPage.open();
             await tradingPage.clickMyProducer();
         },
@@ -37,6 +38,7 @@ describe('Walk through trading page', () => {
     test(
         'User can buy energy',
         async () => {
+            const tradingPage = await pageFactory.createTradingPage();
             await tradingPage.open();
             await tradingPage.clickBuyEnergy();
         },
@@ -46,6 +48,7 @@ describe('Walk through trading page', () => {
     test(
         'User can sell energy',
         async () => {
+            const tradingPage = await pageFactory.createTradingPage();
             await tradingPage.open();
             await tradingPage.clickSellEnergy();
         },

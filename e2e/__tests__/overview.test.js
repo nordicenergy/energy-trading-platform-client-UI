@@ -2,12 +2,15 @@ import config from '../config';
 import factory from '../page_objects';
 
 const { timeout, credentials } = config;
-let overviewPage, pageFactory;
+let pageFactory;
 
 describe('Walk through overview page', () => {
     beforeAll(async () => {
         pageFactory = await factory();
-    });
+        const loginPage = await pageFactory.createLoginPage();
+        await loginPage.open();
+        await loginPage.login(credentials.username, credentials.password);
+    }, timeout);
 
     afterAll(() => {
         pageFactory.destruct();
@@ -16,9 +19,7 @@ describe('Walk through overview page', () => {
     test(
         'User can open overview page after success login',
         async () => {
-            const loginPage = await pageFactory.createLoginPage();
-            await loginPage.open();
-            overviewPage = await loginPage.login(credentials.username, credentials.password);
+            const overviewPage = await pageFactory.createOverviewPage();
             await overviewPage.open();
         },
         timeout
@@ -27,6 +28,7 @@ describe('Walk through overview page', () => {
     test(
         'User can open "Show Transactions" page for more details about recent transactions',
         async () => {
+            const overviewPage = await pageFactory.createOverviewPage();
             await overviewPage.open();
             await overviewPage.clickMoreOnRecentTransactions();
         },
@@ -36,6 +38,7 @@ describe('Walk through overview page', () => {
     test(
         'User can check information about his energy producer',
         async () => {
+            const overviewPage = await pageFactory.createOverviewPage();
             await overviewPage.open();
             await overviewPage.clickMyProducer();
         },
@@ -45,6 +48,7 @@ describe('Walk through overview page', () => {
     test(
         'User can buy energy',
         async () => {
+            const overviewPage = await pageFactory.createOverviewPage();
             await overviewPage.open();
             await overviewPage.clickBuyEnergy();
         },
@@ -54,6 +58,7 @@ describe('Walk through overview page', () => {
     test(
         'User can sell energy',
         async () => {
+            const overviewPage = await pageFactory.createOverviewPage();
             await overviewPage.open();
             await overviewPage.clickSellEnergy();
         },
