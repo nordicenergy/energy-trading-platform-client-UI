@@ -13,14 +13,12 @@ const DEFAULT_LABELS = {
 
 const MOCK_FORM_DATA = {
     meterReadings: 'new meterReadings',
-    date: 'new date',
-    comment: 'new comment'
+    date: 'new date'
 };
 
 const INIT_METER_READING = {
     meterReadings: '',
-    date: null,
-    comment: ''
+    date: null
 };
 
 function renderComponent(props = {}, renderer = shallow) {
@@ -35,7 +33,7 @@ describe('<MeterReadingForm /> Component', () => {
     `, () => {
         const component = renderComponent();
 
-        expect(component.find(TextField)).toHaveLength(2);
+        expect(component.find(TextField)).toHaveLength(1);
         expect(component.find(DateField)).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(1);
     });
@@ -44,7 +42,6 @@ describe('<MeterReadingForm /> Component', () => {
         const component = renderComponent({
             errors: {
                 meterReadings: 'Meter readings is not a number',
-                comment: 'Comment is not a string',
                 date: 'Date is required'
             },
             labels: DEFAULT_LABELS,
@@ -71,13 +68,6 @@ describe('<MeterReadingForm /> Component', () => {
                     '<span>Number of meters: <span class="meter-reading-form-field-helper-text">1234</span></span>'
                 )
         ).toEqual(true);
-
-        const commentTextField = textFields.at(1);
-        expect(commentTextField.props().name).toEqual('comment');
-        expect(commentTextField.props().label).toEqual('Comments');
-        expect(commentTextField.props().value).toEqual('new comment');
-        expect(commentTextField.props().error).toEqual('Comment is not a string');
-        expect(typeof commentTextField.props().onChange).toBe('function');
 
         const dateField = dateFields.at(0);
         expect(dateField.props().name).toEqual('date');
@@ -112,13 +102,6 @@ describe('<MeterReadingForm /> Component', () => {
                 .includes('<span>Number of meter: <span class="meter-reading-form-field-helper-text"></span></span>')
         ).toEqual(true);
 
-        const commentTextField = textFields.at(1);
-        expect(commentTextField.props().name).toEqual('comment');
-        expect(commentTextField.props().label).toEqual('Comment');
-        expect(commentTextField.props().value).toEqual('');
-        expect(commentTextField.props().error).toEqual(undefined);
-        expect(typeof commentTextField.props().onChange).toBe('function');
-
         const dateField = dateFields.at(0);
         expect(dateField.props().name).toEqual('date');
         expect(dateField.props().label).toEqual('Date of reading');
@@ -151,18 +134,8 @@ describe('<MeterReadingForm /> Component', () => {
                     value: 'test meterReadings'
                 }
             });
-        component
-            .find('TextField[name="comment"]')
-            .props()
-            .onChange({
-                target: {
-                    name: 'comment',
-                    value: 'test comment'
-                }
-            });
         expect(component.state().meterReadings).toBe('test meterReadings');
         expect(component.state().date).toBe('test date');
-        expect(component.state().comment).toBe('test comment');
     });
 
     it('should call onSubmit data when form was submitted', () => {
@@ -174,8 +147,7 @@ describe('<MeterReadingForm /> Component', () => {
         component.find('form').simulate('submit', { preventDefault: () => null });
         expect(onSubmitStub).toHaveBeenCalledWith({
             meterReadings: 'new meterReadings',
-            date: 'new date',
-            comment: 'new comment'
+            date: 'new date'
         });
     });
 
@@ -187,12 +159,10 @@ describe('<MeterReadingForm /> Component', () => {
 
         expect(component.state().meterReadings).toEqual(MOCK_FORM_DATA.meterReadings);
         expect(component.state().date).toEqual(MOCK_FORM_DATA.date);
-        expect(component.state().comment).toEqual(MOCK_FORM_DATA.comment);
 
         component.setProps({ isSuccessfullySubmitted: true });
 
         expect(component.state().meterReadings).toEqual(INIT_METER_READING.meterReadings);
         expect(component.state().date).toEqual(INIT_METER_READING.date);
-        expect(component.state().comment).toEqual(INIT_METER_READING.comment);
     });
 });

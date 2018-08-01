@@ -74,10 +74,6 @@ export class SubmitMeter extends AbstractContainer {
             date: {
                 required: true,
                 message: formatMessage(messages.dateRequired)
-            },
-            comment: {
-                type: 'string',
-                message: formatMessage(messages.commentString)
             }
         };
 

@@ -73,13 +73,11 @@ describe('<SubmitMeter /> Component', () => {
             historyCaption: 'History',
             meterReadingsField: 'Meter readings',
             dateField: 'Date of reading',
-            commentField: 'Comment',
             submitButton: 'Submit',
             meterNumberTitle: 'Number of meter',
             noData: 'Sorry, not live metering data available for you…',
             meterReadingNumber: 'Meter readings is not a number',
             dateRequired: 'Date is required',
-            commentString: 'Comment is not a string',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -102,13 +100,11 @@ describe('<SubmitMeter /> Component', () => {
             historyCaption: 'History',
             meterReadingsField: 'Meter readings',
             dateField: 'Date of reading',
-            commentField: 'Comment',
             submitButton: 'Submit',
             meterNumberTitle: 'Number of meter',
             noData: 'Sorry, not live metering data available for you…',
             meterReadingNumber: 'Meter readings is not a number',
             dateRequired: 'Date is required',
-            commentString: 'Comment is not a string',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -120,8 +116,7 @@ describe('<SubmitMeter /> Component', () => {
         jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         const meterReading = {
             meterReadings: 123,
-            date: 312441234,
-            comment: 'comment'
+            date: 312441234
         };
         const component = renderComponent();
 
@@ -149,8 +144,7 @@ describe('<SubmitMeter /> Component', () => {
     it("should don't call performSubmitMeterReading when meter submitted with incorrect data", () => {
         const meterReading = {
             meterReadings: 123,
-            date: 312441234,
-            comment: 'comment'
+            date: 312441234
         };
         const component = renderComponent();
 

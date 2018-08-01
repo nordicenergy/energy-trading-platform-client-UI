@@ -7,8 +7,7 @@ import './MeterReadingForm.css';
 
 const initMeterReading = {
     meterReadings: '',
-    date: null,
-    comment: ''
+    date: null
 };
 
 class MeterReadingForm extends React.PureComponent {
@@ -32,9 +31,9 @@ class MeterReadingForm extends React.PureComponent {
     handleSubmit(event) {
         event.preventDefault();
         const { onSubmit } = this.props;
-        const { meterReadings, date, comment } = this.state;
+        const { meterReadings, date } = this.state;
 
-        onSubmit({ meterReadings, date, comment });
+        onSubmit({ meterReadings, date });
     }
 
     handleChange({ name, value }) {
@@ -42,7 +41,7 @@ class MeterReadingForm extends React.PureComponent {
     }
 
     render() {
-        const { props: { labels, errors, numberOfMeter, locale }, state: { meterReadings, date, comment } } = this;
+        const { props: { labels, errors, numberOfMeter, locale }, state: { meterReadings, date } } = this;
 
         return (
             <form className="meter-reading-form" onSubmit={event => this.handleSubmit(event)} noValidate>
@@ -73,15 +72,6 @@ class MeterReadingForm extends React.PureComponent {
                             onChange={payload => this.handleChange(payload)}
                         />
                     </div>
-                    <div>
-                        <TextField
-                            name="comment"
-                            label={labels.commentField}
-                            value={comment}
-                            error={errors.comment}
-                            onChange={({ target }) => this.handleChange(target)}
-                        />
-                    </div>
                 </div>
                 <div className="meter-reading-form-actions">
                     <Button type="primary">{labels.submitButton}</Button>
@@ -95,7 +85,6 @@ MeterReadingForm.propTypes = {
     labels: PropTypes.shape({
         meterReadingsField: PropTypes.string,
         dateField: PropTypes.string,
-        commentField: PropTypes.string,
         submitButton: PropTypes.string
     }),
     onSubmit: PropTypes.func,
@@ -104,7 +93,6 @@ MeterReadingForm.propTypes = {
     isSuccessfullySubmitted: PropTypes.bool,
     errors: PropTypes.shape({
         meterReadings: PropTypes.string,
-        comment: PropTypes.string,
         date: PropTypes.string
     })
 };
@@ -112,7 +100,6 @@ MeterReadingForm.defaultProps = {
     labels: {
         meterReadingsField: 'Meter readings',
         dateField: 'Date of reading',
-        commentField: 'Comment',
         submitButton: 'Submit',
         meterNumberTitle: 'Number of meter'
     },
