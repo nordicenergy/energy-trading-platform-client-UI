@@ -21,9 +21,9 @@ class ResetPasswordForm extends Component {
         event.preventDefault();
 
         const { onSubmit } = this.props;
-        const { password } = this.state;
+        const { password, confirm } = this.state;
 
-        onSubmit(password);
+        onSubmit(password, confirm);
     }
 
     handleLoginLinkClick(event) {

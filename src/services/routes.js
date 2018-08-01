@@ -7,6 +7,7 @@ import {
     App,
     Login,
     RestorePassword,
+    ResetPassword,
     Overview,
     Profile,
     FAQ,
@@ -151,6 +152,7 @@ export const Routes = () => (
         <Switch>
             <PublicRoute path="/login" component={Login} />
             <PublicRoute path="/restore-password" component={RestorePassword} />
+            <PublicRoute path="/:resetToken/reset-password" component={ResetPassword} />
             <Route path="/" component={AppMainLayout} />
         </Switch>
     </div>
