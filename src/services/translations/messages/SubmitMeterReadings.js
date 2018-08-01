@@ -44,6 +44,10 @@ const messages = defineMessages({
     historyCaption: {
         id: 'app.submitMeterReadingsPage.labels.historyCaption',
         defaultMessage: 'History'
+    },
+    successMessage: {
+        id: 'app.submitMeterReadingsPage.messages.success',
+        defaultMessage: 'Meter reading value was successfully saved'
     }
 });
 

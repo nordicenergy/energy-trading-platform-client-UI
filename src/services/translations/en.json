@@ -210,6 +210,7 @@
     "app.submitMeterReadingsPage.labels.meterNumberTitle": "Number of meter",
     "app.submitMeterReadingsPage.labels.historyCaption": "History",
     "app.submitMeterReadingsPage.messages.noData": "Sorry, not live metering data available for you…",
+    "app.submitMeterReadingsPage.messages.success": "Meter reading value was successfully saved",
     "app.submitMeterReadingsPage.errors.meterReadingNumber": "Meter readings is not a number",
     "app.submitMeterReadingsPage.errors.dateRequired": "Date is required",
     "app.submitMeterReadingsPage.errors.commentString": "Comment is not a string"

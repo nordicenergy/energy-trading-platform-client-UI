@@ -27,9 +27,7 @@ export class SubmitMeter extends AbstractContainer {
     static mapStateToProps(state) {
         return {
             meterReadingsHistory: state.Consumption.meterReadingsHistory.data,
-            // TODO: Change it after integrate real endpoint
             meterNumber: state.Consumption.meterNumber.data.meterNumber,
-            // TODO: Change it after integrate real endpoint
             submittedMeterReading: state.Consumption.submittedMeterReading,
             loading:
                 state.Consumption.meterReadingsHistory.loading ||
@@ -48,7 +46,12 @@ export class SubmitMeter extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
-        const { loading, error } = this.props;
+        const { formatMessage } = this.context.intl;
+        const { loading, error, submittedMeterReading } = this.props;
+
+        if (!loading && !error && submittedMeterReading.data !== prevProps.submittedMeterReading.data) {
+            performPushNotification({ message: formatMessage(messages.successMessage), type: 'success' });
+        }
 
         if (!loading && error && error !== prevProps.error) {
             performPushNotification({ message: error.message, type: 'error' });
@@ -74,7 +77,6 @@ export class SubmitMeter extends AbstractContainer {
             },
             comment: {
                 type: 'string',
-                required: true,
                 message: formatMessage(messages.commentString)
             }
         };
