@@ -65,7 +65,7 @@ describe('<ResetPasswordForm /> component', () => {
         const component = renderComponent();
 
         component.find('form').simulate('submit', { preventDefault: () => null });
-        expect(onSubmitMock).toHaveBeenCalledWith(component.state().password);
+        expect(onSubmitMock).toHaveBeenCalledWith(component.state().password, component.state().confirm);
     });
 
     it('should calls onLoginLinkClick callback when login link was clicked', () => {

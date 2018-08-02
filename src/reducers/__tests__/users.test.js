@@ -39,6 +39,27 @@ describe('Users reducer:', () => {
             expect(result.profile.error).toEqual(null);
             expect(result.profile.data).toEqual({ user: {} });
         });
+
+        it('should handle RESET_USER_PASSWORD', () => {
+            const result = usersReducer(initialState, ACTIONS.resetPassword.pending);
+            expect(result.resetPassword.loading).toEqual(true);
+            expect(result.resetPassword.error).toEqual(null);
+            expect(result.resetPassword.data).toEqual({});
+        });
+
+        it('should handle CREATE_RESET_PASSWORD_TOKEN', () => {
+            const result = usersReducer(initialState, ACTIONS.createResetPasswordToken.pending);
+            expect(result.createdPasswordToken.loading).toEqual(true);
+            expect(result.createdPasswordToken.error).toEqual(null);
+            expect(result.createdPasswordToken.data).toEqual({});
+        });
+
+        it('should handle VERIFY_RESET_PASSWORD_TOKEN', () => {
+            const result = usersReducer(initialState, ACTIONS.verifyResetPasswordToken.pending);
+            expect(result.verifiedPasswordToken.loading).toEqual(true);
+            expect(result.verifiedPasswordToken.error).toEqual(null);
+            expect(result.verifiedPasswordToken.data).toEqual({});
+        });
     });
 
     describe('Error cases:', () => {
@@ -70,6 +91,27 @@ describe('Users reducer:', () => {
             expect(result.profile.loading).toEqual(false);
             expect(result.profile.error).toEqual('Error Message');
             expect(result.profile.data).toEqual({ user: {} });
+        });
+
+        it('should handle RESET_USER_PASSWORD', () => {
+            const result = usersReducer(initialState, ACTIONS.resetPassword.fail);
+            expect(result.resetPassword.loading).toEqual(false);
+            expect(result.resetPassword.error).toEqual('Error Message');
+            expect(result.resetPassword.data).toEqual({});
+        });
+
+        it('should handle CREATE_RESET_PASSWORD_TOKEN', () => {
+            const result = usersReducer(initialState, ACTIONS.createResetPasswordToken.fail);
+            expect(result.createdPasswordToken.loading).toEqual(false);
+            expect(result.createdPasswordToken.error).toEqual('Error Message');
+            expect(result.createdPasswordToken.data).toEqual({});
+        });
+
+        it('should handle VERIFY_RESET_PASSWORD_TOKEN', () => {
+            const result = usersReducer(initialState, ACTIONS.verifyResetPasswordToken.fail);
+            expect(result.verifiedPasswordToken.loading).toEqual(false);
+            expect(result.verifiedPasswordToken.error).toEqual('Error Message');
+            expect(result.verifiedPasswordToken.data).toEqual({});
         });
     });
 
@@ -104,6 +146,27 @@ describe('Users reducer:', () => {
             expect(result.profile.loading).toEqual(false);
             expect(result.profile.error).toEqual(null);
             expect(result.profile.data).toEqual({ user: ACTIONS.updateUserData.success.payload });
+        });
+
+        it('should handle RESET_USER_PASSWORD', () => {
+            const result = usersReducer(initialState, ACTIONS.resetPassword.success);
+            expect(result.resetPassword.loading).toEqual(false);
+            expect(result.resetPassword.error).toEqual(null);
+            expect(result.resetPassword.data).toEqual({ ...ACTIONS.resetPassword.success.payload });
+        });
+
+        it('should handle CREATE_RESET_PASSWORD_TOKEN', () => {
+            const result = usersReducer(initialState, ACTIONS.createResetPasswordToken.success);
+            expect(result.createdPasswordToken.loading).toEqual(false);
+            expect(result.createdPasswordToken.error).toEqual(null);
+            expect(result.createdPasswordToken.data).toEqual({ ...ACTIONS.createResetPasswordToken.success.payload });
+        });
+
+        it('should handle VERIFY_RESET_PASSWORD_TOKEN', () => {
+            const result = usersReducer(initialState, ACTIONS.verifyResetPasswordToken.success);
+            expect(result.verifiedPasswordToken.loading).toEqual(false);
+            expect(result.verifiedPasswordToken.error).toEqual(null);
+            expect(result.verifiedPasswordToken.data).toEqual({ ...ACTIONS.verifyResetPasswordToken.success.payload });
         });
     });
 });
@@ -224,6 +287,72 @@ function fixtures() {
             },
             pending: {
                 type: 'UPDATE_USER_DATA',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
+        resetPassword: {
+            success: {
+                type: 'RESET_USER_PASSWORD',
+                payload: {
+                    updated: true
+                },
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'RESET_USER_PASSWORD',
+                payload: null,
+                error: 'Error Message',
+                loading: false
+            },
+            pending: {
+                type: 'RESET_USER_PASSWORD',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
+        createResetPasswordToken: {
+            success: {
+                type: 'CREATE_RESET_PASSWORD_TOKEN',
+                payload: {
+                    created: true
+                },
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'CREATE_RESET_PASSWORD_TOKEN',
+                payload: null,
+                error: 'Error Message',
+                loading: false
+            },
+            pending: {
+                type: 'CREATE_RESET_PASSWORD_TOKEN',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
+        verifyResetPasswordToken: {
+            success: {
+                type: 'VERIFY_RESET_PASSWORD_TOKEN',
+                payload: {
+                    valid: true
+                },
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'VERIFY_RESET_PASSWORD_TOKEN',
+                payload: null,
+                error: 'Error Message',
+                loading: false
+            },
+            pending: {
+                type: 'VERIFY_RESET_PASSWORD_TOKEN',
                 payload: null,
                 error: null,
                 loading: true

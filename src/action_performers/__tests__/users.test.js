@@ -1,6 +1,14 @@
 import { dispatcher } from '../../store';
 
-import { performLogin, performLogout, performGetUserData, performUpdateUserData } from '../users';
+import {
+    performLogin,
+    performLogout,
+    performGetUserData,
+    performUpdateUserData,
+    performResetUserPassword,
+    performCreateResetPasswordToken,
+    performVerifyResetPasswordToken
+} from '../users';
 
 describe('Users action performers', () => {
     beforeEach(() => {
@@ -82,5 +90,54 @@ describe('Users action performers', () => {
             email: 'johnsmith@gmail.com',
             bankAccountNumber: '11122333455556666666'
         });
+    });
+
+    it('should call dispatch method for resetting password', () => {
+        performResetUserPassword('passwordToken', 'newPassword');
+
+        const [firstCall] = dispatcher.dispatchPromise.mock.calls;
+        const [method, type, loadingFunc, meta] = firstCall;
+        const loading = loadingFunc({
+            Users: { resetPassword: { loading: 'TEST' } }
+        });
+        const [resetPasswordToken, newPassword] = meta;
+        expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
+        expect(method.name).toEqual('resetUserPassword');
+        expect(type).toEqual('RESET_USER_PASSWORD');
+        expect(loading).toEqual('TEST');
+        expect(resetPasswordToken).toEqual('passwordToken');
+        expect(newPassword).toEqual('newPassword');
+    });
+
+    it('should call dispatch method for creating reset password link', () => {
+        performCreateResetPasswordToken('jhon.doe@test.com');
+
+        const [firstCall] = dispatcher.dispatchPromise.mock.calls;
+        const [method, type, loadingFunc, meta] = firstCall;
+        const loading = loadingFunc({
+            Users: { createdPasswordToken: { loading: 'TEST' } }
+        });
+        const [email] = meta;
+        expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
+        expect(method.name).toEqual('createResetPasswordToken');
+        expect(type).toEqual('CREATE_RESET_PASSWORD_TOKEN');
+        expect(loading).toEqual('TEST');
+        expect(email).toEqual('jhon.doe@test.com');
+    });
+
+    it('should call dispatch method for verifying reset password token', () => {
+        performVerifyResetPasswordToken('token');
+
+        const [firstCall] = dispatcher.dispatchPromise.mock.calls;
+        const [method, type, loadingFunc, meta] = firstCall;
+        const loading = loadingFunc({
+            Users: { verifiedPasswordToken: { loading: 'TEST' } }
+        });
+        const [token] = meta;
+        expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
+        expect(method.name).toEqual('verifyResetPasswordToken');
+        expect(type).toEqual('VERIFY_RESET_PASSWORD_TOKEN');
+        expect(loading).toEqual('TEST');
+        expect(token).toEqual('token');
     });
 });

@@ -1,6 +1,9 @@
 import React from 'react';
 import { RestorePassword } from '../RestorePassword';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
+import * as userActionPerformers from '../../../action_performers/users';
+import * as notificationsActionPerformers from '../../../action_performers/notifications';
+import * as appActionPerformers from '../../../action_performers/app';
 
 const historyMock = {
     push: jest.fn()
@@ -15,6 +18,8 @@ function renderComponent(props = {}, context = { router: routerMock }) {
 describe('<RestorePassword /> Container', () => {
     beforeEach(() => {
         historyMock.push.mockClear();
+        userActionPerformers.performCreateResetPasswordToken = jest.fn();
+        appActionPerformers.performSetupLoaderVisibility = jest.fn();
     });
 
     it(`should renders with:
@@ -28,6 +33,23 @@ describe('<RestorePassword /> Container', () => {
         expect(component.find('Illustration')).toHaveLength(1);
     });
 
+    it('should correctly map state to properties', () => {
+        const stateDummy = {
+            Users: {
+                createdPasswordToken: {
+                    loading: 'test',
+                    data: 'test',
+                    error: 'test'
+                }
+            }
+        };
+        const props = RestorePassword.mapStateToProps(stateDummy);
+
+        expect(props.loading).toBe('test');
+        expect(props.data).toBe('test');
+        expect(props.error).toBe('test');
+    });
+
     it('should opens login page after login link was clicked', () => {
         const component = renderComponent();
 
@@ -38,14 +60,50 @@ describe('<RestorePassword /> Container', () => {
         expect(historyMock.push).toHaveBeenCalledWith('/login');
     });
 
-    it('should opens login after send button was clicked', () => {
+    it('should perform create reset token action and open login page after send button was clicked', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         const component = renderComponent();
 
         component
             .find('RestorePasswordForm')
             .props()
             .onSubmit('user@example.com');
+        expect(userActionPerformers.performCreateResetPasswordToken).toHaveBeenCalledWith('user@example.com');
+
+        component.setProps({
+            loading: true
+        });
+        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(true);
+
+        component.setProps({
+            loading: false,
+            data: { created: true },
+            error: null
+        });
         expect(historyMock.push).toHaveBeenCalledWith('/login');
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'success',
+            message: 'You will receive reset password link on your email'
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
+    });
+
+    it('should shows server error if restore password was failed', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        const component = renderComponent();
+
+        component.setProps({
+            loading: false,
+            error: { message: 'Error message' }
+        });
+
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'Error message'
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
     });
 
     it('should validate email', () => {

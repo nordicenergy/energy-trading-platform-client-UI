@@ -1,6 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Validator from 'async-validator';
+import { performCreateResetPasswordToken } from '../../action_performers/users';
+import { performPushNotification } from '../../action_performers/notifications';
+import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { RestorePasswordForm, Logo, Illustration } from '../../components';
 import { RestorePassword as messages } from '../../services/translations/messages';
 
@@ -9,11 +13,43 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import './RestorePassword.css';
 
 export class RestorePassword extends AbstractContainer {
+    static mapStateToProps(state) {
+        return {
+            loading: state.Users.createdPasswordToken.loading,
+            data: state.Users.createdPasswordToken.data,
+            error: state.Users.createdPasswordToken.error
+        };
+    }
+
     constructor(props, context) {
         super(props, context);
         this.state = {
             errors: {}
         };
+    }
+
+    componentDidUpdate(prevProps) {
+        const { formatMessage } = this.context.intl;
+        const { loading, data, error } = this.props;
+        const loaded = prevProps.loading !== loading && !loading;
+        const tokenWasCreated = prevProps.data !== data && data.created;
+
+        if (loaded && tokenWasCreated) {
+            performPushNotification({
+                message: formatMessage(messages.tokenWasCreated),
+                type: 'success'
+            });
+            this.openLoginPage();
+        }
+
+        if (error !== prevProps.error && error) {
+            performPushNotification({
+                type: 'error',
+                message: error.message
+            });
+        }
+
+        performSetupLoaderVisibility(loading);
     }
 
     prepareValidator() {
@@ -34,7 +70,7 @@ export class RestorePassword extends AbstractContainer {
         return new Validator(validationSchema);
     }
 
-    sendEmail(email) {
+    sendEmailWithResetPasswordLink(email) {
         const validator = this.prepareValidator();
 
         validator.validate({ email }, errors => {
@@ -49,7 +85,8 @@ export class RestorePassword extends AbstractContainer {
                     )
                 });
             } else {
-                this.openLoginPage();
+                // Server will send email with reset password link that based on reset password token
+                performCreateResetPasswordToken(email);
             }
         });
     }
@@ -73,7 +110,7 @@ export class RestorePassword extends AbstractContainer {
                         <RestorePasswordForm
                             labels={this.prepareLabels(messages)}
                             errors={errors}
-                            onSubmit={email => this.sendEmail(email)}
+                            onSubmit={email => this.sendEmailWithResetPasswordLink(email)}
                             onLoginLinkClick={() => this.openLoginPage()}
                         />
                     </div>
@@ -95,11 +132,13 @@ RestorePassword.contextTypes = {
 };
 RestorePassword.propTypes = {
     loading: PropTypes.bool,
-    data: PropTypes.shape({})
+    data: PropTypes.shape({}),
+    error: PropTypes.object
 };
 RestorePassword.defaultProps = {
     loading: false,
-    data: {}
+    data: {},
+    error: null
 };
 
-export default RestorePassword;
+export default connect(RestorePassword.mapStateToProps)(RestorePassword);
