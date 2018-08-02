@@ -13,10 +13,6 @@ const messages = defineMessages({
         id: 'app.submitMeterReadingsPage.labels.dateField',
         defaultMessage: 'Date of reading'
     },
-    commentField: {
-        id: 'app.submitMeterReadingsPage.labels.commentField',
-        defaultMessage: 'Comment'
-    },
     submitButton: {
         id: 'app.submitMeterReadingsPage.labels.submitButton',
         defaultMessage: 'Submit'
@@ -37,13 +33,13 @@ const messages = defineMessages({
         id: 'app.submitMeterReadingsPage.errors.dateRequired',
         defaultMessage: 'Date is required'
     },
-    commentString: {
-        id: 'app.submitMeterReadingsPage.errors.commentString',
-        defaultMessage: 'Comment is not a string'
-    },
     historyCaption: {
         id: 'app.submitMeterReadingsPage.labels.historyCaption',
         defaultMessage: 'History'
+    },
+    successMessage: {
+        id: 'app.submitMeterReadingsPage.messages.success',
+        defaultMessage: 'Meter reading value was successfully saved'
     }
 });
 

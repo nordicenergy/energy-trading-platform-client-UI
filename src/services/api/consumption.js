@@ -13,11 +13,14 @@ export function getMeterReadingsHistory() {
 }
 
 export function submitMeterReading(meterReading) {
-    // TODO: Ues real endpoint and data
-    return Promise.resolve({ data: { status: 'OK', meterReading } });
+    return Axios.post(`${SESSION_API_URL}/consumption/saveMetering`, {
+        readingValue: meterReading.meterReadings,
+        readAt: meterReading.date
+    });
 }
 
 export function getMeterNumber() {
-    // TODO: Ues real endpoint and data
-    return Promise.resolve({ data: { meterNumber: 321 } });
+    return Axios.get(`${SESSION_API_URL}/consumption/getMeterNumber`).then(res => {
+        return { data: res.data };
+    });
 }

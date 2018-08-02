@@ -73,13 +73,12 @@ describe('<SubmitMeter /> Component', () => {
             historyCaption: 'History',
             meterReadingsField: 'Meter readings',
             dateField: 'Date of reading',
-            commentField: 'Comment',
             submitButton: 'Submit',
             meterNumberTitle: 'Number of meter',
             noData: 'Sorry, not live metering data available for you…',
             meterReadingNumber: 'Meter readings is not a number',
             dateRequired: 'Date is required',
-            commentString: 'Comment is not a string'
+            successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
         expect(meterReadingForm.props().numberOfMeter).toEqual(123);
@@ -101,13 +100,12 @@ describe('<SubmitMeter /> Component', () => {
             historyCaption: 'History',
             meterReadingsField: 'Meter readings',
             dateField: 'Date of reading',
-            commentField: 'Comment',
             submitButton: 'Submit',
             meterNumberTitle: 'Number of meter',
             noData: 'Sorry, not live metering data available for you…',
             meterReadingNumber: 'Meter readings is not a number',
             dateRequired: 'Date is required',
-            commentString: 'Comment is not a string'
+            successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
         expect(meterReadingForm.props().numberOfMeter).toEqual(123);
@@ -115,10 +113,10 @@ describe('<SubmitMeter /> Component', () => {
     });
 
     it('should call performSubmitMeterReading when meter submitted with correct data', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         const meterReading = {
             meterReadings: 123,
-            date: 312441234,
-            comment: 'comment'
+            date: 312441234
         };
         const component = renderComponent();
 
@@ -130,13 +128,23 @@ describe('<SubmitMeter /> Component', () => {
         expect(component.state().errors).toEqual({});
         expect(component.find(MeterReadingForm).props().errors).toEqual({});
         expect(consumptionActions.performSubmitMeterReading).toHaveBeenCalledWith(meterReading);
+        component.setProps({
+            submittedMeterReading: {
+                data: meterReading,
+                loading: false,
+                error: null
+            }
+        });
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            message: 'Meter reading value was successfully saved',
+            type: 'success'
+        });
     });
 
     it("should don't call performSubmitMeterReading when meter submitted with incorrect data", () => {
         const meterReading = {
             meterReadings: 123,
-            date: 312441234,
-            comment: 'comment'
+            date: 312441234
         };
         const component = renderComponent();
 
@@ -154,14 +162,6 @@ describe('<SubmitMeter /> Component', () => {
             .onSubmit({ ...meterReading, date: undefined });
         expect(component.state().errors).toEqual({
             date: 'Date is required'
-        });
-
-        component
-            .find(MeterReadingForm)
-            .props()
-            .onSubmit({ ...meterReading, comment: undefined });
-        expect(component.state().errors).toEqual({
-            comment: 'Comment is not a string'
         });
     });
 
@@ -204,8 +204,7 @@ describe('<SubmitMeter /> Component', () => {
                     loading: true
                 },
                 submittedMeterReading: {
-                    // TODO: Change after integrate with real api
-                    data: { status: 'OK' },
+                    data: { readingValue: 200 },
                     error: 'Error message 2',
                     loading: false
                 },
