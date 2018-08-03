@@ -33,6 +33,18 @@
     "app.restorePasswordPage.loginLink": "Login",
     "app.restorePasswordPage.errors.emptyEmail": "Deine E-mail eingeben.",
     "app.restorePasswordPage.errors.invalidEmail": "Ungültige E-Mail.",
+    "app.restorePasswordPage.info.tokenWasCreated": "You will receive reset password link on your email",
+
+    "app.resetPasswordPage.formTitle": "Reset password",
+    "app.resetPasswordPage.passwordField": "Enter new password",
+    "app.resetPasswordPage.confirmField": "Re-enter new password",
+    "app.resetPasswordPage.sendButton": "Confirm",
+    "app.resetPasswordPage.loginLink": "Login",
+    "app.resetPasswordPage.errors.invalidEmail":
+        "Password must have a minimum of 8 alphanumeric characters, at least 1 letter, at least 1 number.",
+    "app.resetPasswordPage.errors.invalidConfirm": "Passwords are not equal.",
+    "app.resetPasswordPage.errors.invalidResetPasswordToken": "Invalid reset password link",
+    "app.resetPasswordPage.info.passwordWasUpdated": "Your password was successfully updated",
 
     "app.notifications.defaultErrorMessage": "Unbekannter Fehler.",
 
@@ -207,12 +219,11 @@
     "app.submitMeterReadingsPage.header": "Submit Meter readings",
     "app.submitMeterReadingsPage.labels.meterReadingsField": "Meter readings",
     "app.submitMeterReadingsPage.labels.dateField": "Date of reading",
-    "app.submitMeterReadingsPage.labels.commentField": "Comment",
     "app.submitMeterReadingsPage.labels.submitButton": "Submit",
     "app.submitMeterReadingsPage.labels.meterNumberTitle": "Number of meter",
     "app.submitMeterReadingsPage.labels.historyCaption": "History",
     "app.submitMeterReadingsPage.messages.noData": "Sorry, not live metering data available for you…",
+    "app.submitMeterReadingsPage.messages.success": "Meter reading value was successfully saved",
     "app.submitMeterReadingsPage.errors.meterReadingNumber": "Meter readings is not a number",
-    "app.submitMeterReadingsPage.errors.dateRequired": "Date is required",
-    "app.submitMeterReadingsPage.errors.commentString": "Comment is not a string"
+    "app.submitMeterReadingsPage.errors.dateRequired": "Date is required"
 }

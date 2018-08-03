@@ -37,6 +37,7 @@ import TradePositionsList from './TradePositionsList';
 import DocumentsList from './DocumentsList';
 import MeterReadingForm from './MeterReadingForm';
 import MeterReadingsHistory from './MeterReadingsHistory';
+import ResetPasswordForm from './ResetPasswordForm';
 
 export {
     Button,
@@ -81,5 +82,6 @@ export {
     TradePositionsList,
     DocumentsList,
     MeterReadingForm,
-    MeterReadingsHistory
+    MeterReadingsHistory,
+    ResetPasswordForm
 };

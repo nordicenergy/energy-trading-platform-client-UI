@@ -17,9 +17,16 @@ const MOCK_METER_READINGS_HISTORY = {
     isSeriesBasedOnLiveData: true
 };
 
+const MOCK_METER_NUMBER = {
+    meterNumber: 12345678
+};
+
+const MOCK_READING_VALUE = { readingValue: 1111 };
+
 describe('Consumption API Service', () => {
     beforeAll(() => {
         jest.spyOn(Axios, 'get').mockImplementation(jest.fn);
+        jest.spyOn(Axios, 'post').mockImplementation(jest.fn);
     });
 
     afterAll(() => {
@@ -31,7 +38,7 @@ describe('Consumption API Service', () => {
     });
 
     it('should provide method for getting meter readings history', async () => {
-        Axios.get.mockReturnValue(Promise.resolve({ data: MOCK_METER_READINGS_HISTORY }));
+        Axios.get.mockReturnValueOnce(Promise.resolve({ data: MOCK_METER_READINGS_HISTORY }));
 
         const data = await getMeterReadingsHistory();
 
@@ -46,16 +53,16 @@ describe('Consumption API Service', () => {
     });
 
     it('should provide method for getting meter number', async () => {
+        Axios.get.mockReturnValueOnce(Promise.resolve({ data: MOCK_METER_NUMBER }));
         const data = await getMeterNumber();
 
-        // TODO: Change it after explore real data from server
-        expect(data).toEqual({ data: { meterNumber: 321 } });
+        expect(data).toEqual({ data: MOCK_METER_NUMBER });
     });
 
     it('should provide method for submit meter readings', async () => {
-        const data = await submitMeterReading();
+        Axios.post.mockReturnValueOnce(Promise.resolve({ data: MOCK_READING_VALUE }));
+        const data = await submitMeterReading({ meterReadings: MOCK_READING_VALUE.readingValue, date: 1531244080000 });
 
-        // TODO: Change it after explore real data from server
-        expect(data).toEqual({ data: { status: 'OK' } });
+        expect(data).toEqual({ data: MOCK_READING_VALUE });
     });
 });

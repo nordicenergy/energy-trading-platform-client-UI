@@ -8,24 +8,17 @@ describe('Sign-in / login app processes', () => {
     beforeAll(async () => {
         const pageFactory = await factory();
         loginPage = await pageFactory.createLoginPage();
-    });
+    }, timeout);
 
     afterAll(() => {
         pageFactory.destruct();
     });
 
     test(
-        'User can login into the app',
+        'User can login and logout into the app',
         async () => {
             await loginPage.open();
             overviewPage = await loginPage.login(credentials.username, credentials.password);
-        },
-        timeout
-    );
-
-    test(
-        'User can logout from the app',
-        async () => {
             await overviewPage.open();
             await overviewPage.logout();
         },

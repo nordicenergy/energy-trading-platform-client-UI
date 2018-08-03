@@ -5,6 +5,7 @@
     font-size: 1rem;
     display: flex;
     flex-direction: row;
+    flex: 1 1 auto;
 }
 
 .submit-meter-readings-page > section {

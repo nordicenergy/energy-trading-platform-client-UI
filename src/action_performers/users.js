@@ -1,4 +1,12 @@
-import { login, logout, getUserData, updateUserData } from '../services/api/users';
+import {
+    login,
+    logout,
+    getUserData,
+    updateUserData,
+    resetUserPassword,
+    createResetPasswordToken,
+    verifyResetPasswordToken
+} from '../services/api/users';
 
 import { dispatcher } from '../store';
 
@@ -16,4 +24,29 @@ export function performGetUserData() {
 
 export function performUpdateUserData(userData) {
     dispatcher.dispatchPromise(updateUserData, 'UPDATE_USER_DATA', state => state.Users.profile.loading, [userData]);
+}
+
+export function performResetUserPassword(resetToken, newPassword) {
+    dispatcher.dispatchPromise(resetUserPassword, 'RESET_USER_PASSWORD', state => state.Users.resetPassword.loading, [
+        resetToken,
+        newPassword
+    ]);
+}
+
+export function performCreateResetPasswordToken(email) {
+    dispatcher.dispatchPromise(
+        createResetPasswordToken,
+        'CREATE_RESET_PASSWORD_TOKEN',
+        state => state.Users.createdPasswordToken.loading,
+        [email]
+    );
+}
+
+export function performVerifyResetPasswordToken(resetToken) {
+    dispatcher.dispatchPromise(
+        verifyResetPasswordToken,
+        'VERIFY_RESET_PASSWORD_TOKEN',
+        state => state.Users.verifiedPasswordToken.loading,
+        [resetToken]
+    );
 }
