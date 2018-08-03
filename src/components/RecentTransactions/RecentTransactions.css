@@ -114,6 +114,10 @@ caption .recent-transactions-caption-content > div:last-child {
     padding-left: 2rem;
 }
 
+.recent-transactions-container td:last-child {
+    padding-right: 0.7rem;
+}
+
 .recent-transactions-container tbody tr:last-child,
 .recent-transactions-container tr.recent-transactions-details-row {
     border: none;
