@@ -88,22 +88,23 @@ describe('Users API Service', () => {
         expect(Axios.post).toHaveBeenCalledWith('/api/user/updateUserData', newUserDataDummy);
     });
 
-    // TODO remove skip after integration with back-end
-    it.skip('should provide possibility to reset user password', () => {
+    it('should provide possibility to reset user password', () => {
         const newPasswordDataDummy = {
             newPassword: 'test',
-            resetPasswordToken: 'token'
+            resetToken: 'token'
         };
         Axios.patch.mockReturnValue(
             Promise.resolve({
                 updated: true
             })
         );
-        resetUserPassword(newPasswordDataDummy);
-        expect(Axios.patch).toHaveBeenCalledWith('/api/user/resetPassword', newPasswordDataDummy);
+        resetUserPassword(newPasswordDataDummy.resetToken, newPasswordDataDummy.newPassword);
+        const [[url, data]] = Axios.patch.mock.calls;
+        expect(url).toBe('/api/user/resetPassword');
+        expect(data).toEqual(newPasswordDataDummy);
     });
 
-    it.skip('should provide possibility to create reset password token', () => {
+    it('should provide possibility to create reset password token', () => {
         const request = {
             email: 'jhon.doe@test.com'
         };
@@ -116,7 +117,7 @@ describe('Users API Service', () => {
         expect(Axios.post).toHaveBeenCalledWith('/api/user/resetPasswordToken', request);
     });
 
-    it.skip('should provide possibility to verify reset password token', () => {
+    it('should provide possibility to verify reset password token', () => {
         Axios.get.mockReturnValue(
             Promise.resolve({
                 valid: true

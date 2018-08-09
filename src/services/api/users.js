@@ -33,46 +33,13 @@ export function updateUserData(userData) {
     return Axios.post(`${SESSION_API_URL}/user/updateUserData`, userData);
 }
 
-export function resetUserPassword(/* newPasswordData */) {
-    // TODO uncomment after integration with back-end
-    // return Axios.patch(`${SESSION_API_URL}/user/resetPassword`, newPasswordData);
-    return Promise.resolve({
-        data: { updated: true }
-    });
-
-    // test error
-    // return Promise.reject({
-    //     response: {
-    //         data: { message: 'Something was wrong' }
-    //     }
-    // });
+export function resetUserPassword(resetToken, newPassword) {
+    return Axios.patch(`${SESSION_API_URL}/user/resetPassword`, { resetToken, newPassword });
 }
 
-export function createResetPasswordToken(/* email */) {
-    // TODO uncomment after integration with back-end
-    // return Axios.post(`${SESSION_API_URL}/user/resetPasswordToken`, { email });
-    return Promise.resolve({
-        data: { created: true }
-    });
-
-    // test error
-    // return Promise.reject({
-    //     response: {
-    //         data: { message: 'Something was wrong' }
-    //     }
-    // });
+export function createResetPasswordToken(email) {
+    return Axios.post(`${SESSION_API_URL}/user/resetPasswordToken`, { email });
 }
-export function verifyResetPasswordToken(/* token */) {
-    // TODO uncomment after integration with back-end
-    // return Axios.get(`${SESSION_API_URL}/user/resetPasswordToken/${token}`);
-    return Promise.resolve({
-        data: { valid: true }
-    });
-
-    // test error
-    // return Promise.reject({
-    //     response: {
-    //         data: { message: 'Something was wrong' }
-    //     }
-    // });
+export function verifyResetPasswordToken(token) {
+    return Axios.get(`${SESSION_API_URL}/user/resetPasswordToken/${token}`);
 }
