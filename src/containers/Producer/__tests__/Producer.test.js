@@ -7,9 +7,28 @@ import configureMockStore from 'redux-mock-store';
 import * as producersActions from '../../../action_performers/producers';
 import * as appActions from '../../../action_performers/app';
 import * as notificationActions from '../../../action_performers/notifications';
+import * as usersActions from '../../../action_performers/users';
 
 const mockStore = configureMockStore();
 const store = mockStore({
+    Users: {
+        profile: {
+            data: {
+                user: {
+                    id: 0,
+                    firstName: 'string',
+                    lastName: 'string',
+                    email: 'string',
+                    currentProducerId: 1,
+                    lastBillAvailable: true,
+                    lastBillAmount: '35.24',
+                    lastBillDate: 'December;',
+                    userStatus: 'string',
+                    workingPrice: 2.3
+                }
+            }
+        }
+    },
     Producers: {
         producer: {
             data: {
@@ -26,18 +45,14 @@ const store = mockStore({
                 picture: 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg',
                 location: 'Lippendorf, Neukieritzsch',
                 ethereumAddress: '123',
-                description: 'desc'
+                description: 'desc',
+                standard: false
             },
             loading: false,
             error: null
         },
         selectedProducer: {
             data: {},
-            loading: false,
-            error: null
-        },
-        currentMarketPrice: {
-            data: 2.5,
             loading: false,
             error: null
         }
@@ -63,7 +78,7 @@ const props = {
         id: 1,
         name: 'test'
     },
-    currentMarketPrice: 2.5,
+    profile: { user: { id: 1 } },
     selectedProducer: {},
     error: null
 };
@@ -87,9 +102,9 @@ describe('<Producer /> Component', () => {
         context.intl.formatMessage.mockReturnValue('test');
         producersActions.performGetProducer = jest.fn();
         producersActions.performSelectProducer = jest.fn();
-        producersActions.performGetCurrentMarketPrice = jest.fn();
         appActions.performSetupBreadcrumbs = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
+        usersActions.performGetUserData = jest.fn();
         notificationActions.performPushNotification = jest.fn();
     });
 
@@ -120,9 +135,10 @@ describe('<Producer /> Component', () => {
                 price: 2.4,
                 purchased: 1300,
                 selectedSince: 'Sep 12 - Feb 22',
-                ethereumAddress: '123'
+                ethereumAddress: '123',
+                marketPrice: 2.3,
+                standard: false
             },
-            marketPrice: 2.5,
             labels: {
                 annualProduction: 'Annual Production',
                 capacity: 'Peak Capacity',
@@ -151,11 +167,13 @@ describe('<Producer /> Component', () => {
                     data: 'test_selected_data',
                     error: 'test_error',
                     loading: 'test_loading'
-                },
-                currentMarketPrice: {
-                    data: 'test_price',
-                    error: 'test_error',
-                    loading: 'test_loading'
+                }
+            },
+            Users: {
+                profile: {
+                    data: 'user_data',
+                    error: null,
+                    loading: false
                 }
             }
         };
@@ -165,17 +183,17 @@ describe('<Producer /> Component', () => {
             selectedProducer: 'test_selected_data',
             error: 'test_error',
             loading: 'test_loading',
-            currentMarketPrice: 'test_price'
+            profile: 'user_data'
         });
     });
 
     it('should perform related actions on lifecycle step', () => {
         renderContainer();
 
+        expect(usersActions.performGetUserData.mock.calls.length).toEqual(1);
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(1);
         const [[arg1]] = producersActions.performGetProducer.mock.calls;
         expect(arg1).toEqual('1');
-        expect(producersActions.performGetCurrentMarketPrice.mock.calls.length).toEqual(1);
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
         const [[bArg1], [bArg2]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual(undefined);
@@ -186,6 +204,7 @@ describe('<Producer /> Component', () => {
         ]);
 
         const component = renderComponent();
+        expect(usersActions.performGetUserData.mock.calls.length).toEqual(2);
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(4);
         component.setProps({ producer: { id: 1, name: 'Test' } });
         component.setProps({ producer: { id: 2, name: 'Test' } });

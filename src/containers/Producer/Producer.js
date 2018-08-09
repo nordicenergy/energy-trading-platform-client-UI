@@ -5,13 +5,10 @@ import { ProducerInfo, Button, BackLink } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from './.';
 
-import {
-    performGetProducer,
-    performSelectProducer,
-    performGetCurrentMarketPrice
-} from '../../action_performers/producers';
+import { performGetProducer, performSelectProducer } from '../../action_performers/producers';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
+import { performGetUserData } from '../../action_performers/users';
 import { PATHS } from '../../services/routes';
 
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
@@ -23,23 +20,20 @@ export class Producer extends AbstractContainer {
         return {
             loading:
                 state.Producers.producer.loading ||
-                state.Producers.selectedProducer.loading ||
-                state.Producers.currentMarketPrice.loading,
+                state.Users.profile.loading ||
+                state.Producers.selectedProducer.loading,
             producer: state.Producers.producer.data,
+            profile: state.Users.profile.data,
             selectedProducer: state.Producers.selectedProducer.data,
-            error:
-                state.Producers.producer.error ||
-                state.Producers.selectedProducer.error ||
-                state.Producers.currentMarketPrice.error,
-            currentMarketPrice: state.Producers.currentMarketPrice.data
+            error: state.Producers.producer.error || state.Users.profile.error || state.Producers.selectedProducer.error
         };
     }
 
     componentDidMount() {
         const { match: { params } = {} } = this.props;
         performGetProducer(params.producerId);
+        performGetUserData();
         this.setupProducerBreadcrumbs();
-        performGetCurrentMarketPrice();
     }
 
     componentDidUpdate(prevProps) {
@@ -105,8 +99,8 @@ export class Producer extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { loading, producer = {}, currentMarketPrice } = this.props;
-        const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
+        const { loading, producer = {}, profile: { user } = {} } = this.props;
+        const producerInfoProps = prepareProducerInfoProps(formatMessage, producer, user);
 
         return (
             <section className="producer-page" aria-busy={loading}>
@@ -115,7 +109,7 @@ export class Producer extends AbstractContainer {
                         <BackLink onClick={event => this.handleBackLinkClick(event)} />
                         <span>{producer.name}</span>
                     </h1>
-                    <ProducerInfo {...producerInfoProps} marketPrice={currentMarketPrice} />
+                    <ProducerInfo {...producerInfoProps} />
                 </section>
                 <section className="producer-page-controls">
                     <Button className="producer-page-back-to-producers" onClick={() => this.backToProducers()}>
@@ -149,14 +143,15 @@ Producer.propTypes = {
     }),
     loading: PropTypes.bool,
     producer: PropTypes.object,
-    error: PropTypes.object,
-    currentMarketPrice: PropTypes.number
+    profile: PropTypes.object,
+    error: PropTypes.object
 };
 
 Producer.defaultProps = {
     loading: false,
     producer: {},
-    error: null
+    error: null,
+    profile: {}
 };
 
 export default connect(Producer.mapStateToProps)(Producer);
