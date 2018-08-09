@@ -9,13 +9,14 @@ const MAP_SERVICE_URL = 'http://maps.google.com/?q=';
 
 class ProducerInfo extends React.Component {
     renderPrice() {
-        const { labels, details, marketPrice } = this.props;
-        const { price } = details;
+        const { labels, details } = this.props;
+        const { price, marketPrice, standard } = details;
+        const mainPrice = standard ? marketPrice : price;
 
         return (
             <React.Fragment>
-                <span>{`${formatFloat(price)} ct/kWh`}</span>
-                {marketPrice ? (
+                <span>{`${formatFloat(mainPrice)} ct/kWh`}</span>
+                {!standard && marketPrice ? (
                     <small className="producer-information-market-value">
                         {`${labels.marketPrice} `}
                         <strong>{formatFloat(marketPrice)}</strong>
@@ -113,7 +114,9 @@ ProducerInfo.propTypes = {
         capacity: PropTypes.number,
         selectedSince: PropTypes.string,
         ethereumAddress: PropTypes.string,
-        location: PropTypes.string
+        location: PropTypes.string,
+        marketPrice: PropTypes.number,
+        standard: PropTypes.bool
     }),
     labels: PropTypes.shape({
         name: PropTypes.string,
@@ -128,8 +131,7 @@ ProducerInfo.propTypes = {
         location: PropTypes.string
     }),
     description: PropTypes.string,
-    picture: PropTypes.string,
-    marketPrice: PropTypes.number
+    picture: PropTypes.string
 };
 
 export default ProducerInfo;
