@@ -17,18 +17,7 @@ import './ShowTransactions.css';
 
 export class ShowTransactions extends AbstractContainer {
     constructor(props, context) {
-        const { formatMessage } = context.intl;
-        const breadcrumbs = [
-            {
-                ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
-            },
-            {
-                ...PATHS.showTransactions,
-                label: formatMessage(PATHS.showTransactions.label)
-            }
-        ];
-        super(props, context, breadcrumbs);
+        super(props, context);
 
         this.state = { page: 0 };
     }
@@ -42,12 +31,14 @@ export class ShowTransactions extends AbstractContainer {
             hasNextTransactions: txData.numberOfTransactions > txData.transactions.length,
             recentTransactions: state.Transactions.recentTransactions.data,
             user: state.Users.profile.data.user,
-            error: state.Transactions.recentTransactions.error || state.Users.profile.error
+            error: state.Transactions.recentTransactions.error || state.Users.profile.error,
+            locale: state.App.localization.data.locale
         };
     }
 
     componentDidMount() {
         performGetUserData();
+        this.setupShowTransactionsBreadcrumbs();
 
         const loadCondition = () => {
             const { hasNextTransactions, transactionsLoading } = this.props;
@@ -62,10 +53,14 @@ export class ShowTransactions extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { user, loading, error } = this.props;
+        const { user, loading, error, locale } = this.props;
 
         if (user !== prevProps.user || prevState.page !== this.state.page) {
             performGetRecentTransactions(this.props.user.id, this.state.page);
+        }
+
+        if (locale !== prevProps.locale) {
+            this.setupShowTransactionsBreadcrumbs();
         }
 
         if (!loading && error && error !== prevProps.error) {
@@ -73,6 +68,20 @@ export class ShowTransactions extends AbstractContainer {
         }
 
         performSetupLoaderVisibility(loading);
+    }
+
+    setupShowTransactionsBreadcrumbs() {
+        const { formatMessage } = this.context.intl;
+        this.setupBreadcrumbs([
+            {
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
+            },
+            {
+                ...PATHS.showTransactions,
+                label: formatMessage(PATHS.showTransactions.label)
+            }
+        ]);
     }
 
     componentWillUnmount() {
@@ -139,7 +148,8 @@ ShowTransactions.propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.object,
     recentTransactions: PropTypes.object,
-    user: PropTypes.object
+    user: PropTypes.object,
+    locale: PropTypes.string
 };
 ShowTransactions.defaultProps = {
     loading: false,

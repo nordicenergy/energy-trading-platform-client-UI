@@ -73,6 +73,13 @@ const store = mockStore({
             loading: false,
             error: null
         }
+    },
+    App: {
+        localization: {
+            data: {
+                locale: 'en'
+            }
+        }
     }
 });
 
@@ -193,10 +200,18 @@ describe('<MyProducer /> Component', () => {
                     error: null,
                     loading: false
                 }
+            },
+            App: {
+                localization: {
+                    data: {
+                        locale: 'en'
+                    }
+                }
             }
         };
         const props = MyProducer.mapStateToProps(stateDummy);
         expect(props).toEqual({
+            locale: 'en',
             producer: 'producer_data',
             producerHistory: 'history_data',
             profile: 'user_data',
@@ -265,5 +280,17 @@ describe('<MyProducer /> Component', () => {
         const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
+    });
+
+    it('should setup translated breadcrumbs when locale changed', () => {
+        const myProducer = renderComponent();
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+
+        myProducer.setProps({
+            locale: 'de'
+        });
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
     });
 });

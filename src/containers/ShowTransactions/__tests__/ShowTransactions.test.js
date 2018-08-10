@@ -164,6 +164,13 @@ const store = mockStore({
             loading: false,
             error: null
         }
+    },
+    App: {
+        localization: {
+            data: {
+                locale: 'en'
+            }
+        }
     }
 });
 
@@ -296,6 +303,7 @@ const props = {
             }
         ]
     },
+    locale: 'en',
     user: { id: 'testId' },
     loading: false,
     error: null
@@ -420,10 +428,18 @@ describe('<ShowTransactions /> Component', () => {
                     error: 'test_error',
                     loading: 'test_loading'
                 }
+            },
+            App: {
+                localization: {
+                    data: {
+                        locale: 'en'
+                    }
+                }
             }
         };
         const props = ShowTransactions.mapStateToProps(stateDummy);
         expect(props).toEqual({
+            locale: 'en',
             recentTransactions: {
                 numberOfTransactions: 20,
                 transactions: ['tx_test']
@@ -490,5 +506,17 @@ describe('<ShowTransactions /> Component', () => {
         showTransactions.instance().scrollHandler(dummyEvent);
         jest.runAllTimers();
         expect(showTransactions.state('page')).toBe(1);
+    });
+
+    it('should setup translated breadcrumbs when locale changed', () => {
+        const showTransactions = renderComponent();
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+
+        showTransactions.setProps({
+            locale: 'de'
+        });
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
     });
 });

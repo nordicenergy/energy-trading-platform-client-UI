@@ -42,19 +42,7 @@ const LINKS = [
 
 export class BuyEnergy extends AbstractContainer {
     constructor(props, context) {
-        const { formatMessage } = context.intl;
-        const breadcrumbs = [
-            {
-                ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
-            },
-            {
-                ...PATHS.buyEnergy,
-                label: formatMessage(PATHS.buyEnergy.label)
-            }
-        ];
-
-        super(props, context, breadcrumbs);
+        super(props, context);
 
         this.state = {
             filter: [],
@@ -62,20 +50,22 @@ export class BuyEnergy extends AbstractContainer {
         };
     }
 
-    static mapStateToProps({ Producers }) {
+    static mapStateToProps({ Producers, App }) {
         return {
             error: Producers.currentProducer.error || Producers.producers.error,
             currentProducerLoading: Producers.currentProducer.loading,
             currentProducer: Producers.currentProducer.data,
             producersLoading: Producers.producers.loading,
             producers: Producers.producers.data.entries,
-            hasNextProducers: Producers.producers.data.total > Producers.producers.data.entries.length
+            hasNextProducers: Producers.producers.data.total > Producers.producers.data.entries.length,
+            locale: App.localization.data.locale
         };
     }
 
     componentDidMount() {
         performGetProducers();
         performGetCurrentProducer();
+        this.setupBuyEnergyBreadcrumbs();
 
         const loadCondition = () => {
             const { hasNextProducers, producersLoading } = this.props;
@@ -91,11 +81,15 @@ export class BuyEnergy extends AbstractContainer {
 
     componentDidUpdate(prevProps, prevState) {
         const { error: oldError } = prevProps;
-        const { currentProducerLoading, producersLoading, error: newError } = this.props;
+        const { currentProducerLoading, producersLoading, error: newError, locale } = this.props;
         const shouldShowFullScreenLoader = (currentProducerLoading || producersLoading) && this.state.page === 0;
 
         if (prevState.page !== this.state.page || prevState.filter !== this.state.filter) {
             performGetProducers({ page: this.state.page, filter: this.state.filter });
+        }
+
+        if (locale !== prevProps.locale) {
+            this.setupBuyEnergyBreadcrumbs();
         }
 
         if (!currentProducerLoading && !producersLoading && newError && newError !== oldError) {
@@ -117,6 +111,20 @@ export class BuyEnergy extends AbstractContainer {
             label: formatMessage(option.label),
             type: option.type
         }));
+    }
+
+    setupBuyEnergyBreadcrumbs() {
+        const { formatMessage } = this.context.intl;
+        this.setupBreadcrumbs([
+            {
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
+            },
+            {
+                ...PATHS.buyEnergy,
+                label: formatMessage(PATHS.buyEnergy.label)
+            }
+        ]);
     }
 
     handleBackLinkClick(event) {
@@ -195,7 +203,8 @@ BuyEnergy.propTypes = {
     currentProducer: PropTypes.object.isRequired,
     producersLoading: PropTypes.bool.isRequired,
     producers: PropTypes.arrayOf(PropTypes.object).isRequired,
-    hasNextProducers: PropTypes.bool.isRequired
+    hasNextProducers: PropTypes.bool.isRequired,
+    locale: PropTypes.string
 };
 
 export default connect(BuyEnergy.mapStateToProps)(BuyEnergy);
