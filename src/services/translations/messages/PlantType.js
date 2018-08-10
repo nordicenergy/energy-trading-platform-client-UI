@@ -13,6 +13,10 @@ const messages = defineMessages({
         id: 'app.plantType.wind',
         defaultMessage: 'Wind'
     },
+    default: {
+        id: 'app.plantType.default',
+        defaultMessage: 'Default'
+    },
     other: {
         id: 'app.plantType.other',
         defaultMessage: 'Other'

@@ -98,6 +98,7 @@
 
     --producer-card-bg-color: var(--black-pearl-color);
     --producer-card-border-color: var(--scooter-color);
+    --producer-card-status: var(--scooter-color);
     --producer-card-active-bg-color: var(--scooter-color);
 
     --producer-filters-border-color: var(--geyser-color);

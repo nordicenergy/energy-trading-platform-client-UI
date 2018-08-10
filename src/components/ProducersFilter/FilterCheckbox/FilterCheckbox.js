@@ -53,7 +53,7 @@ class FilterCheckbox extends React.Component {
 
 FilterCheckbox.propTypes = {
     className: PropTypes.string,
-    type: PropTypes.oneOf([PLANT_TYPES.wind, PLANT_TYPES.solar, PLANT_TYPES.biomass, PLANT_TYPES.other]),
+    type: PropTypes.oneOf(Object.keys(PLANT_TYPES).map(key => PLANT_TYPES[key])),
     label: PropTypes.string.isRequired,
     name: PropTypes.string,
     checked: PropTypes.bool,

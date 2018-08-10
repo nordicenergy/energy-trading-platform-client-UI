@@ -46,7 +46,7 @@ const store = mockStore({
                 location: 'Lippendorf, Neukieritzsch',
                 ethereumAddress: '123',
                 description: 'desc',
-                standard: false
+                status: 'active'
             },
             loading: false,
             error: null
@@ -137,7 +137,7 @@ describe('<Producer /> Component', () => {
                 selectedSince: 'Sep 12 - Feb 22',
                 ethereumAddress: '123',
                 marketPrice: 2.3,
-                standard: false
+                status: 'active'
             },
             labels: {
                 annualProduction: 'Annual Production',

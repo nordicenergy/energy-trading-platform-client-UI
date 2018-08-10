@@ -16,7 +16,14 @@ export const PLANT_TYPES = {
     wind: 'wind',
     solar: 'solar',
     biomass: 'biomass',
-    other: 'default'
+    default: 'default',
+    other: 'other'
+};
+
+export const PRODUCER_STATUSES = {
+    standard: 'standard',
+    soldOut: 'sold out',
+    active: 'active'
 };
 
 export const LIMIT = 10;

@@ -29,21 +29,32 @@ describe('Producers API Service', () => {
     });
 
     it('should provide method for getting specific producer', async () => {
-        Axios.get.mockReturnValue(
-            Promise.resolve({
-                data: {
-                    producer: {
-                        street: 'October',
-                        postcode: '230000',
-                        city: 'Seit',
-                        country: 'Zakovia',
-                        productionOfLastDay: 200,
-                        energyPurchased: 100,
-                        dlAddress: '0x1'
+        Axios.get
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: {
+                        user: {
+                            workingPrice: 2.5
+                        }
                     }
-                }
-            })
-        );
+                })
+            )
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: {
+                        producer: {
+                            price: 2,
+                            street: 'October',
+                            postcode: '230000',
+                            city: 'Seit',
+                            country: 'Zakovia',
+                            productionOfLastDay: 200,
+                            energyPurchased: 100,
+                            dlAddress: '0x1'
+                        }
+                    }
+                })
+            );
 
         const producer = await getProducer('testId');
         expect(Axios.get).toHaveBeenCalledWith('/api/producers/testId/get');
@@ -60,7 +71,8 @@ describe('Producers API Service', () => {
                     postcode: '230000',
                     productionOfLastDay: 200,
                     purchased: 100,
-                    street: 'October'
+                    street: 'October',
+                    price: 4.5
                 }
             }
         });
@@ -95,38 +107,91 @@ describe('Producers API Service', () => {
         );
 
         await getCurrentProducer();
-        expect(Axios.get).toHaveBeenCalledTimes(2);
+        // TODO getUserData two times (for currentProducerId and for workingPrice)
+        // TODO need improve this part
+        expect(Axios.get).toHaveBeenCalledTimes(3);
 
-        const [[firstCallUrl], [secondCallUrl]] = Axios.get.mock.calls;
-        expect(firstCallUrl).toBe('/api/user/getUserData');
-        expect(secondCallUrl).toBe('/api/producers/TEST/get');
+        const [[firstUserDataCall], [secondUserDataCall], [producerCall]] = Axios.get.mock.calls;
+        expect(firstUserDataCall).toBe('/api/user/getUserData');
+        expect(secondUserDataCall).toBe('/api/user/getUserData');
+        expect(producerCall).toBe('/api/producers/TEST/get');
     });
 
-    it('should provide method for getting producers list', () => {
-        getProducers();
-        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?', {
-            params: {
-                limit: LIMIT,
-                offset: 0
-            }
-        });
-        Axios.get.mockClear();
+    it('should provide method for getting producers list', async () => {
+        Axios.get
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: {
+                        user: {
+                            workingPrice: 2.5
+                        }
+                    }
+                })
+            )
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: {
+                        producers: [
+                            {
+                                price: 3.1,
+                                street: 'October',
+                                postcode: '230000',
+                                city: 'Seit',
+                                country: 'Zakovia',
+                                productionOfLastDay: 200,
+                                energyPurchased: 100,
+                                dlAddress: '0x1',
+                                status: 'active'
+                            },
+                            {
+                                price: 5.3,
+                                street: 'October',
+                                postcode: '230000',
+                                city: 'Seit',
+                                country: 'Zakovia',
+                                productionOfLastDay: 200,
+                                energyPurchased: 100,
+                                dlAddress: '0x2',
+                                status: 'standard'
+                            }
+                        ]
+                    }
+                })
+            );
 
-        getProducers({ page: 5 });
-        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?', {
+        const producers = await getProducers({ page: 5, filter: ['test1', 'test2'] });
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?type=test1&type=test2', {
             params: {
                 limit: LIMIT,
                 offset: LIMIT * 5
             }
         });
-    });
-
-    it('should provide method for getting producers list', () => {
-        getProducers({ filter: ['test1', 'test2'] });
-        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?type=test1&type=test2', {
-            params: {
-                limit: LIMIT,
-                offset: 0
+        expect(producers).toEqual({
+            data: {
+                producers: [
+                    {
+                        price: 5.6,
+                        street: 'October',
+                        postcode: '230000',
+                        city: 'Seit',
+                        country: 'Zakovia',
+                        productionOfLastDay: 200,
+                        energyPurchased: 100,
+                        dlAddress: '0x1',
+                        status: 'active'
+                    },
+                    {
+                        price: 5.3,
+                        street: 'October',
+                        postcode: '230000',
+                        city: 'Seit',
+                        country: 'Zakovia',
+                        productionOfLastDay: 200,
+                        energyPurchased: 100,
+                        dlAddress: '0x2',
+                        status: 'standard'
+                    }
+                ]
             }
         });
     });

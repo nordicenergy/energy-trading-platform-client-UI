@@ -10,7 +10,12 @@
     "app.plantType.biomass": "Biomass",
     "app.plantType.solar": "Solar",
     "app.plantType.wind": "Wind",
+    "app.plantType.default": "Default",
     "app.plantType.other": "Other",
+
+    "app.producerStatus.standard": "standard",
+    "app.producerStatus.soldOut": "sold out",
+    "app.producerStatus.active": "active",
 
     "app.txStatuses.pending": "Pending",
     "app.txStatuses.fail": "Failure",

@@ -48,6 +48,33 @@
     z-index: 1;
 }
 
+.producer-card-name {
+    text-align: center;
+}
+
+.producer-card-name h3 {
+    margin: 0.5em 0 0;
+    font-weight: 600;
+    font-size: 1.375em;
+}
+
+.producer-card-name small {
+    padding: 0.625em 1.375em 0.375em;
+    border-radius: 0.5em;
+    background-color: var(--producer-card-status);
+    color: white;
+
+    font-size: 0.5rem;
+    line-height: 1.5;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.producer-card--selected .producer-card-name small {
+    background-color: white;
+    color: var(--producer-card-status);
+}
+
 .producer-card-meta {
     display: flex;
     justify-content: space-between;
@@ -62,13 +89,6 @@
 
 .producer-card-plant-type {
     text-transform: capitalize;
-}
-
-.producer-card-name {
-    margin: 0;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.375em;
 }
 
 @media (max-width: 1599px) {

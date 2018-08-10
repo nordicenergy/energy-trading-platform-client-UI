@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { PRODUCER_STATUSES } from '../../constants';
 import { ProducerInfo, Button, BackLink } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from './.';
@@ -115,7 +116,10 @@ export class Producer extends AbstractContainer {
                     <Button className="producer-page-back-to-producers" onClick={() => this.backToProducers()}>
                         {formatMessage(messages.showButton)}
                     </Button>
-                    <Button onClick={() => performSelectProducer(producer.id)}>
+                    <Button
+                        disabled={producer.status === PRODUCER_STATUSES.soldOut}
+                        onClick={() => performSelectProducer(producer.id)}
+                    >
                         {formatMessage(messages.selectButton)}
                     </Button>
                 </section>
