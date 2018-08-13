@@ -57,6 +57,7 @@ describe('<BuyEnergy /> container', () => {
         jest.spyOn(producersActionPerformers, 'performGetProducers').mockImplementation(jest.fn());
         jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         jest.spyOn(appActionPerformers, 'performSetupLoaderVisibility').mockImplementation(jest.fn());
+        jest.spyOn(appActionPerformers, 'performSetupBreadcrumbs').mockImplementation(jest.fn());
         jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerElement);
         jest.spyOn(mainContainerElement, 'addEventListener');
         jest.spyOn(mainContainerElement, 'removeEventListener');
@@ -65,6 +66,7 @@ describe('<BuyEnergy /> container', () => {
     afterEach(() => {
         producersActionPerformers.performGetProducers.mockClear();
         appActionPerformers.performSetupLoaderVisibility.mockClear();
+        appActionPerformers.performSetupBreadcrumbs.mockClear();
         routerStub.history.push.mockClear();
     });
 
@@ -127,11 +129,19 @@ describe('<BuyEnergy /> container', () => {
                     loading: false
                 }
             },
+            App: {
+                localization: {
+                    data: {
+                        locale: 'en'
+                    }
+                }
+            },
             Users: {}
         };
         const props = BuyEnergy.mapStateToProps(stateMock);
 
         expect(props).toEqual({
+            locale: 'en',
             error: null,
             currentProducerLoading: false,
             currentProducer: producersDummy[1],
@@ -246,5 +256,17 @@ describe('<BuyEnergy /> container', () => {
             .props()
             .onProducerClick(1);
         expect(routerStub.history.push).toHaveBeenCalledWith('/buy_energy/producer/1');
+    });
+
+    it('should setup translated breadcrumbs when locale changed', () => {
+        const buyEnergy = renderComponent();
+
+        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+
+        buyEnergy.setProps({
+            locale: 'de'
+        });
+
+        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
     });
 });

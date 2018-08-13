@@ -2,9 +2,8 @@ import { performSetupBreadcrumbs } from '../../../action_performers/app';
 
 const breadcrumbsMixin = Base =>
     class extends Base {
-        constructor(props, context, breadcrumbs) {
+        constructor(props, context) {
             super(props, context);
-            this.setupBreadcrumbs(breadcrumbs);
         }
 
         setupBreadcrumbs(breadcrumbs) {

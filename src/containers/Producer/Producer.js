@@ -26,7 +26,9 @@ export class Producer extends AbstractContainer {
             producer: state.Producers.producer.data,
             profile: state.Users.profile.data,
             selectedProducer: state.Producers.selectedProducer.data,
-            error: state.Producers.producer.error || state.Users.profile.error || state.Producers.selectedProducer.error
+            error:
+                state.Producers.producer.error || state.Users.profile.error || state.Producers.selectedProducer.error,
+            locale: state.App.localization.data.locale
         };
     }
 
@@ -39,9 +41,9 @@ export class Producer extends AbstractContainer {
 
     componentDidUpdate(prevProps) {
         const { producer: prevProducer = {}, selectedProducer: prevSelectedProducer = {}, error: oldError } = prevProps;
-        const { producer = {}, selectedProducer = {}, error, loading } = this.props;
+        const { producer = {}, selectedProducer = {}, error, loading, locale } = this.props;
 
-        if (prevProducer.id !== producer.id || prevProducer.name !== producer.name) {
+        if (prevProducer.id !== producer.id || prevProducer.name !== producer.name || locale !== prevProps.locale) {
             this.setupProducerBreadcrumbs();
         }
 
@@ -148,7 +150,8 @@ Producer.propTypes = {
     loading: PropTypes.bool,
     producer: PropTypes.object,
     profile: PropTypes.object,
-    error: PropTypes.object
+    error: PropTypes.object,
+    locale: PropTypes.string
 };
 
 Producer.defaultProps = {
