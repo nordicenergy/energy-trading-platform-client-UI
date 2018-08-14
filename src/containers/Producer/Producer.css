@@ -83,6 +83,6 @@
     }
 
     .producer-page-controls .producer-page-help {
-        margin: 0;
+        display: none;
     }
 }
