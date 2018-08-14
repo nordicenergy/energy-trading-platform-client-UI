@@ -96,7 +96,12 @@ export class BuyEnergy extends AbstractContainer {
             performPushNotification({ message: newError.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(shouldShowFullScreenLoader);
+        if (
+            prevProps.currentProducerLoading !== currentProducerLoading ||
+            prevProps.producersLoading !== producersLoading
+        ) {
+            performSetupLoaderVisibility(shouldShowFullScreenLoader);
+        }
     }
 
     componentWillUnmount() {

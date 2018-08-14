@@ -57,7 +57,9 @@ export class SubmitMeter extends AbstractContainer {
             performPushNotification({ message: error.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     prepareValidator() {

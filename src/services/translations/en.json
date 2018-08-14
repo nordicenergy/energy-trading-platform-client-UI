@@ -146,6 +146,7 @@
     "app.producerPage.switchBack": "Switch back to Lition Standard",
     "app.producerPage.showButton": "Show producers",
     "app.producerPage.ethereumAddress": "Ethereum Address",
+    "app.producerPage.soldOutHelpText": "You can't select producers with \"sold out\" status",
 
     "app.header.logoutConfirmMessage": "Are you sure that you'd like to logout from the system?",
     "app.header.logoutConfirmButton": "Yes",

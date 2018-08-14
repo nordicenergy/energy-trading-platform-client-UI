@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ProducerContainer, { Producer } from '../Producer';
-import { ProducerInfo, Button } from '../../../components';
+import { ProducerInfo, Button, HelpIcon } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 import * as producersActions from '../../../action_performers/producers';
@@ -83,7 +83,8 @@ const props = {
     ...Producer.defaultProps,
     producer: {
         id: 1,
-        name: 'test'
+        name: 'test',
+        status: 'active'
     },
     profile: { user: { id: 1 } },
     selectedProducer: {},
@@ -126,6 +127,27 @@ describe('<Producer /> Component', () => {
         expect(component.find('h1')).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(2);
+        expect(component.find(HelpIcon)).toHaveLength(0);
+        expect(component.find('strong[aria-label="Producer Status"]')).toHaveLength(0);
+    });
+
+    it('should disable "Select Producer" button if producer has "sold out" status', () => {
+        const component = renderComponent();
+        component.setProps({
+            producer: {
+                id: 1,
+                name: 'test',
+                status: 'sold out'
+            }
+        });
+        expect(component.find(HelpIcon)).toHaveLength(1);
+        expect(component.find('strong[aria-label="Producer Status"]')).toHaveLength(1);
+        expect(
+            component
+                .find(Button)
+                .at(1)
+                .props('disabled')
+        ).toBeTruthy();
     });
 
     it('should call prepare common function', () => {

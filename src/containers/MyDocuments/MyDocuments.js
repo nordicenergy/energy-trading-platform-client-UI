@@ -56,7 +56,9 @@ export class MyDocuments extends AbstractContainer {
             performPushNotification({ message: error.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     componentWillUnmount() {

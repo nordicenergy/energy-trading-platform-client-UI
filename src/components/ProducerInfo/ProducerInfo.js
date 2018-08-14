@@ -13,7 +13,7 @@ class ProducerInfo extends React.Component {
         const { price, marketPrice, status } = details;
         const isStandard = status === PRODUCER_STATUSES.standard;
         const mainPrice = isStandard ? marketPrice : price;
-        console.log(isStandard, marketPrice, price, status, PRODUCER_STATUSES.standard);
+
         return (
             <React.Fragment>
                 <span>{`${formatFloat(mainPrice)} ct/kWh`}</span>
