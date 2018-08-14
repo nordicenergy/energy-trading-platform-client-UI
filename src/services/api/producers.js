@@ -129,7 +129,7 @@ export function getOwnedProducerOffersHistory(producerId) {
 }
 
 function calculatePrice(workingPrice, producer) {
-    return PRODUCER_STATUSES.standard === producer.status ? producer.price : workingPrice + producer.price;
+    return PRODUCER_STATUSES.standard === producer.status ? workingPrice : workingPrice + producer.price;
 }
 
 function locationTag(strings, ...values) {

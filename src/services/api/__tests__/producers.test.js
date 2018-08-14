@@ -181,7 +181,7 @@ describe('Producers API Service', () => {
                         status: 'active'
                     },
                     {
-                        price: 5.3,
+                        price: 2.5,
                         street: 'October',
                         postcode: '230000',
                         city: 'Seit',
