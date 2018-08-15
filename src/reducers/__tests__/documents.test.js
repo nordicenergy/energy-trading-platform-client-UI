@@ -12,6 +12,15 @@ describe('Documents reducer:', () => {
             ``;
         });
     });
+    describe('Pending cases:', () => {
+        it('should handle DOWNLOAD_DOCUMENT', () => {
+            const result = documentsReducer(initialState, ACTIONS.downloadDocument.pending);
+            expect(result.download.loading).toBeTruthy();
+            expect(result.download.error).toBeNull();
+            expect(result.download.data).toEqual(initialState.download.data);
+            ``;
+        });
+    });
 
     describe('Error cases:', () => {
         it('should handle GET_DOCUMENTS', () => {
@@ -21,6 +30,14 @@ describe('Documents reducer:', () => {
             expect(result.documentsList.data).toEqual(initialState.documentsList.data);
         });
     });
+    describe('Error cases:', () => {
+        it('should handle DOWNLOAD_DOCUMENT', () => {
+            const result = documentsReducer(initialState, ACTIONS.downloadDocument.fail);
+            expect(result.download.loading).toBeFalsy();
+            expect(result.download.error).toEqual(ACTIONS.downloadDocument.fail.error);
+            expect(result.download.data).toEqual(initialState.download.data);
+        });
+    });
 
     describe('Success cases:', () => {
         it('should handle GET_DOCUMENTS', () => {
@@ -28,6 +45,14 @@ describe('Documents reducer:', () => {
             expect(result.documentsList.loading).toBeFalsy();
             expect(result.documentsList.error).toBeNull();
             expect(result.documentsList.data).toEqual(ACTIONS.getDocuments.success.payload);
+        });
+    });
+    describe('Success cases:', () => {
+        it('should handle DOWNLOAD_DOCUMENT', () => {
+            const result = documentsReducer(initialState, ACTIONS.downloadDocument.success);
+            expect(result.download.loading).toBeFalsy();
+            expect(result.download.error).toBeNull();
+            expect(result.download.data).toEqual(ACTIONS.downloadDocument.success.payload);
         });
     });
 });
@@ -68,6 +93,27 @@ function fixtures() {
             },
             pending: {
                 type: 'GET_DOCUMENTS',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
+        downloadDocument: {
+            success: {
+                type: 'DOWNLOAD_DOCUMENT',
+                payload: 'file',
+                error: null,
+                loading: false,
+                meta: ['url', 'name']
+            },
+            fail: {
+                type: 'DOWNLOAD_DOCUMENT',
+                payload: null,
+                error: { message: 'Response error' },
+                loading: false
+            },
+            pending: {
+                type: 'DOWNLOAD_DOCUMENT',
                 payload: null,
                 error: null,
                 loading: true

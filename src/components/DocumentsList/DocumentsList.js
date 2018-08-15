@@ -11,22 +11,22 @@ import './DocumentsList.css';
 
 class DocumentsList extends React.Component {
     renderTableRows(documents) {
+        const { download } = this.props;
         return documents.map(document => {
             const classes = classNames({
                 'document-list-row--disabled': !document.url,
                 'document-list-row': true
             });
+            const downloadDocument = download.bind(null, document.url, document.name);
 
             return (
                 <tr key={document.id} className={classes}>
                     <td>{document.date ? formatDate(document.date) : '-'}</td>
                     <td>
-                        <a href={document.url} download target="_blank">
-                            {document.name || '-'}
-                        </a>
+                        <a onClick={() => downloadDocument()}>{document.name || '-'}</a>
                     </td>
                     <td>
-                        <a href={document.url} download target="_blank">
+                        <a onClick={() => downloadDocument()}>
                             <div className="document-download-icon">
                                 <FontAwesomeIcon icon={icons.faDownload} />
                             </div>
@@ -65,13 +65,15 @@ DocumentsList.propTypes = {
         })
     ),
     pagination: PropTypes.bool,
+    download: PropTypes.func,
     loading: PropTypes.bool
 };
 
 DocumentsList.defaultProps = {
     documents: [],
     pagination: false,
-    loading: false
+    loading: false,
+    download: () => {}
 };
 
 export default DocumentsList;

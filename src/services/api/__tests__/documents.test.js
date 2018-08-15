@@ -1,13 +1,17 @@
 import Axios from 'axios';
-import { getDocuments } from '../documents';
+import { getDocuments, downloadDocument } from '../documents';
 
 describe('Documents API Service', () => {
+    const setAttributeSpy = jest.fn();
+    const clickSpy = jest.fn();
     beforeAll(() => {
         jest.spyOn(Axios, 'get').mockImplementation(jest.fn);
+        jest.spyOn(document, 'createElement').mockReturnValue({ setAttribute: setAttributeSpy, click: clickSpy });
     });
 
     afterAll(() => {
         Axios.get.mockRestore();
+        document.document.mockRestore();
     });
 
     afterEach(() => {
@@ -64,5 +68,23 @@ describe('Documents API Service', () => {
                 ]
             }
         });
+    });
+
+    it('should provide method for download document', async () => {
+        Axios.get.mockReturnValue(Promise.resolve({ data: 'file' }));
+
+        const documents = await downloadDocument('url', 'name');
+
+        expect(Axios.get).toHaveBeenCalledWith('url', { responseType: 'blob' });
+
+        expect(documents).toEqual(undefined);
+
+        expect(setAttributeSpy).toHaveBeenCalledTimes(3);
+        expect(setAttributeSpy.mock.calls).toEqual([
+            ['href', undefined],
+            ['download', 'name.pdf'],
+            ['target', '_blank']
+        ]);
+        expect(clickSpy).toHaveBeenCalledTimes(1);
     });
 });
