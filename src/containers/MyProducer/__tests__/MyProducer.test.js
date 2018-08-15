@@ -23,7 +23,8 @@ const store = mockStore({
                     lastBillAvailable: true,
                     lastBillAmount: '35.24',
                     lastBillDate: 'December;',
-                    userStatus: 'string'
+                    userStatus: 'string',
+                    workingPrice: 2.3
                 }
             }
         }
@@ -44,7 +45,8 @@ const store = mockStore({
                 picture: 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg',
                 location: 'Lippendorf, Neukieritzsch',
                 ethereumAddress: '123',
-                description: 'desc'
+                description: 'desc',
+                status: 'active'
             },
             loading: false,
             error: null
@@ -70,11 +72,13 @@ const store = mockStore({
             ],
             loading: false,
             error: null
-        },
-        currentMarketPrice: {
-            data: 2.5,
-            loading: false,
-            error: null
+        }
+    },
+    App: {
+        localization: {
+            data: {
+                locale: 'en'
+            }
         }
     }
 });
@@ -101,7 +105,6 @@ const props = {
             currentProducerId: 1
         }
     },
-    currentMarketPrice: 2.5,
     error: null
 };
 
@@ -124,7 +127,6 @@ describe('<MyProducer /> Component', () => {
         context.intl.formatMessage.mockReturnValue('test');
         producersActions.performGetProducer = jest.fn();
         producersActions.performGetProducerHistory = jest.fn();
-        producersActions.performGetCurrentMarketPrice = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
         appActions.performSetupBreadcrumbs = jest.fn();
         usersActions.performGetUserData = jest.fn();
@@ -158,9 +160,10 @@ describe('<MyProducer /> Component', () => {
                 price: 2.4,
                 purchased: 1300,
                 selectedSince: 'Sep 12 - Feb 22',
-                ethereumAddress: '123'
+                ethereumAddress: '123',
+                marketPrice: 2.3,
+                status: 'active'
             },
-            marketPrice: 2.5,
             labels: {
                 annualProduction: 'Annual Production',
                 capacity: 'Peak Capacity',
@@ -189,11 +192,6 @@ describe('<MyProducer /> Component', () => {
                     data: 'history_data',
                     error: 'test_error',
                     loading: 'test_loading'
-                },
-                currentMarketPrice: {
-                    data: 'test_price',
-                    error: 'test_error',
-                    loading: 'test_loading'
                 }
             },
             Users: {
@@ -202,16 +200,23 @@ describe('<MyProducer /> Component', () => {
                     error: null,
                     loading: false
                 }
+            },
+            App: {
+                localization: {
+                    data: {
+                        locale: 'en'
+                    }
+                }
             }
         };
         const props = MyProducer.mapStateToProps(stateDummy);
         expect(props).toEqual({
+            locale: 'en',
             producer: 'producer_data',
             producerHistory: 'history_data',
             profile: 'user_data',
             error: 'test_error',
-            loading: 'test_loading',
-            currentMarketPrice: 'test_price'
+            loading: 'test_loading'
         });
     });
 
@@ -222,8 +227,6 @@ describe('<MyProducer /> Component', () => {
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(1);
         const [[arg1]] = producersActions.performGetProducer.mock.calls;
         expect(arg1).toEqual(1);
-
-        expect(producersActions.performGetCurrentMarketPrice.mock.calls.length).toEqual(1);
 
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
         const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
@@ -236,7 +239,6 @@ describe('<MyProducer /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(2);
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(2);
-        expect(producersActions.performGetCurrentMarketPrice.mock.calls.length).toEqual(2);
         component.setProps({ profile: { user: { currentProducerId: 2, id: 1 } } });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(3);
         component.setProps({ profile: { user: { currentProducerId: 2, id: 2 } } });
@@ -278,5 +280,17 @@ describe('<MyProducer /> Component', () => {
         const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
+    });
+
+    it('should setup translated breadcrumbs when locale changed', () => {
+        const myProducer = renderComponent();
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+
+        myProducer.setProps({
+            locale: 'de'
+        });
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
     });
 });

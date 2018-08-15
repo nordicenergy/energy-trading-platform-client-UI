@@ -76,7 +76,7 @@ LoginForm.propTypes = {
     labels: PropTypes.shape({
         usernameField: PropTypes.string,
         passwordField: PropTypes.string,
-        resetPasswordLink: PropTypes.string,
+        resetPasswordToken: PropTypes.string,
         loginButton: PropTypes.string
     }),
     errors: PropTypes.shape({

@@ -1,20 +1,31 @@
 import Axios from 'axios';
-import { login, logout, getUserData, updateUserData } from '../users';
+import {
+    login,
+    logout,
+    getUserData,
+    updateUserData,
+    resetUserPassword,
+    createResetPasswordToken,
+    verifyResetPasswordToken
+} from '../users';
 
 describe('Users API Service', () => {
     beforeAll(() => {
         jest.spyOn(Axios, 'get').mockImplementation(jest.fn);
         jest.spyOn(Axios, 'post').mockImplementation(jest.fn);
+        jest.spyOn(Axios, 'patch').mockImplementation(jest.fn);
     });
 
     afterAll(() => {
         Axios.get.mockRestore();
         Axios.post.mockRestore();
+        Axios.patch.mockRestore();
     });
 
     afterEach(() => {
         Axios.get.mockClear();
         Axios.post.mockClear();
+        Axios.patch.mockClear();
     });
 
     it('should provide method for login', () => {
@@ -75,5 +86,46 @@ describe('Users API Service', () => {
         );
         updateUserData(newUserDataDummy);
         expect(Axios.post).toHaveBeenCalledWith('/api/user/updateUserData', newUserDataDummy);
+    });
+
+    it('should provide possibility to reset user password', () => {
+        const newPasswordDataDummy = {
+            newPassword: 'test',
+            resetToken: 'token'
+        };
+        Axios.patch.mockReturnValue(
+            Promise.resolve({
+                updated: true
+            })
+        );
+        resetUserPassword(newPasswordDataDummy.resetToken, newPasswordDataDummy.newPassword);
+        const [[url, data]] = Axios.patch.mock.calls;
+        expect(url).toBe('/api/user/resetPassword');
+        expect(data).toEqual(newPasswordDataDummy);
+    });
+
+    it('should provide possibility to create reset password token', () => {
+        const request = {
+            email: 'jhon.doe@test.com'
+        };
+        Axios.post.mockReturnValue(
+            Promise.resolve({
+                created: true
+            })
+        );
+        createResetPasswordToken(request.email);
+        expect(Axios.post).toHaveBeenCalledWith('/api/user/resetPasswordToken', request);
+    });
+
+    it('should provide possibility to verify reset password token', () => {
+        Axios.get.mockReturnValue(
+            Promise.resolve({
+                valid: true
+            })
+        );
+        verifyResetPasswordToken('testToken');
+        expect(Axios.get).toHaveBeenCalledWith('/api/user/resetPasswordToken/testToken', {
+            headers: { 'Cache-Control': 'no-cache' }
+        });
     });
 });

@@ -16,7 +16,14 @@ export const PLANT_TYPES = {
     wind: 'wind',
     solar: 'solar',
     biomass: 'biomass',
-    other: 'default'
+    default: 'default',
+    other: 'other'
+};
+
+export const PRODUCER_STATUSES = {
+    standard: 'standard',
+    soldOut: 'sold out',
+    active: 'active'
 };
 
 export const LIMIT = 10;
@@ -29,6 +36,7 @@ export const TRANSACTION_STATUSES = {
 };
 
 export const DATE_FORMAT = 'MMM DD, YYYY';
+export const MONTH_DAY_DATE_FORMAT = 'MMM DD';
 export const DATETIME_FORMAT = 'MMM DD, YYYY hh:mm';
 
 export const LOCALES = ['en', 'de'];

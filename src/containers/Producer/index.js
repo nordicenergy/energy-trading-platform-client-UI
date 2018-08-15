@@ -2,7 +2,7 @@ import Producer from './Producer';
 import { Producer as messages } from '../../services/translations/messages';
 import { convertPlantType } from '../../services/translations/enums';
 
-function prepareProducerInfoProps(translate, producer) {
+function prepareProducerInfoProps(translate, producer, user = {}) {
     return {
         labels: {
             name: translate(messages.name),
@@ -18,7 +18,7 @@ function prepareProducerInfoProps(translate, producer) {
         },
         details: {
             name: producer.name,
-            marketPrice: producer.marketPrice,
+            marketPrice: user.workingPrice,
             price: producer.price,
             energyType: translate(convertPlantType(producer.plantType)),
             annualProduction: producer.annualProduction,
@@ -26,7 +26,8 @@ function prepareProducerInfoProps(translate, producer) {
             capacity: producer.capacity,
             selectedSince: producer.dates,
             ethereumAddress: producer.ethereumAddress,
-            location: producer.location
+            location: producer.location,
+            status: producer.status
         },
         description: producer.description,
         picture: producer.picture

@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    border-bottom: var(--border-width) solid var(--input-border);
+    border-bottom: var(--border-width) solid var(--input-border-color);
 }
 
 .select-field-layout::after {
@@ -91,7 +91,7 @@
     padding: 0;
     max-height: 14.125rem;
     width: 100%;
-    border: var(--border-width) solid var(--input-border);
+    border: var(--border-width) solid var(--input-border-color);
     border-bottom-right-radius: 0.25rem;
     border-bottom-left-radius: 0.25rem;
     background: white;
@@ -106,7 +106,7 @@
     box-sizing: border-box;
     padding: 0.125rem 1.5rem 0;
     height: 3.5rem;
-    border-bottom: var(--border-width) solid var(--input-border);
+    border-bottom: var(--border-width) solid var(--input-border-color);
     background: white;
     font-weight: 600;
     font-size: 1.125rem;

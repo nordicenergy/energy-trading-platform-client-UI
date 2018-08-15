@@ -12,7 +12,7 @@
     --transparent-blumine-color: rgba(30, 87, 123, 0.3);
     --dark-blumine-color: #194d6d;
     --blumine-color: #1e577b;
-    --ming: #3c6e8c;
+    --ming-color: #3c6e8c;
     --calypso-color: #2b658a;
     --jelly-bean-color: #2771ab;
     --steel-blue-color: #4083b5;
@@ -27,6 +27,7 @@
     --azalea-color: #fbdede;
     --transparent-geyser-color: rgba(217, 224, 229, 0.3);
     --stone-gray-color: rgba(240, 244, 247, 0.6);
+    --rolling-stone-color: #757e85;
     --hit-gray-color: #aab4bb;
     --nobel-color: #b5b5b5;
     --tower-gray-color: #b1bac1;
@@ -73,8 +74,9 @@
     --general-text-color: var(--blumine-color);
     --general-dark-text-color: var(--black-pearl-color);
     --label-color: var(--tower-gray-color);
+    --input-helper-text-color: var(--rolling-stone-color);
 
-    --input-border: var(--porcelain-color);
+    --input-border-color: var(--porcelain-color);
     --border-on-light-color: var(--athens-gray-color);
     --border-on-dark-color: var(--pickled-bluewood-color);
 
@@ -92,10 +94,11 @@
     --filter-checkbox-icon-color: var(--jelly-bean-color);
     --filter-checkbox-border-color: var(--athens-gray-color);
     --filter-checkbox-checked-border-color: var(--steel-blue-color);
-    --filter-checkbox-hov-border-color: var(--ming);
+    --filter-checkbox-hov-border-color: var(--ming-color);
 
     --producer-card-bg-color: var(--black-pearl-color);
     --producer-card-border-color: var(--scooter-color);
+    --producer-card-status: var(--scooter-color);
     --producer-card-active-bg-color: var(--scooter-color);
 
     --producer-filters-border-color: var(--geyser-color);
@@ -118,7 +121,7 @@
 
     --offer-card-price-color: var(--nobel-color);
     --offer-card-energy-type-color: var(--black-pearl-color);
-    --offer-card-box-shadow: var(--transparent-geyser-color);
+    --offer-card-box-shadow-color: var(--transparent-geyser-color);
 
     --delta-field-row-color: var(--aqua-haze-color);
     --delta-field-value-color: var(--black-pearl-color);
@@ -146,7 +149,7 @@
     --trade-position-general-color: var(--big-stone-color);
     --trade-position-performed-color: var(--emerald-color);
 
-    --focused-control-outline: var(--border-width) dotted var(--steel-blue-color);
+    --tooltip-shadow-color: var(--stone-gray-color);
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;
@@ -154,6 +157,7 @@
     --page-paddings: 1.5rem 2rem 2rem;
     --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-color);
     --side-bar-width: 20.5rem;
+    --focused-control-outline: var(--border-width) dotted var(--steel-blue-color);
 }
 
 body {

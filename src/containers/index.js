@@ -17,6 +17,8 @@ import Producer from './Producer';
 import Trading from './Trading';
 import DirectTrading from './DirectTrading';
 import MyDocuments from './MyDocuments';
+import SubmitMeter from './SubmitMeter';
+import ResetPassword from './ResetPassword';
 
 export {
     AbstractContainer,
@@ -37,5 +39,7 @@ export {
     Producer,
     Trading,
     DirectTrading,
-    MyDocuments
+    MyDocuments,
+    SubmitMeter,
+    ResetPassword
 };

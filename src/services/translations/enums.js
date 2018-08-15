@@ -1,5 +1,9 @@
-import { PlantType as plantTypeMessages, TransactionStatuses as txStatusesMessages } from './messages/index';
-import { PLANT_TYPES, TRANSACTION_STATUSES } from '../../constants/index';
+import {
+    PlantType as plantTypeMessages,
+    TransactionStatuses as txStatusesMessages,
+    ProducerStatus as producerStatusMessages
+} from './messages/index';
+import { PLANT_TYPES, TRANSACTION_STATUSES, PRODUCER_STATUSES } from '../../constants/index';
 
 export function convertPlantType(type) {
     switch (type) {
@@ -9,8 +13,21 @@ export function convertPlantType(type) {
             return plantTypeMessages.solar;
         case PLANT_TYPES.wind:
             return plantTypeMessages.wind;
+        case PLANT_TYPES.default:
+            return plantTypeMessages.default;
         default:
             return plantTypeMessages.other;
+    }
+}
+
+export function convertProducerStatus(status) {
+    switch (status) {
+        case PRODUCER_STATUSES.standard:
+            return producerStatusMessages.standard;
+        case PRODUCER_STATUSES.soldOut:
+            return producerStatusMessages.soldOut;
+        default:
+            return producerStatusMessages.active;
     }
 }
 

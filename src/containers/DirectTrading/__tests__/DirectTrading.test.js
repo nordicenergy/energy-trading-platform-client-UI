@@ -76,6 +76,7 @@ const store = mockStore({
         ledgerNetworks: {
             loading: false,
             data: {
+                selectedLedgerNetwork: 'ethereumRopsten',
                 ethereumRopsten: { addresses: ['contractAddressTest'] }
             },
             error: null
@@ -119,6 +120,7 @@ const props = {
         status: 'success'
     },
     ledgerNetworks: {
+        selectedLedgerNetwork: 'ethereumRopsten',
         ethereumRopsten: { addresses: ['contractAddressTest'] }
     },
     user: {
@@ -143,7 +145,6 @@ function renderComponent() {
     return mountWithIntl(<DirectTrading {...props} context={context} />);
 }
 
-// FIXME
 describe('<DirectTrading /> Component', () => {
     beforeEach(() => {
         context.router.history.push = jest.fn();
@@ -414,5 +415,23 @@ describe('<DirectTrading /> Component', () => {
             'ethereumRopsten',
             'testAddress'
         );
+    });
+
+    it('should show notification in case if wrong ledger network is chosen', () => {
+        const component = renderComponent();
+        component.setProps({
+            ledgerNetworks: {
+                selectedLedgerNetwork: 'wrongLedger',
+                ethereumRopsten: { addresses: ['contractAddressTest'] }
+            }
+        });
+        component
+            .find('ConfigurationForm')
+            .props()
+            .onSubmit({ blockChain: 'test', address: 'abc' });
+        expect(notificationActions.performPushNotification).toHaveBeenCalledWith({
+            message: 'Wrong ledger network is chosen',
+            type: 'error'
+        });
     });
 });

@@ -2,7 +2,7 @@ const config = {
     host: 'http://localhost:3000',
     credentials: {
         username: 'powerclouduser',
-        password: 'powercloudpass'
+        password: 'powercloudpass1'
     },
     timeout: 20000,
     headless: true,

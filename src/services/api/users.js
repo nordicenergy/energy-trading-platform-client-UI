@@ -32,3 +32,17 @@ export function getUserData() {
 export function updateUserData(userData) {
     return Axios.post(`${SESSION_API_URL}/user/updateUserData`, userData);
 }
+
+export function resetUserPassword(resetToken, newPassword) {
+    return Axios.patch(`${SESSION_API_URL}/user/resetPassword`, { resetToken, newPassword });
+}
+
+export function createResetPasswordToken(email) {
+    return Axios.post(`${SESSION_API_URL}/user/resetPasswordToken`, { email });
+}
+
+export function verifyResetPasswordToken(token) {
+    return Axios.get(`${SESSION_API_URL}/user/resetPasswordToken/${token}`, {
+        headers: { 'Cache-Control': 'no-cache' }
+    });
+}

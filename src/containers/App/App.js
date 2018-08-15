@@ -10,7 +10,7 @@ import { App as messages } from '../../services/translations/messages';
 import { MenuSideBar, Header, Footer, Confirm } from '../../components';
 import './App.css';
 
-export class App extends React.Component {
+export class App extends React.PureComponent {
     static mapStateToProps({ Users, App }) {
         return {
             loggingOut: Users.logout.loading,
@@ -34,7 +34,9 @@ export class App extends React.Component {
             this.navigateTo('/login');
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     setupLocale() {
@@ -109,8 +111,7 @@ export class App extends React.Component {
                 icon: icons.submit_meter,
                 label: formatMessage(messages.submitMeter),
                 active: headRoute === PATHS.submit_meter.id,
-                path: PATHS.submit_meter.path,
-                disabled: true
+                path: PATHS.submit_meter.path
             },
             {
                 id: PATHS.trading.id,

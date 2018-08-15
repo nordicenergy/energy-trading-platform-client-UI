@@ -96,7 +96,9 @@ export class DirectTrading extends AbstractContainer {
         const isLedgerStatusSuccessful = ledgerStatus.status === SUCCESS_LEDGER_STATUS;
         const isNewTransactionPerformed = performedTransaction !== prevProps.performedTransaction;
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
 
         if (isLedgerStatusChanged) {
             this.setState({
@@ -177,8 +179,11 @@ export class DirectTrading extends AbstractContainer {
     }
 
     handleSubmit(formData) {
+        const { formatMessage } = this.context.intl;
         const { ledger } = this.props.user;
+        const { selectedLedgerNetwork } = this.props.ledgerNetworks;
         const validator = this.prepareValidator();
+        const isWrongNetworkSelected = ledger && ledger !== selectedLedgerNetwork;
 
         validator.validate(formData, errors => {
             if (errors) {
@@ -192,7 +197,12 @@ export class DirectTrading extends AbstractContainer {
                     )
                 });
             } else {
-                performRegisterLedgerAddress(ledger, formData.address);
+                isWrongNetworkSelected
+                    ? performPushNotification({
+                          message: formatMessage(messages.wrongNetworkNotificationMessage),
+                          type: 'error'
+                      })
+                    : performRegisterLedgerAddress(ledger, formData.address);
                 this.setState({
                     formData,
                     formErrors: { blockChain: '', address: '' }

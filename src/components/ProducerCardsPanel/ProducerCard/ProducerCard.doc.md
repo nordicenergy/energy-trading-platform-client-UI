@@ -13,7 +13,8 @@ const producer = {
     id: 1,
     price: 2.9,
     name: 'John Doe',
-    plantType: 'solar'
+    plantType: 'solar',
+    status: 'sold out'
 };
 
 <div style={wrapperStyle}>
@@ -38,7 +39,8 @@ const producer = {
     id: 1,
     price: 2.9,
     name: 'John Doe',
-    plantType: 'solar'
+    plantType: 'solar',
+    status: 'sold out'
 };
 
 <div style={wrapperStyle}>

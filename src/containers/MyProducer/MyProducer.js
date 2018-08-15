@@ -5,11 +5,7 @@ import { ProducerInfo, Button, BackLink } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from '../Producer';
 import { performGetUserData } from '../../action_performers/users';
-import {
-    performGetProducer,
-    performGetProducerHistory,
-    performGetCurrentMarketPrice
-} from '../../action_performers/producers';
+import { performGetProducer, performGetProducerHistory } from '../../action_performers/producers';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { PATHS } from '../../services/routes';
@@ -19,56 +15,45 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import './MyProducer.css';
 
 export class MyProducer extends AbstractContainer {
-    constructor(props, context) {
-        const { formatMessage } = context.intl;
-        const breadcrumbs = [
-            { ...PATHS.overview, label: formatMessage(PATHS.overview.label) },
-            {
-                ...PATHS.myProducer,
-                label: formatMessage(PATHS.myProducer.label)
-            }
-        ];
-        super(props, context, breadcrumbs);
-    }
-
     static mapStateToProps(state) {
         return {
             loading:
                 state.Producers.producer.loading ||
                 state.Users.profile.loading ||
-                state.Producers.producerHistory.loading ||
-                state.Producers.currentMarketPrice.loading,
+                state.Producers.producerHistory.loading,
             profile: state.Users.profile.data,
             producer: state.Producers.producer.data,
             producerHistory: state.Producers.producerHistory.data,
-            error:
-                state.Producers.producer.error ||
-                state.Users.profile.error ||
-                state.Producers.producerHistory.error ||
-                state.Producers.currentMarketPrice.error,
-            currentMarketPrice: state.Producers.currentMarketPrice.data
+            error: state.Producers.producer.error || state.Users.profile.error || state.Producers.producerHistory.error,
+            locale: state.App.localization.data.locale
         };
     }
 
     componentDidMount() {
         performGetUserData();
         this.fetchProducer();
-        performGetCurrentMarketPrice();
+        this.setupMyProducerBreadcrumbs();
     }
 
     componentDidUpdate(prevProps) {
         const { profile: { user: prevUser = {} } = {}, error: oldError } = prevProps;
-        const { profile: { user = {} } = {}, loading, error } = this.props;
+        const { profile: { user = {} } = {}, loading, error, locale } = this.props;
 
         if (user.currentProducerId !== prevUser.currentProducerId) {
             this.fetchProducer();
+        }
+
+        if (locale !== prevProps.locale) {
+            this.setupMyProducerBreadcrumbs();
         }
 
         if (!loading && error && error !== oldError) {
             performPushNotification({ message: error.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     fetchProducer() {
@@ -77,6 +62,17 @@ export class MyProducer extends AbstractContainer {
             performGetProducer(user.currentProducerId);
             performGetProducerHistory(user.currentProducerId);
         }
+    }
+
+    setupMyProducerBreadcrumbs() {
+        const { formatMessage } = this.context.intl;
+        this.setupBreadcrumbs([
+            { ...PATHS.overview, label: formatMessage(PATHS.overview.label) },
+            {
+                ...PATHS.myProducer,
+                label: formatMessage(PATHS.myProducer.label)
+            }
+        ]);
     }
 
     handleBackLinkClick(event) {
@@ -92,9 +88,9 @@ export class MyProducer extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { loading, producer = {}, currentMarketPrice } = this.props;
+        const { loading, producer = {}, profile: { user } = {} } = this.props;
 
-        const producerInfoProps = prepareProducerInfoProps(formatMessage, producer);
+        const producerInfoProps = prepareProducerInfoProps(formatMessage, producer, user);
 
         return (
             <section className="my-producer-page" aria-busy={loading}>
@@ -103,7 +99,7 @@ export class MyProducer extends AbstractContainer {
                         <BackLink onClick={event => this.handleBackLinkClick(event)} />
                         <span>{formatMessage(messages.header)}</span>
                     </h1>
-                    <ProducerInfo {...producerInfoProps} marketPrice={currentMarketPrice} />
+                    <ProducerInfo {...producerInfoProps} />
                 </section>
                 <section className="my-producer-page-controls">
                     <Button onClick={() => this.openProducersPage()}>{formatMessage(messages.showButton)}</Button>
@@ -130,7 +126,7 @@ MyProducer.propTypes = {
     producerHistory: PropTypes.array,
     profile: PropTypes.object,
     error: PropTypes.object,
-    currentMarketPrice: PropTypes.number
+    locale: PropTypes.string
 };
 
 MyProducer.defaultProps = {

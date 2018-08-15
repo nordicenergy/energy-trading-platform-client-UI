@@ -35,6 +35,10 @@ import MetaMaskAlert from './MetaMaskAlert';
 import SortToolbar from './SortToolbar';
 import TradePositionsList from './TradePositionsList';
 import DocumentsList from './DocumentsList';
+import MeterReadingForm from './MeterReadingForm';
+import MeterReadingsHistory from './MeterReadingsHistory';
+import ResetPasswordForm from './ResetPasswordForm';
+import HelpIcon from './HelpIcon';
 
 export {
     Button,
@@ -77,5 +81,9 @@ export {
     MetaMaskAlert,
     SortToolbar,
     TradePositionsList,
-    DocumentsList
+    DocumentsList,
+    MeterReadingForm,
+    MeterReadingsHistory,
+    ResetPasswordForm,
+    HelpIcon
 };

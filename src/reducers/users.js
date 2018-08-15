@@ -3,7 +3,10 @@ import { setToken, clearToken } from '../services/browserStorage';
 export const initialState = {
     login: { data: {}, error: null, loading: false },
     logout: { data: {}, error: null, loading: false },
-    profile: { data: { user: {} }, error: null, loading: false }
+    profile: { data: { user: {} }, error: null, loading: false },
+    resetPassword: { data: {}, error: null, loading: false },
+    createdPasswordToken: { data: {}, error: null, loading: false },
+    verifiedPasswordToken: { data: {}, error: null, loading: false }
 };
 
 export function usersReducer(state = initialState, action) {
@@ -58,6 +61,36 @@ export function usersReducer(state = initialState, action) {
                             ...updatedProfileData
                         }
                     },
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
+        case 'RESET_USER_PASSWORD': {
+            return {
+                ...state,
+                resetPassword: {
+                    data: action.payload ? action.payload : state.resetPassword.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
+        case 'CREATE_RESET_PASSWORD_TOKEN': {
+            return {
+                ...state,
+                createdPasswordToken: {
+                    data: action.payload ? action.payload : state.createdPasswordToken.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
+        case 'VERIFY_RESET_PASSWORD_TOKEN': {
+            return {
+                ...state,
+                verifiedPasswordToken: {
+                    data: action.payload ? action.payload : state.verifiedPasswordToken.data,
                     loading: action.loading,
                     error: action.error
                 }

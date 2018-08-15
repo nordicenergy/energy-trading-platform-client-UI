@@ -15,8 +15,20 @@ function renderComponent({ producer = producerDummy, onClick = onClickStub, ...o
 }
 
 describe('<ProducerCard /> component', function() {
-    it('should renders without errors', () => {
-        renderComponent();
+    it(`should renders without errors and contains following elements:
+        - <div.producer-card-layout> element;
+        - <strong> element;
+        - <span.producer-card-plant-type> element;
+        - <h3> element;
+        - <small> element if producer status was provided;`, () => {
+        const producerCard = renderComponent();
+        expect(producerCard.find('div.producer-card-layout')).toHaveLength(1);
+        expect(producerCard.find('strong.producer-card-price')).toHaveLength(1);
+        expect(producerCard.find('.producer-card-name h3')).toHaveLength(1);
+        expect(producerCard.find('.producer-card-name small')).toHaveLength(0);
+
+        producerCard.setProps({ producer: { ...producerDummy, status: 'sold out' } });
+        expect(producerCard.find('.producer-card-name small')).toHaveLength(1);
     });
 
     it('should renders with default image', () => {

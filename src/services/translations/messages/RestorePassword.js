@@ -24,6 +24,10 @@ const messages = defineMessages({
     invalidEmailError: {
         id: 'app.restorePasswordPage.errors.invalidEmail',
         defaultMessage: 'Invalid email.'
+    },
+    tokenWasCreated: {
+        id: 'app.restorePasswordPage.info.tokenWasCreated',
+        defaultMessage: 'You will receive reset password link on your email'
     }
 });
 

@@ -25,7 +25,9 @@ const props = {
         capacity: 8,
         selectedSince: 'Sep 12 - Feb 22',
         ethereumAddress: '0x3E7e5d1810F825a2B27C6BEC5fCB32F3eaCd192e',
-        location: 'Lippendorf, Neukieritzsch'
+        location: 'Lippendorf, Neukieritzsch',
+        marketPrice: null,
+        status: 'active'
     },
     description: 'Lorem ipsum text',
     picture: 'http://via.placeholder.com/350x150'
@@ -95,22 +97,46 @@ describe('<ProducerInfo /> Component', () => {
         const newProps = {
             ...props,
             details: {
-                price: 2.4
-            },
-            marketPrice: 1.2
+                price: 2.3,
+                marketPrice: 1.2
+            }
         };
         const component = renderComponent(newProps);
-        const { labels, details, marketPrice } = newProps;
+        const { labels, details } = newProps;
 
         const priceRow = component.find('.producer-information-row');
         expect(priceRow.length).toEqual(1);
         expect(priceRow.at(0).text()).toContain(labels.price);
         expect(priceRow.at(0).text()).toContain(labels.marketPrice);
         expect(priceRow.at(0).text()).toContain(`${formatFloat(details.price)}`);
-        expect(priceRow.at(0).text()).toContain(`${formatFloat(marketPrice)}`);
+        expect(priceRow.at(0).text()).toContain(`${formatFloat(details.marketPrice)}`);
+        expect(priceRow.at(0).text()).toEqual(
+            `${labels.price}${formatFloat(details.price)} ct/kWhmarket price is 1.2 ct/kWh`
+        );
 
         expect(component.find('.producer-information-market-value').length).toEqual(1);
         expect(component.find('small').length).toEqual(1);
         expect(component.find('strong').length).toEqual(1);
+    });
+
+    it('should use market price as price if producer has status standard', () => {
+        const newProps = {
+            ...props,
+            details: {
+                price: 2.3,
+                marketPrice: 1.2,
+                status: 'standard'
+            }
+        };
+        const component = renderComponent(newProps);
+        const { labels, details } = newProps;
+
+        const priceRow = component.find('.producer-information-row');
+        expect(priceRow.length).toEqual(1);
+        expect(priceRow.at(0).text()).toEqual(`${labels.price}${formatFloat(details.marketPrice)} ct/kWh`);
+
+        expect(component.find('.producer-information-market-value').length).toEqual(0);
+        expect(component.find('small').length).toEqual(0);
+        expect(component.find('strong').length).toEqual(0);
     });
 });

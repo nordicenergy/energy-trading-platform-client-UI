@@ -85,6 +85,7 @@ function renderComponent(
 describe('<SellEnergy /> container', () => {
     beforeEach(() => {
         appActions.performSetupLoaderVisibility = jest.fn();
+        appActions.performSetupBreadcrumbs = jest.fn();
     });
 
     afterEach(() => {
@@ -127,11 +128,19 @@ describe('<SellEnergy /> container', () => {
                     loading: false,
                     error: null
                 }
+            },
+            App: {
+                localization: {
+                    data: {
+                        locale: 'en'
+                    }
+                }
             }
         };
         const props = SellEnergy.mapStateToProps(stateMock);
 
         expect(props).toEqual({
+            locale: 'en',
             offers: offersDummy,
             user: { id: 'testUserId' },
             ownedProducerOfferInfo: ownedProducerDummy,
@@ -298,5 +307,17 @@ describe('<SellEnergy /> container', () => {
         const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
+    });
+
+    it('should setup translated breadcrumbs when locale changed', () => {
+        const sellEnergy = renderComponent();
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+
+        sellEnergy.setProps({
+            locale: 'de'
+        });
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
     });
 });
