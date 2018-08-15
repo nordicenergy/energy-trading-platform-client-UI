@@ -1,16 +1,18 @@
 import React from 'react';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import { BuyEnergy } from '../BuyEnergy';
+import { ProducerCardsPanel, BackLink, ProducersFilter, OptionLinks } from '../../../components';
 import * as producersActionPerformers from '../../../action_performers/producers';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
 import * as appActionPerformers from '../../../action_performers/app';
 
 const producersDummy = [
-    { id: 0, price: 2.9, plantType: 'solar', name: 'John Doe' },
-    { id: 1, price: 2, plantType: 'wind', name: 'Peter Producer' },
-    { id: 2, price: 1, plantType: 'biomass', name: 'Jeremy' },
-    { id: 3, price: 5, plantType: 'wind', name: 'Blark' },
-    { id: 4, price: 1, plantType: 'solar', name: 'Alice' }
+    { id: 0, price: 2.9, plantType: 'default', name: 'John Doe', status: 'standard' },
+    { id: 1, price: 2, plantType: 'wind', name: 'Peter Producer', status: 'sold out' },
+    { id: 2, price: 1, plantType: 'biomass', name: 'Jeremy', status: 'active' },
+    { id: 3, price: 5, plantType: 'wind', name: 'Blark', status: 'active' },
+    { id: 4, price: 1, plantType: 'solar', name: 'Alice', status: 'active' },
+    { id: 5, price: 67, plantType: 'specific', name: 'Dr. Doom', status: 'active' }
 ];
 const currentProducerDummy = producersDummy[1];
 const routerStub = {
@@ -68,7 +70,15 @@ describe('<BuyEnergy /> container', () => {
         routerStub.history.push.mockClear();
     });
 
-    it('should renders without errors', () => {
+    it(`should renders without errors and contains following elements:
+        - <section.buy-energy-page> element;
+        - <header.buy-energy-page-header> element;
+        - <h1> element;
+        - <h2> element;
+        - <BackLink> element;
+        - <ProducersFilter> element;
+        - <ProducerCardsPanel> element;
+        - <OptionLinks> element;`, () => {
         const buyEnergy = renderComponent({
             currentProducerLoading: true,
             producersLoading: true
@@ -79,6 +89,24 @@ describe('<BuyEnergy /> container', () => {
             'scroll',
             buyEnergy.instance().scrollHandler
         );
+
+        expect(buyEnergy.find('section.buy-energy-page')).toHaveLength(1);
+        expect(buyEnergy.find('header.buy-energy-page-header')).toHaveLength(1);
+        expect(buyEnergy.find('h1')).toHaveLength(1);
+        expect(buyEnergy.find('h2')).toHaveLength(1);
+        expect(buyEnergy.find(BackLink)).toHaveLength(1);
+        expect(buyEnergy.find(ProducerCardsPanel)).toHaveLength(1);
+        expect(buyEnergy.find(ProducersFilter)).toHaveLength(1);
+        expect(buyEnergy.find(OptionLinks)).toHaveLength(1);
+
+        expect(buyEnergy.find(ProducerCardsPanel).props().producers).toEqual([
+            { id: 0, name: 'John Doe', plantType: 'Default', price: 2.9, status: null },
+            { id: 1, name: 'Peter Producer', plantType: 'Wind', price: 2, status: 'sold out' },
+            { id: 2, name: 'Jeremy', plantType: 'Biomass', price: 1, status: null },
+            { id: 3, name: 'Blark', plantType: 'Wind', price: 5, status: null },
+            { id: 4, name: 'Alice', plantType: 'Solar', price: 1, status: null },
+            { id: 5, name: 'Dr. Doom', plantType: 'Other', price: 67, status: null }
+        ]);
 
         buyEnergy.unmount();
         expect(mainContainerElement.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);

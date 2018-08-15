@@ -96,7 +96,9 @@ export class DirectTrading extends AbstractContainer {
         const isLedgerStatusSuccessful = ledgerStatus.status === SUCCESS_LEDGER_STATUS;
         const isNewTransactionPerformed = performedTransaction !== prevProps.performedTransaction;
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
 
         if (isLedgerStatusChanged) {
             this.setState({

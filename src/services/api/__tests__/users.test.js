@@ -124,6 +124,8 @@ describe('Users API Service', () => {
             })
         );
         verifyResetPasswordToken('testToken');
-        expect(Axios.get).toHaveBeenCalledWith('/api/user/resetPasswordToken/testToken');
+        expect(Axios.get).toHaveBeenCalledWith('/api/user/resetPasswordToken/testToken', {
+            headers: { 'Cache-Control': 'no-cache' }
+        });
     });
 });

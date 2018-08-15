@@ -31,7 +31,7 @@ const billProps = {
                   operating companies and global wholesale markets for
                   energy and energy-related raw materials in both their
                   physical and/or derivative forms.`,
-    picture: 'https://pbs.twimg.com/profile_images/929933611754708992/ioSgz49P_400x400.jpg'
+    picture: 'https://upload.wikimedia.org/wikipedia/en/7/76/Darth_Vader.jpg'
 };
 
 <div style={{ backgroundColor: 'white', padding: '10px' }}>
@@ -77,7 +77,7 @@ const billProps = {
 </div>;
 ```
 
-ProducerInfo example (rectangle profile image):
+ProducerInfo example (rectangle profile image, standard):
 
 ```jsx
 const lukeProps = {
@@ -98,6 +98,7 @@ const lukeProps = {
         annualProduction: 3000,
         purchased: 1300,
         capacity: 8,
+        status: 'standard',
         selectedSince: 'Sep 12 - Feb 22',
         location: 'Neuer Hafen 10, Schwedt, DE 16303'
     },
@@ -106,7 +107,7 @@ const lukeProps = {
                   operating companies and global wholesale markets for
                   energy and energy-related raw materials in both their
                   physical and/or derivative forms.`,
-    picture: 'https://vignette.wikia.nocookie.net/starwars/images/2/20/LukeTLJ.jpg/revision/latest?cb=20170927034529'
+    picture: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Luke_Skywalker.png'
 };
 
 <div style={{ backgroundColor: 'white', padding: '10px' }}>

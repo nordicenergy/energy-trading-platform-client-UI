@@ -98,6 +98,7 @@
 
     --producer-card-bg-color: var(--black-pearl-color);
     --producer-card-border-color: var(--scooter-color);
+    --producer-card-status: var(--scooter-color);
     --producer-card-active-bg-color: var(--scooter-color);
 
     --producer-filters-border-color: var(--geyser-color);
@@ -148,7 +149,7 @@
     --trade-position-general-color: var(--big-stone-color);
     --trade-position-performed-color: var(--emerald-color);
 
-    --focused-control-outline: var(--border-width) dotted var(--steel-blue-color);
+    --tooltip-shadow-color: var(--stone-gray-color);
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;
@@ -156,6 +157,7 @@
     --page-paddings: 1.5rem 2rem 2rem;
     --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-color);
     --side-bar-width: 20.5rem;
+    --focused-control-outline: var(--border-width) dotted var(--steel-blue-color);
 }
 
 body {

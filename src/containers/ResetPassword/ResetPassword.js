@@ -64,7 +64,9 @@ export class ResetPassword extends AbstractContainer {
             });
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     prepareValidator() {

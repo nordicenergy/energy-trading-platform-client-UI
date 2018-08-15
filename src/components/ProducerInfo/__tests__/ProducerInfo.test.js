@@ -27,7 +27,7 @@ const props = {
         ethereumAddress: '0x3E7e5d1810F825a2B27C6BEC5fCB32F3eaCd192e',
         location: 'Lippendorf, Neukieritzsch',
         marketPrice: null,
-        standard: false
+        status: 'active'
     },
     description: 'Lorem ipsum text',
     picture: 'http://via.placeholder.com/350x150'
@@ -119,13 +119,13 @@ describe('<ProducerInfo /> Component', () => {
         expect(component.find('strong').length).toEqual(1);
     });
 
-    it('should render market price as main price info if it is provided and it is standard producer', () => {
+    it('should use market price as price if producer has status standard', () => {
         const newProps = {
             ...props,
             details: {
-                price: 2.2,
-                marketPrice: 1.1,
-                standard: true
+                price: 2.3,
+                marketPrice: 1.2,
+                status: 'standard'
             }
         };
         const component = renderComponent(newProps);
@@ -133,20 +133,6 @@ describe('<ProducerInfo /> Component', () => {
 
         const priceRow = component.find('.producer-information-row');
         expect(priceRow.length).toEqual(1);
-        expect(priceRow.at(0).text()).toContain(labels.price);
-        expect(
-            priceRow
-                .at(0)
-                .text()
-                .includes(labels.marketPrice)
-        ).toBeFalsy();
-        expect(
-            priceRow
-                .at(0)
-                .text()
-                .includes(`${formatFloat(details.price)}`)
-        ).toBeFalsy();
-        expect(priceRow.at(0).text()).toContain(`${formatFloat(details.marketPrice)}`);
         expect(priceRow.at(0).text()).toEqual(`${labels.price}${formatFloat(details.marketPrice)} ct/kWh`);
 
         expect(component.find('.producer-information-market-value').length).toEqual(0);

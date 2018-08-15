@@ -17,14 +17,40 @@
     text-align: left;
 }
 
-.producer-page-controls {
-    padding: 1em 1.5em 1.5em;
+.producer-page-status {
     text-align: left;
+    margin-bottom: 0.875em;
 }
 
+.producer-page-status strong {
+    padding: 1.07em 1.14em 0.78em;
+    background: var(--link-color);
+    border-bottom-right-radius: 1.07em;
+    border-top-right-radius: 1.07em;
+    color: white;
+
+    font-size: 0.875rem;
+    font-weight: bold;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.producer-page-controls {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 1em 1.5em 1.5em;
+}
+
+.producer-page-controls .producer-page-help,
 .producer-page-controls button {
     margin-right: 1.5em;
     margin-top: 0.5em;
+}
+
+.producer-page-controls .producer-page-help {
+    display: inline-block;
+    line-height: 0.5;
 }
 
 @media screen and (max-width: 1023px) {
@@ -47,11 +73,16 @@
 
 @media screen and (max-width: 767px) {
     .producer-page-controls {
+        flex-direction: column;
         padding: 1em;
     }
 
     .producer-page-controls button {
         margin: 0.5em 0;
         width: 100%;
+    }
+
+    .producer-page-controls .producer-page-help {
+        display: none;
     }
 }

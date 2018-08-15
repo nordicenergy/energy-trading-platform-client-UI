@@ -49,6 +49,10 @@ const messages = defineMessages({
         id: 'app.producerPage.selectButton',
         defaultMessage: 'Select producer'
     },
+    producerSoldOutHelpText: {
+        id: 'app.producerPage.soldOutHelpText',
+        defaultMessage: `You can't select producers with "sold out" status`
+    },
     showButton: {
         id: 'app.producerPage.showButton',
         defaultMessage: 'Show producers'

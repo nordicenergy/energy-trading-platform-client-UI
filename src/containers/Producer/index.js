@@ -27,7 +27,7 @@ function prepareProducerInfoProps(translate, producer, user = {}) {
             selectedSince: producer.dates,
             ethereumAddress: producer.ethereumAddress,
             location: producer.location,
-            standard: producer.standard
+            status: producer.status
         },
         description: producer.description,
         picture: producer.picture

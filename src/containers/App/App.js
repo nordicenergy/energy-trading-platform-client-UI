@@ -10,7 +10,7 @@ import { App as messages } from '../../services/translations/messages';
 import { MenuSideBar, Header, Footer, Confirm } from '../../components';
 import './App.css';
 
-export class App extends React.Component {
+export class App extends React.PureComponent {
     static mapStateToProps({ Users, App }) {
         return {
             loggingOut: Users.logout.loading,
@@ -34,7 +34,9 @@ export class App extends React.Component {
             this.navigateTo('/login');
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     setupLocale() {

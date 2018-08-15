@@ -19,7 +19,6 @@ describe('<Trading /> Container', () => {
     beforeEach(() => {
         context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
-        context.intl.formatMessage.mockReturnValue('test');
     });
 
     it(`should contains following controls:
@@ -39,13 +38,6 @@ describe('<Trading /> Container', () => {
         expect(headers.at(0).text()).toEqual('Trading');
     });
 
-    it('should setup correctly map state to props translations', () => {
-        const component = renderComponent(context);
-        component.setContext(context);
-
-        expect(context.intl.formatMessage.mock.calls.length).toEqual(13);
-    });
-
     it('should setup correct translations', () => {
         const props = Trading.mapStateToProps({});
 
@@ -63,14 +55,14 @@ describe('<Trading /> Container', () => {
         const [[route]] = context.router.history.push.mock.calls;
         expect(route).toEqual('/show_transactions');
         expect(table.props().labels).toEqual({
-            button: 'test',
-            caption: 'test',
-            energyType: 'test',
-            producer: 'test',
-            received: 'test',
-            sent: 'test',
-            total: 'test',
-            trx: 'test'
+            button: 'More',
+            caption: 'Wattcoin',
+            energyType: 'Type of energy',
+            producer: 'Producer',
+            received: 'Received',
+            sent: 'Sent',
+            total: 'Total',
+            trx: 'Transaction'
         });
         expect(table.props().data).toEqual({
             count: { received: 6, sent: 3, trx: 5 },

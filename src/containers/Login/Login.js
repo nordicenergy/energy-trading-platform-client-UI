@@ -41,7 +41,9 @@ export class Login extends AbstractContainer {
             });
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     handleSuccessfulAuthentication() {

@@ -10,7 +10,12 @@
     "app.plantType.biomass": "Biomasseanlage",
     "app.plantType.solar": "Solaranlage",
     "app.plantType.wind": "Windkraftanlage",
+    "app.plantType.default": "Default",
     "app.plantType.other": "Sonstige",
+
+    "app.producerStatus.standard": "standard",
+    "app.producerStatus.soldOut": "sold out",
+    "app.producerStatus.active": "active",
 
     "app.txStatuses.pending": "Pending",
     "app.txStatuses.fail": "Failure",
@@ -143,6 +148,7 @@
     "app.producerPage.switchBack": "Zurück zum Lition Standardtarif",
     "app.producerPage.showButton": "Erzeuger anzeigen",
     "app.producerPage.ethereumAddress": "Ethereum Address",
+    "app.producerPage.soldOutHelpText": "You can't select producers with \"sold out\" status",
 
     "app.header.logoutConfirmMessage": "Sind Sie sicher, dass Sie sich vom Portal abmelden möchten?",
     "app.header.logoutConfirmButton": "Ja",

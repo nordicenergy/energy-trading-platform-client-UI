@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { PLANT_TYPES, KEYBOARD_KEY_VALUES } from '../../../constants';
+import { KEYBOARD_KEY_VALUES } from '../../../constants';
 import defaultImage from './defaultImage.png';
 import './ProducerCard.css';
 
@@ -32,7 +32,10 @@ class ProducerCard extends React.Component {
                         </strong>
                         <span className="producer-card-plant-type">{producer.plantType}</span>
                     </div>
-                    <h3 className="producer-card-name">{producer.name}</h3>
+                    <div className="producer-card-name">
+                        {producer.status && <small className="producer-card-status">{producer.status}</small>}
+                        <h3>{producer.name}</h3>
+                    </div>
                 </div>
             </div>
         );
@@ -44,7 +47,8 @@ export const ProducerType = PropTypes.shape({
     price: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     picture: PropTypes.string,
-    plantType: PropTypes.oneOf([PLANT_TYPES.wind, PLANT_TYPES.solar, PLANT_TYPES.biomass, PLANT_TYPES.other]).isRequired
+    status: PropTypes.string,
+    plantType: PropTypes.string.isRequired
 });
 ProducerCard.propTypes = {
     className: PropTypes.string,

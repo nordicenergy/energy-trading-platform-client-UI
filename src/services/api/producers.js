@@ -1,22 +1,29 @@
 import Axios from 'axios';
 import { getUserData } from './users';
-import { SESSION_API_URL, LIMIT, LITION_STANDARD_PLANT_ID } from '../../constants';
+import { SESSION_API_URL, LIMIT, LITION_STANDARD_PLANT_ID, PRODUCER_STATUSES } from '../../constants';
 
 export function getProducer(id) {
     const result = { data: { producer: {} } };
 
-    return Axios.get(`${SESSION_API_URL}/producers/${id}/get`).then(response => {
-        if (response.data && response.data.producer) {
-            const { producer } = response.data;
-            result.data.producer = {
-                ...producer,
-                location: locationTag`${producer.street}, ${producer.postcode} ${producer.city}, ${producer.country}`,
-                annualProduction: producer.productionOfLastDay,
-                purchased: producer.energyPurchased,
-                ethereumAddress: producer.dlAddress
-            };
-        }
-        return result;
+    return getUserData().then(response => {
+        const { data: { user: { workingPrice = 0 } = {} } = {} } = response;
+
+        return Axios.get(`${SESSION_API_URL}/producers/${id}/get`).then(response => {
+            if (response.data && response.data.producer) {
+                const { producer } = response.data;
+                result.data.producer = {
+                    ...producer,
+                    location: locationTag`${producer.street}, ${producer.postcode} ${producer.city}, ${
+                        producer.country
+                    }`,
+                    annualProduction: producer.productionOfLastDay,
+                    purchased: producer.energyPurchased,
+                    ethereumAddress: producer.dlAddress,
+                    price: calculatePrice(workingPrice, producer)
+                };
+            }
+            return result;
+        });
     });
 }
 
@@ -27,17 +34,6 @@ export function getCurrentMarketPrice() {
             data: price
         };
     });
-}
-
-function locationTag(strings, ...values) {
-    const formatted = values.map((value, index) => {
-        if (!!value) {
-            return `${value}${strings[index + 1] || ''}`;
-        }
-        return '';
-    });
-
-    return formatted.join('');
 }
 
 export function getProducerHistory(/* producerId, { page = 0 } = {} */) {
@@ -73,14 +69,32 @@ export function selectProducer(producerId) {
 }
 
 export function getProducers({ page = 0, filter = [] } = {}) {
+    const result = { data: { producers: [] } };
+
     let filterQuery = '';
     for (let i = 0; i < filter.length; i++) {
         const type = filter[i];
         const nextSymbol = i === filter.length - 1 ? '' : '&';
         filterQuery += `type=${type}${nextSymbol}`;
     }
-    return Axios.get(`${SESSION_API_URL}/producers/direct?${filterQuery}`, {
-        params: { limit: LIMIT, offset: page * LIMIT }
+
+    return getUserData().then(response => {
+        const { data: { user: { workingPrice = 0 } = {} } = {} } = response;
+        return Axios.get(`${SESSION_API_URL}/producers/direct?${filterQuery}`, {
+            params: { limit: LIMIT, offset: page * LIMIT }
+        }).then(response => {
+            if (response.data && response.data.producers) {
+                const { producers } = response.data;
+                result.data.producers = producers.map(producer => {
+                    return {
+                        ...producer,
+                        price: calculatePrice(workingPrice, producer)
+                    };
+                });
+            }
+
+            return result;
+        });
     });
 }
 
@@ -112,4 +126,19 @@ export function getOwnedProducerOffersHistory(producerId) {
             data: formattedOffers
         };
     });
+}
+
+function calculatePrice(workingPrice, producer) {
+    return PRODUCER_STATUSES.standard === producer.status ? workingPrice : workingPrice + producer.price;
+}
+
+function locationTag(strings, ...values) {
+    const formatted = values.map((value, index) => {
+        if (!!value) {
+            return `${value}${strings[index + 1] || ''}`;
+        }
+        return '';
+    });
+
+    return formatted.join('');
 }

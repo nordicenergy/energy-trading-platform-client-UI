@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { PLANT_TYPES } from '../../constants';
+import { PLANT_TYPES, PRODUCER_STATUSES } from '../../constants';
 import { PATHS } from '../../services/routes';
-import { convertPlantType } from '../../services/translations/enums';
+import { convertPlantType, convertProducerStatus } from '../../services/translations/enums';
 import { BuyEnergy as messages } from '../../services/translations/messages';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
@@ -96,7 +96,12 @@ export class BuyEnergy extends AbstractContainer {
             performPushNotification({ message: newError.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(shouldShowFullScreenLoader);
+        if (
+            prevProps.currentProducerLoading !== currentProducerLoading ||
+            prevProps.producersLoading !== producersLoading
+        ) {
+            performSetupLoaderVisibility(shouldShowFullScreenLoader);
+        }
     }
 
     componentWillUnmount() {
@@ -111,6 +116,20 @@ export class BuyEnergy extends AbstractContainer {
             label: formatMessage(option.label),
             type: option.type
         }));
+    }
+
+    prepareProducers() {
+        const { formatMessage } = this.context.intl;
+        const { producers } = this.props;
+        return producers.map(producer => {
+            const plantType = formatMessage(convertPlantType(producer.plantType));
+            const status =
+                producer.status === PRODUCER_STATUSES.soldOut
+                    ? formatMessage(convertProducerStatus(producer.status))
+                    : null;
+
+            return { ...producer, status, plantType };
+        });
     }
 
     setupBuyEnergyBreadcrumbs() {
@@ -144,7 +163,7 @@ export class BuyEnergy extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { currentProducer, producersLoading, producers } = this.props;
+        const { currentProducer, producersLoading } = this.props;
         const { filter, page } = this.state;
         const shouldShowListLoader = producersLoading && page >= 1;
 
@@ -177,7 +196,7 @@ export class BuyEnergy extends AbstractContainer {
                 <ProducerCardsPanel
                     className="buy-energy-page-producers"
                     loading={shouldShowListLoader}
-                    producers={producers}
+                    producers={this.prepareProducers()}
                     selectedProducerId={currentProducer.id}
                     onProducerClick={producerId => {
                         this.handleProducerClick(producerId);

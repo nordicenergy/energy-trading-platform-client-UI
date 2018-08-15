@@ -7,8 +7,8 @@ const wrapperStyle = {
 };
 const producers = [
     { id: 0, price: 2.9, plantType: 'solar', name: 'John Doe' },
-    { id: 1, price: 2, plantType: 'wind', name: 'Peter Producer' },
-    { id: 2, price: 1, plantType: 'biomass', name: 'Jeremy' },
+    { id: 1, price: 2, plantType: 'wind', name: 'Peter Producer', status: 'sold out' },
+    { id: 2, price: 1, plantType: 'biomass', name: 'Jeremy', status: 'sold out' },
     { id: 3, price: 5, plantType: 'wind', name: 'Blark' },
     { id: 4, price: 1, plantType: 'solar', name: 'Alice' },
     { id: 5, price: 1, plantType: 'default', name: 'Standard' }
@@ -28,8 +28,8 @@ const wrapperStyle = {
 };
 const producers = [
     { id: 0, price: 2.9, plantType: 'solar', name: 'John Doe' },
-    { id: 1, price: 2, plantType: 'wind', name: 'Peter Producer' },
-    { id: 2, price: 1, plantType: 'biomass', name: 'Jeremy' },
+    { id: 1, price: 2, plantType: 'wind', name: 'Peter Producer', status: 'sold out' },
+    { id: 2, price: 1, plantType: 'biomass', name: 'Jeremy', status: 'sold out' },
     { id: 3, price: 5, plantType: 'wind', name: 'Blark' },
     { id: 4, price: 1, plantType: 'solar', name: 'Alice' }
 ];
