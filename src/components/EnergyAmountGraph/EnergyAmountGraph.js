@@ -15,17 +15,17 @@ const EnergyAmountGraph = ({ title = '', subtitle = '', data = {} }) => {
                 <h2>{subtitle}</h2>
             </figcaption>
             {/*<Plot*/}
-                {/*className="graph"*/}
-                {/*data={[*/}
-                    {/*{*/}
-                        {/*x: [...dates],*/}
-                        {/*y: [...amounts],*/}
-                        {/*...options.data*/}
-                    {/*}*/}
-                {/*]}*/}
-                {/*layout={options.layout}*/}
-                {/*config={options.config}*/}
-                {/*useResizeHandler={true}*/}
+            {/*className="graph"*/}
+            {/*data={[*/}
+            {/*{*/}
+            {/*x: [...dates],*/}
+            {/*y: [...amounts],*/}
+            {/*...options.data*/}
+            {/*}*/}
+            {/*]}*/}
+            {/*layout={options.layout}*/}
+            {/*config={options.config}*/}
+            {/*useResizeHandler={true}*/}
             {/*/>*/}
         </figure>
     );
