@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { performGetDocuments } from '../../action_performers/documents';
+import { performGetDocuments, performDownloadDocument } from '../../action_performers/documents';
 import { Documents as messages } from '../../services/translations/messages';
 import { DocumentsList } from '../../components';
 
@@ -22,11 +22,11 @@ export class MyDocuments extends AbstractContainer {
         const { data: docData } = state.Documents.documentsList;
 
         return {
-            loading: state.Documents.documentsList.loading,
+            loading: state.Documents.documentsList.loading || state.Documents.download.loading,
             documentsLoading: state.Documents.documentsList.loading,
             hasNextDocuments: docData.numberOfDocuments > docData.documents.length,
             documents: docData.documents,
-            error: state.Documents.documentsList.error
+            error: state.Documents.documentsList.error || state.Documents.download.error
         };
     }
 
@@ -76,7 +76,12 @@ export class MyDocuments extends AbstractContainer {
                 <h1>{formatMessage(messages.header)}</h1>
                 <section>
                     {hasDocuments ? (
-                        <DocumentsList documents={documents} loading={documentsLoading} pagination />
+                        <DocumentsList
+                            documents={documents}
+                            loading={documentsLoading}
+                            pagination
+                            download={performDownloadDocument}
+                        />
                     ) : null}
                 </section>
             </section>
