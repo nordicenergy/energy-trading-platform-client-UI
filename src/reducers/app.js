@@ -63,7 +63,9 @@ export function appReducer(state = initialState, action) {
             return {
                 ...state,
                 localization: {
-                    data: termsAndConditionsData ? { ...state.localization.data, termsAndConditions: termsAndConditionsData } : state.localization.data,
+                    data: termsAndConditionsData
+                        ? { ...state.localization.data, termsAndConditions: termsAndConditionsData }
+                        : state.localization.data,
                     loading: { ...state.localization.loading, termsAndConditions: action.loading },
                     error: { ...state.localization.error, termsAndConditions: action.error }
                 }

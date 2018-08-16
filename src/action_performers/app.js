@@ -15,5 +15,10 @@ export function performSetupLocale(locale) {
         locale
     ]);
     dispatcher.dispatchPromise(getFAQContent, 'GET_FAQ', state => state.App.localization.loading.faq, [locale]);
-    dispatcher.dispatchPromise(getTermsAndConditions, 'GET_TERMS_AND_CONDITIONS', state => state.App.localization.loading.termsAndConditions, [locale]);
+    dispatcher.dispatchPromise(
+        getTermsAndConditions,
+        'GET_TERMS_AND_CONDITIONS',
+        state => state.App.localization.loading.termsAndConditions,
+        [locale]
+    );
 }

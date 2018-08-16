@@ -49,21 +49,33 @@ describe('App reducer:', () => {
         it('should handle GET_ABOUT_US', () => {
             const result = appReducer(initialState, ACTIONS.getAboutUs.fail);
             expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
-            expect(result.localization.error).toEqual({ aboutUs: ACTIONS.getAboutUs.fail.error, faq: null, termsAndConditions: null });
+            expect(result.localization.error).toEqual({
+                aboutUs: ACTIONS.getAboutUs.fail.error,
+                faq: null,
+                termsAndConditions: null
+            });
             expect(result.localization.data).toEqual(initialState.localization.data);
         });
 
         it('should handle GET_TERMS_AND_CONDITIONS', () => {
             const result = appReducer(initialState, ACTIONS.getTermsAndConditions.fail);
             expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
-            expect(result.localization.error).toEqual({ termsAndConditions: ACTIONS.getTermsAndConditions.fail.error, aboutUs: null, faq: null });
+            expect(result.localization.error).toEqual({
+                termsAndConditions: ACTIONS.getTermsAndConditions.fail.error,
+                aboutUs: null,
+                faq: null
+            });
             expect(result.localization.data).toEqual(initialState.localization.data);
         });
 
         it('should handle GET_FAQ', () => {
             const result = appReducer(initialState, ACTIONS.getFaq.fail);
             expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
-            expect(result.localization.error).toEqual({ aboutUs: null, faq: ACTIONS.getFaq.fail.error, termsAndConditions: null });
+            expect(result.localization.error).toEqual({
+                aboutUs: null,
+                faq: ACTIONS.getFaq.fail.error,
+                termsAndConditions: null
+            });
             expect(result.localization.data).toEqual(initialState.localization.data);
         });
     });

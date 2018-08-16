@@ -48,7 +48,12 @@ describe('Users action performers', () => {
         const [
             [getAboutUsMethod, getAboutUsType, getAboutUsLoadingFunc, getAboutUsMeta],
             [getFaqMethod, getFaqType, getFaqLoadingFunc, getFaqMeta],
-            [getTermsAndConditionsMethod, getTermsAndConditionsType, getTermsAndConditionsLoadingFunc, getTermsAndConditionsMeta]
+            [
+                getTermsAndConditionsMethod,
+                getTermsAndConditionsType,
+                getTermsAndConditionsLoadingFunc,
+                getTermsAndConditionsMeta
+            ]
         ] = dispatcher.dispatchPromise.mock.calls;
         const aboutUsLoading = getAboutUsLoadingFunc({
             App: { localization: { loading: { aboutUs: 'TEST' } } }
