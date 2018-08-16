@@ -1,5 +1,5 @@
 import { dispatcher } from '../store';
-import { getAboutUsContent, getFAQContent } from '../services/api/app';
+import { getAboutUsContent, getFAQContent, getTermsAndConditions } from '../services/api/app';
 
 export function performSetupBreadcrumbs(breadcrumbs) {
     dispatcher.dispatchAction('SETUP_BREADCRUMBS', breadcrumbs);
@@ -15,4 +15,5 @@ export function performSetupLocale(locale) {
         locale
     ]);
     dispatcher.dispatchPromise(getFAQContent, 'GET_FAQ', state => state.App.localization.loading.faq, [locale]);
+    dispatcher.dispatchPromise(getTermsAndConditions, 'GET_TERMS_AND_CONDITIONS', state => state.App.localization.loading.termsAndConditions, [locale]);
 }

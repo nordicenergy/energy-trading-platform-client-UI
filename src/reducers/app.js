@@ -5,15 +5,18 @@ export const initialState = {
         data: {
             locale: localStorage.getItem('locale'),
             aboutUs: [],
-            faq: []
+            faq: [],
+            termsAndConditions: []
         },
         loading: {
             faq: false,
-            aboutUs: false
+            aboutUs: false,
+            termsAndConditions: false
         },
         error: {
             faq: null,
-            aboutUs: null
+            aboutUs: null,
+            termsAndConditions: null
         }
     }
 };
@@ -53,6 +56,16 @@ export function appReducer(state = initialState, action) {
                     data: aboutUsData ? { ...state.localization.data, aboutUs: aboutUsData } : state.localization.data,
                     loading: { ...state.localization.loading, aboutUs: action.loading },
                     error: { ...state.localization.error, aboutUs: action.error }
+                }
+            };
+        case 'GET_TERMS_AND_CONDITIONS':
+            const termsAndConditionsData = action && action.payload;
+            return {
+                ...state,
+                localization: {
+                    data: termsAndConditionsData ? { ...state.localization.data, termsAndConditions: termsAndConditionsData } : state.localization.data,
+                    loading: { ...state.localization.loading, termsAndConditions: action.loading },
+                    error: { ...state.localization.error, termsAndConditions: action.error }
                 }
             };
         case 'SETUP_LOCALE':

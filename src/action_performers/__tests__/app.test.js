@@ -1,5 +1,6 @@
 import { dispatcher } from '../../store';
 import { performSetupBreadcrumbs, performSetupLoaderVisibility, performSetupLocale } from '../app';
+import { getTermsAndConditions } from '../../services/api/app';
 
 describe('Users action performers', () => {
     beforeEach(() => {
@@ -46,7 +47,8 @@ describe('Users action performers', () => {
 
         const [
             [getAboutUsMethod, getAboutUsType, getAboutUsLoadingFunc, getAboutUsMeta],
-            [getFaqMethod, getFaqType, getFaqLoadingFunc, getFaqMeta]
+            [getFaqMethod, getFaqType, getFaqLoadingFunc, getFaqMeta],
+            [getTermsAndConditionsMethod, getTermsAndConditionsType, getTermsAndConditionsLoadingFunc, getTermsAndConditionsMeta]
         ] = dispatcher.dispatchPromise.mock.calls;
         const aboutUsLoading = getAboutUsLoadingFunc({
             App: { localization: { loading: { aboutUs: 'TEST' } } }
@@ -56,11 +58,15 @@ describe('Users action performers', () => {
             App: { localization: { loading: { faq: 'TEST' } } }
         });
 
+        const termsAndConditionsLoading = getTermsAndConditionsLoadingFunc({
+            App: { localization: { loading: { termsAndConditions: 'TEST' } } }
+        });
+
         expect(dispatcher.dispatchAction).toHaveBeenCalledTimes(1);
         expect(setupLocaleType).toBe('SETUP_LOCALE');
         expect(setupLocalePayload).toBe('en');
 
-        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(2);
+        expect(dispatcher.dispatchPromise).toHaveBeenCalledTimes(3);
         expect(getAboutUsMethod.name).toEqual('getAboutUsContent');
         expect(getAboutUsType).toEqual('GET_ABOUT_US');
         expect(aboutUsLoading).toEqual('TEST');
@@ -70,5 +76,10 @@ describe('Users action performers', () => {
         expect(getFaqType).toEqual('GET_FAQ');
         expect(faqLoading).toEqual('TEST');
         expect(getFaqMeta).toEqual(['en']);
+
+        expect(getTermsAndConditionsMethod.name).toEqual('getTermsAndConditions');
+        expect(getTermsAndConditionsType).toEqual('GET_TERMS_AND_CONDITIONS');
+        expect(termsAndConditionsLoading).toEqual('TEST');
+        expect(getTermsAndConditionsMeta).toEqual(['en']);
     });
 });

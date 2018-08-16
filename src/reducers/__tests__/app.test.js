@@ -25,15 +25,22 @@ describe('App reducer:', () => {
     describe('Pending cases:', () => {
         it('should handle GET_ABOUT_US', () => {
             const result = appReducer(initialState, ACTIONS.getAboutUs.pending);
-            expect(result.localization.loading).toEqual({ faq: false, aboutUs: true });
-            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: true, termsAndConditions: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null, termsAndConditions: null });
+            expect(result.localization.data).toEqual(initialState.localization.data);
+        });
+
+        it('should handle GET_TERMS_AND_CONDITIONS', () => {
+            const result = appReducer(initialState, ACTIONS.getTermsAndConditions.pending);
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: true });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null, termsAndConditions: null });
             expect(result.localization.data).toEqual(initialState.localization.data);
         });
 
         it('should handle GET_FAQ', () => {
             const result = appReducer(initialState, ACTIONS.getFaq.pending);
-            expect(result.localization.loading).toEqual({ faq: true, aboutUs: false });
-            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
+            expect(result.localization.loading).toEqual({ faq: true, aboutUs: false, termsAndConditions: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null, termsAndConditions: null });
             expect(result.localization.data).toEqual(initialState.localization.data);
         });
     });
@@ -41,15 +48,22 @@ describe('App reducer:', () => {
     describe('Error cases:', () => {
         it('should handle GET_ABOUT_US', () => {
             const result = appReducer(initialState, ACTIONS.getAboutUs.fail);
-            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
-            expect(result.localization.error).toEqual({ aboutUs: ACTIONS.getAboutUs.fail.error, faq: null });
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
+            expect(result.localization.error).toEqual({ aboutUs: ACTIONS.getAboutUs.fail.error, faq: null, termsAndConditions: null });
+            expect(result.localization.data).toEqual(initialState.localization.data);
+        });
+
+        it('should handle GET_TERMS_AND_CONDITIONS', () => {
+            const result = appReducer(initialState, ACTIONS.getTermsAndConditions.fail);
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
+            expect(result.localization.error).toEqual({ termsAndConditions: ACTIONS.getTermsAndConditions.fail.error, aboutUs: null, faq: null });
             expect(result.localization.data).toEqual(initialState.localization.data);
         });
 
         it('should handle GET_FAQ', () => {
             const result = appReducer(initialState, ACTIONS.getFaq.fail);
-            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
-            expect(result.localization.error).toEqual({ aboutUs: null, faq: ACTIONS.getFaq.fail.error });
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
+            expect(result.localization.error).toEqual({ aboutUs: null, faq: ACTIONS.getFaq.fail.error, termsAndConditions: null });
             expect(result.localization.data).toEqual(initialState.localization.data);
         });
     });
@@ -57,8 +71,8 @@ describe('App reducer:', () => {
     describe('Success cases:', () => {
         it('should handle SETUP_LOCALE', () => {
             const result = appReducer(initialState, ACTIONS.setupLocale);
-            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
-            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null, termsAndConditions: null });
             expect(result.localization.data).toEqual({
                 ...initialState.localization.data,
                 locale: ACTIONS.setupLocale.payload
@@ -67,18 +81,28 @@ describe('App reducer:', () => {
 
         it('should handle GET_ABOUT_US', () => {
             const result = appReducer(initialState, ACTIONS.getAboutUs.success);
-            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
-            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null, termsAndConditions: null });
             expect(result.localization.data).toEqual({
                 ...initialState.localization.data,
                 aboutUs: ACTIONS.getAboutUs.success.payload
             });
         });
 
+        it('should handle GET_TERMS_AND_CONDITIONS', () => {
+            const result = appReducer(initialState, ACTIONS.getTermsAndConditions.success);
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null, termsAndConditions: null });
+            expect(result.localization.data).toEqual({
+                ...initialState.localization.data,
+                termsAndConditions: ACTIONS.getTermsAndConditions.success.payload
+            });
+        });
+
         it('should handle GET_FAQ', () => {
             const result = appReducer(initialState, ACTIONS.getFaq.success);
-            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false });
-            expect(result.localization.error).toEqual({ faq: null, aboutUs: null });
+            expect(result.localization.loading).toEqual({ faq: false, aboutUs: false, termsAndConditions: false });
+            expect(result.localization.error).toEqual({ faq: null, aboutUs: null, termsAndConditions: null });
             expect(result.localization.data).toEqual({
                 ...initialState.localization.data,
                 faq: ACTIONS.getFaq.success.payload
@@ -151,6 +175,29 @@ function fixtures() {
             },
             fail: {
                 type: 'GET_FAQ',
+                payload: [],
+                error: 'error message',
+                loading: false,
+                meta: ['en']
+            }
+        },
+        getTermsAndConditions: {
+            success: {
+                type: 'GET_TERMS_AND_CONDITIONS',
+                payload: ['terms and conditions info'],
+                error: null,
+                loading: false,
+                meta: ['en']
+            },
+            pending: {
+                type: 'GET_TERMS_AND_CONDITIONS',
+                payload: [],
+                error: null,
+                loading: true,
+                meta: ['en']
+            },
+            fail: {
+                type: 'GET_TERMS_AND_CONDITIONS',
                 payload: [],
                 error: 'error message',
                 loading: false,
