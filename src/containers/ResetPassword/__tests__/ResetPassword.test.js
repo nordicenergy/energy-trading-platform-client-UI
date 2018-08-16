@@ -134,7 +134,7 @@ describe('<ResetPassword /> Container', () => {
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
-            message: 'Error message'
+            message: 'Invalid reset password link'
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

@@ -54,6 +54,7 @@ describe('<EnergyAmountGraph /> Component', () => {
                 .at(0)
                 .text()
         ).toEqual('Test Subtitle');
-        expect(component.find(Plot).length).toEqual(1);
+        // TODO Uncomment after enabling Trading page
+        // expect(component.find(Plot).length).toEqual(1);
     });
 });

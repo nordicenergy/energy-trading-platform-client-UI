@@ -38,7 +38,7 @@
     "app.restorePasswordPage.loginLink": "Login",
     "app.restorePasswordPage.errors.emptyEmail": "Enter your email.",
     "app.restorePasswordPage.errors.invalidEmail": "Invalid email.",
-    "app.restorePasswordPage.info.tokenWasCreated": "You will receive reset password link on your email",
+    "app.restorePasswordPage.info.tokenWasCreated": "An email will be sent to you with a link to reset your password",
 
     "app.resetPasswordPage.formTitle": "Reset password",
     "app.resetPasswordPage.passwordField": "Enter new password",
