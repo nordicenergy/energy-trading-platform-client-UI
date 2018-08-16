@@ -118,7 +118,8 @@ export class App extends React.PureComponent {
                 icon: icons.trading,
                 label: formatMessage(messages.trading),
                 active: headRoute === PATHS.trading.id,
-                path: PATHS.trading.path
+                path: PATHS.trading.path,
+                disabled: true
             },
             {
                 id: PATHS.directTrading.id,

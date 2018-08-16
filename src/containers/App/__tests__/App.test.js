@@ -110,7 +110,7 @@ describe('Main <App /> Component', () => {
                 label: 'Submit Meter Readings',
                 path: '/submit_meter'
             },
-            { active: false, icon: 'faChartBar', id: 'trading', label: 'Trading', path: '/trading' },
+            { active: false, disabled: true, icon: 'faChartBar', id: 'trading', label: 'Trading', path: '/trading' },
             {
                 active: false,
                 icon: 'faSuitcase',
