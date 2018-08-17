@@ -10,7 +10,12 @@
     "app.plantType.biomass": "Biomass",
     "app.plantType.solar": "Solar",
     "app.plantType.wind": "Wind",
+    "app.plantType.default": "Default",
     "app.plantType.other": "Other",
+
+    "app.producerStatus.standard": "standard",
+    "app.producerStatus.soldOut": "sold out",
+    "app.producerStatus.active": "active",
 
     "app.txStatuses.pending": "Pending",
     "app.txStatuses.fail": "Failure",
@@ -33,7 +38,7 @@
     "app.restorePasswordPage.loginLink": "Login",
     "app.restorePasswordPage.errors.emptyEmail": "Enter your email.",
     "app.restorePasswordPage.errors.invalidEmail": "Invalid email.",
-    "app.restorePasswordPage.info.tokenWasCreated": "You will receive reset password link on your email",
+    "app.restorePasswordPage.info.tokenWasCreated": "An email will be sent to you with a link to reset your password",
 
     "app.resetPasswordPage.formTitle": "Reset password",
     "app.resetPasswordPage.passwordField": "Enter new password",
@@ -141,6 +146,7 @@
     "app.producerPage.switchBack": "Switch back to Lition Standard",
     "app.producerPage.showButton": "Show producers",
     "app.producerPage.ethereumAddress": "Ethereum Address",
+    "app.producerPage.soldOutHelpText": "You can't select producers with \"sold out\" status",
 
     "app.header.logoutConfirmMessage": "Are you sure that you'd like to logout from the system?",
     "app.header.logoutConfirmButton": "Yes",

@@ -16,9 +16,7 @@ import {
     MyProducer,
     Producer,
     BuyEnergy,
-    SellEnergy,
     ShowTransactions,
-    Trading,
     DirectTrading,
     MyDocuments,
     SubmitMeter
@@ -105,7 +103,6 @@ const OverviewRoute = () => (
     <React.Fragment>
         <Route exact path={PATHS.overview.path} component={Overview} />
         <Route path={PATHS.myProducer.path} component={MyProducer} />
-        <Route path={PATHS.sellEnergy.path} component={SellEnergy} />
         <Route path={PATHS.showTransactions.path} component={ShowTransactions} />
         <BuyEnergyRoute />
     </React.Fragment>
@@ -129,7 +126,6 @@ const AppMainLayout = () => {
             <div id="app-layout">
                 <App>
                     <OverviewRoute />
-                    <Route exact path={PATHS.trading.path} component={Trading} />
                     <Route exact path={PATHS.directTrading.path} component={DirectTrading} />
                     <Route path={PATHS.documents.path} component={MyDocuments} />
                     <Route path={PATHS.submit_meter.path} component={SubmitMeter} />

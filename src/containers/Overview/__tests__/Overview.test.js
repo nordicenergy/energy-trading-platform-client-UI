@@ -390,7 +390,7 @@ describe('<Overview /> Component', () => {
             navigationCards: [
                 { path: '/my_producer', title: 'My Producer', type: 'my_producer' },
                 { path: '/buy_energy', title: 'Buy Energy', type: 'buy_energy' },
-                { path: '/sell_energy', title: 'Sell Energy', type: 'sell_energy' }
+                { disabled: true, path: '/sell_energy', title: 'Sell Energy', type: 'sell_energy' }
             ]
         });
     });

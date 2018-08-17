@@ -38,6 +38,7 @@ import DocumentsList from './DocumentsList';
 import MeterReadingForm from './MeterReadingForm';
 import MeterReadingsHistory from './MeterReadingsHistory';
 import ResetPasswordForm from './ResetPasswordForm';
+import HelpIcon from './HelpIcon';
 
 export {
     Button,
@@ -83,5 +84,6 @@ export {
     DocumentsList,
     MeterReadingForm,
     MeterReadingsHistory,
-    ResetPasswordForm
+    ResetPasswordForm,
+    HelpIcon
 };

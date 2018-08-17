@@ -20,7 +20,6 @@ describe('Main <App /> Component', () => {
     beforeEach(() => {
         context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
-        context.intl.formatMessage.mockReturnValue('test');
         usersActions.performLogout = jest.fn();
         appActions.performSetupLocale = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
@@ -43,12 +42,6 @@ describe('Main <App /> Component', () => {
         expect(component.find(Header)).toHaveLength(1);
         expect(component.find(Footer)).toHaveLength(1);
         expect(component.find(MenuSideBar)).toHaveLength(1);
-    });
-
-    it('should setup correct translations', () => {
-        const component = renderComponent(context);
-        component.setContext(context);
-        expect(context.intl.formatMessage.mock.calls.length).toEqual(15);
     });
 
     it('should returns correct props', () => {
@@ -108,18 +101,24 @@ describe('Main <App /> Component', () => {
         expect(route).toEqual('/item1');
 
         expect(menu.props().items).toEqual([
-            { active: true, icon: 'faHome', id: '', label: 'test', path: '/', subItemActive: false },
-            { active: false, icon: 'faBook', id: 'documents', label: 'test', path: '/documents' },
+            { active: true, icon: 'faHome', id: '', label: 'Overview', path: '/', subItemActive: false },
+            { active: false, icon: 'faBook', id: 'documents', label: 'My Documents', path: '/documents' },
             {
                 active: false,
                 icon: 'faCalculator',
                 id: 'submit_meter',
-                label: 'test',
+                label: 'Submit Meter Readings',
                 path: '/submit_meter'
             },
-            { active: false, icon: 'faChartBar', id: 'trading', label: 'test', path: '/trading' },
-            { active: false, icon: 'faSuitcase', id: 'direct_trading', label: 'test', path: '/direct_trading' },
-            { active: false, icon: 'faUser', id: 'profile', label: 'test', path: '/profile' }
+            { active: false, disabled: true, icon: 'faChartBar', id: 'trading', label: 'Trading', path: '/trading' },
+            {
+                active: false,
+                icon: 'faSuitcase',
+                id: 'direct_trading',
+                label: 'Direct Trading',
+                path: '/direct_trading'
+            },
+            { active: false, icon: 'faUser', id: 'profile', label: 'Profile', path: '/profile' }
         ]);
     });
 
@@ -135,21 +134,9 @@ describe('Main <App /> Component', () => {
         expect(route).toEqual('/item1');
 
         expect(footer.props().navItems).toEqual([
-            {
-                active: false,
-                href: '/about',
-                label: 'test'
-            },
-            {
-                active: false,
-                href: '/termsandconditions',
-                label: 'test'
-            },
-            {
-                active: false,
-                href: '/faq',
-                label: 'test'
-            }
+            { active: false, href: '/about', label: 'About Us' },
+            { active: false, href: '/termsandconditions', label: 'Terms & Conditions' },
+            { active: false, href: '/faq', label: 'FAQ' }
         ]);
     });
 

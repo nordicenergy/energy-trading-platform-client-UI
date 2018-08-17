@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { PLANT_TYPES } from '../../constants';
+import { PLANT_TYPES, PRODUCER_STATUSES } from '../../constants';
 import { PATHS } from '../../services/routes';
-import { convertPlantType } from '../../services/translations/enums';
+import { convertPlantType, convertProducerStatus } from '../../services/translations/enums';
 import { BuyEnergy as messages } from '../../services/translations/messages';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
@@ -42,19 +42,7 @@ const LINKS = [
 
 export class BuyEnergy extends AbstractContainer {
     constructor(props, context) {
-        const { formatMessage } = context.intl;
-        const breadcrumbs = [
-            {
-                ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
-            },
-            {
-                ...PATHS.buyEnergy,
-                label: formatMessage(PATHS.buyEnergy.label)
-            }
-        ];
-
-        super(props, context, breadcrumbs);
+        super(props, context);
 
         this.state = {
             filter: [],
@@ -62,20 +50,22 @@ export class BuyEnergy extends AbstractContainer {
         };
     }
 
-    static mapStateToProps({ Producers }) {
+    static mapStateToProps({ Producers, App }) {
         return {
             error: Producers.currentProducer.error || Producers.producers.error,
             currentProducerLoading: Producers.currentProducer.loading,
             currentProducer: Producers.currentProducer.data,
             producersLoading: Producers.producers.loading,
             producers: Producers.producers.data.entries,
-            hasNextProducers: Producers.producers.data.total > Producers.producers.data.entries.length
+            hasNextProducers: Producers.producers.data.total > Producers.producers.data.entries.length,
+            locale: App.localization.data.locale
         };
     }
 
     componentDidMount() {
         performGetProducers();
         performGetCurrentProducer();
+        this.setupBuyEnergyBreadcrumbs();
 
         const loadCondition = () => {
             const { hasNextProducers, producersLoading } = this.props;
@@ -91,18 +81,27 @@ export class BuyEnergy extends AbstractContainer {
 
     componentDidUpdate(prevProps, prevState) {
         const { error: oldError } = prevProps;
-        const { currentProducerLoading, producersLoading, error: newError } = this.props;
+        const { currentProducerLoading, producersLoading, error: newError, locale } = this.props;
         const shouldShowFullScreenLoader = (currentProducerLoading || producersLoading) && this.state.page === 0;
 
         if (prevState.page !== this.state.page || prevState.filter !== this.state.filter) {
             performGetProducers({ page: this.state.page, filter: this.state.filter });
         }
 
+        if (locale !== prevProps.locale) {
+            this.setupBuyEnergyBreadcrumbs();
+        }
+
         if (!currentProducerLoading && !producersLoading && newError && newError !== oldError) {
             performPushNotification({ message: newError.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(shouldShowFullScreenLoader);
+        if (
+            prevProps.currentProducerLoading !== currentProducerLoading ||
+            prevProps.producersLoading !== producersLoading
+        ) {
+            performSetupLoaderVisibility(shouldShowFullScreenLoader);
+        }
     }
 
     componentWillUnmount() {
@@ -117,6 +116,34 @@ export class BuyEnergy extends AbstractContainer {
             label: formatMessage(option.label),
             type: option.type
         }));
+    }
+
+    prepareProducers() {
+        const { formatMessage } = this.context.intl;
+        const { producers } = this.props;
+        return producers.map(producer => {
+            const plantType = formatMessage(convertPlantType(producer.plantType));
+            const status =
+                producer.status === PRODUCER_STATUSES.soldOut
+                    ? formatMessage(convertProducerStatus(producer.status))
+                    : null;
+
+            return { ...producer, status, plantType };
+        });
+    }
+
+    setupBuyEnergyBreadcrumbs() {
+        const { formatMessage } = this.context.intl;
+        this.setupBreadcrumbs([
+            {
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
+            },
+            {
+                ...PATHS.buyEnergy,
+                label: formatMessage(PATHS.buyEnergy.label)
+            }
+        ]);
     }
 
     handleBackLinkClick(event) {
@@ -136,7 +163,7 @@ export class BuyEnergy extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { currentProducer, producersLoading, producers } = this.props;
+        const { currentProducer, producersLoading } = this.props;
         const { filter, page } = this.state;
         const shouldShowListLoader = producersLoading && page >= 1;
 
@@ -169,7 +196,7 @@ export class BuyEnergy extends AbstractContainer {
                 <ProducerCardsPanel
                     className="buy-energy-page-producers"
                     loading={shouldShowListLoader}
-                    producers={producers}
+                    producers={this.prepareProducers()}
                     selectedProducerId={currentProducer.id}
                     onProducerClick={producerId => {
                         this.handleProducerClick(producerId);
@@ -195,7 +222,8 @@ BuyEnergy.propTypes = {
     currentProducer: PropTypes.object.isRequired,
     producersLoading: PropTypes.bool.isRequired,
     producers: PropTypes.arrayOf(PropTypes.object).isRequired,
-    hasNextProducers: PropTypes.bool.isRequired
+    hasNextProducers: PropTypes.bool.isRequired,
+    locale: PropTypes.string
 };
 
 export default connect(BuyEnergy.mapStateToProps)(BuyEnergy);

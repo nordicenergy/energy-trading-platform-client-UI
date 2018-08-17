@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ProducerContainer, { Producer } from '../Producer';
-import { ProducerInfo, Button } from '../../../components';
+import { ProducerInfo, Button, HelpIcon } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
 import configureMockStore from 'redux-mock-store';
 import * as producersActions from '../../../action_performers/producers';
@@ -46,7 +46,7 @@ const store = mockStore({
                 location: 'Lippendorf, Neukieritzsch',
                 ethereumAddress: '123',
                 description: 'desc',
-                standard: false
+                status: 'active'
             },
             loading: false,
             error: null
@@ -55,6 +55,13 @@ const store = mockStore({
             data: {},
             loading: false,
             error: null
+        }
+    },
+    App: {
+        localization: {
+            data: {
+                locale: 'en'
+            }
         }
     }
 });
@@ -76,7 +83,8 @@ const props = {
     ...Producer.defaultProps,
     producer: {
         id: 1,
-        name: 'test'
+        name: 'test',
+        status: 'active'
     },
     profile: { user: { id: 1 } },
     selectedProducer: {},
@@ -119,6 +127,27 @@ describe('<Producer /> Component', () => {
         expect(component.find('h1')).toHaveLength(1);
         expect(component.find(ProducerInfo)).toHaveLength(1);
         expect(component.find(Button)).toHaveLength(2);
+        expect(component.find(HelpIcon)).toHaveLength(0);
+        expect(component.find('strong[aria-label="Producer Status"]')).toHaveLength(0);
+    });
+
+    it('should disable "Select Producer" button if producer has "sold out" status', () => {
+        const component = renderComponent();
+        component.setProps({
+            producer: {
+                id: 1,
+                name: 'test',
+                status: 'sold out'
+            }
+        });
+        expect(component.find(HelpIcon)).toHaveLength(1);
+        expect(component.find('strong[aria-label="Producer Status"]')).toHaveLength(1);
+        expect(
+            component
+                .find(Button)
+                .at(1)
+                .props('disabled')
+        ).toBeTruthy();
     });
 
     it('should call prepare common function', () => {
@@ -137,7 +166,7 @@ describe('<Producer /> Component', () => {
                 selectedSince: 'Sep 12 - Feb 22',
                 ethereumAddress: '123',
                 marketPrice: 2.3,
-                standard: false
+                status: 'active'
             },
             labels: {
                 annualProduction: 'Annual Production',
@@ -175,10 +204,18 @@ describe('<Producer /> Component', () => {
                     error: null,
                     loading: false
                 }
+            },
+            App: {
+                localization: {
+                    data: {
+                        locale: 'en'
+                    }
+                }
             }
         };
         const props = Producer.mapStateToProps(stateDummy);
         expect(props).toEqual({
+            locale: 'en',
             producer: 'test_producer_data',
             selectedProducer: 'test_selected_data',
             error: 'test_error',
@@ -194,10 +231,9 @@ describe('<Producer /> Component', () => {
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(1);
         const [[arg1]] = producersActions.performGetProducer.mock.calls;
         expect(arg1).toEqual('1');
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
-        const [[bArg1], [bArg2]] = appActions.performSetupBreadcrumbs.mock.calls;
-        expect(bArg1).toEqual(undefined);
-        expect(bArg2).toEqual([
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
+        const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
+        expect(bArg1).toEqual([
             { icon: 'faHome', id: '', label: 'Trading', path: '/' },
             { id: 'buy_energy', label: 'Buy Energy', path: '/buy_energy' },
             { id: 'producer', label: 'Peter Producer', path: '/buy_energy/producer/1' }
@@ -205,12 +241,12 @@ describe('<Producer /> Component', () => {
 
         const component = renderComponent();
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(2);
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(4);
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
         component.setProps({ producer: { id: 1, name: 'Test' } });
         component.setProps({ producer: { id: 2, name: 'Test' } });
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(6);
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(4);
         component.setProps({ producer: { id: 2, name: 'Test' } });
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(6);
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(4);
     });
 
     it('should provide possibility navigate to producers list', () => {
@@ -268,5 +304,17 @@ describe('<Producer /> Component', () => {
         const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
+    });
+
+    it('should setup translated breadcrumbs when locale changed', () => {
+        const producer = renderComponent();
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+
+        producer.setProps({
+            locale: 'de'
+        });
+
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
     });
 });

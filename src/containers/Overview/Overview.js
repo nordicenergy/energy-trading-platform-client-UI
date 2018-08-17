@@ -40,7 +40,9 @@ export class Overview extends AbstractContainer {
             performPushNotification({ message: error.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     navigateTo(route) {
@@ -79,7 +81,8 @@ export class Overview extends AbstractContainer {
             {
                 type: PATHS.sellEnergy.id,
                 title: labels.sellEnergy,
-                path: PATHS.sellEnergy.path
+                path: PATHS.sellEnergy.path,
+                disabled: true
             }
         ];
 

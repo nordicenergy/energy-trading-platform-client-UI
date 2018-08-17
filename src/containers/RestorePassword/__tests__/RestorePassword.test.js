@@ -83,7 +83,7 @@ describe('<RestorePassword /> Container', () => {
         expect(historyMock.push).toHaveBeenCalledWith('/login');
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'success',
-            message: 'You will receive reset password link on your email'
+            message: 'An email will be sent to you with a link to reset your password'
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

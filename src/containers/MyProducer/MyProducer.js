@@ -15,18 +15,6 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import './MyProducer.css';
 
 export class MyProducer extends AbstractContainer {
-    constructor(props, context) {
-        const { formatMessage } = context.intl;
-        const breadcrumbs = [
-            { ...PATHS.overview, label: formatMessage(PATHS.overview.label) },
-            {
-                ...PATHS.myProducer,
-                label: formatMessage(PATHS.myProducer.label)
-            }
-        ];
-        super(props, context, breadcrumbs);
-    }
-
     static mapStateToProps(state) {
         return {
             loading:
@@ -36,28 +24,36 @@ export class MyProducer extends AbstractContainer {
             profile: state.Users.profile.data,
             producer: state.Producers.producer.data,
             producerHistory: state.Producers.producerHistory.data,
-            error: state.Producers.producer.error || state.Users.profile.error || state.Producers.producerHistory.error
+            error: state.Producers.producer.error || state.Users.profile.error || state.Producers.producerHistory.error,
+            locale: state.App.localization.data.locale
         };
     }
 
     componentDidMount() {
         performGetUserData();
         this.fetchProducer();
+        this.setupMyProducerBreadcrumbs();
     }
 
     componentDidUpdate(prevProps) {
         const { profile: { user: prevUser = {} } = {}, error: oldError } = prevProps;
-        const { profile: { user = {} } = {}, loading, error } = this.props;
+        const { profile: { user = {} } = {}, loading, error, locale } = this.props;
 
         if (user.currentProducerId !== prevUser.currentProducerId) {
             this.fetchProducer();
+        }
+
+        if (locale !== prevProps.locale) {
+            this.setupMyProducerBreadcrumbs();
         }
 
         if (!loading && error && error !== oldError) {
             performPushNotification({ message: error.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     fetchProducer() {
@@ -66,6 +62,17 @@ export class MyProducer extends AbstractContainer {
             performGetProducer(user.currentProducerId);
             performGetProducerHistory(user.currentProducerId);
         }
+    }
+
+    setupMyProducerBreadcrumbs() {
+        const { formatMessage } = this.context.intl;
+        this.setupBreadcrumbs([
+            { ...PATHS.overview, label: formatMessage(PATHS.overview.label) },
+            {
+                ...PATHS.myProducer,
+                label: formatMessage(PATHS.myProducer.label)
+            }
+        ]);
     }
 
     handleBackLinkClick(event) {
@@ -118,7 +125,8 @@ MyProducer.propTypes = {
     producer: PropTypes.object,
     producerHistory: PropTypes.array,
     profile: PropTypes.object,
-    error: PropTypes.object
+    error: PropTypes.object,
+    locale: PropTypes.string
 };
 
 MyProducer.defaultProps = {

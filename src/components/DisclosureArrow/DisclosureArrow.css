@@ -17,7 +17,7 @@
 }
 
 .disclosure-arrow:focus {
-    outline: var(--focused-control-outline);
+    outline: none;
 }
 
 .disclosure-arrow:hover .disclosure-arrow-border,

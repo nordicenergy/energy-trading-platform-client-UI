@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import { PRODUCER_STATUSES } from '../../constants';
 import { formatFloat } from '../../services/formatter';
 import './ProducerInfo.css';
 
@@ -10,13 +10,14 @@ const MAP_SERVICE_URL = 'http://maps.google.com/?q=';
 class ProducerInfo extends React.Component {
     renderPrice() {
         const { labels, details } = this.props;
-        const { price, marketPrice, standard } = details;
-        const mainPrice = standard ? marketPrice : price;
+        const { price, marketPrice, status } = details;
+        const isStandard = status === PRODUCER_STATUSES.standard;
+        const mainPrice = isStandard ? marketPrice : price;
 
         return (
             <React.Fragment>
                 <span>{`${formatFloat(mainPrice)} ct/kWh`}</span>
-                {!standard && marketPrice ? (
+                {!isStandard && marketPrice ? (
                     <small className="producer-information-market-value">
                         {`${labels.marketPrice} `}
                         <strong>{formatFloat(marketPrice)}</strong>
@@ -116,7 +117,7 @@ ProducerInfo.propTypes = {
         ethereumAddress: PropTypes.string,
         location: PropTypes.string,
         marketPrice: PropTypes.number,
-        standard: PropTypes.bool
+        status: PropTypes.string
     }),
     labels: PropTypes.shape({
         name: PropTypes.string,

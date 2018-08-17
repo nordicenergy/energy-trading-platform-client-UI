@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { KEYBOARD_KEY_VALUES } from '../../constants';
 import './NavigationCard.css';
 import MyProducerIcon from './MyProducerIcon';
@@ -20,14 +21,15 @@ class NavigationCard extends React.Component {
     }
 
     render() {
-        const { title, type, onCardClickHandler } = this.props;
+        const { title, type, disabled, onCardClickHandler } = this.props;
         const Icon = ICONS_TYPES[type];
+        const classes = classNames({ 'nav-card-container': true, 'nav-card-container--disabled': disabled });
 
         return (
             <div
-                className="nav-card-container"
-                onClick={() => onCardClickHandler()}
-                onKeyUp={event => this.handlerCardEnterPress(event)}
+                className={classes}
+                onClick={() => !disabled && onCardClickHandler()}
+                onKeyUp={event => !disabled && this.handlerCardEnterPress(event)}
                 tabIndex={0}
             >
                 <div className="nav-card">
@@ -46,6 +48,7 @@ class NavigationCard extends React.Component {
 NavigationCard.propTypes = {
     title: PropTypes.string,
     type: PropTypes.oneOf(['buy_energy', 'my_producer', 'sell_energy']),
+    disabled: PropTypes.bool,
     onCardClickHandler: PropTypes.func.isRequired
 };
 

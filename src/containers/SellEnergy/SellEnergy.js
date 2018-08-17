@@ -19,18 +19,7 @@ import Validator from 'async-validator';
 
 export class SellEnergy extends AbstractContainer {
     constructor(props, context) {
-        const { formatMessage } = context.intl;
-        const breadcrumbs = [
-            {
-                ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
-            },
-            {
-                ...PATHS.sellEnergy,
-                label: formatMessage(PATHS.sellEnergy.label)
-            }
-        ];
-        super(props, context, breadcrumbs);
+        super(props, context);
         this.state = {
             updated: false,
             errors: {}
@@ -52,18 +41,20 @@ export class SellEnergy extends AbstractContainer {
                 state.Users.profile.loading ||
                 state.Producers.ownedProducerOffersHistory.loading ||
                 state.Producers.currentMarketPrice.loading,
-            currentMarketPrice: state.Producers.currentMarketPrice.data
+            currentMarketPrice: state.Producers.currentMarketPrice.data,
+            locale: state.App.localization.data.locale
         };
     }
 
     componentDidMount() {
         performGetUserData();
         performGetCurrentMarketPrice();
+        this.setupSellEnergyBreadcrumbs();
     }
 
     componentDidUpdate(prevProps) {
         const { formatMessage } = this.context.intl;
-        const { user, loading, error, ownedProducerOfferInfo } = this.props;
+        const { user, loading, error, ownedProducerOfferInfo, locale } = this.props;
         if (user && user.id && prevProps.user !== user) {
             performGetOwnedProducerOffer(user.id);
         }
@@ -74,6 +65,10 @@ export class SellEnergy extends AbstractContainer {
             prevProps.ownedProducerOfferInfo !== ownedProducerOfferInfo
         ) {
             performGetOwnedProducerOffersHistory(ownedProducerOfferInfo.id);
+        }
+
+        if (locale !== prevProps.locale) {
+            this.setupSellEnergyBreadcrumbs();
         }
 
         if (!loading && this.state.updated && ownedProducerOfferInfo !== prevProps.ownedProducerOfferInfo) {
@@ -90,7 +85,9 @@ export class SellEnergy extends AbstractContainer {
             performPushNotification({ message: error.message, type: 'error' });
         }
 
-        performSetupLoaderVisibility(loading);
+        if (prevProps.loading !== loading) {
+            performSetupLoaderVisibility(loading);
+        }
     }
 
     prepareValidator() {
@@ -137,6 +134,20 @@ export class SellEnergy extends AbstractContainer {
         };
 
         return new Validator(validationSchema);
+    }
+
+    setupSellEnergyBreadcrumbs() {
+        const { formatMessage } = this.context.intl;
+        this.setupBreadcrumbs([
+            {
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
+            },
+            {
+                ...PATHS.sellEnergy,
+                label: formatMessage(PATHS.sellEnergy.label)
+            }
+        ]);
     }
 
     handleBackLinkClick(event) {
@@ -229,7 +240,8 @@ SellEnergy.propTypes = {
     currentMarketPrice: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.object,
-    user: PropTypes.object
+    user: PropTypes.object,
+    locale: PropTypes.string
 };
 
 export default connect(SellEnergy.mapStateToProps)(SellEnergy);

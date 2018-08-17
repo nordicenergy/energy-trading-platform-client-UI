@@ -40,6 +40,9 @@ export function resetUserPassword(resetToken, newPassword) {
 export function createResetPasswordToken(email) {
     return Axios.post(`${SESSION_API_URL}/user/resetPasswordToken`, { email });
 }
+
 export function verifyResetPasswordToken(token) {
-    return Axios.get(`${SESSION_API_URL}/user/resetPasswordToken/${token}`);
+    return Axios.get(`${SESSION_API_URL}/user/resetPasswordToken/${token}`, {
+        headers: { 'Cache-Control': 'no-cache' }
+    });
 }

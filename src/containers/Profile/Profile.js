@@ -50,7 +50,9 @@ export class Profile extends AbstractContainer {
             });
         }
 
-        performSetupLoaderVisibility(this.props.loading);
+        if (loading !== this.props.loading) {
+            performSetupLoaderVisibility(this.props.loading);
+        }
     }
 
     prepareValidator() {
