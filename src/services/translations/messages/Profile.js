@@ -108,6 +108,10 @@ const messages = defineMessages({
     invalidEmail: {
         id: 'app.profilePage.errors.invalidEmail',
         defaultMessage: 'Invalid email address.'
+    },
+    profileUpdatedMessage: {
+        id: 'app.profilePage.notifications.profileUpdated',
+        defineMessages: 'Profile successfully updated'
     }
 });
 

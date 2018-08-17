@@ -32,11 +32,12 @@ export class Profile extends AbstractContainer {
     }
 
     componentDidUpdate({ loading, profile, error }) {
+        const { formatMessage } = this.context.intl;
         const loaded = this.props.loading !== loading && loading;
         if (!this.props.error && loaded && profile !== this.props.profile && this.state.updated) {
             performPushNotification({
                 type: 'success',
-                message: 'Profile successfully updated.'
+                message: formatMessage(messages.profileUpdatedMessage)
             });
             this.setState({
                 updated: false

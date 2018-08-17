@@ -94,8 +94,20 @@ export class App extends React.Component {
                 id: PATHS.overview.id,
                 icon: icons[''],
                 label: formatMessage(messages.overview),
-                active: headRoute === PATHS.overview.id,
-                path: PATHS.overview.path
+                active:
+                    headRoute === PATHS.overview.id ||
+                    headRoute === PATHS.buyEnergy.id ||
+                    headRoute === PATHS.sellEnergy.id ||
+                    headRoute === PATHS.myProducer.id ||
+                    headRoute === PATHS.producer.id ||
+                    headRoute === PATHS.showTransactions.id,
+                path: PATHS.overview.path,
+                subItemActive:
+                    headRoute === PATHS.buyEnergy.id ||
+                    headRoute === PATHS.sellEnergy.id ||
+                    headRoute === PATHS.myProducer.id ||
+                    headRoute === PATHS.producer.id ||
+                    headRoute === PATHS.showTransactions.id
             },
             {
                 id: PATHS.documents.id,

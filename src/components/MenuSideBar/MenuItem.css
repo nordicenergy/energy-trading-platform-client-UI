@@ -72,9 +72,26 @@
 }
 
 .menu-item-label span {
+    position: relative;
     padding-left: 2rem;
     padding-top: 0.25rem;
     user-select: none;
+}
+
+.menu-item-label span::before {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0.0625em;
+    background: white;
+    opacity: 0.5;
+    content: '';
+    transition: 0.2s;
+    will-change: width;
+}
+
+.menu-subitem--active .menu-item-label span::before {
+    width: calc(100% - 2rem);
 }
 
 .menu-item--active .menu-item-label::before {

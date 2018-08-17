@@ -172,7 +172,7 @@
     "app.profilePage.errors.emptyPassword": "Enter new password.",
     "app.profilePage.errors.emptyOldPassword": "Enter old password.",
     "app.profilePage.errors.emptyConfirmPassowrd": "Repeat your password.",
-    "app.profilePage.updatedProfileSuccessMessage": "Profile successfully updated.",
+    "app.profilePage.notifications.profileUpdated": "Profil erfolgreich aktualisiert",
     "app.profilePage.labels.save": "Save",
     "app.profilePage.labels.firstName": "First Name",
     "app.profilePage.labels.lastName": "Last Name",

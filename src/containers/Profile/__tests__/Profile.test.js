@@ -162,7 +162,7 @@ describe('<Profile /> Container', () => {
         expect(userActionPerformers.performUpdateUserData).toHaveBeenCalledWith(dataMock);
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'success',
-            message: 'Profile successfully updated.'
+            message: 'Profile successfully updated'
         });
         userActionPerformers.performUpdateUserData.mockRestore();
     });

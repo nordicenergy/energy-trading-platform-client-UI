@@ -108,7 +108,7 @@ describe('Main <App /> Component', () => {
         expect(route).toEqual('/item1');
 
         expect(menu.props().items).toEqual([
-            { active: true, icon: 'faHome', id: '', label: 'test', path: '/' },
+            { active: true, icon: 'faHome', id: '', label: 'test', path: '/', subItemActive: false },
             { active: false, icon: 'faBook', id: 'documents', label: 'test', path: '/documents' },
             {
                 active: false,
