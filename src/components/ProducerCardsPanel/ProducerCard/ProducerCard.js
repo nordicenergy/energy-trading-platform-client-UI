@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { KEYBOARD_KEY_VALUES } from '../../../constants';
+import { formatFloat } from '../../../services/formatter';
 import defaultImage from './defaultImage.png';
 import './ProducerCard.css';
 
@@ -28,7 +29,7 @@ class ProducerCard extends React.Component {
                 <div className="producer-card-layout">
                     <div className="producer-card-meta">
                         <strong className="producer-card-price" translate="no">
-                            {producer.price} ct/kWh
+                            {formatFloat(producer.price)} ct/kWh
                         </strong>
                         <span className="producer-card-plant-type">{producer.plantType}</span>
                     </div>

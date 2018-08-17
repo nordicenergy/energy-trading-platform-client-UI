@@ -1,10 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import ProducerCard from '../ProducerCard';
+import { formatFloat } from '../../../../services/formatter';
 
 const producerDummy = {
     id: 1,
-    price: 2.9,
+    price: 2.9003,
     name: 'John Doe',
     plantType: 'solar',
     picture: 'test.png'
@@ -26,6 +27,7 @@ describe('<ProducerCard /> component', function() {
         expect(producerCard.find('strong.producer-card-price')).toHaveLength(1);
         expect(producerCard.find('.producer-card-name h3')).toHaveLength(1);
         expect(producerCard.find('.producer-card-name small')).toHaveLength(0);
+        expect(producerCard.find('.producer-card-price').text()).toEqual(`${formatFloat(producerDummy.price)} ct/kWh`);
 
         producerCard.setProps({ producer: { ...producerDummy, status: 'sold out' } });
         expect(producerCard.find('.producer-card-name small')).toHaveLength(1);
