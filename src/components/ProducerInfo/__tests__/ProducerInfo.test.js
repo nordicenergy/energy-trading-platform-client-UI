@@ -111,7 +111,9 @@ describe('<ProducerInfo /> Component', () => {
         expect(priceRow.at(0).text()).toContain(`${formatFloat(details.price)}`);
         expect(priceRow.at(0).text()).toContain(`${formatFloat(details.marketPrice)}`);
         expect(priceRow.at(0).text()).toEqual(
-            `${labels.price}${formatFloat(details.price)} ct/kWhmarket price is 1.2 ct/kWh`
+            `${labels.price}${formatFloat(details.price)} ct/kWhmarket price is ${formatFloat(
+                details.marketPrice
+            )} ct/kWh`
         );
 
         expect(component.find('.producer-information-market-value').length).toEqual(1);
