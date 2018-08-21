@@ -118,6 +118,7 @@ class ProfileForm extends React.PureComponent {
         return (
             <form onSubmit={event => this.handleSubmit(event)} className="profile-form" noValidate>
                 <TextField
+                    disabled={true}
                     label={labels.firstName}
                     name="firstName"
                     value={firstName}
@@ -126,6 +127,7 @@ class ProfileForm extends React.PureComponent {
                     error={errors.firstName}
                 />
                 <TextField
+                    disabled={true}
                     label={labels.lastName}
                     name="lastName"
                     value={lastName}
@@ -136,6 +138,7 @@ class ProfileForm extends React.PureComponent {
 
                 <div className="date-of-birth-wrapper">
                     <DateField
+                        disabled={true}
                         locale={locale}
                         name="birthday"
                         label={labels.birthday}
@@ -145,6 +148,7 @@ class ProfileForm extends React.PureComponent {
                     />
                 </div>
                 <TextField
+                    disabled={true}
                     label={labels.city}
                     name="city"
                     value={city}
@@ -152,6 +156,7 @@ class ProfileForm extends React.PureComponent {
                     onChange={({ target }) => this.handleChange(target)}
                 />
                 <TextField
+                    disabled={true}
                     label={labels.street}
                     name="street"
                     value={street}
@@ -159,6 +164,7 @@ class ProfileForm extends React.PureComponent {
                     onChange={({ target }) => this.handleChange(target)}
                 />
                 <TextField
+                    disabled={true}
                     label={labels.streetNumber}
                     name="streetNumber"
                     value={streetNumber}
@@ -166,6 +172,7 @@ class ProfileForm extends React.PureComponent {
                     onChange={({ target }) => this.handleChange(target)}
                 />
                 <TextField
+                    disabled={true}
                     label={labels.postcode}
                     name="postcode"
                     value={postcode}
