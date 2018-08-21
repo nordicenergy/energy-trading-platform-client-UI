@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import RecentTransactionDetails from '../RecentTransactionDetails';
+import { formatFloat } from '../../../services/formatter';
 
 const labelsMock = {
     from: 'From',
@@ -67,8 +68,8 @@ describe('<RecentTransactionDetails /> Component', () => {
         const cells = component.find('div[role="cell"]');
         expect(cells.at(0).text()).toEqual(detailsDummy.from);
         expect(cells.at(1).text()).toEqual(detailsDummy.status);
-        expect(cells.at(2).text()).toEqual(`${detailsDummy.amount} kWh`);
-        expect(cells.at(3).text()).toEqual(`${detailsDummy.price} ct`);
+        expect(cells.at(2).text()).toEqual(`${formatFloat(detailsDummy.amount)} kWh`);
+        expect(cells.at(3).text()).toEqual(`${formatFloat(detailsDummy.price)} ct`);
         expect(cells.at(4).text()).toEqual(detailsDummy.hash);
     });
 });
