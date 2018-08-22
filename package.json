@@ -66,6 +66,11 @@
         "type": "git",
         "url": "git@bitbucket.org:lition/frontend.git"
     },
+    "keywords": [
+        "lition", "energy", "exchange", "blockchain", "tading platform", "server side", "backend"
+    ],
+    "author": "Lition Tech Team",
+    "license": "ISC",
     "engines": {
         "node": ">=6.6.0",
         "npm": ">=3.10.8"
