@@ -23,13 +23,13 @@ describe('<DateField /> component', () => {
     it('should shows and hides <DatePicker />', () => {
         const dateField = renderComponent();
 
+        // Close on cancel button click
         dateField
             .find('TextField')
             .props()
             .onFocus();
         dateField.update();
         expect(dateField.find('DatePicker')).toHaveLength(1);
-
         dateField
             .find('DatePicker')
             .props()
@@ -37,12 +37,12 @@ describe('<DateField /> component', () => {
         dateField.update();
         expect(dateField.find('DatePicker')).toHaveLength(0);
 
+        // Close on confirm button click
         dateField
             .find('TextField')
             .props()
             .onFocus();
         dateField.update();
-
         dateField
             .find('DatePicker')
             .props()
@@ -50,16 +50,26 @@ describe('<DateField /> component', () => {
         dateField.update();
         expect(dateField.find('DatePicker')).toHaveLength(0);
 
+        // Close on Backspace key press
         dateField
             .find('TextField')
             .props()
             .onFocus();
         dateField.update();
-
         dateField
             .find('TextField')
             .props()
             .onKeyDown({ key: KEYBOARD_KEY_VALUES.BACKSPACE });
+        dateField.update();
+        expect(dateField.find('DatePicker')).toHaveLength(0);
+
+        // Close on click outside of <DatePicker /> component
+        dateField
+            .find('TextField')
+            .props()
+            .onFocus();
+        dateField.update();
+        document.body.dispatchEvent(new MouseEvent('click'));
         dateField.update();
         expect(dateField.find('DatePicker')).toHaveLength(0);
     });

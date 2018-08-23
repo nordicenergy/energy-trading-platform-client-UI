@@ -84,6 +84,14 @@ class DateField extends Component {
         this.handleChange(date);
     }
 
+    handleDatePickerClickOutside(event) {
+        const { hasFocus } = this.state;
+
+        if (hasFocus && !this.dateFieldRef.contains(event.target)) {
+            this.setState({ hasFocus: false });
+        }
+    }
+
     renderDatePicker() {
         const { datePickerLabels } = this.props;
         const { value, hasFocus, datePickerPosition } = this.getState();
@@ -99,6 +107,7 @@ class DateField extends Component {
                     onChange={date => this.handleChange(date)}
                     onCancel={() => this.handleOnCancel()}
                     onConfirm={date => this.handleConfirm(date)}
+                    onClickOutside={event => this.handleDatePickerClickOutside(event)}
                 />
             );
         }
