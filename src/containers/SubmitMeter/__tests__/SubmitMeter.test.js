@@ -69,15 +69,18 @@ describe('<SubmitMeter /> Component', () => {
         expect(meterReadingForm.props().isSuccessfullySubmitted).toEqual(false);
         expect(meterReadingForm.props().errors).toEqual({});
         expect(meterReadingForm.props().labels).toEqual({
+            dateField: 'Date of reading',
+            dateRequired: 'Date is required',
             header: 'Submit Meter readings',
             historyCaption: 'History',
-            meterReadingsField: 'Meter readings',
-            dateField: 'Date of reading',
-            submitButton: 'Submit',
+            loadingErrorMessage:
+                "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
             meterNumberTitle: 'Number of meter',
-            noData: 'Sorry, not live metering data available for you…',
             meterReadingNumber: 'Meter readings is not a number',
-            dateRequired: 'Date is required',
+            meterReadingsField: 'Meter readings',
+            noData: 'Sorry, not live metering data available for you…',
+            submitButton: 'Submit',
+            submitErrorMessage: 'An error occurred while sending meter readings data.',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -96,15 +99,18 @@ describe('<SubmitMeter /> Component', () => {
         expect(meterReadingForm.props().isSuccessfullySubmitted).toEqual(true);
         expect(meterReadingForm.props().errors).toEqual({});
         expect(meterReadingForm.props().labels).toEqual({
+            dateField: 'Date of reading',
+            dateRequired: 'Date is required',
             header: 'Submit Meter readings',
             historyCaption: 'History',
-            meterReadingsField: 'Meter readings',
-            dateField: 'Date of reading',
-            submitButton: 'Submit',
+            loadingErrorMessage:
+                "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
             meterNumberTitle: 'Number of meter',
-            noData: 'Sorry, not live metering data available for you…',
             meterReadingNumber: 'Meter readings is not a number',
-            dateRequired: 'Date is required',
+            meterReadingsField: 'Meter readings',
+            noData: 'Sorry, not live metering data available for you…',
+            submitButton: 'Submit',
+            submitErrorMessage: 'An error occurred while sending meter readings data.',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -222,11 +228,11 @@ describe('<SubmitMeter /> Component', () => {
                 stateMock.Consumption.submittedMeterReading.loading ||
                 stateMock.Consumption.meterNumber.loading
         );
-        expect(props.error).toEqual(
-            stateMock.Consumption.meterReadingsHistory.error ||
-                stateMock.Consumption.meterNumber.error ||
-                stateMock.Consumption.submittedMeterReading.error
+        expect(props.errorLoading).toEqual(
+            stateMock.Consumption.meterReadingsHistory.error || stateMock.Consumption.meterNumber.error
         );
+
+        expect(props.errorSubmit).toEqual(stateMock.Consumption.submittedMeterReading.error);
         expect(props.meterReadingsHistory).toEqual(stateMock.Consumption.meterReadingsHistory.data);
         expect(props.meterNumber).toEqual(stateMock.Consumption.meterNumber.data.meterNumber);
         expect(props.submittedMeterReading).toEqual(stateMock.Consumption.submittedMeterReading);
@@ -242,8 +248,8 @@ describe('<SubmitMeter /> Component', () => {
         });
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
-            type: 'error',
-            message: 'Error message'
+            type: 'success',
+            message: 'Meter reading value was successfully saved'
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

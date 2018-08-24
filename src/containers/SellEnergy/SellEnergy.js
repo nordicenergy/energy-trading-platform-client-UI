@@ -48,6 +48,7 @@ export class SellEnergy extends AbstractContainer {
 
     componentDidMount() {
         performGetUserData();
+        // TODO: need remove this action, you can find current price in user entity (=user.workingPrice)
         performGetCurrentMarketPrice();
         this.setupSellEnergyBreadcrumbs();
     }
@@ -82,6 +83,7 @@ export class SellEnergy extends AbstractContainer {
         }
 
         if (!loading && error && error !== prevProps.error) {
+            //FIXME: move error messages to translations (de, en locales)
             performPushNotification({ message: error.message, type: 'error' });
         }
 

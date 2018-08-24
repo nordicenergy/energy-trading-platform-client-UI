@@ -96,7 +96,7 @@ describe('<MyDocuments /> Component', () => {
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
-            message: 'Error message'
+            message: "Can't load documents from Lition web server. Please contact administrator to resolve the error."
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

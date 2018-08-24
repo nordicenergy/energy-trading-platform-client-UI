@@ -27,8 +27,8 @@ export class Producer extends AbstractContainer {
             producer: state.Producers.producer.data,
             profile: state.Users.profile.data,
             selectedProducer: state.Producers.selectedProducer.data,
-            error:
-                state.Producers.producer.error || state.Users.profile.error || state.Producers.selectedProducer.error,
+            error: state.Producers.producer.error || state.Users.profile.error,
+            errorSelect: state.Producers.selectedProducer.error,
             locale: state.App.localization.data.locale
         };
     }
@@ -41,23 +41,25 @@ export class Producer extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
+        const { formatMessage } = this.context.intl;
         const { producer: prevProducer = {}, selectedProducer: prevSelectedProducer = {}, error: oldError } = prevProps;
-        const { producer = {}, selectedProducer = {}, error, loading, locale } = this.props;
+        const { producer = {}, selectedProducer = {}, error, errorSelect, loading, locale } = this.props;
 
         if (prevProducer.id !== producer.id || prevProducer.name !== producer.name || locale !== prevProps.locale) {
             this.setupProducerBreadcrumbs();
         }
 
         if (prevSelectedProducer !== selectedProducer) {
-            performPushNotification({
-                message: selectedProducer.message,
-                type: 'success'
-            });
+            performPushNotification({ message: formatMessage(messages.selectMessage), type: 'success' });
             this.navigateToOverview();
         }
 
         if (!loading && error && error !== oldError) {
-            performPushNotification({ message: error.message, type: 'error' });
+            performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
+        }
+
+        if (!loading && errorSelect && errorSelect !== prevProps.errorSelect) {
+            performPushNotification({ message: formatMessage(messages.selectErrorMessage), type: 'error' });
         }
 
         if (prevProps.loading !== loading) {
@@ -164,6 +166,7 @@ Producer.propTypes = {
     producer: PropTypes.object,
     profile: PropTypes.object,
     error: PropTypes.object,
+    errorSelect: PropTypes.object,
     locale: PropTypes.string
 };
 
@@ -171,6 +174,7 @@ Producer.defaultProps = {
     loading: false,
     producer: {},
     error: null,
+    errorSelect: null,
     profile: {}
 };
 

@@ -33,10 +33,8 @@ export class SubmitMeter extends AbstractContainer {
                 state.Consumption.meterReadingsHistory.loading ||
                 state.Consumption.submittedMeterReading.loading ||
                 state.Consumption.meterNumber.loading,
-            error:
-                state.Consumption.meterReadingsHistory.error ||
-                state.Consumption.meterNumber.error ||
-                state.Consumption.submittedMeterReading.error
+            errorLoading: state.Consumption.meterReadingsHistory.error || state.Consumption.meterNumber.error,
+            errorSubmit: state.Consumption.submittedMeterReading.error
         };
     }
 
@@ -47,14 +45,23 @@ export class SubmitMeter extends AbstractContainer {
 
     componentDidUpdate(prevProps) {
         const { formatMessage } = this.context.intl;
-        const { loading, error, submittedMeterReading } = this.props;
+        const { loading, errorLoading, errorSubmit, submittedMeterReading } = this.props;
 
-        if (!loading && !error && submittedMeterReading.data !== prevProps.submittedMeterReading.data) {
+        if (
+            !loading &&
+            !errorLoading &&
+            !errorSubmit &&
+            submittedMeterReading.data !== prevProps.submittedMeterReading.data
+        ) {
             performPushNotification({ message: formatMessage(messages.successMessage), type: 'success' });
         }
 
-        if (!loading && error && error !== prevProps.error) {
-            performPushNotification({ message: error.message, type: 'error' });
+        if (!loading && errorLoading && errorLoading !== prevProps.errorLoading) {
+            performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
+        }
+
+        if (!loading && errorSubmit && errorSubmit !== prevProps.errorSubmit) {
+            performPushNotification({ message: formatMessage(messages.submitErrorMessage), type: 'error' });
         }
 
         if (prevProps.loading !== loading) {
@@ -162,7 +169,9 @@ SubmitMeter.propTypes = {
         data: PropTypes.object,
         loading: PropTypes.bool,
         error: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-    }).isRequired
+    }).isRequired,
+    errorLoading: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    errorSubmit: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 
 export default connect(SubmitMeter.mapStateToProps)(SubmitMeter);

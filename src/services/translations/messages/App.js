@@ -67,7 +67,7 @@ const messages = defineMessages({
     },
     defaultErrorMessage: {
         id: 'app.notifications.defaultErrorMessage',
-        defaultMessage: 'Unknown error.'
+        defaultMessage: 'Internal web server error. Please try to refresh page later or contact administrator.'
     }
 });
 

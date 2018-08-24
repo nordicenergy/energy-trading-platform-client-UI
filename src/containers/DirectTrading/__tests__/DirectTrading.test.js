@@ -204,7 +204,7 @@ describe('<DirectTrading /> Component', () => {
                 performedTransaction: {
                     data: 'test_performed_transaction_data',
                     loading: false,
-                    error: null
+                    error: 'test_performed_transaction_error'
                 },
                 ledgerStatus: {
                     loading: false,
@@ -227,6 +227,7 @@ describe('<DirectTrading /> Component', () => {
             openTradePositions: [],
             availableAddresses: 'test_data',
             error: 'test_error',
+            errorPerform: 'test_performed_transaction_error',
             loading: 'test_loading',
             ledgerStatus: 'test_status_data',
             ledgerNetworks: 'test_networks_data',
@@ -294,7 +295,11 @@ describe('<DirectTrading /> Component', () => {
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[error]] = notificationActions.performPushNotification.mock.calls;
-        expect(error).toEqual({ message: 'Error Message', type: 'error' });
+        expect(error).toEqual({
+            message:
+                "Can't load transactions or ledger network data from Lition web server. Please contact administrator to resolve the error.",
+            type: 'error'
+        });
     });
 
     it('should calls performSetupLoaderVisibility when receive new loading property', () => {

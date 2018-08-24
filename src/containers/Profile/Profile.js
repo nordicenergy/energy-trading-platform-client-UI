@@ -34,6 +34,7 @@ export class Profile extends AbstractContainer {
     componentDidUpdate({ loading, profile, error }) {
         const { formatMessage } = this.context.intl;
         const loaded = this.props.loading !== loading && loading;
+
         if (!this.props.error && loaded && profile !== this.props.profile && this.state.updated) {
             performPushNotification({
                 type: 'success',
@@ -43,7 +44,9 @@ export class Profile extends AbstractContainer {
                 updated: false
             });
         }
+
         if (this.props.error && this.props.error !== error) {
+            //FIXME: use front-end messages
             performPushNotification({
                 type: 'error',
                 message: this.props.error.message

@@ -6,6 +6,7 @@
     "app.loginPage.loginButton": "Login",
     "app.loginPage.errors.emptyUsername": "Benutzername eingeben.",
     "app.loginPage.errors.emptyPassword": "Passwort eingeben.",
+    "app.loginPage.errors.authErrorMessage": "Invalid username or password.",
 
     "app.plantType.biomass": "Biomasseanlage",
     "app.plantType.solar": "Solaranlage",
@@ -38,6 +39,8 @@
     "app.restorePasswordPage.loginLink": "Login",
     "app.restorePasswordPage.errors.emptyEmail": "Deine E-Mail eingeben.",
     "app.restorePasswordPage.errors.invalidEmail": "Ungültige E-Mail.",
+    "app.restorePasswordPage.errors.createErrorMessage":
+        "An error occurred while creating reset password token. Please contact administrator to resolve the error.",
     "app.restorePasswordPage.info.tokenWasCreated":
         "Du erhältst einen Link zum Zurücksetzen deines Passwortes per E-Mail",
 
@@ -52,7 +55,8 @@
     "app.resetPasswordPage.errors.invalidResetPasswordToken": "Ungültiger Passwort-Link",
     "app.resetPasswordPage.info.passwordWasUpdated": "Dein Passwort wurde erfolgreich geändert",
 
-    "app.notifications.defaultErrorMessage": "Unbekannter Fehler.",
+    "app.notifications.defaultErrorMessage":
+        "Internal web server error. Please try to refresh page later or contact administrator.",
 
     "app.header.logoutConfirm": "Bist Du sicher, dass Du dich vom Portal abmelden möchtest?",
     "app.header.logoutLabel": "Logout",
@@ -89,6 +93,8 @@
     "app.recentTransactionsDetails.status": "Status",
     "app.recentTransactionsDescription.from": "von",
     "app.recentTransactionsDescription.bought": "gekauft",
+    "app.recentTransactions.loadingErrorMessage":
+        "Can't load transactions data from Lition web server. Please contact administrator to resolve the error.",
 
     "app.showTransactionsPage.header": "Transaktionen anzeigen",
     "app.showTransactionsPage.sellCoinsButton": "kWh verkaufen",
@@ -127,6 +133,10 @@
     "app.directTrading.confirmationDialog.statusInfoMessage":
         "User ledger address registration is in progress. Next step will be available after registration will be succeed.",
     "app.directTrading.wrongNetworkNotificationMessage": "Wrong ledger network is chosen",
+    "app.directTrading.errors.loadingErrorMessage":
+        "Can't load transactions or ledger network data from Lition web server. Please contact administrator to resolve the error.",
+    "app.directTrading.errors.performTxErrorMessage":
+        "An error occurred while performing the transaction. Please contact administrator to resolve the error.",
 
     "app.buyEnergyPage.pageTitle": "Energie kaufen",
     "app.buyEnergyPage.selectedProducerLabel": "aktuelle Auswahl:",
@@ -134,6 +144,8 @@
     "app.buyEnergyPage.filterOptionAll": "alle",
     "app.buyEnergyPage.tradeDirectlyOnMarketLink": "Dein Marktzugang",
     "app.buyEnergyPage.litionEnergyExchangeLink": "Lition Energiebörse",
+    "app.buyEnergyPage.loadingErrorMessage":
+        "Can't load producers data from Lition web server. Please contact administrator to resolve the error.",
 
     "app.producerPage.header": "Mein aktueller Erzeuger",
     "app.producerPage.name": "Name",
@@ -150,6 +162,12 @@
     "app.producerPage.showButton": "Erzeuger anzeigen",
     "app.producerPage.ethereumAddress": "Ethereum Adresse",
     "app.producerPage.soldOutHelpText": "Ausverkauftes Kraftwerk kann nicht ausgewählt werden.",
+    "app.producerPage.errors.loadingErrorMessage":
+        "Can't load producer data from Lition web server. Please contact administrator to resolve the error.",
+    "app.producerPage.errors.selectErrorMessage":
+        "An error occurred while selecting the producer. Please contact administrator to resolve the error.",
+    "app.producerPage.notifications.selectMessage":
+        "Producer is selected. We successfully stored your transaction. It can take a few minutes until the transaction is listed in your transaction history.",
 
     "app.header.logoutConfirmMessage": "Sind Sie sicher, dass Sie sich vom Portal abmelden möchten?",
     "app.header.logoutConfirmButton": "Ja",
@@ -222,6 +240,9 @@
     "app.sellEnergyPage.nameFieldError": "Name darf nicht leer sein.",
 
     "app.documentsPage.header": "Meine Dokumente",
+    "app.documentsPage.noDocumentsMessage": "You have no documents.",
+    "app.documentsPage.errors.loadingErrorMessage":
+        "Can't load documents from Lition web server. Please contact administrator to resolve the error.",
 
     "app.submitMeterReadingsPage.header": "Zählerstände eintragen",
     "app.submitMeterReadingsPage.labels.meterReadingsField": "Zählerstände",
@@ -232,5 +253,8 @@
     "app.submitMeterReadingsPage.messages.noData": "Wir haben leider keine Echtzeit-Zählerdaten für dich.",
     "app.submitMeterReadingsPage.messages.success": "Zählerstand erfolgreich gespeichert",
     "app.submitMeterReadingsPage.errors.meterReadingNumber": "Zählerstand ist keine Zahl",
-    "app.submitMeterReadingsPage.errors.dateRequired": "Datum erforderlich"
+    "app.submitMeterReadingsPage.errors.dateRequired": "Datum erforderlich",
+    "app.submitMeterReadingsPage.errors.loadingErrorMessage":
+        "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
+    "app.submitMeterReadingsPage.errors.submitErrorMessage": "An error occurred while sending meter readings data."
 }
