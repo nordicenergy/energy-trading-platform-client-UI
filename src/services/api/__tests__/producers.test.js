@@ -28,13 +28,14 @@ describe('Producers API Service', () => {
         Axios.post.mockClear();
     });
 
-    it('should provide method for getting specific producer', async () => {
+    it('should provide method for getting specific producer (when soldout flag is false for current user)', async () => {
         Axios.get
             .mockReturnValueOnce(
                 Promise.resolve({
                     data: {
                         user: {
-                            workingPrice: 2.5
+                            workingPrice: 2.5,
+                            showSoldOutPowerPlants: false
                         }
                     }
                 })
@@ -50,7 +51,8 @@ describe('Producers API Service', () => {
                             country: 'Zakovia',
                             productionOfLastDay: 200,
                             energyPurchased: 100,
-                            dlAddress: '0x1'
+                            dlAddress: '0x1',
+                            status: 'sold out'
                         }
                     }
                 })
@@ -72,7 +74,61 @@ describe('Producers API Service', () => {
                     productionOfLastDay: 200,
                     purchased: 100,
                     street: 'October',
-                    price: 4.5
+                    price: 4.5,
+                    status: 'active'
+                }
+            }
+        });
+    });
+
+    it('should provide method for getting specific producer (when soldout flag is true for current user)', async () => {
+        Axios.get
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: {
+                        user: {
+                            workingPrice: 2.5,
+                            showSoldOutPowerPlants: true
+                        }
+                    }
+                })
+            )
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: {
+                        producer: {
+                            price: 2,
+                            street: 'October',
+                            postcode: '230000',
+                            city: 'Seit',
+                            country: 'Zakovia',
+                            productionOfLastDay: 200,
+                            energyPurchased: 100,
+                            dlAddress: '0x1',
+                            status: 'sold out'
+                        }
+                    }
+                })
+            );
+
+        const producer = await getProducer('testId');
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/testId/get');
+        expect(producer).toEqual({
+            data: {
+                producer: {
+                    annualProduction: 200,
+                    city: 'Seit',
+                    country: 'Zakovia',
+                    dlAddress: '0x1',
+                    energyPurchased: 100,
+                    ethereumAddress: '0x1',
+                    location: 'October, 230000 Seit, Zakovia',
+                    postcode: '230000',
+                    productionOfLastDay: 200,
+                    purchased: 100,
+                    street: 'October',
+                    price: 4.5,
+                    status: 'sold out'
                 }
             }
         });
@@ -117,13 +173,14 @@ describe('Producers API Service', () => {
         expect(producerCall).toBe('/api/producers/TEST/get');
     });
 
-    it('should provide method for getting producers list', async () => {
+    it('should provide method for getting producers list (when soldout flag is false for current user)', async () => {
         Axios.get
             .mockReturnValueOnce(
                 Promise.resolve({
                     data: {
                         user: {
-                            workingPrice: 2.5
+                            workingPrice: 2.5,
+                            showSoldOutPowerPlants: false
                         }
                     }
                 })
@@ -141,7 +198,7 @@ describe('Producers API Service', () => {
                                 productionOfLastDay: 200,
                                 energyPurchased: 100,
                                 dlAddress: '0x1',
-                                status: 'active'
+                                status: 'sold out'
                             },
                             {
                                 price: 5.3,
@@ -179,6 +236,86 @@ describe('Producers API Service', () => {
                         energyPurchased: 100,
                         dlAddress: '0x1',
                         status: 'active'
+                    },
+                    {
+                        price: 2.5,
+                        street: 'October',
+                        postcode: '230000',
+                        city: 'Seit',
+                        country: 'Zakovia',
+                        productionOfLastDay: 200,
+                        energyPurchased: 100,
+                        dlAddress: '0x2',
+                        status: 'standard'
+                    }
+                ]
+            }
+        });
+    });
+
+    it('should provide method for getting producers list (when soldout flag is true for current user)', async () => {
+        Axios.get
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: {
+                        user: {
+                            workingPrice: 2.5,
+                            showSoldOutPowerPlants: true
+                        }
+                    }
+                })
+            )
+            .mockReturnValueOnce(
+                Promise.resolve({
+                    data: {
+                        producers: [
+                            {
+                                price: 3.1,
+                                street: 'October',
+                                postcode: '230000',
+                                city: 'Seit',
+                                country: 'Zakovia',
+                                productionOfLastDay: 200,
+                                energyPurchased: 100,
+                                dlAddress: '0x1',
+                                status: 'sold out'
+                            },
+                            {
+                                price: 5.3,
+                                street: 'October',
+                                postcode: '230000',
+                                city: 'Seit',
+                                country: 'Zakovia',
+                                productionOfLastDay: 200,
+                                energyPurchased: 100,
+                                dlAddress: '0x2',
+                                status: 'standard'
+                            }
+                        ]
+                    }
+                })
+            );
+
+        const producers = await getProducers({ page: 5, filter: ['test1', 'test2'] });
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?type=test1&type=test2', {
+            params: {
+                limit: LIMIT,
+                offset: LIMIT * 5
+            }
+        });
+        expect(producers).toEqual({
+            data: {
+                producers: [
+                    {
+                        price: 5.6,
+                        street: 'October',
+                        postcode: '230000',
+                        city: 'Seit',
+                        country: 'Zakovia',
+                        productionOfLastDay: 200,
+                        energyPurchased: 100,
+                        dlAddress: '0x1',
+                        status: 'sold out'
                     },
                     {
                         price: 2.5,

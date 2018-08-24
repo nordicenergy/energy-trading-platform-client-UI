@@ -6,7 +6,7 @@ export function getProducer(id) {
     const result = { data: { producer: {} } };
 
     return getUserData().then(response => {
-        const { data: { user: { workingPrice = 0 } = {} } = {} } = response;
+        const { data: { user: { workingPrice = 0, showSoldOutPowerPlants } = {} } = {} } = response;
 
         return Axios.get(`${SESSION_API_URL}/producers/${id}/get`).then(response => {
             if (response.data && response.data.producer) {
@@ -19,7 +19,8 @@ export function getProducer(id) {
                     annualProduction: producer.productionOfLastDay,
                     purchased: producer.energyPurchased,
                     ethereumAddress: producer.dlAddress,
-                    price: calculatePrice(workingPrice, producer)
+                    price: calculatePrice(workingPrice, producer),
+                    status: evaluateStatus(showSoldOutPowerPlants, producer)
                 };
             }
             return result;
@@ -79,7 +80,7 @@ export function getProducers({ page = 0, filter = [] } = {}) {
     }
 
     return getUserData().then(response => {
-        const { data: { user: { workingPrice = 0 } = {} } = {} } = response;
+        const { data: { user: { workingPrice = 0, showSoldOutPowerPlants } = {} } = {} } = response;
         return Axios.get(`${SESSION_API_URL}/producers/direct?${filterQuery}`, {
             params: { limit: LIMIT, offset: page * LIMIT }
         }).then(response => {
@@ -88,7 +89,8 @@ export function getProducers({ page = 0, filter = [] } = {}) {
                 result.data.producers = producers.map(producer => {
                     return {
                         ...producer,
-                        price: calculatePrice(workingPrice, producer)
+                        price: calculatePrice(workingPrice, producer),
+                        status: evaluateStatus(showSoldOutPowerPlants, producer)
                     };
                 });
             }
@@ -130,6 +132,10 @@ export function getOwnedProducerOffersHistory(producerId) {
 
 function calculatePrice(workingPrice, producer) {
     return PRODUCER_STATUSES.standard === producer.status ? workingPrice : workingPrice + producer.price;
+}
+
+function evaluateStatus(showSoldOut, producer) {
+    return !showSoldOut && PRODUCER_STATUSES.soldOut === producer.status ? PRODUCER_STATUSES.active : producer.status;
 }
 
 function locationTag(strings, ...values) {
