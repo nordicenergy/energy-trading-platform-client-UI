@@ -156,6 +156,10 @@
 
     --tooltip-shadow-color: var(--stone-gray-color);
 
+    --radio-button-primary-color: var(--emerald-color);
+    --radio-button-secondary-color: var(--scooter-color);
+    --radio-button-label-color: var(--black-pearl-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
