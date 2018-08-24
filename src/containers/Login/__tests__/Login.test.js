@@ -148,7 +148,7 @@ describe('<Login /> Container', () => {
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
-            message: 'Error message'
+            message: 'Invalid username or password.'
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

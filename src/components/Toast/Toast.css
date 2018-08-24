@@ -26,12 +26,16 @@
     font-size: 1.5em;
 }
 
+.toast-icon svg {
+    width: 1.125em;
+}
+
 .toast-message {
     flex: 1;
     margin: 0;
     padding-right: 1em;
-    max-width: 100%;
-    word-break: break-all;
+    max-width: calc(100% - 5.125em);
+    overflow-wrap: break-word;
     font-weight: 500;
     font-size: 1.125em;
     line-height: 1;
@@ -39,6 +43,7 @@
 
 .toast-close-button {
     padding-top: 0.4em;
+    width: 4em;
     outline: none;
     border: none;
     background: none;

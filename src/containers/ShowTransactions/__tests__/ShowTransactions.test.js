@@ -397,7 +397,9 @@ describe('<ShowTransactions /> Component', () => {
                 recentTransactionsTitle: 'Most Recent Transactions',
                 recentTransactionsDescriptionBought: 'Bought',
                 recentTransactionsDescriptionFrom: 'from',
-                sellCoinsButton: 'Sell Coins'
+                sellCoinsButton: 'Sell Coins',
+                loadingErrorMessage:
+                    "Can't load transactions data from Lition web server. Please contact administrator to resolve the error."
             },
             loading: false,
             pagination: true,
@@ -476,7 +478,11 @@ describe('<ShowTransactions /> Component', () => {
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[error]] = notificationActions.performPushNotification.mock.calls;
-        expect(error).toEqual({ message: 'Error Message', type: 'error' });
+        expect(error).toEqual({
+            message:
+                "Can't load transactions data from Lition web server. Please contact administrator to resolve the error.",
+            type: 'error'
+        });
     });
 
     it('should calls performSetupLoaderVisibility when receive new loading property', () => {

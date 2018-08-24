@@ -36,6 +36,7 @@ export class MyProducer extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
+        const { formatMessage } = this.context.intl;
         const { profile: { user: prevUser = {} } = {}, error: oldError } = prevProps;
         const { profile: { user = {} } = {}, loading, error, locale } = this.props;
 
@@ -48,7 +49,7 @@ export class MyProducer extends AbstractContainer {
         }
 
         if (!loading && error && error !== oldError) {
-            performPushNotification({ message: error.message, type: 'error' });
+            performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
         }
 
         if (prevProps.loading !== loading) {

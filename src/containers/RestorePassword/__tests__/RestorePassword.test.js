@@ -99,8 +99,9 @@ describe('<RestorePassword /> Container', () => {
         });
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
-            type: 'error',
-            message: 'Error message'
+            message:
+                'An error occurred while creating reset password token. Please contact administrator to resolve the error.',
+            type: 'error'
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

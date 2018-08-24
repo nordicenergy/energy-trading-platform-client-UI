@@ -53,6 +53,7 @@ export class ShowTransactions extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        const { formatMessage } = this.context.intl;
         const { user, loading, error, locale } = this.props;
 
         if (user !== prevProps.user || prevState.page !== this.state.page) {
@@ -64,7 +65,7 @@ export class ShowTransactions extends AbstractContainer {
         }
 
         if (!loading && error && error !== prevProps.error) {
-            performPushNotification({ message: error.message, type: 'error' });
+            performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
         }
 
         if (prevProps.loading !== loading) {

@@ -24,6 +24,10 @@ const messages = defineMessages({
     emptyPasswordError: {
         id: 'app.loginPage.errors.emptyPassword',
         defaultMessage: 'Enter your password.'
+    },
+    authErrorMessage: {
+        id: 'app.loginPage.errors.authErrorMessage',
+        defaultMessage: 'Invalid username or password.'
     }
 });
 
