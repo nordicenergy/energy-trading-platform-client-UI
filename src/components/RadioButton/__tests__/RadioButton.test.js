@@ -16,15 +16,6 @@ describe('<RadioButton /> component', () => {
         expect(radioButton.contains(<span className="radio-button-label">Test</span>)).toBeTruthy();
     });
 
-    it('should add unique id if `id` prop is not given', () => {
-        jest.spyOn(Date, 'now').mockReturnValue('123');
-        const radioButton = renderComponent({ id: null });
-
-        expect(radioButton.find('#radio-button-123')).toHaveLength(1);
-
-        Date.now.mockRestore();
-    });
-
     it('should not throw an error if `onChange` property is not given', () => {
         const radioButton = renderComponent();
 

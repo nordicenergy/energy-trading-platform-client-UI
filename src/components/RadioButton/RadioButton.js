@@ -6,7 +6,6 @@ import './RadioButton.css';
 class RadioButton extends Component {
     constructor(props) {
         super(props);
-        this.id = props.id || `radio-button-${Date.now()}`;
         this.state = {
             checked: props.checkedDefault
         };
@@ -26,9 +25,8 @@ class RadioButton extends Component {
         const { checked } = this.getState();
 
         return (
-            <label className="radio-button" htmlFor={this.id}>
+            <label className="radio-button">
                 <input
-                    id={this.id}
                     className="radio-button-native-control"
                     name={name}
                     type="radio"
