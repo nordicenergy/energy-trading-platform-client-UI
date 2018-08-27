@@ -1,5 +1,6 @@
 export { default as Button } from './Button';
 export { default as RadioButton } from './RadioButton';
+export { default as Checkbox } from './Checkbox';
 export { default as TextField } from './TextField';
 export { default as NumberField } from './NumberField';
 export { default as SelectField } from './SelectField';
