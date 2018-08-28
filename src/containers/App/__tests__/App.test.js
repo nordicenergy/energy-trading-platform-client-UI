@@ -163,11 +163,6 @@ describe('Main <App /> Component', () => {
         expect(context.router.history.push).toHaveBeenCalledWith('/test');
     });
 
-    it('should calls performSetupLocale', () => {
-        renderComponent({ locale: 'de' });
-        expect(appActions.performSetupLocale).toHaveBeenCalledWith('de');
-    });
-
     it('should calls performSetupLocale when locale was changed', () => {
         const app = renderComponent();
 

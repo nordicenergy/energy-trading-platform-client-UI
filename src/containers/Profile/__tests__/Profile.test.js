@@ -29,14 +29,23 @@ describe('<Profile /> Container', () => {
             Users: {
                 profile: {
                     loading: true,
-                    data: { user: { foo: 'bar' } }
+                    data: { user: { foo: 'bar' } },
+                    error: 'test-loading-error'
+                },
+                updatedProfile: {
+                    loading: false,
+                    data: { user: { foo: 'bar' } },
+                    error: 'test-updating-error'
                 }
             }
         };
         const props = Profile.mapStateToProps(stateMock);
 
-        expect(props.loading).toEqual(stateMock.Users.profile.loading);
+        expect(props.loading).toEqual(true);
         expect(props.profile).toEqual(stateMock.Users.profile.data.user);
+        expect(props.updatedProfile).toEqual(stateMock.Users.updatedProfile.data.user);
+        expect(props.updatingError).toEqual(stateMock.Users.updatedProfile.error);
+        expect(props.loadingError).toEqual(stateMock.Users.profile.error);
     });
 
     it('should validate fields', () => {
@@ -116,12 +125,27 @@ describe('<Profile /> Container', () => {
         component.setProps({
             loading: false,
             profile: null,
-            error: { message: 'Error message' }
+            loadingError: { message: 'Error message' }
         });
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
-            message: 'Error message'
+            message:
+                "Can't load profile data from Lition web server. Please contact administrator to resolve the error."
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+
+        component.setProps({
+            loading: false,
+            updatedProfile: null,
+            updatingError: { message: 'Error message' }
+        });
+
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'An error occurred while updating profile data: [Error message]'
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();
@@ -149,7 +173,7 @@ describe('<Profile /> Container', () => {
             });
             component.setProps({
                 loading: false,
-                profile: profileData
+                updatedProfile: profileData
             });
         });
         component.setProps({
