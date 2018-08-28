@@ -22,7 +22,6 @@ export class App extends React.PureComponent {
 
     constructor(props, context) {
         super(props, context);
-        this.setupLocale();
         this.state = { isConfirmVisible: false, isMenuBarOpen: false };
     }
 
@@ -37,20 +36,6 @@ export class App extends React.PureComponent {
         if (prevProps.loading !== loading) {
             performSetupLoaderVisibility(loading);
         }
-    }
-
-    setupLocale() {
-        const { locale: savedLocale } = this.props;
-        let locale;
-
-        if (savedLocale) {
-            locale = savedLocale;
-        } else {
-            const [browserLocale] = navigator.language.split('-');
-            locale = !browserLocale || LOCALES.indexOf(browserLocale) === -1 ? DEFAULT_LOCALE : browserLocale;
-        }
-
-        performSetupLocale(locale);
     }
 
     logout() {

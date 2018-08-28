@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 import { LocalizationProvider } from '../LocalizationProvider';
+import * as appActions from '../../../action_performers/app';
 
 function renderComponent(props, mountFn = shallow) {
     return mountFn(
@@ -12,6 +13,10 @@ function renderComponent(props, mountFn = shallow) {
 }
 
 describe('<LocalizationProvider /> provider', () => {
+    beforeEach(() => {
+        appActions.performSetupLocale = jest.fn();
+    });
+
     it('should renders without errors', () => {
         renderComponent();
     });
@@ -41,18 +46,19 @@ describe('<LocalizationProvider /> provider', () => {
                 }
             })
         ).toEqual({
-            locale: 'en'
+            locale: null
         });
     });
 
     it('should update locale', () => {
         jest.spyOn(moment, 'locale');
         const localizationProvider = renderComponent();
+        expect(appActions.performSetupLocale).toHaveBeenCalledWith('en');
 
-        localizationProvider.setProps({ locale: 'test' });
+        localizationProvider.setProps({ locale: 'de' });
         localizationProvider.update();
 
-        expect(document.documentElement.getAttribute('lang')).toBe('test');
-        expect(moment.locale).toHaveBeenCalledWith('test');
+        expect(document.documentElement.getAttribute('lang')).toBe('de');
+        expect(moment.locale).toHaveBeenCalledWith('de');
     });
 });

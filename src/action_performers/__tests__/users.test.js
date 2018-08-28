@@ -76,7 +76,7 @@ describe('Users action performers', () => {
         const [firstCall] = dispatcher.dispatchPromise.mock.calls;
         const [method, type, loadingFunc, meta] = firstCall;
         const loading = loadingFunc({
-            Users: { profile: { loading: 'TEST' } }
+            Users: { updatedProfile: { loading: 'TEST' } }
         });
         const [userData] = meta;
         expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
