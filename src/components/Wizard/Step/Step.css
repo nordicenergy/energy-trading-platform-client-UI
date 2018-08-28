@@ -1,0 +1,66 @@
+@keyframes heartbeat {
+    33% {
+        box-shadow: 0 0 0 0.1875em var(--app-bg-color), 0 0 0 0.3125em var(--wizard-primary-color);
+    }
+    66% {
+        box-shadow: 0 0 0 0.1875em var(--app-bg-color), 0 0 0 0.3125em var(--wizard-primary-color),
+            0 0 0 0.375em var(--wizard-primary-color), 0 0 0 0.75em var(--wizard-animation-shadow-color);
+    }
+}
+
+.wizard-step {
+    text-align: center;
+    color: var(--wizard-text-color);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.wizard-step-icon {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    flex: 0 0 2.5em;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 2.5em;
+    height: 2.5em;
+    padding: 0.25em 0 0;
+    cursor: default;
+    color: inherit;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.0625em var(--wizard-secondary-color);
+    background: var(--app-bg-color);
+    font-weight: 600;
+    appearance: none;
+}
+
+.wizard-step--succeed .wizard-step-icon,
+.wizard-step--active .wizard-step-icon {
+    color: white;
+    background: var(--wizard-primary-color);
+    box-shadow: none;
+}
+
+.wizard-step--succeed .wizard-step--icon {
+    padding: 0;
+}
+
+.wizard-step--active .wizard-step-icon {
+    animation: heartbeat 1300ms cubic-bezier(0.55, 0.055, 0.675, 0.19) 0s infinite normal none running;
+    box-shadow: 0 0 0 0.1875em var(--app-bg-color), 0 0 0 0.3125em var(--wizard-primary-color);
+}
+
+.wizard-step-title {
+    display: block;
+    margin: 1em 0;
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.wizard-step--succeed .wizard-step-title,
+.wizard-step--active .wizard-step-title {
+    color: var(--general-dark-text-color);
+}

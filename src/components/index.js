@@ -41,3 +41,4 @@ export { default as MeterReadingForm } from './MeterReadingForm';
 export { default as MeterReadingsHistory } from './MeterReadingsHistory';
 export { default as ResetPasswordForm } from './ResetPasswordForm';
 export { default as HelpIcon } from './HelpIcon';
+export { default as Wizard } from './Wizard';

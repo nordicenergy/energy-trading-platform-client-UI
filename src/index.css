@@ -23,6 +23,7 @@
     --bali-hai-color: #809dad;
     --watercourse-color: #027150;
     --emerald-color: #48d376;
+    --transparent-emerald-color: rgba(72, 211, 118, 0.15);
     --algae-green-color: #80dea8;
     --sunglo-color: #e87373;
     --mandys-pink-color: #f4bdbd;
@@ -155,6 +156,11 @@
     --trade-position-performed-color: var(--emerald-color);
 
     --tooltip-shadow-color: var(--stone-gray-color);
+
+    --wizard-primary-color: var(--emerald-color);
+    --wizard-animation-shadow-color: var(--transparent-emerald-color);
+    --wizard-secondary-color: var(--tower-gray-color);
+    --wizard-text-color: var(--bali-hai-color);
 
     --radio-button-primary-color: var(--emerald-color);
     --radio-button-secondary-color: var(--scooter-color);
