@@ -27,7 +27,12 @@ const messages = defineMessages({
     },
     tokenWasCreated: {
         id: 'app.restorePasswordPage.info.tokenWasCreated',
-        defaultMessage: 'You will receive reset password link on your email'
+        defaultMessage: 'An email will be sent to you with a link to reset your password'
+    },
+    createErrorMessage: {
+        id: 'app.restorePasswordPage.errors.createErrorMessage',
+        defaultMessage:
+            'An error occurred while creating reset password token. Please contact administrator to resolve the error.'
     }
 });
 

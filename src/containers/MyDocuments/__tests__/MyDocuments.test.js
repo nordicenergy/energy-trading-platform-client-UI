@@ -30,6 +30,7 @@ describe('<MyDocuments /> Component', () => {
     beforeEach(() => {
         documentsActions.performGetDocuments = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
+        documentsActions.performDownloadDocument = jest.fn();
 
         jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerMock);
         jest.spyOn(mainContainerMock, 'addEventListener');
@@ -49,6 +50,17 @@ describe('<MyDocuments /> Component', () => {
         expect(component.find(DocumentsList).props().documents).toEqual(DOCUMENTS_MOCKS);
         expect(component.find(DocumentsList).props().loading).toEqual(false);
         expect(component.find(DocumentsList).props().pagination).toEqual(true);
+        expect(component.find(DocumentsList).props().download).toEqual(expect.any(Function));
+    });
+
+    it('should call "performDownloadDocument" action when click download document', () => {
+        const component = renderComponent({ documents: DOCUMENTS_MOCKS });
+
+        component
+            .find(DocumentsList)
+            .props()
+            .download('url', 'name');
+        expect(documentsActions.performDownloadDocument).toHaveBeenCalledWith('url', 'name');
     });
 
     it('should map state properties', () => {
@@ -84,7 +96,7 @@ describe('<MyDocuments /> Component', () => {
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
-            message: 'Error message'
+            message: "Can't load documents from Lition web server. Please contact administrator to resolve the error."
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

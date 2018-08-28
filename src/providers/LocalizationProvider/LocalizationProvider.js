@@ -7,12 +7,13 @@ import localeDataDE from 'react-intl/locale-data/de';
 import moment from 'moment';
 import 'moment/locale/de';
 import 'moment/locale/en-gb';
-import { DEFAULT_LOCALE } from '../../constants';
+import { DEFAULT_LOCALE, LOCALES } from '../../constants';
 import translations from '../../services/translations';
+import { performSetupLocale } from '../../action_performers/app';
 
 export class LocalizationProvider extends Component {
     static mapStateToProps({ App }) {
-        return { locale: App.localization.data.locale || DEFAULT_LOCALE };
+        return { locale: App.localization.data.locale };
     }
 
     constructor(props) {
@@ -20,15 +21,34 @@ export class LocalizationProvider extends Component {
 
         addLocaleData(localeDataEN);
         addLocaleData(localeDataDE);
-        moment.locale(props.locale);
+
+        this.setupLocale();
+    }
+
+    setupLocale() {
+        const { locale: savedLocale } = this.props;
+
+        if (savedLocale) {
+            return performSetupLocale(savedLocale);
+        }
+
+        const [browserLocale] = navigator.language.split('-');
+        const locale = !browserLocale || LOCALES.indexOf(browserLocale) === -1 ? DEFAULT_LOCALE : browserLocale;
+
+        this.updateLocale(locale);
+        performSetupLocale(locale);
+    }
+
+    updateLocale(locale) {
+        document.documentElement.setAttribute('lang', locale);
+        moment.locale(locale);
     }
 
     componentDidUpdate(prevProps) {
         const { locale } = this.props;
 
         if (locale !== prevProps.locale) {
-            document.documentElement.setAttribute('lang', locale);
-            moment.locale(locale);
+            this.updateLocale(locale);
         }
     }
 

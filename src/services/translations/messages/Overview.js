@@ -64,6 +64,11 @@ const messages = defineMessages({
     recentTransactionsDescriptionBought: {
         id: 'app.recentTransactionsDescription.bought',
         defaultMessage: 'Bought'
+    },
+    loadingErrorMessage: {
+        id: 'app.recentTransactions.loadingErrorMessage',
+        defaultMessage:
+            "Can't load transactions data from Lition web server. Please contact administrator to resolve the error."
     }
 });
 

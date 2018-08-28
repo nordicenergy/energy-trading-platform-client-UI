@@ -60,8 +60,9 @@ export class ResetPassword extends AbstractContainer {
         if (error !== prevProps.error && error) {
             performPushNotification({
                 type: 'error',
-                message: error.message
+                message: formatMessage(messages.invalidResetPasswordToken)
             });
+            this.openLoginPage();
         }
 
         if (prevProps.loading !== loading) {
@@ -94,11 +95,12 @@ export class ResetPassword extends AbstractContainer {
 
     updatePassword(newPassword, confirm) {
         const { match: { params } = {} } = this.props;
+        const { formatMessage } = this.context.intl;
         const validator = this.prepareValidator();
 
         validator.validate({ password: newPassword, confirm }, errors => {
             if (errors) {
-                this.setState({
+                return this.setState({
                     errors: errors.reduce(
                         (errorsState, { field, message }) => ({
                             ...errorsState,
@@ -107,9 +109,17 @@ export class ResetPassword extends AbstractContainer {
                         {}
                     )
                 });
-            } else {
-                performResetUserPassword(params.resetToken, newPassword);
             }
+
+            if (newPassword !== confirm) {
+                return this.setState({
+                    errors: {
+                        confirm: formatMessage(messages.invalidConfirmError)
+                    }
+                });
+            }
+
+            performResetUserPassword(params.resetToken, newPassword);
         });
     }
 

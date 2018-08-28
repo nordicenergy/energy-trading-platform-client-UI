@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { getAboutUsContent, getFAQContent } from '../app';
+import { getAboutUsContent, getFAQContent, getTermsAndConditions } from '../app';
 
 describe('App API Service', () => {
     beforeAll(() => {
@@ -26,5 +26,12 @@ describe('App API Service', () => {
         const FAQContent = await getFAQContent('en');
         expect(Axios.get).toHaveBeenCalledWith('/api/content/FAQ', { params: { lang: 'en' } });
         expect(FAQContent).toEqual({ data: ['faq 1', 'faq 2'] });
+    });
+
+    it('should provide method for getting terms and conditions content', async () => {
+        Axios.get.mockReturnValue(Promise.resolve({ data: { text: 'text1\ntext2' } }));
+        const termsAndConditions = await getTermsAndConditions('en');
+        expect(Axios.get).toHaveBeenCalledWith('/api/content/termsAndConditions', { params: { lang: 'en' } });
+        expect(termsAndConditions).toEqual({ data: ['text1', 'text2'] });
     });
 });

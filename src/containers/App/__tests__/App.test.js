@@ -101,7 +101,7 @@ describe('Main <App /> Component', () => {
         expect(route).toEqual('/item1');
 
         expect(menu.props().items).toEqual([
-            { active: true, icon: 'faHome', id: '', label: 'Overview', path: '/' },
+            { active: true, icon: 'faHome', id: '', label: 'Overview', path: '/', subItemActive: false },
             { active: false, icon: 'faBook', id: 'documents', label: 'My Documents', path: '/documents' },
             {
                 active: false,
@@ -110,7 +110,7 @@ describe('Main <App /> Component', () => {
                 label: 'Submit Meter Readings',
                 path: '/submit_meter'
             },
-            { active: false, icon: 'faChartBar', id: 'trading', label: 'Trading', path: '/trading' },
+            { active: false, disabled: true, icon: 'faChartBar', id: 'trading', label: 'Trading', path: '/trading' },
             {
                 active: false,
                 icon: 'faSuitcase',
@@ -161,11 +161,6 @@ describe('Main <App /> Component', () => {
         header.props().onBreadCrumbsClick('/test');
 
         expect(context.router.history.push).toHaveBeenCalledWith('/test');
-    });
-
-    it('should calls performSetupLocale', () => {
-        renderComponent({ locale: 'de' });
-        expect(appActions.performSetupLocale).toHaveBeenCalledWith('de');
     });
 
     it('should calls performSetupLocale when locale was changed', () => {

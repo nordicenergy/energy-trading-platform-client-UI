@@ -69,10 +69,10 @@ export class DirectTrading extends AbstractContainer {
             error:
                 state.Transactions.openTradePositions.error ||
                 state.Transactions.availableAddresses.error ||
-                state.Transactions.performedTransaction.error ||
                 state.Transactions.ledgerNetworks.error ||
                 state.Transactions.ledgerStatus.error ||
                 state.Users.profile.error,
+            errorPerform: state.Transactions.performedTransaction.error,
             user: state.Users.profile.data.user,
             ledgerNetworks: state.Transactions.ledgerNetworks.data,
             ledgerStatus: state.Transactions.ledgerStatus.data
@@ -88,9 +88,9 @@ export class DirectTrading extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { performedTransaction, loading, error, user, ledgerStatus } = this.props;
-        const { isConfigured, isMetaMaskInstalled } = this.state;
         const { formatMessage } = this.context.intl;
+        const { performedTransaction, loading, error, errorPerform, user, ledgerStatus } = this.props;
+        const { isConfigured, isMetaMaskInstalled } = this.state;
         const configured = isConfigured && isConfigured !== prevState.isConfigured;
         const isLedgerStatusChanged = ledgerStatus.status && ledgerStatus !== prevProps.ledgerStatus;
         const isLedgerStatusSuccessful = ledgerStatus.status === SUCCESS_LEDGER_STATUS;
@@ -113,7 +113,11 @@ export class DirectTrading extends AbstractContainer {
         }
 
         if (!loading && error && error !== prevProps.error) {
-            performPushNotification({ message: error.message, type: 'error' });
+            performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
+        }
+
+        if (!loading && errorPerform && errorPerform !== prevProps.errorPerform) {
+            performPushNotification({ message: formatMessage(messages.performTxErrorMessage), type: 'error' });
         }
 
         if (isNewTransactionPerformed && !loading) {
@@ -351,14 +355,16 @@ DirectTrading.propTypes = {
     loading: PropTypes.bool,
     availableAddresses: PropTypes.array,
     openTradePositions: PropTypes.array,
-    error: PropTypes.object
+    error: PropTypes.object,
+    errorPerform: PropTypes.object
 };
 
 DirectTrading.defaultProps = {
     loading: false,
     availableAddresses: [],
     openTradePositions: [],
-    error: null
+    error: null,
+    errorPerform: null
 };
 
 export default connect(DirectTrading.mapStateToProps)(DirectTrading);

@@ -43,10 +43,7 @@ export class RestorePassword extends AbstractContainer {
         }
 
         if (error !== prevProps.error && error) {
-            performPushNotification({
-                type: 'error',
-                message: error.message
-            });
+            performPushNotification({ message: formatMessage(messages.createErrorMessage), type: 'error' });
         }
 
         if (prevProps.loading !== loading) {

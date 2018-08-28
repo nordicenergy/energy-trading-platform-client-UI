@@ -5,7 +5,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Spinner from '../../Loader/Spinner';
 
 const DOCUMENTS_MOCKS = [
-    { id: 1, type: 'invoice', date: 1521911833, name: 'Invoice.pdf', description: 'Annual bill', url: 'test1.pdf' },
+    { id: 1, type: 'invoice', date: 1521911833, name: 'Invoice.pdf', description: 'Annual bill', url: 'test1.pdf_url' },
     {
         id: 2,
         type: 'archivedDocument',
@@ -49,8 +49,13 @@ const DOCUMENTS_MOCKS = [
     { id: 8, type: undefined, date: undefined, name: undefined, description: undefined, url: null }
 ];
 
-function renderComponent({ loading = false, pagination = false, documents = [] } = {}, renderer = mount) {
-    return renderer(<DocumentsList documents={documents} loading={loading} pagination={pagination} />);
+function renderComponent(
+    { loading = false, pagination = false, documents = [], download = () => {} } = {},
+    renderer = mount
+) {
+    return renderer(
+        <DocumentsList documents={documents} loading={loading} pagination={pagination} download={download} />
+    );
 }
 
 describe('<DocumentsList /> Component', () => {
@@ -95,8 +100,8 @@ describe('<DocumentsList /> Component', () => {
             link
                 .find('a')
                 .at(0)
-                .prop('href')
-        ).toEqual('test1.pdf');
+                .props().onClick
+        ).toEqual(expect.any(Function));
     });
 
     it('should display correct data in table when some properties are undefined', () => {
@@ -116,7 +121,45 @@ describe('<DocumentsList /> Component', () => {
             link
                 .find('a')
                 .at(0)
-                .prop('href')
-        ).toEqual(null);
+                .props().onClick
+        ).toEqual(expect.any(Function));
+    });
+
+    it('should call "download" method when click by name', () => {
+        const downloadSpy = jest.fn();
+        const component = renderComponent({
+            documents: DOCUMENTS_MOCKS,
+            download: downloadSpy
+        });
+        const row = component.find('tr').at(0);
+        const rowData = row.find('td');
+
+        const nameTd = rowData.at(1);
+        const link = nameTd.find('a').at(0);
+        link
+            .find('a')
+            .at(0)
+            .simulate('click');
+
+        expect(downloadSpy).toHaveBeenCalledWith('test1.pdf_url', 'Invoice.pdf');
+    });
+
+    it('should call "download" method when click by icon', () => {
+        const downloadSpy = jest.fn();
+        const component = renderComponent({
+            documents: DOCUMENTS_MOCKS,
+            download: downloadSpy
+        });
+        const row = component.find('tr').at(0);
+        const rowData = row.find('td');
+
+        const iconTd = rowData.at(2);
+        const link = iconTd.find('a').at(0);
+        link
+            .find('a')
+            .at(0)
+            .simulate('click');
+
+        expect(downloadSpy).toHaveBeenCalledWith('test1.pdf_url', 'Invoice.pdf');
     });
 });

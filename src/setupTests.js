@@ -24,4 +24,11 @@ if (window) {
         getItem: jest.fn(),
         removeItem: jest.fn()
     };
+
+    window.URL = {
+        createObjectURL: jest.fn(),
+        revokeObjectURL: jest.fn()
+    };
+
+    window.Blob = jest.fn();
 }

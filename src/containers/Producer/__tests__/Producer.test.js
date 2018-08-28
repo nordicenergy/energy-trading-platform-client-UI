@@ -189,7 +189,7 @@ describe('<Producer /> Component', () => {
             Producers: {
                 producer: {
                     data: 'test_producer_data',
-                    error: null,
+                    error: 'test_producer_error',
                     loading: false
                 },
                 selectedProducer: {
@@ -215,12 +215,13 @@ describe('<Producer /> Component', () => {
         };
         const props = Producer.mapStateToProps(stateDummy);
         expect(props).toEqual({
+            error: 'test_producer_error',
+            errorSelect: 'test_error',
+            loading: 'test_loading',
             locale: 'en',
             producer: 'test_producer_data',
-            selectedProducer: 'test_selected_data',
-            error: 'test_error',
-            loading: 'test_loading',
-            profile: 'user_data'
+            profile: 'user_data',
+            selectedProducer: 'test_selected_data'
         });
     });
 
@@ -279,12 +280,12 @@ describe('<Producer /> Component', () => {
 
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[success]] = notificationActions.performPushNotification.mock.calls;
-        expect(success).toEqual({ message: 'Test', type: 'success' });
+        expect(success).toEqual({ message: 'test', type: 'success' });
 
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(2);
         const [, [error]] = notificationActions.performPushNotification.mock.calls;
-        expect(error).toEqual({ message: 'Error Message', type: 'error' });
+        expect(error).toEqual({ message: 'test', type: 'error' });
     });
 
     it('should open buy energy page', () => {

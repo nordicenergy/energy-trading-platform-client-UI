@@ -60,6 +60,21 @@ const messages = defineMessages({
     switchBack: {
         id: 'app.producerPage.switchBack',
         defaultMessage: 'Switch back to Lition Standard'
+    },
+    loadingErrorMessage: {
+        id: 'app.producerPage.errors.loadingErrorMessage',
+        defaultMessage:
+            "Can't load producer data from Lition web server. Please contact administrator to resolve the error."
+    },
+    selectErrorMessage: {
+        id: 'app.producerPage.errors.selectErrorMessage',
+        defaultMessage:
+            'An error occurred while selecting the producer. Please contact administrator to resolve the error.'
+    },
+    selectMessage: {
+        id: 'app.producerPage.notifications.selectMessage',
+        defaultMessage:
+            'Producer is selected. We successfully stored your transaction. It can take a few minutes until the transaction is listed in your transaction history.'
     }
 });
 

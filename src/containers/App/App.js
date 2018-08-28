@@ -22,7 +22,6 @@ export class App extends React.PureComponent {
 
     constructor(props, context) {
         super(props, context);
-        this.setupLocale();
         this.state = { isConfirmVisible: false, isMenuBarOpen: false };
     }
 
@@ -37,20 +36,6 @@ export class App extends React.PureComponent {
         if (prevProps.loading !== loading) {
             performSetupLoaderVisibility(loading);
         }
-    }
-
-    setupLocale() {
-        const { locale: savedLocale } = this.props;
-        let locale;
-
-        if (savedLocale) {
-            locale = savedLocale;
-        } else {
-            const [browserLocale] = navigator.language.split('-');
-            locale = !browserLocale || LOCALES.indexOf(browserLocale) === -1 ? DEFAULT_LOCALE : browserLocale;
-        }
-
-        performSetupLocale(locale);
     }
 
     logout() {
@@ -96,8 +81,20 @@ export class App extends React.PureComponent {
                 id: PATHS.overview.id,
                 icon: icons[''],
                 label: formatMessage(messages.overview),
-                active: headRoute === PATHS.overview.id,
-                path: PATHS.overview.path
+                active:
+                    headRoute === PATHS.overview.id ||
+                    headRoute === PATHS.buyEnergy.id ||
+                    headRoute === PATHS.sellEnergy.id ||
+                    headRoute === PATHS.myProducer.id ||
+                    headRoute === PATHS.producer.id ||
+                    headRoute === PATHS.showTransactions.id,
+                path: PATHS.overview.path,
+                subItemActive:
+                    headRoute === PATHS.buyEnergy.id ||
+                    headRoute === PATHS.sellEnergy.id ||
+                    headRoute === PATHS.myProducer.id ||
+                    headRoute === PATHS.producer.id ||
+                    headRoute === PATHS.showTransactions.id
             },
             {
                 id: PATHS.documents.id,
@@ -118,7 +115,8 @@ export class App extends React.PureComponent {
                 icon: icons.trading,
                 label: formatMessage(messages.trading),
                 active: headRoute === PATHS.trading.id,
-                path: PATHS.trading.path
+                path: PATHS.trading.path,
+                disabled: true
             },
             {
                 id: PATHS.directTrading.id,

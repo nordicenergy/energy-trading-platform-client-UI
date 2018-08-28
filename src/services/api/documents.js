@@ -19,3 +19,16 @@ export function getDocuments(page = 0) {
         return response;
     });
 }
+
+export function downloadDocument(url, name) {
+    return Axios.get(url, { responseType: 'blob' }).then(response => {
+        const blob = new Blob([response.data]);
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', `${name}.pdf`);
+        link.setAttribute('target', '_blank');
+        link.click();
+        window.URL.revokeObjectURL(url);
+    });
+}

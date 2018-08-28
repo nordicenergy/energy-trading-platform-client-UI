@@ -30,6 +30,7 @@ export class Overview extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
+        const { formatMessage } = this.context.intl;
         const { user, loading, error } = this.props;
 
         if (user !== prevProps.user) {
@@ -37,7 +38,7 @@ export class Overview extends AbstractContainer {
         }
 
         if (!loading && error && error !== prevProps.error) {
-            performPushNotification({ message: error.message, type: 'error' });
+            performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
         }
 
         if (prevProps.loading !== loading) {
@@ -81,7 +82,8 @@ export class Overview extends AbstractContainer {
             {
                 type: PATHS.sellEnergy.id,
                 title: labels.sellEnergy,
-                path: PATHS.sellEnergy.path
+                path: PATHS.sellEnergy.path,
+                disabled: true
             }
         ];
 

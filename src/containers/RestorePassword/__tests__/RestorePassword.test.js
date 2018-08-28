@@ -83,7 +83,7 @@ describe('<RestorePassword /> Container', () => {
         expect(historyMock.push).toHaveBeenCalledWith('/login');
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'success',
-            message: 'You will receive reset password link on your email'
+            message: 'An email will be sent to you with a link to reset your password'
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();
@@ -99,8 +99,9 @@ describe('<RestorePassword /> Container', () => {
         });
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
-            type: 'error',
-            message: 'Error message'
+            message:
+                'An error occurred while creating reset password token. Please contact administrator to resolve the error.',
+            type: 'error'
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

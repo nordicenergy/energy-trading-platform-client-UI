@@ -9,6 +9,7 @@ const NavigationCardsPanel = ({ navigationCards, onCardClick }) => (
                 key={cardItem.type}
                 type={cardItem.type}
                 title={cardItem.title}
+                disabled={cardItem.disabled}
                 onCardClickHandler={() => onCardClick(cardItem.path)}
             />
         ))}

@@ -355,7 +355,9 @@ describe('<Overview /> Component', () => {
                 recentTransactionsTitle: 'Most Recent Transactions',
                 recentTransactionsDescriptionBought: 'Bought',
                 recentTransactionsDescriptionFrom: 'from',
-                sellEnergy: 'Sell Energy'
+                sellEnergy: 'Sell Energy',
+                loadingErrorMessage:
+                    "Can't load transactions data from Lition web server. Please contact administrator to resolve the error."
             },
             transactions: [
                 ...props.recentTransactions.transactions.map(tx => ({
@@ -385,12 +387,14 @@ describe('<Overview /> Component', () => {
                 recentTransactionsTitle: 'Most Recent Transactions',
                 recentTransactionsDescriptionBought: 'Bought',
                 recentTransactionsDescriptionFrom: 'from',
-                sellEnergy: 'Sell Energy'
+                sellEnergy: 'Sell Energy',
+                loadingErrorMessage:
+                    "Can't load transactions data from Lition web server. Please contact administrator to resolve the error."
             },
             navigationCards: [
                 { path: '/my_producer', title: 'My Producer', type: 'my_producer' },
                 { path: '/buy_energy', title: 'Buy Energy', type: 'buy_energy' },
-                { path: '/sell_energy', title: 'Sell Energy', type: 'sell_energy' }
+                { disabled: true, path: '/sell_energy', title: 'Sell Energy', type: 'sell_energy' }
             ]
         });
     });
@@ -461,7 +465,11 @@ describe('<Overview /> Component', () => {
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[error]] = notificationActions.performPushNotification.mock.calls;
-        expect(error).toEqual({ message: 'Error Message', type: 'error' });
+        expect(error).toEqual({
+            message:
+                "Can't load transactions data from Lition web server. Please contact administrator to resolve the error.",
+            type: 'error'
+        });
     });
 
     it('should calls performSetupLoaderVisibility when receive new loading property', () => {

@@ -22,3 +22,14 @@ export function getFAQContent(locale) {
         };
     });
 }
+
+export function getTermsAndConditions(locale) {
+    return Axios.get(`${SESSION_API_URL}/content/termsAndConditions`, {
+        params: { lang: locale }
+    }).then(response => {
+        const { data } = response;
+        return {
+            data: data.text.split('\n')
+        };
+    });
+}

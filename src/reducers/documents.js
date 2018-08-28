@@ -1,5 +1,6 @@
 export const initialState = {
-    documentsList: { data: { documents: [], numberOfDocuments: 0 }, error: null, loading: false }
+    documentsList: { data: { documents: [], numberOfDocuments: 0 }, error: null, loading: false },
+    download: { data: {}, error: null, loading: false }
 };
 
 export function documentsReducer(state = initialState, action) {
@@ -19,6 +20,19 @@ export function documentsReducer(state = initialState, action) {
                                   : payload.documents
                           }
                         : state.documentsList.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
+        }
+
+        case 'DOWNLOAD_DOCUMENT': {
+            const { payload } = action;
+
+            return {
+                ...state,
+                download: {
+                    data: payload ? payload : state.download.data,
                     loading: action.loading,
                     error: action.error
                 }

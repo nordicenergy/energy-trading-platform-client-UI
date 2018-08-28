@@ -108,6 +108,19 @@ const messages = defineMessages({
     invalidEmail: {
         id: 'app.profilePage.errors.invalidEmail',
         defaultMessage: 'Invalid email address.'
+    },
+    profileUpdatedMessage: {
+        id: 'app.profilePage.notifications.profileUpdated',
+        defineMessages: 'Profile successfully updated'
+    },
+    profileUpdatedErrorMessage: {
+        id: 'app.profilePage.errors.profileUpdatedErrorMessage',
+        defineMessages: 'An error occurred while updating profile data'
+    },
+    profileLoadingErrorMessage: {
+        id: 'app.profilePage.errors.profileLoadingErrorMessage',
+        defineMessages:
+            "Can't load profile data from Lition web server. Please contact administrator to resolve the error."
     }
 });
 

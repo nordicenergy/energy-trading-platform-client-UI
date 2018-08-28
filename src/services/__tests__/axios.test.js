@@ -25,8 +25,10 @@ describe('Axios (AJAX) Configuration Service', () => {
 
         const [[, responseCallback]] = Axios.interceptors.response.use.mock.calls;
         responseCallback({ response: { status: 401 } });
-        expect(dispatcher.dispatchAction).toHaveBeenCalledTimes(2);
-        expect(dispatcher.dispatchAction).toHaveBeenCalledWith('LOGIN', null, { status: 401 }, false);
+        expect(dispatcher.dispatchAction).toHaveBeenCalledTimes(3);
+        const [, loginArgs, logoutArgs] = dispatcher.dispatchAction.mock.calls;
+        expect(loginArgs).toEqual(['LOGIN', null, { status: 401 }, false]);
+        expect(logoutArgs).toEqual(['LOGOUT', {}, null, false]);
 
         responseCallback({ response: { status: 403 } });
         expect(history.push).toHaveBeenCalledWith('/');

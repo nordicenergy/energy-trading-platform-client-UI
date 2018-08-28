@@ -260,7 +260,7 @@ describe('<MyProducer /> Component', () => {
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
         const [[error]] = notificationActions.performPushNotification.mock.calls;
-        expect(error).toEqual({ message: 'Error Message', type: 'error' });
+        expect(error).toEqual({ message: 'test', type: 'error' });
     });
 
     it('should open trading page', () => {

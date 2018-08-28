@@ -22,8 +22,10 @@ export class Profile extends AbstractContainer {
     static mapStateToProps(state) {
         return {
             profile: state.Users.profile.data.user,
-            loading: state.Users.profile.loading,
-            error: state.Users.profile.error
+            updatedProfile: state.Users.updatedProfile.data.user,
+            loading: state.Users.profile.loading || state.Users.updatedProfile.loading,
+            loadingError: state.Users.profile.error,
+            updatingError: state.Users.updatedProfile.error
         };
     }
 
@@ -31,21 +33,39 @@ export class Profile extends AbstractContainer {
         performGetUserData();
     }
 
-    componentDidUpdate({ loading, profile, error }) {
+    componentDidUpdate({ loading, updatedProfile, loadingError, updatingError }) {
+        const { formatMessage } = this.context.intl;
         const loaded = this.props.loading !== loading && loading;
-        if (!this.props.error && loaded && profile !== this.props.profile && this.state.updated) {
+
+        if (
+            !this.props.loadingError &&
+            !this.props.updatingError &&
+            loaded &&
+            updatedProfile !== this.props.updatedProfile &&
+            this.state.updated
+        ) {
             performPushNotification({
                 type: 'success',
-                message: 'Profile successfully updated.'
+                message: formatMessage(messages.profileUpdatedMessage)
             });
             this.setState({
                 updated: false
             });
+            performGetUserData();
         }
-        if (this.props.error && this.props.error !== error) {
+
+        if (this.props.loadingError && this.props.loadingError !== loadingError) {
             performPushNotification({
                 type: 'error',
-                message: this.props.error.message
+                message: formatMessage(messages.profileLoadingErrorMessage)
+            });
+        }
+
+        if (this.props.updatingError && this.props.updatingError !== updatingError) {
+            const errorMessage = formatMessage(messages.profileUpdatedErrorMessage);
+            performPushNotification({
+                type: 'error',
+                message: `${errorMessage}: [${this.props.updatingError.message}]`
             });
         }
 
@@ -200,12 +220,16 @@ Profile.contextTypes = {
 Profile.propTypes = {
     loading: PropTypes.bool,
     profile: PropTypes.object,
-    error: PropTypes.object
+    updatedProfile: PropTypes.object,
+    loadingError: PropTypes.object,
+    updatingError: PropTypes.object
 };
 Profile.defaultProps = {
     loading: false,
     profile: {},
-    error: null
+    updatedProfile: {},
+    loadingError: null,
+    updatingError: null
 };
 
 export default connect(Profile.mapStateToProps)(Profile);

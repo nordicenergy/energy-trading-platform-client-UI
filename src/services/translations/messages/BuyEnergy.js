@@ -24,6 +24,11 @@ const messages = defineMessages({
     litionEnergyExchangeLink: {
         id: 'app.buyEnergyPage.litionEnergyExchangeLink',
         defaultMessage: 'Lition energy exchange'
+    },
+    loadingErrorMessage: {
+        id: 'app.buyEnergyPage.loadingErrorMessage',
+        defaultMessage:
+            "Can't load producers data from Lition web server. Please contact administrator to resolve the error."
     }
 });
 

@@ -8,7 +8,7 @@ import {
 } from '../transactions';
 import web3Service, { LEDGERS } from '../../web3';
 import { BLOCKCHAIN_SCANNER_URLS } from '../../../constants';
-import { formatDateTime } from '../../../services/formatter';
+import { formatFloat, formatDateTime } from '../../../services/formatter';
 
 describe('Transactions API Service', () => {
     beforeEach(() => {
@@ -127,7 +127,7 @@ describe('Transactions API Service', () => {
                 offerAddress: '0x1',
                 offerIssued: formatDateTime(1526398769827),
                 offerIssuedTimestamp: 1526398769827,
-                price: '0.25',
+                price: `${formatFloat(0.25)}`,
                 priceFloat: 0.25,
                 producerName: 'test name',
                 producerUrl: '/buy_energy/producer/123',
@@ -142,7 +142,7 @@ describe('Transactions API Service', () => {
                 offerAddress: '0x2',
                 offerIssued: formatDateTime(1526398769800),
                 offerIssuedTimestamp: 1526398769800,
-                price: '0.35',
+                price: `${formatFloat(0.35)}`,
                 priceFloat: 0.35,
                 producerName: '',
                 producerUrl: null,

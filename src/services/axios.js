@@ -12,7 +12,10 @@ export default function configureAxios() {
 
     Axios.interceptors.response.use(null, error => {
         if (error.response && error.response.status === 401) {
-            return dispatcher.dispatchAction('LOGIN', null, error.response, false);
+            dispatcher.dispatchAction('LOGIN', null, error.response, false);
+            dispatcher.dispatchAction('LOGOUT', {}, null, false);
+
+            return history.push('/');
         }
         if (error.response && error.response.status === 403) {
             return history.push('/');
