@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import pick from 'lodash.pick';
 import './Checkbox.css';
@@ -21,8 +21,15 @@ class Checkbox extends Component {
     }
 
     render() {
-        const { name, value, label } = this.props;
+        const { name, value, label, required } = this.props;
         const { checked } = this.getState();
+        const labelContent = required ? (
+            <Fragment>
+                {label} <sup className="checkbox-asterisk">*</sup>
+            </Fragment>
+        ) : (
+            label
+        );
 
         return (
             <label className="checkbox">
@@ -35,7 +42,7 @@ class Checkbox extends Component {
                     onChange={event => this.handleChange(event)}
                 />
                 <span className="checkbox-control" aria-hidden />
-                {label && <span className="checkbox-label">{label}</span>}
+                {label && <span className="checkbox-label">{labelContent}</span>}
             </label>
         );
     }
@@ -47,7 +54,8 @@ Checkbox.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
     checked: PropTypes.bool,
     checkedDefault: PropTypes.bool,
-    label: PropTypes.string,
+    label: PropTypes.node,
+    required: PropTypes.bool,
     onChange: PropTypes.func
 };
 Checkbox.defaultProps = {

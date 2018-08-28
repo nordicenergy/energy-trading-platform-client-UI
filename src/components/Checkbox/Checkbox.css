@@ -8,6 +8,7 @@
 }
 
 .checkbox-native-control {
+    position: absolute;
     width: 0;
     height: 0;
     opacity: 0;
@@ -16,6 +17,7 @@
 
 .checkbox-control {
     position: relative;
+    flex: 0 0 1em;
     width: 1em;
     height: 1em;
 }
@@ -29,7 +31,7 @@
     bottom: 0;
     content: '';
     border-radius: 0.125em;
-    background: var(--checkbox-label-color)
+    background: var(--checkbox-primary-color)
         linear-gradient(to right, var(--checkbox-primary-color), var(--checkbox-secondary-color));
 }
 
@@ -53,8 +55,19 @@
     box-sizing: border-box;
     height: 1em;
     padding: 0.1em 0 0 0.888em;
-    color: var(--checkbox-label-color);
+    color: var(--general-dark-text-color);
     font-size: 1.125em;
     font-weight: 600;
     line-height: 1;
+}
+
+.checkbox-asterisk {
+    top: -0.1em;
+    color: var(--error-text-color);
+    font-size: 85%;
+}
+
+.checkbox-label a {
+    text-decoration: none;
+    color: var(--general-text-color);
 }

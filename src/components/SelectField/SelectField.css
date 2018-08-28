@@ -44,6 +44,12 @@
     font-size: 0.875em;
 }
 
+.select-field-asterisk {
+    top: -0.1em;
+    color: var(--error-text-color);
+    font-size: 85%;
+}
+
 .select-field-input {
     position: relative;
     display: flex;

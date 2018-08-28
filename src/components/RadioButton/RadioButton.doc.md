@@ -4,7 +4,7 @@
         <RadioButton name="demo" label="Male" />
     </div>
     <div style={{ marginRight: 24 }}>
-        <RadioButton name="demo" label="Female" />
+        <RadioButton name="demo" label="Female" required />
     </div>
 </div>
 ```

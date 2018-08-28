@@ -23,6 +23,12 @@ describe('<SelectField /> component', () => {
         expect(selectField.instance().layoutRef.classList.contains('select-field-layout')).toBeTruthy();
     });
 
+    it('should render with asterisk if select field is required', () => {
+        const selectField = renderComponent({ required: true });
+
+        expect(selectField.find('.select-field-asterisk')).toHaveLength(1);
+    });
+
     it('should renders with error', () => {
         const selectField = renderComponent({ error: 'test error' });
 

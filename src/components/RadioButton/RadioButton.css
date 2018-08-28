@@ -8,6 +8,7 @@
 }
 
 .radio-button-native-control {
+    position: absolute;
     width: 0;
     height: 0;
     opacity: 0;
@@ -16,6 +17,7 @@
 
 .radio-button-control {
     position: relative;
+    flex: 0 0 1em;
     width: 1em;
     height: 1em;
 }
@@ -55,8 +57,19 @@
     box-sizing: border-box;
     height: 1em;
     padding: 0.1em 0 0 0.888em;
-    color: var(--radio-button-label-color);
+    color: var(--general-dark-text-color);
     font-size: 1.125em;
     font-weight: 600;
     line-height: 1;
+}
+
+.radio-button-asterisk {
+    top: -0.1em;
+    color: var(--error-text-color);
+    font-size: 85%;
+}
+
+.radio-button-label a {
+    text-decoration: none;
+    color: var(--general-text-color);
 }

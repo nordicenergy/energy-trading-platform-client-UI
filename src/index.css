@@ -158,11 +158,9 @@
 
     --radio-button-primary-color: var(--emerald-color);
     --radio-button-secondary-color: var(--scooter-color);
-    --radio-button-label-color: var(--black-pearl-color);
 
     --checkbox-primary-color: var(--emerald-color);
     --checkbox-secondary-color: var(--scooter-color);
-    --checkbox-label-color: var(--black-pearl-color);
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;

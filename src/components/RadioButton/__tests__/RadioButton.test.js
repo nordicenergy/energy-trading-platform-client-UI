@@ -16,6 +16,12 @@ describe('<RadioButton /> component', () => {
         expect(radioButton.contains(<span className="radio-button-label">Test</span>)).toBeTruthy();
     });
 
+    it('should render with asterisk if radio button is required', () => {
+        const radioButton = renderComponent({ label: 'Required', required: true });
+
+        expect(radioButton.find('.radio-button-asterisk')).toHaveLength(1);
+    });
+
     it('should not throw an error if `onChange` property is not given', () => {
         const radioButton = renderComponent();
 

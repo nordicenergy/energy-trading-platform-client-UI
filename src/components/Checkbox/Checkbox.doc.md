@@ -7,7 +7,7 @@
         <Checkbox name="feature" label="Horns" />
     </div>
     <div style={{ marginRight: 24 }}>
-        <Checkbox name="feature" label="Claws" />
+        <Checkbox name="feature" label="Claws" required />
     </div>
 </div>
 ```

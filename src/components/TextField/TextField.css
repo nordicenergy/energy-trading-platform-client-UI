@@ -67,6 +67,12 @@
     font-size: 0.875em;
 }
 
+.text-field-asterisk {
+    top: -0.1em;
+    color: var(--error-text-color);
+    font-size: 85%;
+}
+
 .text-field-input-group {
     display: flex;
     align-items: center;
@@ -161,6 +167,24 @@
 
 .text-field--dark .text-field-error::after {
     border-bottom-color: var(--bar-color);
+}
+
+.text-field--multiline .text-field-layout {
+    display: block;
+    height: auto;
+}
+
+.text-field--multiline .text-field-label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.text-field--multiline .text-field-layout::after {
+    width: 100%;
+}
+
+.text-field--multiline .text-field-input {
+    min-height: 3.375em;
 }
 
 @media (max-width: 767px) {

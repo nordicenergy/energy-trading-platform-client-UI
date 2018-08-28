@@ -16,6 +16,12 @@ describe('<Checkbox /> component', () => {
         expect(checkbox.contains(<span className="checkbox-label">Test</span>)).toBeTruthy();
     });
 
+    it('should render with asterisk if checkbox is required', () => {
+        const checkbox = renderComponent({ label: 'Required', required: true });
+
+        expect(checkbox.find('.checkbox-asterisk')).toHaveLength(1);
+    });
+
     it('should not throw an error if `onChange` property is not given', () => {
         const checkbox = renderComponent();
 

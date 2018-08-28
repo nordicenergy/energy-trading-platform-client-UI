@@ -120,7 +120,7 @@ class DateField extends Component {
     }
 
     render() {
-        const { className, disabled, label, helperText, error, name, onBlur } = this.props;
+        const { className, disabled, label, helperText, error, name, required } = this.props;
         const { hasFocus } = this.state;
         const addon = (
             <span className="date-field-addon">
@@ -136,6 +136,7 @@ class DateField extends Component {
                     label={label}
                     addon={addon}
                     helperText={helperText}
+                    required={required}
                     name={name}
                     value={this.getFormattedDate()}
                     error={error}
@@ -159,6 +160,7 @@ DateField.propTypes = {
     error: PropTypes.string,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
+    required: PropTypes.bool,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onChange: PropTypes.func
