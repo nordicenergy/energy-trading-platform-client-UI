@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import {
+    create,
     login,
     logout,
     getUserData,
@@ -26,6 +27,13 @@ describe('Users API Service', () => {
         Axios.get.mockClear();
         Axios.post.mockClear();
         Axios.patch.mockClear();
+    });
+
+    it('should provide method for registration', () => {
+        const userData = { firstName: 'John', lastName: 'Doe', username: 'test', password: 'qwerty123' };
+        create(userData);
+
+        expect(Axios.post).toHaveBeenCalledWith('/api/user/create', userData);
     });
 
     it('should provide method for login', () => {

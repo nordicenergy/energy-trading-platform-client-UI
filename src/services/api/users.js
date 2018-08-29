@@ -2,6 +2,10 @@ import Axios from 'axios';
 import moment from 'moment';
 import { SESSION_API_URL } from '../../constants';
 
+export function create(userData) {
+    return Axios.post(`${SESSION_API_URL}/user/create`, userData);
+}
+
 export function login(credentials) {
     return Axios.post(`${SESSION_API_URL}/user/login`, credentials);
 }

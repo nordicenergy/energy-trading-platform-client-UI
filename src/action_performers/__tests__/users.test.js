@@ -1,6 +1,7 @@
 import { dispatcher } from '../../store';
 
 import {
+    performRegistration,
     performLogin,
     performLogout,
     performGetUserData,
@@ -13,6 +14,25 @@ import {
 describe('Users action performers', () => {
     beforeEach(() => {
         dispatcher.dispatchPromise = jest.fn();
+    });
+
+    it('should call dispatch method for user registration', () => {
+        const userData = { firstName: 'John', lastName: 'Doe', username: 'test', password: 'qwerty123' };
+
+        performRegistration(userData);
+
+        const [firstCall] = dispatcher.dispatchPromise.mock.calls;
+        const [method, type, loadingFunc, meta] = firstCall;
+        const loading = loadingFunc({
+            Users: { registration: { loading: 'TEST' } }
+        });
+        const [data] = meta;
+
+        expect(dispatcher.dispatchPromise.mock.calls.length).toEqual(1);
+        expect(method.name).toEqual('create');
+        expect(type).toEqual('REGISTRATION');
+        expect(loading).toEqual('TEST');
+        expect(data).toEqual(userData);
     });
 
     it('should call dispatch method for user login', () => {
