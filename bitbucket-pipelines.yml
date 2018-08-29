@@ -12,6 +12,7 @@ pipelines:
           - npm run styleguide:build
           - mkdir build/docs
           - cp -r styleguide/* build/docs
+          - git describe --abbrev=12 --always --dirty=+ >build/VERSION_GIT
           - ssh ec2-user@fe.prod.lition.io "rm -rf /var/www/html_tmp/*"
           - scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html_tmp/
           - ssh ec2-user@fe.prod.lition.io "rm -rf /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
@@ -26,6 +27,7 @@ pipelines:
           - npm run styleguide:build
           - mkdir build/docs
           - cp -r styleguide/* build/docs
+          - git describe --abbrev=12 --always --dirty=+ >build/VERSION_GIT
           - ssh ec2-user@fe.staging.lition.io "rm -rf /var/www/html_tmp/*"
           - scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
           - ssh ec2-user@fe.staging.lition.io "rm -rf /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
