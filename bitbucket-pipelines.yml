@@ -12,8 +12,9 @@ pipelines:
           - npm run styleguide:build
           - mkdir build/docs
           - cp -r styleguide/* build/docs
+          - ssh ec2-user@fe.prod.lition.io "rm -rf /var/www/html_tmp/*"
           - scp -r build/* ec2-user@fe.prod.lition.io:/var/www/html_tmp/
-          - ssh ec2-user@fe.prod.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.prod.lition.io "rm -rf /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
           - ssh ec2-user@fe.prod.lition.io sudo systemctl reload httpd
     staging: # -- When committing to staging branch auto-deploy to staging environment
     - step:
@@ -24,8 +25,10 @@ pipelines:
           - npm run build
           - npm run styleguide:build
           - mkdir build/docs
+          - cp -r styleguide/* build/docs
+          - ssh ec2-user@fe.staging.lition.io "rm -rf /var/www/html_tmp/*"
           - scp -r build/* ec2-user@fe.staging.lition.io:/var/www/html_tmp
-          - ssh ec2-user@fe.staging.lition.io "rm -r /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
+          - ssh ec2-user@fe.staging.lition.io "rm -rf /var/www/html/*; mv /var/www/html_tmp/* /var/www/html/"
           - ssh ec2-user@fe.staging.lition.io sudo systemctl reload httpd
   custom: # Pipelines that are triggered manually
     test_ssh:
