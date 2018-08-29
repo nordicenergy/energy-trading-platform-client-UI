@@ -1,5 +1,7 @@
 import Axios from 'axios';
 import { dispatcher } from '../../store';
+import * as notificationsActions from '../../action_performers/notifications';
+import * as usersActions from '../../action_performers/users';
 import * as browserStorage from '../browserStorage';
 import configureAxios from '../axios';
 import history from '../history';
@@ -9,6 +11,8 @@ describe('Axios (AJAX) Configuration Service', () => {
         browserStorage.getToken = jest.fn();
         browserStorage.getToken.mockReturnValue('test');
         dispatcher.dispatchAction = jest.fn();
+        usersActions.performLogout = jest.fn();
+        notificationsActions.performPushNotification = jest.fn();
         history.push = jest.fn();
 
         Axios.interceptors.response.use = jest.fn();
@@ -25,13 +29,18 @@ describe('Axios (AJAX) Configuration Service', () => {
 
         const [[, responseCallback]] = Axios.interceptors.response.use.mock.calls;
         responseCallback({ response: { status: 401 } });
-        expect(dispatcher.dispatchAction).toHaveBeenCalledTimes(3);
-        const [, loginArgs, logoutArgs] = dispatcher.dispatchAction.mock.calls;
-        expect(loginArgs).toEqual(['LOGIN', null, { status: 401 }, false]);
-        expect(logoutArgs).toEqual(['LOGOUT', {}, null, false]);
+        expect(usersActions.performLogout).toHaveBeenCalledTimes(1);
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledWith({
+            message: 'Your session has expired.',
+            type: 'error'
+        });
 
         responseCallback({ response: { status: 403 } });
         expect(history.push).toHaveBeenCalledWith('/');
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledWith({
+            message: 'Your are not authorized for this operation.',
+            type: 'error'
+        });
 
         expect(responseCallback.bind(null, { response: { status: 500 } })).toThrowError();
 

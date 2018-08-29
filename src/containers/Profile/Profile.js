@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
+import IBAN from 'iban';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { performGetUserData, performUpdateUserData } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
@@ -117,11 +118,23 @@ export class Profile extends AbstractContainer {
                     message: formatMessage(messages.invalidEmail)
                 }
             ],
-            IBAN: {
-                required: true,
-                type: 'string',
-                message: formatMessage(messages.emptyIban)
-            },
+            IBAN: [
+                {
+                    required: true,
+                    type: 'string',
+                    message: formatMessage(messages.emptyIban)
+                },
+                {
+                    validator(rule, value, callback) {
+                        const errors = [];
+                        if (value && !IBAN.isValid(value)) {
+                            errors.push(new Error(`Invalid IBAN value: ${value}`));
+                        }
+                        callback(errors);
+                    },
+                    message: formatMessage(messages.invalidIban)
+                }
+            ],
             newPassword(rule, value, callback, source) {
                 if (source.newPassword !== undefined && source.newPassword.length === 0) {
                     return callback({

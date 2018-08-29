@@ -51,8 +51,8 @@ describe('<TextField /> component', () => {
         const helperTextDummy = 'Test helper text';
         const textField = renderComponent({ helperText: helperTextDummy });
 
-        expect(textField.find('.text-field-helper-text')).toHaveLength(1);
-        expect(textField.find('.text-field-helper-text').text()).toBe(helperTextDummy);
+        expect(textField.find('small.text-field-helper-text')).toHaveLength(1);
+        expect(textField.find('small.text-field-helper-text').text()).toBe(helperTextDummy);
     });
 
     it('should renders with addon', () => {

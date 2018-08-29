@@ -1,4 +1,7 @@
 {
+    "app.common.errors.sessionHasExpired": "Your session has expired.",
+    "app.common.errors.notAuthorized": "Your are not authorized for this operation.",
+
     "app.loginBtn": "Login",
     "app.loginPage.usernameField": "Benutzername",
     "app.loginPage.passwordField": "Passwort",
@@ -186,6 +189,7 @@
     "app.profilePage.errors.firstName": "Vorname eingeben.",
     "app.profilePage.errors.lastName": "Nachname eingeben.",
     "app.profilePage.errors.iban": "IBAN eingeben.",
+    "app.profilePage.errors.invalidIban": "Enter valid IBAN.",
     "app.profilePage.errors.street": "Straße eingeben.",
     "app.profilePage.errors.streetNumber": "Hausnummer eingeben.",
     "app.profilePage.errors.postcode": "Postleitzahl eingeben.",

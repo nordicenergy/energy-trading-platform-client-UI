@@ -3,6 +3,7 @@ import TextField from './TextField';
 import NumberField from './NumberField';
 import SelectField from './SelectField';
 import DeltaField from './DeltaField';
+import IBANField from './IBANField';
 import LoginForm from './LoginForm';
 import RestorePasswordForm from './RestorePasswordForm';
 import OfferForm from './OfferForm';
@@ -47,6 +48,7 @@ export {
     NumberField,
     SelectField,
     DeltaField,
+    IBANField,
     LoginForm,
     RestorePasswordForm,
     OfferForm,

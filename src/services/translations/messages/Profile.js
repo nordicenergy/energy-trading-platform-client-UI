@@ -69,6 +69,10 @@ const messages = defineMessages({
         id: 'app.profilePage.errors.iban',
         defaultMessage: 'Enter your IBAN.'
     },
+    invalidIban: {
+        id: 'app.profilePage.errors.invalidIban',
+        defaultMessage: 'Enter valid IBAN.'
+    },
     emptyStreet: {
         id: 'app.profilePage.errors.street',
         defaultMessage: 'Enter your street.'
