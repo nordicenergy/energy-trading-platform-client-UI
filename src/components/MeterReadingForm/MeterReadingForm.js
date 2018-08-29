@@ -88,7 +88,7 @@ MeterReadingForm.propTypes = {
         submitButton: PropTypes.string
     }),
     onSubmit: PropTypes.func,
-    numberOfMeter: PropTypes.number,
+    numberOfMeter: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     locale: PropTypes.string,
     isSuccessfullySubmitted: PropTypes.bool,
     errors: PropTypes.shape({

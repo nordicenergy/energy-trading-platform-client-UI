@@ -164,7 +164,7 @@ SubmitMeter.propTypes = {
         isSeriesBasedOnLiveData: PropTypes.bool
     }).isRequired,
     loading: PropTypes.bool,
-    meterNumber: PropTypes.number,
+    meterNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     submittedMeterReading: PropTypes.shape({
         data: PropTypes.object,
         loading: PropTypes.bool,

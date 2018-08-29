@@ -92,7 +92,7 @@ describe('<Profile /> Container', () => {
         const dataMock = {
             firstName: '',
             lastName: '',
-            IBAN: '',
+            IBAN: 'test',
             email: '',
             street: '',
             postcode: '',
@@ -113,6 +113,7 @@ describe('<Profile /> Container', () => {
         expect(userActionPerformers.performUpdateUserData).not.toHaveBeenCalled();
         expect(component.state().errors).toHaveProperty('confirmNewPassword');
         expect(component.state().errors).toHaveProperty('oldPassword');
+        expect(component.state().errors).toHaveProperty('IBAN');
 
         console.warn.mockRestore();
         userActionPerformers.performUpdateUserData.mockRestore();
@@ -156,7 +157,7 @@ describe('<Profile /> Container', () => {
         const dataMock = {
             firstName: 'fname',
             lastName: 'lname',
-            IBAN: 'iban',
+            IBAN: 'DE78100500000890139229',
             email: 'ss@gmail.com',
             street: 'street',
             postcode: '111',
