@@ -40,6 +40,15 @@ const messages = defineMessages({
     successMessage: {
         id: 'app.submitMeterReadingsPage.messages.success',
         defaultMessage: 'Meter reading value was successfully saved'
+    },
+    loadingErrorMessage: {
+        id: 'app.submitMeterReadingsPage.errors.loadingErrorMessage',
+        defaultMessage:
+            "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error."
+    },
+    submitErrorMessage: {
+        id: 'app.submitMeterReadingsPage.errors.submitErrorMessage',
+        defaultMessage: 'An error occurred while sending meter readings data.'
     }
 });
 

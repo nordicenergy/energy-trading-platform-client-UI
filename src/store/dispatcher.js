@@ -65,7 +65,10 @@ class Dispatcher {
 
             operation(...args)
                 .then(result => this.dispatchAction(type, result && result.data, null, false, args))
-                .catch(err => this.dispatchAction(type, null, err && err.response && err.response.data, false, args));
+                .catch(err => {
+                    const { response: { status = 500, data = {} } = {} } = err || {};
+                    this.dispatchAction(type, null, { ...data, status }, false, args);
+                });
         }
     }
 

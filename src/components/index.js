@@ -5,6 +5,7 @@ export { default as TextField } from './TextField';
 export { default as NumberField } from './NumberField';
 export { default as SelectField } from './SelectField';
 export { default as DeltaField } from './DeltaField';
+export { default as IBANField } from './IBANField';
 export { default as LoginForm } from './LoginForm';
 export { default as RestorePasswordForm } from './RestorePasswordForm';
 export { default as OfferForm } from './OfferForm';

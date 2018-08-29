@@ -5,6 +5,7 @@ export const initialState = {
     login: { data: {}, error: null, loading: false },
     logout: { data: {}, error: null, loading: false },
     profile: { data: { user: {} }, error: null, loading: false },
+    updatedProfile: { data: { user: {} }, error: null, loading: false },
     resetPassword: { data: {}, error: null, loading: false },
     createdPasswordToken: { data: {}, error: null, loading: false },
     verifiedPasswordToken: { data: {}, error: null, loading: false }
@@ -32,7 +33,11 @@ export function usersReducer(state = initialState, action) {
             }
             return {
                 ...state,
-                login: { data: payload ? payload : state.login.data, loading: action.loading, error: action.error }
+                login: {
+                    data: payload ? payload : state.login.data,
+                    loading: action.loading,
+                    error: action.error
+                }
             };
         }
         case 'LOGOUT': {
@@ -59,11 +64,16 @@ export function usersReducer(state = initialState, action) {
             };
         }
         case 'UPDATE_USER_DATA': {
-            const updatedProfileData = action.payload ? action.payload : state.profile.data.user;
+            const updatedProfileData = action.payload ? action.payload : state.updatedProfile.data.user;
             return {
                 ...state,
-                profile: {
-                    data: { user: { ...state.profile.data.user, ...updatedProfileData } },
+                updatedProfile: {
+                    data: {
+                        user: {
+                            ...state.updatedProfile.data.user,
+                            ...updatedProfileData
+                        }
+                    },
                     loading: action.loading,
                     error: action.error
                 }

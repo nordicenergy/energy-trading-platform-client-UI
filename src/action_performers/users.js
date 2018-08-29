@@ -28,7 +28,9 @@ export function performGetUserData() {
 }
 
 export function performUpdateUserData(userData) {
-    dispatcher.dispatchPromise(updateUserData, 'UPDATE_USER_DATA', state => state.Users.profile.loading, [userData]);
+    dispatcher.dispatchPromise(updateUserData, 'UPDATE_USER_DATA', state => state.Users.updatedProfile.loading, [
+        userData
+    ]);
 }
 
 export function performResetUserPassword(resetToken, newPassword) {

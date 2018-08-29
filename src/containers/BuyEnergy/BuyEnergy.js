@@ -80,6 +80,7 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        const { formatMessage } = this.context.intl;
         const { error: oldError } = prevProps;
         const { currentProducerLoading, producersLoading, error: newError, locale } = this.props;
         const shouldShowFullScreenLoader = (currentProducerLoading || producersLoading) && this.state.page === 0;
@@ -93,7 +94,7 @@ export class BuyEnergy extends AbstractContainer {
         }
 
         if (!currentProducerLoading && !producersLoading && newError && newError !== oldError) {
-            performPushNotification({ message: newError.message, type: 'error' });
+            performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
         }
 
         if (

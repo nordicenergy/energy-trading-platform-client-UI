@@ -157,7 +157,7 @@ export class Registration extends AbstractContainer {
     }
 
     render() {
-        const { formLabels } = this.prepareLabels();
+        const { copyright, formLabels } = this.prepareLabels();
 
         return (
             <div className="registration-container">
@@ -175,7 +175,7 @@ export class Registration extends AbstractContainer {
                         onSubmit={formData => this.handleSubmit(formData)}
                     />
                 </main>
-                <footer className="registration-container-footer">&copy; Lition. All rights reserved.</footer>
+                <footer className="registration-container-footer">&copy; {copyright}</footer>
             </div>
         );
     }

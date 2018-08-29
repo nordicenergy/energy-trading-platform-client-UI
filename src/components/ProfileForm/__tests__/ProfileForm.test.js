@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import ProfileForm from '../ProfileForm';
 
 const labelsDummy = {
@@ -87,7 +87,8 @@ describe('<ProfileForm /> component', () => {
         - login button`, () => {
         const component = renderComponent();
 
-        expect(component.find('TextField')).toHaveLength(11);
+        expect(component.find('TextField')).toHaveLength(10);
+        expect(component.find('IBANField')).toHaveLength(1);
         expect(component.find('DateField')).toHaveLength(1);
         expect(component.find('Button')).toHaveLength(1);
     });
@@ -333,7 +334,7 @@ describe('<ProfileForm /> component', () => {
         const component = renderComponent();
 
         component
-            .find('TextField[name="IBAN"]')
+            .find('IBANField[name="IBAN"]')
             .props()
             .onChange({
                 target: {
@@ -347,7 +348,7 @@ describe('<ProfileForm /> component', () => {
     it('should update state if IBAN field value change and it was edited', () => {
         const component = renderComponent();
 
-        const field = component.find('TextField[name="IBAN"]');
+        const field = component.find('IBANField[name="IBAN"]');
         field.props().onChange({
             target: {
                 name: 'IBAN',

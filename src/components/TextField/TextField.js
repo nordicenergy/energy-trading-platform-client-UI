@@ -97,7 +97,7 @@ class TextField extends Component {
                         {addon && <span className="text-field-addon">{addon}</span>}
                     </span>
                 </label>
-                {helperText && <p className="text-field-helper-text">{helperText}</p>}
+                {helperText && <small className="text-field-helper-text">{helperText}</small>}
                 {error && (
                     <div role="alert" className="text-field-error">
                         {error}

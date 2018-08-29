@@ -81,6 +81,16 @@ const messages = defineMessages({
     wrongNetworkNotificationMessage: {
         id: 'app.directTrading.wrongNetworkNotificationMessage',
         defaultMessage: 'Wrong ledger network is chosen'
+    },
+    loadingErrorMessage: {
+        id: 'app.directTrading.errors.loadingErrorMessage',
+        defaultMessage:
+            "Can't load transactions or ledger network data from Lition web server. Please contact administrator to resolve the error."
+    },
+    performTxErrorMessage: {
+        id: 'app.directTrading.errors.performTxErrorMessage',
+        defaultMessage:
+            'An error occurred while performing the transaction. Please contact administrator to resolve the error.'
     }
 });
 

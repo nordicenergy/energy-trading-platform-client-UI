@@ -27,6 +27,7 @@ export class Login extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
+        const { formatMessage } = this.context.intl;
         const { loading, login, error } = this.props;
         const loaded = prevProps.loading !== loading && !loading;
 
@@ -35,10 +36,7 @@ export class Login extends AbstractContainer {
         }
 
         if (error !== prevProps.error && error) {
-            performPushNotification({
-                type: 'error',
-                message: error.message
-            });
+            performPushNotification({ message: formatMessage(messages.authErrorMessage), type: 'error' });
         }
 
         if (prevProps.loading !== loading) {

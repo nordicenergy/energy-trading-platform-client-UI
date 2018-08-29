@@ -42,9 +42,9 @@ describe('Users reducer:', () => {
 
         it('should handle UPDATE_USER_DATA', () => {
             const result = usersReducer(initialState, ACTIONS.updateUserData.pending);
-            expect(result.profile.loading).toEqual(true);
-            expect(result.profile.error).toEqual(null);
-            expect(result.profile.data).toEqual({ user: {} });
+            expect(result.updatedProfile.loading).toEqual(true);
+            expect(result.updatedProfile.error).toEqual(null);
+            expect(result.updatedProfile.data).toEqual({ user: {} });
         });
 
         it('should handle RESET_USER_PASSWORD', () => {
@@ -102,9 +102,9 @@ describe('Users reducer:', () => {
 
         it('should handle UPDATE_USER_DATA', () => {
             const result = usersReducer(initialState, ACTIONS.updateUserData.fail);
-            expect(result.profile.loading).toEqual(false);
-            expect(result.profile.error).toEqual('Error Message');
-            expect(result.profile.data).toEqual({ user: {} });
+            expect(result.updatedProfile.loading).toEqual(false);
+            expect(result.updatedProfile.error).toEqual('Error Message');
+            expect(result.updatedProfile.data).toEqual({ user: {} });
         });
 
         it('should handle RESET_USER_PASSWORD', () => {
@@ -164,9 +164,9 @@ describe('Users reducer:', () => {
 
         it('should handle UPDATE_USER_DATA', () => {
             const result = usersReducer(initialState, ACTIONS.updateUserData.success);
-            expect(result.profile.loading).toEqual(false);
-            expect(result.profile.error).toEqual(null);
-            expect(result.profile.data).toEqual({ user: ACTIONS.updateUserData.success.payload });
+            expect(result.updatedProfile.loading).toEqual(false);
+            expect(result.updatedProfile.error).toEqual(null);
+            expect(result.updatedProfile.data).toEqual({ user: ACTIONS.updateUserData.success.payload });
         });
 
         it('should handle RESET_USER_PASSWORD', () => {

@@ -46,6 +46,7 @@ export class MyDocuments extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        const { formatMessage } = this.context.intl;
         const { loading, error } = this.props;
 
         if (prevState.page !== this.state.page) {
@@ -53,7 +54,7 @@ export class MyDocuments extends AbstractContainer {
         }
 
         if (!loading && error && error !== prevProps.error) {
-            performPushNotification({ message: error.message, type: 'error' });
+            performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
         }
 
         if (prevProps.loading !== loading) {
@@ -82,7 +83,9 @@ export class MyDocuments extends AbstractContainer {
                             pagination
                             download={performDownloadDocument}
                         />
-                    ) : null}
+                    ) : (
+                        <p className="no-documents-title">{formatMessage(messages.noDocumentsMessage)}</p>
+                    )}
                 </section>
             </section>
         );

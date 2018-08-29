@@ -69,6 +69,10 @@ const messages = defineMessages({
         id: 'app.profilePage.errors.iban',
         defaultMessage: 'Enter your IBAN.'
     },
+    invalidIban: {
+        id: 'app.profilePage.errors.invalidIban',
+        defaultMessage: 'Enter valid IBAN.'
+    },
     emptyStreet: {
         id: 'app.profilePage.errors.street',
         defaultMessage: 'Enter your street.'
@@ -112,6 +116,15 @@ const messages = defineMessages({
     profileUpdatedMessage: {
         id: 'app.profilePage.notifications.profileUpdated',
         defineMessages: 'Profile successfully updated'
+    },
+    profileUpdatedErrorMessage: {
+        id: 'app.profilePage.errors.profileUpdatedErrorMessage',
+        defineMessages: 'An error occurred while updating profile data'
+    },
+    profileLoadingErrorMessage: {
+        id: 'app.profilePage.errors.profileLoadingErrorMessage',
+        defineMessages:
+            "Can't load profile data from Lition web server. Please contact administrator to resolve the error."
     }
 });
 
