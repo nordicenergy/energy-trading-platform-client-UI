@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import IBAN from 'iban';
+import classNames from 'classnames';
 import TextField from '../TextField';
 import './IBANField.css';
 
@@ -28,18 +29,22 @@ class IBANField extends Component {
     }
 
     render() {
-        const { label, error, disabled, name } = this.props;
+        const { className, label, helperText, error, disabled, required, name, onFocus, onBlur } = this.props;
+        const classes = classNames('iban-field', className);
 
         return (
-            <div className="iban-field">
+            <div className={classes}>
                 <TextField
-                    name={name}
-                    disabled={disabled}
+                    required={required}
                     label={label}
-                    helperText="e.g. DE89 3704 0044 0532 0130 00"
+                    helperText={helperText || 'e.g. DE89 3704 0044 0532 0130 00'}
+                    name={name}
                     value={IBAN.printFormat(this.state.value, ' ')}
                     error={error}
+                    disabled={disabled}
                     onChange={event => this.handleChange(event)}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                 />
             </div>
         );
@@ -48,12 +53,16 @@ class IBANField extends Component {
 
 IBANField.propTypes = {
     className: PropTypes.string,
+    required: PropTypes.bool,
     label: PropTypes.string.isRequired,
+    helperText: PropTypes.string,
     name: PropTypes.string,
     value: PropTypes.string,
     error: PropTypes.string,
+    disabled: PropTypes.bool,
     onChange: PropTypes.func,
-    disabled: PropTypes.bool
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func
 };
 
 export default IBANField;

@@ -37,7 +37,7 @@ describe('<DatePicker /> component', () => {
         onConfirmMock.mockClear();
     });
 
-    it('should renders without errors', () => {
+    it('should renders without errors and with necessary refs', () => {
         const datePicker = renderComponent();
         const handlePickMeUpChange = datePicker.instance().handlePickMeUpChange;
         const destroyMock = jest.spyOn(datePicker.instance().datepicker, 'destroy').mockImplementation(jest.fn());
@@ -45,9 +45,23 @@ describe('<DatePicker /> component', () => {
             .spyOn(datePicker.instance().datePickerRef, 'removeEventListener')
             .mockImplementation(jest.fn());
 
+        expect(datePicker.instance().wrapperRef).toBeInstanceOf(HTMLDivElement);
         datePicker.unmount();
         expect(destroyMock).toHaveBeenCalled();
         expect(removeEventListenerMock).toHaveBeenCalledWith('pickmeup-change', handlePickMeUpChange);
+    });
+
+    it('should add and remove body event listeners on `componentDidMount` and `componentWillUnmount`', () => {
+        jest.spyOn(window.document.body, 'addEventListener');
+        jest.spyOn(window.document.body, 'removeEventListener');
+
+        const datePicker = renderComponent();
+        const bodyEventListener = datePicker.instance().handleBodyClick;
+
+        expect(window.document.body.addEventListener).toHaveBeenCalledWith('click', bodyEventListener);
+
+        datePicker.unmount();
+        expect(window.document.body.removeEventListener).toHaveBeenCalledWith('click', bodyEventListener);
     });
 
     it('should renders with correct classes', () => {
@@ -114,5 +128,34 @@ describe('<DatePicker /> component', () => {
         expect(datePicker.instance().datepicker.set_date).toHaveBeenCalledWith(dateMock);
 
         datePicker.instance().datepicker.set_date.mockRestore();
+    });
+
+    it('should call `onClickOutside` when click outside of date picker', () => {
+        const onClickOutsideStub = jest.fn();
+        const eventStub = new MouseEvent('click');
+
+        renderComponent({ onClickOutside: onClickOutsideStub });
+
+        window.document.body.dispatchEvent(eventStub);
+        expect(onClickOutsideStub).toHaveBeenCalledWith(eventStub);
+    });
+
+    it('should not call `onClickOutside` when click inside of date picker', () => {
+        const onClickOutsideStub = jest.fn();
+        const datePicker = renderComponent({ onClickOutside: onClickOutsideStub });
+        const eventStub = new MouseEvent('click');
+
+        Object.defineProperty(eventStub, 'target', { value: datePicker.instance().wrapperRef.firstElementChild });
+
+        window.document.body.dispatchEvent(eventStub);
+        expect(onClickOutsideStub).not.toHaveBeenCalled();
+    });
+
+    it('should not throw an error if `onClickOutside` property is not given', () => {
+        const datePicker = renderComponent();
+
+        expect(() => {
+            datePicker.instance().props.onClickOutside();
+        }).not.toThrow();
     });
 });

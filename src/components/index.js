@@ -1,91 +1,46 @@
-import Button from './Button';
-import TextField from './TextField';
-import NumberField from './NumberField';
-import SelectField from './SelectField';
-import DeltaField from './DeltaField';
-import IBANField from './IBANField';
-import LoginForm from './LoginForm';
-import RestorePasswordForm from './RestorePasswordForm';
-import OfferForm from './OfferForm';
-import Logo from './Logo';
-import { Header, HeaderButton, Breadcrumbs } from './Header';
-import Footer from './Footer';
-import Illustration from './Illustration';
-import { NavigationCardsPanel, NavigationCard } from './NavigationCardsPanel';
-import { MenuSideBar, MenuItem } from './MenuSideBar';
-import Loader from './Loader';
-import Toast from './Toast';
-import RecentTransactions from './RecentTransactions';
-import EnergyAmountGraph from './EnergyAmountGraph';
-import WattcoinTable from './WattcoinTable';
-import ProducersFilter from './ProducersFilter';
-import ProducerCardsPanel from './ProducerCardsPanel';
-import ProducerInfo from './ProducerInfo';
-import ProducerHistory from './ProducerHistory';
-import OptionLinks from './OptionLinks';
-import DateField from './DateField';
-import ProfileForm from './ProfileForm';
-import Confirm from './Confirm';
-import CoinButton from './CoinButton';
-import OfferCard from './OfferCard';
-import OffersSlider from './OffersSlider';
-import DisclosureArrow from './DisclosureArrow';
-import BackLink from './BackLink';
-import ConfigurationForm from './ConfigurationForm';
-import MetaMaskAlert from './MetaMaskAlert';
-import SortToolbar from './SortToolbar';
-import TradePositionsList from './TradePositionsList';
-import DocumentsList from './DocumentsList';
-import MeterReadingForm from './MeterReadingForm';
-import MeterReadingsHistory from './MeterReadingsHistory';
-import ResetPasswordForm from './ResetPasswordForm';
-import HelpIcon from './HelpIcon';
-
-export {
-    Button,
-    CoinButton,
-    TextField,
-    NumberField,
-    SelectField,
-    DeltaField,
-    IBANField,
-    LoginForm,
-    RestorePasswordForm,
-    OfferForm,
-    Logo,
-    Illustration,
-    MenuSideBar,
-    MenuItem,
-    Header,
-    HeaderButton,
-    Footer,
-    NavigationCard,
-    NavigationCardsPanel,
-    Loader,
-    Toast,
-    EnergyAmountGraph,
-    RecentTransactions,
-    Breadcrumbs,
-    WattcoinTable,
-    ProducersFilter,
-    ProducerCardsPanel,
-    ProducerInfo,
-    ProducerHistory,
-    OptionLinks,
-    DateField,
-    ProfileForm,
-    Confirm,
-    OfferCard,
-    OffersSlider,
-    DisclosureArrow,
-    BackLink,
-    ConfigurationForm,
-    MetaMaskAlert,
-    SortToolbar,
-    TradePositionsList,
-    DocumentsList,
-    MeterReadingForm,
-    MeterReadingsHistory,
-    ResetPasswordForm,
-    HelpIcon
-};
+export { default as Button } from './Button';
+export { default as RadioButton } from './RadioButton';
+export { default as Checkbox } from './Checkbox';
+export { default as TextField } from './TextField';
+export { default as NumberField } from './NumberField';
+export { default as SelectField } from './SelectField';
+export { default as DeltaField } from './DeltaField';
+export { default as IBANField } from './IBANField';
+export { default as LoginForm } from './LoginForm';
+export { default as RestorePasswordForm } from './RestorePasswordForm';
+export { default as OfferForm } from './OfferForm';
+export { default as Logo } from './Logo';
+export { Header, HeaderButton, Breadcrumbs } from './Header';
+export { default as Footer } from './Footer';
+export { default as Illustration } from './Illustration';
+export { NavigationCardsPanel, NavigationCard } from './NavigationCardsPanel';
+export { MenuSideBar, MenuItem } from './MenuSideBar';
+export { default as Loader } from './Loader';
+export { default as Toast } from './Toast';
+export { default as RecentTransactions } from './RecentTransactions';
+export { default as EnergyAmountGraph } from './EnergyAmountGraph';
+export { default as WattcoinTable } from './WattcoinTable';
+export { default as ProducersFilter } from './ProducersFilter';
+export { default as ProducerCardsPanel } from './ProducerCardsPanel';
+export { default as ProducerInfo } from './ProducerInfo';
+export { default as ProducerHistory } from './ProducerHistory';
+export { default as OptionLinks } from './OptionLinks';
+export { default as DateField } from './DateField';
+export { default as ProfileForm } from './ProfileForm';
+export { default as Confirm } from './Confirm';
+export { default as CoinButton } from './CoinButton';
+export { default as OfferCard } from './OfferCard';
+export { default as OffersSlider } from './OffersSlider';
+export { default as DisclosureArrow } from './DisclosureArrow';
+export { default as BackLink } from './BackLink';
+export { default as ConfigurationForm } from './ConfigurationForm';
+export { default as MetaMaskAlert } from './MetaMaskAlert';
+export { default as SortToolbar } from './SortToolbar';
+export { default as TradePositionsList } from './TradePositionsList';
+export { default as DocumentsList } from './DocumentsList';
+export { default as MeterReadingForm } from './MeterReadingForm';
+export { default as MeterReadingsHistory } from './MeterReadingsHistory';
+export { default as ResetPasswordForm } from './ResetPasswordForm';
+export { default as HelpIcon } from './HelpIcon';
+export { default as Wizard } from './Wizard';
+export { default as RegistrationForm } from './RegistrationForm';

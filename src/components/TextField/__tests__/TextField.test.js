@@ -47,6 +47,19 @@ describe('<TextField /> component', () => {
         expect(textField.find('.text-field-input')).toHaveLength(1);
     });
 
+    it('should render with asterisk if field is required', () => {
+        const textField = renderComponent({ required: true });
+
+        expect(textField.find('.text-field-asterisk')).toHaveLength(1);
+    });
+
+    it('should render multiline field', () => {
+        const textField = renderComponent({ multiLine: true });
+
+        expect(textField.hasClass('text-field--multiline')).toBeTruthy();
+        expect(textField.find('textarea')).toHaveLength(1);
+    });
+
     it('should renders with helper text', () => {
         const helperTextDummy = 'Test helper text';
         const textField = renderComponent({ helperText: helperTextDummy });
