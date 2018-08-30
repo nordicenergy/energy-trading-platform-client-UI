@@ -1,6 +1,10 @@
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
+    successfulRegistration: {
+        id: 'app.registrationPage.successfulRegistration',
+        defaultMessage: 'Registration is succeeded.'
+    },
     copyright: {
         id: 'app.registrationPage.copyright',
         defaultMessage: 'Lition. All rights reserved.'
@@ -250,7 +254,7 @@ const messages = defineMessages({
                     },
                     counterNumberPattern: {
                         id: 'app.registrationPage.errors.counterNumberPattern',
-                        defaultMessage: 'You can use only numbers.'
+                        defaultMessage: 'Invalid counter number.'
                     },
                     relocationDateRequired: {
                         id: 'app.registrationPage.errors.relocationDateRequired',
