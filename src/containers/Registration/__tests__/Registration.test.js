@@ -99,7 +99,8 @@ describe('<Registration /> container', () => {
         expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
     });
 
-    it('should open login page when registration is succeed', () => {
+    it('should open login page and show notification when registration is succeed', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification');
         const registration = renderComponent();
 
         registration.setProps({ loading: true });
@@ -109,6 +110,10 @@ describe('<Registration /> container', () => {
         registration.update();
 
         expect(routerMock.history.push).toHaveBeenCalledWith('/login');
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'success',
+            message: expect.any(String)
+        });
     });
 
     it('should show error when registration is failed', () => {
