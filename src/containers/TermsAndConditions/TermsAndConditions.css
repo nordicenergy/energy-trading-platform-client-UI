@@ -24,6 +24,7 @@
     color: var(--about-us-info-text-color);
     font-size: 1rem;
     line-height: 2;
+    overflow-wrap: break-word;
 }
 
 .terms-and-conditions-page p a {
@@ -32,6 +33,7 @@
     cursor: pointer;
     font-weight: 600;
     transition: color 0.3s ease-out;
+    word-break: break-all;
 }
 
 .terms-and-conditions-page p a:hover {
