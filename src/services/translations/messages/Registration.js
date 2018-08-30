@@ -316,9 +316,17 @@ const messages = defineMessages({
                         id: 'app.registrationPage.errors.phoneAreaCodePattern',
                         defaultMessage: 'Phone code is invalid.'
                     },
+                    phoneAreaCodeValidator: {
+                        id: 'app.registrationPage.errors.phoneAreaCodeValidator',
+                        defaultMessage: 'Enter phone code.'
+                    },
                     phonePattern: {
                         id: 'app.registrationPage.errors.phonePattern',
                         defaultMessage: 'Phone is invalid.'
+                    },
+                    phoneValidator: {
+                        id: 'app.registrationPage.errors.phoneValidator',
+                        defaultMessage: 'Enter phone.'
                     }
                 }
             }
@@ -389,11 +397,15 @@ const messages = defineMessages({
                 errors: {
                     ibanRequired: {
                         id: 'app.registrationPage.errors.ibanRequired',
-                        message: 'Enter IBAN.'
+                        defaultMessage: 'Enter IBAN.'
+                    },
+                    ibanValidator: {
+                        id: 'app.registrationPage.errors.ibanValidator',
+                        defaultMessage: 'IBAN is invalid.'
                     },
                     sepaApprovalValidator: {
                         id: 'app.registrationPage.errors.sepaApprovalValidator',
-                        message: ''
+                        defaultMessage: ''
                     }
                 }
             }

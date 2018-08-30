@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import pick from 'lodash.pick';
 import AbstractForm from './AbstractForm';
 import Wizard from '../Wizard';
 import TextField from '../TextField';
@@ -32,10 +31,6 @@ class AuthInformationForm extends AbstractForm {
             ]
         };
 
-        if (field) {
-            return new Validator(pick(validationScheme, field));
-        }
-
         return new Validator(validationScheme);
     }
 
@@ -63,8 +58,6 @@ class AuthInformationForm extends AbstractForm {
                         disabled
                         value={formData.username}
                         error={errors.username}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <TextField
@@ -75,8 +68,6 @@ class AuthInformationForm extends AbstractForm {
                         name="password"
                         value={formData.password}
                         error={errors.password}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <TextField
@@ -87,8 +78,6 @@ class AuthInformationForm extends AbstractForm {
                         name="passwordConfirmation"
                         value={formData.passwordConfirmation}
                         error={errors.passwordConfirmation}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <input type="submit" hidden aria-hidden />

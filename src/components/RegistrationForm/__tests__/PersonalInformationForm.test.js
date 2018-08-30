@@ -22,18 +22,6 @@ describe('<PersonalInformationForm /> component', () => {
         expect(personalInformationForm.find('TextField[name="phone"]')).toHaveLength(1);
     });
 
-    it('should validate default field', () => {
-        const personalInformationForm = renderComponent();
-
-        personalInformationForm
-            .find('TextField[name="email"]')
-            .props()
-            .onBlur({
-                target: { name: 'email', value: '' }
-            });
-        expect(personalInformationForm.state().errors).toHaveProperty('email');
-    });
-
     it('should validate all form fields', () => {
         const personalInformationForm = renderComponent();
 
@@ -45,11 +33,30 @@ describe('<PersonalInformationForm /> component', () => {
             expect(personalInformationForm.state().errors).toHaveProperty(property);
         });
 
+        personalInformationForm.setProps({ formData: { phoneAreaCode: '033' } });
         personalInformationForm
             .find('form')
             .props()
             .onSubmit();
-        ['email', 'birthday'].forEach(property => {
+        ['email', 'birthday', 'phone'].forEach(property => {
+            expect(personalInformationForm.state().errors).toHaveProperty(property);
+        });
+
+        personalInformationForm.setProps({ formData: { phone: '111-22-33' } });
+        personalInformationForm
+            .find('form')
+            .props()
+            .onSubmit();
+        ['email', 'birthday', 'phoneAreaCode'].forEach(property => {
+            expect(personalInformationForm.state().errors).toHaveProperty(property);
+        });
+
+        personalInformationForm.setProps({ formData: { phoneAreaCode: 'abc', phone: 'invalid phone' } });
+        personalInformationForm
+            .find('form')
+            .props()
+            .onSubmit();
+        ['email', 'birthday', 'phoneAreaCode', 'phone'].forEach(property => {
             expect(personalInformationForm.state().errors).toHaveProperty(property);
         });
     });

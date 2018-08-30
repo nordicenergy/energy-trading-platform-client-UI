@@ -1,6 +1,5 @@
 import React from 'react';
 import AbstractForm from './AbstractForm';
-import pick from 'lodash.pick';
 import Wizard from '../Wizard';
 import TextField from '../TextField';
 import DateField from '../DateField';
@@ -9,17 +8,42 @@ import PropTypes from 'prop-types';
 
 class PersonalInformationForm extends AbstractForm {
     prepareValidator(field) {
-        const { labels: { errors } } = this.props;
+        const { labels } = this.props;
         const validationScheme = {
-            email: [{ required: true, message: errors.emailRequired }, { type: 'email', message: errors.emailType }],
-            birthday: { required: true, message: errors.birthdayRequired },
-            phoneAreaCode: { pattern: /^\d+[\d- ]*$/, message: errors.phoneAreaCodePattern },
-            phone: { pattern: /^\d+[\d- ]*$/, message: errors.phonePattern }
-        };
+            email: [
+                { required: true, message: labels.errors.emailRequired },
+                { type: 'email', message: labels.errors.emailType }
+            ],
+            birthday: { required: true, message: labels.errors.birthdayRequired },
+            phoneAreaCode: [
+                { pattern: /^\d+[\d- ]*$/, message: labels.errors.phoneAreaCodePattern },
+                {
+                    validator(rule, value, done, source) {
+                        const errors = [];
 
-        if (field) {
-            return new Validator(pick(validationScheme, field));
-        }
+                        if (!value && source.phone) {
+                            errors.push(new Error(labels.errors.phoneAreaCodeValidator));
+                        }
+
+                        done(errors);
+                    }
+                }
+            ],
+            phone: [
+                { pattern: /^\d+[\d- ]*$/, message: labels.errors.phonePattern },
+                {
+                    validator(rule, value, done, source) {
+                        const errors = [];
+
+                        if (!value && source.phoneAreaCode) {
+                            errors.push(new Error(labels.errors.phoneValidator));
+                        }
+
+                        done(errors);
+                    }
+                }
+            ]
+        };
 
         return new Validator(validationScheme);
     }
@@ -49,8 +73,6 @@ class PersonalInformationForm extends AbstractForm {
                         name="email"
                         value={formData.email}
                         error={errors.email}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <DateField
@@ -60,8 +82,6 @@ class PersonalInformationForm extends AbstractForm {
                         name="birthday"
                         value={formData.birthday}
                         error={errors.birthday}
-                        onFocus={this.handleDateFieldFocus}
-                        onBlur={this.handleDateFieldBlur}
                         onChange={this.handleDateChange}
                     />
                     <fieldset className="registration-form-field registration-form-fieldset registration-form-fieldset--phone">
@@ -72,8 +92,6 @@ class PersonalInformationForm extends AbstractForm {
                                 name="phoneAreaCode"
                                 value={formData.phoneAreaCode}
                                 error={errors.phoneAreaCode}
-                                onFocus={this.handleFocus}
-                                onBlur={this.handleBlur}
                                 onChange={this.handleChange}
                             />
                         </div>
@@ -84,8 +102,6 @@ class PersonalInformationForm extends AbstractForm {
                                 name="phone"
                                 value={formData.phone}
                                 error={errors.phone}
-                                onFocus={this.handleFocus}
-                                onBlur={this.handleBlur}
                                 onChange={this.handleChange}
                             />
                         </div>
@@ -149,7 +165,9 @@ PersonalInformationForm.defaultProps = {
             emailType: 'Email address is invalid.',
             birthdayRequired: 'Enter date of birth.',
             phoneAreaCodePattern: 'Phone code is invalid.',
-            phonePattern: 'Phone is invalid.'
+            phoneAreaCodeValidator: 'Enter phone code.',
+            phonePattern: 'Phone is invalid.',
+            phoneValidator: 'Enter phone.'
         }
     }
 };

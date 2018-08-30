@@ -31,5 +31,12 @@ describe('<TermsAndConditionsForm /> component', () => {
         ['agbApproval'].forEach(property => {
             expect(termAndConditionsForm.state().errors).toHaveProperty(property);
         });
+
+        termAndConditionsForm.setProps({ formData: { message: 'test', agbApproval: true, enableNotifications: true } });
+        termAndConditionsForm
+            .find(Wizard.Content)
+            .props()
+            .onNextButtonClick();
+        expect(termAndConditionsForm.state().errors).toEqual({});
     });
 });

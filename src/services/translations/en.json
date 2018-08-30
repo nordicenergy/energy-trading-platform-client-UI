@@ -339,7 +339,9 @@
     "app.registrationPage.errors.emailType": "Email address is invalid.",
     "app.registrationPage.errors.birthdayRequired": "Enter date of birth.",
     "app.registrationPage.errors.phoneAreaCodePattern": "Phone code is invalid.",
-    "app.registrationPage.errors.phone": "Phone is invalid.",
+    "app.registrationPage.errors.phoneAreaCodeValidator": "Enter phone code.",
+    "app.registrationPage.errors.phonePattern": "Phone is invalid.",
+    "app.registrationPage.errors.phoneValidator": "Enter phone.",
 
     "app.registrationPage.paymentInformationForm.title": "Zahlweise / Bankdaten",
     "app.registrationPage.paymentInformationForm.subTitle": "Gewünschte Zahlungsweise",
@@ -356,6 +358,7 @@
     "app.registrationPage.helps.sepaApproval":
         "Der genannte Kontoinhaber ermächtigt die Lition Energie GmbH, Zahlungen von seinem Konto mittels Lastschrift einzuziehen. Zugleich weist der genannte Kontoinhaber sein Kreditinstitut an, die von dem Lieferanten auf sein Konto gezogenen Lastschriften einzulösen. Hinweis: Innerhalb von acht Wochen, beginnend mit dem Belastungs-datum, kann die Erstattung des belasteten Betrages zurückverlangt werden. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.",
     "app.registrationPage.errors.ibanRequired": "Enter IBAN.",
+    "app.registrationPage.errors.ibanValidator": "IBAN is invalid.",
     "app.registrationPage.errors.sepaApprovalValidator": "Required.",
 
     "app.registrationPage.authInformationForm.title": "Dein Kundenkonto",

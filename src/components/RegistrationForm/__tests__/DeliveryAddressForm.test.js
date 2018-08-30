@@ -128,30 +128,6 @@ describe('<DeliveryAddressForm /> component', () => {
         });
     });
 
-    it('should validate default field', () => {
-        const deliveryAddressForm = renderComponent();
-
-        deliveryAddressForm
-            .find('TextField[name="firstName"]')
-            .props()
-            .onBlur({
-                target: { name: 'firstName', value: '' }
-            });
-        expect(deliveryAddressForm.state().errors).toHaveProperty('firstName');
-    });
-
-    it('should validate optional field', () => {
-        const deliveryAddressForm = renderComponent({ formData: { billingAlternativeAddress: true } });
-
-        deliveryAddressForm
-            .find('TextField[name="billingFirstName"]')
-            .props()
-            .onBlur({
-                target: { name: 'billingFirstName', value: '' }
-            });
-        expect(deliveryAddressForm.state().errors).toHaveProperty('billingFirstName');
-    });
-
     it('should validate all form fields', () => {
         const defaultProperties = ['firstName', 'lastName', 'postcode', 'city', 'street', 'streetNumber'];
         const deliveryAddressForm = renderComponent();

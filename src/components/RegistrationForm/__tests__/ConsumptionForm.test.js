@@ -57,28 +57,6 @@ describe('<ConsumptionForm /> component', () => {
         expect(setFormData).toHaveBeenCalledWith({ customerSpecification: 'relocation_at' });
     });
 
-    it('should validate default field', () => {
-        const consumptionForm = renderComponent();
-
-        consumptionForm
-            .find('TextField[name="usage"]')
-            .props()
-            .onBlur({
-                target: { name: 'usage', value: '' }
-            });
-        expect(consumptionForm.state().errors).toHaveProperty('usage');
-    });
-
-    it('should validate optional field', () => {
-        const consumptionForm = renderComponent({ formData: { customerSpecification: 'relocation_at' } });
-
-        consumptionForm
-            .find('DateField[name="relocationDate"]')
-            .props()
-            .onBlur({ name: 'relocationDate', value: '' });
-        expect(consumptionForm.state().errors).toHaveProperty('relocationDate');
-    });
-
     it('should validate all form fields', () => {
         const defaultProperties = ['usage', 'counterNumber'];
         const consumptionForm = renderComponent();

@@ -22,7 +22,7 @@ class Step extends Component {
 
         return (
             <div className={classes}>
-                <button ref={ref => (this.buttonRef = ref)} className="wizard-step-icon">
+                <button ref={ref => (this.buttonRef = ref)} className="wizard-step-icon" tabIndex={-1}>
                     {isSucceed ? <FontAwesomeIcon icon={faCheck} /> : number}
                 </button>
                 {title && <strong className="wizard-step-title">{title}</strong>}

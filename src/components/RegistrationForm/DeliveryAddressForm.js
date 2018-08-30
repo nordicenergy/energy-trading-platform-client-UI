@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import pick from 'lodash.pick';
 import Validator from 'async-validator';
 import AbstractForm from './AbstractForm';
 import RadioButton from '../RadioButton';
@@ -41,12 +40,6 @@ class DeliveryAddressForm extends AbstractForm {
             optionalFieldsValidationScheme.billingLegalForm = requiredFieldValidationScheme.legalForm;
         }
 
-        if (field && billingAlternativeAddress) {
-            return new Validator(pick({ ...requiredFieldValidationScheme, ...optionalFieldsValidationScheme }, field));
-        } else if (field) {
-            return new Validator(pick(requiredFieldValidationScheme, field));
-        }
-
         return new Validator(
             billingAlternativeAddress
                 ? { ...requiredFieldValidationScheme, ...optionalFieldsValidationScheme }
@@ -64,6 +57,14 @@ class DeliveryAddressForm extends AbstractForm {
             formData.legalForm = '';
             formData.billingCompany = '';
             formData.billingLegalForm = '';
+
+            const errors = Object.assign({}, this.state.errors);
+            delete errors.company;
+            delete errors.legalForm;
+            delete errors.billingCompany;
+            delete errors.billingLegalForm;
+
+            this.setState({ errors });
         }
 
         setFormData(formData);
@@ -84,6 +85,19 @@ class DeliveryAddressForm extends AbstractForm {
             formData.billingCity = '';
             formData.billingStreet = '';
             formData.billingHouseNumber = '';
+
+            const errors = Object.assign({}, this.state.errors);
+            delete errors.billingCompany;
+            delete errors.billingLegalForm;
+            delete errors.billingSalutation;
+            delete errors.billingFirstName;
+            delete errors.billingSurname;
+            delete errors.billingZip;
+            delete errors.billingCity;
+            delete errors.billingStreet;
+            delete errors.billingHouseNumber;
+
+            this.setState({ errors });
         }
 
         setFormData(formData);
@@ -104,8 +118,6 @@ class DeliveryAddressForm extends AbstractForm {
                             name="billingCompany"
                             value={formData.billingCompany}
                             error={errors.billingCompany}
-                            onFocus={this.handleFocus}
-                            onBlur={this.handleBlur}
                             onChange={this.handleChange}
                         />
                         <TextField
@@ -115,8 +127,6 @@ class DeliveryAddressForm extends AbstractForm {
                             name="billingLegalForm"
                             value={formData.billingLegalForm}
                             error={errors.billingLegalForm}
-                            onFocus={this.handleFocus}
-                            onBlur={this.handleBlur}
                             onChange={this.handleChange}
                         />
                     </Fragment>
@@ -140,8 +150,6 @@ class DeliveryAddressForm extends AbstractForm {
                     name="billingFirstName"
                     value={formData.billingFirstName}
                     error={errors.billingFirstName}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
                     onChange={this.handleChange}
                 />
                 <TextField
@@ -151,8 +159,6 @@ class DeliveryAddressForm extends AbstractForm {
                     name="billingSurname"
                     value={formData.billingSurname}
                     error={errors.billingSurname}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
                     onChange={this.handleChange}
                 />
                 <TextField
@@ -162,8 +168,6 @@ class DeliveryAddressForm extends AbstractForm {
                     name="billingZip"
                     value={formData.billingZip}
                     error={errors.billingZip}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
                     onChange={this.handleChange}
                 />
                 <TextField
@@ -173,8 +177,6 @@ class DeliveryAddressForm extends AbstractForm {
                     name="billingCity"
                     value={formData.billingCity}
                     error={errors.billingCity}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
                     onChange={this.handleChange}
                 />
                 <TextField
@@ -184,8 +186,6 @@ class DeliveryAddressForm extends AbstractForm {
                     name="billingStreet"
                     value={formData.billingStreet}
                     error={errors.billingStreet}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
                     onChange={this.handleChange}
                 />
                 <TextField
@@ -195,8 +195,6 @@ class DeliveryAddressForm extends AbstractForm {
                     name="billingHouseNumber"
                     value={formData.billingHouseNumber}
                     error={errors.billingHouseNumber}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
                     onChange={this.handleChange}
                 />
             </Fragment>
@@ -246,8 +244,6 @@ class DeliveryAddressForm extends AbstractForm {
                                 name="company"
                                 value={formData.company}
                                 error={errors.company}
-                                onFocus={this.handleFocus}
-                                onBlur={this.handleBlur}
                                 onChange={this.handleChange}
                             />
                             <TextField
@@ -257,8 +253,6 @@ class DeliveryAddressForm extends AbstractForm {
                                 name="legalForm"
                                 value={formData.legalForm}
                                 error={errors.legalForm}
-                                onFocus={this.handleFocus}
-                                onBlur={this.handleBlur}
                                 onChange={this.handleChange}
                             />
                         </Fragment>
@@ -282,8 +276,6 @@ class DeliveryAddressForm extends AbstractForm {
                         name="firstName"
                         value={formData.firstName}
                         error={errors.firstName}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <TextField
@@ -293,8 +285,6 @@ class DeliveryAddressForm extends AbstractForm {
                         name="lastName"
                         value={formData.lastName}
                         error={errors.lastName}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <TextField
@@ -304,8 +294,6 @@ class DeliveryAddressForm extends AbstractForm {
                         name="postcode"
                         value={formData.postcode}
                         error={errors.postcode}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <TextField
@@ -315,8 +303,6 @@ class DeliveryAddressForm extends AbstractForm {
                         name="city"
                         value={formData.city}
                         error={errors.city}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <TextField
@@ -326,8 +312,6 @@ class DeliveryAddressForm extends AbstractForm {
                         name="street"
                         value={formData.street}
                         error={errors.street}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <TextField
@@ -337,8 +321,6 @@ class DeliveryAddressForm extends AbstractForm {
                         name="streetNumber"
                         value={formData.streetNumber}
                         error={errors.streetNumber}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <fieldset className="registration-form-field registration-form-fieldset">

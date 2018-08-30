@@ -31,6 +31,13 @@ class Wizard extends Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
 
+    getActiveStepTitle() {
+        const { activeStep: activeStepNumber, steps } = this.props;
+        const activeStep = steps.find(step => step.number === activeStepNumber);
+
+        return (activeStep && activeStep.title) || '';
+    }
+
     registerStepRef(key, ref) {
         this.stepRefs[key] = ref;
     }
@@ -58,7 +65,15 @@ class Wizard extends Component {
         const progressStyle = { transform: `scaleX(${scaleX})` };
 
         return (
-            <div ref={ref => (this.wizardRef = ref)} className="wizard">
+            <div
+                ref={ref => (this.wizardRef = ref)}
+                className="wizard"
+                role="progressbar"
+                aria-valuetext={this.getActiveStepTitle()}
+                aria-valuenow={Math.round(activeStep / steps.length * 100)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+            >
                 <div style={progressStyle} className="wizard-progress" aria-hidden="true" />
                 <div className="wizard-layout">
                     {steps.map(step => (

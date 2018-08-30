@@ -37,6 +37,10 @@
     appearance: none;
 }
 
+.wizard-step-icon:focus {
+    outline: none;
+}
+
 .wizard-step--succeed .wizard-step-icon,
 .wizard-step--active .wizard-step-icon {
     color: white;

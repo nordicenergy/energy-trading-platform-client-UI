@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import pick from 'lodash.pick';
 import AbstractForm from './AbstractForm';
 import Wizard from '../Wizard';
 import TextField from '../TextField';
@@ -37,10 +36,6 @@ class ConsumptionForm extends AbstractForm {
             validationScheme.relocationDate = { required: true, message: errors.relocationDateRequired };
         }
 
-        if (field) {
-            return new Validator(pick(validationScheme, field));
-        }
-
         return new Validator(validationScheme);
     }
 
@@ -51,6 +46,11 @@ class ConsumptionForm extends AbstractForm {
 
         if (formData.customerSpecification !== 'relocation_at') {
             formData.relocationDate = '';
+
+            const errors = Object.assign({}, this.state.errors);
+            delete errors.relocationDate;
+
+            this.setState({ errors });
         }
 
         setFormData(formData);
@@ -81,8 +81,6 @@ class ConsumptionForm extends AbstractForm {
                         name="usage"
                         value={formData.usage}
                         error={errors.usage}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <fieldset className="registration-form-field registration-form-fieldset">
@@ -114,8 +112,6 @@ class ConsumptionForm extends AbstractForm {
                         name="counterNumber"
                         value={formData.counterNumber}
                         error={errors.counterNumber}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     {formData.customerSpecification === 'relocation_at' && (
@@ -127,8 +123,6 @@ class ConsumptionForm extends AbstractForm {
                             helperText={fields.relocationDateHelp}
                             value={formData.relocationDate}
                             error={errors.relocationDate}
-                            onFocus={this.handleDateFieldFocus}
-                            onBlur={this.handleDateFieldBlur}
                             onChange={this.handleDateChange}
                         />
                     )}

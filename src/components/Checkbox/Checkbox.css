@@ -68,6 +68,12 @@
 }
 
 .checkbox-label a {
+    transition: color 150ms ease;
     text-decoration: none;
     color: var(--general-text-color);
+    will-change: color;
+}
+
+.checkbox-label a:hover {
+    color: var(--general-hover-text-color);
 }

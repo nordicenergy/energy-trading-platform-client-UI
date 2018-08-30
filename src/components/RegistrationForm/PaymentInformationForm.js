@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import pick from 'lodash.pick';
+import IBAN from 'iban';
 import AbstractForm from './AbstractForm';
 import Wizard from '../Wizard';
 import TextField from '../TextField';
+import IBANField from '../IBANField';
 import RadioButton from '../RadioButton';
 import Checkbox from '../Checkbox';
 import Validator from 'async-validator';
@@ -14,7 +15,20 @@ class PaymentInformationForm extends AbstractForm {
         const validationScheme =
             paymentMethod === 'debit'
                 ? {
-                      iban: { required: true, message: labels.errors.ibanRequired },
+                      iban: [
+                          { required: true, message: labels.errors.ibanRequired },
+                          {
+                              validator(rule, value, done) {
+                                  const errors = [];
+
+                                  if (!IBAN.isValid(value)) {
+                                      errors.push(new Error(labels.errors.ibanValidator));
+                                  }
+
+                                  done(errors);
+                              }
+                          }
+                      ],
                       sepaApproval: {
                           validator(rule, value, done) {
                               const errors = [];
@@ -29,10 +43,6 @@ class PaymentInformationForm extends AbstractForm {
                   }
                 : {};
 
-        if (field) {
-            return new Validator(pick(validationScheme, field));
-        }
-
         return new Validator(validationScheme);
     }
 
@@ -45,6 +55,12 @@ class PaymentInformationForm extends AbstractForm {
             formData.iban = '';
             formData.alternativeAccountHolder = '';
             formData.sepaApproval = false;
+
+            const errors = Object.assign({}, this.state.errors);
+            delete errors.iban;
+            delete errors.sepaApproval;
+
+            this.setState({ errors });
         }
 
         setFormData(formData);
@@ -56,7 +72,7 @@ class PaymentInformationForm extends AbstractForm {
 
         return (
             <Fragment>
-                <TextField
+                <IBANField
                     className="registration-form-field"
                     required
                     label={fields.iban}
@@ -64,8 +80,6 @@ class PaymentInformationForm extends AbstractForm {
                     name="iban"
                     value={formData.iban}
                     error={errors.iban}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
                     onChange={this.handleChange}
                 />
                 <TextField
@@ -74,8 +88,6 @@ class PaymentInformationForm extends AbstractForm {
                     name="alternativeAccountHolder"
                     value={formData.alternativeAccountHolder}
                     error={errors.alternativeAccountHolder}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
                     onChange={this.handleChange}
                 />
                 <fieldset className="registration-form-field registration-form-fieldset">
@@ -86,6 +98,7 @@ class PaymentInformationForm extends AbstractForm {
                             label={fields.sepaApprovalOption}
                             name="sepaApproval"
                             value="confirmed"
+                            checked={formData.sepaApproval}
                             onChange={this.handleCheckboxChange}
                         />
                         <small className="registration-form-help-text registration-form-help-text--sepa-approval">
@@ -197,6 +210,7 @@ PaymentInformationForm.defaultProps = {
         },
         errors: {
             ibanRequired: 'Enter IBAN.',
+            ibanValidator: 'IBAN is invalid.',
             sepaApprovalValidator: ''
         }
     }

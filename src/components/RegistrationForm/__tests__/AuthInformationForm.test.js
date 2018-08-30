@@ -21,31 +21,6 @@ describe('<AuthInformationForm /> component', () => {
         expect(authInformationForm.find('TextField[name="passwordConfirmation"]')).toHaveLength(1);
     });
 
-    it('should validate default field', () => {
-        const authInformationForm = renderComponent();
-
-        authInformationForm
-            .find('TextField[name="password"]')
-            .props()
-            .onBlur({
-                target: { name: 'password', value: '' }
-            });
-        expect(authInformationForm.state().errors).toHaveProperty('password');
-    });
-
-    it('should check if passwords are same', () => {
-        const authInformationForm = renderComponent();
-
-        authInformationForm.setProps({ formData: { password: 'qwerty123' } });
-        authInformationForm
-            .find('TextField[name="passwordConfirmation"]')
-            .props()
-            .onBlur({
-                target: { name: 'passwordConfirmation', value: '123qwerty' }
-            });
-        expect(authInformationForm.state().errors).toHaveProperty('passwordConfirmation');
-    });
-
     it('should validate all form fields', () => {
         const authInformationForm = renderComponent();
 
@@ -56,5 +31,54 @@ describe('<AuthInformationForm /> component', () => {
         ['password', 'passwordConfirmation'].forEach(property => {
             expect(authInformationForm.state().errors).toHaveProperty(property);
         });
+
+        authInformationForm.setProps({ formData: { password: 'qw123' } });
+        authInformationForm
+            .find(Wizard.Content)
+            .props()
+            .onNextButtonClick();
+        ['password', 'passwordConfirmation'].forEach(property => {
+            expect(authInformationForm.state().errors).toHaveProperty(property);
+        });
+
+        authInformationForm.setProps({ formData: { password: 'qwertyui' } });
+        authInformationForm
+            .find(Wizard.Content)
+            .props()
+            .onNextButtonClick();
+        ['password', 'passwordConfirmation'].forEach(property => {
+            expect(authInformationForm.state().errors).toHaveProperty(property);
+        });
+
+        authInformationForm.setProps({ formData: { password: '12345678' } });
+        authInformationForm
+            .find(Wizard.Content)
+            .props()
+            .onNextButtonClick();
+        ['password', 'passwordConfirmation'].forEach(property => {
+            expect(authInformationForm.state().errors).toHaveProperty(property);
+        });
+
+        authInformationForm.setProps({ formData: { password: 'qwerty123', passwordConfirmation: '123qwerty' } });
+        authInformationForm
+            .find(Wizard.Content)
+            .props()
+            .onNextButtonClick();
+        ['passwordConfirmation'].forEach(property => {
+            expect(authInformationForm.state().errors).toHaveProperty(property);
+        });
+
+        authInformationForm.setProps({
+            formData: {
+                username: 'testuser',
+                password: 'qwerty123',
+                passwordConfirmation: 'qwerty123'
+            }
+        });
+        authInformationForm
+            .find(Wizard.Content)
+            .props()
+            .onNextButtonClick();
+        expect(authInformationForm.state().errors).toEqual({});
     });
 });

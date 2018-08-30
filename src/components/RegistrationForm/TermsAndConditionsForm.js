@@ -50,8 +50,6 @@ class TermsAndConditionsForm extends AbstractForm {
                         name="message"
                         value={formData.message}
                         error={errors.message}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur}
                         onChange={this.handleChange}
                     />
                     <div className="registration-form-field">

@@ -17,7 +17,7 @@ describe('<PaymentInformationForm /> component', () => {
         const paymentInformationForm = renderComponent();
 
         expect(paymentInformationForm.find('RadioButton[name="paymentMethod"]')).toHaveLength(2);
-        expect(paymentInformationForm.find('TextField[name="iban"]')).toHaveLength(1);
+        expect(paymentInformationForm.find('IBANField[name="iban"]')).toHaveLength(1);
         expect(paymentInformationForm.find('TextField[name="alternativeAccountHolder"]')).toHaveLength(1);
         expect(paymentInformationForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(1);
     });
@@ -61,18 +61,6 @@ describe('<PaymentInformationForm /> component', () => {
         });
     });
 
-    it('should validate default field', () => {
-        const paymentInformationForm = renderComponent();
-
-        paymentInformationForm
-            .find('TextField[name="iban"]')
-            .props()
-            .onBlur({
-                target: { name: 'iban', value: '' }
-            });
-        expect(paymentInformationForm.state().errors).toHaveProperty('iban');
-    });
-
     it('should validate all form fields', () => {
         const paymentInformationForm = renderComponent();
 
@@ -83,6 +71,24 @@ describe('<PaymentInformationForm /> component', () => {
         ['iban', 'sepaApproval'].forEach(property => {
             expect(paymentInformationForm.state().errors).toHaveProperty(property);
         });
+
+        paymentInformationForm.setProps({ formData: { paymentMethod: 'debit', iban: 'ABC', sepaApproval: false } });
+        paymentInformationForm
+            .find(Wizard.Content)
+            .props()
+            .onNextButtonClick();
+        ['iban', 'sepaApproval'].forEach(property => {
+            expect(paymentInformationForm.state().errors).toHaveProperty(property);
+        });
+
+        paymentInformationForm.setProps({
+            formData: { paymentMethod: 'debit', iban: 'DE89370400440532013000', sepaApproval: true }
+        });
+        paymentInformationForm
+            .find(Wizard.Content)
+            .props()
+            .onNextButtonClick();
+        expect(paymentInformationForm.state().errors).toEqual({});
 
         paymentInformationForm.setProps({ formData: { paymentMethod: 'remittance' } });
         paymentInformationForm.update();
