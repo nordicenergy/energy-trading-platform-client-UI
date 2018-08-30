@@ -61,11 +61,12 @@
     margin-top: 0.6em;
     color: var(--answer-text-color);
     line-height: 2;
-    height: 0;
+    display: none;
     pointer-events: none;
     font-size: 1rem;
     opacity: 0;
     transition: opacity 0.2s;
+    overflow-wrap: break-word;
 }
 
 .faq-page .answer-container a {
@@ -74,6 +75,7 @@
     cursor: pointer;
     font-weight: 600;
     transition: color 0.3s ease-out;
+    word-break: break-all;
 }
 
 .faq-page .answer-container a:hover {
@@ -87,6 +89,7 @@
 .faq-page .question-container.question-container--expanded .answer-container {
     pointer-events: auto;
     height: auto;
+    display: block;
     opacity: 1;
 }
 
