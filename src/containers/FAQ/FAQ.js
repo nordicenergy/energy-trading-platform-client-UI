@@ -76,17 +76,14 @@ export class FAQ extends AbstractContainer {
                 <h1>{formatMessage(messages.header)}</h1>
                 {this.props.questions.map(({ question, answer, id }, index) => {
                     const isExpanded = this.state.expandedIds.indexOf(id) > -1;
-                    const renderDangerouslyHTMLAnswer = () => {
-                        const dangerouslyHTML = { __html: answer };
-                        return (
-                            <div
-                                id={`${id}-${index}`}
-                                aria-hidden={!isExpanded}
-                                className="answer-container"
-                                dangerouslySetInnerHTML={dangerouslyHTML}
-                            />
-                        );
-                    };
+                    const renderDangerouslyHTMLAnswer = () => (
+                        <div
+                            id={`${id}-${index}`}
+                            aria-hidden={!isExpanded}
+                            className="answer-container"
+                            dangerouslySetInnerHTML={{ __html: answer }}
+                        />
+                    );
                     return (
                         <div
                             className={classNames('question-container', { 'question-container--expanded': isExpanded })}
