@@ -85,7 +85,7 @@ describe('<SubmitMeter /> Component', () => {
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
             submitButton: 'Submit',
-            submitErrorMessage: 'An error occurred while sending meter readings data.',
+            submitErrorMessage: 'An error occurred while sending meter readings.',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -115,7 +115,7 @@ describe('<SubmitMeter /> Component', () => {
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
             submitButton: 'Submit',
-            submitErrorMessage: 'An error occurred while sending meter readings data.',
+            submitErrorMessage: 'An error occurred while sending meter readings.',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
