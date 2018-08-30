@@ -20,11 +20,26 @@
 .terms-and-conditions-info-container {
     width: 65%;
 }
-
 .terms-and-conditions-page p {
     color: var(--about-us-info-text-color);
     font-size: 1rem;
     line-height: 2;
+}
+
+.terms-and-conditions-page p a {
+    color: var(--general-text-color);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: color 0.3s ease-out;
+}
+
+.terms-and-conditions-page p a:hover {
+    color: var(--table-control-hover-color);
+}
+
+.terms-and-conditions-page p a:focus {
+    outline: var(--focused-control-outline);
 }
 
 @media (max-width: 1279px) {

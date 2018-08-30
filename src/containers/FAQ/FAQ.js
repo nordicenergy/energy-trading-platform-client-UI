@@ -76,6 +76,17 @@ export class FAQ extends AbstractContainer {
                 <h1>{formatMessage(messages.header)}</h1>
                 {this.props.questions.map(({ question, answer, id }, index) => {
                     const isExpanded = this.state.expandedIds.indexOf(id) > -1;
+                    const renderDangerouslyHTMLAnswer = () => {
+                        const dangerouslyHTML = { __html: answer };
+                        return (
+                            <div
+                                id={`${id}-${index}`}
+                                aria-hidden={!isExpanded}
+                                className="answer-container"
+                                dangerouslySetInnerHTML={dangerouslyHTML}
+                            />
+                        );
+                    };
                     return (
                         <div
                             className={classNames('question-container', { 'question-container--expanded': isExpanded })}
@@ -100,9 +111,7 @@ export class FAQ extends AbstractContainer {
                                     onKeyUp={event => this.handleQuestionEnterPress(event, id)}
                                 />
                             </div>
-                            <div id={`${id}-${index}`} aria-hidden={!isExpanded} className="answer-container">
-                                {answer}
-                            </div>
+                            {renderDangerouslyHTMLAnswer()}
                         </div>
                     );
                 })}

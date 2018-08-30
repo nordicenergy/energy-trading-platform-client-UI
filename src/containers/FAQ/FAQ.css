@@ -68,6 +68,22 @@
     transition: opacity 0.2s;
 }
 
+.faq-page .answer-container a {
+    color: var(--general-text-color);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: color 0.3s ease-out;
+}
+
+.faq-page .answer-container a:hover {
+    color: var(--table-control-hover-color);
+}
+
+.faq-page .answer-container a:focus {
+    outline: var(--focused-control-outline);
+}
+
 .faq-page .question-container.question-container--expanded .answer-container {
     pointer-events: auto;
     height: auto;
