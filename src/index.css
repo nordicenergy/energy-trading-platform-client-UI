@@ -23,6 +23,7 @@
     --bali-hai-color: #809dad;
     --watercourse-color: #027150;
     --emerald-color: #48d376;
+    --transparent-emerald-color: rgba(72, 211, 118, 0.15);
     --algae-green-color: #80dea8;
     --sunglo-color: #e87373;
     --mandys-pink-color: #f4bdbd;
@@ -68,6 +69,7 @@
     --bar-color: var(--black-pearl-color);
     --figure-subtitle-color: var(--bali-hai-color);
     --page-subheader-color: var(--big-stone-color);
+    --copyright-color: var(--tower-gray-color);
 
     --footer-border-color: var(--geyser-color);
 
@@ -77,6 +79,7 @@
     --hover-icon-color: var(--emerald-color);
 
     --general-text-color: var(--blumine-color);
+    --general-hover-text-color: var(--bali-hai-color);
     --general-dark-text-color: var(--black-pearl-color);
     --label-color: var(--tower-gray-color);
     --input-helper-text-color: var(--rolling-stone-color);
@@ -155,6 +158,17 @@
     --trade-position-performed-color: var(--emerald-color);
 
     --tooltip-shadow-color: var(--stone-gray-color);
+
+    --wizard-primary-color: var(--emerald-color);
+    --wizard-animation-shadow-color: var(--transparent-emerald-color);
+    --wizard-secondary-color: var(--tower-gray-color);
+    --wizard-text-color: var(--bali-hai-color);
+
+    --radio-button-primary-color: var(--emerald-color);
+    --radio-button-secondary-color: var(--scooter-color);
+
+    --checkbox-primary-color: var(--emerald-color);
+    --checkbox-secondary-color: var(--scooter-color);
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;

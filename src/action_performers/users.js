@@ -1,4 +1,5 @@
 import {
+    create,
     login,
     logout,
     getUserData,
@@ -9,6 +10,10 @@ import {
 } from '../services/api/users';
 
 import { dispatcher } from '../store';
+
+export function performRegistration(userData) {
+    dispatcher.dispatchPromise(create, 'REGISTRATION', state => state.Users.registration.loading, [userData]);
+}
 
 export function performLogin(credentials) {
     dispatcher.dispatchPromise(login, 'LOGIN', state => state.Users.login.loading, [credentials]);

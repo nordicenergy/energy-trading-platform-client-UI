@@ -38,6 +38,11 @@ function renderComponent(props = {}, mountFn = shallowWithIntl) {
 }
 
 describe('<SubmitMeter /> Component', () => {
+    beforeAll(() => {
+        // Prevent displaying async-validator warn messages
+        jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+    });
+
     beforeEach(() => {
         consumptionActions.performGetMeterReadingsHistory = jest.fn();
         consumptionActions.performGetMeterNumber = jest.fn();

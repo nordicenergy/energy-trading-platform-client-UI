@@ -19,6 +19,7 @@ import DirectTrading from './DirectTrading';
 import MyDocuments from './MyDocuments';
 import SubmitMeter from './SubmitMeter';
 import ResetPassword from './ResetPassword';
+export { default as Registration } from './Registration';
 
 export {
     AbstractContainer,

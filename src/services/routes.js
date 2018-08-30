@@ -5,6 +5,7 @@ import {
     Notifications,
     PageLoader,
     App,
+    Registration,
     Login,
     RestorePassword,
     ResetPassword,
@@ -146,6 +147,7 @@ export const Routes = () => (
         <Notifications />
         <PageLoader />
         <Switch>
+            <PublicRoute path="/sign-up" component={Registration} />
             <PublicRoute path="/login" component={Login} />
             <PublicRoute path="/restore-password" component={RestorePassword} />
             <PublicRoute path="/:resetToken/reset-password" component={ResetPassword} />

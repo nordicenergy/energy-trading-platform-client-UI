@@ -42,6 +42,7 @@ class DateField extends Component {
     }
 
     handleFocus() {
+        const { name, onFocus } = this.props;
         const { value } = this.getState();
         const dateFieldBounds = this.dateFieldRef.getBoundingClientRect();
         const datePickerPosition = dateFieldBounds.top >= PAGE_TOP_OFFSET ? 'top' : 'bottom';
@@ -51,6 +52,7 @@ class DateField extends Component {
             hasFocus: true,
             datePickerPosition
         });
+        onFocus({ name, value });
     }
 
     handleKeyDown(event) {
@@ -59,7 +61,7 @@ class DateField extends Component {
             const value = '';
 
             this.setState({ hasFocus: false, value });
-            onChange && onChange({ name, value });
+            onChange({ name, value });
         }
     }
 
@@ -68,7 +70,7 @@ class DateField extends Component {
         const value = parseInt(date.getTime() / SECOND, 10);
 
         this.setState({ value });
-        onChange && onChange({ name, value });
+        onChange({ name, value });
     }
 
     handleOnCancel() {
@@ -76,12 +78,22 @@ class DateField extends Component {
         const { onChange, name } = this.props;
 
         this.setState({ hasFocus: false, value: initialValue });
-        onChange && onChange({ name, value: initialValue });
+        onChange({ name, value: initialValue });
     }
 
     handleConfirm(date) {
         this.setState({ hasFocus: false });
         this.handleChange(date);
+    }
+
+    handleDatePickerClickOutside(event) {
+        const { name, onBlur } = this.props;
+        const { hasFocus, value } = this.getState();
+
+        if (hasFocus && !this.dateFieldRef.contains(event.target)) {
+            this.setState({ hasFocus: false });
+            onBlur({ name, value });
+        }
     }
 
     renderDatePicker() {
@@ -99,6 +111,7 @@ class DateField extends Component {
                     onChange={date => this.handleChange(date)}
                     onCancel={() => this.handleOnCancel()}
                     onConfirm={date => this.handleConfirm(date)}
+                    onClickOutside={event => this.handleDatePickerClickOutside(event)}
                 />
             );
         }
@@ -107,14 +120,14 @@ class DateField extends Component {
     }
 
     render() {
-        const { label, error, disabled } = this.props;
+        const { className, disabled, label, helperText, error, name, required } = this.props;
         const { hasFocus } = this.state;
         const addon = (
             <span className="date-field-addon">
                 <FontAwesomeIcon icon={faCalendarAlt} />
             </span>
         );
-        const classes = classNames('date-field', disabled && 'date-field--disabled');
+        const classes = classNames('date-field', disabled && 'date-field--disabled', className);
 
         return (
             <div className={classes} ref={ref => (this.dateFieldRef = ref)}>
@@ -122,6 +135,9 @@ class DateField extends Component {
                     disabled={disabled}
                     label={label}
                     addon={addon}
+                    helperText={helperText}
+                    required={required}
+                    name={name}
                     value={this.getFormattedDate()}
                     error={error}
                     hasFocus={hasFocus}
@@ -137,13 +153,17 @@ class DateField extends Component {
 DateField.propTypes = {
     className: PropTypes.string,
     label: PropTypes.string.isRequired,
+    helperText: PropTypes.string,
     datePickerLabels: DateLabelsPropType,
     name: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     error: PropTypes.string,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    onChange: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    required: PropTypes.bool,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func
 };
 DateField.defaultProps = {
     datePickerLabels: {
@@ -165,7 +185,10 @@ DateField.defaultProps = {
             'December'
         ],
         monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    }
+    },
+    onChange: () => {},
+    onFocus: () => {},
+    onBlur: () => {}
 };
 
 export default DateField;

@@ -10,6 +10,13 @@ describe('Users reducer:', () => {
     });
 
     describe('Pending cases:', () => {
+        it('should handle REGISTRATION', () => {
+            const result = usersReducer(initialState, ACTIONS.registration.pending);
+            expect(result.registration.loading).toEqual(true);
+            expect(result.registration.error).toEqual(null);
+            expect(result.registration.data).toEqual({});
+        });
+
         it('should handle LOGIN', () => {
             const result = usersReducer(initialState, ACTIONS.login.pending);
             expect(result.login.loading).toEqual(true);
@@ -63,6 +70,13 @@ describe('Users reducer:', () => {
     });
 
     describe('Error cases:', () => {
+        it('should handle REGISTRATION', () => {
+            const result = usersReducer(initialState, ACTIONS.registration.fail);
+            expect(result.registration.loading).toBeFalsy();
+            expect(result.registration.error).toEqual(ACTIONS.registration.fail.error);
+            expect(result.registration.data).toEqual({});
+        });
+
         it('should handle LOGIN', () => {
             const result = usersReducer(initialState, ACTIONS.login.fail);
             expect(result.login.loading).toEqual(false);
@@ -116,6 +130,13 @@ describe('Users reducer:', () => {
     });
 
     describe('Success cases:', () => {
+        it('should handle REGISTRATION', () => {
+            const result = usersReducer(initialState, ACTIONS.registration.success);
+            expect(result.registration.loading).toBeFalsy();
+            expect(result.registration.error).toEqual(null);
+            expect(result.registration.data).toEqual(ACTIONS.registration.success.payload.user);
+        });
+
         it('should handle LOGIN', () => {
             const result = usersReducer(initialState, ACTIONS.login.success);
             expect(result.login.loading).toEqual(false);
@@ -173,6 +194,52 @@ describe('Users reducer:', () => {
 
 function fixtures() {
     const ACTIONS = {
+        registration: {
+            success: {
+                type: 'REGISTRATION',
+                payload: {
+                    user: {
+                        BIC: 'BELADEBEXXX',
+                        IBAN: null,
+                        basePrice: 49.08,
+                        birthday: '2018-08-29',
+                        city: 'Berlin',
+                        country: 'Germany',
+                        currentProducerId: 1,
+                        email: 'arsenal@example.com',
+                        firstName: 'Arsenal',
+                        id: 35,
+                        lastBillAmount: '35,60',
+                        lastBillAvailable: true,
+                        lastBillDate: 'April',
+                        lastName: 'Hero',
+                        ledger: 'ethereumRopsten',
+                        postcode: '10115',
+                        street: 'some-street',
+                        streetNumber: '5',
+                        workingPrice: 24.19
+                    }
+                },
+                error: null,
+                loading: false
+            },
+            fail: {
+                type: 'REGISTRATION',
+                payload: null,
+                error: {
+                    message: 'server error',
+                    code: -1,
+                    extra: null
+                },
+                loading: false
+            },
+            pending: {
+                type: 'REGISTRATION',
+                payload: null,
+                error: null,
+                loading: true
+            }
+        },
         login: {
             success: {
                 type: 'LOGIN',
