@@ -386,7 +386,7 @@ describe('<ShowTransactions /> Component', () => {
                 header: 'Show Transactions',
                 recentTransactionsDetailsAmount: 'Amount',
                 recentTransactionsDetailsFrom: 'From',
-                recentTransactionsDetailsHash: 'Blockchain-Transaction',
+                recentTransactionsDetailsHash: 'Blockchain Transaction',
                 recentTransactionsDetailsPrice: 'Price per kWh',
                 recentTransactionsDetailsStatus: 'Status',
                 recentTransactionsHeaderAmount: 'Amount',
