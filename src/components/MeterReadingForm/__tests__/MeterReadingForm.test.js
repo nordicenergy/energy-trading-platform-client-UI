@@ -102,7 +102,9 @@ describe('<MeterReadingForm /> Component', () => {
         expect(
             meterReadingTextField
                 .html()
-                .includes('<span>Number of meter: <span class="meter-reading-form-field-helper-text--wrong">&lt;not defined&gt;</span></span>')
+                .includes(
+                    '<span>Number of meter: <span class="meter-reading-form-field-helper-text--wrong">&lt;not defined&gt;</span></span>'
+                )
         ).toEqual(true);
 
         const dateField = dateFields.at(0);

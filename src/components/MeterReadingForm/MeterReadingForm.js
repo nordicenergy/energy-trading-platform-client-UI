@@ -82,7 +82,9 @@ class MeterReadingForm extends React.PureComponent {
                     </div>
                 </div>
                 <div className="meter-reading-form-actions">
-                    <Button disabled={!numberOfMeter} type="primary">{labels.submitButton}</Button>
+                    <Button disabled={!numberOfMeter} type="primary">
+                        {labels.submitButton}
+                    </Button>
                 </div>
             </form>
         );
