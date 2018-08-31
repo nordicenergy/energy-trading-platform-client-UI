@@ -188,12 +188,12 @@ export class BuyEnergy extends AbstractContainer {
                     value={filter}
                     onChange={filter => this.handleFilterChange(filter)}
                 />
-                <OptionLinks
+                {/* <OptionLinks
                     links={LINKS.map(link => ({
                         ...link,
                         caption: formatMessage(link.caption)
                     }))}
-                />
+                /> */}
                 <ProducerCardsPanel
                     className="buy-energy-page-producers"
                     loading={shouldShowListLoader}
