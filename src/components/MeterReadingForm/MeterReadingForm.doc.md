@@ -6,7 +6,7 @@ const labels = {
     commentField: 'Comment',
     submitButton: 'Submit',
     meterNumberTitle: 'Number of meter',
-    incorrectMeterNumber: '<not defined>'
+    incorrectMeterNumber: 'Number of meter is still not defined.'
 };
 
 const props = {
@@ -29,7 +29,7 @@ const labels = {
     commentField: 'Comment',
     submitButton: 'Submit',
     meterNumberTitle: 'Number of meter',
-    incorrectMeterNumber: '<not defined>'
+    incorrectMeterNumber: 'Number of meter is still not defined.'
 };
 
 const props = {
@@ -56,7 +56,7 @@ const labels = {
     commentField: 'Comment',
     submitButton: 'Submit',
     meterNumberTitle: 'Number of meter',
-    incorrectMeterNumber: '<not defined>'
+    incorrectMeterNumber: 'Number of meter is still not defined.'
 };
 
 const props = {

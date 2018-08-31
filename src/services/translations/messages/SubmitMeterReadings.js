@@ -23,7 +23,7 @@ const messages = defineMessages({
     },
     incorrectMeterNumber: {
         id: 'app.submitMeterReadingsPage.labels.incorrectMeterNumber',
-        defaultMessage: '<not defined>'
+        defaultMessage: 'Number of meter is still not defined.'
     },
     noData: {
         id: 'app.submitMeterReadingsPage.messages.noData',

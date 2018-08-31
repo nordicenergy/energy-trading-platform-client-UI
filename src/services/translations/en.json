@@ -253,7 +253,7 @@
     "app.submitMeterReadingsPage.labels.dateField": "Date of reading",
     "app.submitMeterReadingsPage.labels.submitButton": "Submit",
     "app.submitMeterReadingsPage.labels.meterNumberTitle": "Number of meter",
-    "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "<not defined>",
+    "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "Number of meter is still not defined.",
     "app.submitMeterReadingsPage.labels.historyCaption": "History",
     "app.submitMeterReadingsPage.messages.noData": "Sorry, not live metering data available for you…",
     "app.submitMeterReadingsPage.messages.success": "Meter reading value was successfully saved",

@@ -9,7 +9,7 @@ const DEFAULT_LABELS = {
     commentField: 'Comments',
     submitButton: 'Submits',
     meterNumberTitle: 'Number of meters',
-    incorrectMeterNumber: '<not defined>'
+    incorrectMeterNumber: 'Number of meter is still not defined.'
 };
 
 const MOCK_FORM_DATA = {
@@ -103,7 +103,7 @@ describe('<MeterReadingForm /> Component', () => {
             meterReadingTextField
                 .html()
                 .includes(
-                    '<span>Number of meter: <span class="meter-reading-form-field-helper-text--wrong">&lt;not defined&gt;</span></span>'
+                    '<span class="meter-reading-form-field-helper-text--wrong">Number of meter is still not defined.</span>'
                 )
         ).toEqual(true);
 
