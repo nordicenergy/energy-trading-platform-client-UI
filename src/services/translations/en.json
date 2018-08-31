@@ -262,6 +262,7 @@
         "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
     "app.submitMeterReadingsPage.errors.submitErrorMessage": "An error occurred while sending meter readings data.",
 
+    "app.registrationPage.successfulRegistration": "Registration is succeeded.",
     "app.registrationPage.copyright": "Lition. All rights reserved.",
     "app.registrationPage.firstStepTitle": "Lieferadresse",
     "app.registrationPage.secondStepTitle": "Lieferbeginn",
@@ -324,7 +325,7 @@
     "app.registrationPage.errors.usageRequired": "Enter usage.",
     "app.registrationPage.errors.usageNumber": "Usage should be greater than 1000 and less than 100000.",
     "app.registrationPage.errors.counterNumberRequired": "Enter counter number.",
-    "app.registrationPage.errors.counterNumberPattern": "You can use only numbers.",
+    "app.registrationPage.errors.counterNumberPattern": "Invalid counter number.",
     "app.registrationPage.errors.relocationDateRequired": "Enter relocation date.",
 
     "app.registrationPage.personalInformationForm.title": "Weitere Angaben",

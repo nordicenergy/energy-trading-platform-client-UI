@@ -52,7 +52,7 @@ const defaultProps = {
         {
             id: 'testId2',
             question: 'question2',
-            answer: 'answer2'
+            answer: 'text <a href="link" targer="_blank">link</a> text'
         }
     ]
 };
@@ -217,5 +217,23 @@ describe('<FAQ /> Component', () => {
             message: 'Could not load content',
             type: 'error'
         });
+    });
+
+    it(`should render correct content with dangerously html controls`, () => {
+        const component = renderComponent();
+
+        expect(component.find('.answer-container')).toHaveLength(2);
+        expect(
+            component
+                .find('.answer-container')
+                .at(0)
+                .props().dangerouslySetInnerHTML
+        ).toEqual({ __html: 'answer1' });
+        expect(
+            component
+                .find('.answer-container')
+                .at(1)
+                .props().dangerouslySetInnerHTML
+        ).toEqual({ __html: 'text <a href="link" targer="_blank">link</a> text' });
     });
 });

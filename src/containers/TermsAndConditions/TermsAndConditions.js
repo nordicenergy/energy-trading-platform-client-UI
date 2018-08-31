@@ -38,12 +38,14 @@ export class TermsAndConditions extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
+        const dangerouslyHtmlParagraphs = this.props.paragraphs.map((paragraph, index) => (
+            <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
+        ));
+
         return (
             <div className="terms-and-conditions-page">
                 <h1>{formatMessage(messages.header)}</h1>
-                <div className="terms-and-conditions-info-container">
-                    {this.props.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-                </div>
+                <div className="terms-and-conditions-info-container">{dangerouslyHtmlParagraphs}</div>
             </div>
         );
     }

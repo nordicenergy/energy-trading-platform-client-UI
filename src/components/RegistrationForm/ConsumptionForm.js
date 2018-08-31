@@ -28,7 +28,7 @@ class ConsumptionForm extends AbstractForm {
             ],
             counterNumber: [
                 { required: true, message: errors.counterNumberRequired },
-                { pattern: /^\d+$/, message: errors.counterNumberPattern }
+                { pattern: /^([0-9A-Za-z/. -]{1,35})$/, message: errors.counterNumberPattern }
             ]
         };
 
@@ -191,7 +191,7 @@ ConsumptionForm.defaultProps = {
             usageRequired: 'Enter usage.',
             usageNumber: 'Usage should be greater than 1000 and less than 100000.',
             counterNumberRequired: 'Enter counter number.',
-            counterNumberPattern: 'You can use only number.',
+            counterNumberPattern: 'Invalid counter number.',
             relocationDateRequired: 'Enter relocation date.'
         }
     }

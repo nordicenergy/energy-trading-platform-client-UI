@@ -20,10 +20,15 @@ export class Registration extends AbstractContainer {
     }
 
     componentDidUpdate(prevProps) {
+        const { formatMessage } = this.context.intl;
         const { loading, registeredUser, error } = this.props;
         const loaded = prevProps.loading !== loading && !loading;
 
         if (loaded && registeredUser !== prevProps.registeredUser && registeredUser) {
+            performPushNotification({
+                type: 'success',
+                message: formatMessage(messages.successfulRegistration)
+            });
             this.openLoginPage();
         }
 
@@ -102,6 +107,7 @@ export class Registration extends AbstractContainer {
 
     handleSubmit(formData) {
         const allowedProperties = [
+            'customerSpecification',
             'username',
             'password',
             'email',
