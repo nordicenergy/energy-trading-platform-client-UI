@@ -16,7 +16,12 @@ describe('<Wizard /> component', () => {
         expect(wizard.find('Step')).toHaveLength(3);
         expect(wizard.instance().wizardRef).toBeInstanceOf(HTMLDivElement);
         expect(Object.keys(wizard.instance().stepRefs)).toHaveLength(3);
-        expect(Object.values(wizard.instance().stepRefs).every(ref => ref instanceof Wizard.Step)).toBeTruthy();
+        const { stepRefs } = wizard.instance();
+        expect(
+            Object.keys(stepRefs)
+                .map(key => stepRefs[key])
+                .every(ref => ref instanceof Wizard.Step)
+        ).toBeTruthy();
     });
 
     it('should add event listener on `resize` event', () => {

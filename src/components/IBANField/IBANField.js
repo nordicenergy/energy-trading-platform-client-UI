@@ -15,7 +15,7 @@ class IBANField extends Component {
         const { value } = this.props;
 
         if (prevProps.value !== value) {
-            this.setState({ value: value });
+            this.setState({ value });
         }
     }
 
@@ -29,6 +29,7 @@ class IBANField extends Component {
     }
 
     render() {
+        const value = String(this.state.value || '');
         const { className, label, helperText, error, disabled, required, name, onFocus, onBlur } = this.props;
         const classes = classNames('iban-field', className);
 
@@ -39,7 +40,7 @@ class IBANField extends Component {
                     label={label}
                     helperText={helperText || 'e.g. DE89 3704 0044 0532 0130 00'}
                     name={name}
-                    value={IBAN.printFormat(this.state.value, ' ')}
+                    value={IBAN.printFormat(value, ' ')}
                     error={error}
                     disabled={disabled}
                     onChange={event => this.handleChange(event)}

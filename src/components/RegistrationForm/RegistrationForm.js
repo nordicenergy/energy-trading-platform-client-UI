@@ -131,7 +131,7 @@ class RegistrationForm extends React.Component {
         const { stepsFormData } = this.state;
 
         onSubmit(
-            Object.values(stepsFormData).reduce((formData, stepFormData) => {
+            Object.keys(stepsFormData).map(key => stepsFormData[key]).reduce((formData, stepFormData) => {
                 return { ...formData, ...stepFormData };
             }, {})
         );

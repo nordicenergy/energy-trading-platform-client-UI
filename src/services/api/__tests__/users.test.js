@@ -33,7 +33,7 @@ describe('Users API Service', () => {
         const userData = { firstName: 'John', lastName: 'Doe', username: 'test', password: 'qwerty123' };
         create(userData);
 
-        expect(Axios.post).toHaveBeenCalledWith('/api/user/create', userData);
+        expect(Axios.post).toHaveBeenCalledWith('/api/user/create?lang=en', userData);
     });
 
     it('should provide method for login', () => {
@@ -122,7 +122,7 @@ describe('Users API Service', () => {
             })
         );
         createResetPasswordToken(request.email);
-        expect(Axios.post).toHaveBeenCalledWith('/api/user/resetPasswordToken', request);
+        expect(Axios.post).toHaveBeenCalledWith('/api/user/resetPasswordToken?lang=en', request);
     });
 
     it('should provide possibility to verify reset password token', () => {
