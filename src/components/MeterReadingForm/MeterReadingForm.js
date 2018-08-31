@@ -57,7 +57,15 @@ class MeterReadingForm extends React.PureComponent {
                             helperText={
                                 <span>
                                     {labels.meterNumberTitle}:{' '}
-                                    <span className="meter-reading-form-field-helper-text">{numberOfMeter || ''}</span>
+                                    <span
+                                        className={
+                                            numberOfMeter
+                                                ? 'meter-reading-form-field-helper-text'
+                                                : 'meter-reading-form-field-helper-text--wrong'
+                                        }
+                                    >
+                                        {numberOfMeter || labels.incorrectMeterNumber}
+                                    </span>
                                 </span>
                             }
                         />
@@ -74,7 +82,7 @@ class MeterReadingForm extends React.PureComponent {
                     </div>
                 </div>
                 <div className="meter-reading-form-actions">
-                    <Button type="primary">{labels.submitButton}</Button>
+                    <Button disabled={!numberOfMeter} type="primary">{labels.submitButton}</Button>
                 </div>
             </form>
         );
@@ -101,7 +109,8 @@ MeterReadingForm.defaultProps = {
         meterReadingsField: 'Meter readings',
         dateField: 'Date of reading',
         submitButton: 'Submit',
-        meterNumberTitle: 'Number of meter'
+        meterNumberTitle: 'Number of meter',
+        incorrectMeterNumber: '<not defined>'
     },
     onSubmit: () => {},
     numberOfMeter: null,

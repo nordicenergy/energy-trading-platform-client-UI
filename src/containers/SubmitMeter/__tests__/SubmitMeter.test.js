@@ -81,6 +81,7 @@ describe('<SubmitMeter /> Component', () => {
             loadingErrorMessage:
                 "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
             meterNumberTitle: 'Number of meter',
+            incorrectMeterNumber: '<not defined>',
             meterReadingNumber: 'Meter readings is not a number',
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
@@ -111,6 +112,7 @@ describe('<SubmitMeter /> Component', () => {
             loadingErrorMessage:
                 "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
             meterNumberTitle: 'Number of meter',
+            incorrectMeterNumber: '<not defined>',
             meterReadingNumber: 'Meter readings is not a number',
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
