@@ -122,7 +122,7 @@ class RegistrationForm extends React.Component {
 
         this.setState({
             activeStep: activeStep + 1,
-            succeedSteps: succeedSteps.includes(activeStep) ? succeedSteps : succeedSteps.concat(activeStep)
+            succeedSteps: succeedSteps.indexOf(activeStep) > -1 ? succeedSteps : succeedSteps.concat(activeStep)
         });
     }
 
@@ -131,7 +131,9 @@ class RegistrationForm extends React.Component {
         const { stepsFormData } = this.state;
 
         onSubmit(
-            Object.values(stepsFormData).reduce((formData, stepFormData) => {
+            Object.keys(stepsFormData).reduce((formData, stepNumber) => {
+                const stepFormData = stepsFormData[stepNumber];
+
                 return { ...formData, ...stepFormData };
             }, {})
         );
