@@ -42,6 +42,13 @@ class MeterReadingForm extends React.PureComponent {
 
     render() {
         const { props: { labels, errors, numberOfMeter, locale }, state: { meterReadings, date } } = this;
+        const helperText = numberOfMeter ? (
+            <span>
+                {labels.meterNumberTitle}: <span className="meter-reading-form-field-helper-text">{numberOfMeter}</span>
+            </span>
+        ) : (
+            <span className="meter-reading-form-field-helper-text--wrong">{labels.incorrectMeterNumber}</span>
+        );
 
         return (
             <form className="meter-reading-form" onSubmit={event => this.handleSubmit(event)} noValidate>
@@ -54,12 +61,7 @@ class MeterReadingForm extends React.PureComponent {
                             addon="kWh"
                             onChange={({ target }) => this.handleChange(target)}
                             error={errors.meterReadings}
-                            helperText={
-                                <span>
-                                    {labels.meterNumberTitle}:{' '}
-                                    <span className="meter-reading-form-field-helper-text">{numberOfMeter || ''}</span>
-                                </span>
-                            }
+                            helperText={helperText}
                         />
                     </div>
                     <div>
@@ -74,7 +76,9 @@ class MeterReadingForm extends React.PureComponent {
                     </div>
                 </div>
                 <div className="meter-reading-form-actions">
-                    <Button type="primary">{labels.submitButton}</Button>
+                    <Button disabled={!numberOfMeter} type="primary">
+                        {labels.submitButton}
+                    </Button>
                 </div>
             </form>
         );
@@ -101,7 +105,8 @@ MeterReadingForm.defaultProps = {
         meterReadingsField: 'Meter readings',
         dateField: 'Date of reading',
         submitButton: 'Submit',
-        meterNumberTitle: 'Number of meter'
+        meterNumberTitle: 'Number of meter',
+        incorrectMeterNumber: 'Number of meter is still not defined.'
     },
     onSubmit: () => {},
     numberOfMeter: null,
