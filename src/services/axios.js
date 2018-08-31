@@ -14,9 +14,10 @@ export default function configureAxios() {
     }
 
     Axios.interceptors.response.use(null, error => {
-        const { response: { status } = {} } = error;
+        const { response: { status, config = { url: '' } } = {} } = error;
+        const notLoginRequest = config.url.indexOf('/user/login') < 0;
 
-        if (status === 401) {
+        if (status === 401 && notLoginRequest) {
             performLogout();
             return performPushNotification({
                 message: getTranslationOf('app.common.errors.sessionHasExpired'),

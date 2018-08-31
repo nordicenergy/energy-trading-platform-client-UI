@@ -37,5 +37,8 @@ describe('<IBANField /> component', () => {
         ibanField.find('TextField').simulate('change', { target: { name: 'IBAN', value: 'DE34 ab04 0061 +-*&^' } });
         expect(ibanField.find('TextField').props().value).toBe('DE34 AB04 0061');
         expect(stubs.onChange).toHaveBeenCalledWith({ target: { name: 'IBAN', value: 'DE34AB040061' } });
+
+        ibanField.setProps({ value: null });
+        expect(ibanField.find('TextField').props().value).toBe('');
     });
 });

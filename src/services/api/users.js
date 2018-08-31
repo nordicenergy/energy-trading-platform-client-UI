@@ -3,7 +3,8 @@ import moment from 'moment';
 import { SESSION_API_URL } from '../../constants';
 
 export function create(userData) {
-    return Axios.post(`${SESSION_API_URL}/user/create`, userData);
+    const lang = document.documentElement.getAttribute('lang') || 'en';
+    return Axios.post(`${SESSION_API_URL}/user/create?lang=${lang}`, userData);
 }
 
 export function login(credentials) {
@@ -42,7 +43,8 @@ export function resetUserPassword(resetToken, newPassword) {
 }
 
 export function createResetPasswordToken(email) {
-    return Axios.post(`${SESSION_API_URL}/user/resetPasswordToken`, { email });
+    const lang = document.documentElement.getAttribute('lang') || 'en';
+    return Axios.post(`${SESSION_API_URL}/user/resetPasswordToken?lang=${lang}`, { email });
 }
 
 export function verifyResetPasswordToken(token) {
