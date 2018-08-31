@@ -21,6 +21,10 @@
     color: var(--input-helper-text-color);
 }
 
+.meter-reading-form-field-helper-text--wrong {
+    color: var(--error-text-color);
+}
+
 .meter-reading-form-actions {
     display: flex;
     align-items: center;

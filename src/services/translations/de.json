@@ -256,6 +256,7 @@
     "app.submitMeterReadingsPage.labels.dateField": "Datum der Ablesung",
     "app.submitMeterReadingsPage.labels.submitButton": "Abschicken",
     "app.submitMeterReadingsPage.labels.meterNumberTitle": "Zählernummer",
+    "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "Number of meter is still not defined.",
     "app.submitMeterReadingsPage.labels.historyCaption": "Verlauf",
     "app.submitMeterReadingsPage.messages.noData": "Wir haben leider keine Echtzeit-Zählerdaten für dich.",
     "app.submitMeterReadingsPage.messages.success": "Zählerstand erfolgreich gespeichert",

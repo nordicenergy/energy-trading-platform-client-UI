@@ -8,7 +8,8 @@ const DEFAULT_LABELS = {
     dateField: 'Date of readings',
     commentField: 'Comments',
     submitButton: 'Submits',
-    meterNumberTitle: 'Number of meters'
+    meterNumberTitle: 'Number of meters',
+    incorrectMeterNumber: 'Number of meter is still not defined.'
 };
 
 const MOCK_FORM_DATA = {
@@ -80,9 +81,10 @@ describe('<MeterReadingForm /> Component', () => {
         const submitButton = buttons.at(0);
         expect(submitButton.props().type).toEqual('primary');
         expect(submitButton.html().includes('Submits')).toEqual(true);
+        expect(submitButton.props().disabled).toEqual(false);
     });
 
-    it('should contains elements with default properties', () => {
+    it('should contains elements with default properties, disable button, show incorrect meter number label when data is incorrect', () => {
         const component = renderComponent();
 
         const textFields = component.find(TextField);
@@ -96,10 +98,13 @@ describe('<MeterReadingForm /> Component', () => {
         expect(meterReadingTextField.props().addon).toEqual('kWh');
         expect(typeof meterReadingTextField.props().onChange).toBe('function');
         expect(meterReadingTextField.props().error).toEqual(undefined);
+
         expect(
             meterReadingTextField
                 .html()
-                .includes('<span>Number of meter: <span class="meter-reading-form-field-helper-text"></span></span>')
+                .includes(
+                    '<span class="meter-reading-form-field-helper-text--wrong">Number of meter is still not defined.</span>'
+                )
         ).toEqual(true);
 
         const dateField = dateFields.at(0);
@@ -113,6 +118,7 @@ describe('<MeterReadingForm /> Component', () => {
         const submitButton = buttons.at(0);
         expect(submitButton.props().type).toEqual('primary');
         expect(submitButton.html().includes('Submit')).toEqual(true);
+        expect(submitButton.props().disabled).toEqual(true);
     });
 
     it('should update state if data field value change', () => {
