@@ -126,6 +126,7 @@ export class Registration extends AbstractContainer {
             'company',
             'legalForm',
             'iban',
+            'sepaApproval',
             'billingAlternativeAddress',
             'billingCompany',
             'billingLegalForm',
