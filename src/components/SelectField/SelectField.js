@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import pick from 'lodash.pick';
@@ -130,7 +130,7 @@ class SelectField extends Component {
     }
 
     render() {
-        const { id, className, label, disabled, error } = this.props;
+        const { id, className, label, disabled, required, error } = this.props;
         const { isFocused } = this.getState();
         const listBoxId = `listbox-${id}`;
         const classes = classNames(
@@ -140,6 +140,13 @@ class SelectField extends Component {
             className
         );
         const selectedOption = this.getSelectedOption();
+        const labelContent = required ? (
+            <Fragment>
+                {label} <sup className="select-field-asterisk">*</sup>
+            </Fragment>
+        ) : (
+            label
+        );
 
         return (
             <div id={id} className={classes}>
@@ -149,7 +156,7 @@ class SelectField extends Component {
                     tabIndex={disabled ? -1 : 0}
                     onKeyUp={event => this.handleFieldEnterPress(event)}
                 >
-                    {label && <label className="select-field-label">{label}</label>}
+                    {label && <label className="select-field-label">{labelContent}</label>}
                     <div
                         className="select-field-input"
                         role="combobox"
@@ -189,9 +196,10 @@ SelectField.propTypes = {
     options: PropTypes.arrayOf(OptionPropType),
     defaultValue: OptionPropType,
     value: OptionPropType,
+    required: PropTypes.bool,
+    error: PropTypes.string,
     onChange: PropTypes.func,
-    disabled: PropTypes.bool,
-    error: PropTypes.string
+    disabled: PropTypes.bool
 };
 SelectField.defaultProps = {
     id: Date.now(),

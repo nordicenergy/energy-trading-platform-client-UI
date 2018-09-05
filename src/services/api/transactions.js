@@ -156,7 +156,7 @@ export function getLedgerNetworks() {
         .then(response => {
             const { data = {} } = response;
             data.ledgers.forEach(ledger => {
-                if (!Object.keys(ledgerNetworks).includes(ledger.id)) {
+                if (Object.keys(ledgerNetworks).indexOf(ledger.id) === -1) {
                     ledgerNetworks[ledger.id] = {
                         addresses: []
                     };

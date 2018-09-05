@@ -38,6 +38,11 @@ function renderComponent(props = {}, mountFn = shallowWithIntl) {
 }
 
 describe('<SubmitMeter /> Component', () => {
+    beforeAll(() => {
+        // Prevent displaying async-validator warn messages
+        jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+    });
+
     beforeEach(() => {
         consumptionActions.performGetMeterReadingsHistory = jest.fn();
         consumptionActions.performGetMeterNumber = jest.fn();
@@ -76,11 +81,12 @@ describe('<SubmitMeter /> Component', () => {
             loadingErrorMessage:
                 "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
             meterNumberTitle: 'Number of meter',
+            incorrectMeterNumber: 'Number of meter is still not defined.',
             meterReadingNumber: 'Meter readings is not a number',
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
             submitButton: 'Submit',
-            submitErrorMessage: 'An error occurred while sending meter readings data.',
+            submitErrorMessage: 'An error occurred while sending meter readings.',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -106,11 +112,12 @@ describe('<SubmitMeter /> Component', () => {
             loadingErrorMessage:
                 "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
             meterNumberTitle: 'Number of meter',
+            incorrectMeterNumber: 'Number of meter is still not defined.',
             meterReadingNumber: 'Meter readings is not a number',
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
             submitButton: 'Submit',
-            submitErrorMessage: 'An error occurred while sending meter readings data.',
+            submitErrorMessage: 'An error occurred while sending meter readings.',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');

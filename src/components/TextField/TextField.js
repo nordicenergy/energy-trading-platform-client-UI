@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import pick from 'lodash.pick';
@@ -51,25 +51,36 @@ class TextField extends Component {
             placeholder,
             addon,
             helperText,
+            required,
+            multiLine,
             error,
             onKeyDown
         } = this.props;
         const { value, hasFocus } = this.getState();
         const classes = classNames(
             'text-field',
+            multiLine && 'text-field--multiline',
             hasFocus && 'text-field--focused',
             error && 'text-field--error',
             darkMode && 'text-field--dark',
             disabled && 'text-field--disabled',
             className
         );
+        const Input = multiLine ? 'textarea' : 'input';
+        const labelContent = required ? (
+            <Fragment>
+                {label} <sup className="text-field-asterisk">*</sup>
+            </Fragment>
+        ) : (
+            label
+        );
 
         return (
             <div className={classes}>
                 <label className="text-field-layout">
-                    <strong className="text-field-label">{label}</strong>
+                    <strong className="text-field-label">{labelContent}</strong>
                     <span className="text-field-input-group">
-                        <input
+                        <Input
                             className="text-field-input"
                             id={id}
                             disabled={disabled}
@@ -86,7 +97,7 @@ class TextField extends Component {
                         {addon && <span className="text-field-addon">{addon}</span>}
                     </span>
                 </label>
-                {helperText && <p className="text-field-helper-text">{helperText}</p>}
+                {helperText && <small className="text-field-helper-text">{helperText}</small>}
                 {error && (
                     <div role="alert" className="text-field-error">
                         {error}
@@ -115,6 +126,8 @@ TextField.propTypes = {
     onKeyDown: PropTypes.func,
     addon: PropTypes.node,
     helperText: PropTypes.node,
+    required: PropTypes.bool,
+    multiLine: PropTypes.bool,
     error: PropTypes.string
 };
 TextField.defaultProps = {

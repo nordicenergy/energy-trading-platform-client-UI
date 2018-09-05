@@ -16,6 +16,7 @@ class DatePicker extends Component {
     constructor(props) {
         super(props);
 
+        this.handleBodyClick = this.handleBodyClick.bind(this);
         this.handlePickMeUpChange = this.handlePickMeUpChange.bind(this);
         this.datepicker = null;
     }
@@ -32,6 +33,7 @@ class DatePicker extends Component {
             next: ''
         });
         this.datePickerRef.addEventListener('pickmeup-change', this.handlePickMeUpChange);
+        document.body.addEventListener('click', this.handleBodyClick);
     }
 
     componentDidUpdate() {
@@ -41,6 +43,13 @@ class DatePicker extends Component {
     componentWillUnmount() {
         this.datePickerRef.removeEventListener('pickmeup-change', this.handlePickMeUpChange);
         this.datepicker.destroy();
+        document.body.removeEventListener('click', this.handleBodyClick);
+    }
+
+    handleBodyClick(event) {
+        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.props.onClickOutside(event);
+        }
     }
 
     handlePickMeUpChange(event) {
@@ -58,7 +67,7 @@ class DatePicker extends Component {
         const classes = classNames('date-picker', `date-picker--${position}`, className);
 
         return (
-            <div className={classes}>
+            <div ref={wrapperRef => (this.wrapperRef = wrapperRef)} className={classes}>
                 <div ref={ref => (this.datePickerRef = ref)} />
                 <footer className="date-picker-actions">
                     <button onClick={onCancel}>Cancel</button>
@@ -76,11 +85,13 @@ DatePicker.propTypes = {
     date: PropTypes.instanceOf(Date),
     onChange: PropTypes.func,
     onCancel: PropTypes.func,
-    onConfirm: PropTypes.func
+    onConfirm: PropTypes.func,
+    onClickOutside: PropTypes.func
 };
 DatePicker.defaultProps = {
     position: 'top',
-    date: new Date()
+    date: new Date(),
+    onClickOutside: () => {}
 };
 
 export default DatePicker;

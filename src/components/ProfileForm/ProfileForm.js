@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ProfileForm.css';
-import { TextField, Button, DateField } from '../';
+import { TextField, Button, DateField, IBANField } from '../';
 
 class ProfileForm extends React.PureComponent {
     constructor(props) {
@@ -179,7 +179,7 @@ class ProfileForm extends React.PureComponent {
                     error={errors.postcode}
                     onChange={({ target }) => this.handleChange(target)}
                 />
-                <TextField
+                <IBANField
                     label={labels.iban}
                     name="IBAN"
                     value={IBAN}

@@ -30,7 +30,7 @@ export function getProducer(id) {
 
 export function getCurrentMarketPrice() {
     return Axios.get(`${SESSION_API_URL}/producers/${LITION_STANDARD_PLANT_ID}/get`).then(response => {
-        const price = response.data && response.data.producer && response.data.producer.price;
+        const price = response.data && response.data.producer && response.data.producer.deltaPrice;
         return {
             data: price
         };
@@ -111,6 +111,7 @@ export function getOwnedProducerOffer(userId) {
     return Axios.get(`${SESSION_API_URL}/user/${userId}/producer/getOwnedProducer`);
 }
 
+// TODO: check if endpoint is relevant
 export function addOwnedProducerOffer(producerId, offer) {
     return Axios.post(`${SESSION_API_URL}/producers/${producerId}/set`, offer);
 }
@@ -131,7 +132,7 @@ export function getOwnedProducerOffersHistory(producerId) {
 }
 
 function calculatePrice(workingPrice, producer) {
-    return PRODUCER_STATUSES.standard === producer.status ? workingPrice : workingPrice + producer.price;
+    return PRODUCER_STATUSES.standard === producer.status ? workingPrice : workingPrice + producer.deltaPrice;
 }
 
 function evaluateStatus(showSoldOut, producer) {

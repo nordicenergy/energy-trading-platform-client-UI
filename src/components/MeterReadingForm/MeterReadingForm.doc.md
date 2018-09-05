@@ -5,7 +5,8 @@ const labels = {
     dateField: 'Date of reading',
     commentField: 'Comment',
     submitButton: 'Submit',
-    meterNumberTitle: 'Number of meter'
+    meterNumberTitle: 'Number of meter',
+    incorrectMeterNumber: 'Number of meter is still not defined.'
 };
 
 const props = {
@@ -17,9 +18,6 @@ const props = {
     errors: {}
 };
 
-const numberOfMeter = 12343;
-const locale = 'en';
-
 <MeterReadingForm {...props} />
 ```
 
@@ -30,7 +28,8 @@ const labels = {
     dateField: 'Date of reading',
     commentField: 'Comment',
     submitButton: 'Submit',
-    meterNumberTitle: 'Number of meter'
+    meterNumberTitle: 'Number of meter',
+    incorrectMeterNumber: 'Number of meter is still not defined.'
 };
 
 const props = {
@@ -44,6 +43,29 @@ const props = {
         comment: 'Comment is not a string',
         date: 'Date is required'
     }
+};
+
+<MeterReadingForm {...props} />
+```
+
+Example with incorrect meter number:
+```jsx
+const labels = {
+    meterReadingsField: 'Meter readings',
+    dateField: 'Date of reading',
+    commentField: 'Comment',
+    submitButton: 'Submit',
+    meterNumberTitle: 'Number of meter',
+    incorrectMeterNumber: 'Number of meter is still not defined.'
+};
+
+const props = {
+    labels: labels,
+    onSubmit: () => {},
+    numberOfMeter: null,
+    locale: 'en',
+    isSuccessfullySubmitted: false,
+    errors: {}
 };
 
 <MeterReadingForm {...props} />

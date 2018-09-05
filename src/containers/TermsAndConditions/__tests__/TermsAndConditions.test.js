@@ -29,7 +29,7 @@ const store = mockStore({
 });
 
 const defaultProps = {
-    paragraphs: ['p1', 'p2'],
+    paragraphs: ['p1', 'text <a href="link" target="_blank">link</a> text2'],
     error: null,
     loading: false
 };
@@ -107,5 +107,25 @@ describe('<TermsAndConditions /> Component', () => {
             message: 'Could not load content',
             type: 'error'
         });
+    });
+
+    it(`should render correct content with dangerously html controls`, () => {
+        const component = renderComponent();
+
+        expect(component.find('.terms-and-conditions-page')).toHaveLength(1);
+        expect(component.find('h1')).toHaveLength(1);
+        expect(component.find('p')).toHaveLength(2);
+        expect(
+            component
+                .find('p')
+                .at(0)
+                .props().dangerouslySetInnerHTML
+        ).toEqual({ __html: 'p1' });
+        expect(
+            component
+                .find('p')
+                .at(1)
+                .props().dangerouslySetInnerHTML
+        ).toEqual({ __html: 'text <a href="link" target="_blank">link</a> text2' });
     });
 });

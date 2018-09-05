@@ -110,20 +110,21 @@ export class App extends React.PureComponent {
                 active: headRoute === PATHS.submit_meter.id,
                 path: PATHS.submit_meter.path
             },
-            {
+            /* {
                 id: PATHS.trading.id,
                 icon: icons.trading,
                 label: formatMessage(messages.trading),
                 active: headRoute === PATHS.trading.id,
                 path: PATHS.trading.path,
                 disabled: true
-            },
+            }, */
             {
                 id: PATHS.directTrading.id,
                 icon: icons.directTrading,
                 label: formatMessage(messages.directTrading),
                 active: headRoute === PATHS.directTrading.id,
-                path: PATHS.directTrading.path
+                path: PATHS.directTrading.path,
+                disabled: true
             },
             {
                 id: PATHS.profile.id,

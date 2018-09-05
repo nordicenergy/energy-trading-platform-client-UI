@@ -1,6 +1,7 @@
 import { setToken, clearToken } from '../services/browserStorage';
 
 export const initialState = {
+    registration: { data: {}, error: null, loading: false },
     login: { data: {}, error: null, loading: false },
     logout: { data: {}, error: null, loading: false },
     profile: { data: { user: {} }, error: null, loading: false },
@@ -12,6 +13,17 @@ export const initialState = {
 
 export function usersReducer(state = initialState, action) {
     switch (action.type) {
+        case 'REGISTRATION':
+            const payload = action && action.payload;
+
+            return {
+                ...state,
+                registration: {
+                    data: payload && payload.user ? payload.user : state.registration.data,
+                    loading: action.loading,
+                    error: action.error
+                }
+            };
         case 'LOGIN': {
             const payload = action && action.payload;
             const authentication = payload && payload.authentication;

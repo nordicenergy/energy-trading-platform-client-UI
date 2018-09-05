@@ -44,7 +44,7 @@ describe('Producers API Service', () => {
                 Promise.resolve({
                     data: {
                         producer: {
-                            price: 2,
+                            deltaPrice: 2,
                             street: 'October',
                             postcode: '230000',
                             city: 'Seit',
@@ -63,6 +63,7 @@ describe('Producers API Service', () => {
         expect(producer).toEqual({
             data: {
                 producer: {
+                    deltaPrice: 2,
                     annualProduction: 200,
                     city: 'Seit',
                     country: 'Zakovia',
@@ -97,7 +98,7 @@ describe('Producers API Service', () => {
                 Promise.resolve({
                     data: {
                         producer: {
-                            price: 2,
+                            deltaPrice: 2,
                             street: 'October',
                             postcode: '230000',
                             city: 'Seit',
@@ -116,6 +117,7 @@ describe('Producers API Service', () => {
         expect(producer).toEqual({
             data: {
                 producer: {
+                    deltaPrice: 2,
                     annualProduction: 200,
                     city: 'Seit',
                     country: 'Zakovia',
@@ -190,7 +192,7 @@ describe('Producers API Service', () => {
                     data: {
                         producers: [
                             {
-                                price: 3.1,
+                                deltaPrice: 3.1,
                                 street: 'October',
                                 postcode: '230000',
                                 city: 'Seit',
@@ -201,7 +203,7 @@ describe('Producers API Service', () => {
                                 status: 'sold out'
                             },
                             {
-                                price: 5.3,
+                                deltaPrice: 5.3,
                                 street: 'October',
                                 postcode: '230000',
                                 city: 'Seit',
@@ -227,6 +229,7 @@ describe('Producers API Service', () => {
             data: {
                 producers: [
                     {
+                        deltaPrice: 3.1,
                         price: 5.6,
                         street: 'October',
                         postcode: '230000',
@@ -238,6 +241,7 @@ describe('Producers API Service', () => {
                         status: 'active'
                     },
                     {
+                        deltaPrice: 5.3,
                         price: 2.5,
                         street: 'October',
                         postcode: '230000',
@@ -270,7 +274,7 @@ describe('Producers API Service', () => {
                     data: {
                         producers: [
                             {
-                                price: 3.1,
+                                deltaPrice: 3.1,
                                 street: 'October',
                                 postcode: '230000',
                                 city: 'Seit',
@@ -281,7 +285,7 @@ describe('Producers API Service', () => {
                                 status: 'sold out'
                             },
                             {
-                                price: 5.3,
+                                deltaPrice: 5.3,
                                 street: 'October',
                                 postcode: '230000',
                                 city: 'Seit',
@@ -307,6 +311,7 @@ describe('Producers API Service', () => {
             data: {
                 producers: [
                     {
+                        deltaPrice: 3.1,
                         price: 5.6,
                         street: 'October',
                         postcode: '230000',
@@ -318,6 +323,7 @@ describe('Producers API Service', () => {
                         status: 'sold out'
                     },
                     {
+                        deltaPrice: 5.3,
                         price: 2.5,
                         street: 'October',
                         postcode: '230000',

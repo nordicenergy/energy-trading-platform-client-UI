@@ -1,0 +1,81 @@
+.radio-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 1.5em;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.radio-button-native-control {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    z-index: -1;
+}
+
+.radio-button-control {
+    position: relative;
+    flex: 0 0 1em;
+    width: 1em;
+    height: 1em;
+}
+
+.radio-button-control::before {
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    content: '';
+    border-radius: 50%;
+    background: var(--radio-button-primary-color)
+        linear-gradient(to right, var(--radio-button-primary-color), var(--radio-button-secondary-color));
+}
+
+.radio-button-control::after {
+    position: absolute;
+    display: block;
+    top: 0.125em;
+    right: 0.125em;
+    left: 0.125em;
+    bottom: 0.125em;
+    content: '';
+    border-radius: 50%;
+    background: white;
+}
+
+.radio-button-native-control:checked + .radio-button-control::after {
+    background: var(--radio-button-primary-color)
+        linear-gradient(to right, var(--radio-button-primary-color), var(--radio-button-secondary-color));
+    box-shadow: inset 0 0 0 0.125em white;
+}
+
+.radio-button-label {
+    box-sizing: border-box;
+    height: 1em;
+    padding: 0.1em 0 0 0.888em;
+    color: var(--general-dark-text-color);
+    font-size: 1.125em;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.radio-button-asterisk {
+    top: -0.1em;
+    color: var(--error-text-color);
+    font-size: 85%;
+}
+
+.radio-button-label a {
+    transition: color 150ms ease;
+    text-decoration: none;
+    color: var(--general-text-color);
+    will-change: color;
+}
+
+.radio-button-label a:hover {
+    color: var(--general-hover-text-color);
+}

@@ -78,7 +78,7 @@ describe('<BuyEnergy /> container', () => {
         - <BackLink> element;
         - <ProducersFilter> element;
         - <ProducerCardsPanel> element;
-        - <OptionLinks> element;`, () => {
+        - don\'t show <OptionLinks> element;`, () => {
         const buyEnergy = renderComponent({
             currentProducerLoading: true,
             producersLoading: true
@@ -97,7 +97,7 @@ describe('<BuyEnergy /> container', () => {
         expect(buyEnergy.find(BackLink)).toHaveLength(1);
         expect(buyEnergy.find(ProducerCardsPanel)).toHaveLength(1);
         expect(buyEnergy.find(ProducersFilter)).toHaveLength(1);
-        expect(buyEnergy.find(OptionLinks)).toHaveLength(1);
+        expect(buyEnergy.find(OptionLinks)).toHaveLength(0);
 
         expect(buyEnergy.find(ProducerCardsPanel).props().producers).toEqual([
             { id: 0, name: 'John Doe', plantType: 'Default', price: 2.9, status: null },

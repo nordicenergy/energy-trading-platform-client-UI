@@ -2,6 +2,9 @@ import Axios from 'axios';
 import { dispatcher } from '../store';
 import { getToken } from './browserStorage';
 import history from './history';
+import { performPushNotification } from '../action_performers/notifications';
+import { performLogout } from '../action_performers/users';
+import { getTranslationOf } from './translations';
 
 export default function configureAxios() {
     const token = getToken();
@@ -11,15 +14,25 @@ export default function configureAxios() {
     }
 
     Axios.interceptors.response.use(null, error => {
-        if (error.response && error.response.status === 401) {
-            dispatcher.dispatchAction('LOGIN', null, error.response, false);
-            dispatcher.dispatchAction('LOGOUT', {}, null, false);
+        const { response: { status, config = { url: '' } } = {} } = error;
+        const notLoginRequest = config.url.indexOf('/user/login') < 0;
 
+        if (status === 401 && notLoginRequest) {
+            performLogout();
+            return performPushNotification({
+                message: getTranslationOf('app.common.errors.sessionHasExpired'),
+                type: 'error'
+            });
+        }
+
+        if (status === 403) {
+            performPushNotification({
+                message: getTranslationOf('app.common.errors.notAuthorized'),
+                type: 'error'
+            });
             return history.push('/');
         }
-        if (error.response && error.response.status === 403) {
-            return history.push('/');
-        }
+
         throw error;
     });
 
