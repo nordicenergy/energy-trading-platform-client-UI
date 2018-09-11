@@ -64,5 +64,5 @@ export const TRADE_POSITIONS_LIMIT = 25;
 
 export const DOCUMENT_IDENTIFIERS = {
     invoice: 'invoiceID',
-    archivedDocument: 'archivedDocumentID'
+    archived: 'archivedDocumentID'
 };

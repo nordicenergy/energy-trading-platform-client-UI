@@ -32,7 +32,7 @@ describe('Documents API Service', () => {
                         },
                         {
                             id: 2,
-                            type: 'archivedDocument',
+                            type: 'archived',
                             date: 1521211833,
                             name: 'Monthly Installment.pdf',
                             description: 'Annual bill'
@@ -62,7 +62,7 @@ describe('Documents API Service', () => {
                         description: 'Annual bill',
                         id: 2,
                         name: 'Monthly Installment.pdf',
-                        type: 'archivedDocument',
+                        type: 'archived',
                         url: '/api/documents/download?archivedDocumentID=2'
                     }
                 ]
