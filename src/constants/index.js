@@ -1,7 +1,11 @@
 export const KEYBOARD_KEY_VALUES = {
     ENTER: 'Enter',
     BACKSPACE: 'Backspace',
-    DELETE: 'Delete'
+    DELETE: 'Delete',
+    ARROW_LEFT: 'ArrowLeft',
+    ARROW_RIGHT: 'ArrowRight',
+    HOME: 'Home',
+    END: 'End'
 };
 
 export const MOUSE_BUTTONS_VALUES = {
@@ -65,4 +69,9 @@ export const TRADE_POSITIONS_LIMIT = 25;
 export const DOCUMENT_IDENTIFIERS = {
     invoice: 'invoiceID',
     archived: 'archivedDocumentID'
+};
+
+export const PAYMENT_METHODS = {
+    debit: 'debit',
+    transfer: 'transfer'
 };

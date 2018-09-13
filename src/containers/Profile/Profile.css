@@ -1,31 +1,27 @@
 .profile-page {
+    flex: 1 0 auto;
+    box-sizing: border-box;
     height: 100%;
     text-align: left;
-    background-color: white;
-    box-sizing: border-box;
-    padding: var(--page-paddings);
+    background: white;
 }
 
-.profile-page > h1 {
+.profile-page-header {
+    padding: 2.25em 2em 1.5em;
+}
+
+.profile-page-header > h1 {
     margin: 0;
     padding: 0;
     color: black;
     font-size: 1.625rem;
-    font-weight: bold;
-    line-height: 1.5;
+    font-weight: 700;
+    line-height: 1;
     text-align: left;
 }
 
-.profile-page .profile-form {
-    width: 55%;
-    min-width: 37.5rem;
-}
-
-@media (max-width: 1024px) {
-    .profile-page .profile-form {
-        width: 100%;
-        min-width: 100%;
-    }
+.profile-page-form {
+    padding-bottom: 5.875em;
 }
 
 @media (max-width: 767px) {

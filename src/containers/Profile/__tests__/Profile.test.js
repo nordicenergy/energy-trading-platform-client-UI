@@ -53,7 +53,6 @@ describe('<Profile /> Container', () => {
         const dataMock = {
             firstName: '',
             lastName: '',
-            IBAN: '',
             email: '',
             street: '',
             postcode: '',
@@ -61,7 +60,9 @@ describe('<Profile /> Container', () => {
             streetNumber: '',
             newPassword: '',
             confirmNewPassword: '',
-            oldPassword: 'ss'
+            oldPassword: 'ss',
+            paymentMethod: 'debit',
+            IBAN: ''
         };
         // Disable console warning for the test.
         jest.spyOn(console, 'warn').mockImplementation(jest.fn());
@@ -74,7 +75,6 @@ describe('<Profile /> Container', () => {
         expect(userActionPerformers.performUpdateUserData).not.toHaveBeenCalled();
         expect(component.state().errors).toHaveProperty('firstName');
         expect(component.state().errors).toHaveProperty('lastName');
-        expect(component.state().errors).toHaveProperty('IBAN');
         expect(component.state().errors).toHaveProperty('email');
         expect(component.state().errors).toHaveProperty('street');
         expect(component.state().errors).toHaveProperty('postcode');
@@ -82,6 +82,8 @@ describe('<Profile /> Container', () => {
         expect(component.state().errors).toHaveProperty('streetNumber');
         expect(component.state().errors).toHaveProperty('newPassword');
         expect(component.state().errors).toHaveProperty('confirmNewPassword');
+        expect(component.state().errors).toHaveProperty('IBAN');
+        expect(component.state().errors).toHaveProperty('sepaApproval');
 
         console.warn.mockRestore();
         userActionPerformers.performUpdateUserData.mockRestore();
@@ -92,7 +94,6 @@ describe('<Profile /> Container', () => {
         const dataMock = {
             firstName: '',
             lastName: '',
-            IBAN: 'test',
             email: '',
             street: '',
             postcode: '',
@@ -100,7 +101,8 @@ describe('<Profile /> Container', () => {
             streetNumber: '',
             newPassword: 'aa',
             confirmNewPassword: 'asd',
-            oldPassword: ''
+            oldPassword: '',
+            paymentMethod: 'transfer'
         };
         // Disable console warning for the test.
         jest.spyOn(console, 'warn').mockImplementation(jest.fn());
@@ -113,7 +115,6 @@ describe('<Profile /> Container', () => {
         expect(userActionPerformers.performUpdateUserData).not.toHaveBeenCalled();
         expect(component.state().errors).toHaveProperty('confirmNewPassword');
         expect(component.state().errors).toHaveProperty('oldPassword');
-        expect(component.state().errors).toHaveProperty('IBAN');
 
         console.warn.mockRestore();
         userActionPerformers.performUpdateUserData.mockRestore();
@@ -157,7 +158,6 @@ describe('<Profile /> Container', () => {
         const dataMock = {
             firstName: 'fname',
             lastName: 'lname',
-            IBAN: 'DE78100500000890139229',
             email: 'ss@gmail.com',
             street: 'street',
             postcode: '111',
@@ -165,7 +165,10 @@ describe('<Profile /> Container', () => {
             streetNumber: '1',
             newPassword: 'password',
             confirmNewPassword: 'password',
-            oldPassword: 'oldPassword'
+            oldPassword: 'oldPassword',
+            paymentMethod: 'debit',
+            IBAN: 'DE78100500000890139229',
+            sepaApproval: true
         };
         jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         jest.spyOn(userActionPerformers, 'performUpdateUserData').mockImplementation(profileData => {
@@ -184,6 +187,10 @@ describe('<Profile /> Container', () => {
             .find('ProfileForm')
             .props()
             .onSubmit(dataMock);
+
+        delete dataMock.confirmNewPassword;
+        delete dataMock.paymentMethod;
+        delete dataMock.sepaApproval;
         expect(userActionPerformers.performUpdateUserData).toHaveBeenCalledWith(dataMock);
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'success',
