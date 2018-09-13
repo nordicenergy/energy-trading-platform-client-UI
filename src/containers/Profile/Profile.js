@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import IBAN from 'iban';
+import pick from 'lodash.pick';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { performGetUserData, performUpdateUserData } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
@@ -42,31 +43,20 @@ export class Profile extends AbstractContainer {
             !this.props.loadingError &&
             !this.props.updatingError &&
             loaded &&
-            updatedProfile !== this.props.updatedProfile &&
-            this.state.updated
+            updatedProfile !== this.props.updatedProfile
         ) {
-            performPushNotification({
-                type: 'success',
-                message: formatMessage(messages.profileUpdatedMessage)
-            });
-            this.setState({
-                updated: false
-            });
+            performPushNotification({ type: 'success', message: formatMessage(messages.profileUpdatedMessage) });
             performGetUserData();
         }
 
         if (this.props.loadingError && this.props.loadingError !== loadingError) {
-            performPushNotification({
-                type: 'error',
-                message: formatMessage(messages.profileLoadingErrorMessage)
-            });
+            performPushNotification({ type: 'error', message: formatMessage(messages.profileLoadingErrorMessage) });
         }
 
         if (this.props.updatingError && this.props.updatingError !== updatingError) {
-            const errorMessage = formatMessage(messages.profileUpdatedErrorMessage);
             performPushNotification({
                 type: 'error',
-                message: `${errorMessage}: [${this.props.updatingError.message}]`
+                message: `${formatMessage(messages.profileUpdatedErrorMessage)}: [${this.props.updatingError.message}]`
             });
         }
 
@@ -75,113 +65,88 @@ export class Profile extends AbstractContainer {
         }
     }
 
-    prepareValidator() {
+    prepareValidator(formData) {
         const { formatMessage } = this.context.intl;
         const validationSchema = {
-            firstName: {
-                type: 'string',
-                required: true,
-                message: formatMessage(messages.emptyFirstName)
-            },
-            lastName: {
-                type: 'string',
-                required: true,
-                message: formatMessage(messages.emptyLastName)
-            },
-            city: {
-                type: 'string',
-                required: true,
-                message: formatMessage(messages.emptyCity)
-            },
-            street: {
-                type: 'string',
-                required: true,
-                message: formatMessage(messages.emptyStreet)
-            },
-            streetNumber: {
-                type: 'string',
-                required: true,
-                message: formatMessage(messages.emptyStreetNumber)
-            },
-            postcode: {
-                type: 'string',
-                required: true,
-                message: formatMessage(messages.emptyPostcode)
-            },
+            firstName: { required: true, message: formatMessage(messages.emptyFirstName) },
+            lastName: { required: true, message: formatMessage(messages.emptyLastName) },
+            city: { required: true, message: formatMessage(messages.emptyCity) },
+            street: { required: true, message: formatMessage(messages.emptyStreet) },
+            streetNumber: { required: true, message: formatMessage(messages.emptyStreetNumber) },
+            postcode: { required: true, message: formatMessage(messages.emptyPostcode) },
             email: [
-                {
-                    required: true,
-                    message: formatMessage(messages.emptyEmail)
-                },
-                {
-                    type: 'email',
-                    message: formatMessage(messages.invalidEmail)
-                }
-            ],
-            IBAN: [
-                {
-                    required: true,
-                    type: 'string',
-                    message: formatMessage(messages.emptyIban)
-                },
+                { required: true, message: formatMessage(messages.emptyEmail) },
+                { type: 'email', message: formatMessage(messages.invalidEmail) }
+            ]
+        };
+
+        if (formData.paymentMethod === 'debit') {
+            validationSchema.IBAN = [
+                { required: true, message: formatMessage(messages.emptyIban) },
                 {
                     validator(rule, value, callback) {
                         const errors = [];
+
                         if (value && !IBAN.isValid(value)) {
                             errors.push(new Error(`Invalid IBAN value: ${value}`));
                         }
+
                         callback(errors);
                     },
                     message: formatMessage(messages.invalidIban)
                 }
-            ],
-            newPassword(rule, value, callback, source) {
-                if (source.newPassword !== undefined && source.newPassword.length === 0) {
-                    return callback({
-                        message: formatMessage(messages.emptyPassword)
-                    });
+            ];
+            validationSchema.sepaApproval = {
+                validator(rule, value, callback) {
+                    const errors = [];
+
+                    if (!value) {
+                        errors.push(new Error('SEPA approval is not accepted'));
+                    }
+
+                    callback(errors);
                 }
-                callback();
-            },
-            oldPassword(rule, value, callback, source) {
-                if (source.oldPassword !== undefined && source.oldPassword.length === 0) {
-                    return callback({
-                        message: formatMessage(messages.emptyOldPassword)
-                    });
-                }
-                callback();
-            },
-            confirmNewPassword: [
+            };
+        }
+
+        if (formData.oldPassword || formData.newPassword || formData.confirmNewPassword) {
+            validationSchema.newPassword = { required: true, message: formatMessage(messages.emptyPassword) };
+            validationSchema.oldPassword = { required: true, message: formatMessage(messages.emptyOldPassword) };
+            validationSchema.confirmNewPassword = [
+                { required: true, message: formatMessage(messages.emptyConfirmPassowrd) },
                 {
                     validator(rule, value, callback, source) {
-                        if (source.confirmNewPassword !== undefined && source.confirmNewPassword.length === 0) {
-                            return callback({
-                                message: formatMessage(messages.emptyConfirmPassowrd)
-                            });
+                        const errors = [];
+
+                        if (value !== source.newPassword) {
+                            errors.push(new Error(formatMessage(messages.passwordsMismatch)));
                         }
-                        callback();
-                    }
-                },
-                {
-                    validator(rule, value, callback, source) {
-                        if (source.newPassword !== source.confirmNewPassword) {
-                            return callback({
-                                message: formatMessage(messages.passwordsMismatch)
-                            });
-                        }
-                        callback();
+
+                        callback(errors);
                     }
                 }
-            ]
-        };
+            ];
+        }
 
         return new Validator(validationSchema);
     }
 
-    updateProfile(profile) {
-        const validator = this.prepareValidator();
+    updateProfile(formData) {
+        const allowedProperties = [
+            'email',
+            'firstName',
+            'lastName',
+            'birthday',
+            'country',
+            'postcode',
+            'city',
+            'street',
+            'streetNumber',
+            'IBAN'
+        ];
+        const validator = this.prepareValidator(formData);
 
-        validator.validate(profile, errors => {
+        validator.validate(formData, errors => {
             if (errors) {
                 this.setState({
                     errors: errors.reduce(
@@ -193,11 +158,12 @@ export class Profile extends AbstractContainer {
                     )
                 });
             } else {
-                performUpdateUserData(profile);
-                this.setState({
-                    errors: {},
-                    updated: true
-                });
+                if (formData.newPassword && formData.oldPassword) {
+                    allowedProperties.push('oldPassword', 'newPassword');
+                }
+
+                performUpdateUserData(pick(formData, allowedProperties));
+                this.setState({ errors: {} });
             }
         });
     }
@@ -205,18 +171,19 @@ export class Profile extends AbstractContainer {
     render() {
         const { locale, formatMessage } = this.context.intl;
         const labels = this.prepareLabels(messages);
-        const isProfileSuccessfullyUpdated = !this.props.loading && this.state.updated && !this.props.error;
+
         return (
             <section className="profile-page">
-                <h1>{formatMessage(messages.header)}</h1>
-                <div className="profile-form-container">
+                <header className="profile-page-header">
+                    <h1>{formatMessage(messages.header)}</h1>
+                </header>
+                <div className="profile-page-form">
                     <ProfileForm
-                        isSuccessfullyUpdated={isProfileSuccessfullyUpdated}
                         locale={locale}
                         labels={labels}
                         profile={this.props.profile}
-                        onSubmit={profile => this.updateProfile(profile)}
                         errors={this.state.errors}
+                        onSubmit={formData => this.updateProfile(formData)}
                     />
                 </div>
             </section>

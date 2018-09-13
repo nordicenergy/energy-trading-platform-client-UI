@@ -5,8 +5,16 @@ const messages = defineMessages({
         id: 'app.profilePage.header',
         defaultMessage: 'Profile'
     },
-    save: {
-        id: 'app.profilePage.labels.save',
+    personalDataTab: {
+        id: 'app.profilePage.labels.personalDataTab',
+        defineMessage: 'Personal Data'
+    },
+    paymentDataTab: {
+        id: 'app.profilePage.labels.paymentDataTab',
+        defineMessage: 'Payment'
+    },
+    submitButton: {
+        id: 'app.profilePage.labels.submitButton',
         defaultMessage: 'Save'
     },
     firstName: {
@@ -21,8 +29,8 @@ const messages = defineMessages({
         id: 'app.profilePage.labels.birthday',
         defaultMessage: 'Date of birth'
     },
-    iban: {
-        id: 'app.profilePage.labels.iban',
+    IBAN: {
+        id: 'app.profilePage.labels.IBAN',
         defaultMessage: 'Bank account number'
     },
     email: {
@@ -56,6 +64,31 @@ const messages = defineMessages({
     confirmNewPassword: {
         id: 'app.profilePage.labels.confirmNewPassword',
         defaultMessage: 'Repeat new password'
+    },
+    paymentMethod: {
+        id: 'app.profilePage.labels.paymentMethod',
+        defaultMessage: 'Payment options'
+    },
+    paymentMethodDebitOption: {
+        id: 'app.profilePage.labels.paymentMethodDebitOption',
+        defaultMessage: 'Debit'
+    },
+    paymentMethodTransferOption: {
+        id: 'app.profilePage.labels.paymentMethodTransferOption',
+        defaultMessage: 'Transfer'
+    },
+    sepaApproval: {
+        id: 'app.profilePage.labels.sepaApproval',
+        defaultMessage: 'Issuing SEPA-Mandate'
+    },
+    sepaApprovalOption: {
+        id: 'app.profilePage.labels.sepaApprovalOption',
+        defaultMessage: 'I agree to terms'
+    },
+    sepaApprovalHelp: {
+        id: 'app.profilePage.labels.sepaApprovalHelp',
+        defaultMessage:
+            'The named account holder authorizes the Lition Energie GmbH to collect payments from his account by direct debit. At the same time, said account holder instructs its credit institution to redeem the direct debits drawn by the supplier into its account. Note: Within eight weeks, starting with the debit date, the reimbursement of the debited amount can be reclaimed. The conditions agreed with the bank apply.'
     },
     emptyFirstName: {
         id: 'app.profilePage.errors.firstName',
