@@ -1,7 +1,11 @@
 export const KEYBOARD_KEY_VALUES = {
     ENTER: 'Enter',
     BACKSPACE: 'Backspace',
-    DELETE: 'Delete'
+    DELETE: 'Delete',
+    ARROW_LEFT: 'ArrowLeft',
+    ARROW_RIGHT: 'ArrowRight',
+    HOME: 'Home',
+    END: 'End'
 };
 
 export const MOUSE_BUTTONS_VALUES = {
