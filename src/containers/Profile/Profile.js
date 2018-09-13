@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import IBAN from 'iban';
 import pick from 'lodash.pick';
+import { PAYMENT_METHODS } from '../../constants';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { performGetUserData, performUpdateUserData } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
@@ -80,7 +81,7 @@ export class Profile extends AbstractContainer {
             ]
         };
 
-        if (formData.paymentMethod === 'debit') {
+        if (formData.paymentMethod === PAYMENT_METHODS.debit) {
             validationSchema.IBAN = [
                 { required: true, message: formatMessage(messages.emptyIban) },
                 {

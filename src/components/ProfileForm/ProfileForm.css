@@ -29,7 +29,7 @@
 .profile-form-tab-list > button[aria-selected='true'] {
     padding-top: 0.375em;
     color: var(--label-color);
-    border-bottom: 2px solid var(--active-item-color);
+    border-bottom: 0.125em solid var(--active-item-color);
 }
 
 .profile-form-tab-list > button:focus {

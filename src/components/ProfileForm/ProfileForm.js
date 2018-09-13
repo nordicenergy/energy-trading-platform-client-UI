@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import pick from 'lodash.pick';
-import { KEYBOARD_KEY_VALUES } from '../../constants';
+import { KEYBOARD_KEY_VALUES, PAYMENT_METHODS } from '../../constants';
 import { TextField, Button, DateField, IBANField, RadioButton, Checkbox } from '../index';
 import './ProfileForm.css';
 
@@ -24,7 +24,7 @@ class ProfileForm extends React.PureComponent {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod: profile.IBAN ? 'debit' : 'transfer',
+            paymentMethod: profile.IBAN ? PAYMENT_METHODS.debit : PAYMENT_METHODS.transfer,
             sepaApproval: Boolean(profile.IBAN),
             ...ProfileForm.defaultProps.profile,
             ...pick(profile, Object.keys(ProfileForm.defaultProps.profile))
@@ -44,21 +44,27 @@ class ProfileForm extends React.PureComponent {
     }
 
     handleTabKeyDown(event) {
-        const key = event.key;
         const selectedTabIndex = this.state.selectedTabIndex;
         const firstIndex = 0;
         const lastIndex = this.tabs.length - 1;
 
-        if (key === KEYBOARD_KEY_VALUES.ARROW_LEFT) {
-            this.setState({ selectedTabIndex: selectedTabIndex > firstIndex ? selectedTabIndex - 1 : lastIndex });
-        } else if (key === KEYBOARD_KEY_VALUES.ARROW_RIGHT) {
-            this.setState({ selectedTabIndex: selectedTabIndex < lastIndex ? selectedTabIndex + 1 : firstIndex });
-        } else if (key === KEYBOARD_KEY_VALUES.HOME) {
-            event.preventDefault();
-            this.setState({ selectedTabIndex: firstIndex });
-        } else if (key === KEYBOARD_KEY_VALUES.END) {
-            event.preventDefault();
-            this.setState({ selectedTabIndex: lastIndex });
+        switch (event.key) {
+            case KEYBOARD_KEY_VALUES.ARROW_LEFT:
+                this.setState({ selectedTabIndex: selectedTabIndex > firstIndex ? selectedTabIndex - 1 : lastIndex });
+                break;
+            case KEYBOARD_KEY_VALUES.ARROW_RIGHT:
+                this.setState({ selectedTabIndex: selectedTabIndex < lastIndex ? selectedTabIndex + 1 : firstIndex });
+                break;
+            case KEYBOARD_KEY_VALUES.HOME:
+                event.preventDefault();
+                this.setState({ selectedTabIndex: firstIndex });
+                break;
+            case KEYBOARD_KEY_VALUES.END:
+                event.preventDefault();
+                this.setState({ selectedTabIndex: lastIndex });
+                break;
+            default:
+                break;
         }
     }
 
@@ -264,7 +270,7 @@ class ProfileForm extends React.PureComponent {
                             </li>
                         </ul>
                     </div>
-                    {formData.paymentMethod === 'debit' && (
+                    {formData.paymentMethod === PAYMENT_METHODS.debit && (
                         <React.Fragment>
                             <IBANField
                                 label={labels.IBAN}

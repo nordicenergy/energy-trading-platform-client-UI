@@ -70,3 +70,8 @@ export const DOCUMENT_IDENTIFIERS = {
     invoice: 'invoiceID',
     archived: 'archivedDocumentID'
 };
+
+export const PAYMENT_METHODS = {
+    debit: 'debit',
+    transfer: 'transfer'
+};
