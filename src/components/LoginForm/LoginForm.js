@@ -8,7 +8,7 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            username: props.defaultUsername,
             password: ''
         };
     }
@@ -84,7 +84,8 @@ LoginForm.propTypes = {
         password: PropTypes.string
     }),
     onForgotPasswordLinkClick: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    defaultUsername: PropTypes.string,
 };
 LoginForm.defaultProps = {
     errors: {}

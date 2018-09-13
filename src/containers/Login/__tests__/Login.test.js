@@ -61,6 +61,12 @@ describe('<Login /> Container', () => {
         expect(historyMock.push).toHaveBeenCalledWith('/restore-password');
     });
 
+    it('should pass default username from url query to LoginForm', () => {
+        const component = renderComponent({ location: { search: '?username=demo@example.com&other=test' } });
+
+        expect(component.find('LoginForm').props().defaultUsername).toBe('demo@example.com');
+    });
+
     it('should validate credentials', () => {
         const component = renderComponent();
         const credentialsMock = {
