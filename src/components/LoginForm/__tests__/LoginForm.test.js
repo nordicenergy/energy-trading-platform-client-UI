@@ -11,11 +11,21 @@ const labelsMock = {
 const onForgotPasswordLinkClickMock = jest.fn();
 const onSubmitMock = jest.fn();
 function renderComponent(
-    { labels = labelsMock, onForgotPasswordLinkClick = onForgotPasswordLinkClickMock, onSubmit = onSubmitMock, defaultUsername } = {},
+    {
+        labels = labelsMock,
+        onForgotPasswordLinkClick = onForgotPasswordLinkClickMock,
+        onSubmit = onSubmitMock,
+        defaultUsername
+    } = {},
     mountFn = shallow
 ) {
     return mountFn(
-        <LoginForm labels={labels} onForgotPasswordLinkClick={onForgotPasswordLinkClick} onSubmit={onSubmit} defaultUsername={defaultUsername} />
+        <LoginForm
+            labels={labels}
+            onForgotPasswordLinkClick={onForgotPasswordLinkClick}
+            onSubmit={onSubmit}
+            defaultUsername={defaultUsername}
+        />
     );
 }
 

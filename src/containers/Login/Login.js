@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import queryString from 'query-string'
+import queryString from 'query-string';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import { LoginForm, Logo, Illustration } from '../../components';
