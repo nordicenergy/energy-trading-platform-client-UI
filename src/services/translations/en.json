@@ -393,5 +393,7 @@
         "Mit <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Lition-AGB-v2c.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">AGBs</a>, <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Widerrufsformular.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Widerruf</a> und <a href=\"https://www.lition.de/privacy-policy\" rel=\"noopener noreferrer\" target=\"_blank\">Datenschutzerklärung</a> einverstanden?",
     "app.registrationPage.fields.enableNotifications":
         "May we contact you with respect to new developments, producs via email, telephone or by mail?",
-    "app.registrationPage.errors.agbApprovalValidator": "Required."
+    "app.registrationPage.errors.agbApprovalValidator": "Required.",
+
+    "app.notFoundPage.header": "Page Not Found"
 }

@@ -20,7 +20,8 @@ import {
     ShowTransactions,
     DirectTrading,
     MyDocuments,
-    SubmitMeter
+    SubmitMeter,
+    NotFoundPage
 } from '../containers';
 import { Breadcrumbs as messages } from '../services/translations/messages';
 
@@ -134,6 +135,7 @@ const AppMainLayout = () => {
                     <Route path={PATHS.termsAndConditions.path} component={TermsAndConditions} />
                     <Route path={PATHS.about.path} component={About} />
                     <Route path={PATHS.faq.path} component={FAQ} />
+                    <Route path="*" component={NotFoundPage} />
                 </App>
             </div>
         );

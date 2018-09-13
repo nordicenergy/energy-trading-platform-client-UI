@@ -19,6 +19,7 @@ import DirectTrading from './DirectTrading';
 import MyDocuments from './MyDocuments';
 import SubmitMeter from './SubmitMeter';
 import ResetPassword from './ResetPassword';
+import NotFoundPage from './NotFoundPage';
 export { default as Registration } from './Registration';
 
 export {
@@ -42,5 +43,6 @@ export {
     DirectTrading,
     MyDocuments,
     SubmitMeter,
-    ResetPassword
+    ResetPassword,
+    NotFoundPage
 };
