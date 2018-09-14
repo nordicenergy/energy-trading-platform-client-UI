@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
+import { getQueryParameter } from '../../services/url-params';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import { LoginForm, Logo, Illustration } from '../../components';
@@ -98,9 +98,9 @@ export class Login extends AbstractContainer {
     }
 
     render() {
-        const { loading, location = {} } = this.props;
+        const { loading, location: { search } = {} } = this.props;
         const { errors } = this.state;
-        const { username } = queryString.parse(location.search);
+        const username = getQueryParameter(search, 'username');
 
         return (
             <div className="login-container" aria-busy={loading}>

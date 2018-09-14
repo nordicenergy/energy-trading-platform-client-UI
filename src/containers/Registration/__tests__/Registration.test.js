@@ -1,5 +1,6 @@
 import React from 'react';
 import { Registration } from '../Registration';
+import { RegistrationForm } from '../../../components';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import * as userActionPerformers from '../../../action_performers/users';
 import * as appActionPerformers from '../../../action_performers/app';
@@ -129,6 +130,17 @@ describe('<Registration /> container', () => {
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
             message: 'test error'
+        });
+    });
+
+    it('should set default values from url query to RegistrationForm', () => {
+        const registration = renderComponent();
+        const registrationForm = registration.find(RegistrationForm);
+
+        expect(registrationForm.props().defaultValues).toEqual({
+            postcode: '',
+            city: 'Berlin',
+            usage: ''
         });
     });
 });

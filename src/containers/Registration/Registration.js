@@ -7,6 +7,7 @@ import { performRegistration } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { Logo, RegistrationForm } from '../../components';
+import { getQueryParameter } from '../../services/url-params';
 import './Registration.css';
 import PropTypes from 'prop-types';
 
@@ -83,23 +84,6 @@ export class Registration extends AbstractContainer {
         };
     }
 
-    retrieveGetParameter(parameter) {
-        const { location } = this.context.router.route;
-        const params = location.search.substr(1).split('&');
-
-        for (let i = 0; i < params.length; i += 1) {
-            const [parameterName, value] = params[i].split('=');
-
-            if (parameterName === parameter && value) {
-                return decodeURIComponent(value);
-            } else if (parameterName === parameter) {
-                return '';
-            }
-        }
-
-        return '';
-    }
-
     openLoginPage() {
         const { history } = this.context.router;
         history.push('/login');
@@ -165,6 +149,8 @@ export class Registration extends AbstractContainer {
 
     render() {
         const { copyright, formLabels } = this.prepareLabels();
+        const { location: { search } = {} } = this.context.router.route;
+        const retrieveGetParameter = getQueryParameter.bind(null, search);
 
         return (
             <div className="registration-container">
@@ -174,9 +160,9 @@ export class Registration extends AbstractContainer {
                 <main className="registration-container-wrapper">
                     <RegistrationForm
                         defaultValues={{
-                            postcode: this.retrieveGetParameter('zip'),
-                            city: this.retrieveGetParameter('city'),
-                            usage: this.retrieveGetParameter('consumption')
+                            postcode: retrieveGetParameter('zip'),
+                            city: retrieveGetParameter('city'),
+                            usage: retrieveGetParameter('consumption')
                         }}
                         labels={formLabels}
                         onSubmit={formData => this.handleSubmit(formData)}
