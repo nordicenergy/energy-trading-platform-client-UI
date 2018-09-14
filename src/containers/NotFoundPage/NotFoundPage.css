@@ -4,7 +4,7 @@
     background-color: white;
     box-sizing: border-box;
     padding: var(--page-paddings);
-    flex: 1 1 auto;
+    flex: 1 0 auto;
 }
 
 .not-found-page > h1 {
