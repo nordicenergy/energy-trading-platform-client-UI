@@ -16,7 +16,8 @@ const routeMock = {
 };
 const routerMock = {
     history: historyMock,
-    route: routeMock
+    route: routeMock,
+    getQueryParam: f => f
 };
 
 function renderComponent(props = {}, context = { router: routerMock }, mountFn = shallowWithIntl) {
@@ -134,7 +135,13 @@ describe('<Registration /> container', () => {
     });
 
     it('should set default values from url query to RegistrationForm', () => {
-        const registration = renderComponent();
+        const getQueryParam = (param) => {
+            switch(param) {
+                case'city': return 'Berlin';
+                default: return '';
+            }
+        };
+        const registration = renderComponent({}, { router: { ...routerMock, getQueryParam: getQueryParam } });
         const registrationForm = registration.find(RegistrationForm);
 
         expect(registrationForm.props().defaultValues).toEqual({

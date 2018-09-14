@@ -7,7 +7,6 @@ import { performRegistration } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { Logo, RegistrationForm } from '../../components';
-import { getQueryParameter } from '../../services/urlParams';
 import './Registration.css';
 import PropTypes from 'prop-types';
 
@@ -149,8 +148,7 @@ export class Registration extends AbstractContainer {
 
     render() {
         const { copyright, formLabels } = this.prepareLabels();
-        const { location: { search } = {} } = this.context.router.route;
-        const retrieveGetParameter = getQueryParameter.bind(null, search);
+        const { router } = this.context;
 
         return (
             <div className="registration-container">
@@ -160,9 +158,9 @@ export class Registration extends AbstractContainer {
                 <main className="registration-container-wrapper">
                     <RegistrationForm
                         defaultValues={{
-                            postcode: retrieveGetParameter('zip'),
-                            city: retrieveGetParameter('city'),
-                            usage: retrieveGetParameter('consumption')
+                            postcode: router.getQueryParam('zip'),
+                            city: router.getQueryParam('city'),
+                            usage: router.getQueryParam('consumption')
                         }}
                         labels={formLabels}
                         onSubmit={formData => this.handleSubmit(formData)}
