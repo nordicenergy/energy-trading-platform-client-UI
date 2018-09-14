@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import { LoginForm, Logo, Illustration } from '../../components';
@@ -97,8 +98,9 @@ export class Login extends AbstractContainer {
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading, location = {} } = this.props;
         const { errors } = this.state;
+        const { username } = queryString.parse(location.search);
 
         return (
             <div className="login-container" aria-busy={loading}>
@@ -111,6 +113,7 @@ export class Login extends AbstractContainer {
                         <LoginForm
                             labels={this.prepareLabels(messages)}
                             errors={errors}
+                            defaultUsername={username}
                             onForgotPasswordLinkClick={() => {
                                 this.openResetPasswordPage();
                             }}
@@ -140,6 +143,7 @@ Login.contextTypes = {
 };
 Login.propTypes = {
     loading: PropTypes.bool,
+    location: PropTypes.object,
     data: PropTypes.shape({}),
     error: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };

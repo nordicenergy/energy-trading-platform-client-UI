@@ -21,6 +21,7 @@ const labels = {
         onSubmit={credentials => console.log(credentials)}
     />
 </div>;
+
 ```
 
 #### LoginForm with errors:
