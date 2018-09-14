@@ -7,7 +7,7 @@ import { performRegistration } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { Logo, RegistrationForm } from '../../components';
-import { getQueryParameter } from '../../services/url-params';
+import { getQueryParameter } from '../../services/urlParams';
 import './Registration.css';
 import PropTypes from 'prop-types';
 

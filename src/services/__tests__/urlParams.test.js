@@ -1,4 +1,4 @@
-import { getQueryParameter } from '../url-params';
+import { getQueryParameter } from '../urlParams';
 
 describe('Url parameters Service', () => {
     const queryString = '?username=demo@example.com&otherParam=test&anotherParam=&rest';
