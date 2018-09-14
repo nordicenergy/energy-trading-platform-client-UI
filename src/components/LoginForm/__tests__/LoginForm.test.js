@@ -11,11 +11,21 @@ const labelsMock = {
 const onForgotPasswordLinkClickMock = jest.fn();
 const onSubmitMock = jest.fn();
 function renderComponent(
-    { labels = labelsMock, onForgotPasswordLinkClick = onForgotPasswordLinkClickMock, onSubmit = onSubmitMock } = {},
+    {
+        labels = labelsMock,
+        onForgotPasswordLinkClick = onForgotPasswordLinkClickMock,
+        onSubmit = onSubmitMock,
+        defaultUsername
+    } = {},
     mountFn = shallow
 ) {
     return mountFn(
-        <LoginForm labels={labels} onForgotPasswordLinkClick={onForgotPasswordLinkClick} onSubmit={onSubmit} />
+        <LoginForm
+            labels={labels}
+            onForgotPasswordLinkClick={onForgotPasswordLinkClick}
+            onSubmit={onSubmit}
+            defaultUsername={defaultUsername}
+        />
     );
 }
 
@@ -76,5 +86,12 @@ describe('<LoginForm /> component', () => {
 
         component.find('form').simulate('submit', { preventDefault: () => null });
         expect(onSubmitMock).toHaveBeenCalledWith(component.state());
+    });
+
+    it('should set default username field', () => {
+        const component = renderComponent({ defaultUsername: 'demo@example.com' });
+
+        expect(component.state().username).toBe('demo@example.com');
+        expect(component.find('TextField.username-field').props().value).toBe('demo@example.com');
     });
 });
