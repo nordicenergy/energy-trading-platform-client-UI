@@ -135,10 +135,12 @@ describe('<Registration /> container', () => {
     });
 
     it('should set default values from url query to RegistrationForm', () => {
-        const getQueryParam = (param) => {
-            switch(param) {
-                case'city': return 'Berlin';
-                default: return '';
+        const getQueryParam = param => {
+            switch (param) {
+                case 'city':
+                    return 'Berlin';
+                default:
+                    return '';
             }
         };
         const registration = renderComponent({}, { router: { ...routerMock, getQueryParam: getQueryParam } });

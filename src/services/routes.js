@@ -101,7 +101,7 @@ const PublicRoute = ({ component: Component, ...otherProps }) => (
         {...otherProps}
         render={props => {
             if (getToken()) {
-                return <Redirect to="/"/>;
+                return <Redirect to="/" />;
             }
             return <Component {...props} />;
         }}
@@ -114,42 +114,41 @@ const AppMainLayout = () => {
             <div id="app-layout">
                 <App>
                     <Switch>
-                        <Route exact path={PATHS.overview.path} component={Overview}/>
-                        <Route exact path={PATHS.showTransactions.path} component={ShowTransactions}/>
-                        <Route exact path={PATHS.myProducer.path} component={MyProducer}/>
-                        <Route exact path={PATHS.buyEnergy.path} component={BuyEnergy}/>
-                        <Route exact path={PATHS.producer.path} component={Producer}/>
-                        <Route exact path={PATHS.directTrading.path} component={DirectTrading}/>
-                        <Route exact path={PATHS.documents.path} component={MyDocuments}/>
-                        <Route exact path={PATHS.submit_meter.path} component={SubmitMeter}/>
-                        <Route exact path={PATHS.profile.path} component={Profile}/>
-                        <Route exact path={PATHS.termsAndConditions.path} component={TermsAndConditions}/>
-                        <Route exact path={PATHS.about.path} component={About}/>
-                        <Route exact path={PATHS.faq.path} component={FAQ}/>
-                        <Route component={NotFoundPage}/>
+                        <Route exact path={PATHS.overview.path} component={Overview} />
+                        <Route exact path={PATHS.showTransactions.path} component={ShowTransactions} />
+                        <Route exact path={PATHS.myProducer.path} component={MyProducer} />
+                        <Route exact path={PATHS.buyEnergy.path} component={BuyEnergy} />
+                        <Route exact path={PATHS.producer.path} component={Producer} />
+                        <Route exact path={PATHS.directTrading.path} component={DirectTrading} />
+                        <Route exact path={PATHS.documents.path} component={MyDocuments} />
+                        <Route exact path={PATHS.submit_meter.path} component={SubmitMeter} />
+                        <Route exact path={PATHS.profile.path} component={Profile} />
+                        <Route exact path={PATHS.termsAndConditions.path} component={TermsAndConditions} />
+                        <Route exact path={PATHS.about.path} component={About} />
+                        <Route exact path={PATHS.faq.path} component={FAQ} />
+                        <Route component={NotFoundPage} />
                     </Switch>
                 </App>
             </div>
         );
     }
 
-    return <Redirect to={`/login?next=${encodeURIComponent(window.location.pathname)}`}/>;
+    return <Redirect to={`/login?next=${encodeURIComponent(window.location.pathname)}`} />;
 };
 
 export const Routes = () => (
     <div id="routes">
-        <Notifications/>
-        <PageLoader/>
+        <Notifications />
+        <PageLoader />
         <Switch>
-            <PublicRoute path="/sign-up" component={Registration}/>
-            <PublicRoute path="/login" component={Login}/>
-            <PublicRoute path="/restore-password" component={RestorePassword}/>
-            <PublicRoute path="/:resetToken/reset-password" component={ResetPassword}/>
-            <Route path="/" component={AppMainLayout}/>
+            <PublicRoute path="/sign-up" component={Registration} />
+            <PublicRoute path="/login" component={Login} />
+            <PublicRoute path="/restore-password" component={RestorePassword} />
+            <PublicRoute path="/:resetToken/reset-password" component={ResetPassword} />
+            <Route path="/" component={AppMainLayout} />
         </Switch>
     </div>
 );
-
 
 export function extendRoute(RouterClass) {
     const originGetChildContext = RouterClass.prototype.getChildContext;

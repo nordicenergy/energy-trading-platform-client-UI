@@ -4,11 +4,19 @@ import { extendRoute } from '../routes';
 extendRoute(Route);
 
 describe('Url parameters Service', () => {
-    const context = Reflect.apply(Route.prototype.getChildContext, {
-        context : { router: { route: { location: { search: '?username=demo@example.com&otherParam=test&anotherParam=&rest' } } } },
-        props: {},
-        state: {}
-    }, []);
+    const context = Reflect.apply(
+        Route.prototype.getChildContext,
+        {
+            context: {
+                router: {
+                    route: { location: { search: '?username=demo@example.com&otherParam=test&anotherParam=&rest' } }
+                }
+            },
+            props: {},
+            state: {}
+        },
+        []
+    );
 
     it('should return correct query param value date', () => {
         expect(context.router.getQueryParam('username')).toBe('demo@example.com');
