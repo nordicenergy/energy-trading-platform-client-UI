@@ -1,5 +1,6 @@
 import React from 'react';
 import { Registration } from '../Registration';
+import { RegistrationForm } from '../../../components';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import * as userActionPerformers from '../../../action_performers/users';
 import * as appActionPerformers from '../../../action_performers/app';
@@ -15,7 +16,8 @@ const routeMock = {
 };
 const routerMock = {
     history: historyMock,
-    route: routeMock
+    route: routeMock,
+    getQueryParam: f => f
 };
 
 function renderComponent(props = {}, context = { router: routerMock }, mountFn = shallowWithIntl) {
@@ -129,6 +131,25 @@ describe('<Registration /> container', () => {
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
             message: 'test error'
+        });
+    });
+
+    it('should set default values from url query to RegistrationForm', () => {
+        const getQueryParam = param => {
+            switch (param) {
+                case 'city':
+                    return 'Berlin';
+                default:
+                    return '';
+            }
+        };
+        const registration = renderComponent({}, { router: { ...routerMock, getQueryParam: getQueryParam } });
+        const registrationForm = registration.find(RegistrationForm);
+
+        expect(registrationForm.props().defaultValues).toEqual({
+            postcode: '',
+            city: 'Berlin',
+            usage: ''
         });
     });
 });

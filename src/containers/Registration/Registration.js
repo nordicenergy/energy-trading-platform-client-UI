@@ -83,23 +83,6 @@ export class Registration extends AbstractContainer {
         };
     }
 
-    retrieveGetParameter(parameter) {
-        const { location } = this.context.router.route;
-        const params = location.search.substr(1).split('&');
-
-        for (let i = 0; i < params.length; i += 1) {
-            const [parameterName, value] = params[i].split('=');
-
-            if (parameterName === parameter && value) {
-                return decodeURIComponent(value);
-            } else if (parameterName === parameter) {
-                return '';
-            }
-        }
-
-        return '';
-    }
-
     openLoginPage() {
         const { history } = this.context.router;
         history.push('/login');
@@ -165,6 +148,7 @@ export class Registration extends AbstractContainer {
 
     render() {
         const { copyright, formLabels } = this.prepareLabels();
+        const { router } = this.context;
 
         return (
             <div className="registration-container">
@@ -174,9 +158,9 @@ export class Registration extends AbstractContainer {
                 <main className="registration-container-wrapper">
                     <RegistrationForm
                         defaultValues={{
-                            postcode: this.retrieveGetParameter('zip'),
-                            city: this.retrieveGetParameter('city'),
-                            usage: this.retrieveGetParameter('consumption')
+                            postcode: router.getQueryParam('zip'),
+                            city: router.getQueryParam('city'),
+                            usage: router.getQueryParam('consumption')
                         }}
                         labels={formLabels}
                         onSubmit={formData => this.handleSubmit(formData)}

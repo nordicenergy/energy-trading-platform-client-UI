@@ -9,7 +9,7 @@ import { performGetCurrentProducer, performGetProducers } from '../../action_per
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { BackLink, ProducerCardsPanel, ProducersFilter, OptionLinks } from '../../components';
+import { BackLink, ProducerCardsPanel, ProducersFilter } from '../../components';
 import './BuyEnergy.css';
 
 const FILTER_OPTIONS = [
@@ -27,16 +27,6 @@ const FILTER_OPTIONS = [
         name: 'biomass',
         label: convertPlantType(PLANT_TYPES.biomass),
         type: PLANT_TYPES.biomass
-    }
-];
-const LINKS = [
-    {
-        link: '#trade-directly-on-market',
-        caption: messages.tradeDirectlyOnMarketLink
-    },
-    {
-        link: '#lition-energy-exchange',
-        caption: messages.litionEnergyExchangeLink
     }
 ];
 
@@ -188,12 +178,6 @@ export class BuyEnergy extends AbstractContainer {
                     value={filter}
                     onChange={filter => this.handleFilterChange(filter)}
                 />
-                {/* <OptionLinks
-                    links={LINKS.map(link => ({
-                        ...link,
-                        caption: formatMessage(link.caption)
-                    }))}
-                /> */}
                 <ProducerCardsPanel
                     className="buy-energy-page-producers"
                     loading={shouldShowListLoader}
