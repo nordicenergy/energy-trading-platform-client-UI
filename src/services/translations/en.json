@@ -367,7 +367,7 @@
     "app.registrationPage.fields.sepaApproval": "SEPA direct debit approval",
     "app.registrationPage.options.sepaApproval.0": "Approval",
     "app.registrationPage.helps.sepaApproval":
-        "Der genannte Kontoinhaber ermächtigt die Lition Energie GmbH, Zahlungen von seinem Konto mittels Lastschrift einzuziehen. Zugleich weist der genannte Kontoinhaber sein Kreditinstitut an, die von dem Lieferanten auf sein Konto gezogenen Lastschriften einzulösen. Hinweis: Innerhalb von acht Wochen, beginnend mit dem Belastungs-datum, kann die Erstattung des belasteten Betrages zurückverlangt werden. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.",
+        "The account holder named above grants Lition Energie GmbH the permission to withdraw amounts due by direct debits from the account. In addition, the account holder named above authorizes his or her bank to redeem the direct debits issued. Note: Direct debits can be revoked within eight weeks starting at the time of debit. The terms and conditions of the bank apply.",
     "app.registrationPage.errors.ibanRequired": "Enter IBAN.",
     "app.registrationPage.errors.ibanValidator": "IBAN is invalid.",
     "app.registrationPage.errors.sepaApprovalValidator": "Required.",
@@ -390,7 +390,7 @@
     "app.registrationPage.termsAndConditionsForm.cancel": "Previous step",
     "app.registrationPage.fields.message": "Your message to us",
     "app.registrationPage.fields.agbApproval":
-        "Mit <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Lition-AGB-v2c.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">AGBs</a>, <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Widerrufsformular.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Widerruf</a> und <a href=\"https://www.lition.de/privacy-policy\" rel=\"noopener noreferrer\" target=\"_blank\">Datenschutzerklärung</a> einverstanden?",
+        "Do you agree to <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Lition-AGB-v2c.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Terms & Conditions</a>, <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Widerrufsformular.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Revocation rights</a> und <a href=\"https://www.lition.de/privacy-policy\" rel=\"noopener noreferrer\" target=\"_blank\">Privacy statement</a>?",
     "app.registrationPage.fields.enableNotifications":
         "May we contact you with respect to new developments, producs via email, telephone or by mail?",
     "app.registrationPage.errors.agbApprovalValidator": "Required.",

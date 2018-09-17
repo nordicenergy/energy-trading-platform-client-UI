@@ -265,7 +265,7 @@
     "app.submitMeterReadingsPage.labels.dateField": "Datum der Ablesung",
     "app.submitMeterReadingsPage.labels.submitButton": "Abschicken",
     "app.submitMeterReadingsPage.labels.meterNumberTitle": "Zählernummer",
-    "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "Number of meter is still not defined.",
+    "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "Zählernummer ungültig.",
     "app.submitMeterReadingsPage.labels.historyCaption": "Verlauf",
     "app.submitMeterReadingsPage.messages.noData": "Wir haben leider keine Echtzeit-Zählerdaten für dich.",
     "app.submitMeterReadingsPage.messages.success": "Zählerstand erfolgreich gespeichert",
@@ -277,7 +277,7 @@
         "Beim Speichern der Zählerstände ist ein Fehler aufgetreten.",
 
     "app.registrationPage.successfulRegistration": "Registration erfolgreich abgeschlossen.",
-    "app.registrationPage.copyright": "Lition. All rights reserved.",
+    "app.registrationPage.copyright": "Lition Energie GmbH. Alle Rechte vorbehalten.",
     "app.registrationPage.firstStepTitle": "Lieferadresse",
     "app.registrationPage.secondStepTitle": "Lieferbeginn",
     "app.registrationPage.thirdStepTitle": "Weitere Angaben",
@@ -399,5 +399,5 @@
         "Dürfen wir Dich über die neuen Entwicklungen und Produkte unserer Firma per E-Mail, per Telefon oder per Post, informieren?",
     "app.registrationPage.errors.agbApprovalValidator": "Zustimmung erforderlich.",
 
-    "app.notFoundPage.header": "Page Not Found"
+    "app.notFoundPage.header": "Seite nicht gefunden"
 }
