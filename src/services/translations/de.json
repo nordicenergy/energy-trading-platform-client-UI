@@ -186,9 +186,11 @@
     "app.termsAndConditionsPage.error": "Konnte Seite nicht laden",
 
     "app.profilePage.header": "Profil",
+    "app.profilePage.labels.personalDataTab": "Weitere Angaben",
+    "app.profilePage.labels.paymentDataTab": "Zahlungsweise",
     "app.profilePage.errors.firstName": "Vorname eingeben.",
     "app.profilePage.errors.lastName": "Nachname eingeben.",
-    "app.profilePage.errors.iban": "IBAN eingeben.",
+    "app.profilePage.errors.IBAN": "IBAN eingeben.",
     "app.profilePage.errors.invalidIban": "Gültige IBAN eingeben.",
     "app.profilePage.errors.street": "Straße eingeben.",
     "app.profilePage.errors.streetNumber": "Hausnummer eingeben.",
@@ -202,7 +204,7 @@
     "app.profilePage.errors.emptyOldPassword": "Altes Passwort eingeben.",
     "app.profilePage.errors.emptyConfirmPassowrd": "Passwort wiederholen.",
     "app.profilePage.notifications.profileUpdated": "Profil erfolgreich aktualisiert",
-    "app.profilePage.labels.save": "Speichern",
+    "app.profilePage.labels.submitButton": "Speichern",
     "app.profilePage.labels.firstName": "Vorname",
     "app.profilePage.labels.lastName": "Nachname",
     "app.profilePage.labels.birthday": "Geburtsdatum",
@@ -215,6 +217,13 @@
     "app.profilePage.labels.oldPassword": "Altes Passwort",
     "app.profilePage.labels.newPassword": "Neues Passwort",
     "app.profilePage.labels.confirmNewPassword": "Passwort wiederholen",
+    "app.profilePage.labels.paymentMethod": "Zahlungsweise",
+    "app.profilePage.labels.paymentMethodDebitOption": "Lastschrift",
+    "app.profilePage.labels.paymentMethodTransferOption": "Überweisung",
+    "app.profilePage.labels.sepaApproval": "Erteilung SEPA-Mandat",
+    "app.profilePage.labels.sepaApprovalOption": "Zustimmung",
+    "app.profilePage.labels.sepaApprovalHelp":
+        "Der genannte Kontoinhaber ermächtigt die Lition Energie GmbH, Zahlungen von seinem Konto mittels Lastschrift einzuziehen. Zugleich weist der genannte Kontoinhaber sein Kreditinstitut an, die von dem Lieferanten auf sein Konto gezogenen Lastschriften einzulösen. Hinweis: Innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, kann die Erstattung des belasteten Betrages zurückverlangt werden. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.",
     "app.profilePage.errors.profileUpdatedErrorMessage": "Beim Aktualisieren deines Profils ist ein Fehler aufgetreten",
     "app.profilePage.errors.profileLoadingErrorMessage":
         "Profildaten konnten nicht vom Lition-Server geladen werden. Bitte kontaktiere den Kundendienst.",
@@ -388,5 +397,7 @@
         "Mit <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Lition-AGB-v2c.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">AGBs</a>, <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Widerrufsformular.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Widerruf</a> und <a href=\"https://www.lition.de/privacy-policy\" rel=\"noopener noreferrer\" target=\"_blank\">Datenschutzerklärung</a> einverstanden?",
     "app.registrationPage.fields.enableNotifications":
         "Dürfen wir Dich über die neuen Entwicklungen und Produkte unserer Firma per E-Mail, per Telefon oder per Post, informieren?",
-    "app.registrationPage.errors.agbApprovalValidator": "Zustimmung erforderlich."
+    "app.registrationPage.errors.agbApprovalValidator": "Zustimmung erforderlich.",
+
+    "app.notFoundPage.header": "Page Not Found"
 }

@@ -97,8 +97,10 @@ export class Login extends AbstractContainer {
     }
 
     render() {
+        const { router } = this.context;
         const { loading } = this.props;
         const { errors } = this.state;
+        const username = router.getQueryParam('username');
 
         return (
             <div className="login-container" aria-busy={loading}>
@@ -111,6 +113,7 @@ export class Login extends AbstractContainer {
                         <LoginForm
                             labels={this.prepareLabels(messages)}
                             errors={errors}
+                            defaultUsername={username}
                             onForgotPasswordLinkClick={() => {
                                 this.openResetPasswordPage();
                             }}
@@ -140,6 +143,7 @@ Login.contextTypes = {
 };
 Login.propTypes = {
     loading: PropTypes.bool,
+    location: PropTypes.object,
     data: PropTypes.shape({}),
     error: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };

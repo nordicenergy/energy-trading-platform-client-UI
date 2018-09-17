@@ -2,538 +2,271 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ProfileForm from '../ProfileForm';
 
-const labelsDummy = {
-    save: 'Save',
-    firstName: 'First name',
-    lastName: 'Last name',
-    birthday: 'Date of birth',
-    iban: 'Bank account number',
-    email: 'Email',
-    street: 'Street',
-    streetNumber: 'Street Number',
-    postcode: 'Postcode',
-    city: 'City',
-    oldPassword: 'Old password',
-    newPassword: 'New password',
-    confirmNewPassword: 'Repeat new password',
-    emptyFirstName: 'Enter your first name.',
-    emptyLastName: 'Enter your last name.',
-    emptyIban: 'Enter your IBAN.',
-    emptyStreet: 'Enter your street.',
-    emptyStreetNumber: 'Enter your street number.',
-    emptyPostcode: 'Enter your postcode.',
-    emptyCity: 'Enter your city.',
-    emptyEmail: 'Enter your email.',
-    passwordsMismatch: "Passwords don't match.",
-    emptyPassword: 'Enter new password.',
-    emptyOldPassword: 'Enter old password.',
-    emptyConfirmPassowrd: 'Repeat your password.',
-    invalidEmail: 'Invalid email address.'
+const dummyProfile = {
+    email: 'john.doe@test.com',
+    firstName: 'John',
+    lastName: 'Doe',
+    country: 'Germany',
+    postcode: '10115',
+    city: 'Berlin',
+    street: 'test-street',
+    streetNumber: '5a',
+    birthday: 1535587200,
+    IBAN: 'DE89370400440532013000'
 };
 
-const stateWithPassword = {
-    firstName: '',
-    lastName: '',
-    birthday: '',
-    IBAN: '',
-    email: '',
-    street: '',
-    postcode: '',
-    city: '',
-    streetNumber: '',
-    newPassword: '',
-    confirmNewPassword: '',
-    oldPassword: ''
-};
-
-const stateWithoutPassword = {
-    firstName: '',
-    lastName: '',
-    birthday: '',
-    IBAN: '',
-    email: '',
-    street: '',
-    postcode: '',
-    city: '',
-    streetNumber: ''
-};
-
-const onForgotPasswordLinkClickStub = jest.fn();
-const onSubmitStub = jest.fn();
-function renderComponent(
-    {
-        labels = labelsDummy,
-        onForgotPasswordLinkClick = onForgotPasswordLinkClickStub,
-        onSubmit = onSubmitStub,
-        profile = {},
-        isSuccessfullyUpdated = true
-    } = {},
-    mountFn = shallow
-) {
-    return mountFn(<ProfileForm labels={labels} profile={profile} onSubmit={onSubmitStub} errors={{}} />);
+function renderComponent(props = {}, mountFn = shallow) {
+    return mountFn(<ProfileForm profile={dummyProfile} {...props} />);
 }
 
 describe('<ProfileForm /> component', () => {
-    beforeEach(() => {
-        onSubmitStub.mockClear();
+    it('should renders with necessary components', () => {
+        const profileForm = renderComponent();
+
+        expect(profileForm.find('.profile-form-tab-list')).toHaveLength(1);
+        expect(profileForm.find('.profile-form-tab-list > button')).toHaveLength(2);
+        expect(profileForm.find('.profile-form-tab-panel')).toHaveLength(2);
+        expect(profileForm.find('TextField[name="firstName"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="lastName"]')).toHaveLength(1);
+        expect(profileForm.find('DateField[name="birthday"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="city"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="street"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="streetNumber"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="email"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="oldPassword"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="newPassword"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="confirmNewPassword"]')).toHaveLength(1);
+        expect(profileForm.find('RadioButton[name="paymentMethod"]')).toHaveLength(2);
+        expect(profileForm.find('IBANField[name="IBAN"]')).toHaveLength(1);
+        expect(profileForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(1);
+        expect(profileForm.find('Button')).toHaveLength(1);
     });
 
-    it('should renders without errors', () => {
-        renderComponent();
-    });
+    it('should hide payment fields when `transfer` payment method selected', () => {
+        const profileForm = renderComponent();
 
-    it(`should render
-        - text fields
-        - login button`, () => {
-        const component = renderComponent();
-
-        expect(component.find('TextField')).toHaveLength(10);
-        expect(component.find('IBANField')).toHaveLength(1);
-        expect(component.find('DateField')).toHaveLength(1);
-        expect(component.find('Button')).toHaveLength(1);
-    });
-
-    it('should update state if firstName field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('TextField[name="firstName"]')
+        profileForm
+            .find('RadioButton[value="transfer"]')
             .props()
-            .onChange({
-                target: {
-                    name: 'firstName',
-                    value: 'test'
-                }
-            });
-        expect(component.state().firstName).toBe('test');
+            .onChange({ target: { name: 'paymentMethod', value: 'transfer' } });
+        profileForm.update();
+
+        expect(profileForm.find('IBANField[name="IBAN"]')).toHaveLength(0);
+        expect(profileForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(0);
     });
 
-    it('should update state if firstName field value change and it was edited', () => {
-        const component = renderComponent();
+    it('should toggle tabs', () => {
+        const profileForm = renderComponent();
 
-        const field = component.find('TextField[name="firstName"]');
-        field.props().onChange({
-            target: {
-                name: 'firstName',
-                value: 'test'
-            }
-        });
-        expect(component.state().firstName).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'lastName',
-                value: 'test2'
-            }
-        });
-        expect(component.state().lastName).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if lastName field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('TextField[name="lastName"]')
+        profileForm
+            .find('.profile-form-tab-list > button')
+            .at(1)
             .props()
-            .onChange({
-                target: {
-                    name: 'lastName',
-                    value: 'test'
-                }
-            });
-        expect(component.state().lastName).toBe('test');
-    });
+            .onClick();
+        profileForm.update();
 
-    it('should update state if lastName field value change and it was edited', () => {
-        const component = renderComponent();
+        expect(profileForm.state().selectedTabIndex).toBe(1);
+        expect(
+            profileForm
+                .find('.profile-form-tab-panel')
+                .at(1)
+                .props().hidden
+        ).toBeFalsy();
 
-        const field = component.find('TextField[name="lastName"]');
-        field.props().onChange({
-            target: {
-                name: 'lastName',
-                value: 'test'
-            }
-        });
-        expect(component.state().lastName).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'lastName',
-                value: 'test2'
-            }
-        });
-        expect(component.state().lastName).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if birthday field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('DateField')
+        profileForm
+            .find('.profile-form-tab-list > button')
+            .at(0)
             .props()
-            .onChange({ name: 'birthday', value: 'test' });
-        expect(component.state().birthday).toBe('test');
-    });
+            .onClick();
+        profileForm.update();
 
-    it('should update state if birthday field value change and it was edited', () => {
-        const component = renderComponent();
+        expect(profileForm.state().selectedTabIndex).toBe(0);
+        expect(
+            profileForm
+                .find('.profile-form-tab-panel')
+                .at(0)
+                .props().hidden
+        ).toBeFalsy();
 
-        const field = component.find('DateField');
-        field.props().onChange({ name: 'birthday', value: 'test' });
-        expect(component.state().birthday).toBe('test');
-        field.props().onChange({ name: 'birthday', value: 'test2' });
-        expect(component.state().birthday).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if city field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('TextField[name="city"]')
+        profileForm
+            .find('.profile-form-tab-list > button')
+            .at(0)
             .props()
-            .onChange({
-                target: {
-                    name: 'city',
-                    value: 'test'
-                }
-            });
-        expect(component.state().city).toBe('test');
-    });
+            .onKeyDown({ key: 'ArrowRight' });
+        profileForm.update();
 
-    it('should update state if city field value change and it was edited', () => {
-        const component = renderComponent();
+        expect(profileForm.state().selectedTabIndex).toBe(1);
+        expect(
+            profileForm
+                .find('.profile-form-tab-panel')
+                .at(1)
+                .props().hidden
+        ).toBeFalsy();
 
-        const field = component.find('TextField[name="city"]');
-        field.props().onChange({
-            target: {
-                name: 'city',
-                value: 'test'
-            }
-        });
-        expect(component.state().city).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'city',
-                value: 'test2'
-            }
-        });
-        expect(component.state().city).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if street field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('TextField[name="street"]')
+        profileForm
+            .find('.profile-form-tab-list > button')
+            .at(1)
             .props()
-            .onChange({
-                target: {
-                    name: 'street',
-                    value: 'test'
-                }
-            });
-        expect(component.state().street).toBe('test');
-    });
+            .onKeyDown({ key: 'ArrowLeft' });
+        profileForm.update();
 
-    it('should update state if street field value change and it was edited', () => {
-        const component = renderComponent();
+        expect(profileForm.state().selectedTabIndex).toBe(0);
+        expect(
+            profileForm
+                .find('.profile-form-tab-panel')
+                .at(0)
+                .props().hidden
+        ).toBeFalsy();
 
-        const field = component.find('TextField[name="street"]');
-        field.props().onChange({
-            target: {
-                name: 'street',
-                value: 'test'
-            }
-        });
-        expect(component.state().street).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'street',
-                value: 'test2'
-            }
-        });
-        expect(component.state().street).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if streetNumber field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('TextField[name="streetNumber"]')
+        profileForm
+            .find('.profile-form-tab-list > button')
+            .at(1)
             .props()
-            .onChange({
-                target: {
-                    name: 'streetNumber',
-                    value: 'test'
-                }
-            });
-        expect(component.state().streetNumber).toBe('test');
-    });
+            .onKeyDown({ key: 'ArrowLeft' });
+        profileForm.update();
 
-    it('should update state if streetNumber field value change and it was edited', () => {
-        const component = renderComponent();
+        expect(profileForm.state().selectedTabIndex).toBe(1);
+        expect(
+            profileForm
+                .find('.profile-form-tab-panel')
+                .at(1)
+                .props().hidden
+        ).toBeFalsy();
 
-        const field = component.find('TextField[name="streetNumber"]');
-        field.props().onChange({
-            target: {
-                name: 'streetNumber',
-                value: 'test'
-            }
-        });
-        expect(component.state().streetNumber).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'streetNumber',
-                value: 'test2'
-            }
-        });
-        expect(component.state().streetNumber).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if postcode field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('TextField[name="postcode"]')
+        profileForm
+            .find('.profile-form-tab-list > button')
+            .at(1)
             .props()
-            .onChange({
-                target: {
-                    name: 'postcode',
-                    value: 'test'
-                }
-            });
-        expect(component.state().postcode).toBe('test');
-    });
+            .onKeyDown({ key: 'ArrowRight' });
+        profileForm.update();
 
-    it('should update state if postcode field value change and it was edited', () => {
-        const component = renderComponent();
+        expect(profileForm.state().selectedTabIndex).toBe(0);
+        expect(
+            profileForm
+                .find('.profile-form-tab-panel')
+                .at(0)
+                .props().hidden
+        ).toBeFalsy();
 
-        const field = component.find('TextField[name="postcode"]');
-        field.props().onChange({
-            target: {
-                name: 'postcode',
-                value: 'test'
-            }
-        });
-        expect(component.state().postcode).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'postcode',
-                value: 'test2'
-            }
-        });
-        expect(component.state().postcode).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if IBAN field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('IBANField[name="IBAN"]')
+        profileForm
+            .find('.profile-form-tab-list > button')
+            .at(1)
             .props()
-            .onChange({
-                target: {
-                    name: 'IBAN',
-                    value: 'test'
-                }
-            });
-        expect(component.state().IBAN).toBe('test');
+            .onKeyDown({ preventDefault: jest.fn(), key: 'End' });
+        profileForm.update();
+
+        expect(profileForm.state().selectedTabIndex).toBe(1);
+        expect(
+            profileForm
+                .find('.profile-form-tab-panel')
+                .at(1)
+                .props().hidden
+        ).toBeFalsy();
+
+        profileForm
+            .find('.profile-form-tab-list > button')
+            .at(1)
+            .props()
+            .onKeyDown({ preventDefault: jest.fn(), key: 'Home' });
+        profileForm.update();
+
+        expect(profileForm.state().selectedTabIndex).toBe(0);
+        expect(
+            profileForm
+                .find('.profile-form-tab-panel')
+                .at(0)
+                .props().hidden
+        ).toBeFalsy();
+
+        profileForm
+            .find('.profile-form-tab-list > button')
+            .at(1)
+            .props()
+            .onKeyDown({ key: 'Tab' });
+        profileForm.update();
+
+        expect(profileForm.state().selectedTabIndex).toBe(0);
+        expect(
+            profileForm
+                .find('.profile-form-tab-panel')
+                .at(0)
+                .props().hidden
+        ).toBeFalsy();
     });
 
-    it('should update state if IBAN field value change and it was edited', () => {
-        const component = renderComponent();
+    it('should update form data when `profile` property is changed', () => {
+        const profileForm = renderComponent();
+        const profileWithoutIBAN = { ...dummyProfile };
 
-        const field = component.find('IBANField[name="IBAN"]');
-        field.props().onChange({
-            target: {
-                name: 'IBAN',
-                value: 'test'
-            }
+        profileWithoutIBAN.IBAN = '';
+        profileForm.setState({ oldPassword: 'test1234', newPassword: 'qwerty123', confirmNewPassword: 'qwerty1234' });
+        profileForm.setProps({ profile: profileWithoutIBAN });
+
+        expect(profileForm.state().formData).toEqual({
+            ...profileWithoutIBAN,
+            oldPassword: '',
+            newPassword: '',
+            confirmNewPassword: '',
+            paymentMethod: 'transfer',
+            sepaApproval: false
         });
-        expect(component.state().IBAN).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'IBAN',
-                value: 'test2'
-            }
-        });
-        expect(component.state().IBAN).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
     });
 
-    it('should update state if email field value change', () => {
-        const component = renderComponent();
+    it('should not throw an error if `onSubmit` is not given', () => {
+        const profileForm = renderComponent();
 
-        component
+        expect(() => {
+            profileForm
+                .find('Button')
+                .props()
+                .onClick();
+        }).not.toThrow();
+    });
+
+    it('should update form data', () => {
+        const profileForm = renderComponent();
+
+        profileForm
             .find('TextField[name="email"]')
             .props()
-            .onChange({
-                target: {
-                    name: 'email',
-                    value: 'test'
-                }
-            });
-        expect(component.state().email).toBe('test');
-    });
-
-    it('should update state if email field value change and it was edited', () => {
-        const component = renderComponent();
-
-        const field = component.find('TextField[name="email"]');
-        field.props().onChange({
-            target: {
-                name: 'email',
-                value: 'test'
-            }
-        });
-        expect(component.state().email).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'email',
-                value: 'test2'
-            }
-        });
-        expect(component.state().email).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if oldPassword field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('TextField[name="oldPassword"]')
+            .onChange({ target: { type: 'text', name: 'email', value: 'new.email@example.com' } });
+        profileForm
+            .find('Checkbox[name="sepaApproval"]')
             .props()
-            .onChange({
-                target: {
-                    name: 'oldPassword',
-                    value: 'test'
-                }
-            });
-        expect(component.state().oldPassword).toBe('test');
-    });
-
-    it('should update state if oldPassword field value change and it was edited', () => {
-        const component = renderComponent();
-
-        const field = component.find('TextField[name="oldPassword"]');
-        field.props().onChange({
-            target: {
-                name: 'oldPassword',
-                value: 'test'
-            }
-        });
-        expect(component.state().oldPassword).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'oldPassword',
-                value: 'test2'
-            }
-        });
-        expect(component.state().oldPassword).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if newPassword field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('TextField[name="newPassword"]')
+            .onChange({ target: { type: 'checkbox', name: 'sepaApproval', checked: false } });
+        profileForm
+            .find('DateField[name="birthday"]')
             .props()
-            .onChange({
-                target: {
-                    name: 'newPassword',
-                    value: 'test'
-                }
-            });
-        expect(component.state().newPassword).toBe('test');
+            .onChange({ name: 'birthday', value: 1535590800 });
+
+        expect(profileForm.state().formData).toEqual({
+            ...dummyProfile,
+            email: 'new.email@example.com',
+            birthday: 1535590800,
+            oldPassword: '',
+            newPassword: '',
+            confirmNewPassword: '',
+            paymentMethod: 'debit',
+            sepaApproval: false
+        });
     });
 
-    it('should update state if newPassword field value change and it was edited', () => {
-        const component = renderComponent();
+    it('should call `onSubmit` callback with form data', () => {
+        const onSubmit = jest.fn();
+        const profileForm = renderComponent({ onSubmit });
 
-        const field = component.find('TextField[name="newPassword"]');
-        field.props().onChange({
-            target: {
-                name: 'newPassword',
-                value: 'test'
-            }
-        });
-        expect(component.state().newPassword).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'newPassword',
-                value: 'test2'
-            }
-        });
-        expect(component.state().newPassword).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should update state if confirmNewPassword field value change', () => {
-        const component = renderComponent();
-
-        component
-            .find('TextField[name="confirmNewPassword"]')
+        profileForm
+            .find('Button')
             .props()
-            .onChange({
-                target: {
-                    name: 'confirmNewPassword',
-                    value: 'test'
-                }
-            });
-        expect(component.state().confirmNewPassword).toBe('test');
-    });
+            .onClick();
 
-    it('should update state if confirmNewPassword field value change and it was edited', () => {
-        const component = renderComponent();
-
-        const field = component.find('TextField[name="confirmNewPassword"]');
-        field.props().onChange({
-            target: {
-                name: 'confirmNewPassword',
-                value: 'test'
-            }
+        expect(onSubmit).toHaveBeenCalledWith({
+            ...dummyProfile,
+            oldPassword: '',
+            newPassword: '',
+            confirmNewPassword: '',
+            paymentMethod: 'debit',
+            sepaApproval: true
         });
-        expect(component.state().confirmNewPassword).toBe('test');
-        field.props().onChange({
-            target: {
-                name: 'confirmNewPassword',
-                value: 'test2'
-            }
-        });
-        expect(component.state().confirmNewPassword).toBe('test2');
-        expect(component.state().isEdited).toBe(true);
-    });
-
-    it('should call onSubmit without password callback when form was submitted', () => {
-        const component = renderComponent();
-
-        component.find('form').simulate('submit', { preventDefault: () => null });
-        expect(onSubmitStub).toHaveBeenCalledWith(stateWithoutPassword);
-    });
-
-    it('should call onSubmit with password callback when form was submitted', () => {
-        const component = renderComponent();
-
-        component.setState({ oldPassword: 'asd' });
-
-        component.find('form').simulate('submit', { preventDefault: () => null });
-        expect(onSubmitStub).toHaveBeenCalledWith({ ...stateWithPassword, oldPassword: 'asd' });
-    });
-
-    it('should clear passwords fields in case success of profile update', () => {
-        const component = renderComponent();
-        component.setProps({
-            isSuccessfullyUpdated: true,
-            profile: { firstName: 'newFirstName' }
-        });
-        expect(component.state().newPassword).toBe('');
-        expect(component.state().confirmNewPassword).toBe('');
-        expect(component.state().oldPassword).toBe('');
     });
 });

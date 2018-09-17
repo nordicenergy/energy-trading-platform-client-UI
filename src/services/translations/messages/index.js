@@ -20,3 +20,4 @@ export { default as SubmitMeterReadings } from './SubmitMeterReadings';
 export { default as ResetPassword } from './ResetPassword';
 export { default as ProducerStatus } from './ProducerStatus';
 export { default as Registration } from './Registration';
+export { default as NotFoundPage } from './NotFoundPage';

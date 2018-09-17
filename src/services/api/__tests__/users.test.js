@@ -93,7 +93,7 @@ describe('Users API Service', () => {
             })
         );
         updateUserData(newUserDataDummy);
-        expect(Axios.post).toHaveBeenCalledWith('/api/user/updateUserData', newUserDataDummy);
+        expect(Axios.patch).toHaveBeenCalledWith('/api/user/updateUserData', newUserDataDummy);
     });
 
     it('should provide possibility to reset user password', () => {

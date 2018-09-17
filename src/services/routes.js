@@ -20,7 +20,8 @@ import {
     ShowTransactions,
     DirectTrading,
     MyDocuments,
-    SubmitMeter
+    SubmitMeter,
+    NotFoundPage
 } from '../containers';
 import { Breadcrumbs as messages } from '../services/translations/messages';
 
@@ -93,21 +94,7 @@ export const PATHS = {
     }
 };
 
-const BuyEnergyRoute = () => (
-    <React.Fragment>
-        <Route exact path={PATHS.buyEnergy.path} component={BuyEnergy} />
-        <Route path={PATHS.producer.path} component={Producer} />
-    </React.Fragment>
-);
-
-const OverviewRoute = () => (
-    <React.Fragment>
-        <Route exact path={PATHS.overview.path} component={Overview} />
-        <Route path={PATHS.myProducer.path} component={MyProducer} />
-        <Route path={PATHS.showTransactions.path} component={ShowTransactions} />
-        <BuyEnergyRoute />
-    </React.Fragment>
-);
+extendRoute(Route);
 
 const PublicRoute = ({ component: Component, ...otherProps }) => (
     <Route
@@ -126,14 +113,21 @@ const AppMainLayout = () => {
         return (
             <div id="app-layout">
                 <App>
-                    <OverviewRoute />
-                    <Route exact path={PATHS.directTrading.path} component={DirectTrading} />
-                    <Route path={PATHS.documents.path} component={MyDocuments} />
-                    <Route path={PATHS.submit_meter.path} component={SubmitMeter} />
-                    <Route path={PATHS.profile.path} component={Profile} />
-                    <Route path={PATHS.termsAndConditions.path} component={TermsAndConditions} />
-                    <Route path={PATHS.about.path} component={About} />
-                    <Route path={PATHS.faq.path} component={FAQ} />
+                    <Switch>
+                        <Route exact path={PATHS.overview.path} component={Overview} />
+                        <Route exact path={PATHS.showTransactions.path} component={ShowTransactions} />
+                        <Route exact path={PATHS.myProducer.path} component={MyProducer} />
+                        <Route exact path={PATHS.buyEnergy.path} component={BuyEnergy} />
+                        <Route exact path={PATHS.producer.path} component={Producer} />
+                        <Route exact path={PATHS.directTrading.path} component={DirectTrading} />
+                        <Route exact path={PATHS.documents.path} component={MyDocuments} />
+                        <Route exact path={PATHS.submit_meter.path} component={SubmitMeter} />
+                        <Route exact path={PATHS.profile.path} component={Profile} />
+                        <Route exact path={PATHS.termsAndConditions.path} component={TermsAndConditions} />
+                        <Route exact path={PATHS.about.path} component={About} />
+                        <Route exact path={PATHS.faq.path} component={FAQ} />
+                        <Route component={NotFoundPage} />
+                    </Switch>
                 </App>
             </div>
         );
@@ -155,3 +149,28 @@ export const Routes = () => (
         </Switch>
     </div>
 );
+
+export function extendRoute(RouterClass) {
+    const originGetChildContext = RouterClass.prototype.getChildContext;
+    RouterClass.prototype.getChildContext = function() {
+        const context = Reflect.apply(originGetChildContext, this, []);
+        return {
+            router: {
+                ...context.router,
+                getQueryParam(paramName = '') {
+                    const { route: { location: { search } = {} } = {} } = context.router || {};
+                    const params = search.substr(1).split('&');
+                    for (let i = 0; i < params.length; i++) {
+                        const [parameterName, value] = params[i].split('=');
+
+                        if (parameterName === paramName && value) {
+                            return decodeURIComponent(value);
+                        }
+                    }
+                    return '';
+                }
+            }
+        };
+    };
+    return RouterClass;
+}

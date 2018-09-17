@@ -4,13 +4,13 @@ import { formatFloat } from '../../services/formatter';
 
 import './RecentTransactionDetails.css';
 
-const RecentTransactionDetails = ({ labels, status, hash, price, amount, from, fromUrl, url }) => (
+const RecentTransactionDetails = ({ labels, isExpanded, status, hash, price, amount, from, fromUrl, url }) => (
     <div role="table" className="recent-transactions-details">
         <div className="recent-transactions-details-values" role="rowgroup">
             <div role="row">
                 <div role="columnheader">{labels.from}</div>
                 <div role="cell">
-                    <a target="_blank" href={fromUrl}>
+                    <a tabIndex={isExpanded ? 0 : -1} target="_blank" href={fromUrl}>
                         {from}
                     </a>
                 </div>
@@ -32,7 +32,7 @@ const RecentTransactionDetails = ({ labels, status, hash, price, amount, from, f
             <div className="recent-transactions-details-hash" role="row">
                 <div role="columnheader">{labels.hash}</div>
                 <div role="cell">
-                    <a target="_blank" href={url}>
+                    <a tabIndex={isExpanded ? 0 : -1} target="_blank" href={url}>
                         {hash}
                     </a>
                 </div>
@@ -50,6 +50,7 @@ RecentTransactionDetails.propTypes = {
         hash: PropTypes.string,
         url: PropTypes.string
     }),
+    isExpanded: PropTypes.bool,
     from: PropTypes.string,
     status: PropTypes.string,
     amount: PropTypes.number,

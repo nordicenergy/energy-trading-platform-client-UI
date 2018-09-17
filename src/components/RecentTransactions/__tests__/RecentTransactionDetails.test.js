@@ -21,10 +21,11 @@ const detailsDummy = {
     url: 'https://ropsten.etherscan.io/tx/0x25a23d106b2c4299a98e553d96570941556e53fe8808476ee0fceb5d72859540'
 };
 
-function renderComponent({ labels = labelsMock, details = detailsDummy }, renderer = mount) {
+function renderComponent({ labels = labelsMock, details = detailsDummy } = {}, renderer = mount) {
     return renderer(
         <RecentTransactionDetails
             labels={labels}
+            isExpanded={false}
             url={details.url}
             hash={details.hash}
             price={details.price}
@@ -43,7 +44,7 @@ describe('<RecentTransactionDetails /> Component', () => {
         - 3 div[role="row"] elements;
         - 4 div[role="cell"] elements;
         - 4 div[role="columnheader"] elements;`, () => {
-        const component = renderComponent({});
+        const component = renderComponent();
         expect(component.find('.recent-transactions-details-values')).toHaveLength(1);
         expect(component.find('.recent-transactions-details-hash')).toHaveLength(1);
 
@@ -71,5 +72,38 @@ describe('<RecentTransactionDetails /> Component', () => {
         expect(cells.at(2).text()).toEqual(`${formatFloat(detailsDummy.amount)} kWh`);
         expect(cells.at(3).text()).toEqual(`${formatFloat(detailsDummy.price)} ct`);
         expect(cells.at(4).text()).toEqual(detailsDummy.hash);
+    });
+
+    it('should change tab index for links when data is expanded', () => {
+        const component = renderComponent();
+
+        expect(
+            component
+                .find('a')
+                .at(0)
+                .props().tabIndex
+        ).toBe(-1);
+        expect(
+            component
+                .find('a')
+                .at(1)
+                .props().tabIndex
+        ).toBe(-1);
+
+        component.setProps({ isExpanded: true });
+        component.update();
+
+        expect(
+            component
+                .find('a')
+                .at(0)
+                .props().tabIndex
+        ).toBe(0);
+        expect(
+            component
+                .find('a')
+                .at(1)
+                .props().tabIndex
+        ).toBe(0);
     });
 });
