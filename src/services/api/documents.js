@@ -27,7 +27,9 @@ export function downloadDocument(url, name) {
         const link = document.createElement('a');
         link.setAttribute('href', url);
         link.setAttribute('download', `${name}.pdf`);
+
+        document.body.appendChild(link);
         link.click();
-        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
     });
 }
