@@ -215,6 +215,7 @@ class ProfileForm extends React.PureComponent {
                         onChange={this.handleChange}
                     />
                     <TextField
+                        disabled={!this.props.profile.allowPasswordChange}
                         label={labels.oldPassword}
                         name="oldPassword"
                         type="password"
@@ -223,6 +224,7 @@ class ProfileForm extends React.PureComponent {
                         onChange={this.handleChange}
                     />
                     <TextField
+                        disabled={!this.props.profile.allowPasswordChange}
                         label={labels.newPassword}
                         name="newPassword"
                         type="password"
@@ -231,6 +233,7 @@ class ProfileForm extends React.PureComponent {
                         onChange={this.handleChange}
                     />
                     <TextField
+                        disabled={!this.props.profile.allowPasswordChange}
                         label={labels.confirmNewPassword}
                         name="confirmNewPassword"
                         type="password"
@@ -331,6 +334,7 @@ ProfileForm.propTypes = {
     }),
     profile: PropTypes.shape({
         ...commonProfilePropTypes,
+        allowPasswordChange: PropTypes.bool,
         birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     }),
     errors: PropTypes.shape(commonProfilePropTypes),
