@@ -4,14 +4,21 @@ import { getDocuments, downloadDocument } from '../documents';
 describe('Documents API Service', () => {
     const setAttributeSpy = jest.fn();
     const clickSpy = jest.fn();
+    const appendChildSpy = jest.fn();
+    const removeChildSpy = jest.fn();
+
     beforeAll(() => {
         jest.spyOn(Axios, 'get').mockImplementation(jest.fn);
         jest.spyOn(document, 'createElement').mockReturnValue({ setAttribute: setAttributeSpy, click: clickSpy });
+        document.body.appendChild = appendChildSpy;
+        document.body.removeChild = removeChildSpy;
     });
 
     afterAll(() => {
         Axios.get.mockRestore();
-        document.document.mockRestore();
+        document.mockRestore();
+        document.body.appendChild.mockRestore();
+        document.body.removeChild.mockRestore();
     });
 
     afterEach(() => {
@@ -76,15 +83,14 @@ describe('Documents API Service', () => {
         const documents = await downloadDocument('url', 'name');
 
         expect(Axios.get).toHaveBeenCalledWith('url', { responseType: 'blob' });
+        expect(Blob).toHaveBeenCalledWith(['file'], { type: 'application/pdf' });
 
         expect(documents).toEqual(undefined);
 
-        expect(setAttributeSpy).toHaveBeenCalledTimes(3);
-        expect(setAttributeSpy.mock.calls).toEqual([
-            ['href', undefined],
-            ['download', 'name.pdf'],
-            ['target', '_blank']
-        ]);
+        expect(setAttributeSpy).toHaveBeenCalledTimes(2);
+        expect(setAttributeSpy.mock.calls).toEqual([['href', undefined], ['download', 'name.pdf']]);
+        expect(appendChildSpy).toHaveBeenCalledTimes(1);
         expect(clickSpy).toHaveBeenCalledTimes(1);
+        expect(removeChildSpy).toHaveBeenCalledTimes(1);
     });
 });

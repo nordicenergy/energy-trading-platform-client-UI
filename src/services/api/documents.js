@@ -22,13 +22,14 @@ export function getDocuments(page = 0) {
 
 export function downloadDocument(url, name) {
     return Axios.get(url, { responseType: 'blob' }).then(response => {
-        const blob = new Blob([response.data]);
+        const blob = new Blob([response.data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.setAttribute('href', url);
         link.setAttribute('download', `${name}.pdf`);
-        link.setAttribute('target', '_blank');
+
+        document.body.appendChild(link);
         link.click();
-        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
     });
 }
