@@ -16,10 +16,62 @@ describe('<Checkbox /> component', () => {
         expect(checkbox.contains(<span className="checkbox-label">Test</span>)).toBeTruthy();
     });
 
-    it('should render with asterisk if checkbox is required', () => {
+    it('should render with help text', () => {
+        const checkbox = renderComponent({ helpText: 'lorem ipsum' });
+
+        expect(checkbox.contains(<small className="checkbox-help-text">lorem ipsum</small>)).toBeTruthy();
+    });
+
+    it('should render with error', () => {
+        const checkbox = renderComponent({ error: 'this is required field' });
+
+        expect(checkbox.contains(<small className="checkbox-error">this is required field</small>)).toBeTruthy();
+    });
+
+    it('should render with necessary class if checkbox is required', () => {
         const checkbox = renderComponent({ label: 'Required', required: true });
 
-        expect(checkbox.find('.checkbox-asterisk')).toHaveLength(1);
+        expect(checkbox.hasClass('checkbox--required')).toBeTruthy();
+    });
+
+    it('should not throw an error if `onFocus` property is not given', () => {
+        const checkbox = renderComponent();
+
+        expect(() => {
+            checkbox.find('.checkbox-native-control').simulate('focus', new FocusEvent('focus'));
+        }).not.toThrow();
+    });
+
+    it('should handle focus event', () => {
+        const onFocus = jest.fn();
+        const event = new FocusEvent('focus');
+        const checkbox = renderComponent({ onFocus });
+        checkbox.find('.checkbox-native-control').simulate('focus', event);
+        checkbox.update();
+
+        expect(checkbox.hasClass('checkbox--has-focus')).toBeTruthy();
+        expect(onFocus).toHaveBeenCalledWith(event);
+    });
+
+    it('should not throw an error if `onBlur` property is not given', () => {
+        const checkbox = renderComponent();
+
+        expect(() => {
+            checkbox.find('.checkbox-native-control').simulate('blur', new FocusEvent('blur'));
+        }).not.toThrow();
+    });
+
+    it('should handle blur event', () => {
+        const onBlur = jest.fn();
+        const event = new FocusEvent('blur');
+        const checkbox = renderComponent({ onBlur });
+        checkbox.setState({ hasFocus: true });
+        checkbox.update();
+        checkbox.find('.checkbox-native-control').simulate('blur', event);
+        checkbox.update();
+
+        expect(checkbox.hasClass('checkbox--has-focus')).toBeFalsy();
+        expect(onBlur).toHaveBeenCalledWith(event);
     });
 
     it('should not throw an error if `onChange` property is not given', () => {
