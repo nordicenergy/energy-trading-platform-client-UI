@@ -16,10 +16,62 @@ describe('<RadioButton /> component', () => {
         expect(radioButton.contains(<span className="radio-button-label">Test</span>)).toBeTruthy();
     });
 
-    it('should render with asterisk if radio button is required', () => {
+    it('should render with help text', () => {
+        const radioButton = renderComponent({ helpText: 'lorem ipsum' });
+
+        expect(radioButton.contains(<small className="radio-button-help-text">lorem ipsum</small>)).toBeTruthy();
+    });
+
+    it('should render with error', () => {
+        const radioButton = renderComponent({ error: 'this is required field' });
+
+        expect(radioButton.contains(<small className="radio-button-error">this is required field</small>)).toBeTruthy();
+    });
+
+    it('should render with necessary class if radio button is required', () => {
         const radioButton = renderComponent({ label: 'Required', required: true });
 
-        expect(radioButton.find('.radio-button-asterisk')).toHaveLength(1);
+        expect(radioButton.hasClass('radio-button--required')).toBeTruthy();
+    });
+
+    it('should not throw an error if `onFocus` property is not given', () => {
+        const radioButton = renderComponent();
+
+        expect(() => {
+            radioButton.find('.radio-button-native-control').simulate('focus', new FocusEvent('focus'));
+        }).not.toThrow();
+    });
+
+    it('should handle focus event', () => {
+        const onFocus = jest.fn();
+        const event = new FocusEvent('focus');
+        const radioButton = renderComponent({ onFocus });
+        radioButton.find('.radio-button-native-control').simulate('focus', event);
+        radioButton.update();
+
+        expect(radioButton.hasClass('radio-button--has-focus')).toBeTruthy();
+        expect(onFocus).toHaveBeenCalledWith(event);
+    });
+
+    it('should not throw an error if `onBlur` property is not given', () => {
+        const radioButton = renderComponent();
+
+        expect(() => {
+            radioButton.find('.radio-button-native-control').simulate('blur', new FocusEvent('blur'));
+        }).not.toThrow();
+    });
+
+    it('should handle blur event', () => {
+        const onBlur = jest.fn();
+        const event = new FocusEvent('blur');
+        const radioButton = renderComponent({ onBlur });
+        radioButton.setState({ hasFocus: true });
+        radioButton.update();
+        radioButton.find('.radio-button-native-control').simulate('blur', event);
+        radioButton.update();
+
+        expect(radioButton.hasClass('radio-button--has-focus')).toBeFalsy();
+        expect(onBlur).toHaveBeenCalledWith(event);
     });
 
     it('should not throw an error if `onChange` property is not given', () => {
