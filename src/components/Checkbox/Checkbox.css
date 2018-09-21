@@ -71,8 +71,8 @@
 
 .checkbox-label {
     box-sizing: border-box;
-    width: calc(100% - 1em);
-    padding: 0.1em 0 0 0.888em;
+    width: calc(100% - 0.889em);
+    padding: 0.1em 0 0 0.889em;
     color: var(--general-dark-text-color);
     font-size: 1.125em;
     font-weight: 600;

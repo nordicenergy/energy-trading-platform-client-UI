@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Validator from 'async-validator';
 import AbstractForm from './AbstractForm';
 import Wizard from '../Wizard';
 import TextField from '../TextField';
 import Checkbox from '../Checkbox';
-import Validator from 'async-validator';
+import Captcha from '../Captcha';
 
 class TermsAndConditionsForm extends AbstractForm {
+    componentWillUnmount() {
+        this.props.setFormData({ googleReCaptchaResponse: '' });
+    }
+
     prepareValidator(field) {
-        const { labels } = this.props;
+        const labels = this.props.labels;
         const validationScheme = {
             agbApproval: {
                 validator(rule, value, done) {
@@ -20,11 +25,16 @@ class TermsAndConditionsForm extends AbstractForm {
 
                     done(errors);
                 }
-            }
+            },
+            googleReCaptchaResponse: { required: true, message: labels.errors.googleReCaptchaResponse }
         };
 
         return new Validator(validationScheme);
     }
+
+    handleCaptchaVerify = googleReCaptchaResponse => {
+        this.props.setFormData({ googleReCaptchaResponse });
+    };
 
     render() {
         const { formData, labels, labels: { fields }, onCancel } = this.props;
@@ -58,6 +68,7 @@ class TermsAndConditionsForm extends AbstractForm {
                             label={<span dangerouslySetInnerHTML={{ __html: fields.agbApproval }} />}
                             name="agbApproval"
                             checked={formData.agbApproval}
+                            error={errors.agbApproval}
                             onChange={this.handleCheckboxChange}
                         />
                     </div>
@@ -67,6 +78,12 @@ class TermsAndConditionsForm extends AbstractForm {
                             name="enableNotifications"
                             checked={formData.enableNotifications}
                             onChange={this.handleCheckboxChange}
+                        />
+                    </div>
+                    <div className="registration-form-field">
+                        <Captcha
+                            error={errors.googleReCaptchaResponse}
+                            onVerify={googleReCaptchaResponse => this.handleCaptchaVerify(googleReCaptchaResponse)}
                         />
                     </div>
                     <input type="submit" hidden aria-hidden />
@@ -81,7 +98,8 @@ TermsAndConditionsForm.propTypes = {
     formData: PropTypes.shape({
         message: PropTypes.string,
         agbApproval: PropTypes.bool,
-        enableNotifications: PropTypes.bool
+        enableNotifications: PropTypes.bool,
+        googleReCaptchaResponse: PropTypes.string
     }),
     labels: PropTypes.shape({
         title: PropTypes.string,
@@ -102,7 +120,8 @@ TermsAndConditionsForm.defaultProps = {
     formData: {
         message: '',
         agbApproval: false,
-        enableNotifications: false
+        enableNotifications: false,
+        googleReCaptchaResponse: ''
     },
     labels: {
         title: 'Abschluss',
@@ -116,7 +135,8 @@ TermsAndConditionsForm.defaultProps = {
                 'Dürfen wir Dich über die neuen Entwicklungen und Produkte unserer Firma per E-Mail, per Telefon oder per Post, informieren?'
         },
         errors: {
-            agbApprovalValidator: ''
+            agbApprovalValidator: 'Please accept the terms.',
+            googleReCaptchaResponse: 'Solve the CAPTCHA.'
         }
     }
 };

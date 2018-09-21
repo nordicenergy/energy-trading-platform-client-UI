@@ -25,23 +25,10 @@
     margin-top: 3.5em;
 }
 
-.registration-form-label,
-.registration-form-help-text {
+.registration-form-label {
     color: var(--label-color);
     font-size: 0.875rem;
     font-weight: 700;
-}
-
-.registration-form-help-text {
-    display: block;
-    width: 100%;
-    font-size: 0.75rem;
-    font-weight: 400;
-}
-
-.registration-form-help-text--sepa-approval {
-    width: calc(100% - 2rem);
-    margin: 0.8125rem 0 0 auto;
 }
 
 .registration-form-fieldset {

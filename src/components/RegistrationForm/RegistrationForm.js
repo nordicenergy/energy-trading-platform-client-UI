@@ -66,7 +66,8 @@ class RegistrationForm extends React.Component {
                 6: {
                     message: '',
                     agbApproval: false,
-                    enableNotifications: false
+                    enableNotifications: false,
+                    googleReCaptchaResponse: ''
                 }
             }
         };

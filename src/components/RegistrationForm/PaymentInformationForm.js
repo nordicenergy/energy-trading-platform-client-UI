@@ -96,14 +96,13 @@ class PaymentInformationForm extends AbstractForm {
                         <Checkbox
                             required
                             label={fields.sepaApprovalOption}
+                            helpText={fields.sepaApprovalHelp}
                             name="sepaApproval"
                             value="confirmed"
                             checked={formData.sepaApproval}
+                            error={errors.sepaApproval}
                             onChange={this.handleCheckboxChange}
                         />
-                        <small className="registration-form-help-text registration-form-help-text--sepa-approval">
-                            {fields.sepaApprovalHelp}
-                        </small>
                     </div>
                 </fieldset>
             </Fragment>
@@ -211,7 +210,7 @@ PaymentInformationForm.defaultProps = {
         errors: {
             ibanRequired: 'Enter IBAN.',
             ibanValidator: 'IBAN is invalid.',
-            sepaApprovalValidator: ''
+            sepaApprovalValidator: 'Please accept the SEPA terms.'
         }
     }
 };
