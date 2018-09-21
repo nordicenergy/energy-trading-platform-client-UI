@@ -75,3 +75,5 @@ export const PAYMENT_METHODS = {
     debit: 'debit',
     transfer: 'transfer'
 };
+
+export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';

@@ -126,7 +126,8 @@ export class Registration extends AbstractContainer {
             'enableNotifications',
             'customerNumber',
             'counterNumber',
-            'message'
+            'message',
+            'googleReCaptchaResponse'
         ];
         const dateProperties = ['birthday', 'desiredData', 'terminationDate', 'relocationDate'];
         const userData = Object.keys(formData).reduce((properties, property) => {

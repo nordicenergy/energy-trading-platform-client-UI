@@ -374,7 +374,7 @@
         "Der genannte Kontoinhaber ermächtigt die Lition Energie GmbH, Zahlungen von seinem Konto mittels Lastschrift einzuziehen. Zugleich weist der genannte Kontoinhaber sein Kreditinstitut an, die von dem Lieferanten auf sein Konto gezogenen Lastschriften einzulösen. Hinweis: Innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, kann die Erstattung des belasteten Betrages zurückverlangt werden. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.",
     "app.registrationPage.errors.ibanRequired": "IBAN eingeben.",
     "app.registrationPage.errors.ibanValidator": "IBAN ungültig.",
-    "app.registrationPage.errors.sepaApprovalValidator": "Zustimmung erforderlich.",
+    "app.registrationPage.errors.sepaApprovalValidator": "Please accept the SEPA terms.",
 
     "app.registrationPage.authInformationForm.title": "Dein Kundenkonto",
     "app.registrationPage.authInformationForm.submit": "Nächster Schritt",
@@ -397,7 +397,8 @@
         "Mit <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Lition-AGB-v2c.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">AGBs</a>, <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Widerrufsformular.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Widerruf</a> und <a href=\"https://www.lition.de/privacy-policy\" rel=\"noopener noreferrer\" target=\"_blank\">Datenschutzerklärung</a> einverstanden?",
     "app.registrationPage.fields.enableNotifications":
         "Dürfen wir Dich über die neuen Entwicklungen und Produkte unserer Firma per E-Mail, per Telefon oder per Post, informieren?",
-    "app.registrationPage.errors.agbApprovalValidator": "Zustimmung erforderlich.",
+    "app.registrationPage.errors.agbApprovalValidator": "Please accept the terms.",
+    "app.registrationPage.errors.googleReCaptchaResponse": "Solve the CAPTCHA.",
 
     "app.notFoundPage.header": "Seite nicht gefunden"
 }
