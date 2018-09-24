@@ -154,7 +154,7 @@ export class Registration extends AbstractContainer {
         return (
             <div className="registration-container">
                 <header className="registration-container-header">
-                    <Logo size="small" />
+                    <Logo size="small" onClick={() => this.openLoginPage()} />
                 </header>
                 <main className="registration-container-wrapper">
                     <RegistrationForm
