@@ -56,6 +56,17 @@ describe('<Registration /> container', () => {
         expect(props.error).toEqual(stateMock.Users.registration.error);
     });
 
+    it('should go to login page when click on logo', () => {
+        const registration = renderComponent();
+
+        registration
+            .find('Logo')
+            .props()
+            .onClick();
+
+        expect(historyMock.push).toHaveBeenCalledWith('/login');
+    });
+
     it('should call `performRegistration` when `RegistrationFrom` was submitted', () => {
         jest.spyOn(userActionPerformers, 'performRegistration').mockImplementation(jest.fn());
         const registration = renderComponent();
