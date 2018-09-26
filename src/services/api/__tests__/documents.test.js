@@ -32,17 +32,13 @@ describe('Documents API Service', () => {
                     documents: [
                         {
                             id: 1,
-                            type: 'invoice',
                             date: 1521911833,
-                            name: 'Invoice.pdf',
-                            description: 'Annual bill'
+                            name: 'Invoice.pdf'
                         },
                         {
                             id: 2,
-                            type: 'archived',
                             date: 1521211833,
-                            name: 'Monthly Installment.pdf',
-                            description: 'Annual bill'
+                            name: 'Monthly Installment.pdf'
                         }
                     ]
                 }
@@ -58,19 +54,15 @@ describe('Documents API Service', () => {
                 documents: [
                     {
                         date: 1521911833,
-                        description: 'Annual bill',
                         id: 1,
                         name: 'Invoice.pdf',
-                        type: 'invoice',
-                        url: '/api/documents/download?invoiceID=1'
+                        url: '/api/documents/download?documentId=1'
                     },
                     {
                         date: 1521211833,
-                        description: 'Annual bill',
                         id: 2,
                         name: 'Monthly Installment.pdf',
-                        type: 'archived',
-                        url: '/api/documents/download?archivedDocumentID=2'
+                        url: '/api/documents/download?documentId=2'
                     }
                 ]
             }
