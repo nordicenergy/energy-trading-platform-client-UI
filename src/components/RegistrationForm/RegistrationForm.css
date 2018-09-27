@@ -77,3 +77,11 @@
 .text-field--phone-code .text-field-label {
     flex: 0 0 50%;
 }
+
+.text-field--phone .text-field-layout::after {
+    width: 62%;
+}
+
+.text-field--phone .text-field-label {
+    flex: 0 0 38%;
+}
