@@ -409,7 +409,7 @@ const messages = defineMessages({
                     },
                     sepaApprovalValidator: {
                         id: 'app.registrationPage.errors.sepaApprovalValidator',
-                        defaultMessage: ''
+                        defaultMessage: 'Please accept the SEPA terms.'
                     }
                 }
             }
@@ -511,7 +511,11 @@ const messages = defineMessages({
                 errors: {
                     agbApprovalValidator: {
                         id: 'app.registrationPage.errors.agbApprovalValidator',
-                        defaultMessage: ''
+                        defaultMessage: 'Please accept the terms.'
+                    },
+                    googleReCaptchaResponse: {
+                        id: 'app.registrationPage.errors.googleReCaptchaResponse',
+                        defaultMessage: 'Solve the CAPTCHA.'
                     }
                 }
             }

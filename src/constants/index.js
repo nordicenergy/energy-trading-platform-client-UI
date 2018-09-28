@@ -66,12 +66,9 @@ export const BLOCKCHAIN_SCANNER_URLS = {
 
 export const TRADE_POSITIONS_LIMIT = 25;
 
-export const DOCUMENT_IDENTIFIERS = {
-    invoice: 'invoiceID',
-    archived: 'archivedDocumentID'
-};
-
 export const PAYMENT_METHODS = {
     debit: 'debit',
     transfer: 'transfer'
 };
+
+export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';

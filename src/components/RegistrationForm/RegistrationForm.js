@@ -66,7 +66,8 @@ class RegistrationForm extends React.Component {
                 6: {
                     message: '',
                     agbApproval: false,
-                    enableNotifications: false
+                    enableNotifications: false,
+                    googleReCaptchaResponse: ''
                 }
             }
         };
@@ -93,17 +94,15 @@ class RegistrationForm extends React.Component {
 
     setPersonalInformationFormData(newFormData) {
         const { stepsFormData } = this.state;
+        const newPersonalInformationData = { ...stepsFormData[3], ...newFormData };
 
         this.setState({
             stepsFormData: {
                 ...stepsFormData,
-                3: {
-                    ...stepsFormData[3],
-                    ...newFormData
-                },
+                3: newPersonalInformationData,
                 5: {
                     ...stepsFormData[5],
-                    username: stepsFormData[3].email
+                    username: newPersonalInformationData.email
                 }
             }
         });

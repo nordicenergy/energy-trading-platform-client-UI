@@ -97,6 +97,7 @@ class PersonalInformationForm extends AbstractForm {
                         </div>
                         <div>
                             <TextField
+                                className="text-field--phone"
                                 label={fields.phone}
                                 type="tel"
                                 name="phone"

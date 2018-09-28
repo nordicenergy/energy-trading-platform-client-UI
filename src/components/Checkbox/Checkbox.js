@@ -1,13 +1,15 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import pick from 'lodash.pick';
+import classNames from 'classnames';
 import './Checkbox.css';
 
 class Checkbox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: props.checkedDefault
+            checked: props.checkedDefault,
+            hasFocus: false
         };
     }
 
@@ -20,46 +22,68 @@ class Checkbox extends Component {
         this.props.onChange(event);
     }
 
+    handleFocus(event) {
+        this.setState({ hasFocus: true });
+        this.props.onFocus(event);
+    }
+
+    handleBlur(event) {
+        this.setState({ hasFocus: false });
+        this.props.onBlur(event);
+    }
+
     render() {
-        const { name, value, label, required } = this.props;
-        const { checked } = this.getState();
-        const labelContent = required ? (
-            <Fragment>
-                {label} <sup className="checkbox-asterisk">*</sup>
-            </Fragment>
-        ) : (
-            label
+        const { className, name, value, error, label, required, helpText } = this.props;
+        const { checked, hasFocus } = this.getState();
+        const classes = classNames(
+            'checkbox',
+            hasFocus && 'checkbox--has-focus',
+            required && 'checkbox--required',
+            className
         );
 
         return (
-            <label className="checkbox">
-                <input
-                    className="checkbox-native-control"
-                    name={name}
-                    type="checkbox"
-                    value={value}
-                    checked={checked}
-                    onChange={event => this.handleChange(event)}
-                />
-                <span className="checkbox-control" aria-hidden />
-                {label && <span className="checkbox-label">{labelContent}</span>}
-            </label>
+            <div className={classes}>
+                {error && <small className="checkbox-error">{error}</small>}
+                <label className="checkbox-wrapper">
+                    <input
+                        className="checkbox-native-control"
+                        name={name}
+                        type="checkbox"
+                        value={value}
+                        checked={checked}
+                        onFocus={event => this.handleFocus(event)}
+                        onBlur={event => this.handleBlur(event)}
+                        onChange={event => this.handleChange(event)}
+                    />
+                    <span className="checkbox-control" aria-hidden />
+                    {label && <span className="checkbox-label">{label}</span>}
+                </label>
+                {helpText && <small className="checkbox-help-text">{helpText}</small>}
+            </div>
         );
     }
 }
 
 Checkbox.propTypes = {
+    className: PropTypes.string,
     name: PropTypes.string.isRequired,
     id: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
     checked: PropTypes.bool,
     checkedDefault: PropTypes.bool,
     label: PropTypes.node,
+    error: PropTypes.node,
+    helpText: PropTypes.node,
     required: PropTypes.bool,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onChange: PropTypes.func
 };
 Checkbox.defaultProps = {
     checkedDefault: false,
+    onFocus: () => {},
+    onBlur: () => {},
     onChange: () => {}
 };
 

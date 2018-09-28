@@ -126,7 +126,8 @@ export class Registration extends AbstractContainer {
             'enableNotifications',
             'customerNumber',
             'counterNumber',
-            'message'
+            'message',
+            'googleReCaptchaResponse'
         ];
         const dateProperties = ['birthday', 'desiredData', 'terminationDate', 'relocationDate'];
         const userData = Object.keys(formData).reduce((properties, property) => {
@@ -153,7 +154,7 @@ export class Registration extends AbstractContainer {
         return (
             <div className="registration-container">
                 <header className="registration-container-header">
-                    <Logo size="small" />
+                    <Logo size="small" onClick={() => this.openLoginPage()} />
                 </header>
                 <main className="registration-container-wrapper">
                     <RegistrationForm
