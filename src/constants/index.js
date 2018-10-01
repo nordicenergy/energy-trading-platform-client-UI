@@ -44,7 +44,7 @@ export const MONTH_DAY_DATE_FORMAT = 'MMM DD';
 export const DATETIME_FORMAT = 'MMM DD, YYYY hh:mm';
 
 export const LOCALES = ['en', 'de'];
-export const [DEFAULT_LOCALE] = LOCALES;
+export const [, DEFAULT_LOCALE] = LOCALES;
 
 export const LITION_STANDARD_PLANT_ID = 1;
 

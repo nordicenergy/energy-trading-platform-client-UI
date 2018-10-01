@@ -95,7 +95,7 @@
     "app.recentTransactionsDetails.hash": "Blockchain-Transaktion",
     "app.recentTransactionsDetails.status": "Status",
     "app.recentTransactionsDescription.from": "von",
-    "app.recentTransactionsDescription.bought": "gekauft",
+    "app.recentTransactionsDescription.bought": "Gekauft:",
     "app.recentTransactions.loadingErrorMessage":
         "Transaktionsdaten können nicht vom Lition-Server geladen werden. Bitte kontaktiere den Kundendienst.",
 
