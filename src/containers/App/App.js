@@ -83,7 +83,6 @@ export class App extends React.PureComponent {
                 label: formatMessage(messages.overview),
                 active:
                     headRoute === PATHS.overview.id ||
-                    headRoute === PATHS.buyEnergy.id ||
                     headRoute === PATHS.sellEnergy.id ||
                     headRoute === PATHS.myProducer.id ||
                     headRoute === PATHS.producer.id ||
@@ -118,6 +117,13 @@ export class App extends React.PureComponent {
                 path: PATHS.trading.path,
                 disabled: true
             }, */
+            {
+                id: PATHS.buyEnergy.id,
+                icon: icons.trading, // TODO: Change icon in future
+                label: formatMessage(messages.buyEnergy),
+                active: headRoute === PATHS.buyEnergy.id,
+                path: PATHS.buyEnergy.path
+            },
             {
                 id: PATHS.directTrading.id,
                 icon: icons.directTrading,

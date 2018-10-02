@@ -112,6 +112,13 @@ describe('Main <App /> Component', () => {
             },
             {
                 active: false,
+                icon: 'faChartBar',
+                id: 'buy_energy',
+                label: 'Buy energy',
+                path: '/buy_energy'
+            },
+            {
+                active: false,
                 icon: 'faSuitcase',
                 id: 'direct_trading',
                 label: 'Direct Trading',
