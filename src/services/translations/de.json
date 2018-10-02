@@ -177,13 +177,13 @@
     "app.header.logoutCancelButton": "Nein",
 
     "app.aboutPage.header": "Über uns",
-    "app.aboutPage.error": "Konnte Seite nicht laden",
+    "app.aboutPage.error": "Die Seite konnte nicht geladen werden",
 
     "app.faqPage.header": "FAQ",
-    "app.faqPage.error": "Konnte Seite nicht laden",
+    "app.faqPage.error": "Die Seite konnte nicht geladen werden",
 
     "app.termsAndConditionsPage.header": "AGB",
-    "app.termsAndConditionsPage.error": "Konnte Seite nicht laden",
+    "app.termsAndConditionsPage.error": "Die Seite konnte nicht geladen werden",
 
     "app.profilePage.header": "Profil",
     "app.profilePage.labels.personalDataTab": "Weitere Angaben",
