@@ -12,7 +12,6 @@ class ProducersFilter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: Array.isArray(props.defaultValue) ? props.defaultValue : [],
             optionsIsVisible: false
         };
     }
@@ -23,38 +22,23 @@ class ProducersFilter extends Component {
 
     handleChange(event) {
         const { onChange } = this.props;
-        const { value } = this.getState();
         const { name } = event.target;
-        const isIncludesName = value.indexOf(name) > -1;
-        let changedValue;
 
-        if (isIncludesName) {
-            changedValue = value.filter(option => option !== name);
-        } else {
-            changedValue = [...value, name];
-        }
-
-        this.setState({ value: changedValue });
-        onChange && onChange(changedValue);
+        onChange && onChange(name);
     }
 
     handleDefaultOptionClick() {
         const { onChange } = this.props;
 
-        this.setState({ value: [] });
-        onChange && onChange([]);
+        onChange && onChange(null);
     }
 
     handleOpenButtonClick() {
-        this.setState({
-            optionsIsVisible: true
-        });
+        this.setState({ optionsIsVisible: true });
     }
 
     handleCloseButtonClick() {
-        this.setState({
-            optionsIsVisible: false
-        });
+        this.setState({ optionsIsVisible: false });
     }
 
     render() {
@@ -85,11 +69,11 @@ class ProducersFilter extends Component {
                             label={labels.defaultOption}
                             type="default"
                             name="reset"
-                            checked={value.length === 0}
+                            checked={!value}
                             onChange={() => this.handleDefaultOptionClick()}
                         />
                         {options.map(({ name, label, type }) => {
-                            const isIncludesName = value.indexOf(name) > -1;
+                            const isSelected = value === name;
                             return (
                                 <FilterCheckbox
                                     key={name}
@@ -97,7 +81,7 @@ class ProducersFilter extends Component {
                                     label={label}
                                     type={type}
                                     name={name}
-                                    checked={isIncludesName}
+                                    checked={isSelected}
                                     onChange={event => {
                                         this.handleChange(event);
                                     }}
@@ -119,15 +103,14 @@ ProducersFilter.propTypes = {
         defaultOption: PropTypes.string
     }),
     onChange: PropTypes.func,
-    defaultValue: PropTypes.arrayOf(PropTypes.string),
-    value: PropTypes.arrayOf(PropTypes.string)
+    value: PropTypes.any
 };
 ProducersFilter.defaultProps = {
     labels: {
         helpMessage: 'Filter by',
         defaultOption: 'All'
     },
-    defaultValue: []
+    value: null
 };
 
 export default ProducersFilter;

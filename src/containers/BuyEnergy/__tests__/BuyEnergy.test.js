@@ -170,7 +170,7 @@ describe('<BuyEnergy /> container', () => {
         });
 
         buyEnergy.setState({ page: 1 });
-        expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 1, filter: [] });
+        expect(producersActionPerformers.performGetProducers).toHaveBeenCalledWith({ page: 1, filter: null });
     });
 
     it('should calls performGetProducers with selected filter and first page', () => {
