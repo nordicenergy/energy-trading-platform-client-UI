@@ -72,11 +72,7 @@ export function selectProducer(producerId) {
 export function getProducers({ page = 0, filter } = {}) {
     const result = { data: { producers: [] } };
 
-    let filterQuery = '';
-
-    if (filter) {
-        filterQuery += `?type=${filter}`;
-    }
+    const filterQuery = filter ? `?type=${filter}` : '';
 
     return getUserData().then(response => {
         const { data: { user: { workingPrice = 0, showSoldOutPowerPlants } = {} } = {} } = response;

@@ -16,34 +16,9 @@ class ProducersFilter extends Component {
         };
     }
 
-    getState() {
-        return { ...this.state, ...pick(this.props, ['value']) };
-    }
-
-    handleChange(event) {
-        const { onChange } = this.props;
-        const { name } = event.target;
-
-        onChange && onChange(name);
-    }
-
-    handleDefaultOptionClick() {
-        const { onChange } = this.props;
-
-        onChange && onChange(null);
-    }
-
-    handleOpenButtonClick() {
-        this.setState({ optionsIsVisible: true });
-    }
-
-    handleCloseButtonClick() {
-        this.setState({ optionsIsVisible: false });
-    }
-
     render() {
-        const { className, labels, options } = this.props;
-        const { value, optionsIsVisible } = this.getState();
+        const { className, labels, options, onChange } = this.props;
+        const { props: { value }, state: { optionsIsVisible } } = this;
         const classes = classNames('producers-filter', className);
         const backdropClasses = classNames(
             'producers-filter-backdrop',
@@ -54,13 +29,13 @@ class ProducersFilter extends Component {
             <aside className={classes}>
                 <div className="producers-filter-meta">
                     <strong>{labels.helpMessage}:</strong>
-                    <button className="producers-filter-open-button" onClick={() => this.handleOpenButtonClick()}>
+                    <button className="producers-filter-open-button" onClick={() => this.setState({ optionsIsVisible: true })}>
                         <FontAwesomeIcon icon={faFilter} />
                         {labels.helpMessage}
                     </button>
                 </div>
                 <div className={backdropClasses}>
-                    <button className="producers-filter-close-button" onClick={() => this.handleCloseButtonClick()}>
+                    <button className="producers-filter-close-button" onClick={() => this.setState({ optionsIsVisible: false })}>
                         <FontAwesomeIcon icon={faTimesCircle} />
                     </button>
                     <div className="producers-filter-options">
@@ -70,7 +45,7 @@ class ProducersFilter extends Component {
                             type="default"
                             name="reset"
                             checked={!value}
-                            onChange={() => this.handleDefaultOptionClick()}
+                            onChange={() => onChange(null)}
                         />
                         {options.map(({ name, label, type }) => {
                             const isSelected = value === name;
@@ -82,9 +57,7 @@ class ProducersFilter extends Component {
                                     type={type}
                                     name={name}
                                     checked={isSelected}
-                                    onChange={event => {
-                                        this.handleChange(event);
-                                    }}
+                                    onChange={({ target: { name } = {} } = {}) => onChange(name)}
                                 />
                             );
                         })}
@@ -110,7 +83,8 @@ ProducersFilter.defaultProps = {
         helpMessage: 'Filter by',
         defaultOption: 'All'
     },
-    value: null
+    value: null,
+    onChange: () => {}
 };
 
 export default ProducersFilter;
