@@ -69,19 +69,14 @@ export function selectProducer(producerId) {
     return Axios.post(`${SESSION_API_URL}/producers/select`, { producerID: producerId });
 }
 
-export function getProducers({ page = 0, filter = [] } = {}) {
+export function getProducers({ page = 0, filter } = {}) {
     const result = { data: { producers: [] } };
 
-    let filterQuery = '';
-    for (let i = 0; i < filter.length; i++) {
-        const type = filter[i];
-        const nextSymbol = i === filter.length - 1 ? '' : '&';
-        filterQuery += `type=${type}${nextSymbol}`;
-    }
+    const filterQuery = filter ? `?type=${filter}` : '';
 
     return getUserData().then(response => {
         const { data: { user: { workingPrice = 0, showSoldOutPowerPlants } = {} } = {} } = response;
-        return Axios.get(`${SESSION_API_URL}/producers/direct?${filterQuery}`, {
+        return Axios.get(`${SESSION_API_URL}/producers/direct${filterQuery}`, {
             params: { limit: LIMIT, offset: page * LIMIT }
         }).then(response => {
             if (response.data && response.data.producers) {

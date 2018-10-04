@@ -218,8 +218,8 @@ describe('Producers API Service', () => {
                 })
             );
 
-        const producers = await getProducers({ page: 5, filter: ['test1', 'test2'] });
-        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?type=test1&type=test2', {
+        const producers = await getProducers({ page: 5, filter: undefined });
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct', {
             params: {
                 limit: LIMIT,
                 offset: LIMIT * 5
@@ -300,8 +300,8 @@ describe('Producers API Service', () => {
                 })
             );
 
-        const producers = await getProducers({ page: 5, filter: ['test1', 'test2'] });
-        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?type=test1&type=test2', {
+        const producers = await getProducers({ page: 5, filter: 'test1' });
+        expect(Axios.get).toHaveBeenCalledWith('/api/producers/direct?type=test1', {
             params: {
                 limit: LIMIT,
                 offset: LIMIT * 5

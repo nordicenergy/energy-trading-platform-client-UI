@@ -35,7 +35,7 @@ export class BuyEnergy extends AbstractContainer {
         super(props, context);
 
         this.state = {
-            filter: [],
+            filter: null,
             page: 0
         };
     }

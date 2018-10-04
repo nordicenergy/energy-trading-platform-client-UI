@@ -48,47 +48,9 @@ describe('<ProducersFilter /> component', () => {
         ).toBeFalsy();
     });
 
-    it('should update state when filter checkbox was clicked', () => {
-        const producersFilter = renderComponent();
-
-        producersFilter.setState({ value: ['wind', 'solar'] });
-        producersFilter
-            .find('FilterCheckbox[name="reset"]')
-            .props()
-            .onChange({
-                target: { name: 'all' }
-            });
-        expect(producersFilter.state().value).toEqual([]);
-
-        producersFilter
-            .find('FilterCheckbox[name="wind"]')
-            .props()
-            .onChange({
-                target: { name: 'wind' }
-            });
-        expect(producersFilter.state().value).toEqual(['wind']);
-
-        producersFilter.setState({ value: ['wind', 'solar'] });
-        producersFilter
-            .find('FilterCheckbox[name="solar"]')
-            .props()
-            .onChange({
-                target: { name: 'solar' }
-            });
-        expect(producersFilter.state().value).toEqual(['wind']);
-
-        producersFilter
-            .find('FilterCheckbox[name="wind"]')
-            .props()
-            .onChange({
-                target: { name: 'wind' }
-            });
-        expect(producersFilter.state().value).toEqual([]);
-    });
-
     it('should calls onChange callback when value was changed', () => {
         const onChangeMock = jest.fn();
-        const producersFilter = renderComponent({ defaultValue: null, value: [], onChange: onChangeMock });
+        const producersFilter = renderComponent({ defaultValue: null, value: null, onChange: onChangeMock });
 
         producersFilter
             .find('FilterCheckbox[name="wind"]')
@@ -96,15 +58,25 @@ describe('<ProducersFilter /> component', () => {
             .onChange({
                 target: { name: 'wind' }
             });
-        expect(onChangeMock).toHaveBeenCalledWith(['wind']);
-
+        expect(onChangeMock).toHaveBeenCalledWith('wind');
         onChangeMock.mockClear();
+
         producersFilter
             .find('FilterCheckbox[name="reset"]')
             .props()
             .onChange({
                 target: { name: 'all' }
             });
-        expect(onChangeMock).toHaveBeenCalledWith([]);
+        expect(onChangeMock).toHaveBeenCalledWith(null);
+        onChangeMock.mockClear();
+
+        producersFilter
+            .find('FilterCheckbox[name="biomass"]')
+            .props()
+            .onChange({
+                target: { name: 'biomass' }
+            });
+        expect(onChangeMock).toHaveBeenCalledWith('biomass');
+        onChangeMock.mockClear();
     });
 });
