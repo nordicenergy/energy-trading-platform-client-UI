@@ -72,6 +72,7 @@ export class App extends React.PureComponent {
             documents: 'faBook',
             submit_meter: 'faCalculator',
             trading: 'faChartBar',
+            buyEnergy: 'faShoppingCart',
             directTrading: 'faSuitcase',
             profile: 'faUser'
         };
@@ -119,7 +120,7 @@ export class App extends React.PureComponent {
             }, */
             {
                 id: PATHS.buyEnergy.id,
-                icon: icons.trading, // TODO: Change icon in future
+                icon: icons.buyEnergy,
                 label: formatMessage(messages.buyEnergy),
                 active: headRoute === PATHS.buyEnergy.id,
                 path: PATHS.buyEnergy.path

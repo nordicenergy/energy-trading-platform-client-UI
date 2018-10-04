@@ -112,7 +112,7 @@ describe('Main <App /> Component', () => {
             },
             {
                 active: false,
-                icon: 'faChartBar',
+                icon: 'faShoppingCart',
                 id: 'buy_energy',
                 label: 'Buy energy',
                 path: '/buy_energy'
