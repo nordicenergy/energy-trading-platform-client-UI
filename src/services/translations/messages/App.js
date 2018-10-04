@@ -17,6 +17,10 @@ const messages = defineMessages({
         id: 'app.menuBar.trading',
         defaultMessage: 'Trading'
     },
+    buyEnergy: {
+        id: 'app.menuBar.buyEnergy',
+        defaultMessage: 'Buy energy'
+    },
     directTrading: {
         id: 'app.menuBar.directTrading',
         defaultMessage: 'Direct Trading'
