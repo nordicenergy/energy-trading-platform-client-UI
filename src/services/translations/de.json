@@ -95,7 +95,7 @@
     "app.recentTransactionsDetails.hash": "Blockchain-Transaktion",
     "app.recentTransactionsDetails.status": "Status",
     "app.recentTransactionsDescription.from": "von",
-    "app.recentTransactionsDescription.bought": "gekauft",
+    "app.recentTransactionsDescription.bought": "Gekauft:",
     "app.recentTransactions.loadingErrorMessage":
         "Transaktionsdaten können nicht vom Lition-Server geladen werden. Bitte kontaktiere den Kundendienst.",
 
@@ -177,13 +177,13 @@
     "app.header.logoutCancelButton": "Nein",
 
     "app.aboutPage.header": "Über uns",
-    "app.aboutPage.error": "Konnte Seite nicht laden",
+    "app.aboutPage.error": "Die Seite konnte nicht geladen werden",
 
     "app.faqPage.header": "FAQ",
-    "app.faqPage.error": "Konnte Seite nicht laden",
+    "app.faqPage.error": "Die Seite konnte nicht geladen werden",
 
     "app.termsAndConditionsPage.header": "AGB",
-    "app.termsAndConditionsPage.error": "Konnte Seite nicht laden",
+    "app.termsAndConditionsPage.error": "Die Seite konnte nicht geladen werden",
 
     "app.profilePage.header": "Profil",
     "app.profilePage.labels.personalDataTab": "Weitere Angaben",
@@ -265,7 +265,7 @@
     "app.submitMeterReadingsPage.labels.dateField": "Datum der Ablesung",
     "app.submitMeterReadingsPage.labels.submitButton": "Abschicken",
     "app.submitMeterReadingsPage.labels.meterNumberTitle": "Zählernummer",
-    "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "Number of meter is still not defined.",
+    "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "Zählernummer ungültig.",
     "app.submitMeterReadingsPage.labels.historyCaption": "Verlauf",
     "app.submitMeterReadingsPage.messages.noData": "Wir haben leider keine Echtzeit-Zählerdaten für dich.",
     "app.submitMeterReadingsPage.messages.success": "Zählerstand erfolgreich gespeichert",
@@ -277,7 +277,7 @@
         "Beim Speichern der Zählerstände ist ein Fehler aufgetreten.",
 
     "app.registrationPage.successfulRegistration": "Registration erfolgreich abgeschlossen.",
-    "app.registrationPage.copyright": "Lition. All rights reserved.",
+    "app.registrationPage.copyright": "Lition Energie GmbH. Alle Rechte vorbehalten.",
     "app.registrationPage.firstStepTitle": "Lieferadresse",
     "app.registrationPage.secondStepTitle": "Lieferbeginn",
     "app.registrationPage.thirdStepTitle": "Weitere Angaben",
@@ -374,7 +374,7 @@
         "Der genannte Kontoinhaber ermächtigt die Lition Energie GmbH, Zahlungen von seinem Konto mittels Lastschrift einzuziehen. Zugleich weist der genannte Kontoinhaber sein Kreditinstitut an, die von dem Lieferanten auf sein Konto gezogenen Lastschriften einzulösen. Hinweis: Innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, kann die Erstattung des belasteten Betrages zurückverlangt werden. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.",
     "app.registrationPage.errors.ibanRequired": "IBAN eingeben.",
     "app.registrationPage.errors.ibanValidator": "IBAN ungültig.",
-    "app.registrationPage.errors.sepaApprovalValidator": "Zustimmung erforderlich.",
+    "app.registrationPage.errors.sepaApprovalValidator": "Bitte der SEPA-Einzugsermächtigung zustimmen.",
 
     "app.registrationPage.authInformationForm.title": "Dein Kundenkonto",
     "app.registrationPage.authInformationForm.submit": "Nächster Schritt",
@@ -397,7 +397,8 @@
         "Mit <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Lition-AGB-v2c.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">AGBs</a>, <a href=\"https://www.lition.de/wp-content/uploads/2018/05/Widerrufsformular.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Widerruf</a> und <a href=\"https://www.lition.de/privacy-policy\" rel=\"noopener noreferrer\" target=\"_blank\">Datenschutzerklärung</a> einverstanden?",
     "app.registrationPage.fields.enableNotifications":
         "Dürfen wir Dich über die neuen Entwicklungen und Produkte unserer Firma per E-Mail, per Telefon oder per Post, informieren?",
-    "app.registrationPage.errors.agbApprovalValidator": "Zustimmung erforderlich.",
+    "app.registrationPage.errors.agbApprovalValidator": "Bitte den AGB zustimmen.",
+    "app.registrationPage.errors.googleReCaptchaResponse": "Bitte das Captcha lösen.",
 
-    "app.notFoundPage.header": "Page Not Found"
+    "app.notFoundPage.header": "Seite nicht gefunden"
 }

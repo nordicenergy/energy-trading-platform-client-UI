@@ -4,14 +4,21 @@ import { getDocuments, downloadDocument } from '../documents';
 describe('Documents API Service', () => {
     const setAttributeSpy = jest.fn();
     const clickSpy = jest.fn();
+    const appendChildSpy = jest.fn();
+    const removeChildSpy = jest.fn();
+
     beforeAll(() => {
         jest.spyOn(Axios, 'get').mockImplementation(jest.fn);
         jest.spyOn(document, 'createElement').mockReturnValue({ setAttribute: setAttributeSpy, click: clickSpy });
+        document.body.appendChild = appendChildSpy;
+        document.body.removeChild = removeChildSpy;
     });
 
     afterAll(() => {
         Axios.get.mockRestore();
-        document.document.mockRestore();
+        document.mockRestore();
+        document.body.appendChild.mockRestore();
+        document.body.removeChild.mockRestore();
     });
 
     afterEach(() => {
@@ -25,17 +32,13 @@ describe('Documents API Service', () => {
                     documents: [
                         {
                             id: 1,
-                            type: 'invoice',
                             date: 1521911833,
-                            name: 'Invoice.pdf',
-                            description: 'Annual bill'
+                            name: 'Invoice.pdf'
                         },
                         {
                             id: 2,
-                            type: 'archived',
                             date: 1521211833,
-                            name: 'Monthly Installment.pdf',
-                            description: 'Annual bill'
+                            name: 'Monthly Installment.pdf'
                         }
                     ]
                 }
@@ -51,19 +54,15 @@ describe('Documents API Service', () => {
                 documents: [
                     {
                         date: 1521911833,
-                        description: 'Annual bill',
                         id: 1,
                         name: 'Invoice.pdf',
-                        type: 'invoice',
-                        url: '/api/documents/download?invoiceID=1'
+                        url: '/api/documents/download?documentId=1'
                     },
                     {
                         date: 1521211833,
-                        description: 'Annual bill',
                         id: 2,
                         name: 'Monthly Installment.pdf',
-                        type: 'archived',
-                        url: '/api/documents/download?archivedDocumentID=2'
+                        url: '/api/documents/download?documentId=2'
                     }
                 ]
             }
@@ -76,15 +75,14 @@ describe('Documents API Service', () => {
         const documents = await downloadDocument('url', 'name');
 
         expect(Axios.get).toHaveBeenCalledWith('url', { responseType: 'blob' });
+        expect(Blob).toHaveBeenCalledWith(['file'], { type: 'application/pdf' });
 
         expect(documents).toEqual(undefined);
 
-        expect(setAttributeSpy).toHaveBeenCalledTimes(3);
-        expect(setAttributeSpy.mock.calls).toEqual([
-            ['href', undefined],
-            ['download', 'name.pdf'],
-            ['target', '_blank']
-        ]);
+        expect(setAttributeSpy).toHaveBeenCalledTimes(2);
+        expect(setAttributeSpy.mock.calls).toEqual([['href', undefined], ['download', 'name.pdf']]);
+        expect(appendChildSpy).toHaveBeenCalledTimes(1);
         expect(clickSpy).toHaveBeenCalledTimes(1);
+        expect(removeChildSpy).toHaveBeenCalledTimes(1);
     });
 });

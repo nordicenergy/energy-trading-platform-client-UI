@@ -1,10 +1,27 @@
-.radio-button {
+.radio-button,
+.radio-button-wrapper {
     position: relative;
     display: inline-flex;
-    align-items: center;
-    height: 1.5em;
-    cursor: pointer;
+    flex-wrap: wrap;
     font-size: 1rem;
+}
+
+.radio-button-wrapper {
+    cursor: pointer;
+}
+
+.radio-button--has-focus .radio-button-wrapper {
+    outline: var(--focused-control-outline);
+}
+
+.radio-button-error {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.333em;
+    color: var(--error-text-color);
+    font-weight: 700;
+    font-size: 0.75em;
+    line-height: 1.4;
 }
 
 .radio-button-native-control {
@@ -20,6 +37,7 @@
     flex: 0 0 1em;
     width: 1em;
     height: 1em;
+    margin: 0.0625em 0 0;
 }
 
 .radio-button-control::before {
@@ -55,16 +73,23 @@
 
 .radio-button-label {
     box-sizing: border-box;
-    height: 1em;
-    padding: 0.1em 0 0 0.888em;
+    width: calc(100% - 0.889em);
+    padding: 0.1em 0 0 0.889em;
     color: var(--general-dark-text-color);
     font-size: 1.125em;
     font-weight: 600;
     line-height: 1;
 }
 
-.radio-button-asterisk {
-    top: -0.1em;
+.radio-button--required .radio-button-label {
+    padding-right: 0.25em;
+}
+
+.radio-button--required .radio-button-label::after {
+    position: relative;
+    top: -0.15em;
+    right: -0.15em;
+    content: '*';
     color: var(--error-text-color);
     font-size: 85%;
 }
@@ -78,4 +103,14 @@
 
 .radio-button-label a:hover {
     color: var(--general-hover-text-color);
+}
+
+.radio-button-help-text {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0.75em 0 0 2.666em;
+    color: var(--label-color);
+    font-size: 0.75em;
+    font-weight: 400;
 }

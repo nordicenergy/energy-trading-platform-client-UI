@@ -14,7 +14,8 @@ const routeMock = {
 };
 const routerMock = {
     history: historyMock,
-    route: routeMock
+    route: routeMock,
+    getQueryParam: f => f
 };
 function renderComponent(props = {}, context = { router: routerMock }, mountFn = shallowWithIntl) {
     return mountFn(<Login {...props} />, { context });
@@ -62,7 +63,7 @@ describe('<Login /> Container', () => {
     });
 
     it('should pass default username from url query to LoginForm', () => {
-        const component = renderComponent({ location: { search: '?username=demo@example.com&other=test' } });
+        const component = renderComponent({}, { router: { ...routerMock, getQueryParam: () => 'demo@example.com' } });
 
         expect(component.find('LoginForm').props().defaultUsername).toBe('demo@example.com');
     });

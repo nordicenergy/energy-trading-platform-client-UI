@@ -35,7 +35,7 @@ export function getUserData() {
 }
 
 export function updateUserData(userData) {
-    return Axios.post(`${SESSION_API_URL}/user/updateUserData`, userData);
+    return Axios.patch(`${SESSION_API_URL}/user/updateUserData`, userData);
 }
 
 export function resetUserPassword(resetToken, newPassword) {

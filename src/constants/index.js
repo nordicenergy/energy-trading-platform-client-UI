@@ -44,7 +44,7 @@ export const MONTH_DAY_DATE_FORMAT = 'MMM DD';
 export const DATETIME_FORMAT = 'MMM DD, YYYY hh:mm';
 
 export const LOCALES = ['en', 'de'];
-export const [DEFAULT_LOCALE] = LOCALES;
+export const [, DEFAULT_LOCALE] = LOCALES;
 
 export const LITION_STANDARD_PLANT_ID = 1;
 
@@ -66,12 +66,9 @@ export const BLOCKCHAIN_SCANNER_URLS = {
 
 export const TRADE_POSITIONS_LIMIT = 25;
 
-export const DOCUMENT_IDENTIFIERS = {
-    invoice: 'invoiceID',
-    archived: 'archivedDocumentID'
-};
-
 export const PAYMENT_METHODS = {
     debit: 'debit',
     transfer: 'transfer'
 };
+
+export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';

@@ -16,7 +16,7 @@ class DisclosureArrow extends React.Component {
         const { expanded, onClick } = this.props;
         return (
             <svg
-                tabIndex={0}
+                tabIndex={-1}
                 role="button"
                 className={classNames('disclosure-arrow', { 'disclosure-arrow--expanded': expanded })}
                 onClick={onClick}

@@ -7,7 +7,7 @@ import localeDataDE from 'react-intl/locale-data/de';
 import moment from 'moment';
 import 'moment/locale/de';
 import 'moment/locale/en-gb';
-import { DEFAULT_LOCALE, LOCALES } from '../../constants';
+import { DEFAULT_LOCALE } from '../../constants';
 import translations from '../../services/translations';
 import { performSetupLocale } from '../../action_performers/app';
 
@@ -32,11 +32,8 @@ export class LocalizationProvider extends Component {
             return performSetupLocale(savedLocale);
         }
 
-        const [browserLocale] = navigator.language.split('-');
-        const locale = !browserLocale || LOCALES.indexOf(browserLocale) === -1 ? DEFAULT_LOCALE : browserLocale;
-
-        this.updateLocale(locale);
-        performSetupLocale(locale);
+        this.updateLocale(DEFAULT_LOCALE);
+        performSetupLocale(DEFAULT_LOCALE);
     }
 
     updateLocale(locale) {

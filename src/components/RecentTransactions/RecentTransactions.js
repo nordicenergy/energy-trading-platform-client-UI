@@ -91,6 +91,7 @@ class RecentTransactions extends React.Component {
                                         hash: labels.recentTransactionsDetailsHash,
                                         status: labels.recentTransactionsDetailsStatus
                                     }}
+                                    isExpanded={isExpand}
                                     {...details}
                                 />
                             </div>
