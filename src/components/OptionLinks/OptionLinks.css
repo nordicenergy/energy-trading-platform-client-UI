@@ -35,6 +35,10 @@
     outline: var(--focused-control-outline);
 }
 
+.option-links > a:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .option-links > a > span {
     margin-bottom: -0.25em;
     color: inherit;

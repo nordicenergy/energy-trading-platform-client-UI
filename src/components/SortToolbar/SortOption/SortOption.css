@@ -23,6 +23,10 @@
     outline: var(--focused-control-outline);
 }
 
+.sort-option:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .sort-option:hover {
     background-color: var(--athens-gray-color);
 }

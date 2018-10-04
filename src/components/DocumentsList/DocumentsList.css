@@ -52,6 +52,10 @@
     outline: var(--focused-control-outline);
 }
 
+.document-list-container td:nth-child(2) a:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .document-list-container td:last-child {
     width: 10%;
     text-align: right;
@@ -66,6 +70,10 @@
 
 .document-list-container td:last-child a:focus {
     outline: var(--focused-control-outline);
+}
+
+.document-list-container td:last-child a:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .document-list-loader {

@@ -35,6 +35,10 @@
     outline: var(--focused-control-outline);
 }
 
+.offer-card .edit-button:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .offer-card .offer-id {
     position: relative;
     left: 0;
@@ -68,6 +72,10 @@
 
 .offer-card .period-info a:focus {
     outline: var(--focused-control-outline);
+}
+
+.offer-card .period-info a:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .offer-card .edit-button:hover,

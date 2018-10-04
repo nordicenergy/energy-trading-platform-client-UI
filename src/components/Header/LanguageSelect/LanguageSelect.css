@@ -40,6 +40,10 @@
     outline: var(--focused-control-outline);
 }
 
+.select-field--language .select-field-layout.reset-password-link:focus:not(:focus-visible) .select-control-text {
+    outline: none;
+}
+
 .select-field--language.select-field--focused .select-control-text {
     color: var(--label-color);
 }
