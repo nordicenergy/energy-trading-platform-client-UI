@@ -22,6 +22,10 @@
     outline: var(--focused-control-outline);
 }
 
+.long-press-button:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .long-press-button:hover {
     background: var(--button-hover-color);
 }

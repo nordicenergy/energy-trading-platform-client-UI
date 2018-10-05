@@ -23,6 +23,10 @@
     outline: var(--focused-control-outline);
 }
 
+.menu-item:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .menu-item--active {
     color: white;
     background: var(--active-item-color);

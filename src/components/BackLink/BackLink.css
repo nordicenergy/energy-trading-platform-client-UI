@@ -9,3 +9,7 @@
 .back-link:focus {
     outline: var(--focused-control-outline);
 }
+
+.back-link:focus:not(:focus-visible) {
+    outline: none;
+}
