@@ -80,6 +80,7 @@ export const PATHS = {
     buyEnergy: {
         id: 'buy_energy',
         path: '/buy_energy',
+        icon: 'faShoppingCart',
         label: messages.buyEnergy
     },
     sellEnergy: {

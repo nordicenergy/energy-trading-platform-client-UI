@@ -73,10 +73,6 @@ export class Producer extends AbstractContainer {
         if (producer && producer.name) {
             this.setupBreadcrumbs([
                 {
-                    ...PATHS.overview,
-                    label: formatMessage(PATHS.overview.label)
-                },
-                {
                     ...PATHS.buyEnergy,
                     label: formatMessage(PATHS.buyEnergy.label)
                 },
