@@ -28,13 +28,19 @@ class ProducersFilter extends Component {
             <aside className={classes}>
                 <div className="producers-filter-meta">
                     <strong>{labels.helpMessage}:</strong>
-                    <button className="producers-filter-open-button" onClick={() => this.setState({ optionsIsVisible: true })}>
+                    <button
+                        className="producers-filter-open-button"
+                        onClick={() => this.setState({ optionsIsVisible: true })}
+                    >
                         <FontAwesomeIcon icon={faFilter} />
                         {labels.helpMessage}
                     </button>
                 </div>
                 <div className={backdropClasses}>
-                    <button className="producers-filter-close-button" onClick={() => this.setState({ optionsIsVisible: false })}>
+                    <button
+                        className="producers-filter-close-button"
+                        onClick={() => this.setState({ optionsIsVisible: false })}
+                    >
                         <FontAwesomeIcon icon={faTimesCircle} />
                     </button>
                     <div className="producers-filter-options">
