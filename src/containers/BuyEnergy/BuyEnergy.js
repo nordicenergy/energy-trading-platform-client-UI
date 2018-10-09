@@ -127,10 +127,6 @@ export class BuyEnergy extends AbstractContainer {
         const { formatMessage } = this.context.intl;
         this.setupBreadcrumbs([
             {
-                ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
-            },
-            {
                 ...PATHS.buyEnergy,
                 label: formatMessage(PATHS.buyEnergy.label)
             }

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle } from '@fortawesome/fontawesome-free-solid';
 import pick from 'lodash.pick';
 import { KEYBOARD_KEY_VALUES, PAYMENT_METHODS } from '../../constants';
 import { TextField, Button, DateField, IBANField, RadioButton, Checkbox } from '../index';
@@ -109,11 +111,32 @@ class ProfileForm extends React.PureComponent {
         this.props.onSubmit(this.state.formData);
     }
 
+    personalDataTabHasErrors() {
+        const { errors } = this.props;
+        return !!Object.keys(errors)
+            .filter(key => key !== 'IBAN' && key !== 'sepaApproval')
+            .map(key => errors[key])
+            .filter(error => !!error).length;
+    }
+
+    paymentDataTabHasErrors() {
+        const { errors } = this.props;
+        return !!errors.IBAN || !!errors.sepaApproval;
+    }
+
+    renderTabErrorFeedback(id) {
+        return (
+            <span id={id} className="profile-form-tab-errors-feedback" aria-label="Tab has errors" aria-live="polite">
+                <FontAwesomeIcon icon={faExclamationTriangle} />
+            </span>
+        );
+    }
+
     render() {
         const { locale, labels, errors } = this.props;
         const { formData } = this.state;
         const selectedTab = this.tabs[this.state.selectedTabIndex];
-
+        console.log(this.personalDataTabHasErrors(), Object.keys(errors));
         return (
             <div className="profile-form">
                 <div className="profile-form-tab-list" role="tablist">
@@ -122,20 +145,24 @@ class ProfileForm extends React.PureComponent {
                         role="tab"
                         aria-selected={selectedTab === 'personalData'}
                         aria-controls="personalDataTabPanel"
+                        aria-describedby="personalDataTabErrors"
                         onKeyDown={event => this.handleTabKeyDown(event)}
                         onClick={() => this.toggleTab(0)}
                     >
                         {labels.personalDataTab}
+                        {this.personalDataTabHasErrors() && this.renderTabErrorFeedback('personalDataTabErrors')}
                     </button>
                     <button
                         id="paymentDataTab"
                         role="tab"
                         aria-selected={selectedTab === 'paymentData'}
                         aria-controls="paymentDataTabPanel"
+                        aria-describedby="paymentDataTabErrors"
                         onKeyDown={event => this.handleTabKeyDown(event)}
                         onClick={() => this.toggleTab(1)}
                     >
                         {labels.paymentDataTab}
+                        {this.paymentDataTabHasErrors() && this.renderTabErrorFeedback('paymentDataTabErrors')}
                     </button>
                 </div>
                 <div
@@ -316,6 +343,7 @@ const commonProfilePropTypes = {
     street: PropTypes.string,
     streetNumber: PropTypes.string,
     IBAN: PropTypes.string,
+    sepaApproval: PropTypes.string,
     oldPassword: PropTypes.string,
     newPassword: PropTypes.string,
     confirmNewPassword: PropTypes.string
