@@ -136,7 +136,7 @@ class ProfileForm extends React.PureComponent {
         const { locale, labels, errors } = this.props;
         const { formData } = this.state;
         const selectedTab = this.tabs[this.state.selectedTabIndex];
-        console.log(this.personalDataTabHasErrors(), Object.keys(errors));
+
         return (
             <div className="profile-form">
                 <div className="profile-form-tab-list" role="tablist">
