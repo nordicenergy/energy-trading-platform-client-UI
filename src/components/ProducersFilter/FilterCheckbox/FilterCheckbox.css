@@ -62,6 +62,10 @@
     outline: var(--focused-control-outline);
 }
 
+.filter-checkbox:focus:not(:focus-visible) .filter-checkbox-label {
+    outline: none;
+}
+
 .filter-checkbox .filter-checkbox-label:hover > .filter-checkbox-icon {
     border-right: var(--border-width) solid var(--filter-checkbox-hov-border-color);
     color: white;

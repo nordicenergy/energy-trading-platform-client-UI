@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import pick from 'lodash.pick';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/fontawesome-free-solid';
 import { faTimesCircle } from '@fortawesome/fontawesome-free-regular';
@@ -12,54 +11,13 @@ class ProducersFilter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: Array.isArray(props.defaultValue) ? props.defaultValue : [],
             optionsIsVisible: false
         };
     }
 
-    getState() {
-        return { ...this.state, ...pick(this.props, ['value']) };
-    }
-
-    handleChange(event) {
-        const { onChange } = this.props;
-        const { value } = this.getState();
-        const { name } = event.target;
-        const isIncludesName = value.indexOf(name) > -1;
-        let changedValue;
-
-        if (isIncludesName) {
-            changedValue = value.filter(option => option !== name);
-        } else {
-            changedValue = [...value, name];
-        }
-
-        this.setState({ value: changedValue });
-        onChange && onChange(changedValue);
-    }
-
-    handleDefaultOptionClick() {
-        const { onChange } = this.props;
-
-        this.setState({ value: [] });
-        onChange && onChange([]);
-    }
-
-    handleOpenButtonClick() {
-        this.setState({
-            optionsIsVisible: true
-        });
-    }
-
-    handleCloseButtonClick() {
-        this.setState({
-            optionsIsVisible: false
-        });
-    }
-
     render() {
-        const { className, labels, options } = this.props;
-        const { value, optionsIsVisible } = this.getState();
+        const { className, labels, options, onChange } = this.props;
+        const { props: { value }, state: { optionsIsVisible } } = this;
         const classes = classNames('producers-filter', className);
         const backdropClasses = classNames(
             'producers-filter-backdrop',
@@ -70,13 +28,19 @@ class ProducersFilter extends Component {
             <aside className={classes}>
                 <div className="producers-filter-meta">
                     <strong>{labels.helpMessage}:</strong>
-                    <button className="producers-filter-open-button" onClick={() => this.handleOpenButtonClick()}>
+                    <button
+                        className="producers-filter-open-button"
+                        onClick={() => this.setState({ optionsIsVisible: true })}
+                    >
                         <FontAwesomeIcon icon={faFilter} />
                         {labels.helpMessage}
                     </button>
                 </div>
                 <div className={backdropClasses}>
-                    <button className="producers-filter-close-button" onClick={() => this.handleCloseButtonClick()}>
+                    <button
+                        className="producers-filter-close-button"
+                        onClick={() => this.setState({ optionsIsVisible: false })}
+                    >
                         <FontAwesomeIcon icon={faTimesCircle} />
                     </button>
                     <div className="producers-filter-options">
@@ -85,11 +49,11 @@ class ProducersFilter extends Component {
                             label={labels.defaultOption}
                             type="default"
                             name="reset"
-                            checked={value.length === 0}
-                            onChange={() => this.handleDefaultOptionClick()}
+                            checked={!value}
+                            onChange={() => onChange(null)}
                         />
                         {options.map(({ name, label, type }) => {
-                            const isIncludesName = value.indexOf(name) > -1;
+                            const isSelected = value === name;
                             return (
                                 <FilterCheckbox
                                     key={name}
@@ -97,10 +61,8 @@ class ProducersFilter extends Component {
                                     label={label}
                                     type={type}
                                     name={name}
-                                    checked={isIncludesName}
-                                    onChange={event => {
-                                        this.handleChange(event);
-                                    }}
+                                    checked={isSelected}
+                                    onChange={({ target: { name } = {} } = {}) => onChange(name)}
                                 />
                             );
                         })}
@@ -119,15 +81,15 @@ ProducersFilter.propTypes = {
         defaultOption: PropTypes.string
     }),
     onChange: PropTypes.func,
-    defaultValue: PropTypes.arrayOf(PropTypes.string),
-    value: PropTypes.arrayOf(PropTypes.string)
+    value: PropTypes.any
 };
 ProducersFilter.defaultProps = {
     labels: {
         helpMessage: 'Filter by',
         defaultOption: 'All'
     },
-    defaultValue: []
+    value: null,
+    onChange: () => {}
 };
 
 export default ProducersFilter;

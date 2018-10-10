@@ -235,8 +235,7 @@ describe('<Producer /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
         const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
-            { icon: 'faHome', id: '', label: 'Trading', path: '/' },
-            { id: 'buy_energy', label: 'Buy Energy', path: '/buy_energy' },
+            { icon: 'faShoppingCart', id: 'buy_energy', label: 'Buy Energy', path: '/buy_energy' },
             { id: 'producer', label: 'Peter Producer', path: '/buy_energy/producer/1' }
         ]);
 

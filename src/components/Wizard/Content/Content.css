@@ -72,6 +72,10 @@
     outline: var(--focused-control-outline);
 }
 
+.wizard-content-back-button:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .wizard-content-back-button > .svg-inline--fa {
     color: #48d376;
     font-size: 1.428em;

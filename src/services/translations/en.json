@@ -27,7 +27,7 @@
     "app.txStatuses.success": "Success",
     "app.txStatuses.unknown": "Unknown",
 
-    "app.breadCrumbs.overview": "Trading",
+    "app.breadCrumbs.overview": "Overview",
     "app.breadCrumbs.showTransactions": "Show Transactions",
     "app.breadCrumbs.myProducer": "My Producer",
     "app.breadCrumbs.producer": "Selected Producer",
@@ -68,6 +68,7 @@
     "app.menuBar.documents": "My Documents",
     "app.menuBar.submitMetric": "Submit Meter Readings",
     "app.menuBar.trading": "Trading",
+    "app.menuBar.buyEnergy": "Buy energy",
     "app.menuBar.directTrading": "Direct Trading",
     "app.menuBar.profile": "Profile",
 

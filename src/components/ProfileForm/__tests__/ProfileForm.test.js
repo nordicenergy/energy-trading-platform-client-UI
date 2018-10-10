@@ -40,6 +40,7 @@ describe('<ProfileForm /> component', () => {
         expect(profileForm.find('IBANField[name="IBAN"]')).toHaveLength(1);
         expect(profileForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(1);
         expect(profileForm.find('Button')).toHaveLength(1);
+        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(0);
     });
 
     it('should hide payment fields when `transfer` payment method selected', () => {
@@ -268,5 +269,42 @@ describe('<ProfileForm /> component', () => {
             paymentMethod: 'debit',
             sepaApproval: true
         });
+    });
+
+    it('should display tab feedback about errors', () => {
+        const onSubmit = jest.fn();
+        const profileForm = renderComponent({ profile: { ...dummyProfile, email: '', IBAN: '' }, onSubmit });
+
+        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(0);
+
+        profileForm.setProps({
+            errors: {
+                IBAN: 'error',
+                email: 'error'
+            }
+        });
+
+        expect(profileForm.find('#personalDataTabErrors')).toHaveLength(1);
+        expect(profileForm.find('#paymentDataTabErrors')).toHaveLength(1);
+        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(2);
+
+        profileForm.setProps({
+            errors: {
+                sepaApproval: 'error',
+                oldPassword: 'error'
+            }
+        });
+
+        expect(profileForm.find('#personalDataTabErrors')).toHaveLength(1);
+        expect(profileForm.find('#paymentDataTabErrors')).toHaveLength(1);
+        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(2);
+
+        profileForm.setProps({
+            errors: {}
+        });
+
+        expect(profileForm.find('#personalDataTabErrors')).toHaveLength(0);
+        expect(profileForm.find('#paymentDataTabErrors')).toHaveLength(0);
+        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(0);
     });
 });

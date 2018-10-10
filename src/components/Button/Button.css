@@ -35,6 +35,10 @@
     outline: var(--focused-control-outline);
 }
 
+.button:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .button:hover {
     background: var(--button-hover-color);
     box-shadow: 0 0.25rem 0.5rem var(--button-shadow-color);

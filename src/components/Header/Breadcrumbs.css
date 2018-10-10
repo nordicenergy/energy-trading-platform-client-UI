@@ -15,6 +15,10 @@
     outline: var(--focused-control-outline);
 }
 
+.breadcrumb-item a:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .breadcrumb-item a {
     cursor: pointer;
     color: inherit;

@@ -61,3 +61,7 @@
 .toast-close-button:focus {
     outline: var(--focused-control-outline);
 }
+
+.toast-close-button:focus:not(:focus-visible) {
+    outline: none;
+}

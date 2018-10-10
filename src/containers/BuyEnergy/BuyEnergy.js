@@ -35,7 +35,7 @@ export class BuyEnergy extends AbstractContainer {
         super(props, context);
 
         this.state = {
-            filter: [],
+            filter: null,
             page: 0
         };
     }
@@ -126,10 +126,6 @@ export class BuyEnergy extends AbstractContainer {
     setupBuyEnergyBreadcrumbs() {
         const { formatMessage } = this.context.intl;
         this.setupBreadcrumbs([
-            {
-                ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
-            },
             {
                 ...PATHS.buyEnergy,
                 label: formatMessage(PATHS.buyEnergy.label)

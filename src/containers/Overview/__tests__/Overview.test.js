@@ -319,6 +319,7 @@ describe('<Overview /> Component', () => {
         txActions.performGetRecentTransactions = jest.fn();
         notificationActions.performPushNotification = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
+        jest.useFakeTimers();
     });
 
     it(`should contains following controls:
@@ -425,7 +426,7 @@ describe('<Overview /> Component', () => {
         });
     });
 
-    it('should provide possibility navigate to wattcoin page', () => {
+    it('should provide possibility navigate to show transactions page', () => {
         const component = renderComponent();
         component.setContext(context);
 
@@ -456,11 +457,19 @@ describe('<Overview /> Component', () => {
         const component = renderComponent();
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(2);
         expect(txActions.performGetRecentTransactions.mock.calls.length).toEqual(0);
+        expect(setInterval).toHaveBeenCalledTimes(0);
+        expect(clearInterval).toHaveBeenCalledTimes(0);
 
         component.setProps({ user: { id: 10 } });
+
         expect(txActions.performGetRecentTransactions.mock.calls.length).toEqual(1);
         const [[userId]] = txActions.performGetRecentTransactions.mock.calls;
         expect(userId).toEqual(10);
+
+        component.setProps({ user: { id: 11 } });
+        expect(setInterval).toHaveBeenCalledTimes(2);
+        expect(clearInterval).toHaveBeenCalledTimes(1);
+        expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 1000 * 60);
 
         component.setProps({ error: { message: 'Error Message' } });
         expect(notificationActions.performPushNotification.mock.calls.length).toEqual(1);
@@ -470,6 +479,14 @@ describe('<Overview /> Component', () => {
                 "Can't load transactions data from Lition web server. Please contact administrator to resolve the error.",
             type: 'error'
         });
+    });
+
+    it('should clear interval functions on unmount step', () => {
+        const component = renderComponent();
+        expect(clearInterval).toHaveBeenCalledTimes(0);
+        component.setProps({ user: { id: 10 } });
+        component.unmount();
+        expect(clearInterval).toHaveBeenCalledTimes(1);
     });
 
     it('should calls performSetupLoaderVisibility when receive new loading property', () => {

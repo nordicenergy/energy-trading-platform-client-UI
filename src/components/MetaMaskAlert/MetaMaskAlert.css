@@ -89,6 +89,10 @@
     outline: var(--focused-control-outline);
 }
 
+.meta-mask-alert a:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .meta-mask-alert a:hover {
     color: var(--button-primary-hov-color);
 }

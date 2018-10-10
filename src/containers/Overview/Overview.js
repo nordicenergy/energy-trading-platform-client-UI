@@ -15,17 +15,31 @@ import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import './Overview.css';
 import { convertTransactionStatus } from '../../services/translations/enums';
 
+const UPDATE_INTERVAL = 1000 * 60; // 1m
+
 export class Overview extends AbstractContainer {
     static mapStateToProps(state) {
         return {
-            loading: state.Transactions.recentTransactions.loading || state.Users.profile.loading,
+            loading: state.Users.profile.loading,
             recentTransactions: state.Transactions.recentTransactions.data,
             user: state.Users.profile.data.user,
             error: state.Transactions.recentTransactions.error || state.Users.profile.error
         };
     }
 
+    constructor(...args) {
+        super(...args);
+        this.intervalId = null;
+    }
+
     componentDidMount() {
+        const { formatMessage } = this.context.intl;
+        this.setupBreadcrumbs([
+            {
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
+            }
+        ]);
         performGetUserData();
     }
 
@@ -34,7 +48,7 @@ export class Overview extends AbstractContainer {
         const { user, loading, error } = this.props;
 
         if (user !== prevProps.user) {
-            performGetRecentTransactions(this.props.user.id);
+            this.startTransactionsUpdating();
         }
 
         if (!loading && error && error !== prevProps.error) {
@@ -43,6 +57,29 @@ export class Overview extends AbstractContainer {
 
         if (prevProps.loading !== loading) {
             performSetupLoaderVisibility(loading);
+        }
+    }
+
+    componentWillUnmount() {
+        this.stopTransactionsUpdating();
+    }
+
+    startTransactionsUpdating() {
+        const { user } = this.props;
+
+        if (!this.intervalId) {
+            performGetRecentTransactions(user.id);
+        }
+
+        this.stopTransactionsUpdating();
+        this.intervalId = setInterval(() => {
+            performGetRecentTransactions(user.id);
+        }, UPDATE_INTERVAL);
+    }
+
+    stopTransactionsUpdating() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
         }
     }
 

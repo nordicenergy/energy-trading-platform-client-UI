@@ -65,13 +65,14 @@ export class App extends React.PureComponent {
         const { isConfirmVisible } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
-        const [, headRoute = ''] = pathname.split('/');
+        const [, headRoute = '', subRoute] = pathname.split('/');
 
         const icons = {
             '': 'faHome',
             documents: 'faBook',
             submit_meter: 'faCalculator',
             trading: 'faChartBar',
+            buyEnergy: 'faShoppingCart',
             directTrading: 'faSuitcase',
             profile: 'faUser'
         };
@@ -83,17 +84,13 @@ export class App extends React.PureComponent {
                 label: formatMessage(messages.overview),
                 active:
                     headRoute === PATHS.overview.id ||
-                    headRoute === PATHS.buyEnergy.id ||
                     headRoute === PATHS.sellEnergy.id ||
                     headRoute === PATHS.myProducer.id ||
-                    headRoute === PATHS.producer.id ||
                     headRoute === PATHS.showTransactions.id,
                 path: PATHS.overview.path,
                 subItemActive:
-                    headRoute === PATHS.buyEnergy.id ||
                     headRoute === PATHS.sellEnergy.id ||
                     headRoute === PATHS.myProducer.id ||
-                    headRoute === PATHS.producer.id ||
                     headRoute === PATHS.showTransactions.id
             },
             {
@@ -110,14 +107,14 @@ export class App extends React.PureComponent {
                 active: headRoute === PATHS.submit_meter.id,
                 path: PATHS.submit_meter.path
             },
-            /* {
-                id: PATHS.trading.id,
-                icon: icons.trading,
-                label: formatMessage(messages.trading),
-                active: headRoute === PATHS.trading.id,
-                path: PATHS.trading.path,
-                disabled: true
-            }, */
+            {
+                id: PATHS.buyEnergy.id,
+                icon: icons.buyEnergy,
+                label: formatMessage(messages.buyEnergy),
+                active: headRoute === PATHS.buyEnergy.id || headRoute === PATHS.producer.id,
+                path: PATHS.buyEnergy.path,
+                subItemActive: headRoute === PATHS.buyEnergy.id && subRoute === PATHS.producer.id
+            },
             {
                 id: PATHS.directTrading.id,
                 icon: icons.directTrading,

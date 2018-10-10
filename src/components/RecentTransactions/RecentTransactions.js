@@ -144,7 +144,7 @@ class RecentTransactions extends React.Component {
                             aria-describedby="transactionDateHeader"
                             className="recent-transactions-balance-date"
                         >
-                            {renderDate(currentBalance.date)}
+                            {currentBalance.date ? renderDate(currentBalance.date) : '--'}
                         </span>
                         <span
                             role="cell"
