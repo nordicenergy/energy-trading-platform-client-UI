@@ -57,6 +57,10 @@ const messages = defineMessages({
         id: 'app.directTrading.metaMask.tradePositions.filterByDateField',
         defaultMessage: 'Filter by Date'
     },
+    metaMaskTradePositionsDateHelperText: {
+        id: 'app.directTrading.metaMask.tradePositions.dateHelperText',
+        defaultMessage: 'Editing format dd.mm.yyyy'
+    },
     metaMaskTradePositionsSortToolbarTitle: {
         id: 'app.directTrading.metaMask.tradePositions.sortToolbarTitle',
         defaultMessage: 'Sort by'

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import InputMask from 'react-input-mask';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import pick from 'lodash.pick';
@@ -53,6 +54,9 @@ class TextField extends Component {
             helperText,
             required,
             multiLine,
+            mask,
+            maskChar,
+            beforeMaskedValueChange,
             error,
             onKeyDown
         } = this.props;
@@ -66,7 +70,7 @@ class TextField extends Component {
             disabled && 'text-field--disabled',
             className
         );
-        const Input = multiLine ? 'textarea' : 'input';
+        const Input = mask ? InputMask : multiLine ? 'textarea' : 'input';
         const labelContent = required ? (
             <Fragment>
                 {label} <sup className="text-field-asterisk">*</sup>
@@ -75,25 +79,34 @@ class TextField extends Component {
             label
         );
 
+        const inputProps = {
+            className: 'text-field-input',
+            id,
+            disabled,
+            type,
+            name,
+            mask,
+            placeholder,
+            autoComplete: name,
+            value: value || '',
+            onChange: event => this.handleChange(event),
+            onFocus: event => this.handleFocus(event),
+            onBlur: event => this.handleBlur(event),
+            onKeyDown
+        };
+
+        // Specific props for MaskInput
+        if (inputProps.mask) {
+            inputProps.maskChar = maskChar;
+            inputProps.beforeMaskedValueChange = beforeMaskedValueChange;
+        }
+
         return (
             <div className={classes}>
                 <label className="text-field-layout">
                     <strong className="text-field-label">{labelContent}</strong>
                     <span className="text-field-input-group">
-                        <Input
-                            className="text-field-input"
-                            id={id}
-                            disabled={disabled}
-                            type={type}
-                            name={name}
-                            placeholder={placeholder}
-                            autoComplete={name}
-                            value={value || ''}
-                            onChange={event => this.handleChange(event)}
-                            onFocus={event => this.handleFocus(event)}
-                            onBlur={event => this.handleBlur(event)}
-                            onKeyDown={onKeyDown}
-                        />
+                        <Input {...inputProps} />
                         {addon && <span className="text-field-addon">{addon}</span>}
                     </span>
                 </label>
@@ -128,6 +141,9 @@ TextField.propTypes = {
     helperText: PropTypes.node,
     required: PropTypes.bool,
     multiLine: PropTypes.bool,
+    mask: PropTypes.string,
+    maskChar: PropTypes.any,
+    beforeMaskedValueChange: PropTypes.func,
     error: PropTypes.string
 };
 TextField.defaultProps = {

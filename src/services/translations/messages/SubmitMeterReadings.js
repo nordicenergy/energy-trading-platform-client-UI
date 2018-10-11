@@ -13,6 +13,10 @@ const messages = defineMessages({
         id: 'app.submitMeterReadingsPage.labels.dateField',
         defaultMessage: 'Date of reading'
     },
+    dateHelperText: {
+        id: 'app.submitMeterReadingsPage.labels.dateHelperText',
+        defaultMessage: 'Editing format dd.mm.yyyy'
+    },
     submitButton: {
         id: 'app.submitMeterReadingsPage.labels.submitButton',
         defaultMessage: 'Submit'

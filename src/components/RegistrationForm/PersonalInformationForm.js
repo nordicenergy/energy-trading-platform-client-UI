@@ -79,6 +79,7 @@ class PersonalInformationForm extends AbstractForm {
                         className="registration-form-field"
                         required
                         label={fields.birthday}
+                        helperText={fields.birthdayHelperText}
                         name="birthday"
                         value={formData.birthday}
                         error={errors.birthday}
@@ -130,6 +131,7 @@ PersonalInformationForm.propTypes = {
         fields: PropTypes.shape({
             email: PropTypes.string,
             birthday: PropTypes.string,
+            birthdayHelperText: PropTypes.string,
             phoneAreaCode: PropTypes.string,
             phone: PropTypes.string
         }),
@@ -158,6 +160,7 @@ PersonalInformationForm.defaultProps = {
         fields: {
             email: 'Email',
             birthday: 'Geburtsdatum',
+            birthdayHelperText: 'Format bearbeiten dd.mm.yyyy',
             phoneAreaCode: 'Vorwahl',
             phone: 'Telefonnummer'
         },

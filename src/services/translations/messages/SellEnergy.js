@@ -41,6 +41,10 @@ const messages = defineMessages({
         id: 'app.sellEnergyPage.dateField',
         defaultMessage: 'Selected since'
     },
+    dateHelperText: {
+        id: 'app.sellEnergyPage.dateHelperText',
+        defaultMessage: 'Editing format dd.mm.yyyy'
+    },
     cityField: {
         id: 'app.sellEnergyPage.cityField',
         defaultMessage: 'City'
