@@ -75,6 +75,7 @@ describe('<SubmitMeter /> Component', () => {
         expect(meterReadingForm.props().errors).toEqual({});
         expect(meterReadingForm.props().labels).toEqual({
             dateField: 'Date of reading',
+            dateHelperText: 'Editing format dd.mm.yyyy',
             dateRequired: 'Date is required',
             header: 'Submit Meter readings',
             historyCaption: 'History',
@@ -106,6 +107,7 @@ describe('<SubmitMeter /> Component', () => {
         expect(meterReadingForm.props().errors).toEqual({});
         expect(meterReadingForm.props().labels).toEqual({
             dateField: 'Date of reading',
+            dateHelperText: 'Editing format dd.mm.yyyy',
             dateRequired: 'Date is required',
             header: 'Submit Meter readings',
             historyCaption: 'History',

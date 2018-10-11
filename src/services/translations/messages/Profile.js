@@ -29,8 +29,12 @@ const messages = defineMessages({
         id: 'app.profilePage.labels.birthday',
         defaultMessage: 'Date of birth'
     },
+    birthdayHelperText: {
+        id: 'app.profilePage.labels.birthdayHelperText',
+        defaultMessage: 'Editing format dd.mm.yyyy'
+    },
     IBAN: {
-        id: 'app.profilePage.labels.IBAN',
+        id: 'app.profilePage.labels.iban',
         defaultMessage: 'Bank account number'
     },
     email: {

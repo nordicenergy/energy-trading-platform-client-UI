@@ -294,6 +294,10 @@ const messages = defineMessages({
                         id: 'app.registrationPage.fields.birthday',
                         defaultMessage: 'Geburtsdatum'
                     },
+                    birthdayHelperText: {
+                        id: 'app.registrationPage.fields.birthdayHelperText',
+                        defaultMessage: 'Format bearbeiten dd.mm.yyyy'
+                    },
                     phoneAreaCode: {
                         id: 'app.registrationPage.fields.phoneAreaCode',
                         defaultMessage: 'Vorwahl'

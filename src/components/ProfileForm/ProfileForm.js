@@ -168,6 +168,7 @@ class ProfileForm extends React.PureComponent {
                         disabled
                         locale={locale}
                         name="birthday"
+                        helperText={labels.birthdayHelperText}
                         label={labels.birthday}
                         value={formData.birthday}
                         error={errors.birthday}
@@ -347,6 +348,7 @@ ProfileForm.defaultProps = {
         firstName: 'First Name',
         lastName: 'Last Name',
         birthday: 'Date of birth',
+        birthdayHelperText: 'Editing format dd.mm.yyyy',
         city: 'City',
         street: 'Street',
         streetNumber: 'Street Number',

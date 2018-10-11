@@ -8,6 +8,12 @@
     color: var(--button-primary-color);
     font-size: 1.5rem;
     cursor: pointer;
+    will-change: color;
+    transition: color 0.2s ease-in;
+}
+
+.date-field-addon:hover {
+    color: var(--link-color);
 }
 
 .date-field-datepicker {

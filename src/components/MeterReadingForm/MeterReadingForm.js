@@ -69,6 +69,7 @@ class MeterReadingForm extends React.PureComponent {
                             name="date"
                             locale={locale}
                             label={labels.dateField}
+                            helperText={labels.dateHelperText}
                             value={date}
                             error={errors.date}
                             onChange={payload => this.handleChange(payload)}
@@ -89,6 +90,7 @@ MeterReadingForm.propTypes = {
     labels: PropTypes.shape({
         meterReadingsField: PropTypes.string,
         dateField: PropTypes.string,
+        dateHelperText: PropTypes.string,
         submitButton: PropTypes.string
     }),
     onSubmit: PropTypes.func,
@@ -104,6 +106,7 @@ MeterReadingForm.defaultProps = {
     labels: {
         meterReadingsField: 'Meter readings',
         dateField: 'Date of reading',
+        dateHelperText: 'Editing format dd.mm.yyyy',
         submitButton: 'Submit',
         meterNumberTitle: 'Number of meter',
         incorrectMeterNumber: 'Number of meter is still not defined.'

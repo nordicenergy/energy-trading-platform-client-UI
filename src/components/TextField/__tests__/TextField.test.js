@@ -1,4 +1,5 @@
 import React from 'react';
+import InputMask from 'react-input-mask';
 import { shallow } from 'enzyme';
 import TextField from '../TextField';
 
@@ -58,6 +59,11 @@ describe('<TextField /> component', () => {
 
         expect(textField.hasClass('text-field--multiline')).toBeTruthy();
         expect(textField.find('textarea')).toHaveLength(1);
+    });
+
+    it('should render masked field', () => {
+        const textField = renderComponent({ mask: '99/99/9999' });
+        expect(textField.find(InputMask)).toHaveLength(1);
     });
 
     it('should renders with helper text', () => {

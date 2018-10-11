@@ -44,6 +44,7 @@ class TradePositionsList extends Component {
                         />
                         <DateField
                             label={labels.filterByDateField}
+                            helperText={labels.dateHelperText}
                             dateFilter={dateFilter}
                             onChange={onDateFilterChange}
                         />
@@ -104,6 +105,7 @@ TradePositionsList.defaultProps = {
         title: 'Open Trade Positions',
         tradeVolumeField: 'Trade Volume',
         filterByDateField: 'Filter by Date',
+        dateHelperText: 'Editing format dd.mm.yyyy',
         sortToolbarTitle: 'Sort by'
     },
     onSortParametersChange: f => f,
