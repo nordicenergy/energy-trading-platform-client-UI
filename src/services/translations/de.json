@@ -164,7 +164,7 @@
     "app.producerPage.location": "Ort",
     "app.producerPage.selectButton": "Kraftwerk auswählen",
     "app.producerPage.switchBack": "Zurück zum Lition Standardtarif",
-    "app.producerPage.showButton": "Erzeuger anzeigen",
+    "app.producerPage.showButton": "Alle Kraftwerke",
     "app.producerPage.ethereumAddress": "Ethereum Adresse",
     "app.producerPage.soldOutHelpText": "Ausverkauftes Kraftwerk kann nicht ausgewählt werden.",
     "app.producerPage.errors.loadingErrorMessage":
@@ -190,6 +190,7 @@
     "app.profilePage.header": "Profil",
     "app.profilePage.labels.personalDataTab": "Weitere Angaben",
     "app.profilePage.labels.paymentDataTab": "Zahlungsweise",
+    "app.profilePage.errors.sepaApprovalValidator": "Bitte der SEPA-Einzugsermächtigung zustimmen.",
     "app.profilePage.errors.firstName": "Vorname eingeben.",
     "app.profilePage.errors.lastName": "Nachname eingeben.",
     "app.profilePage.errors.iban": "IBAN eingeben.",

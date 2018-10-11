@@ -112,7 +112,7 @@ class TextField extends Component {
                 </label>
                 {helperText && <small className="text-field-helper-text">{helperText}</small>}
                 {error && (
-                    <div role="alert" className="text-field-error">
+                    <div role="alert" className="text-field-error" aria-live="polite">
                         {error}
                     </div>
                 )}

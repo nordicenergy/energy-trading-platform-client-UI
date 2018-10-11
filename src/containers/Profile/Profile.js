@@ -106,7 +106,8 @@ export class Profile extends AbstractContainer {
                     }
 
                     callback(errors);
-                }
+                },
+                message: formatMessage(messages.sepaApprovalValidator)
             };
         }
 

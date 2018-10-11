@@ -318,8 +318,10 @@ class ProfileForm extends React.PureComponent {
                                     label={labels.sepaApprovalOption}
                                     name="sepaApproval"
                                     checked={formData.sepaApproval}
+                                    error={errors.sepaApproval}
                                     onChange={this.handleChange}
                                 />
+
                                 <small>{labels.sepaApprovalHelp}</small>
                             </div>
                         </React.Fragment>
