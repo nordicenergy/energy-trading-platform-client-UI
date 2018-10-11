@@ -460,7 +460,7 @@ describe('<ShowTransactions /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
         const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
-            { icon: 'faHome', id: '', label: 'Trading', path: '/' },
+            { icon: 'faHome', id: '', label: 'Overview', path: '/' },
             { id: 'show_transactions', label: 'Show Transactions', path: '/show_transactions' }
         ]);
 

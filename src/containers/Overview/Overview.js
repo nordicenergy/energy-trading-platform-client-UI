@@ -33,6 +33,13 @@ export class Overview extends AbstractContainer {
     }
 
     componentDidMount() {
+        const { formatMessage } = this.context.intl;
+        this.setupBreadcrumbs([
+            {
+                ...PATHS.overview,
+                label: formatMessage(PATHS.overview.label)
+            }
+        ]);
         performGetUserData();
     }
 

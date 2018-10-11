@@ -112,6 +112,7 @@ describe('Main <App /> Component', () => {
             },
             {
                 active: false,
+                subItemActive: false,
                 icon: 'faShoppingCart',
                 id: 'buy_energy',
                 label: 'Buy energy',

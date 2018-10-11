@@ -23,7 +23,13 @@
     background: none;
     font-size: 1em;
     font-weight: 600;
+    will-change: color;
+    transition: color 0.2s ease-in;
     appearance: none;
+}
+
+.profile-form-tab-list > button:hover {
+    color: var(--link-color);
 }
 
 .profile-form-tab-list > button[aria-selected='true'] {
@@ -42,6 +48,11 @@
 
 .profile-form-tab-list > button + button {
     margin-left: 2.5em;
+}
+
+.profile-form-tab-errors-feedback {
+    padding: 0.2em;
+    color: var(--error-text-color);
 }
 
 .profile-form-tab-panel {
