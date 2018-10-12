@@ -5,8 +5,17 @@ import * as userActionPerformers from '../../../action_performers/users';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
 import * as appActions from '../../../action_performers/app';
 
+const context = {
+    intl: {
+        formatMessage: jest.fn()
+    },
+    router: {
+        history: { push: jest.fn() }
+    }
+};
+
 function renderComponent(props = {}, mountFn = shallowWithIntl) {
-    return mountFn(<Profile {...props} />);
+    return mountFn(<Profile {...props} context={context} />);
 }
 
 describe('<Profile /> Container', () => {

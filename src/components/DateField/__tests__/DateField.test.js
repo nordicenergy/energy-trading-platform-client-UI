@@ -112,7 +112,10 @@ describe('<DateField /> component', () => {
             .onKeyDown({ key: KEYBOARD_KEY_VALUES.ENTER });
 
         expect(dateField.state().value).toBe(timestamp);
-        expect(onChangeStub).toHaveBeenCalledWith({ name: 'test', value: '1889730000' });
+        expect(onChangeStub).toHaveBeenCalledWith({
+            name: 'test',
+            value: `${parseInt(new Date('11.19.2029').getTime() / 1000, 10)}`
+        });
     });
 
     it('should updates state and calls onChange callback when select date', () => {
