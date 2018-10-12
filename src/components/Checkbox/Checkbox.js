@@ -44,7 +44,6 @@ class Checkbox extends Component {
 
         return (
             <div className={classes}>
-                {error && <small className="checkbox-error">{error}</small>}
                 <label className="checkbox-wrapper">
                     <input
                         className="checkbox-native-control"
@@ -58,6 +57,11 @@ class Checkbox extends Component {
                     />
                     <span className="checkbox-control" aria-hidden />
                     {label && <span className="checkbox-label">{label}</span>}
+                    {error && (
+                        <div role="alert" className="checkbox-error" aria-live="polite">
+                            {error}
+                        </div>
+                    )}
                 </label>
                 {helpText && <small className="checkbox-help-text">{helpText}</small>}
             </div>

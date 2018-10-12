@@ -25,7 +25,13 @@ describe('<Checkbox /> component', () => {
     it('should render with error', () => {
         const checkbox = renderComponent({ error: 'this is required field' });
 
-        expect(checkbox.contains(<small className="checkbox-error">this is required field</small>)).toBeTruthy();
+        expect(
+            checkbox.contains(
+                <div role="alert" className="checkbox-error" aria-live="polite">
+                    this is required field
+                </div>
+            )
+        ).toBeTruthy();
     });
 
     it('should render with necessary class if checkbox is required', () => {

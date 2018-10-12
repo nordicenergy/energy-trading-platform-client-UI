@@ -187,6 +187,7 @@
     "app.profilePage.header": "Profile",
     "app.profilePage.labels.personalDataTab": "Personal Data",
     "app.profilePage.labels.paymentDataTab": "Payment",
+    "app.profilePage.errors.sepaApprovalValidator": "Please accept the SEPA terms.",
     "app.profilePage.errors.firstName": "Enter your first name.",
     "app.profilePage.errors.lastName": "Enter your last name.",
     "app.profilePage.errors.iban": "Enter your IBAN.",

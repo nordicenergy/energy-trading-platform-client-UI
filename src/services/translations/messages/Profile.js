@@ -94,6 +94,10 @@ const messages = defineMessages({
         defaultMessage:
             'The named account holder authorizes the Lition Energie GmbH to collect payments from his account by direct debit. At the same time, said account holder instructs its credit institution to redeem the direct debits drawn by the supplier into its account. Note: Within eight weeks, starting with the debit date, the reimbursement of the debited amount can be reclaimed. The conditions agreed with the bank apply.'
     },
+    sepaApprovalValidator: {
+        id: 'app.profilePage.errors.sepaApprovalValidator',
+        defaultMessage: 'Please accept the SEPA terms.'
+    },
     emptyFirstName: {
         id: 'app.profilePage.errors.firstName',
         defaultMessage: 'Enter your first name.'
