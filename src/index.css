@@ -170,6 +170,9 @@
     --checkbox-primary-color: var(--emerald-color);
     --checkbox-secondary-color: var(--scooter-color);
 
+    --alert-text-color: var(--big-stone-color);
+    --alert-icon-color: var(--mariner-color);
+
     /* Common sizes */
     --menu-icon-size: 4.5rem;
     --border-width: 0.06rem;
