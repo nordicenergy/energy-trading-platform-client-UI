@@ -59,7 +59,7 @@ const messages = defineMessages({
     },
     oldPassword: {
         id: 'app.profilePage.labels.oldPassword',
-        defaultMessage: 'Old password'
+        defaultMessage: 'Current password'
     },
     newPassword: {
         id: 'app.profilePage.labels.newPassword',
@@ -145,6 +145,10 @@ const messages = defineMessages({
     emptyOldPassword: {
         id: 'app.profilePage.errors.emptyOldPassword',
         defaultMessage: 'Enter old password.'
+    },
+    emptyPasswordForEmailUpdating: {
+        id: 'app.profilePage.errors.emptyPasswordForEmailUpdating',
+        defaultMessage: 'Enter your current password to update email.'
     },
     emptyConfirmPassowrd: {
         id: 'app.profilePage.errors.emptyConfirmPassowrd',

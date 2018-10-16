@@ -67,6 +67,8 @@ export class Profile extends AbstractContainer {
     }
 
     prepareValidator(formData) {
+        const { profile } = this.props;
+
         const validationSchema = {
             firstName: { required: true, message: messages.emptyFirstName },
             lastName: { required: true, message: messages.emptyLastName },
@@ -107,9 +109,13 @@ export class Profile extends AbstractContainer {
             };
         }
 
+        if (profile.email !== formData.email) {
+            validationSchema.oldPassword = { required: true, message: messages.emptyPasswordForEmailUpdating };
+        }
+
         if (formData.oldPassword || formData.newPassword || formData.confirmNewPassword) {
-            validationSchema.newPassword = { required: true, message: messages.emptyPassword };
             validationSchema.oldPassword = { required: true, message: messages.emptyOldPassword };
+            validationSchema.newPassword = { required: true, message: messages.emptyPassword };
             validationSchema.confirmNewPassword = [
                 { required: true, message: messages.emptyConfirmPassowrd },
                 {

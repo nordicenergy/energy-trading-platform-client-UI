@@ -205,6 +205,8 @@
     "app.profilePage.errors.invalidEmail": "Ungültige E-Mail.",
     "app.profilePage.errors.emptyPassword": "Neues Passwort eingeben.",
     "app.profilePage.errors.emptyOldPassword": "Altes Passwort eingeben.",
+    "app.profilePage.errors.emptyPasswordForEmailUpdating":
+        "Geben Sie Ihr aktuelles Passwort ein, um die E-Mail zu aktualisieren",
     "app.profilePage.errors.emptyConfirmPassowrd": "Passwort wiederholen.",
     "app.profilePage.notifications.profileUpdated": "Profil erfolgreich aktualisiert",
     "app.profilePage.labels.submitButton": "Speichern",
@@ -218,7 +220,7 @@
     "app.profilePage.labels.street": "Straße",
     "app.profilePage.labels.streetNumber": "Hausnummer",
     "app.profilePage.labels.postcode": "Postleitzahl",
-    "app.profilePage.labels.oldPassword": "Altes Passwort",
+    "app.profilePage.labels.oldPassword": "Aktuelles Passwort",
     "app.profilePage.labels.newPassword": "Neues Passwort",
     "app.profilePage.labels.confirmNewPassword": "Passwort wiederholen",
     "app.profilePage.labels.paymentMethod": "Zahlungsweise",

@@ -89,10 +89,20 @@ describe('<Profile /> Container', () => {
         expect(component.state().errors).toHaveProperty('postcode');
         expect(component.state().errors).toHaveProperty('city');
         expect(component.state().errors).toHaveProperty('streetNumber');
-        expect(component.state().errors).toHaveProperty('newPassword');
-        expect(component.state().errors).toHaveProperty('confirmNewPassword');
         expect(component.state().errors).toHaveProperty('IBAN');
         expect(component.state().errors).toHaveProperty('sepaApproval');
+        expect(component.state().errors).toHaveProperty('newPassword');
+        expect(component.state().errors).toHaveProperty('confirmNewPassword');
+        expect(component.state().errors).not.toHaveProperty('oldPassword');
+
+        dataMock.email = 'test@test.com';
+        dataMock.oldPassword = '';
+        component
+            .find('ProfileForm')
+            .props()
+            .onSubmit(dataMock);
+
+        expect(component.state().errors).toHaveProperty('oldPassword');
 
         console.warn.mockRestore();
         userActionPerformers.performUpdateUserData.mockRestore();
