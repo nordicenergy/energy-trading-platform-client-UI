@@ -17,6 +17,7 @@ export { NavigationCardsPanel, NavigationCard } from './NavigationCardsPanel';
 export { MenuSideBar, MenuItem } from './MenuSideBar';
 export { default as Loader } from './Loader';
 export { default as Toast } from './Toast';
+export { default as EmptyRecentTransactions } from './EmptyRecentTransactions';
 export { default as RecentTransactions } from './RecentTransactions';
 export { default as EnergyAmountGraph } from './EnergyAmountGraph';
 export { default as WattcoinTable } from './WattcoinTable';
