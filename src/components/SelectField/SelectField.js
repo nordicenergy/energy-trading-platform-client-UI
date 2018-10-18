@@ -179,7 +179,7 @@ class SelectField extends Component {
                     </div>
                 </div>
                 {error && (
-                    <div role="alert" className="select-field-error">
+                    <div role="alert" className="select-field-error" aria-live="polite">
                         {error}
                     </div>
                 )}

@@ -40,6 +40,7 @@ describe('<ProfileForm /> component', () => {
         expect(profileForm.find('IBANField[name="IBAN"]')).toHaveLength(1);
         expect(profileForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(1);
         expect(profileForm.find('Button')).toHaveLength(1);
+        expect(profileForm.find('Button').props().disabled).toBe(true);
         expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(0);
     });
 
@@ -54,6 +55,7 @@ describe('<ProfileForm /> component', () => {
 
         expect(profileForm.find('IBANField[name="IBAN"]')).toHaveLength(0);
         expect(profileForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(0);
+        expect(profileForm.find('Button').props().disabled).toBe(false);
     });
 
     it('should toggle tabs', () => {

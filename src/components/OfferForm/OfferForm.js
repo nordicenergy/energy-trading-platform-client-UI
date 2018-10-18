@@ -157,6 +157,7 @@ class OfferForm extends React.PureComponent {
                             disabled
                             name="date"
                             label={labels.dateField}
+                            helperText={labels.dateHelperText}
                             value={this.state.date}
                             onChange={payload => this.handleChange(payload)}
                         />
@@ -220,6 +221,7 @@ OfferForm.propTypes = {
         annualProductionField: PropTypes.string,
         capacityField: PropTypes.string,
         dateField: PropTypes.string,
+        dateHelperText: PropTypes.string,
         locationField: PropTypes.string,
         descriptionField: PropTypes.string,
         submitButton: PropTypes.string,
@@ -262,6 +264,7 @@ OfferForm.defaultProps = {
         annualProductionField: 'Annual Production',
         capacityField: 'Peak Capacity',
         dateField: 'Selected since',
+        dateHelperText: 'Editing format dd.mm.yyyy',
         cityField: 'City',
         streetField: 'Street',
         postcodeField: 'Postcode',

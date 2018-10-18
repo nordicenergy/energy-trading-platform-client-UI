@@ -28,7 +28,7 @@
 }
 
 .terms-and-conditions-page p a {
-    color: var(--general-text-color);
+    color: var(--link-color);
     text-decoration: none;
     cursor: pointer;
     font-weight: 600;
@@ -37,7 +37,7 @@
 }
 
 .terms-and-conditions-page p a:hover {
-    color: var(--table-control-hover-color);
+    color: var(--general-text-color);
 }
 
 .terms-and-conditions-page p a:focus {

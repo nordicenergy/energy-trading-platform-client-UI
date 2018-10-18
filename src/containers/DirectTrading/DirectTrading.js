@@ -297,6 +297,7 @@ export class DirectTrading extends AbstractContainer {
                     title: labels.metaMaskTradePositionsTitle,
                     tradeVolumeField: labels.metaMaskTradePositionsTradeVolumeField,
                     filterByDateField: labels.metaMaskTradePositionsFilterByDateField,
+                    dateHelperText: labels.metaMaskTradePositionsDateHelperText,
                     sortToolbarTitle: labels.metaMaskTradePositionsSortToolbarTitle
                 }}
             />

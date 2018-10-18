@@ -5,8 +5,17 @@ import * as userActionPerformers from '../../../action_performers/users';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
 import * as appActions from '../../../action_performers/app';
 
+const context = {
+    intl: {
+        formatMessage: jest.fn()
+    },
+    router: {
+        history: { push: jest.fn() }
+    }
+};
+
 function renderComponent(props = {}, mountFn = shallowWithIntl) {
-    return mountFn(<Profile {...props} />);
+    return mountFn(<Profile {...props} context={context} />);
 }
 
 describe('<Profile /> Container', () => {
@@ -80,10 +89,20 @@ describe('<Profile /> Container', () => {
         expect(component.state().errors).toHaveProperty('postcode');
         expect(component.state().errors).toHaveProperty('city');
         expect(component.state().errors).toHaveProperty('streetNumber');
-        expect(component.state().errors).toHaveProperty('newPassword');
-        expect(component.state().errors).toHaveProperty('confirmNewPassword');
         expect(component.state().errors).toHaveProperty('IBAN');
         expect(component.state().errors).toHaveProperty('sepaApproval');
+        expect(component.state().errors).toHaveProperty('newPassword');
+        expect(component.state().errors).toHaveProperty('confirmNewPassword');
+        expect(component.state().errors).not.toHaveProperty('oldPassword');
+
+        dataMock.email = 'test@test.com';
+        dataMock.oldPassword = '';
+        component
+            .find('ProfileForm')
+            .props()
+            .onSubmit(dataMock);
+
+        expect(component.state().errors).toHaveProperty('oldPassword');
 
         console.warn.mockRestore();
         userActionPerformers.performUpdateUserData.mockRestore();

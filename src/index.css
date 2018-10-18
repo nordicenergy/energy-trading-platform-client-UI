@@ -179,15 +179,6 @@
     --focused-control-outline: var(--border-width) dotted var(--steel-blue-color);
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Artegra Sans Alt', Helvetica, sans-serif;
-}
-
-body,
-html,
-#root,
 #routes,
 #app-layout {
     width: 100%;

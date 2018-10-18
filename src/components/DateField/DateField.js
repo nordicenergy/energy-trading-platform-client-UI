@@ -1,129 +1,102 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import pick from 'lodash.pick';
 import moment from 'moment/moment';
-import { DATE_FORMAT, KEYBOARD_KEY_VALUES } from '../../constants';
-import TextField from '../TextField';
-import DatePicker, { DateLabelsPropType } from './DatePicker';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/fontawesome-free-solid';
+
+import TextField from '../TextField';
+import mixDatePicker from './mixins/mixDatePicker';
+import { DateLabelsPropType } from './DatePicker';
+import { DATE_FORMAT, KEYBOARD_KEY_VALUES } from '../../constants';
+
 import './DateField.css';
 
-const DATE_PICKER_HEIGHT = 362; //pixels
-const HEADER_HEIGHT = 72; //pixels
-const PAGE_TOP_OFFSET = DATE_PICKER_HEIGHT + HEADER_HEIGHT; // pixels
-const SECOND = 1000; // milliseconds.
+const DATE_EDIT_FORMAT = 'DD.MM.YYYY';
+const MASKS = {
+    EDIT: '99.99.9999',
+    HANDWRITTEN: '*** 99, 9999'
+};
 
-class DateField extends Component {
+class DateField extends mixDatePicker(Component) {
     constructor(props) {
         super(props);
         this.state = {
-            initialValue: '',
-            value: parseInt(props.defaultValue, 10),
-            hasFocus: false,
-            datePickerPosition: 'top'
+            ...this.state,
+            editingValue: ''
         };
     }
 
-    getState() {
-        return { ...this.state, ...pick(this.props, ['value']) };
+    getValue() {
+        const { fieldHasFocus, editingValue } = this.getState();
+        return fieldHasFocus ? editingValue : this.handwrittenDateFormat();
     }
 
-    getFormattedDate() {
+    handwrittenDateFormat() {
         const { value } = this.getState();
 
         if (!value || isNaN(value)) {
             return '';
         }
 
-        const date = new Date(value * SECOND);
-        return moment(date).format(DATE_FORMAT);
+        return this.formatDate(value, DATE_FORMAT);
+    }
+
+    formatDate(value, format) {
+        if (!value) {
+            return '';
+        }
+
+        const date = new Date(value * 1000); // convert seconds to ms
+        return moment(date).format(format);
     }
 
     handleFocus() {
         const { name, onFocus } = this.props;
         const { value } = this.getState();
-        const dateFieldBounds = this.dateFieldRef.getBoundingClientRect();
-        const datePickerPosition = dateFieldBounds.top >= PAGE_TOP_OFFSET ? 'top' : 'bottom';
 
         this.setState({
-            initialValue: value,
-            hasFocus: true,
-            datePickerPosition
+            fieldHasFocus: true,
+            editingValue: this.formatDate(value, DATE_EDIT_FORMAT),
+            showDatePicker: false
         });
+
         onFocus({ name, value });
     }
 
+    handleBlur() {
+        const { name, onBlur, onChange } = this.props;
+        const { editingValue, value } = this.getState();
+
+        const momentValue = moment(editingValue, DATE_EDIT_FORMAT);
+        const finalValue = /[0-9]/.test(editingValue) ? (momentValue.isValid() ? momentValue.format('X') : value) : ''; // unix format - seconds
+
+        this.setState({ fieldHasFocus: false, editingValue: this.formatDate(finalValue, DATE_EDIT_FORMAT) });
+
+        onBlur({ name, value: finalValue });
+        onChange({ name, value: finalValue });
+    }
+
     handleKeyDown(event) {
-        if (event.key === KEYBOARD_KEY_VALUES.BACKSPACE || event.key === KEYBOARD_KEY_VALUES.DELETE) {
-            const { onChange, name } = this.props;
-            const value = '';
-
-            this.setState({ hasFocus: false, value });
-            onChange({ name, value });
-        }
-    }
-
-    handleChange(date) {
-        const { onChange, name } = this.props;
-        const value = parseInt(date.getTime() / SECOND, 10);
-
-        this.setState({ value });
-        onChange({ name, value });
-    }
-
-    handleOnCancel() {
-        const { initialValue } = this.getState();
-        const { onChange, name } = this.props;
-
-        this.setState({ hasFocus: false, value: initialValue });
-        onChange({ name, value: initialValue });
-    }
-
-    handleConfirm(date) {
-        this.setState({ hasFocus: false });
-        this.handleChange(date);
-    }
-
-    handleDatePickerClickOutside(event) {
-        const { name, onBlur } = this.props;
-        const { hasFocus, value } = this.getState();
-
-        if (hasFocus && !this.dateFieldRef.contains(event.target)) {
-            this.setState({ hasFocus: false });
-            onBlur({ name, value });
-        }
-    }
-
-    renderDatePicker() {
-        const { datePickerLabels } = this.props;
-        const { value, hasFocus, datePickerPosition } = this.getState();
-        const classes = classNames('date-field-datepicker', `date-field-datepicker--${datePickerPosition}`);
-
-        if (hasFocus) {
-            return (
-                <DatePicker
-                    className={classes}
-                    position={datePickerPosition}
-                    labels={datePickerLabels}
-                    date={!value || isNaN(value) ? new Date() : new Date(value * SECOND)}
-                    onChange={date => this.handleChange(date)}
-                    onCancel={() => this.handleOnCancel()}
-                    onConfirm={date => this.handleConfirm(date)}
-                    onClickOutside={event => this.handleDatePickerClickOutside(event)}
-                />
-            );
+        if (event.key === KEYBOARD_KEY_VALUES.ENTER) {
+            return this.handleBlur();
         }
 
-        return null;
+        return this.setState({
+            fieldHasFocus: true
+        });
+    }
+
+    handleKeyboardChange(event) {
+        const { value } = event.target;
+        this.setState({ editingValue: value });
     }
 
     render() {
         const { className, disabled, label, helperText, error, name, required } = this.props;
-        const { hasFocus } = this.state;
-        const addon = (
-            <span className="date-field-addon">
+        const { fieldHasFocus } = this.getState();
+        const datePickerIcon = (
+            <span className="date-field-addon" onClick={event => this.openDatePicker(event)}>
                 <FontAwesomeIcon icon={faCalendarAlt} />
             </span>
         );
@@ -134,15 +107,19 @@ class DateField extends Component {
                 <TextField
                     disabled={disabled}
                     label={label}
-                    addon={addon}
-                    helperText={helperText}
+                    addon={datePickerIcon}
+                    mask={fieldHasFocus ? MASKS.EDIT : MASKS.HANDWRITTEN}
+                    maskChar={null}
+                    helperText={helperText || (disabled ? '' : 'Editing format dd.mm.yyyy')}
                     required={required}
                     name={name}
-                    value={this.getFormattedDate()}
+                    value={this.getValue()}
                     error={error}
-                    hasFocus={hasFocus}
+                    hasFocus={fieldHasFocus}
                     onFocus={event => this.handleFocus(event)}
+                    onBlur={event => this.handleBlur(event)}
                     onKeyDown={event => this.handleKeyDown(event)}
+                    onChange={event => this.handleKeyboardChange(event)}
                 />
                 {this.renderDatePicker()}
             </div>
@@ -165,6 +142,7 @@ DateField.propTypes = {
     onBlur: PropTypes.func,
     onChange: PropTypes.func
 };
+
 DateField.defaultProps = {
     datePickerLabels: {
         days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],

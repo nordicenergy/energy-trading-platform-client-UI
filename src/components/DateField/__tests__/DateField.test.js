@@ -16,15 +16,18 @@ describe('<DateField /> component', () => {
     });
 
     it('should shows and hides <DatePicker />', () => {
+        const eventStub = { preventDefault: jest.fn() };
         const dateField = renderComponent();
 
         // Close on cancel button click
         dateField
-            .find('TextField')
+            .find('.date-field-addon')
             .props()
-            .onFocus();
+            .onClick(eventStub);
         dateField.update();
         expect(dateField.find('DatePicker')).toHaveLength(1);
+        expect(eventStub.preventDefault).toHaveBeenCalledTimes(1);
+
         dateField
             .find('DatePicker')
             .props()
@@ -34,56 +37,46 @@ describe('<DateField /> component', () => {
 
         // Close on confirm button click
         dateField
-            .find('TextField')
+            .find('.date-field-addon')
             .props()
-            .onFocus();
+            .onClick(eventStub);
         dateField.update();
         dateField
             .find('DatePicker')
             .props()
             .onConfirm(new Date());
         dateField.update();
-        expect(dateField.find('DatePicker')).toHaveLength(0);
-
-        // Close on Backspace key press
-        dateField
-            .find('TextField')
-            .props()
-            .onFocus();
-        dateField.update();
-        dateField
-            .find('TextField')
-            .props()
-            .onKeyDown({ key: KEYBOARD_KEY_VALUES.BACKSPACE });
-        dateField.update();
+        expect(eventStub.preventDefault).toHaveBeenCalledTimes(2);
         expect(dateField.find('DatePicker')).toHaveLength(0);
 
         // Close on click outside of <DatePicker /> component
         dateField
-            .find('TextField')
+            .find('.date-field-addon')
             .props()
-            .onFocus();
+            .onClick(eventStub);
         dateField.update();
         document.body.dispatchEvent(new MouseEvent('click'));
         dateField.update();
+        expect(eventStub.preventDefault).toHaveBeenCalledTimes(3);
         expect(dateField.find('DatePicker')).toHaveLength(0);
     });
 
     it('should calculate correct <DatePicker /> position', () => {
+        const eventStub = { preventDefault: jest.fn() };
         const dateField = renderComponent({ value: Date.now() });
 
         dateField
-            .find('TextField')
+            .find('.date-field-addon')
             .props()
-            .onFocus();
+            .onClick(eventStub);
         dateField.update();
         expect(dateField.find('DatePicker').props().position).toBe('top');
 
         jest.spyOn(dateField.instance().dateFieldRef, 'getBoundingClientRect').mockReturnValue({ top: 200 });
         dateField
-            .find('TextField')
+            .find('.date-field-addon')
             .props()
-            .onFocus();
+            .onClick(eventStub);
         dateField.update();
         expect(dateField.find('DatePicker').props().position).toBe('bottom');
     });
@@ -111,27 +104,31 @@ describe('<DateField /> component', () => {
         dateField
             .find('TextField')
             .props()
-            .onKeyDown({ key: 'KeyQ' });
-        expect(onChangeStub).not.toHaveBeenCalled();
+            .onChange({ target: { value: '19.11.2029' } });
 
         dateField
             .find('TextField')
             .props()
-            .onKeyDown({ key: KEYBOARD_KEY_VALUES.DELETE });
-        expect(dateField.state().value).toBe('');
-        expect(onChangeStub).toHaveBeenCalledWith({ name: 'test', value: '' });
+            .onKeyDown({ key: KEYBOARD_KEY_VALUES.ENTER });
+
+        expect(dateField.state().value).toBe(timestamp);
+        expect(onChangeStub).toHaveBeenCalledWith({
+            name: 'test',
+            value: `${parseInt(new Date('11.19.2029').getTime() / 1000, 10)}`
+        });
     });
 
     it('should updates state and calls onChange callback when select date', () => {
+        const eventStub = { preventDefault: jest.fn() };
         const onChangeStub = jest.fn();
         const dateDummy = new Date();
         const timestamp = parseInt(dateDummy.getTime() / 1000, 10);
         const dateField = renderComponent({ onChange: onChangeStub });
 
         dateField
-            .find('TextField')
+            .find('.date-field-addon')
             .props()
-            .onFocus();
+            .onClick(eventStub);
         dateField.update();
         dateField
             .find('DatePicker')
@@ -142,15 +139,16 @@ describe('<DateField /> component', () => {
     });
 
     it('should calls onChange callback when confirm selected date', () => {
+        const eventStub = { preventDefault: jest.fn() };
         const onChangeStub = jest.fn();
         const dateDummy = new Date();
         const timestamp = parseInt(dateDummy.getTime() / 1000, 10);
         const dateField = renderComponent({ defaultValue: timestamp, onChange: onChangeStub });
 
         dateField
-            .find('TextField')
+            .find('.date-field-addon')
             .props()
-            .onFocus();
+            .onClick(eventStub);
         dateField.update();
         dateField
             .find('DatePicker')
@@ -160,6 +158,7 @@ describe('<DateField /> component', () => {
     });
 
     it('should calls onChange callback with initialValue when cancel selected date', () => {
+        const eventStub = { preventDefault: jest.fn() };
         const onChangeStub = jest.fn();
         const dateDummy = new Date();
         const newDateDummy = new Date(1970, 0, 1);
@@ -167,9 +166,9 @@ describe('<DateField /> component', () => {
         const dateField = renderComponent({ defaultValue: timestamp, onChange: onChangeStub });
 
         dateField
-            .find('TextField')
+            .find('.date-field-addon')
             .props()
-            .onFocus();
+            .onClick(eventStub);
         dateField.update();
         dateField
             .find('DatePicker')
@@ -214,18 +213,55 @@ describe('<DateField /> component', () => {
     });
 
     it('should call `onBlur` callback', () => {
-        const timestamp = parseInt(Date.now() / 1000, 10);
+        const timestamp = parseInt(new Date('09.01.2019').getTime() / 1000, 10);
         const onBlurStub = jest.fn();
         const dateField = renderComponent({ onBlur: onBlurStub, value: timestamp });
 
+        dateField.find('TextField').simulate('click');
         dateField
             .find('TextField')
             .props()
             .onFocus();
-        dateField.update();
-        document.body.dispatchEvent(new MouseEvent('click'));
+        dateField
+            .find('TextField')
+            .props()
+            .onChange({ target: { value: '29.01.2019' } }); // German format dd.mm.yyyy
+        dateField
+            .find('TextField')
+            .props()
+            .onKeyDown({ key: KEYBOARD_KEY_VALUES.ENTER });
         dateField.update();
 
-        expect(onBlurStub).toHaveBeenCalledWith({ name: 'test', value: timestamp });
+        expect(dateField.find('TextField').props().value).toBe('Sep 01, 2019'); // German handwritten format
+        expect(onBlurStub).toHaveBeenCalledWith({
+            name: 'test',
+            value: `${parseInt(new Date('01.29.2019').getTime() / 1000, 10)}`
+        });
+    });
+
+    it('should call handle input value based on edit mask', () => {
+        const timestamp = parseInt(new Date('09.01.2019').getTime() / 1000, 10);
+        const onChangeStub = jest.fn();
+        const dateField = renderComponent({ onChange: onChangeStub, value: timestamp });
+
+        dateField.find('TextField').simulate('click');
+        dateField
+            .find('TextField')
+            .props()
+            .onFocus();
+        dateField
+            .find('TextField')
+            .props()
+            .onChange({ target: { value: '12032019abcde' } });
+        dateField
+            .find('TextField')
+            .props()
+            .onKeyDown({ key: KEYBOARD_KEY_VALUES.ENTER });
+        dateField.update();
+
+        expect(onChangeStub).toHaveBeenCalledWith({
+            name: 'test',
+            value: `${parseInt(new Date('03.12.2019').getTime() / 1000, 10)}`
+        });
     });
 });

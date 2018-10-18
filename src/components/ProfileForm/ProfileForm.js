@@ -16,6 +16,7 @@ class ProfileForm extends React.PureComponent {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.tabs = ['personalData', 'paymentData'];
         this.state = {
+            dirty: false,
             selectedTabIndex: 0,
             formData: this.getFormData(props.profile)
         };
@@ -37,7 +38,7 @@ class ProfileForm extends React.PureComponent {
         const { profile } = this.props;
 
         if (profile !== prevProps.profile) {
-            this.setState({ formData: this.getFormData(profile) });
+            this.setState({ dirty: false, formData: this.getFormData(profile) });
         }
     }
 
@@ -76,6 +77,7 @@ class ProfileForm extends React.PureComponent {
         const name = target.name;
 
         this.setState({
+            dirty: true,
             formData: {
                 ...this.state.formData,
                 [name]: value
@@ -85,6 +87,7 @@ class ProfileForm extends React.PureComponent {
 
     handleDateFieldChange({ name, value }) {
         this.setState({
+            dirty: true,
             formData: {
                 ...this.state.formData,
                 [name]: value
@@ -98,6 +101,7 @@ class ProfileForm extends React.PureComponent {
         const formData = this.state.formData;
 
         this.setState({
+            dirty: true,
             formData: {
                 ...formData,
                 [name]: value,
@@ -195,6 +199,7 @@ class ProfileForm extends React.PureComponent {
                         disabled
                         locale={locale}
                         name="birthday"
+                        helperText={labels.birthdayHelperText}
                         label={labels.birthday}
                         value={formData.birthday}
                         error={errors.birthday}
@@ -317,15 +322,19 @@ class ProfileForm extends React.PureComponent {
                                     label={labels.sepaApprovalOption}
                                     name="sepaApproval"
                                     checked={formData.sepaApproval}
+                                    error={errors.sepaApproval}
                                     onChange={this.handleChange}
                                 />
+
                                 <small>{labels.sepaApprovalHelp}</small>
                             </div>
                         </React.Fragment>
                     )}
                 </div>
                 <div className="profile-form-actions">
-                    <Button onClick={this.handleSubmit}>{labels.submitButton}</Button>
+                    <Button disabled={!this.state.dirty} onClick={this.handleSubmit}>
+                        {labels.submitButton}
+                    </Button>
                 </div>
             </div>
         );
@@ -375,6 +384,7 @@ ProfileForm.defaultProps = {
         firstName: 'First Name',
         lastName: 'Last Name',
         birthday: 'Date of birth',
+        birthdayHelperText: 'Editing format dd.mm.yyyy',
         city: 'City',
         street: 'Street',
         streetNumber: 'Street Number',

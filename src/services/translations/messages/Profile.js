@@ -29,8 +29,12 @@ const messages = defineMessages({
         id: 'app.profilePage.labels.birthday',
         defaultMessage: 'Date of birth'
     },
+    birthdayHelperText: {
+        id: 'app.profilePage.labels.birthdayHelperText',
+        defaultMessage: 'Editing format dd.mm.yyyy'
+    },
     IBAN: {
-        id: 'app.profilePage.labels.IBAN',
+        id: 'app.profilePage.labels.iban',
         defaultMessage: 'Bank account number'
     },
     email: {
@@ -55,7 +59,7 @@ const messages = defineMessages({
     },
     oldPassword: {
         id: 'app.profilePage.labels.oldPassword',
-        defaultMessage: 'Old password'
+        defaultMessage: 'Current password'
     },
     newPassword: {
         id: 'app.profilePage.labels.newPassword',
@@ -89,6 +93,10 @@ const messages = defineMessages({
         id: 'app.profilePage.labels.sepaApprovalHelp',
         defaultMessage:
             'The named account holder authorizes the Lition Energie GmbH to collect payments from his account by direct debit. At the same time, said account holder instructs its credit institution to redeem the direct debits drawn by the supplier into its account. Note: Within eight weeks, starting with the debit date, the reimbursement of the debited amount can be reclaimed. The conditions agreed with the bank apply.'
+    },
+    sepaApprovalValidator: {
+        id: 'app.profilePage.errors.sepaApprovalValidator',
+        defaultMessage: 'Please accept the SEPA terms.'
     },
     emptyFirstName: {
         id: 'app.profilePage.errors.firstName',
@@ -137,6 +145,10 @@ const messages = defineMessages({
     emptyOldPassword: {
         id: 'app.profilePage.errors.emptyOldPassword',
         defaultMessage: 'Enter old password.'
+    },
+    emptyPasswordForEmailUpdating: {
+        id: 'app.profilePage.errors.emptyPasswordForEmailUpdating',
+        defaultMessage: 'Enter your current password to update email.'
     },
     emptyConfirmPassowrd: {
         id: 'app.profilePage.errors.emptyConfirmPassowrd',

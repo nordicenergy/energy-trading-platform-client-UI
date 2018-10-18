@@ -67,23 +67,21 @@ export class Profile extends AbstractContainer {
     }
 
     prepareValidator(formData) {
-        const { formatMessage } = this.context.intl;
+        const { profile } = this.props;
+
         const validationSchema = {
-            firstName: { required: true, message: formatMessage(messages.emptyFirstName) },
-            lastName: { required: true, message: formatMessage(messages.emptyLastName) },
-            city: { required: true, message: formatMessage(messages.emptyCity) },
-            street: { required: true, message: formatMessage(messages.emptyStreet) },
-            streetNumber: { required: true, message: formatMessage(messages.emptyStreetNumber) },
-            postcode: { required: true, message: formatMessage(messages.emptyPostcode) },
-            email: [
-                { required: true, message: formatMessage(messages.emptyEmail) },
-                { type: 'email', message: formatMessage(messages.invalidEmail) }
-            ]
+            firstName: { required: true, message: messages.emptyFirstName },
+            lastName: { required: true, message: messages.emptyLastName },
+            city: { required: true, message: messages.emptyCity },
+            street: { required: true, message: messages.emptyStreet },
+            streetNumber: { required: true, message: messages.emptyStreetNumber },
+            postcode: { required: true, message: messages.emptyPostcode },
+            email: [{ required: true, message: messages.emptyEmail }, { type: 'email', message: messages.invalidEmail }]
         };
 
         if (formData.paymentMethod === PAYMENT_METHODS.debit) {
             validationSchema.IBAN = [
-                { required: true, message: formatMessage(messages.emptyIban) },
+                { required: true, message: messages.emptyIban },
                 {
                     validator(rule, value, callback) {
                         const errors = [];
@@ -94,7 +92,7 @@ export class Profile extends AbstractContainer {
 
                         callback(errors);
                     },
-                    message: formatMessage(messages.invalidIban)
+                    message: messages.invalidIban
                 }
             ];
             validationSchema.sepaApproval = {
@@ -106,25 +104,31 @@ export class Profile extends AbstractContainer {
                     }
 
                     callback(errors);
-                }
+                },
+                message: messages.sepaApprovalValidator
             };
         }
 
+        if (profile.email !== formData.email) {
+            validationSchema.oldPassword = { required: true, message: messages.emptyPasswordForEmailUpdating };
+        }
+
         if (formData.oldPassword || formData.newPassword || formData.confirmNewPassword) {
-            validationSchema.newPassword = { required: true, message: formatMessage(messages.emptyPassword) };
-            validationSchema.oldPassword = { required: true, message: formatMessage(messages.emptyOldPassword) };
+            validationSchema.oldPassword = { required: true, message: messages.emptyOldPassword };
+            validationSchema.newPassword = { required: true, message: messages.emptyPassword };
             validationSchema.confirmNewPassword = [
-                { required: true, message: formatMessage(messages.emptyConfirmPassowrd) },
+                { required: true, message: messages.emptyConfirmPassowrd },
                 {
                     validator(rule, value, callback, source) {
                         const errors = [];
 
                         if (value !== source.newPassword) {
-                            errors.push(new Error(formatMessage(messages.passwordsMismatch)));
+                            errors.push(new Error('Confirm and new password values are mismatch'));
                         }
 
                         callback(errors);
-                    }
+                    },
+                    message: messages.passwordsMismatch
                 }
             ];
         }
@@ -169,6 +173,19 @@ export class Profile extends AbstractContainer {
         });
     }
 
+    translatedErrors() {
+        const { formatMessage } = this.context.intl;
+        const { errors = {} } = this.state;
+
+        return Object.keys(errors).reduce(
+            (errorsMap, key) => ({
+                ...errorsMap,
+                [key]: formatMessage(errors[key])
+            }),
+            {}
+        );
+    }
+
     render() {
         const { locale, formatMessage } = this.context.intl;
         const labels = this.prepareLabels(messages);
@@ -183,7 +200,7 @@ export class Profile extends AbstractContainer {
                         locale={locale}
                         labels={labels}
                         profile={this.props.profile}
-                        errors={this.state.errors}
+                        errors={this.translatedErrors()}
                         onSubmit={formData => this.updateProfile(formData)}
                     />
                 </div>
