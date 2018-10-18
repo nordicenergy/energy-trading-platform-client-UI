@@ -83,7 +83,12 @@
     "app.navigationCardsPanel.buyEnergy": "Energie kaufen",
     "app.navigationCardsPanel.sellEnergy": "Energie verkaufen",
 
+    "app.overviewPage.contractPendingStatusCode":
+        "Dein Vertrag ist erfolgreich abgeschlossen worden. Ab deinem Wechseltermin, den du im Bereich \"Dokumente\" entnehmen kannst, beliefern wir dich mit Energie. Dann kannst Du dich auch für einen Erzeuger deiner Wahl entscheiden.",
+    "app.overviewPage.contractOthersStatusCodes":
+        "Du erhältst derzeit keine Energie von Lition, weitere Hintergründe kannst du den Schreiben in der Sektion \"Dokumente\" entnehmen ({statusCodeTitle}). Bei weiteren Fragen wende dich gerne an uns.",
     "app.recentTransactions.title": "Aktuelle Transaktionen",
+    "app.recentTransactions.emptyMessage": "No transaction information",
     "app.recentTransactions.headerDate": "Datum",
     "app.recentTransactions.headerTransaction": "Transaktion",
     "app.recentTransactions.headerAmount": "Summe",

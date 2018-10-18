@@ -81,7 +81,12 @@
     "app.navigationCardsPanel.buyEnergy": "Buy Energy",
     "app.navigationCardsPanel.sellEnergy": "Sell Energy",
 
+    "app.overviewPage.contractPendingStatusCode":
+        "Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the \"Documents\" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.",
+    "app.overviewPage.contractOthersStatusCodes":
+        "You currently do are not supplied by Lition with Energy, further details are available in the \"Documents\" section ({statusCodeTitle}). Feel free to contact us if you have further questions.",
     "app.recentTransactions.title": "Most Recent Transactions",
+    "app.recentTransactions.emptyMessage": "No transaction information",
     "app.recentTransactions.headerDate": "Date",
     "app.recentTransactions.headerTransaction": "Transaction",
     "app.recentTransactions.headerAmount": "Amount",

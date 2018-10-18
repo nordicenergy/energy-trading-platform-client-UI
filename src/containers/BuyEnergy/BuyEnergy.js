@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { PLANT_TYPES, PRODUCER_STATUSES } from '../../constants';
+import { PLANT_TYPES, PRODUCER_STATUSES, CONTRACT_STATUSES } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { convertPlantType, convertProducerStatus } from '../../services/translations/enums';
 import { BuyEnergy as messages } from '../../services/translations/messages';
@@ -40,8 +40,9 @@ export class BuyEnergy extends AbstractContainer {
         };
     }
 
-    static mapStateToProps({ Producers, App }) {
+    static mapStateToProps({ Users, Producers, App }) {
         return {
+            user: Users.profile.data.user,
             error: Producers.currentProducer.error || Producers.producers.error,
             currentProducerLoading: Producers.currentProducer.loading,
             currentProducer: Producers.currentProducer.data,
@@ -53,6 +54,11 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentDidMount() {
+        if (this.props.user.statusCode !== CONTRACT_STATUSES.success) {
+            this.context.router.history.push(PATHS.overview.path);
+            return;
+        }
+
         performGetProducers();
         performGetCurrentProducer();
         this.setupBuyEnergyBreadcrumbs();
@@ -199,6 +205,7 @@ BuyEnergy.contextTypes = {
     }).isRequired
 };
 BuyEnergy.propTypes = {
+    user: PropTypes.object.isRequired,
     currentProducerLoading: PropTypes.bool.isRequired,
     currentProducer: PropTypes.object.isRequired,
     producersLoading: PropTypes.bool.isRequired,
@@ -206,5 +213,6 @@ BuyEnergy.propTypes = {
     hasNextProducers: PropTypes.bool.isRequired,
     locale: PropTypes.string
 };
+BuyEnergy.defaultProps = { user: {} };
 
 export default connect(BuyEnergy.mapStateToProps)(BuyEnergy);

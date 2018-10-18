@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavigationCardsPanel, RecentTransactions } from '../../components';
+import { CONTRACT_STATUSES } from '../../constants';
+import { Alert, NavigationCardsPanel, EmptyRecentTransactions, RecentTransactions } from '../../components';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import { performGetUserData } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
@@ -91,10 +92,24 @@ export class Overview extends AbstractContainer {
         this.navigateTo(PATHS.showTransactions.path);
     }
 
+    renderAlert(labels) {
+        const user = this.props.user;
+
+        if (!user.statusCode || user.statusCode === CONTRACT_STATUSES.success) {
+            return null;
+        }
+
+        if (user.statusCode === CONTRACT_STATUSES.pending) {
+            return <Alert className="alert--overview">{labels.contractPendingStatusCode}</Alert>;
+        }
+
+        return <Alert className="alert--overview">{labels.contractOthersStatusCodes}</Alert>;
+    }
+
     render() {
+        const { user, recentTransactions: { transactions = [], currentBalance = 0 }, loading } = this.props;
         const { formatMessage } = this.context.intl;
-        const labels = this.prepareLabels(messages);
-        const { recentTransactions: { transactions = [], currentBalance = 0 }, loading } = this.props;
+        const labels = this.prepareLabels(messages, { statusCodeTitle: user.statusCodeTitle });
         const formattedTransactions = transactions.map(tx => ({
             ...tx,
             description: `${labels.recentTransactionsDescriptionBought} ${formatFloat(tx.energyAmount)} kWh ${
@@ -109,12 +124,14 @@ export class Overview extends AbstractContainer {
             {
                 type: PATHS.myProducer.id,
                 title: labels.myProducer,
-                path: PATHS.myProducer.path
+                path: PATHS.myProducer.path,
+                disabled: user.statusCode !== CONTRACT_STATUSES.success
             },
             {
                 type: PATHS.buyEnergy.id,
                 title: labels.buyEnergy,
-                path: PATHS.buyEnergy.path
+                path: PATHS.buyEnergy.path,
+                disabled: user.statusCode !== CONTRACT_STATUSES.success
             },
             {
                 type: PATHS.sellEnergy.id,
@@ -126,18 +143,26 @@ export class Overview extends AbstractContainer {
 
         return (
             <section className="overview-page" aria-busy={loading}>
+                {this.renderAlert(labels)}
                 <NavigationCardsPanel
                     navigationCards={navigationCards}
                     onCardClick={route => this.navigateTo(route)}
                     labels={labels}
                 />
                 <div className="overview-content-container">
-                    <RecentTransactions
-                        transactions={formattedTransactions}
-                        currentBalance={currentBalance}
-                        labels={labels}
-                        onButtonClick={() => this.openTransactionsPage()}
-                    />
+                    {user.statusCode === CONTRACT_STATUSES.success ? (
+                        <RecentTransactions
+                            transactions={formattedTransactions}
+                            currentBalance={currentBalance}
+                            labels={labels}
+                            onButtonClick={() => this.openTransactionsPage()}
+                        />
+                    ) : (
+                        <EmptyRecentTransactions
+                            title={labels.recentTransactionsTitle}
+                            message={labels.recentTransactionsEmptyMessage}
+                        />
+                    )}
                 </div>
             </section>
         );

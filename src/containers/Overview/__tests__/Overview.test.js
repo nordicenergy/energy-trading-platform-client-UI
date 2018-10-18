@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { CONTRACT_STATUSES } from '../../../constants';
 import OverviewContainer, { Overview } from '../Overview';
 import { NavigationCardsPanel, RecentTransactions } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
@@ -26,7 +27,9 @@ const store = mockStore({
         profile: {
             data: {
                 user: {
-                    id: 1
+                    id: 1,
+                    statusCode: CONTRACT_STATUSES.success,
+                    statusCodeTitle: 'success'
                 }
             }
         }
@@ -294,7 +297,7 @@ const props = {
             }
         ]
     },
-    user: { id: 'testId' },
+    user: { id: 'testId', statusCode: CONTRACT_STATUSES.success },
     loading: false,
     error: null
 };
@@ -341,6 +344,11 @@ describe('<Overview /> Component', () => {
         expect(tableProps).toEqual({
             currentBalance: { ...props.recentTransactions.currentBalance },
             labels: {
+                contractPendingStatusCode:
+                    'Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the "Documents" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.',
+                contractOthersStatusCodes:
+                    'You currently do are not supplied by Lition with Energy, further details are available in the "Documents" section (success). Feel free to contact us if you have further questions.',
+                recentTransactionsEmptyMessage: 'No transaction information',
                 buyEnergy: 'Buy Energy',
                 myProducer: 'My Producer',
                 recentTransactionsDetailsAmount: 'Amount',
@@ -373,6 +381,11 @@ describe('<Overview /> Component', () => {
         delete cardsProps.onCardClick;
         expect(cards.props()).toEqual({
             labels: {
+                contractPendingStatusCode:
+                    'Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the "Documents" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.',
+                contractOthersStatusCodes:
+                    'You currently do are not supplied by Lition with Energy, further details are available in the "Documents" section (success). Feel free to contact us if you have further questions.',
+                recentTransactionsEmptyMessage: 'No transaction information',
                 buyEnergy: 'Buy Energy',
                 myProducer: 'My Producer',
                 recentTransactionsDetailsAmount: 'Amount',
@@ -393,8 +406,8 @@ describe('<Overview /> Component', () => {
                     "Can't load transactions data from Lition web server. Please contact administrator to resolve the error."
             },
             navigationCards: [
-                { path: '/my_producer', title: 'My Producer', type: 'my_producer' },
-                { path: '/buy_energy', title: 'Buy Energy', type: 'buy_energy' },
+                { disabled: false, path: '/my_producer', title: 'My Producer', type: 'my_producer' },
+                { disabled: false, path: '/buy_energy', title: 'Buy Energy', type: 'buy_energy' },
                 { disabled: true, path: '/sell_energy', title: 'Sell Energy', type: 'sell_energy' }
             ]
         });
@@ -426,12 +439,43 @@ describe('<Overview /> Component', () => {
         });
     });
 
+    it("should show alert if user's contract has pending status", () => {
+        const propsWithPendingContractStatus = {
+            ...props,
+            user: { ...props.user, statusCode: CONTRACT_STATUSES.pending }
+        };
+        const component = shallowWithIntl(<Overview {...propsWithPendingContractStatus} />, context);
+
+        expect(component.find('Alert')).toHaveLength(1);
+        expect(component.find('Alert').props().children).toBe(
+            'Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the "Documents" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.'
+        );
+        expect(component.find('EmptyRecentTransactions')).toHaveLength(1);
+    });
+
+    it("should show alert if user's contract has not success status", () => {
+        const propsWithPendingContractStatus = {
+            ...props,
+            user: { ...props.user, statusCode: 3001, statusCodeTitle: 'success' }
+        };
+        const component = shallowWithIntl(<Overview {...propsWithPendingContractStatus} />, context);
+
+        expect(component.find('Alert')).toHaveLength(1);
+        expect(component.find('Alert').props().children).toBe(
+            'You currently do are not supplied by Lition with Energy, further details are available in the "Documents" section (success). Feel free to contact us if you have further questions.'
+        );
+        expect(component.find('EmptyRecentTransactions')).toHaveLength(1);
+    });
+
     it('should provide possibility navigate to show transactions page', () => {
         const component = renderComponent();
         component.setContext(context);
 
-        const table = component.find(RecentTransactions).at(0);
-        table.props().onButtonClick();
+        component
+            .find(RecentTransactions)
+            .at(0)
+            .props()
+            .onButtonClick();
 
         expect(context.router.history.push.mock.calls.length).toEqual(1);
         const [[route]] = context.router.history.push.mock.calls;

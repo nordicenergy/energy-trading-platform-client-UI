@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { PRODUCER_STATUSES } from '../../constants';
+import { PRODUCER_STATUSES, CONTRACT_STATUSES } from '../../constants';
 import { ProducerInfo, Button, BackLink, HelpIcon } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { convertProducerStatus } from '../../services/translations/enums';
@@ -34,7 +34,13 @@ export class Producer extends AbstractContainer {
     }
 
     componentDidMount() {
-        const { match: { params } = {} } = this.props;
+        const { profile: { user = {} }, match: { params } = {} } = this.props;
+
+        if (user.statusCode !== CONTRACT_STATUSES.success) {
+            this.context.router.history.push(PATHS.overview.path);
+            return;
+        }
+
         performGetProducer(params.producerId);
         performGetUserData();
         this.setupProducerBreadcrumbs();
@@ -159,6 +165,7 @@ Producer.propTypes = {
         })
     }),
     loading: PropTypes.bool,
+    user: PropTypes.object,
     producer: PropTypes.object,
     profile: PropTypes.object,
     error: PropTypes.object,
