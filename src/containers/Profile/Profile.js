@@ -109,11 +109,13 @@ export class Profile extends AbstractContainer {
             };
         }
 
+        console.log(profile.email, formData.email);
+
         if (profile.email !== formData.email) {
             validationSchema.oldPassword = { required: true, message: messages.emptyPasswordForEmailUpdating };
         }
 
-        if (formData.oldPassword || formData.newPassword || formData.confirmNewPassword) {
+        if (formData.newPassword || formData.confirmNewPassword) {
             validationSchema.oldPassword = { required: true, message: messages.emptyOldPassword };
             validationSchema.newPassword = { required: true, message: messages.emptyPassword };
             validationSchema.confirmNewPassword = [
@@ -147,7 +149,8 @@ export class Profile extends AbstractContainer {
             'city',
             'street',
             'streetNumber',
-            'IBAN'
+            'IBAN',
+            'oldPassword'
         ];
         const validator = this.prepareValidator(formData);
 
@@ -163,8 +166,8 @@ export class Profile extends AbstractContainer {
                     )
                 });
             } else {
-                if (formData.newPassword && formData.oldPassword) {
-                    allowedProperties.push('oldPassword', 'newPassword');
+                if (formData.newPassword) {
+                    allowedProperties.push('newPassword');
                 }
 
                 performUpdateUserData(pick(formData, allowedProperties));
