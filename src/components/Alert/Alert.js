@@ -20,7 +20,7 @@ export default class Alert extends React.Component {
 
         if (this.alertRef) {
             const alertStyle = window.getComputedStyle(this.alertRef);
-            height = parseInt(alertStyle.height) + parseInt(alertStyle.marginBottom);
+            height = parseInt(alertStyle.height, 10) + parseInt(alertStyle.marginBottom, 10);
         }
 
         return {
@@ -48,7 +48,7 @@ export default class Alert extends React.Component {
 
                     return (
                         <div className="alert-collapse" style={style}>
-                            <div className={classes} ref={ref => (this.alertRef = ref)} role="alert">
+                            <div className={classes} ref={ref => (this.alertRef = ref)} role="alert" aria-live="polite">
                                 <FontAwesomeIcon className="alert-icon" icon={this.props.icon} />
                                 <p className="alert-content">{this.props.children}</p>
                             </div>
