@@ -8,6 +8,8 @@ import * as producersActions from '../../../action_performers/producers';
 import * as appActions from '../../../action_performers/app';
 import * as notificationActions from '../../../action_performers/notifications';
 import * as usersActions from '../../../action_performers/users';
+import { CONTRACT_STATUSES } from '../../../constants';
+import { PATHS } from '../../../services/routes';
 
 const mockStore = configureMockStore();
 const store = mockStore({
@@ -24,7 +26,9 @@ const store = mockStore({
                     lastBillAmount: '35.24',
                     lastBillDate: 'December;',
                     userStatus: 'string',
-                    workingPrice: 2.3
+                    workingPrice: 2.3,
+                    statusCode: CONTRACT_STATUSES.success,
+                    statusCodeTitle: 'In Belieferung'
                 }
             }
         }
@@ -86,7 +90,7 @@ const props = {
         name: 'test',
         status: 'active'
     },
-    profile: { user: { id: 1 } },
+    profile: { user: { id: 1, statusCode: CONTRACT_STATUSES.success } },
     selectedProducer: {},
     error: null
 };
@@ -129,6 +133,19 @@ describe('<Producer /> Component', () => {
         expect(component.find(Button)).toHaveLength(2);
         expect(component.find(HelpIcon)).toHaveLength(0);
         expect(component.find('strong[aria-label="Producer Status"]')).toHaveLength(0);
+    });
+
+    it("should redirect to overview page if user's contract has not success status", () => {
+        const propsWithWrongContractStatus = {
+            ...props,
+            profile: {
+                user: { id: 1 }
+            }
+        };
+
+        shallowWithIntl(<Producer {...commonProps} {...propsWithWrongContractStatus} />, { context });
+
+        expect(context.router.history.push).toHaveBeenCalledWith(PATHS.overview.path);
     });
 
     it('should disable "Select Producer" button if producer has "sold out" status', () => {

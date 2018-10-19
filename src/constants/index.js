@@ -72,3 +72,8 @@ export const PAYMENT_METHODS = {
 };
 
 export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';
+
+export const CONTRACT_STATUSES = {
+    success: 5000,
+    pending: 4000
+};

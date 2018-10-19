@@ -1,5 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { CONTRACT_STATUSES } from '../../../constants';
+import { PATHS } from '../../../services/routes';
 import MyProducerContainer, { MyProducer } from '../MyProducer';
 import { ProducerInfo, Button } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
@@ -24,7 +26,10 @@ const store = mockStore({
                     lastBillAmount: '35.24',
                     lastBillDate: 'December;',
                     userStatus: 'string',
-                    workingPrice: 2.3
+                    workingPrice: 2.3,
+                    status: 'delivery_net',
+                    statusCode: CONTRACT_STATUSES.success,
+                    statusCodeTitle: 'In Belieferung'
                 }
             }
         }
@@ -117,7 +122,7 @@ function renderContainer() {
 }
 
 function renderComponent() {
-    return shallowWithIntl(<MyProducer {...props} context={context} />);
+    return shallowWithIntl(<MyProducer {...props} />, { context });
 }
 
 describe('<MyProducer /> Component', () => {
@@ -220,6 +225,19 @@ describe('<MyProducer /> Component', () => {
         });
     });
 
+    it("should redirect to overview page if user's contract has not success status", () => {
+        const component = renderComponent();
+
+        component.setProps({
+            profile: { user: { currentProducerId: 2, id: 2 } }
+        });
+        component.setProps({
+            profile: { user: { currentProducerId: 2, id: 1, statusCode: CONTRACT_STATUSES.success } }
+        });
+
+        expect(context.router.history.push).toHaveBeenCalledWith(PATHS.overview.path);
+    });
+
     it('should perform related actions on did mount step', () => {
         renderContainer();
 
@@ -239,11 +257,17 @@ describe('<MyProducer /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(2);
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(2);
-        component.setProps({ profile: { user: { currentProducerId: 2, id: 1 } } });
+        component.setProps({
+            profile: { user: { currentProducerId: 2, id: 1, statusCode: CONTRACT_STATUSES.success } }
+        });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(3);
-        component.setProps({ profile: { user: { currentProducerId: 2, id: 2 } } });
+        component.setProps({
+            profile: { user: { currentProducerId: 2, id: 2, statusCode: CONTRACT_STATUSES.success } }
+        });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(3);
-        component.setProps({ profile: { user: { currentProducerId: 1, id: 2 } } });
+        component.setProps({
+            profile: { user: { currentProducerId: 1, id: 2, statusCode: CONTRACT_STATUSES.success } }
+        });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(4);
 
         expect(producersActions.performGetProducerHistory.mock.calls.length).toEqual(4);

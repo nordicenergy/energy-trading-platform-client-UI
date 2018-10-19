@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { LOCALES, DEFAULT_LOCALE } from '../../constants';
+import { LOCALES, DEFAULT_LOCALE, CONTRACT_STATUSES } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { performSetupLocale, performSetupLoaderVisibility } from '../../action_performers/app';
 import { performLogout } from '../../action_performers/users';
@@ -14,6 +14,7 @@ export class App extends React.PureComponent {
     static mapStateToProps({ Users, App }) {
         return {
             loggingOut: Users.logout.loading,
+            user: Users.profile.data.user,
             breadCrumbs: App.breadCrumbs.data,
             loading: App.localization.loading.faq || App.localization.loading.aboutUs,
             locale: App.localization.data.locale
@@ -113,7 +114,8 @@ export class App extends React.PureComponent {
                 label: formatMessage(messages.buyEnergy),
                 active: headRoute === PATHS.buyEnergy.id || headRoute === PATHS.producer.id,
                 path: PATHS.buyEnergy.path,
-                subItemActive: headRoute === PATHS.buyEnergy.id && subRoute === PATHS.producer.id
+                subItemActive: headRoute === PATHS.buyEnergy.id && subRoute === PATHS.producer.id,
+                disabled: this.props.user.statusCode !== CONTRACT_STATUSES.success
             },
             {
                 id: PATHS.directTrading.id,
@@ -217,10 +219,12 @@ App.contextTypes = {
 };
 App.propTypes = {
     loggingOut: PropTypes.bool,
+    user: PropTypes.object,
     locale: PropTypes.string,
     loading: PropTypes.bool
 };
 App.defaultProps = {
+    user: {},
     loading: false
 };
 
