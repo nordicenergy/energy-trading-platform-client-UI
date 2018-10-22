@@ -109,8 +109,6 @@ export class Profile extends AbstractContainer {
             };
         }
 
-        console.log(profile.email, formData.email);
-
         if (profile.email !== formData.email) {
             validationSchema.oldPassword = { required: true, message: messages.emptyPasswordForEmailUpdating };
         }
