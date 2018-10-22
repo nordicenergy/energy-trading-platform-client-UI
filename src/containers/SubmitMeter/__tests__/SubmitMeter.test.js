@@ -274,4 +274,21 @@ describe('<SubmitMeter /> Component', () => {
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
     });
+
+    it('should shows server error if authentication is failed', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        const component = renderComponent();
+
+        component.setProps({
+            loading: false,
+            errorSubmit: { message: 'Error message' }
+        });
+
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'An error occurred while sending meter readings: [Error message]'
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
+    });
 });

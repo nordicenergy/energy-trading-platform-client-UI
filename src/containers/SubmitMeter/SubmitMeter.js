@@ -61,7 +61,6 @@ export class SubmitMeter extends AbstractContainer {
         }
 
         if (!loading && errorSubmit && errorSubmit !== prevProps.errorSubmit) {
-            performPushNotification({ message: formatMessage(messages.submitErrorMessage), type: 'error' });
             performPushNotification({
                 type: 'error',
                 message: `${formatMessage(messages.submitErrorMessage)}: [${errorSubmit.message}]`
