@@ -1,11 +1,40 @@
 import React from 'react';
+import moment from 'moment';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
+import { CONTRACT_STATUSES } from '../../../constants';
+import { PATHS } from '../../../services/routes';
 import { BuyEnergy } from '../BuyEnergy';
 import { ProducerCardsPanel, BackLink, ProducersFilter, OptionLinks } from '../../../components';
 import * as producersActionPerformers from '../../../action_performers/producers';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
 import * as appActionPerformers from '../../../action_performers/app';
 
+const userDummy = {
+    id: 42,
+    firstName: 'Bruce',
+    lastName: 'Wayne',
+    email: 'batman@example.com',
+    street: 'justice-league',
+    streetNumber: '5',
+    postcode: '10115',
+    city: 'Berlin',
+    birthday: moment('2018-08-30').unix(),
+    basePrice: 49.08,
+    workingPrice: 24.19,
+    country: 'Germany',
+    lastBillAvailable: true,
+    lastBillAmount: '35,60',
+    lastBillDate: 'April',
+    IBAN: 'DE91100000000123456789',
+    BIC: 'MARKDEF1100',
+    status: 'delivery_net',
+    statusCode: CONTRACT_STATUSES.success,
+    statusCodeTitle: 'In Belieferung',
+    showSoldOutPowerPlants: true,
+    allowPasswordChange: false,
+    currentProducerId: 13,
+    ledger: 'ethereumRopsten'
+};
 const producersDummy = [
     { id: 0, price: 2.9, plantType: 'default', name: 'John Doe', status: 'standard' },
     { id: 1, price: 2, plantType: 'wind', name: 'Peter Producer', status: 'sold out' },
@@ -23,6 +52,7 @@ const routerStub = {
 
 function renderComponent(
     {
+        user = userDummy,
         currentProducerLoading = false,
         currentProducer = currentProducerDummy,
         producersLoading = false,
@@ -34,6 +64,7 @@ function renderComponent(
 ) {
     return mountFn(
         <BuyEnergy
+            user={user}
             currentProducerLoading={currentProducerLoading}
             currentProducer={currentProducer}
             producersLoading={producersLoading}
@@ -112,6 +143,12 @@ describe('<BuyEnergy /> container', () => {
         expect(mainContainerElement.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);
     });
 
+    it("should redirect to overview page if user's contract has not success status", () => {
+        renderComponent({ user: { ...userDummy, statusCode: CONTRACT_STATUSES.pending } });
+
+        expect(routerStub.history.push).toHaveBeenCalledWith(PATHS.overview.path);
+    });
+
     it('should return correct props', () => {
         const stateMock = {
             Producers: {
@@ -136,11 +173,18 @@ describe('<BuyEnergy /> container', () => {
                     }
                 }
             },
-            Users: {}
+            Users: {
+                profile: {
+                    data: {
+                        user: { id: 1 }
+                    }
+                }
+            }
         };
         const props = BuyEnergy.mapStateToProps(stateMock);
 
         expect(props).toEqual({
+            user: { id: 1 },
             locale: 'en',
             error: null,
             currentProducerLoading: false,

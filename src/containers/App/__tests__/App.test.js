@@ -47,6 +47,11 @@ describe('Main <App /> Component', () => {
     it('should returns correct props', () => {
         const stateMock = {
             Users: {
+                profile: {
+                    data: {
+                        user: { id: 1 }
+                    }
+                },
                 login: {},
                 logout: { loading: false }
             },
@@ -69,7 +74,7 @@ describe('Main <App /> Component', () => {
         };
         const props = App.mapStateToProps(stateMock);
 
-        expect(props).toEqual({ loggingOut: false, breadCrumbs: [], locale: 'en', loading: false });
+        expect(props).toEqual({ user: { id: 1 }, loggingOut: false, breadCrumbs: [], locale: 'en', loading: false });
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {
@@ -116,7 +121,8 @@ describe('Main <App /> Component', () => {
                 icon: 'faShoppingCart',
                 id: 'buy_energy',
                 label: 'Buy energy',
-                path: '/buy_energy'
+                path: '/buy_energy',
+                disabled: true
             },
             {
                 active: false,

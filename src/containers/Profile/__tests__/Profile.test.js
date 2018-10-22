@@ -62,14 +62,14 @@ describe('<Profile /> Container', () => {
         const dataMock = {
             firstName: '',
             lastName: '',
-            email: '',
+            email: undefined,
             street: '',
             postcode: '',
             city: '',
             streetNumber: '',
             newPassword: '',
             confirmNewPassword: '',
-            oldPassword: 'ss',
+            oldPassword: '',
             paymentMethod: 'debit',
             IBAN: ''
         };
@@ -91,8 +91,8 @@ describe('<Profile /> Container', () => {
         expect(component.state().errors).toHaveProperty('streetNumber');
         expect(component.state().errors).toHaveProperty('IBAN');
         expect(component.state().errors).toHaveProperty('sepaApproval');
-        expect(component.state().errors).toHaveProperty('newPassword');
-        expect(component.state().errors).toHaveProperty('confirmNewPassword');
+        expect(component.state().errors).not.toHaveProperty('confirmNewPassword');
+        expect(component.state().errors).not.toHaveProperty('newPassword');
         expect(component.state().errors).not.toHaveProperty('oldPassword');
 
         dataMock.email = 'test@test.com';
@@ -102,6 +102,31 @@ describe('<Profile /> Container', () => {
             .props()
             .onSubmit(dataMock);
 
+        expect(component.state().errors).toHaveProperty('oldPassword');
+
+        dataMock.email = 'test@test.com';
+        dataMock.oldPassword = 'ss';
+        dataMock.newPassword = '';
+        dataMock.confirmNewPassword = 'ss';
+        component
+            .find('ProfileForm')
+            .props()
+            .onSubmit(dataMock);
+
+        expect(component.state().errors).toHaveProperty('newPassword');
+        expect(component.state().errors).toHaveProperty('confirmNewPassword'); // passwords mismatch
+        expect(component.state().errors).not.toHaveProperty('oldPassword');
+
+        dataMock.oldPassword = '';
+        dataMock.newPassword = 'ss';
+        dataMock.confirmNewPassword = '';
+        component
+            .find('ProfileForm')
+            .props()
+            .onSubmit(dataMock);
+
+        expect(component.state().errors).not.toHaveProperty('newPassword');
+        expect(component.state().errors).toHaveProperty('confirmNewPassword'); // confirm is required
         expect(component.state().errors).toHaveProperty('oldPassword');
 
         console.warn.mockRestore();

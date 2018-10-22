@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { CONTRACT_STATUSES } from '../../constants';
+import { PATHS } from '../../services/routes';
 import { ProducerInfo, Button, BackLink } from '../../components';
 import { Producer as messages } from '../../services/translations/messages';
 import { prepareProducerInfoProps } from '../Producer';
@@ -8,7 +10,6 @@ import { performGetUserData } from '../../action_performers/users';
 import { performGetProducer, performGetProducerHistory } from '../../action_performers/producers';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { PATHS } from '../../services/routes';
 
 import AbstractContainer from '../AbstractContainer/AbstractContainer';
 
@@ -39,6 +40,11 @@ export class MyProducer extends AbstractContainer {
         const { formatMessage } = this.context.intl;
         const { profile: { user: prevUser = {} } = {}, error: oldError } = prevProps;
         const { profile: { user = {} } = {}, loading, error, locale } = this.props;
+
+        if (prevUser !== user && user.statusCode !== CONTRACT_STATUSES.success) {
+            this.context.router.history.push(PATHS.overview.path);
+            return;
+        }
 
         if (user.currentProducerId !== prevUser.currentProducerId) {
             this.fetchProducer();
