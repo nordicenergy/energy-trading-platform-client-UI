@@ -247,7 +247,7 @@ class ProfileForm extends React.PureComponent {
                         onChange={this.handleChange}
                     />
                     <TextField
-                        disabled={!this.props.profile.allowPasswordChange}
+                        disabled={!this.props.profile.allowPasswordChange || !this.state.dirty}
                         label={labels.oldPassword}
                         name="oldPassword"
                         type="password"
