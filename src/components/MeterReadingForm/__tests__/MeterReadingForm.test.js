@@ -13,8 +13,8 @@ const DEFAULT_LABELS = {
 };
 
 const MOCK_FORM_DATA = {
-    meterReadings: 'new meterReadings',
-    date: 'new date'
+    meterReadings: '123',
+    date: '1535543065'
 };
 
 const INIT_METER_READING = {
@@ -58,7 +58,7 @@ describe('<MeterReadingForm /> Component', () => {
         const meterReadingTextField = textFields.at(0);
         expect(meterReadingTextField.props().name).toEqual('meterReadings');
         expect(meterReadingTextField.props().label).toEqual('Meter reading');
-        expect(meterReadingTextField.props().value).toEqual('new meterReadings');
+        expect(meterReadingTextField.props().value).toEqual('123');
         expect(meterReadingTextField.props().addon).toEqual('kWh');
         expect(typeof meterReadingTextField.props().onChange).toBe('function');
         expect(meterReadingTextField.props().error).toEqual('Meter readings is not a number');
@@ -73,7 +73,7 @@ describe('<MeterReadingForm /> Component', () => {
         const dateField = dateFields.at(0);
         expect(dateField.props().name).toEqual('date');
         expect(dateField.props().label).toEqual('Date of readings');
-        expect(dateField.props().value).toEqual('new date');
+        expect(dateField.props().value).toEqual('1535543065');
         expect(dateField.props().locale).toEqual('en');
         expect(dateField.props().error).toEqual('Date is required');
         expect(typeof dateField.props().onChange).toBe('function');
@@ -152,8 +152,8 @@ describe('<MeterReadingForm /> Component', () => {
 
         component.find('form').simulate('submit', { preventDefault: () => null });
         expect(onSubmitStub).toHaveBeenCalledWith({
-            meterReadings: 'new meterReadings',
-            date: 'new date'
+            meterReadings: '123',
+            date: '2018-08-29'
         });
     });
 

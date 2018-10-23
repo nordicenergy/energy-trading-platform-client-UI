@@ -61,7 +61,7 @@ describe('Consumption API Service', () => {
 
     it('should provide method for submit meter readings', async () => {
         Axios.post.mockReturnValueOnce(Promise.resolve({ data: MOCK_READING_VALUE }));
-        const data = await submitMeterReading({ meterReadings: MOCK_READING_VALUE.readingValue, date: 1531244080000 });
+        const data = await submitMeterReading({ meterReadings: MOCK_READING_VALUE.readingValue, date: '2018-08-29' });
 
         expect(data).toEqual({ data: MOCK_READING_VALUE });
     });

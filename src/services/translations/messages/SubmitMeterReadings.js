@@ -56,7 +56,7 @@ const messages = defineMessages({
     },
     submitErrorMessage: {
         id: 'app.submitMeterReadingsPage.errors.submitErrorMessage',
-        defaultMessage: 'An error occurred while sending meter readings data.'
+        defaultMessage: 'An error occurred while sending meter readings'
     }
 });
 
