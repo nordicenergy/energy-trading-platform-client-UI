@@ -51,6 +51,11 @@ export class App extends React.PureComponent {
         }));
     }
 
+    handleLogoutConfirm() {
+        this.setState(() => ({ isConfirmVisible: false }));
+        performLogout();
+    }
+
     handleDeEmphasizedContentClick(target) {
         if (this.state.isMenuBarOpen && target.classList && target.classList.contains('content--de-emphasized')) {
             this.setState({ isMenuBarOpen: false });
@@ -161,7 +166,7 @@ export class App extends React.PureComponent {
                         cancelButton: formatMessage(messages.logoutCancelButton)
                     }}
                     show={isConfirmVisible}
-                    onConfirm={() => performLogout()}
+                    onConfirm={() => this.handleLogoutConfirm()}
                     onCancel={() => this.handleLogoutCancel()}
                 />
                 <Header
