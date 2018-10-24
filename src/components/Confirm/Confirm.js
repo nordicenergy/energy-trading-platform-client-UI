@@ -13,7 +13,10 @@ export class Confirm extends React.PureComponent {
         const { show } = this.props;
         const isOpen = !prevProps.show && show;
 
-        isOpen ? focusManager.capture(this.modal) : focusManager.release();
+        if (isOpen) {
+           return focusManager.capture(this.modal);
+        }
+        focusManager.release();
     }
 
     render() {

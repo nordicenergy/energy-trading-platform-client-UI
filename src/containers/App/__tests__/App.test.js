@@ -88,7 +88,6 @@ describe('Main <App /> Component', () => {
         header.props().onLogoutClick();
         expect(component.state().isConfirmVisible).toEqual(true);
         confirm.props().onConfirm();
-        expect(component.state().isConfirmVisible).toEqual(false);
 
         component.setProps({ loggingOut: true });
         component.setProps({ loggingOut: false });
