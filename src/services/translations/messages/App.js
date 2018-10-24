@@ -80,11 +80,13 @@ const messages = defineMessages({
     // TODO add to json's
     loadingContractsErrorMessage: {
         id: 'app.notifications.loadingContractsErrorMessage',
-        defaultMessage: 'An error occurred while getting contracts data. Please try to refresh page later or contact administrator.'
+        defaultMessage:
+            'An error occurred while getting contracts data. Please try to refresh page later or contact administrator.'
     },
     setContractErrorMessage: {
         id: 'app.notifications.loadingContractsErrorMessage',
-        defaultMessage: 'An error occurred while selecting contract. Please try select contract later or contact administrator.'
+        defaultMessage:
+            'An error occurred while selecting contract. Please try select contract later or contact administrator.'
     }
 });
 
