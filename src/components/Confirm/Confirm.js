@@ -21,7 +21,7 @@ export class Confirm extends React.PureComponent {
     render() {
         const { className, labels, show, onConfirm, onCancel } = this.props;
         const classes = classNames('confirm', show && 'confirm--show', className);
-        // TODO: improve test coverage
+
         return (
             <div aria-hidden={!show} className={classes} ref={modal => (this.modal = modal)}>
                 <dialog className="confirm-dialog" open={show}>
