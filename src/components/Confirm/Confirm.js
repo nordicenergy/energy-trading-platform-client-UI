@@ -36,7 +36,6 @@ export class Confirm extends React.PureComponent {
     }
 }
 
-
 Confirm.propTypes = {
     className: PropTypes.string,
     labels: PropTypes.shape({
