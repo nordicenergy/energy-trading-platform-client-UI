@@ -1,23 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import focusManager from 'focus-manager';
 import './Confirm.css';
 
-const Confirm = ({ className, labels, show, onConfirm, onCancel }) => {
-    const classes = classNames('confirm', show && 'confirm--show', className);
-    // TODO: improve test coverage
-    return (
-        <div aria-hidden={!show} className={classes}>
-            <dialog className="confirm-dialog" open={show}>
-                <strong className="confirm-dialog-message">{labels.message}</strong>
-                <div className="confirm-dialog-actions">
-                    <button onClick={onConfirm}>{labels.confirmButton}</button>
-                    {(onCancel || labels.cancelButton) && <button onClick={onCancel}>{labels.cancelButton}</button>}
-                </div>
-            </dialog>
-        </div>
-    );
-};
+export class Confirm extends React.PureComponent {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidUpdate(prevProps) {
+        const { show } = this.props;
+        const isOpen = !prevProps.show && show;
+
+        if (isOpen) {
+            return focusManager.capture(this.modal);
+        }
+        focusManager.release();
+    }
+
+    render() {
+        const { className, labels, show, onConfirm, onCancel } = this.props;
+        const classes = classNames('confirm', show && 'confirm--show', className);
+
+        return (
+            <div aria-hidden={!show} className={classes} ref={modal => (this.modal = modal)}>
+                <dialog className="confirm-dialog" open={show}>
+                    <strong className="confirm-dialog-message">{labels.message}</strong>
+                    <div className="confirm-dialog-actions">
+                        <button onClick={onConfirm}>{labels.confirmButton}</button>
+                        {(onCancel || labels.cancelButton) && <button onClick={onCancel}>{labels.cancelButton}</button>}
+                    </div>
+                </dialog>
+            </div>
+        );
+    }
+}
 
 Confirm.propTypes = {
     className: PropTypes.string,
