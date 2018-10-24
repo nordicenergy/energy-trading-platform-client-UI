@@ -27,7 +27,7 @@ export function getUserData() {
             data: {
                 user: {
                     ...user,
-                    statusCode: 4000,
+                    statusCode: 5000,
                     birthday: moment(formattedBirthdayData).unix()
                 }
             }

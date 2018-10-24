@@ -3,6 +3,7 @@ import { App } from '../App';
 import { Header, MenuSideBar, Footer } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
 import * as appActions from '../../../action_performers/app';
+import * as contractsActions from '../../../action_performers/contracts';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 
 const context = {
@@ -21,9 +22,12 @@ describe('Main <App /> Component', () => {
         context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
         usersActions.performLogout = jest.fn();
+        usersActions.performGetUserData = jest.fn();
+        contractsActions.performGetSessionContract = jest.fn();
+        contractsActions.performGetContracts = jest.fn();
+        contractsActions.performSetSessionContract = jest.fn();
         appActions.performSetupLocale = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
-        window.confirm = () => true;
     });
 
     afterEach(() => {
@@ -46,6 +50,23 @@ describe('Main <App /> Component', () => {
 
     it('should returns correct props', () => {
         const stateMock = {
+            Contracts: {
+                contracts: {
+                    loading: false,
+                    error: null,
+                    data: [{ id: 'testContractId' }]
+                },
+                sessionContract: {
+                    loading: false,
+                    error: null,
+                    data: { id: 'testContractId' }
+                },
+                updatedSessionContract: {
+                    loading: false,
+                    error: 'Update Error',
+                    data: { id: 'testContractId' }
+                }
+            },
             Users: {
                 profile: {
                     data: {
@@ -74,7 +95,18 @@ describe('Main <App /> Component', () => {
         };
         const props = App.mapStateToProps(stateMock);
 
-        expect(props).toEqual({ user: { id: 1 }, loggingOut: false, breadCrumbs: [], locale: 'en', loading: false });
+        expect(props).toEqual({
+            breadCrumbs: [],
+            contracts: [{ id: '100025' }, { id: 'testContractId' }],
+            errorContracts: null,
+            errorSetContract: 'Update Error',
+            loading: false,
+            locale: 'en',
+            loggingOut: false,
+            sessionContract: { id: 'testContractId' },
+            updatedSessionContract: { id: 'testContractId' },
+            user: { id: 1 }
+        });
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {
@@ -222,6 +254,39 @@ describe('Main <App /> Component', () => {
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
     });
+
+    it('should calls contracts action performers when receive new user data', () => {
+        const app = renderComponent();
+        expect(usersActions.performGetUserData).toHaveBeenCalledTimes(1);
+        expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(0);
+        expect(contractsActions.performGetContracts).toHaveBeenCalledTimes(0);
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        app.setProps({ user: { id: 'testId' } });
+        expect(contractsActions.performGetSessionContract).toHaveBeenCalledWith('testId');
+        expect(contractsActions.performGetContracts).toHaveBeenCalledWith('testId');
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        app.setProps({ contracts: [{ id: '0123' }, { id: '0124' }], sessionContract: { id: '0123' } });
+        expect(app.find('Header').props().selectedContractId).toEqual('0123');
+        expect(app.find('Header').props().contracts).toEqual([{ id: '0123' }, { id: '0124' }]);
+
+        app
+            .find('Header')
+            .props()
+            .onContractChange('0123');
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        app
+            .find('Header')
+            .props()
+            .onContractChange('0124');
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledWith('testId', '0124');
+
+        // TODO get after update
+    });
+
+    // TODO error notifications
 
     it('should navigate to overview page', () => {
         const app = renderComponent(context);

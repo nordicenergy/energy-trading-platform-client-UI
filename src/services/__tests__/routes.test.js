@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { initialState as AppInitialState } from '../../reducers/app';
 import { initialState as ProducersInitialState } from '../../reducers/producers';
 import { initialState as UsersInitialState } from '../../reducers/users';
+import { initialState as ContractsInitialState } from '../../reducers/contracts';
 import { initialState as TransactionsInitialState } from '../../reducers/transactions';
 import { initialState as NotificationsInitialState } from '../../reducers/notifications';
 import { App, Login, RestorePassword } from '../../containers';
@@ -27,7 +28,8 @@ const store = mockStore({
     Producer: ProducersInitialState,
     Users: UsersInitialState,
     Transactions: TransactionsInitialState,
-    App: AppInitialState
+    App: AppInitialState,
+    Contracts: ContractsInitialState
 });
 
 const childContextTypes = {

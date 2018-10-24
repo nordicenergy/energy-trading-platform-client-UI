@@ -63,6 +63,7 @@
 
     "app.header.logoutConfirm": "Bist Du sicher, dass Du dich vom Portal abmelden möchtest?",
     "app.header.logoutLabel": "Logout",
+    "app.header.contractLabel": "Vertrag",
     "app.header.menuBarLabel": "Sidebar-Menü umschalten",
 
     "app.menuBar.overview": "Überblick",

@@ -62,6 +62,7 @@
 
     "app.header.logoutConfirm": "Are you sure that you would like to logout from the system?",
     "app.header.logoutLabel": "Logout",
+    "app.header.contractLabel": "Contract",
     "app.header.menuBarLabel": "Toggle menu sidebar",
 
     "app.menuBar.overview": "Overview",

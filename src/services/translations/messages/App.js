@@ -53,6 +53,10 @@ const messages = defineMessages({
         id: 'app.header.logoutLabel',
         defaultMessage: 'Logout'
     },
+    contractLabel: {
+        id: 'app.header.contractLabel',
+        defaultMessage: 'Vertrag'
+    },
     menuBarLabel: {
         id: 'app.header.menuBarLabel',
         defaultMessage: 'Toggle menu sidebar'
@@ -72,6 +76,15 @@ const messages = defineMessages({
     defaultErrorMessage: {
         id: 'app.notifications.defaultErrorMessage',
         defaultMessage: 'Internal web server error. Please try to refresh page later or contact administrator.'
+    },
+    // TODO add to json's
+    loadingContractsErrorMessage: {
+        id: 'app.notifications.loadingContractsErrorMessage',
+        defaultMessage: 'An error occurred while getting contracts data. Please try to refresh page later or contact administrator.'
+    },
+    setContractErrorMessage: {
+        id: 'app.notifications.loadingContractsErrorMessage',
+        defaultMessage: 'An error occurred while selecting contract. Please try select contract later or contact administrator.'
     }
 });
 

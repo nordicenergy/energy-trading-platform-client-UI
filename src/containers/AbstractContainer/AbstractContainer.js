@@ -9,6 +9,7 @@ class AbstractContainer extends Base {
     // eslint-disable-next-line
     constructor(props, context, breadcrumbs) {
         super(props, context, breadcrumbs);
+        this.setupBreadcrumbs();
     }
 
     componentWillUnmount() {
