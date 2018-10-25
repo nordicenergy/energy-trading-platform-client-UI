@@ -5,7 +5,7 @@ import SelectField from '../SelectField/SelectField';
 
 import './ContractModal.css';
 
-// TODO @artur.basak: in case with this modal `focusManager` window will broke focus for native browser tabs, need to think how avoid this issue
+// TODO @artur.basak: in case with this modal window `focusManager` will broke focus for native browser tabs, need to think how to avoid this issue
 
 const ContractModal = ({ className, labels, show, selectedContractId, contracts, onSelect, ...other }) => {
     const classes = classNames('contract-modal-container', show && 'contract-modal-container--show', className);
