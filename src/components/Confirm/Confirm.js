@@ -2,21 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import focusManager from 'focus-manager';
+
 import './Confirm.css';
 
-export class Confirm extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
+export class Confirm extends React.Component {
     componentDidUpdate(prevProps) {
         const { show } = this.props;
         const isOpen = !prevProps.show && show;
+        const isClose = prevProps.show && !show;
 
         if (isOpen) {
             return focusManager.capture(this.modal);
         }
-        focusManager.release();
+
+        if (isClose) {
+            focusManager.release();
+        }
     }
 
     render() {

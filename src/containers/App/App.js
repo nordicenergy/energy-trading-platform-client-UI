@@ -114,7 +114,7 @@ export class App extends React.PureComponent {
     }
 
     render() {
-        const { locale, sessionContract, contracts, loading } = this.props;
+        const { locale, contracts, sessionContract, loading } = this.props;
         const { isConfirmVisible } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
