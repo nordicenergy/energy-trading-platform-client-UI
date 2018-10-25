@@ -11,17 +11,22 @@ class ContractSelect extends Component {
     }
 
     render() {
-        const { className, label, contracts, selectedContractId } = this.props;
+        const { className, label, contracts, selectedContractId, noContractsMessage } = this.props;
         const classes = classNames('contract-select', className);
 
         return (
             <div className={classes} aria-label={label}>
-                <SelectField
-                    className="select-field--contract"
-                    options={contracts.map(({ id }) => ({ value: id, label: `${label} #${id}` }))}
-                    value={selectedContractId}
-                    onChange={data => this.handleChange(data)}
-                />
+                {!!contracts.length ? (
+                    <SelectField
+                        className="select-field--contract"
+                        options={contracts.map(({ id }) => ({ value: id, label: `${label} #${id}` }))}
+                        value={selectedContractId}
+                        onChange={data => this.handleChange(data)}
+                        supportEmptyValue
+                    />
+                ) : (
+                    <p className="contract-select-no-contracts-alert">{noContractsMessage}</p>
+                )}
             </div>
         );
     }
@@ -30,6 +35,7 @@ class ContractSelect extends Component {
 ContractSelect.propTypes = {
     className: PropTypes.string,
     label: PropTypes.string,
+    noContractsMessage: PropTypes.string,
     contracts: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string
@@ -41,6 +47,7 @@ ContractSelect.propTypes = {
 
 ContractSelect.defaultProps = {
     contracts: [],
+    noContractsMessage: 'No contracts',
     onChange: f => f
 };
 

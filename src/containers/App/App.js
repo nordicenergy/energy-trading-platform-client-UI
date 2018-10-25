@@ -13,7 +13,7 @@ import {
 } from '../../action_performers/contracts';
 import { performLogout, performGetUserData } from '../../action_performers/users';
 import { App as messages } from '../../services/translations/messages';
-import { MenuSideBar, Header, Footer, Confirm } from '../../components';
+import { MenuSideBar, Header, Footer, Confirm, ContractModal } from '../../components';
 import './App.css';
 
 export class App extends React.PureComponent {
@@ -30,7 +30,7 @@ export class App extends React.PureComponent {
                 Contracts.sessionContract.loading ||
                 Contracts.updatedSessionContract.loading,
             locale: App.localization.data.locale,
-            contracts: [{ id: '100025' }, ...Contracts.contracts.data],
+            contracts: Contracts.contracts.data,
             sessionContract: Contracts.sessionContract.data,
             updatedSessionContract: Contracts.updatedSessionContract.data,
             errorContracts: Users.profile.error || Contracts.contracts.error || Contracts.sessionContract.error,
@@ -114,7 +114,7 @@ export class App extends React.PureComponent {
     }
 
     render() {
-        const { locale, contracts, sessionContract } = this.props;
+        const { locale, sessionContract, contracts, loading } = this.props;
         const { isConfirmVisible } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
@@ -204,8 +204,20 @@ export class App extends React.PureComponent {
             }
         ];
 
+        const haveNoWorkingContracts = !contracts.length || !sessionContract || !sessionContract.id;
+
         return (
             <div className="app">
+                <ContractModal
+                    labels={{
+                        contractMessage: formatMessage(messages.contractMessage),
+                        noContractMessage: formatMessage(messages.noContractMessage),
+                        selectLabel: formatMessage(messages.selectContractMessage)
+                    }}
+                    contracts={contracts}
+                    onSelect={({ value }) => this.setupContract(value)}
+                    show={!loading && haveNoWorkingContracts}
+                />
                 <Confirm
                     labels={{
                         message: formatMessage(messages.logoutConfirmMessage),
@@ -232,6 +244,7 @@ export class App extends React.PureComponent {
                     selectedContractId={(sessionContract && sessionContract.id) || ''}
                     onContractChange={contractId => this.setupContract(contractId)}
                     contractLabel={formatMessage(messages.contractLabel)}
+                    noContractsMessage={formatMessage(messages.noContractsMessage)}
                 />
                 <div
                     className={classNames({

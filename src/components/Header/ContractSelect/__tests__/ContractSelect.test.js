@@ -30,6 +30,13 @@ describe('<ContractSelect /> component', () => {
         expect(select.find('SelectField')).toHaveLength(1);
         expect(select.find('.contract-select')).toHaveLength(1);
         expect(select.find('.select-field--contract')).toHaveLength(1);
+        expect(select.find('p.contract-select-no-contracts-alert')).toHaveLength(0);
+
+        const noContractsMessage = renderComponent({ contracts: [], noContractsMessage: 'Test Msg: No contracts' });
+        expect(noContractsMessage.find('p.contract-select-no-contracts-alert')).toHaveLength(1);
+        expect(noContractsMessage.find('p.contract-select-no-contracts-alert').text()).toEqual(
+            'Test Msg: No contracts'
+        );
     });
 
     it('should calls onChange callback', () => {

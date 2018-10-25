@@ -23,6 +23,7 @@ const Header = ({
     onLocaleChange,
 
     contractLabel,
+    noContractsMessage,
     contracts,
     selectedContractId,
     onContractChange,
@@ -42,6 +43,7 @@ const Header = ({
                 <div className="header-buttons">
                     <ContractSelect
                         label={contractLabel}
+                        noContractsMessage={noContractsMessage}
                         contracts={contracts}
                         selectedContractId={selectedContractId}
                         onChange={onContractChange}
@@ -70,6 +72,7 @@ Header.propTypes = {
     onLocaleChange: PropTypes.func,
 
     contractLabel: PropTypes.string,
+    noContractsMessage: PropTypes.string,
     contracts: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string
@@ -97,6 +100,7 @@ Header.defaultProps = {
     locale: 'EN',
 
     contractLabel: 'Contract',
+    noContractsMessage: 'No contract',
     onContractChange: f => f,
     contracts: [],
 

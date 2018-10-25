@@ -4,6 +4,7 @@ import { Header, MenuSideBar, Footer } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
 import * as appActions from '../../../action_performers/app';
 import * as contractsActions from '../../../action_performers/contracts';
+import * as notificationsActions from '../../../action_performers/notifications';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 
 const context = {
@@ -28,6 +29,7 @@ describe('Main <App /> Component', () => {
         contractsActions.performSetSessionContract = jest.fn();
         appActions.performSetupLocale = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
+        notificationsActions.performPushNotification = jest.fn();
     });
 
     afterEach(() => {
@@ -97,7 +99,7 @@ describe('Main <App /> Component', () => {
 
         expect(props).toEqual({
             breadCrumbs: [],
-            contracts: [{ id: '100025' }, { id: 'testContractId' }],
+            contracts: [{ id: 'testContractId' }],
             errorContracts: null,
             errorSetContract: 'Update Error',
             loading: false,
@@ -124,6 +126,30 @@ describe('Main <App /> Component', () => {
         expect(usersActions.performLogout.mock.calls.length).toEqual(1);
         const [[route]] = context.router.history.push.mock.calls;
         expect(route).toEqual('/login');
+    });
+
+    it('should correctly handle cases when working contracts is absent', () => {
+        const component = renderComponent({ ...context, contracts: [], sessionContract: { id: '100020' } });
+        component.setContext(context);
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        expect(component.find('ContractModal').props().show).toEqual(true);
+        expect(component.find('ContractModal').props().labels).toEqual({
+            contractMessage: 'To continue, please select a contract.',
+            noContractMessage: 'There are no contracts available, please contact administrator to resolve the issue.',
+            selectLabel: 'Select contract'
+        });
+
+        component.setProps({ contracts: [{ id: '100020' }], sessionContract: null, user: { id: 'testId' } });
+        expect(component.find('ContractModal').props().show).toEqual(true);
+        component
+            .find('ContractModal')
+            .props()
+            .onSelect({ value: '100020' });
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledWith('testId', '100020');
+
+        component.setProps({ contracts: [{ id: '100020' }], sessionContract: { id: '100020' } });
+        expect(component.find('ContractModal').props().show).toEqual(false);
     });
 
     it('should setup correct callbacks and handle related events for MenuSideBar', () => {
@@ -283,10 +309,28 @@ describe('Main <App /> Component', () => {
             .onContractChange('0124');
         expect(contractsActions.performSetSessionContract).toHaveBeenCalledWith('testId', '0124');
 
-        // TODO get after update
+        expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(1);
+        app.setProps({ updatedSessionContract: { id: '0124' } });
+        expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(2);
     });
 
-    // TODO error notifications
+    it('should correctly handle errors using notifications', () => {
+        const app = renderComponent();
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledTimes(0);
+        app.setProps({ errorContracts: { message: 'Internal Server Error' } });
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledWith({
+            message:
+                'An error occurred while getting contracts data. Please try to refresh page later or contact administrator.',
+            type: 'error'
+        });
+        app.setProps({ errorSetContract: { message: 'Internal Server Error' } });
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledTimes(2);
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledWith({
+            message:
+                'An error occurred while getting contracts data. Please try to refresh page later or contact administrator.',
+            type: 'error'
+        });
+    });
 
     it('should navigate to overview page', () => {
         const app = renderComponent(context);

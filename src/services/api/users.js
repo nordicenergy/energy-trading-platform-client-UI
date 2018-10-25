@@ -17,7 +17,6 @@ export function logout() {
 
 export function getUserData() {
     return Axios.get(`${SESSION_API_URL}/user/getUserData`).then(response => {
-        // TODO: remove after date format will be unix timestamp
         const { data = {} } = response;
         const { user = {} } = data;
         const birthdayData = user.birthday || '';
@@ -27,8 +26,7 @@ export function getUserData() {
             data: {
                 user: {
                     ...user,
-                    statusCode: 5000,
-                    birthday: moment(formattedBirthdayData).unix()
+                    birthday: moment(formattedBirthdayData).unix() // convert to unix time stamp
                 }
             }
         };

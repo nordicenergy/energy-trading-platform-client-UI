@@ -57,12 +57,17 @@
     "app.resetPasswordPage.errors.invalidResetPasswordToken": "Invalid reset password link",
     "app.resetPasswordPage.info.passwordWasUpdated": "Your password was successfully updated",
 
+    "app.notifications.loadingContractsErrorMessage":
+        "An error occurred while getting contracts data. Please try to refresh page later or contact administrator.",
+    "app.notifications.setContractErrorMessage":
+        "An error occurred while selecting contract. Please try select contract later or contact administrator.",
     "app.notifications.defaultErrorMessage":
         "Internal web server error. Please try to refresh page later or contact administrator.",
 
     "app.header.logoutConfirm": "Are you sure that you would like to logout from the system?",
     "app.header.logoutLabel": "Logout",
     "app.header.contractLabel": "Contract",
+    "app.header.noContractsMessage": "No contracts",
     "app.header.menuBarLabel": "Toggle menu sidebar",
 
     "app.menuBar.overview": "Overview",
@@ -176,6 +181,11 @@
         "An error occurred while selecting the producer. Please contact administrator to resolve the error.",
     "app.producerPage.notifications.selectMessage":
         "Producer is selected. We successfully stored your transaction. It can take a few minutes until the transaction is listed in your transaction history.",
+
+    "app.contractModal.contractMessage": "To continue, please select a contract.",
+    "app.contractModal.noContractMessage":
+        "There are no contracts available, please contact administrator to resolve the issue.",
+    "app.contractModal.selectContractMessage": "Select contract",
 
     "app.header.logoutConfirmMessage": "Are you sure that you'd like to logout from the system?",
     "app.header.logoutConfirmButton": "Yes",

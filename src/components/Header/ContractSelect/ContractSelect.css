@@ -1,10 +1,17 @@
 .contract-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 15em;
     border-left: var(--border-width) solid var(--navigation-bg-color);
 }
 
 .contract-select svg {
     padding: 1em;
+}
+
+.contract-select-no-contracts-alert {
+    color: var(--error-text-color);
 }
 
 .select-field--contract {

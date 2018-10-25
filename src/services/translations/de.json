@@ -58,12 +58,22 @@
     "app.resetPasswordPage.errors.invalidResetPasswordToken": "Ungültiger Passwort-Link",
     "app.resetPasswordPage.info.passwordWasUpdated": "Dein Passwort wurde erfolgreich geändert",
 
+    "app.notifications.loadingContractsErrorMessage":
+        "Beim Abrufen der Vertragsdaten ist ein Fehler aufgetreten. Bitte versuche, die Seite später zu aktualisieren oder wende dich an den Administrator.",
+    "app.notifications.setContractErrorMessage":
+        "Bei der Vertragsauswahl ist ein Fehler aufgetreten. Bitte versuche, den Vertrag später auszuwählen oder wende dich an den Administrator.",
     "app.notifications.defaultErrorMessage":
         "Interner Fehler des Web-Servers. Bitte aktualisiere die Seite oder kontaktiere den Kundendienst.",
+
+    "app.contractModal.contractMessage": "Um fortzufahren, wähle bitte einen Auftrag aus.",
+    "app.contractModal.noContractMessage":
+        "Es sind keine Aufträge vorhanden. Bitte wende dich an den Administrator, um das Problem zu beheben.",
+    "app.contractModal.selectContractMessage": "Wähle einen Auftrag aus",
 
     "app.header.logoutConfirm": "Bist Du sicher, dass Du dich vom Portal abmelden möchtest?",
     "app.header.logoutLabel": "Logout",
     "app.header.contractLabel": "Vertrag",
+    "app.header.noContractsMessage": "Keine Verträge",
     "app.header.menuBarLabel": "Sidebar-Menü umschalten",
 
     "app.menuBar.overview": "Überblick",

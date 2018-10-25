@@ -1,7 +1,7 @@
 Header example:
 
 ```jsx
-<Header locales={['en', 'de']} locale="en" onLocaleChange={() => null} />
+<Header locales={['en', 'de']} contracts={[]} locale="en" onLocaleChange={() => null} />
 ```
 
 Header example with breadcrumbs:
