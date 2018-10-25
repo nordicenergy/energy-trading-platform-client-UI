@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Confirm from '../Confirm';
+import focusManager from 'focus-manager';
 
 const labelsMock = {
     message: 'Test',
@@ -54,5 +55,27 @@ describe('<Confrim /> component', () => {
             .at(1)
             .simulate('click');
         expect(onCancelMock).toHaveBeenCalled();
+    });
+
+    it('should correct manage focus of the modal when show and hide it', () => {
+        jest.spyOn(focusManager, 'capture').mockImplementation(jest.fn);
+        jest.spyOn(focusManager, 'release').mockImplementation(jest.fn);
+
+        const confirm = renderComponent({ show: false });
+        expect(focusManager.capture).toHaveBeenCalledTimes(0);
+        expect(focusManager.release).toHaveBeenCalledTimes(0);
+
+        confirm.setProps({ show: true });
+
+        expect(focusManager.capture).toHaveBeenCalledTimes(1);
+        expect(focusManager.release).toHaveBeenCalledTimes(0);
+
+        confirm.setProps({ show: false });
+
+        expect(focusManager.capture).toHaveBeenCalledTimes(1);
+        expect(focusManager.release).toHaveBeenCalledTimes(1);
+
+        focusManager.capture.mockRestore();
+        focusManager.release.mockRestore();
     });
 });

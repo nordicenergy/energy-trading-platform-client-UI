@@ -10,6 +10,7 @@
         "async-validator": "1.8.2",
         "axios": "0.18.0",
         "classnames": "2.2.5",
+        "focus-manager": "0.4.1",
         "history": "4.7.2",
         "iban": "0.0.11",
         "lodash.once": "4.1.1",

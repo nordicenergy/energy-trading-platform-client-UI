@@ -87,7 +87,7 @@ describe('<SubmitMeter /> Component', () => {
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
             submitButton: 'Submit',
-            submitErrorMessage: 'An error occurred while sending meter readings.',
+            submitErrorMessage: 'An error occurred while sending meter readings',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -119,7 +119,7 @@ describe('<SubmitMeter /> Component', () => {
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
             submitButton: 'Submit',
-            submitErrorMessage: 'An error occurred while sending meter readings.',
+            submitErrorMessage: 'An error occurred while sending meter readings',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -273,5 +273,22 @@ describe('<SubmitMeter /> Component', () => {
         const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
+    });
+
+    it('should shows server error if authentication is failed', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        const component = renderComponent();
+
+        component.setProps({
+            loading: false,
+            errorSubmit: { message: 'Error message' }
+        });
+
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'An error occurred while sending meter readings: [Error message]'
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
     });
 });

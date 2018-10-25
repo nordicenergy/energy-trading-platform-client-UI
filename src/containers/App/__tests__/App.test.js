@@ -117,8 +117,12 @@ describe('Main <App /> Component', () => {
 
         const header = component.find(Header).at(0);
         const confirm = component.find('Confirm');
+
+        expect(component.state().isConfirmVisible).toEqual(false);
         header.props().onLogoutClick();
+        expect(component.state().isConfirmVisible).toEqual(true);
         confirm.props().onConfirm();
+
         component.setProps({ loggingOut: true });
         component.setProps({ loggingOut: false });
 
@@ -218,8 +222,12 @@ describe('Main <App /> Component', () => {
 
         const header = component.find(Header).at(0);
         const confirm = component.find('Confirm');
+
+        expect(component.state().isConfirmVisible).toEqual(false);
         header.props().onLogoutClick();
+        expect(component.state().isConfirmVisible).toEqual(true);
         confirm.props().onCancel();
+        expect(component.state().isConfirmVisible).toEqual(false);
 
         expect(context.router.history.push).not.toHaveBeenCalled();
         expect(usersActions.performLogout).not.toHaveBeenCalled();

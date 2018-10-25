@@ -4,6 +4,7 @@ import TextField from '../TextField';
 import DateField from '../DateField';
 import Button from '../Button';
 import './MeterReadingForm.css';
+import moment from 'moment/moment';
 
 const initMeterReading = {
     meterReadings: '',
@@ -33,7 +34,7 @@ class MeterReadingForm extends React.PureComponent {
         const { onSubmit } = this.props;
         const { meterReadings, date } = this.state;
 
-        onSubmit({ meterReadings, date });
+        onSubmit({ meterReadings, date: moment.unix(date).format('YYYY-MM-DD') });
     }
 
     handleChange({ name, value }) {
