@@ -139,11 +139,7 @@ class SelectField extends Component {
             disabled && 'select-field--disabled',
             className
         );
-        console.log(1, isFocused)
-        const listboxClass = classNames(
-            'options-list',
-            !isFocused && 'options-list-item--hide'
-        );
+        const listboxClass = classNames('options-list', !isFocused && 'options-list-item--hide');
         const selectedOption = this.getSelectedOption();
         const labelContent = required ? (
             <Fragment>
