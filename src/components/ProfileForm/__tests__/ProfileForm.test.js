@@ -41,7 +41,7 @@ describe('<ProfileForm /> component', () => {
         expect(profileForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(1);
         expect(profileForm.find('Button')).toHaveLength(1);
         expect(profileForm.find('Button').props().disabled).toBe(true);
-        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(0);
+        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(2);
     });
 
     it('should hide payment fields when `transfer` payment method selected', () => {
@@ -277,7 +277,8 @@ describe('<ProfileForm /> component', () => {
         const onSubmit = jest.fn();
         const profileForm = renderComponent({ profile: { ...dummyProfile, email: '', IBAN: '' }, onSubmit });
 
-        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(0);
+        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(2);
+        expect(profileForm.find('.profile-form-tab-errors-feedback--hide')).toHaveLength(2);
 
         profileForm.setProps({
             errors: {
@@ -289,6 +290,7 @@ describe('<ProfileForm /> component', () => {
         expect(profileForm.find('#personalDataTabErrors')).toHaveLength(1);
         expect(profileForm.find('#paymentDataTabErrors')).toHaveLength(1);
         expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(2);
+        expect(profileForm.find('.profile-form-tab-errors-feedback--hide')).toHaveLength(0);
 
         profileForm.setProps({
             errors: {
@@ -300,13 +302,15 @@ describe('<ProfileForm /> component', () => {
         expect(profileForm.find('#personalDataTabErrors')).toHaveLength(1);
         expect(profileForm.find('#paymentDataTabErrors')).toHaveLength(1);
         expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(2);
+        expect(profileForm.find('.profile-form-tab-errors-feedback--hide')).toHaveLength(0);
 
         profileForm.setProps({
             errors: {}
         });
 
-        expect(profileForm.find('#personalDataTabErrors')).toHaveLength(0);
-        expect(profileForm.find('#paymentDataTabErrors')).toHaveLength(0);
-        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(0);
+        expect(profileForm.find('#personalDataTabErrors')).toHaveLength(1);
+        expect(profileForm.find('#paymentDataTabErrors')).toHaveLength(1);
+        expect(profileForm.find('.profile-form-tab-errors-feedback')).toHaveLength(2);
+        expect(profileForm.find('.profile-form-tab-errors-feedback--hide')).toHaveLength(2);
     });
 });
