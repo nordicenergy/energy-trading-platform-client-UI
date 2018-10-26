@@ -199,7 +199,7 @@ export class App extends React.PureComponent {
                             }}
                         />
                     </div>
-                    <div role="feed" id="main-container">
+                    <div role="article" id="main-container">
                         <main>{this.props.children}</main>
                         <Footer
                             addressLabel={formatMessage(messages.address)}

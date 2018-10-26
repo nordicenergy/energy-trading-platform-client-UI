@@ -78,4 +78,32 @@ describe('<Confrim /> component', () => {
         focusManager.capture.mockRestore();
         focusManager.release.mockRestore();
     });
+
+    it('should add event listener on keydown', () => {
+        jest.spyOn(document, 'addEventListener').mockImplementation(jest.fn);
+        jest.spyOn(document, 'removeEventListener').mockImplementation(jest.fn);
+
+        const confirm = renderComponent({ show: false });
+
+        expect(document.addEventListener).toHaveBeenCalledTimes(1);
+        expect(document.removeEventListener).toHaveBeenCalledTimes(0);
+
+        const [[event, func, flag]] = document.addEventListener.mock.calls;
+        expect(event).toEqual('keydown');
+        expect(typeof func).toBe('function');
+        expect(flag).toEqual(false);
+
+        confirm.unmount();
+
+        expect(document.addEventListener).toHaveBeenCalledTimes(1);
+        expect(document.removeEventListener).toHaveBeenCalledTimes(1);
+
+        const [[event1, func1, flag1]] = document.removeEventListener.mock.calls;
+        expect(event1).toEqual('keydown');
+        expect(typeof func1).toBe('function');
+        expect(flag1).toEqual(false);
+
+        document.addEventListener.mockRestore();
+        document.removeEventListener.mockRestore();
+    });
 });

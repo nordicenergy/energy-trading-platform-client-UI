@@ -4,9 +4,13 @@ import classNames from 'classnames';
 import focusManager from 'focus-manager';
 import './Confirm.css';
 
+const ESC_KEY = 27;
+
 export class Confirm extends React.PureComponent {
     constructor(props) {
         super(props);
+
+        this.escKeyDownHandler = this.escKeyDownHandler.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -17,6 +21,20 @@ export class Confirm extends React.PureComponent {
             return focusManager.capture(this.modal);
         }
         focusManager.release();
+    }
+
+    escKeyDownHandler(event) {
+        if (event.keyCode === ESC_KEY) {
+            this.props.onCancel();
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.escKeyDownHandler, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.escKeyDownHandler, false);
     }
 
     render() {

@@ -35,7 +35,7 @@ describe('<SelectField /> component', () => {
         expect(selectField.find('.select-field-error').text()).toBe('test error');
     });
 
-    it('should display options when field in focus', () => {
+    it.only('should display options when field in focus', () => {
         const selectField = renderComponent({}, mount);
         const eventMock = new Event('click');
         Object.defineProperty(eventMock, 'target', {
@@ -47,10 +47,16 @@ describe('<SelectField /> component', () => {
         selectField.update();
         expect(selectField.find('.options-list-item')).toHaveLength(5);
         expect(selectField.find('.options-list-item--selected')).toHaveLength(1);
+        expect(selectField.hasClass('.options-list-item--hide')).toBeFalsy();
 
         document.body.dispatchEvent(eventMock);
         selectField.update();
-        expect(selectField.find('.options-list-item')).toHaveLength(0);
+        expect(selectField.find('.options-list-item')).toHaveLength(5);
+        expect(selectField.find('.options-list-item--hide')).toHaveLength(1);
+
+        selectField.setState({ isFocused: true });
+        expect(selectField.find('.options-list-item')).toHaveLength(5);
+        expect(selectField.find('.options-list-item--hide')).toHaveLength(0);
     });
 
     it('should not select disabled option', () => {
