@@ -16,7 +16,7 @@ export class Confirm extends React.Component {
         }
 
         if (isClose) {
-            focusManager.release();
+            return focusManager.release();
         }
     }
 

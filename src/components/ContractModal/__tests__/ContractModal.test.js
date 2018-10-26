@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import ContractModal from '../ContractModal';
+import focusManager from 'focus-manager';
 
 const labelsMock = {
     contractMessage: 'contractMessage',
@@ -35,5 +36,27 @@ describe('<ContractModal /> component', () => {
             .props()
             .onChange('testArg');
         expect(onSelectStub).toHaveBeenCalledWith('testArg');
+    });
+
+    it('should correctly manage focus for the modal window', () => {
+        jest.spyOn(focusManager, 'capture').mockImplementation(jest.fn);
+        jest.spyOn(focusManager, 'release').mockImplementation(jest.fn);
+
+        const modal = renderComponent({ show: false });
+        expect(focusManager.capture).toHaveBeenCalledTimes(0);
+        expect(focusManager.release).toHaveBeenCalledTimes(0);
+
+        modal.setProps({ show: true });
+
+        expect(focusManager.capture).toHaveBeenCalledTimes(1);
+        expect(focusManager.release).toHaveBeenCalledTimes(0);
+
+        modal.setProps({ show: false });
+
+        expect(focusManager.capture).toHaveBeenCalledTimes(1);
+        expect(focusManager.release).toHaveBeenCalledTimes(1);
+
+        focusManager.capture.mockRestore();
+        focusManager.release.mockRestore();
     });
 });
