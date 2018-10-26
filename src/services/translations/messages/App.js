@@ -53,9 +53,29 @@ const messages = defineMessages({
         id: 'app.header.logoutLabel',
         defaultMessage: 'Logout'
     },
+    contractLabel: {
+        id: 'app.header.contractLabel',
+        defaultMessage: 'Contract'
+    },
+    noContractsMessage: {
+        id: 'app.header.noContractsMessage',
+        defaultMessage: 'No contracts'
+    },
     menuBarLabel: {
         id: 'app.header.menuBarLabel',
         defaultMessage: 'Toggle menu sidebar'
+    },
+    contractMessage: {
+        id: 'app.contractModal.contractMessage',
+        defaultMessage: 'To continue, please select a contract.'
+    },
+    noContractMessage: {
+        id: 'app.contractModal.noContractMessage',
+        defaultMessage: 'There are no contracts available, please contact administrator to resolve the issue.'
+    },
+    selectContractMessage: {
+        id: 'app.contractModal.selectContractMessage',
+        defaultMessage: 'Select contract'
     },
     logoutConfirmMessage: {
         id: 'app.header.logoutConfirmMessage',
@@ -72,6 +92,16 @@ const messages = defineMessages({
     defaultErrorMessage: {
         id: 'app.notifications.defaultErrorMessage',
         defaultMessage: 'Internal web server error. Please try to refresh page later or contact administrator.'
+    },
+    loadingContractsErrorMessage: {
+        id: 'app.notifications.loadingContractsErrorMessage',
+        defaultMessage:
+            'An error occurred while getting contracts data. Please try to refresh page later or contact administrator.'
+    },
+    setContractErrorMessage: {
+        id: 'app.notifications.setContractErrorMessage',
+        defaultMessage:
+            'An error occurred while selecting contract. Please try select contract later or contact administrator.'
     }
 });
 

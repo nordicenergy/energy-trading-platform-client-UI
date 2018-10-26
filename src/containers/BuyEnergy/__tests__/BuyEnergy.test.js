@@ -306,12 +306,12 @@ describe('<BuyEnergy /> container', () => {
     it('should setup translated breadcrumbs when locale changed', () => {
         const buyEnergy = renderComponent();
 
-        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
 
         buyEnergy.setProps({
             locale: 'de'
         });
 
-        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
+        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(3);
     });
 });

@@ -5,6 +5,7 @@ import Breadcrumbs from './Breadcrumbs';
 import LanguageSelect from './LanguageSelect';
 import HeaderButton from './HeaderButton';
 import './Header.css';
+import ContractSelect from './ContractSelect/ContractSelect';
 
 const Header = ({
     breadCrumbs,
@@ -21,6 +22,12 @@ const Header = ({
     locale,
     onLocaleChange,
 
+    contractLabel,
+    noContractsMessage,
+    contracts,
+    selectedContractId,
+    onContractChange,
+
     onLogoClick
 }) => {
     return (
@@ -34,6 +41,13 @@ const Header = ({
             <nav className="main-header-container">
                 <Breadcrumbs items={breadCrumbs} onClick={onBreadCrumbsClick} />
                 <div className="header-buttons">
+                    <ContractSelect
+                        label={contractLabel}
+                        noContractsMessage={noContractsMessage}
+                        contracts={contracts}
+                        selectedContractId={selectedContractId}
+                        onChange={onContractChange}
+                    />
                     <LanguageSelect locales={locales} value={locale} onChange={onLocaleChange} />
                     <HeaderButton label={logoutLabel} icon="faSignOutAlt" onClickHandler={() => onLogoutClick()} />
                 </div>
@@ -57,6 +71,16 @@ Header.propTypes = {
     locale: PropTypes.string.isRequired,
     onLocaleChange: PropTypes.func,
 
+    contractLabel: PropTypes.string,
+    noContractsMessage: PropTypes.string,
+    contracts: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string
+        })
+    ).isRequired,
+    selectedContractId: PropTypes.string,
+    onContractChange: PropTypes.func,
+
     onLogoClick: PropTypes.func
 };
 
@@ -74,6 +98,11 @@ Header.defaultProps = {
     onLocaleChange: f => f,
     locales: ['EN', 'DE'],
     locale: 'EN',
+
+    contractLabel: 'Contract',
+    noContractsMessage: 'No contract',
+    onContractChange: f => f,
+    contracts: [],
 
     onLogoClick: f => f
 };
