@@ -103,7 +103,7 @@ export class Login extends AbstractContainer {
         const username = router.getQueryParam('username');
 
         return (
-            <div className="login-container" aria-busy={loading}>
+            <main className="login-container" aria-busy={loading}>
                 <div className="login-container-layout">
                     <div className="login-container-hero">
                         <Illustration className="illustration--login" />
@@ -123,7 +123,7 @@ export class Login extends AbstractContainer {
                         />
                     </div>
                 </div>
-            </div>
+            </main>
         );
     }
 }

@@ -35,7 +35,7 @@ describe('<SelectField /> component', () => {
         expect(selectField.find('.select-field-error').text()).toBe('test error');
     });
 
-    it.only('should display options when field in focus', () => {
+    it('should display options when field in focus', () => {
         const selectField = renderComponent({}, mount);
         const eventMock = new Event('click');
         Object.defineProperty(eventMock, 'target', {

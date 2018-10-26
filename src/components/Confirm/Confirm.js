@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import focusManager from 'focus-manager';
+import { KEYBOARD_KEY_VALUES } from '../../constants';
 import './Confirm.css';
-
-const ESC_KEY = 27;
 
 export class Confirm extends React.PureComponent {
     constructor(props) {
@@ -24,7 +23,7 @@ export class Confirm extends React.PureComponent {
     }
 
     escKeyDownHandler(event) {
-        if (event.keyCode === ESC_KEY) {
+        if (event.key === KEYBOARD_KEY_VALUES.ESCAPE) {
             this.props.onCancel();
         }
     }

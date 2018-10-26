@@ -18,7 +18,7 @@ class DisclosureArrow extends React.Component {
             <svg
                 tabIndex={-1}
                 role="button"
-                aria-label="Disclosure content"
+                aria-label="Disclosure control. It is reveal and hide information."
                 className={classNames('disclosure-arrow', { 'disclosure-arrow--expanded': expanded })}
                 onClick={onClick}
                 onKeyUp={event => this.handleArrowEnterPress(event)}

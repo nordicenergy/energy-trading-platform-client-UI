@@ -1,5 +1,6 @@
 export const KEYBOARD_KEY_VALUES = {
     ENTER: 'Enter',
+    ESCAPE: 'Escape',
     BACKSPACE: 'Backspace',
     DELETE: 'Delete',
     ARROW_LEFT: 'ArrowLeft',
