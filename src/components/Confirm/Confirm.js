@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import focusManager from 'focus-manager';
+import { KEYBOARD_KEY_VALUES } from '../../constants';
 
 import './Confirm.css';
 
 export class Confirm extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.escKeyDownHandler = this.escKeyDownHandler.bind(this);
+    }
+
     componentDidUpdate(prevProps) {
         const { show } = this.props;
         const isOpen = !prevProps.show && show;
@@ -18,6 +25,20 @@ export class Confirm extends React.Component {
         if (isClose) {
             return focusManager.release();
         }
+    }
+
+    escKeyDownHandler(event) {
+        if (event.key === KEYBOARD_KEY_VALUES.ESCAPE) {
+            this.props.onCancel();
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.escKeyDownHandler, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.escKeyDownHandler, false);
     }
 
     render() {

@@ -47,10 +47,16 @@ describe('<SelectField /> component', () => {
         selectField.update();
         expect(selectField.find('.options-list-item')).toHaveLength(5);
         expect(selectField.find('.options-list-item--selected')).toHaveLength(1);
+        expect(selectField.hasClass('.options-list-item--hide')).toBeFalsy();
 
         document.body.dispatchEvent(eventMock);
         selectField.update();
-        expect(selectField.find('.options-list-item')).toHaveLength(0);
+        expect(selectField.find('.options-list-item')).toHaveLength(5);
+        expect(selectField.find('.options-list-item--hide')).toHaveLength(1);
+
+        selectField.setState({ isFocused: true });
+        expect(selectField.find('.options-list-item')).toHaveLength(5);
+        expect(selectField.find('.options-list-item--hide')).toHaveLength(0);
     });
 
     it('should not select disabled option', () => {

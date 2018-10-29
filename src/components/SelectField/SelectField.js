@@ -114,7 +114,7 @@ class SelectField extends Component {
                     onClick={onClick}
                     tabIndex={0}
                     role="option"
-                    aria-selected="true"
+                    aria-selected={isSelected}
                     onKeyUp={event => this.handleOptionEnterPress(event, value)}
                 >
                     {label}
@@ -143,6 +143,7 @@ class SelectField extends Component {
             disabled && 'select-field--disabled',
             className
         );
+        const listboxClass = classNames('options-list', !isFocused && 'options-list-item--hide');
         const selectedOption = this.getSelectedOption();
         const labelContent = required ? (
             <Fragment>
@@ -163,11 +164,11 @@ class SelectField extends Component {
                     {label && <label className="select-field-label">{labelContent}</label>}
                     <div
                         className="select-field-input"
-                        role="combobox"
+                        aria-label="Select application locale"
                         aria-expanded={isFocused}
                         aria-controls={listBoxId}
                     >
-                        <div role="button" className="select-control">
+                        <div role="button" className="select-control" aria-label="Show locale options">
                             <strong className="select-control-text">
                                 {typeof selectedOption === 'string'
                                     ? selectedOption
@@ -175,11 +176,9 @@ class SelectField extends Component {
                             </strong>
                             <FontAwesomeIcon className="select-control-icon" icon={faChevronDown} />
                         </div>
-                        {isFocused && (
-                            <ul id={listBoxId} className="options-list" role="listbox">
-                                {this.renderOptions(selectedOption)}
-                            </ul>
-                        )}
+                        <ul id={listBoxId} className={listboxClass} role="listbox">
+                            {this.renderOptions(selectedOption)}
+                        </ul>
                     </div>
                 </div>
                 {error && (

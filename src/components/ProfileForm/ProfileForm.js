@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/fontawesome-free-solid';
 import pick from 'lodash.pick';
@@ -128,9 +129,13 @@ class ProfileForm extends React.PureComponent {
         return !!errors.IBAN || !!errors.sepaApproval;
     }
 
-    renderTabErrorFeedback(id) {
+    renderTabErrorFeedback(id, show) {
+        const classes = classNames(
+            'profile-form-tab-errors-feedback',
+            !show && 'profile-form-tab-errors-feedback--hide'
+        );
         return (
-            <span id={id} className="profile-form-tab-errors-feedback" aria-label="Tab has errors" aria-live="polite">
+            <span id={id} className={classes} aria-label="Tab has errors" aria-live="polite">
                 <FontAwesomeIcon icon={faExclamationTriangle} />
             </span>
         );
@@ -140,6 +145,8 @@ class ProfileForm extends React.PureComponent {
         const { locale, labels, errors } = this.props;
         const { formData } = this.state;
         const selectedTab = this.tabs[this.state.selectedTabIndex];
+        const isPersonalDataTabHasErrors = this.personalDataTabHasErrors();
+        const isPaymentDataTabHasErrors = this.paymentDataTabHasErrors();
 
         return (
             <div className="profile-form">
@@ -154,7 +161,7 @@ class ProfileForm extends React.PureComponent {
                         onClick={() => this.toggleTab(0)}
                     >
                         {labels.personalDataTab}
-                        {this.personalDataTabHasErrors() && this.renderTabErrorFeedback('personalDataTabErrors')}
+                        {this.renderTabErrorFeedback('personalDataTabErrors', isPersonalDataTabHasErrors)}
                     </button>
                     <button
                         id="paymentDataTab"
@@ -166,7 +173,7 @@ class ProfileForm extends React.PureComponent {
                         onClick={() => this.toggleTab(1)}
                     >
                         {labels.paymentDataTab}
-                        {this.paymentDataTabHasErrors() && this.renderTabErrorFeedback('paymentDataTabErrors')}
+                        {this.renderTabErrorFeedback('paymentDataTabErrors', isPaymentDataTabHasErrors)}
                     </button>
                 </div>
                 <div

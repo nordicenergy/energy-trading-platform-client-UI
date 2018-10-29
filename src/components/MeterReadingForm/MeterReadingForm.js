@@ -34,7 +34,7 @@ class MeterReadingForm extends React.PureComponent {
         const { onSubmit } = this.props;
         const { meterReadings, date } = this.state;
 
-        onSubmit({ meterReadings, date: moment.unix(date).format('YYYY-MM-DD') });
+        onSubmit({ meterReadings, date: date ? moment.unix(date).format('YYYY-MM-DD') : null });
     }
 
     handleChange({ name, value }) {

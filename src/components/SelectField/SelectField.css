@@ -130,6 +130,14 @@
     color: var(--label-color);
 }
 
+.options-list-item--hide {
+    display: none;
+}
+
+.profile-form-tab-errors-feedback--hide {
+    display: none;
+}
+
 .options-list-item--disabled {
     background: var(--disabled-select-option-bg-color) !important;
     color: var(--label-color) !important;
