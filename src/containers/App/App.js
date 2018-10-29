@@ -98,12 +98,13 @@ export class App extends React.PureComponent {
     }
 
     handleDeEmphasizedContentClick(target) {
+        const { isMenuBarOpen, isConfigSideBarOpen } = this.state;
         const isContentDeEmphasized = target.classList && target.classList.contains('content--de-emphasized');
-        if (this.state.isMenuBarOpen && isContentDeEmphasized) {
+        if (isMenuBarOpen && isContentDeEmphasized) {
             this.setState({ isMenuBarOpen: false });
         }
 
-        if (this.state.isConfigSideBarOpen && isContentDeEmphasized) {
+        if (isConfigSideBarOpen && isContentDeEmphasized) {
             this.setState({ isConfigSideBarOpen: false });
         }
     }
@@ -123,7 +124,7 @@ export class App extends React.PureComponent {
 
     render() {
         const { locale, contracts, sessionContract, loading } = this.props;
-        const { isConfirmVisible } = this.state;
+        const { isConfirmVisible, isConfigSideBarOpen, isMenuBarOpen } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
         const [, headRoute = '', subRoute] = pathname.split('/');
@@ -239,11 +240,9 @@ export class App extends React.PureComponent {
                 <Header
                     logoutLabel={formatMessage(messages.logoutLabel)}
                     onLogoutClick={() => this.logout(formatMessage(messages.logoutConfirm))}
-                    menuBarIcon={this.state.isMenuBarOpen ? 'faTimes' : 'faBars'}
+                    menuBarIcon={isMenuBarOpen ? 'faTimes' : 'faBars'}
                     menuBarLabel={formatMessage(messages.menuBarLabel)}
-                    onToggleMenuBar={() =>
-                        this.setState(state => ({ isMenuBarOpen: !state.isMenuBarOpen, isConfigSideBarOpen: false }))
-                    }
+                    onToggleMenuBar={() => this.setState({ isMenuBarOpen: !isMenuBarOpen, isConfigSideBarOpen: false })}
                     breadCrumbs={this.props.breadCrumbs}
                     onBreadCrumbsClick={route => this.navigateTo(route)}
                     onLogoClick={() => this.navigateTo(PATHS.overview.path)}
@@ -255,21 +254,21 @@ export class App extends React.PureComponent {
                     onContractChange={contractId => this.setupContract(contractId)}
                     contractLabel={formatMessage(messages.contractLabel)}
                     noContractsMessage={formatMessage(messages.noContractsMessage)}
-                    configSideBarIcon={this.state.isConfigSideBarOpen ? 'faTimes' : 'faEllipsisV'}
+                    configSideBarIcon={isConfigSideBarOpen ? 'faTimes' : 'faEllipsisV'}
                     configSideLabel={formatMessage(messages.configSideBarLabel)}
                     onToggleConfigSideBar={() =>
-                        this.setState(state => ({
-                            isConfigSideBarOpen: !state.isConfigSideBarOpen,
+                        this.setState({
+                            isConfigSideBarOpen: !isConfigSideBarOpen,
                             isMenuBarOpen: false
-                        }))
+                        })
                     }
                 />
                 <div
                     className={classNames({
                         content: true,
-                        'covered-by-menu': this.state.isMenuBarOpen,
-                        'covered-by-config-sidebar': this.state.isConfigSideBarOpen,
-                        'content--de-emphasized': this.state.isMenuBarOpen || this.state.isConfigSideBarOpen
+                        'covered-by-menu': isMenuBarOpen,
+                        'covered-by-config-sidebar': isConfigSideBarOpen,
+                        'content--de-emphasized': isMenuBarOpen || isConfigSideBarOpen
                     })}
                     onClick={event => this.handleDeEmphasizedContentClick(event.target)}
                 >
@@ -277,7 +276,7 @@ export class App extends React.PureComponent {
                         aria-live="polite"
                         className={classNames({
                             'menu-container': true,
-                            'menu-container--opened': this.state.isMenuBarOpen
+                            'menu-container--opened': isMenuBarOpen
                         })}
                     >
                         <MenuSideBar
@@ -298,10 +297,10 @@ export class App extends React.PureComponent {
                     </div>
                     <div
                         aria-live="polite"
-                        aria-hidden={!this.state.isConfigSideBarOpen}
+                        aria-hidden={!isConfigSideBarOpen}
                         className={classNames({
                             'right-config-sidebar': true,
-                            'right-config-sidebar--opened': this.state.isConfigSideBarOpen
+                            'right-config-sidebar--opened': isConfigSideBarOpen
                         })}
                     >
                         <div className="config-items">
