@@ -134,7 +134,7 @@ class SelectField extends Component {
     }
 
     render() {
-        const { id, className, label, disabled, required, error } = this.props;
+        const { id = Date.now(), className, label, assistiveLabel, disabled, required, error } = this.props;
         const { isFocused } = this.getState();
         const listBoxId = `listbox-${id}`;
         const classes = classNames(
@@ -164,11 +164,11 @@ class SelectField extends Component {
                     {label && <label className="select-field-label">{labelContent}</label>}
                     <div
                         className="select-field-input"
-                        aria-label="Select application locale"
+                        aria-label={label || assistiveLabel}
                         aria-expanded={isFocused}
                         aria-controls={listBoxId}
                     >
-                        <div role="button" className="select-control" aria-label="Show locale options">
+                        <div role="button" className="select-control" aria-label="Show select options">
                             <strong className="select-control-text">
                                 {typeof selectedOption === 'string'
                                     ? selectedOption
@@ -196,6 +196,7 @@ SelectField.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
     label: PropTypes.string,
+    assistiveLabel: PropTypes.string,
     options: PropTypes.arrayOf(OptionPropType),
     defaultValue: OptionPropType,
     value: OptionPropType,
@@ -206,7 +207,7 @@ SelectField.propTypes = {
     supportEmptyValue: PropTypes.bool
 };
 SelectField.defaultProps = {
-    id: Date.now(),
+    assistiveLabel: 'Select control',
     options: [],
     defaultValue: '',
     supportEmptyValue: false

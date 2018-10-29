@@ -15,9 +15,10 @@ class ContractSelect extends Component {
         const classes = classNames('contract-select', className);
 
         return (
-            <div className={classes} aria-label={label}>
+            <div className={classes}>
                 {!!contracts.length ? (
                     <SelectField
+                        assistiveLabel={label}
                         className="select-field--contract"
                         options={contracts.map(({ id }) => ({ value: id, label: `${label} #${id}` }))}
                         value={selectedContractId}
