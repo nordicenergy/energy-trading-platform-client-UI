@@ -1,7 +1,7 @@
 Header example:
 
 ```jsx
-<Header locales={['en', 'de']} locale="en" onLocaleChange={() => null} />
+<Header locales={['en', 'de']} contracts={[]} locale="en" onLocaleChange={() => null} />
 ```
 
 Header example with breadcrumbs:
@@ -28,5 +28,13 @@ const iconsTypes = {
     trading: 'faChartBar',
     profile: 'faUser'
 };
-<Header breadCrumbs={breadCrumbs} iconsTypes={iconsTypes} locales={['en', 'de']} locale="en" onLocaleChange={() => null} />;
+<Header 
+    breadCrumbs={breadCrumbs}
+    iconsTypes={iconsTypes}
+    locales={['en', 'de']}
+    locale="en"
+    onLocaleChange={() => null}
+    contracts={[{ id: '1046464' }, { id: '1045645' }, { id: '15555' }]}
+    selectedContractId={'1046464'}
+    onContractChange={f => f} />;
 ```

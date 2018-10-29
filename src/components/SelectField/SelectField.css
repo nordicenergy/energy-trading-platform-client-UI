@@ -110,7 +110,9 @@
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: 0.125rem 1.5rem 0;
+    /* padding: 0.125rem 1.5rem 0;*/
+    word-break: break-all;
+    padding: 1em;
     height: 3.5rem;
     border-bottom: var(--border-width) solid var(--input-border-color);
     background: white;

@@ -6,7 +6,8 @@ export const KEYBOARD_KEY_VALUES = {
     ARROW_LEFT: 'ArrowLeft',
     ARROW_RIGHT: 'ArrowRight',
     HOME: 'Home',
-    END: 'End'
+    END: 'End',
+    Q: 'KeyQ'
 };
 
 export const MOUSE_BUTTONS_VALUES = {

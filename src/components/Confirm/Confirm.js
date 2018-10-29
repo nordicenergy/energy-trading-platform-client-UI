@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import focusManager from 'focus-manager';
 import { KEYBOARD_KEY_VALUES } from '../../constants';
+
 import './Confirm.css';
 
-export class Confirm extends React.PureComponent {
+export class Confirm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -15,11 +16,15 @@ export class Confirm extends React.PureComponent {
     componentDidUpdate(prevProps) {
         const { show } = this.props;
         const isOpen = !prevProps.show && show;
+        const isClose = prevProps.show && !show;
 
         if (isOpen) {
             return focusManager.capture(this.modal);
         }
-        focusManager.release();
+
+        if (isClose) {
+            return focusManager.release();
+        }
     }
 
     escKeyDownHandler(event) {

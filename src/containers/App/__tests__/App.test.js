@@ -3,6 +3,8 @@ import { App } from '../App';
 import { Header, MenuSideBar, Footer } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
 import * as appActions from '../../../action_performers/app';
+import * as contractsActions from '../../../action_performers/contracts';
+import * as notificationsActions from '../../../action_performers/notifications';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 
 const context = {
@@ -21,9 +23,13 @@ describe('Main <App /> Component', () => {
         context.router.history.push = jest.fn();
         context.intl.formatMessage = jest.fn();
         usersActions.performLogout = jest.fn();
+        usersActions.performGetUserData = jest.fn();
+        contractsActions.performGetSessionContract = jest.fn();
+        contractsActions.performGetContracts = jest.fn();
+        contractsActions.performSetSessionContract = jest.fn();
         appActions.performSetupLocale = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
-        window.confirm = () => true;
+        notificationsActions.performPushNotification = jest.fn();
     });
 
     afterEach(() => {
@@ -46,6 +52,23 @@ describe('Main <App /> Component', () => {
 
     it('should returns correct props', () => {
         const stateMock = {
+            Contracts: {
+                contracts: {
+                    loading: false,
+                    error: null,
+                    data: [{ id: 'testContractId' }]
+                },
+                sessionContract: {
+                    loading: false,
+                    error: null,
+                    data: { id: 'testContractId' }
+                },
+                updatedSessionContract: {
+                    loading: false,
+                    error: 'Update Error',
+                    data: { id: 'testContractId' }
+                }
+            },
             Users: {
                 profile: {
                     data: {
@@ -74,7 +97,18 @@ describe('Main <App /> Component', () => {
         };
         const props = App.mapStateToProps(stateMock);
 
-        expect(props).toEqual({ user: { id: 1 }, loggingOut: false, breadCrumbs: [], locale: 'en', loading: false });
+        expect(props).toEqual({
+            breadCrumbs: [],
+            contracts: [{ id: 'testContractId' }],
+            errorContracts: null,
+            errorSetContract: 'Update Error',
+            loading: false,
+            locale: 'en',
+            loggingOut: false,
+            sessionContract: { id: 'testContractId' },
+            updatedSessionContract: { id: 'testContractId' },
+            user: { id: 1 }
+        });
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {
@@ -96,6 +130,30 @@ describe('Main <App /> Component', () => {
         expect(usersActions.performLogout.mock.calls.length).toEqual(1);
         const [[route]] = context.router.history.push.mock.calls;
         expect(route).toEqual('/login');
+    });
+
+    it('should correctly handle cases when working contracts is absent', () => {
+        const component = renderComponent({ ...context, contracts: [], sessionContract: { id: '100020' } });
+        component.setContext(context);
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        expect(component.find('ContractModal').props().show).toEqual(true);
+        expect(component.find('ContractModal').props().labels).toEqual({
+            contractMessage: 'To continue, please select a contract.',
+            noContractMessage: 'There are no contracts available, please contact administrator to resolve the issue.',
+            selectLabel: 'Select contract'
+        });
+
+        component.setProps({ contracts: [{ id: '100020' }], sessionContract: null, user: { id: 'testId' } });
+        expect(component.find('ContractModal').props().show).toEqual(true);
+        component
+            .find('ContractModal')
+            .props()
+            .onSelect({ value: '100020' });
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledWith('testId', '100020');
+
+        component.setProps({ contracts: [{ id: '100020' }], sessionContract: { id: '100020' } });
+        expect(component.find('ContractModal').props().show).toEqual(false);
     });
 
     it('should setup correct callbacks and handle related events for MenuSideBar', () => {
@@ -229,6 +287,57 @@ describe('Main <App /> Component', () => {
         const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
         expect(firstCallArg).toBeTruthy();
         expect(secondCallArg).toBeFalsy();
+    });
+
+    it('should calls contracts action performers when receive new user data', () => {
+        const app = renderComponent();
+        expect(usersActions.performGetUserData).toHaveBeenCalledTimes(1);
+        expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(0);
+        expect(contractsActions.performGetContracts).toHaveBeenCalledTimes(0);
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        app.setProps({ user: { id: 'testId' } });
+        expect(contractsActions.performGetSessionContract).toHaveBeenCalledWith('testId');
+        expect(contractsActions.performGetContracts).toHaveBeenCalledWith('testId');
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        app.setProps({ contracts: [{ id: '0123' }, { id: '0124' }], sessionContract: { id: '0123' } });
+        expect(app.find('Header').props().selectedContractId).toEqual('0123');
+        expect(app.find('Header').props().contracts).toEqual([{ id: '0123' }, { id: '0124' }]);
+
+        app
+            .find('Header')
+            .props()
+            .onContractChange('0123');
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        app
+            .find('Header')
+            .props()
+            .onContractChange('0124');
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledWith('testId', '0124');
+
+        expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(1);
+        app.setProps({ updatedSessionContract: { id: '0124' } });
+        expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(2);
+    });
+
+    it('should correctly handle errors using notifications', () => {
+        const app = renderComponent();
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledTimes(0);
+        app.setProps({ errorContracts: { message: 'Internal Server Error' } });
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledWith({
+            message:
+                'An error occurred while getting contracts data. Please try to refresh page later or contact administrator.',
+            type: 'error'
+        });
+        app.setProps({ errorSetContract: { message: 'Internal Server Error' } });
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledTimes(2);
+        expect(notificationsActions.performPushNotification).toHaveBeenCalledWith({
+            message:
+                'An error occurred while getting contracts data. Please try to refresh page later or contact administrator.',
+            type: 'error'
+        });
     });
 
     it('should navigate to overview page', () => {

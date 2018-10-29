@@ -246,15 +246,15 @@ describe('<MyProducer /> Component', () => {
         const [[arg1]] = producersActions.performGetProducer.mock.calls;
         expect(arg1).toEqual(1);
 
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
-        const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
+        const [, [bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
             { icon: 'faHome', id: '', label: 'Overview', path: '/' },
             { id: 'my_producer', label: 'My Producer', path: '/my_producer' }
         ]);
 
         const component = renderComponent();
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(4);
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(2);
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(2);
         component.setProps({
@@ -309,12 +309,12 @@ describe('<MyProducer /> Component', () => {
     it('should setup translated breadcrumbs when locale changed', () => {
         const myProducer = renderComponent();
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
 
         myProducer.setProps({
             locale: 'de'
         });
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(3);
     });
 });

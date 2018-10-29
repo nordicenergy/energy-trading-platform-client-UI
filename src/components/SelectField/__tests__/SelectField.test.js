@@ -139,4 +139,12 @@ describe('<SelectField /> component', () => {
 
         document.body.removeEventListener.mockRestore();
     });
+
+    it('should provide possibility to render select with empty value by default', () => {
+        const selectFieldWithEmptyValue = renderComponent({ value: null, supportEmptyValue: true });
+        expect(selectFieldWithEmptyValue.find('strong.select-control-text').text()).toEqual('');
+
+        const selectField = renderComponent({ value: null, supportEmptyValue: false });
+        expect(selectField.find('strong.select-control-text').text()).toEqual(optionsDummy[0].label);
+    });
 });

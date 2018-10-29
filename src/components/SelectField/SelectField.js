@@ -64,7 +64,7 @@ class SelectField extends Component {
     }
 
     getSelectedOption() {
-        const { options } = this.props;
+        const { options, supportEmptyValue } = this.props;
         const { value } = this.getState();
         const [selectedOption = {}] = options;
 
@@ -73,6 +73,10 @@ class SelectField extends Component {
             if (value === option.value || value === option) {
                 return option;
             }
+        }
+
+        if (supportEmptyValue) {
+            return '';
         }
 
         return selectedOption;
@@ -198,12 +202,14 @@ SelectField.propTypes = {
     required: PropTypes.bool,
     error: PropTypes.string,
     onChange: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    supportEmptyValue: PropTypes.bool
 };
 SelectField.defaultProps = {
     id: Date.now(),
     options: [],
-    defaultValue: ''
+    defaultValue: '',
+    supportEmptyValue: false
 };
 
 export default SelectField;

@@ -6,9 +6,11 @@ import { notificationsReducer } from './notifications';
 import { transactionsReducer } from './transactions';
 import { documentsReducer } from './documents';
 import { consumptionReducer } from './consumption';
+import { contractsReducer } from './contracts';
 
 const reducers = combineReducers({
     Users: usersReducer,
+    Contracts: contractsReducer,
     Notifications: notificationsReducer,
     Transactions: transactionsReducer,
     Producers: producersReducer,

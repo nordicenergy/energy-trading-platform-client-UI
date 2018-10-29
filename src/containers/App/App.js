@@ -5,19 +5,36 @@ import { connect } from 'react-redux';
 import { LOCALES, DEFAULT_LOCALE, CONTRACT_STATUSES } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { performSetupLocale, performSetupLoaderVisibility } from '../../action_performers/app';
-import { performLogout } from '../../action_performers/users';
+import { performPushNotification } from '../../action_performers/notifications';
+import {
+    performGetSessionContract,
+    performSetSessionContract,
+    performGetContracts
+} from '../../action_performers/contracts';
+import { performLogout, performGetUserData } from '../../action_performers/users';
 import { App as messages } from '../../services/translations/messages';
-import { MenuSideBar, Header, Footer, Confirm } from '../../components';
+import { MenuSideBar, Header, Footer, Confirm, ContractModal } from '../../components';
 import './App.css';
 
 export class App extends React.PureComponent {
-    static mapStateToProps({ Users, App }) {
+    static mapStateToProps({ Users, App, Contracts }) {
         return {
             loggingOut: Users.logout.loading,
             user: Users.profile.data.user,
             breadCrumbs: App.breadCrumbs.data,
-            loading: App.localization.loading.faq || App.localization.loading.aboutUs,
-            locale: App.localization.data.locale
+            loading:
+                App.localization.loading.faq ||
+                App.localization.loading.aboutUs ||
+                Users.profile.loading ||
+                Contracts.contracts.loading ||
+                Contracts.sessionContract.loading ||
+                Contracts.updatedSessionContract.loading,
+            locale: App.localization.data.locale,
+            contracts: Contracts.contracts.data,
+            sessionContract: Contracts.sessionContract.data,
+            updatedSessionContract: Contracts.updatedSessionContract.data,
+            errorContracts: Users.profile.error || Contracts.contracts.error || Contracts.sessionContract.error,
+            errorSetContract: Contracts.updatedSessionContract.error
         };
     }
 
@@ -26,12 +43,38 @@ export class App extends React.PureComponent {
         this.state = { isConfirmVisible: false, isMenuBarOpen: false };
     }
 
+    componentDidMount() {
+        performGetUserData();
+    }
+
     componentDidUpdate(prevProps) {
-        const { loggingOut, loading } = this.props;
+        const { formatMessage } = this.context.intl;
+        const { loggingOut, loading, user, updatedSessionContract, errorContracts, errorSetContract } = this.props;
         const loggedOut = prevProps.loggingOut !== loggingOut && !loggingOut;
 
         if (loggedOut) {
             this.navigateTo('/login');
+        }
+
+        if (
+            prevProps.updatedSessionContract !== updatedSessionContract &&
+            updatedSessionContract &&
+            updatedSessionContract.id
+        ) {
+            performGetSessionContract(user.id);
+        }
+
+        if (prevProps.user !== user && user && user.id) {
+            performGetContracts(user.id);
+            performGetSessionContract(user.id);
+        }
+
+        if (errorContracts && errorContracts !== prevProps.errorContracts) {
+            performPushNotification({ message: formatMessage(messages.loadingContractsErrorMessage), type: 'error' });
+        }
+
+        if (errorSetContract && errorSetContract !== prevProps.errorSetContract) {
+            performPushNotification({ message: formatMessage(messages.setContractErrorMessage), type: 'error' });
         }
 
         if (prevProps.loading !== loading) {
@@ -61,8 +104,17 @@ export class App extends React.PureComponent {
         this.context.router.history.push(route);
     }
 
+    setupContract(contractId) {
+        const { sessionContract, user } = this.props;
+        const userId = user && user.id;
+        const newContractSelected = !sessionContract || contractId !== sessionContract.id;
+        if (userId && newContractSelected) {
+            performSetSessionContract(userId, contractId);
+        }
+    }
+
     render() {
-        const { locale } = this.props;
+        const { locale, contracts, sessionContract, loading } = this.props;
         const { isConfirmVisible } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
@@ -152,8 +204,20 @@ export class App extends React.PureComponent {
             }
         ];
 
+        const haveNoWorkingContracts = !contracts.length || !sessionContract || !sessionContract.id;
+
         return (
             <div className="app">
+                <ContractModal
+                    labels={{
+                        contractMessage: formatMessage(messages.contractMessage),
+                        noContractMessage: formatMessage(messages.noContractMessage),
+                        selectLabel: formatMessage(messages.selectContractMessage)
+                    }}
+                    contracts={contracts}
+                    onSelect={({ value }) => this.setupContract(value)}
+                    show={!loading && haveNoWorkingContracts}
+                />
                 <Confirm
                     labels={{
                         message: formatMessage(messages.logoutConfirmMessage),
@@ -176,6 +240,11 @@ export class App extends React.PureComponent {
                     locales={LOCALES}
                     locale={locale || DEFAULT_LOCALE}
                     onLocaleChange={locale => performSetupLocale(locale)}
+                    contracts={contracts}
+                    selectedContractId={(sessionContract && sessionContract.id) || ''}
+                    onContractChange={contractId => this.setupContract(contractId)}
+                    contractLabel={formatMessage(messages.contractLabel)}
+                    noContractsMessage={formatMessage(messages.noContractsMessage)}
                 />
                 <div
                     className={classNames({
@@ -221,10 +290,19 @@ App.propTypes = {
     loggingOut: PropTypes.bool,
     user: PropTypes.object,
     locale: PropTypes.string,
+    contracts: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string
+        })
+    ),
+    sessionContract: PropTypes.shape({
+        id: PropTypes.string
+    }),
     loading: PropTypes.bool
 };
 App.defaultProps = {
     user: {},
+    contracts: [],
     loading: false
 };
 
