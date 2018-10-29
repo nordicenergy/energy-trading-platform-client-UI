@@ -75,10 +75,3 @@
 .select-field--contract .options-list-item {
     justify-content: center;
 }
-
-@media (max-width: 767px) {
-    .contract-select {
-        /* TODO TBD mobile representation */
-        display: none;
-    }
-}

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/fontawesome-free-solid';
 import { LOCALES, DEFAULT_LOCALE, CONTRACT_STATUSES } from '../../constants';
 import { PATHS } from '../../services/routes';
 import { performSetupLocale, performSetupLoaderVisibility } from '../../action_performers/app';
@@ -13,8 +15,9 @@ import {
 } from '../../action_performers/contracts';
 import { performLogout, performGetUserData } from '../../action_performers/users';
 import { App as messages } from '../../services/translations/messages';
-import { MenuSideBar, Header, Footer, Confirm, ContractModal } from '../../components';
+import { MenuSideBar, Header, Footer, Confirm, ContractModal, SelectField } from '../../components';
 import './App.css';
+import Button from '../../components/Button';
 
 export class App extends React.PureComponent {
     static mapStateToProps({ Users, App, Contracts }) {
@@ -40,7 +43,7 @@ export class App extends React.PureComponent {
 
     constructor(props, context) {
         super(props, context);
-        this.state = { isConfirmVisible: false, isMenuBarOpen: false };
+        this.state = { isConfirmVisible: false, isMenuBarOpen: false, isConfigSideBarOpen: false };
     }
 
     componentDidMount() {
@@ -95,8 +98,13 @@ export class App extends React.PureComponent {
     }
 
     handleDeEmphasizedContentClick(target) {
-        if (this.state.isMenuBarOpen && target.classList && target.classList.contains('content--de-emphasized')) {
+        const isContentDeEmphasized = target.classList && target.classList.contains('content--de-emphasized');
+        if (this.state.isMenuBarOpen && isContentDeEmphasized) {
             this.setState({ isMenuBarOpen: false });
+        }
+
+        if (this.state.isConfigSideBarOpen && isContentDeEmphasized) {
+            this.setState({ isConfigSideBarOpen: false });
         }
     }
 
@@ -231,9 +239,11 @@ export class App extends React.PureComponent {
                 <Header
                     logoutLabel={formatMessage(messages.logoutLabel)}
                     onLogoutClick={() => this.logout(formatMessage(messages.logoutConfirm))}
-                    menuBarIcon={this.state.isMenuBarOpen ? 'faArrowRight' : 'faBars'}
+                    menuBarIcon={this.state.isMenuBarOpen ? 'faTimes' : 'faBars'}
                     menuBarLabel={formatMessage(messages.menuBarLabel)}
-                    onToggleMenuBar={() => this.setState(state => ({ isMenuBarOpen: !state.isMenuBarOpen }))}
+                    onToggleMenuBar={() =>
+                        this.setState(state => ({ isMenuBarOpen: !state.isMenuBarOpen, isConfigSideBarOpen: false }))
+                    }
                     breadCrumbs={this.props.breadCrumbs}
                     onBreadCrumbsClick={route => this.navigateTo(route)}
                     onLogoClick={() => this.navigateTo(PATHS.overview.path)}
@@ -245,11 +255,21 @@ export class App extends React.PureComponent {
                     onContractChange={contractId => this.setupContract(contractId)}
                     contractLabel={formatMessage(messages.contractLabel)}
                     noContractsMessage={formatMessage(messages.noContractsMessage)}
+                    configSideBarIcon={this.state.isConfigSideBarOpen ? 'faTimes' : 'faEllipsisV'}
+                    configSideLabel={formatMessage(messages.configSideBarLabel)}
+                    onToggleConfigSideBar={() =>
+                        this.setState(state => ({
+                            isConfigSideBarOpen: !state.isConfigSideBarOpen,
+                            isMenuBarOpen: false
+                        }))
+                    }
                 />
                 <div
                     className={classNames({
                         content: true,
-                        'content--de-emphasized': this.state.isMenuBarOpen
+                        'covered-by-menu': this.state.isMenuBarOpen,
+                        'covered-by-config-sidebar': this.state.isConfigSideBarOpen,
+                        'content--de-emphasized': this.state.isMenuBarOpen || this.state.isConfigSideBarOpen
                     })}
                     onClick={event => this.handleDeEmphasizedContentClick(event.target)}
                 >
@@ -275,6 +295,45 @@ export class App extends React.PureComponent {
                             navItems={footerItems}
                             onSelect={href => this.navigateTo(href)}
                         />
+                    </div>
+                    <div
+                        aria-live="polite"
+                        aria-hidden={!this.state.isConfigSideBarOpen}
+                        className={classNames({
+                            'right-config-sidebar': true,
+                            'right-config-sidebar--opened': this.state.isConfigSideBarOpen
+                        })}
+                    >
+                        <div className="config-items">
+                            <SelectField
+                                className="config-contract-select"
+                                name="current-contract"
+                                label={formatMessage(messages.selectContractMessage)}
+                                options={contracts.map(({ id }) => ({ value: id, label: `#${id}` }))}
+                                value={(sessionContract && sessionContract.id) || ''}
+                                onChange={({ value }) => this.setupContract(value)}
+                                supportEmptyValue
+                            />
+
+                            <SelectField
+                                className="config-contract-select"
+                                name="current-locale"
+                                label={formatMessage(messages.selectLocaleMessage)}
+                                options={LOCALES}
+                                value={locale || DEFAULT_LOCALE}
+                                onChange={({ value }) => performSetupLocale(value)}
+                                supportEmptyValue
+                            />
+                            <div className="config-logout-btn">
+                                <Button
+                                    type="primary"
+                                    onClick={() => this.logout(formatMessage(messages.logoutConfirm))}
+                                >
+                                    <FontAwesomeIcon icon={faSignOutAlt} />
+                                    <span>{formatMessage(messages.logoutLabel)}</span>
+                                </Button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
