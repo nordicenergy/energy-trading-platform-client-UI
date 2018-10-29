@@ -65,6 +65,10 @@ const messages = defineMessages({
         id: 'app.header.menuBarLabel',
         defaultMessage: 'Toggle menu sidebar'
     },
+    configSideBarLabel: {
+        id: 'app.header.configSideBarLabel',
+        defaultMessage: 'Toggle config sidebar'
+    },
     contractMessage: {
         id: 'app.contractModal.contractMessage',
         defaultMessage: 'To continue, please select a contract.'
@@ -76,6 +80,10 @@ const messages = defineMessages({
     selectContractMessage: {
         id: 'app.contractModal.selectContractMessage',
         defaultMessage: 'Select contract'
+    },
+    selectLocaleMessage: {
+        id: 'app.header.selectLocaleMessage',
+        defaultMessage: 'Select Locale'
     },
     logoutConfirmMessage: {
         id: 'app.header.logoutConfirmMessage',

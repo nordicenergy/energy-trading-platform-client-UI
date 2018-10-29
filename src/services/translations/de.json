@@ -70,11 +70,13 @@
         "Es sind keine Aufträge vorhanden. Bitte wende dich an den Administrator, um das Problem zu beheben.",
     "app.contractModal.selectContractMessage": "Wähle einen Auftrag aus",
 
+    "app.header.selectLocaleMessage": "Wählen Sie das Gebietsschema",
     "app.header.logoutConfirm": "Bist Du sicher, dass Du dich vom Portal abmelden möchtest?",
     "app.header.logoutLabel": "Logout",
     "app.header.contractLabel": "Vertrag",
     "app.header.noContractsMessage": "Keine Verträge",
     "app.header.menuBarLabel": "Sidebar-Menü umschalten",
+    "app.header.configSideBarLabel": "Sidebar-Config umschalten",
 
     "app.menuBar.overview": "Überblick",
     "app.menuBar.documents": "Meine Dokumente",

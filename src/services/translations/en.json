@@ -69,6 +69,7 @@
     "app.header.contractLabel": "Contract",
     "app.header.noContractsMessage": "No contracts",
     "app.header.menuBarLabel": "Toggle menu sidebar",
+    "app.header.configSideBarLabel": "Toggle config sidebar",
 
     "app.menuBar.overview": "Overview",
     "app.menuBar.documents": "My Documents",
@@ -187,6 +188,7 @@
         "There are no contracts available, please contact administrator to resolve the issue.",
     "app.contractModal.selectContractMessage": "Select contract",
 
+    "app.header.selectLocaleMessage": "Select locale",
     "app.header.logoutConfirmMessage": "Are you sure that you'd like to logout from the system?",
     "app.header.logoutConfirmButton": "Yes",
     "app.header.logoutCancelButton": "No",

@@ -255,6 +255,8 @@ describe('Main <App /> Component', () => {
 
     it('should provide possibility to de-emphasize content area and revert this option', () => {
         const component = renderComponent();
+        expect(component.update().find('.covered-by-menu')).toHaveLength(0);
+        expect(component.update().find('.covered-by-config-sidebar')).toHaveLength(0);
         expect(component.find('.content--de-emphasized')).toHaveLength(0);
 
         component
@@ -262,6 +264,7 @@ describe('Main <App /> Component', () => {
             .at(0)
             .props()
             .onToggleMenuBar();
+        expect(component.update().find('.covered-by-menu')).toHaveLength(1);
         expect(component.update().find('.content--de-emphasized')).toHaveLength(1);
 
         component
@@ -275,6 +278,29 @@ describe('Main <App /> Component', () => {
                     }
                 }
             });
+        expect(component.update().find('.covered-by-menu')).toHaveLength(0);
+        expect(component.update().find('.content--de-emphasized')).toHaveLength(0);
+
+        component
+            .find(Header)
+            .at(0)
+            .props()
+            .onToggleConfigSideBar();
+        expect(component.update().find('.covered-by-config-sidebar')).toHaveLength(1);
+        expect(component.update().find('.content--de-emphasized')).toHaveLength(1);
+
+        component
+            .find('.content')
+            .at(0)
+            .props()
+            .onClick({
+                target: {
+                    classList: {
+                        contains: className => 'content--de-emphasized' === className
+                    }
+                }
+            });
+        expect(component.update().find('.covered-by-config-sidebar')).toHaveLength(0);
         expect(component.update().find('.content--de-emphasized')).toHaveLength(0);
     });
 

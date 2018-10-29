@@ -11,6 +11,7 @@ const breadCrumbsClickStub = jest.fn();
 const logoutClickStub = jest.fn();
 const localeChangeStub = jest.fn();
 const menuBarToggleStub = jest.fn();
+const configSideBarToggleStub = jest.fn();
 const logoClickStub = jest.fn();
 
 function renderComponent(
@@ -22,6 +23,9 @@ function renderComponent(
         locale = localeDummy,
         onLocaleChange = localeChangeStub,
         onToggleMenuBar = menuBarToggleStub,
+        configSideBarIcon = 'faTimes',
+        configSideBarLabel = 'Test Sidebar Label',
+        onToggleConfigSideBar = configSideBarToggleStub,
         ...otherProps
     } = {},
     mountFn = mount
@@ -34,6 +38,9 @@ function renderComponent(
             locale={locale}
             onLocaleChange={onLocaleChange}
             onToggleMenuBar={onToggleMenuBar}
+            configSideBarIcon={configSideBarIcon}
+            configSideBarLabel={configSideBarLabel}
+            onToggleConfigSideBar={onToggleConfigSideBar}
             onLogoClick={onLogoClick}
             {...otherProps}
         />
@@ -47,17 +54,20 @@ describe('<Header /> Component', () => {
         localeChangeStub.mockClear();
         menuBarToggleStub.mockClear();
         logoClickStub.mockClear();
+        configSideBarToggleStub.mockClear();
     });
 
     it(`should contains following controls:
         - header with class "header-desktop";
         - Logo;
         - LanguageSelect;
+        - ContractSelect;
         - HeaderButton`, () => {
         const header = renderComponent({});
 
+        expect(header.find('ContractSelect')).toHaveLength(1);
         expect(header.find('LanguageSelect')).toHaveLength(1);
-        expect(header.find('HeaderButton')).toHaveLength(2);
+        expect(header.find('HeaderButton')).toHaveLength(3);
         expect(header.find('Logo')).toHaveLength(1);
         expect(header.find('header.header-desktop')).toHaveLength(1);
     });
@@ -100,6 +110,16 @@ describe('<Header /> Component', () => {
         expect(menuBarToggleStub).toHaveBeenCalled();
     });
 
+    it('should handle config side bar toggling', () => {
+        const header = renderComponent();
+        header
+            .find('HeaderButton')
+            .at(2)
+            .find('button')
+            .simulate('click');
+        expect(configSideBarToggleStub).toHaveBeenCalled();
+    });
+
     it('should handle logo clicking', () => {
         const header = renderComponent();
         header
@@ -124,6 +144,11 @@ describe('<Header /> Component', () => {
         header
             .find('HeaderButton')
             .at(1)
+            .find('button')
+            .simulate('click');
+        header
+            .find('HeaderButton')
+            .at(2)
             .find('button')
             .simulate('click');
         header

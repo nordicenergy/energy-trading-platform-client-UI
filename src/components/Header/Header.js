@@ -15,6 +15,10 @@ const Header = ({
     menuBarLabel,
     onToggleMenuBar,
 
+    configSideBarIcon,
+    configSideBarLabel,
+    onToggleConfigSideBar,
+
     logoutLabel,
     onLogoutClick,
 
@@ -52,6 +56,13 @@ const Header = ({
                     <HeaderButton label={logoutLabel} icon="faSignOutAlt" onClickHandler={() => onLogoutClick()} />
                 </div>
             </nav>
+            <div aria-live="polite" className="header-config-button">
+                <HeaderButton
+                    label={configSideBarLabel}
+                    icon={configSideBarIcon}
+                    onClickHandler={() => onToggleConfigSideBar()}
+                />
+            </div>
         </header>
     );
 };
@@ -91,6 +102,10 @@ Header.defaultProps = {
     menuBarIcon: 'faBars',
     menuBarLabel: 'Toggle Menu Bar',
     onToggleMenuBar: f => f,
+
+    configSideBarIcon: 'faEllipsisV',
+    configSideBarLabel: 'Configuration Side Bar',
+    onToggleConfigSideBar: f => f,
 
     breadCrumbs: [],
     onBreadCrumbsClick: f => f,
