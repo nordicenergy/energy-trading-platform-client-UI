@@ -10,10 +10,10 @@ const optionsDummy = [
     { value: 'renewable', label: 'Renewable' }
 ];
 function renderComponent(
-    { id = 'test', name = 'test', label = 'Test label', options = optionsDummy, ...otherProps } = {},
+    { id = 'test', name = 'test', label, assistiveLabel, options = optionsDummy, ...otherProps } = {},
     mountFn = shallow
 ) {
-    return mountFn(<SelectField id={id} name={name} label={label} options={options} {...otherProps} />);
+    return mountFn(<SelectField id={id} name={name} label={label} assistiveLabel={assistiveLabel} options={options} {...otherProps} />);
 }
 
 describe('<SelectField /> component', () => {
@@ -24,7 +24,7 @@ describe('<SelectField /> component', () => {
     });
 
     it('should render with asterisk if select field is required', () => {
-        const selectField = renderComponent({ required: true });
+        const selectField = renderComponent({ required: true, label: 'Test label' });
 
         expect(selectField.find('.select-field-asterisk')).toHaveLength(1);
     });
@@ -146,5 +146,14 @@ describe('<SelectField /> component', () => {
 
         const selectField = renderComponent({ value: null, supportEmptyValue: false });
         expect(selectField.find('strong.select-control-text').text()).toEqual(optionsDummy[0].label);
+    });
+
+    it('should set assistive label to aria attribute', () => {
+        const selectField = renderComponent({ assistiveLabel: 'assistive label' });
+        expect(selectField.find('.select-field-input').prop('aria-label')).toEqual('assistive label');
+
+        selectField.setProps({ label: 'label' });
+
+        expect(selectField.find('.select-field-input').prop('aria-label')).toEqual('label');
     });
 });

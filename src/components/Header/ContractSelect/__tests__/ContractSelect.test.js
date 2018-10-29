@@ -50,7 +50,9 @@ describe('<ContractSelect /> component', () => {
     });
 
     it('should provide property to select field in original case', () => {
-        const select = renderComponent({ selectedContractId: '10022' });
-        expect(select.find('SelectField').props().value).toEqual('10022');
+        const select = renderComponent({ selectedContractId: '10022', label: 'assistive label' });
+        const selectField = select.find('SelectField');
+        expect(selectField.props().value).toEqual('10022');
+        expect(selectField.props().assistiveLabel).toEqual('assistive label');
     });
 });

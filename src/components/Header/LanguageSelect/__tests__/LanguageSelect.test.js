@@ -43,6 +43,8 @@ describe('<LanguageSelect /> component', () => {
 
     it('should provide property to select field in original case', () => {
         const languageSelect = renderComponent({ value: 'En' });
-        expect(languageSelect.find('SelectField').props().value).toEqual('En');
+        const selectField = languageSelect.find('SelectField');
+        expect(selectField.props().value).toEqual('En');
+        expect(selectField.props().assistiveLabel).toEqual('Select application locale');
     });
 });
