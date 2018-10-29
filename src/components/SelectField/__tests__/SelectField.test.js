@@ -13,7 +13,16 @@ function renderComponent(
     { id = 'test', name = 'test', label, assistiveLabel, options = optionsDummy, ...otherProps } = {},
     mountFn = shallow
 ) {
-    return mountFn(<SelectField id={id} name={name} label={label} assistiveLabel={assistiveLabel} options={options} {...otherProps} />);
+    return mountFn(
+        <SelectField
+            id={id}
+            name={name}
+            label={label}
+            assistiveLabel={assistiveLabel}
+            options={options}
+            {...otherProps}
+        />
+    );
 }
 
 describe('<SelectField /> component', () => {
