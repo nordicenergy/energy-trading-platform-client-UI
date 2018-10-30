@@ -123,7 +123,7 @@ export class App extends React.PureComponent {
     }
 
     render() {
-        const { locale, contracts, sessionContract, loading } = this.props;
+        const { locale, contracts, sessionContract, loading, user } = this.props;
         const { isConfirmVisible, isConfigSideBarOpen, isMenuBarOpen } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
@@ -176,7 +176,7 @@ export class App extends React.PureComponent {
                 active: headRoute === PATHS.buyEnergy.id || headRoute === PATHS.producer.id,
                 path: PATHS.buyEnergy.path,
                 subItemActive: headRoute === PATHS.buyEnergy.id && subRoute === PATHS.producer.id,
-                disabled: this.props.user.statusCode !== CONTRACT_STATUSES.active
+                disabled: user.statusCode !== CONTRACT_STATUSES.active && user.statusCode !== CONTRACT_STATUSES.expired
             },
             {
                 id: PATHS.directTrading.id,

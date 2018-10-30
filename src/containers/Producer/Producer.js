@@ -36,7 +36,7 @@ export class Producer extends AbstractContainer {
     componentDidMount() {
         const { profile: { user = {} }, match: { params } = {} } = this.props;
 
-        if (user.statusCode !== CONTRACT_STATUSES.active) {
+        if (user.statusCode !== CONTRACT_STATUSES.active && user.statusCode !== CONTRACT_STATUSES.expired) {
             this.context.router.history.push(PATHS.overview.path);
             return;
         }
