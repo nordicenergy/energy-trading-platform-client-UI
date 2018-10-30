@@ -64,7 +64,7 @@ export class App extends React.PureComponent {
             updatedSessionContract &&
             updatedSessionContract.id
         ) {
-            performGetSessionContract(user.id);
+            performGetUserData(user.id);
         }
 
         if (prevProps.user !== user && user && user.id) {
