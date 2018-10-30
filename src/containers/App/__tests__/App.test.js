@@ -345,6 +345,9 @@ describe('Main <App /> Component', () => {
 
         expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(1);
         app.setProps({ updatedSessionContract: { id: '0124' } });
+        expect(usersActions.performGetUserData).toHaveBeenCalledTimes(2);
+
+        app.setProps({ user: { id: 'testId', statusCode: 5000 } });
         expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(2);
     });
 

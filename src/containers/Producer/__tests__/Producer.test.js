@@ -27,7 +27,7 @@ const store = mockStore({
                     lastBillDate: 'December;',
                     userStatus: 'string',
                     workingPrice: 2.3,
-                    statusCode: CONTRACT_STATUSES.success,
+                    statusCode: CONTRACT_STATUSES.active,
                     statusCodeTitle: 'In Belieferung'
                 }
             }
@@ -90,7 +90,7 @@ const props = {
         name: 'test',
         status: 'active'
     },
-    profile: { user: { id: 1, statusCode: CONTRACT_STATUSES.success } },
+    profile: { user: { id: 1, statusCode: CONTRACT_STATUSES.active } },
     selectedProducer: {},
     error: null
 };
@@ -135,7 +135,7 @@ describe('<Producer /> Component', () => {
         expect(component.find('strong[aria-label="Producer Status"]')).toHaveLength(0);
     });
 
-    it("should redirect to overview page if user's contract has not success status", () => {
+    it("should redirect to overview page if user's contract has not active status", () => {
         const propsWithWrongContractStatus = {
             ...props,
             profile: {

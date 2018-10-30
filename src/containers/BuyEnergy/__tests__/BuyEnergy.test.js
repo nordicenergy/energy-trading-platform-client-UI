@@ -28,7 +28,7 @@ const userDummy = {
     IBAN: 'DE91100000000123456789',
     BIC: 'MARKDEF1100',
     status: 'delivery_net',
-    statusCode: CONTRACT_STATUSES.success,
+    statusCode: CONTRACT_STATUSES.active,
     statusCodeTitle: 'In Belieferung',
     showSoldOutPowerPlants: true,
     allowPasswordChange: false,
@@ -143,8 +143,8 @@ describe('<BuyEnergy /> container', () => {
         expect(mainContainerElement.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);
     });
 
-    it("should redirect to overview page if user's contract has not success status", () => {
-        renderComponent({ user: { ...userDummy, statusCode: CONTRACT_STATUSES.pending } });
+    it("should redirect to overview page if user's contract has not active status", () => {
+        renderComponent({ user: { ...userDummy, statusCode: CONTRACT_STATUSES.waiting } });
 
         expect(routerStub.history.push).toHaveBeenCalledWith(PATHS.overview.path);
     });

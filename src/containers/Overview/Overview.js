@@ -92,15 +92,15 @@ export class Overview extends AbstractContainer {
         this.navigateTo(PATHS.showTransactions.path);
     }
 
-    renderAlert(labels) {
+    renderAlert(contractHasValidStatus, labels) {
         const user = this.props.user;
 
-        if (!user.statusCode || user.statusCode === CONTRACT_STATUSES.success) {
+        if (!user.statusCode || contractHasValidStatus) {
             return null;
         }
 
-        if (user.statusCode === CONTRACT_STATUSES.pending) {
-            return <Alert className="alert--overview">{labels.contractPendingStatusCode}</Alert>;
+        if (user.statusCode === CONTRACT_STATUSES.waiting) {
+            return <Alert className="alert--overview">{labels.contractWaitingStatusCode}</Alert>;
         }
 
         return <Alert className="alert--overview">{labels.contractOthersStatusCodes}</Alert>;
@@ -120,18 +120,20 @@ export class Overview extends AbstractContainer {
                 status: formatMessage(convertTransactionStatus(tx.details && tx.details.status))
             }
         }));
+        const contractHasValidStatus =
+            user.statusCode === CONTRACT_STATUSES.active || user.statusCode === CONTRACT_STATUSES.expired;
         const navigationCards = [
             {
                 type: PATHS.myProducer.id,
                 title: labels.myProducer,
                 path: PATHS.myProducer.path,
-                disabled: user.statusCode !== CONTRACT_STATUSES.success
+                disabled: !contractHasValidStatus
             },
             {
                 type: PATHS.buyEnergy.id,
                 title: labels.buyEnergy,
                 path: PATHS.buyEnergy.path,
-                disabled: user.statusCode !== CONTRACT_STATUSES.success
+                disabled: !contractHasValidStatus
             },
             {
                 type: PATHS.sellEnergy.id,
@@ -143,14 +145,14 @@ export class Overview extends AbstractContainer {
 
         return (
             <section className="overview-page" aria-busy={loading}>
-                {this.renderAlert(labels)}
+                {this.renderAlert(contractHasValidStatus, labels)}
                 <NavigationCardsPanel
                     navigationCards={navigationCards}
                     onCardClick={route => this.navigateTo(route)}
                     labels={labels}
                 />
                 <div className="overview-content-container">
-                    {user.statusCode === CONTRACT_STATUSES.success ? (
+                    {contractHasValidStatus ? (
                         <RecentTransactions
                             transactions={formattedTransactions}
                             currentBalance={currentBalance}

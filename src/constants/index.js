@@ -75,7 +75,16 @@ export const PAYMENT_METHODS = {
 
 export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';
 
+// TODO: to set unknown contract statuses (which have null value)
 export const CONTRACT_STATUSES = {
-    success: 5000,
-    pending: 4000
+    open: 1000,
+    cancellation_previous: 2001,
+    delivery_net: 3001,
+    waiting: 4000,
+    active: 5000,
+    blocked: null,
+    terminated: null,
+    expired: 6000,
+    done: null,
+    cancelled: null
 };

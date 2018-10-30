@@ -54,7 +54,9 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentDidMount() {
-        if (this.props.user.statusCode !== CONTRACT_STATUSES.success) {
+        const user = this.props.user;
+
+        if (user.statusCode !== CONTRACT_STATUSES.active && user.statusCode !== CONTRACT_STATUSES.expired) {
             this.context.router.history.push(PATHS.overview.path);
             return;
         }

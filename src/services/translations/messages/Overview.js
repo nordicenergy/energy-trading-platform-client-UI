@@ -1,8 +1,8 @@
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-    contractPendingStatusCode: {
-        id: 'app.overviewPage.contractPendingStatusCode',
+    contractWaitingStatusCode: {
+        id: 'app.overviewPage.contractWaitingStatusCode',
         defaultMessage:
             'Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the "Documents" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.'
     },
