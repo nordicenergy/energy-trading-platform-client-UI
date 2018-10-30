@@ -28,7 +28,7 @@ const store = mockStore({
             data: {
                 user: {
                     id: 1,
-                    statusCode: CONTRACT_STATUSES.success,
+                    statusCode: CONTRACT_STATUSES.active,
                     statusCodeTitle: 'success'
                 }
             }
@@ -297,7 +297,7 @@ const props = {
             }
         ]
     },
-    user: { id: 'testId', statusCode: CONTRACT_STATUSES.success },
+    user: { id: 'testId', statusCode: CONTRACT_STATUSES.active },
     loading: false,
     error: null
 };
@@ -442,7 +442,7 @@ describe('<Overview /> Component', () => {
     it("should show alert if user's contract has pending status", () => {
         const propsWithPendingContractStatus = {
             ...props,
-            user: { ...props.user, statusCode: CONTRACT_STATUSES.pending }
+            user: { ...props.user, statusCode: CONTRACT_STATUSES.waiting }
         };
         const component = shallowWithIntl(<Overview {...propsWithPendingContractStatus} />, context);
 
@@ -453,7 +453,7 @@ describe('<Overview /> Component', () => {
         expect(component.find('EmptyRecentTransactions')).toHaveLength(1);
     });
 
-    it("should show alert if user's contract has not success status", () => {
+    it("should show alert if user's contract has not active status", () => {
         const propsWithPendingContractStatus = {
             ...props,
             user: { ...props.user, statusCode: 3001, statusCodeTitle: 'success' }

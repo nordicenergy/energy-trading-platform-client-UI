@@ -176,7 +176,7 @@ export class App extends React.PureComponent {
                 active: headRoute === PATHS.buyEnergy.id || headRoute === PATHS.producer.id,
                 path: PATHS.buyEnergy.path,
                 subItemActive: headRoute === PATHS.buyEnergy.id && subRoute === PATHS.producer.id,
-                disabled: this.props.user.statusCode !== CONTRACT_STATUSES.success
+                disabled: this.props.user.statusCode !== CONTRACT_STATUSES.active
             },
             {
                 id: PATHS.directTrading.id,

@@ -95,11 +95,11 @@ export class Overview extends AbstractContainer {
     renderAlert(labels) {
         const user = this.props.user;
 
-        if (!user.statusCode || user.statusCode === CONTRACT_STATUSES.success) {
+        if (!user.statusCode || user.statusCode === CONTRACT_STATUSES.active) {
             return null;
         }
 
-        if (user.statusCode === CONTRACT_STATUSES.pending) {
+        if (user.statusCode === CONTRACT_STATUSES.waiting) {
             return <Alert className="alert--overview">{labels.contractPendingStatusCode}</Alert>;
         }
 
@@ -125,13 +125,13 @@ export class Overview extends AbstractContainer {
                 type: PATHS.myProducer.id,
                 title: labels.myProducer,
                 path: PATHS.myProducer.path,
-                disabled: user.statusCode !== CONTRACT_STATUSES.success
+                disabled: user.statusCode !== CONTRACT_STATUSES.active
             },
             {
                 type: PATHS.buyEnergy.id,
                 title: labels.buyEnergy,
                 path: PATHS.buyEnergy.path,
-                disabled: user.statusCode !== CONTRACT_STATUSES.success
+                disabled: user.statusCode !== CONTRACT_STATUSES.active
             },
             {
                 type: PATHS.sellEnergy.id,
@@ -150,7 +150,7 @@ export class Overview extends AbstractContainer {
                     labels={labels}
                 />
                 <div className="overview-content-container">
-                    {user.statusCode === CONTRACT_STATUSES.success ? (
+                    {user.statusCode === CONTRACT_STATUSES.active ? (
                         <RecentTransactions
                             transactions={formattedTransactions}
                             currentBalance={currentBalance}

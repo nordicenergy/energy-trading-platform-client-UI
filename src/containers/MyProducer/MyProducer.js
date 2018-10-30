@@ -41,7 +41,7 @@ export class MyProducer extends AbstractContainer {
         const { profile: { user: prevUser = {} } = {}, error: oldError } = prevProps;
         const { profile: { user = {} } = {}, loading, error, locale } = this.props;
 
-        if (prevUser !== user && user.statusCode !== CONTRACT_STATUSES.success) {
+        if (prevUser !== user && user.statusCode !== CONTRACT_STATUSES.active) {
             this.context.router.history.push(PATHS.overview.path);
             return;
         }

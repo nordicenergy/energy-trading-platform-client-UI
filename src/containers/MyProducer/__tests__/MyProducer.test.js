@@ -28,7 +28,7 @@ const store = mockStore({
                     userStatus: 'string',
                     workingPrice: 2.3,
                     status: 'delivery_net',
-                    statusCode: CONTRACT_STATUSES.success,
+                    statusCode: CONTRACT_STATUSES.active,
                     statusCodeTitle: 'In Belieferung'
                 }
             }
@@ -225,14 +225,14 @@ describe('<MyProducer /> Component', () => {
         });
     });
 
-    it("should redirect to overview page if user's contract has not success status", () => {
+    it("should redirect to overview page if user's contract has not active status", () => {
         const component = renderComponent();
 
         component.setProps({
             profile: { user: { currentProducerId: 2, id: 2 } }
         });
         component.setProps({
-            profile: { user: { currentProducerId: 2, id: 1, statusCode: CONTRACT_STATUSES.success } }
+            profile: { user: { currentProducerId: 2, id: 1, statusCode: CONTRACT_STATUSES.active } }
         });
 
         expect(context.router.history.push).toHaveBeenCalledWith(PATHS.overview.path);
@@ -258,15 +258,15 @@ describe('<MyProducer /> Component', () => {
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(2);
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(2);
         component.setProps({
-            profile: { user: { currentProducerId: 2, id: 1, statusCode: CONTRACT_STATUSES.success } }
+            profile: { user: { currentProducerId: 2, id: 1, statusCode: CONTRACT_STATUSES.active } }
         });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(3);
         component.setProps({
-            profile: { user: { currentProducerId: 2, id: 2, statusCode: CONTRACT_STATUSES.success } }
+            profile: { user: { currentProducerId: 2, id: 2, statusCode: CONTRACT_STATUSES.active } }
         });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(3);
         component.setProps({
-            profile: { user: { currentProducerId: 1, id: 2, statusCode: CONTRACT_STATUSES.success } }
+            profile: { user: { currentProducerId: 1, id: 2, statusCode: CONTRACT_STATUSES.active } }
         });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(4);
 
