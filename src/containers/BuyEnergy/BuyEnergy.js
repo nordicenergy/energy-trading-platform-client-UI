@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { PLANT_TYPES, PRODUCER_STATUSES, CONTRACT_STATUSES } from '../../constants';
-import { PATHS } from '../../services/routes';
+
+import { BackLink, ProducerCardsPanel, ProducersFilter } from '../../components';
+import { PATHS, PLANT_TYPES, PRODUCER_STATUSES } from '../../constants';
 import { convertPlantType, convertProducerStatus } from '../../services/translations/enums';
-import { BuyEnergy as messages } from '../../services/translations/messages';
+import { BuyEnergy as messages, Breadcrumbs as breadcrumbs } from '../../services/translations/messages';
 import { performGetCurrentProducer, performGetProducers } from '../../action_performers/producers';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { BackLink, ProducerCardsPanel, ProducersFilter } from '../../components';
+
+import AppPage from '../__shared__/AppPage';
+import availableWithValidContract from '../__shared__/decorators/availableWithValidContract';
+
 import './BuyEnergy.css';
 
 const FILTER_OPTIONS = [
@@ -30,7 +33,7 @@ const FILTER_OPTIONS = [
     }
 ];
 
-export class BuyEnergy extends AbstractContainer {
+export class BuyEnergy extends AppPage {
     constructor(props, context) {
         super(props, context);
 
@@ -54,13 +57,6 @@ export class BuyEnergy extends AbstractContainer {
     }
 
     componentDidMount() {
-        const user = this.props.user;
-
-        if (user.statusCode !== CONTRACT_STATUSES.active && user.statusCode !== CONTRACT_STATUSES.expired) {
-            this.context.router.history.push(PATHS.overview.path);
-            return;
-        }
-
         performGetProducers();
         performGetCurrentProducer();
         this.setupBuyEnergyBreadcrumbs();
@@ -136,7 +132,8 @@ export class BuyEnergy extends AbstractContainer {
         this.setupBreadcrumbs([
             {
                 ...PATHS.buyEnergy,
-                label: formatMessage(PATHS.buyEnergy.label)
+                icon: 'faShoppingCart',
+                label: formatMessage(breadcrumbs.buyEnergy)
             }
         ]);
     }
@@ -217,4 +214,4 @@ BuyEnergy.propTypes = {
 };
 BuyEnergy.defaultProps = { user: {} };
 
-export default connect(BuyEnergy.mapStateToProps)(BuyEnergy);
+export default connect(BuyEnergy.mapStateToProps)(availableWithValidContract(BuyEnergy));

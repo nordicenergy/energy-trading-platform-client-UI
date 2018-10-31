@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import './TermsAndConditions.css';
-import { TermsAndConditions as messages } from '../../services/translations/messages';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import PropTypes from 'prop-types';
+
+import { TermsAndConditions as messages } from '../../services/translations/messages';
 import { performPushNotification } from '../../action_performers/notifications';
 
-export class TermsAndConditions extends AbstractContainer {
+import AppPage from '../__shared__/AppPage';
+
+import './TermsAndConditions.css';
+
+export class TermsAndConditions extends AppPage {
     static mapStateToProps(state) {
         return {
             paragraphs: state.App.localization.data.termsAndConditions,

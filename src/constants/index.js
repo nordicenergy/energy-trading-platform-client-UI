@@ -1,3 +1,78 @@
+export const PATHS = {
+    overview: {
+        id: '',
+        path: '/'
+    },
+    documents: {
+        id: 'documents',
+        path: '/documents'
+    },
+    submit_meter: {
+        id: 'submit_meter',
+        path: '/submit_meter'
+    },
+    trading: {
+        id: 'trading',
+        path: '/trading'
+    },
+    directTrading: {
+        id: 'direct_trading',
+        path: '/direct_trading'
+    },
+    profile: {
+        id: 'profile',
+        path: '/profile'
+    },
+    termsAndConditions: {
+        id: 'termsandconditions',
+        path: '/termsandconditions'
+    },
+    about: {
+        id: 'about',
+        path: '/about'
+    },
+    faq: {
+        id: 'faq',
+        path: '/faq'
+    },
+    myProducer: {
+        id: 'my_producer',
+        path: '/my_producer'
+    },
+    producer: {
+        id: 'producer',
+        path: '/buy_energy/producer/:producerId'
+    },
+    buyEnergy: {
+        id: 'buy_energy',
+        path: '/buy_energy'
+    },
+    sellEnergy: {
+        id: 'sell_energy',
+        path: '/sell_energy'
+    },
+    showTransactions: {
+        id: 'show_transactions',
+        path: '/show_transactions'
+    },
+    login: {
+        id: 'login',
+        path: '/login'
+    },
+    signUp: {
+        id: 'sign_up',
+        path: '/sign-up'
+    },
+    resetPassword: {
+        id: 'reset_password',
+        path: '/:resetToken/reset-password'
+    },
+    restorePassword: {
+        id: 'restore_password',
+        path: '/restore-password'
+    }
+};
+
 export const KEYBOARD_KEY_VALUES = {
     ENTER: 'Enter',
     ESCAPE: 'Escape',
@@ -75,7 +150,7 @@ export const PAYMENT_METHODS = {
 
 export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';
 
-// TODO: to set unknown contract statuses (which have null value)
+// TODO: TBD clarify and setup unknown contract statuses (which have null value)
 export const CONTRACT_STATUSES = {
     open: 1000,
     cancellation_previous: 2001,
@@ -83,8 +158,19 @@ export const CONTRACT_STATUSES = {
     waiting: 4000,
     active: 5000,
     blocked: null,
-    terminated: null,
-    expired: 6000,
+    expired: null,
+    terminated: 6000,
+    terminated_reasonable_from_customer: 6011,
+    terminated_unreasonable_from_customer: 6012,
+    terminated_move_with_contract: 6013,
+    terminated_reasonable_from_provider: 6021,
+    terminated_unreasonable_from_provider: 6022,
+    terminated_close_down_from_network_carrier: 6031,
+    terminated_move_out_from_netwrok_carrier: 6032,
+    terminated_competing_delivery_from_network_carrier: 6033,
+    terminated_reasonable_from_evu: 6041,
+    terminated_unreasonable_from_evu: 6042,
+    terminated_bad_payer_from_evu: 6043,
     done: null,
     cancelled: null
 };

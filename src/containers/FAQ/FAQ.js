@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import './FAQ.css';
-import { DisclosureArrow } from '../../components';
-import { FAQ as messages } from '../../services/translations/messages';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+
+import { DisclosureArrow } from '../../components';
+import { FAQ as messages } from '../../services/translations/messages';
 import { performPushNotification } from '../../action_performers/notifications';
 import { KEYBOARD_KEY_VALUES } from '../../constants';
 
-export class FAQ extends AbstractContainer {
+import AppPage from '../__shared__/AppPage';
+
+import './FAQ.css';
+
+export class FAQ extends AppPage {
     constructor(props) {
         super(props);
         this.state = {

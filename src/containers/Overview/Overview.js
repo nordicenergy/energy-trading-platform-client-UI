@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CONTRACT_STATUSES } from '../../constants';
+
 import { Alert, NavigationCardsPanel, EmptyRecentTransactions, RecentTransactions } from '../../components';
+import { PATHS, CONTRACT_STATUSES } from '../../constants';
+import { Overview as messages, Breadcrumbs as breadcrumbs } from '../../services/translations/messages';
+import { formatFloat } from '../../services/formatter';
+import { convertTransactionStatus } from '../../services/translations/enums';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import { performGetUserData } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { PATHS } from '../../services/routes';
-import { Overview as messages } from '../../services/translations/messages';
-import { formatFloat } from '../../services/formatter';
 
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import AppPage from '../__shared__/AppPage';
+import contractStatusMixin from '../__shared__/mixins/contractStatus';
 
 import './Overview.css';
-import { convertTransactionStatus } from '../../services/translations/enums';
 
 const UPDATE_INTERVAL = 1000 * 60; // 1m
 
-export class Overview extends AbstractContainer {
+export class Overview extends contractStatusMixin(AppPage) {
     static mapStateToProps(state) {
         return {
             loading: state.Users.profile.loading,
@@ -38,7 +39,8 @@ export class Overview extends AbstractContainer {
         this.setupBreadcrumbs([
             {
                 ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
+                icon: 'faHome',
+                label: formatMessage(breadcrumbs.overview)
             }
         ]);
         performGetUserData();
@@ -120,8 +122,7 @@ export class Overview extends AbstractContainer {
                 status: formatMessage(convertTransactionStatus(tx.details && tx.details.status))
             }
         }));
-        const contractHasValidStatus =
-            user.statusCode === CONTRACT_STATUSES.active || user.statusCode === CONTRACT_STATUSES.expired;
+        const contractHasValidStatus = this.validateContractStatus(user.statusCode);
         const navigationCards = [
             {
                 type: PATHS.myProducer.id,

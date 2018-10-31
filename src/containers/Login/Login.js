@@ -2,15 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
+
 import { LoginForm, Logo, Illustration } from '../../components';
+import { Login as messages } from '../../services/translations/messages';
 import { performLogin } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { Login as messages } from '../../services/translations/messages';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+
+import AppPage from '../__shared__/AppPage';
+
 import './Login.css';
 
-export class Login extends AbstractContainer {
+export class Login extends AppPage {
     static mapStateToProps(state) {
         return {
             loading: state.Users.login.loading,

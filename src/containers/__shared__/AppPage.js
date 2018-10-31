@@ -1,11 +1,11 @@
 import React from 'react';
 import breadcrumbsMixin from './mixins/breadcrumbs';
-import scrollBottomHandlingMixin from './mixins/scrollBottomHandling';
+import scrollBottomHandlingMixin from './mixins/scroll';
 import labelsMixin from './mixins/labels';
 
 const Base = labelsMixin(scrollBottomHandlingMixin(breadcrumbsMixin(React.PureComponent)));
 
-class AbstractContainer extends Base {
+class AppPage extends Base {
     // eslint-disable-next-line
     constructor(props, context, breadcrumbs) {
         super(props, context, breadcrumbs);
@@ -17,4 +17,4 @@ class AbstractContainer extends Base {
     }
 }
 
-export default AbstractContainer;
+export default AppPage;

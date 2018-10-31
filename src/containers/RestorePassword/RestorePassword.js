@@ -2,17 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Validator from 'async-validator';
+
+import { RestorePasswordForm, Logo, Illustration } from '../../components';
+import { RestorePassword as messages } from '../../services/translations/messages';
 import { performCreateResetPasswordToken } from '../../action_performers/users';
 import { performPushNotification } from '../../action_performers/notifications';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
-import { RestorePasswordForm, Logo, Illustration } from '../../components';
-import { RestorePassword as messages } from '../../services/translations/messages';
 
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import AppPage from '../__shared__/AppPage';
 
 import './RestorePassword.css';
 
-export class RestorePassword extends AbstractContainer {
+export class RestorePassword extends AppPage {
     static mapStateToProps(state) {
         return {
             loading: state.Users.createdPasswordToken.loading,

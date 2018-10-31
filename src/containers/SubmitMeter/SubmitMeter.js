@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { MeterReadingForm, MeterReadingsHistory } from '../../components';
+import Validator from 'async-validator';
 
-import './SubmitMeter.css';
+import { MeterReadingForm, MeterReadingsHistory } from '../../components';
+import { SubmitMeterReadings as messages } from '../../services/translations/messages';
 import {
     performGetMeterReadingsHistory,
     performGetMeterNumber,
@@ -12,10 +12,12 @@ import {
 } from '../../action_performers/consumption';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { SubmitMeterReadings as messages } from '../../services/translations/messages';
-import Validator from 'async-validator';
 
-export class SubmitMeter extends AbstractContainer {
+import AppPage from '../__shared__/AppPage';
+
+import './SubmitMeter.css';
+
+export class SubmitMeter extends AppPage {
     constructor(props, context) {
         super(props, context);
 

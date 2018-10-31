@@ -1,6 +1,5 @@
 import Axios from 'axios';
-import { SESSION_API_URL, LIMIT, BLOCKCHAIN_SCANNER_URLS } from '../../constants';
-import { PATHS } from '../routes';
+import { SESSION_API_URL, PATHS, LIMIT, BLOCKCHAIN_SCANNER_URLS } from '../../constants';
 import web3Service, { LEDGERS, META_MASK_NETWORKS } from '../web3';
 import { formatCurrency, formatDateTime, formatFloat } from '../formatter';
 

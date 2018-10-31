@@ -4,16 +4,19 @@ import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import IBAN from 'iban';
 import pick from 'lodash.pick';
+
+import { ProfileForm } from '../../components';
+import { Profile as messages } from '../../services/translations/messages';
 import { PAYMENT_METHODS } from '../../constants';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { performGetUserData, performUpdateUserData } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { Profile as messages } from '../../services/translations/messages';
-import { ProfileForm } from '../../components';
+
+import AppPage from '../__shared__/AppPage';
+
 import './Profile.css';
 
-export class Profile extends AbstractContainer {
+export class Profile extends AppPage {
     constructor(props, context) {
         super(props, context);
         this.state = {
