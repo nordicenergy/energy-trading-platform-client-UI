@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import { CONTRACT_STATUSES } from '../../../constants';
-import { PATHS } from '../../../services/routes';
 import { BuyEnergy } from '../BuyEnergy';
 import { ProducerCardsPanel, BackLink, ProducersFilter, OptionLinks } from '../../../components';
 import * as producersActionPerformers from '../../../action_performers/producers';
@@ -141,12 +140,6 @@ describe('<BuyEnergy /> container', () => {
 
         buyEnergy.unmount();
         expect(mainContainerElement.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);
-    });
-
-    it("should redirect to overview page if user's contract has not active status", () => {
-        renderComponent({ user: { ...userDummy, statusCode: CONTRACT_STATUSES.waiting } });
-
-        expect(routerStub.history.push).toHaveBeenCalledWith(PATHS.overview.path);
     });
 
     it('should return correct props', () => {

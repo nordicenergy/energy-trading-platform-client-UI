@@ -1,17 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import './MyDocuments.css';
 import PropTypes from 'prop-types';
 
+import { DocumentsList } from '../../components';
+import { Documents as messages } from '../../services/translations/messages';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { performGetDocuments, performDownloadDocument } from '../../action_performers/documents';
-import { Documents as messages } from '../../services/translations/messages';
-import { DocumentsList } from '../../components';
 
-export class MyDocuments extends AbstractContainer {
+import AppPage from '../__shared__/AppPage';
+
+import './MyDocuments.css';
+
+export class MyDocuments extends AppPage {
     constructor(props, context) {
         super(props, context);
 

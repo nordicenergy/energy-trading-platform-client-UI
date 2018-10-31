@@ -4,8 +4,8 @@ const SCROLL_TIMEOUT = 100; // milliseconds
 
 const scrollBottomHandlingMixin = Base =>
     class extends Base {
-        constructor(props, context, breadcrumbs) {
-            super(props, context, breadcrumbs);
+        constructor(...args) {
+            super(...args);
 
             this.scrollHandler = f => f;
             this.scrollTimeout = null;

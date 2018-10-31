@@ -4,8 +4,10 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/fontawesome-free-solid';
-import { LOCALES, DEFAULT_LOCALE, CONTRACT_STATUSES } from '../../constants';
-import { PATHS } from '../../services/routes';
+
+import { MenuSideBar, Header, Footer, Confirm, ContractModal, SelectField, Button } from '../../components';
+import { PATHS, LOCALES, DEFAULT_LOCALE } from '../../constants';
+import { App as messages } from '../../services/translations/messages';
 import { performSetupLocale, performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import {
@@ -14,12 +16,12 @@ import {
     performGetContracts
 } from '../../action_performers/contracts';
 import { performLogout, performGetUserData } from '../../action_performers/users';
-import { App as messages } from '../../services/translations/messages';
-import { MenuSideBar, Header, Footer, Confirm, ContractModal, SelectField } from '../../components';
-import './App.css';
-import Button from '../../components/Button';
 
-export class App extends React.PureComponent {
+import contractStatusMixin from '../__shared__/mixins/contractStatus';
+
+import './App.css';
+
+export class App extends contractStatusMixin(React.PureComponent) {
     static mapStateToProps({ Users, App, Contracts }) {
         return {
             loggingOut: Users.logout.loading,
@@ -176,7 +178,7 @@ export class App extends React.PureComponent {
                 active: headRoute === PATHS.buyEnergy.id || headRoute === PATHS.producer.id,
                 path: PATHS.buyEnergy.path,
                 subItemActive: headRoute === PATHS.buyEnergy.id && subRoute === PATHS.producer.id,
-                disabled: user.statusCode !== CONTRACT_STATUSES.active && user.statusCode !== CONTRACT_STATUSES.expired
+                disabled: this.validateContractStatus(user.statusCode)
             },
             {
                 id: PATHS.directTrading.id,

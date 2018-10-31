@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import PropTypes from 'prop-types';
+
+import { Logo, RegistrationForm } from '../../components';
 import { Registration as messages } from '../../services/translations/messages';
 import { performRegistration } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { Logo, RegistrationForm } from '../../components';
-import './Registration.css';
-import PropTypes from 'prop-types';
 
-export class Registration extends AbstractContainer {
+import AppPage from '../__shared__/AppPage';
+
+import './Registration.css';
+
+export class Registration extends AppPage {
     static mapStateToProps({ Users }) {
         return {
             loading: Users.registration.loading,
