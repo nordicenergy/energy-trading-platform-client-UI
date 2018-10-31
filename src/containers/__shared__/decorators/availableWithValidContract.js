@@ -31,7 +31,7 @@ const availableWithValidContract = WrappedComponent => {
             const { user = {} } = this.props;
             const { router = { history: { push: f => f } } } = this.context;
 
-            if (this.validateContractStatus(user.statusCode)) {
+            if (!this.validateContractStatus(user.statusCode)) {
                 router.history.push('/');
             }
         }

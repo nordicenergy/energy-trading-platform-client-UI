@@ -150,7 +150,7 @@ export const PAYMENT_METHODS = {
 
 export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';
 
-// TODO: to set unknown contract statuses (which have null value)
+// TODO: TBD clarify and setup unknown contract statuses (which have null value)
 export const CONTRACT_STATUSES = {
     open: 1000,
     cancellation_previous: 2001,
@@ -158,8 +158,19 @@ export const CONTRACT_STATUSES = {
     waiting: 4000,
     active: 5000,
     blocked: null,
-    terminated: null,
-    expired: 6000,
+    expired: null,
+    terminated: 6000,
+    terminated_reasonable_from_customer: 6011,
+    terminated_unreasonable_from_customer: 6012,
+    terminated_move_with_contract: 6013,
+    terminated_reasonable_from_provider: 6021,
+    terminated_unreasonable_from_provider: 6022,
+    terminated_close_down_from_network_carrier: 6031,
+    terminated_move_out_from_netwrok_carrier: 6032,
+    terminated_competing_delivery_from_network_carrier: 6033,
+    terminated_reasonable_from_evu: 6041,
+    terminated_unreasonable_from_evu: 6042,
+    terminated_bad_payer_from_evu: 6043,
     done: null,
     cancelled: null
 };

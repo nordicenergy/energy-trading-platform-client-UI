@@ -13,12 +13,13 @@ import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 
 import AppPage from '../__shared__/AppPage';
+import contractStatusMixin from '../__shared__/mixins/contractStatus';
 
 import './Overview.css';
 
 const UPDATE_INTERVAL = 1000 * 60; // 1m
 
-export class Overview extends AppPage {
+export class Overview extends contractStatusMixin(AppPage) {
     static mapStateToProps(state) {
         return {
             loading: state.Users.profile.loading,
@@ -121,8 +122,7 @@ export class Overview extends AppPage {
                 status: formatMessage(convertTransactionStatus(tx.details && tx.details.status))
             }
         }));
-        const contractHasValidStatus =
-            user.statusCode === CONTRACT_STATUSES.active || user.statusCode === CONTRACT_STATUSES.expired;
+        const contractHasValidStatus = this.validateContractStatus(user.statusCode);
         const navigationCards = [
             {
                 type: PATHS.myProducer.id,
