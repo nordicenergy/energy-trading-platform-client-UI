@@ -206,7 +206,7 @@
     "app.termsAndConditionsPage.error": "Die Seite konnte nicht geladen werden",
 
     "app.profilePage.header": "Profil",
-    "app.profilePage.labels.personalDataTab": "Weitere Angaben",
+    "app.profilePage.labels.personalDataTab": "Kundendaten",
     "app.profilePage.labels.paymentDataTab": "Zahlungsweise",
     "app.profilePage.errors.sepaApprovalValidator": "Bitte der SEPA-Einzugsermächtigung zustimmen.",
     "app.profilePage.errors.firstName": "Vorname eingeben.",

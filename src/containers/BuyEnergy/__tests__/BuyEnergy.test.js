@@ -110,7 +110,7 @@ describe('<BuyEnergy /> container', () => {
         - <ProducerCardsPanel> element;
         - don\'t show <OptionLinks> element;`, () => {
         const buyEnergy = renderComponent({
-            currentProducerLoading: true,
+            loading: true,
             producersLoading: true
         });
         const handleScrollMock = buyEnergy.instance().scrollHandler;
@@ -170,7 +170,8 @@ describe('<BuyEnergy /> container', () => {
                 profile: {
                     data: {
                         user: { id: 1 }
-                    }
+                    },
+                    loading: false
                 }
             }
         };
@@ -180,7 +181,7 @@ describe('<BuyEnergy /> container', () => {
             user: { id: 1 },
             locale: 'en',
             error: null,
-            currentProducerLoading: false,
+            loading: false,
             currentProducer: producersDummy[1],
             producersLoading: false,
             producers: producersDummy,
@@ -202,7 +203,7 @@ describe('<BuyEnergy /> container', () => {
 
     it('should calls performGetProducers when page increase', () => {
         const buyEnergy = renderComponent({
-            currentProducerLoading: true,
+            loading: true,
             producersLoading: true
         });
 
@@ -212,7 +213,7 @@ describe('<BuyEnergy /> container', () => {
 
     it('should calls performGetProducers with selected filter and first page', () => {
         const buyEnergy = renderComponent({
-            currentProducerLoading: true,
+            loading: true,
             producersLoading: true
         });
 
@@ -231,12 +232,11 @@ describe('<BuyEnergy /> container', () => {
     it('should calls performSetupLoaderVisibility when receive new loading property', () => {
         const buyEnergy = renderComponent();
 
-        buyEnergy.setProps({ currentProducerLoading: true, producersLoading: true });
-        buyEnergy.setProps({ currentProducerLoading: false, producersLoading: false });
+        buyEnergy.setProps({ loading: true, producersLoading: true });
+        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
+        buyEnergy.setProps({ loading: false, producersLoading: false });
+        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActionPerformers.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 
     it('should call performPushNotification if error has occurred', () => {

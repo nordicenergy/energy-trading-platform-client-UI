@@ -386,7 +386,7 @@ ProfileForm.propTypes = {
 };
 ProfileForm.defaultProps = {
     labels: {
-        personalDataTab: 'Personal Data',
+        personalDataTab: 'Customer Data',
         paymentDataTab: 'Payment',
         firstName: 'First Name',
         lastName: 'Last Name',

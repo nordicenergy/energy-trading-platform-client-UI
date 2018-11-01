@@ -47,7 +47,7 @@ export class BuyEnergy extends AppPage {
         return {
             user: Users.profile.data.user,
             error: Producers.currentProducer.error || Producers.producers.error,
-            currentProducerLoading: Producers.currentProducer.loading,
+            loading: Producers.currentProducer.loading || Users.profile.loading,
             currentProducer: Producers.currentProducer.data,
             producersLoading: Producers.producers.loading,
             producers: Producers.producers.data.entries,
@@ -76,8 +76,8 @@ export class BuyEnergy extends AppPage {
     componentDidUpdate(prevProps, prevState) {
         const { formatMessage } = this.context.intl;
         const { error: oldError } = prevProps;
-        const { currentProducerLoading, producersLoading, error: newError, locale } = this.props;
-        const shouldShowFullScreenLoader = (currentProducerLoading || producersLoading) && this.state.page === 0;
+        const { loading, user, producersLoading, error: newError, locale } = this.props;
+        const shouldShowFullScreenLoader = loading || (producersLoading && this.state.page === 0);
 
         if (prevState.page !== this.state.page || prevState.filter !== this.state.filter) {
             performGetProducers({ page: this.state.page, filter: this.state.filter });
@@ -87,15 +87,16 @@ export class BuyEnergy extends AppPage {
             this.setupBuyEnergyBreadcrumbs();
         }
 
-        if (!currentProducerLoading && !producersLoading && newError && newError !== oldError) {
+        if (!loading && !producersLoading && user && user.id && prevProps.user !== user) {
+            performGetCurrentProducer();
+        }
+
+        if (!loading && !producersLoading && newError && newError !== oldError) {
             performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
         }
 
-        if (
-            prevProps.currentProducerLoading !== currentProducerLoading ||
-            prevProps.producersLoading !== producersLoading
-        ) {
-            performSetupLoaderVisibility(shouldShowFullScreenLoader);
+        if (prevProps.loading !== loading || prevProps.producersLoading !== producersLoading) {
+            performSetupLoaderVisibility(this.pageId, shouldShowFullScreenLoader);
         }
     }
 
@@ -205,7 +206,7 @@ BuyEnergy.contextTypes = {
 };
 BuyEnergy.propTypes = {
     user: PropTypes.object.isRequired,
-    currentProducerLoading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
     currentProducer: PropTypes.object.isRequired,
     producersLoading: PropTypes.bool.isRequired,
     producers: PropTypes.arrayOf(PropTypes.object).isRequired,

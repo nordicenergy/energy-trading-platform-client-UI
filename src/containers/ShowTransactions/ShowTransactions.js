@@ -20,7 +20,7 @@ import './ShowTransactions.css';
 export class ShowTransactions extends AppPage {
     constructor(props, context) {
         super(props, context);
-
+        this.identifier = Symbol('ShowTransactions');
         this.state = { page: 0 };
     }
 
@@ -71,7 +71,7 @@ export class ShowTransactions extends AppPage {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 

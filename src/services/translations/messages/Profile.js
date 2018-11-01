@@ -7,7 +7,7 @@ const messages = defineMessages({
     },
     personalDataTab: {
         id: 'app.profilePage.labels.personalDataTab',
-        defineMessage: 'Personal Data'
+        defineMessage: 'Customer Data'
     },
     paymentDataTab: {
         id: 'app.profilePage.labels.paymentDataTab',

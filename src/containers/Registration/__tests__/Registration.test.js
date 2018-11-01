@@ -100,15 +100,14 @@ describe('<Registration /> container', () => {
 
         registration.setProps({ loading: true });
         registration.update();
-        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(true);
+        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
 
         registration.setProps({ loading: true });
         registration.update();
 
         registration.setProps({ loading: false });
         registration.update();
-        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(false);
-
+        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
     });
 

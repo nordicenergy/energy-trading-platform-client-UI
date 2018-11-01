@@ -247,10 +247,9 @@ describe('<Profile /> Container', () => {
         const profile = renderComponent();
 
         profile.setProps({ loading: true });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         profile.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 });

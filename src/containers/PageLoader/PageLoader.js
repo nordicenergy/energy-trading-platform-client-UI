@@ -6,8 +6,11 @@ import './PageLoader.css';
 
 export class PageLoader extends Component {
     static mapStateToProps({ App }) {
+        const pageLoaders = App.loader.data;
         return {
-            shouldShowLoader: App.loader.data
+            shouldShowLoader: [...Object.getOwnPropertySymbols(pageLoaders), ...Object.keys(pageLoaders)]
+                .map(key => pageLoaders[key])
+                .reduce((loading, next) => loading || next, false)
         };
     }
 

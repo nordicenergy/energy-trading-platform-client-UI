@@ -43,7 +43,7 @@ export class Login extends AppPage {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 

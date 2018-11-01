@@ -18,12 +18,23 @@ describe('<PageLoader /> container', () => {
         const state = {
             App: {
                 loader: {
-                    data: 'TEST'
+                    data: { TEST: true }
                 }
             }
         };
         const props = PageLoader.mapStateToProps(state);
 
-        expect(props).toEqual({ shouldShowLoader: 'TEST' });
+        expect(props).toEqual({ shouldShowLoader: true });
+
+        const stateWithSymbols = {
+            App: {
+                loader: {
+                    data: { [Symbol('test')]: true }
+                }
+            }
+        };
+        const newProps = PageLoader.mapStateToProps(stateWithSymbols);
+
+        expect(newProps).toEqual({ shouldShowLoader: true });
     });
 });

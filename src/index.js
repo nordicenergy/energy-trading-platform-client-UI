@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -6,7 +7,6 @@ import { store } from './store';
 import { LocalizationProvider } from './providers';
 import history from './services/history';
 import { Routes } from './services/routes';
-import setupPolyfills from './polyfills';
 import configureAxios from './services/axios';
 import './index.css';
 
@@ -22,6 +22,5 @@ function bootstrap() {
         document.getElementById('root')
     );
 }
-setupPolyfills();
 configureAxios();
 bootstrap();
