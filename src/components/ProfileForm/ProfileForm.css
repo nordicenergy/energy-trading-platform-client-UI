@@ -102,6 +102,14 @@
     font-size: 0.75em;
 }
 
+.profile-form-bitcoin-message > strong {
+    display: block;
+    padding: 2em 0 0 2.833em;
+    color: var(--label-color);
+    font-size: 0.75em;
+    font-weight: normal;
+}
+
 .profile-form-actions {
     box-sizing: border-box;
     width: 100%;

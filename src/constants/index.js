@@ -145,7 +145,8 @@ export const TRADE_POSITIONS_LIMIT = 25;
 
 export const PAYMENT_METHODS = {
     debit: 'debit',
-    transfer: 'transfer'
+    transfer: 'transfer',
+    bitcoin: 'bitcoin'
 };
 
 export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';

@@ -150,6 +150,7 @@ export class Profile extends AppPage {
             'city',
             'street',
             'streetNumber',
+            'paymentMethod',
             'IBAN',
             'oldPassword'
         ];

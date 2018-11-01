@@ -244,10 +244,13 @@
     "app.profilePage.labels.paymentMethod": "Zahlungsweise",
     "app.profilePage.labels.paymentMethodDebitOption": "Lastschrift",
     "app.profilePage.labels.paymentMethodTransferOption": "Überweisung",
+    "app.profilePage.labels.paymentMethodBitcoinOption": "Bitcoin",
     "app.profilePage.labels.sepaApproval": "Erteilung SEPA-Mandat",
     "app.profilePage.labels.sepaApprovalOption": "Zustimmung",
     "app.profilePage.labels.sepaApprovalHelp":
         "Der genannte Kontoinhaber ermächtigt die Lition Energie GmbH, Zahlungen von seinem Konto mittels Lastschrift einzuziehen. Zugleich weist der genannte Kontoinhaber sein Kreditinstitut an, die von dem Lieferanten auf sein Konto gezogenen Lastschriften einzulösen. Hinweis: Innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, kann die Erstattung des belasteten Betrages zurückverlangt werden. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.",
+    "app.profilePage.labels.bitcoinMessage":
+        "Mit Lition kannst du deine Stromrechnung in Bitcoin oder Bitcoin Cash bezahlen. Sobald dein monatlicher Abschlag ansteht erhältst du von uns eine E-Mail mit den Zahlungsdetails zum jeweils dann gültigen Bitcoin-Euro Kurs.",
     "app.profilePage.errors.profileUpdatedErrorMessage": "Beim Aktualisieren deines Profils ist ein Fehler aufgetreten",
     "app.profilePage.errors.profileLoadingErrorMessage":
         "Profildaten konnten nicht vom Lition-Server geladen werden. Bitte kontaktiere den Kundendienst.",
