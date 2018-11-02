@@ -27,6 +27,8 @@ export function getUserData() {
             data: {
                 user: {
                     ...user,
+                    // TODO: need to remove in Monday (05.11.2018) or revert commit.
+                    statusCode: 5000,
                     birthday: moment(formattedBirthdayData).unix()
                 }
             }
