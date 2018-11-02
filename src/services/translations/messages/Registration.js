@@ -374,6 +374,10 @@ const messages = defineMessages({
                         {
                             id: 'app.registrationPage.options.paymentMethod.1',
                             defaultMessage: 'Überweisung'
+                        },
+                        {
+                            id: 'app.registrationPage.options.paymentMethod.2',
+                            defaultMessage: 'Bitcoin'
                         }
                     ],
                     iban: {
@@ -400,6 +404,11 @@ const messages = defineMessages({
                         id: 'app.registrationPage.helps.sepaApproval',
                         defaultMessage:
                             'Der genannte Kontoinhaber ermächtigt die Lition Energie GmbH, Zahlungen von seinem Konto mittels Lastschrift einzuziehen. Zugleich weist der genannte Kontoinhaber sein Kreditinstitut an, die von dem Lieferanten auf sein Konto gezogenen Lastschriften einzulösen. Hinweis: Innerhalb von acht Wochen, beginnend mit dem Belastungs-datum, kann die Erstattung des belasteten Betrages zurückverlangt werden. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.'
+                    },
+                    bitcoinMessage: {
+                        id: 'app.registrationPage.messages.bitcoinMessage',
+                        defaultMessage:
+                            'Mit Lition kannst du deine Stromrechnung in Bitcoin oder Bitcoin Cash bezahlen. Sobald dein monatlicher Abschlag ansteht erhältst du von uns eine E-Mail mit den Zahlungsdetails zum jeweils dann gültigen Bitcoin-Euro Kurs.'
                     }
                 },
                 errors: {

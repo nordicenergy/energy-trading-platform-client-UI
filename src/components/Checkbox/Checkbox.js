@@ -57,12 +57,12 @@ class Checkbox extends Component {
                     />
                     <span className="checkbox-control" aria-hidden />
                     {label && <span className="checkbox-label">{label}</span>}
-                    {error && (
-                        <div role="alert" className="checkbox-error" aria-live="polite">
-                            {error}
-                        </div>
-                    )}
                 </label>
+                {error && (
+                    <div role="alert" className="checkbox-error" aria-live="polite">
+                        {error}
+                    </div>
+                )}
                 {helpText && <small className="checkbox-help-text">{helpText}</small>}
             </div>
         );

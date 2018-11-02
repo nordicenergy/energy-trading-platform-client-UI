@@ -54,11 +54,10 @@
 
 .registration-form-fieldset > div {
     float: left;
-    width: 50%;
 }
 
-.registration-form-fieldset > div:only-of-type {
-    width: 100%;
+.registration-form-fieldset .radio-button {
+    margin-right: 2em;
 }
 
 .registration-form-fieldset--phone > div:first-child {
