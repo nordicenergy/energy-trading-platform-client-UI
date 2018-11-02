@@ -240,10 +240,13 @@
     "app.profilePage.labels.paymentMethod": "Payment options",
     "app.profilePage.labels.paymentMethodDebitOption": "Debit",
     "app.profilePage.labels.paymentMethodTransferOption": "Transfer",
+    "app.profilePage.labels.paymentMethodBitcoinOption": "Bitcoin",
     "app.profilePage.labels.sepaApproval": "Issuing SEPA-Mandate",
     "app.profilePage.labels.sepaApprovalOption": "I agree to terms",
     "app.profilePage.labels.sepaApprovalHelp":
         "The named account holder authorizes the Lition Energie GmbH to collect payments from his account by direct debit. At the same time, said account holder instructs its credit institution to redeem the direct debits drawn by the supplier into its account. Note: Within eight weeks, starting with the debit date, the reimbursement of the debited amount can be reclaimed. The conditions agreed with the bank apply.",
+    "app.profilePage.labels.bitcoinMessage":
+        "Lition accepts your Monthly payments in Bitcoin. Whenever your monthly installment is due, we will send you a link with instructions how to pay your Energy in Bitcoin or Bitcoin Cash, using the then current Bitcoin-Euro Exchange rate.",
     "app.profilePage.errors.profileUpdatedErrorMessage": "An error occurred while updating profile data",
     "app.profilePage.errors.profileLoadingErrorMessage":
         "Can't load profile data from Lition web server. Please contact administrator to resolve the error.",
@@ -396,6 +399,8 @@
     "app.registrationPage.options.sepaApproval.0": "Approval",
     "app.registrationPage.helps.sepaApproval":
         "The account holder named above grants Lition Energie GmbH the permission to withdraw amounts due by direct debits from the account. In addition, the account holder named above authorizes his or her bank to redeem the direct debits issued. Note: Direct debits can be revoked within eight weeks starting at the time of debit. The terms and conditions of the bank apply.",
+    "app.registrationPage.messages.bitcoinMessage":
+        "Mit Lition kannst du deine Stromrechnung in Bitcoin oder Bitcoin Cash bezahlen. Sobald dein monatlicher Abschlag ansteht erhältst du von uns eine E-Mail mit den Zahlungsdetails zum jeweils dann gültigen Bitcoin-Euro Kurs.",
     "app.registrationPage.errors.ibanRequired": "Enter IBAN.",
     "app.registrationPage.errors.ibanValidator": "IBAN is invalid.",
     "app.registrationPage.errors.sepaApprovalValidator": "Please accept the SEPA terms.",

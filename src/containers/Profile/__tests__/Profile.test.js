@@ -233,7 +233,6 @@ describe('<Profile /> Container', () => {
             .onSubmit(dataMock);
 
         delete dataMock.confirmNewPassword;
-        delete dataMock.paymentMethod;
         delete dataMock.sepaApproval;
         expect(userActionPerformers.performUpdateUserData).toHaveBeenCalledWith(dataMock);
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({

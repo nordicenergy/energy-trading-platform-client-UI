@@ -36,7 +36,7 @@ describe('<ProfileForm /> component', () => {
         expect(profileForm.find('TextField[name="oldPassword"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="newPassword"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="confirmNewPassword"]')).toHaveLength(1);
-        expect(profileForm.find('RadioButton[name="paymentMethod"]')).toHaveLength(2);
+        expect(profileForm.find('RadioButton[name="paymentMethod"]')).toHaveLength(3);
         expect(profileForm.find('IBANField[name="IBAN"]')).toHaveLength(1);
         expect(profileForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(1);
         expect(profileForm.find('Button')).toHaveLength(1);
