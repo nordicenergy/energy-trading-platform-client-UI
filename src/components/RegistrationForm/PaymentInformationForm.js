@@ -114,7 +114,7 @@ class PaymentInformationForm extends AbstractForm {
     renderBitcoinFields() {
         const { labels: { fields } } = this.props;
         return (
-            <div className="profile-form-bitcoin-message">
+            <div className="registration-form-field registration-bitcoin-message">
                 <strong>{fields.bitcoinMessage}</strong>
             </div>
         );

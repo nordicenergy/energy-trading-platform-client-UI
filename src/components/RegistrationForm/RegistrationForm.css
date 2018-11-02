@@ -69,6 +69,18 @@
     width: 65%;
 }
 
+.registration-form-field.registration-bitcoin-message {
+    margin: 0;
+}
+
+.registration-form-field.registration-bitcoin-message > strong {
+    display: block;
+    padding: 2em 0 0 2.833em;
+    color: var(--label-color);
+    font-size: 0.75em;
+    font-weight: normal;
+}
+
 .text-field--phone-code .text-field-layout::after {
     width: 50%;
 }
