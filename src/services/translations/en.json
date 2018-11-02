@@ -203,7 +203,7 @@
     "app.termsAndConditionsPage.error": "Could not load content",
 
     "app.profilePage.header": "Profile",
-    "app.profilePage.labels.personalDataTab": "Personal Data",
+    "app.profilePage.labels.personalDataTab": "Customer Data",
     "app.profilePage.labels.paymentDataTab": "Payment",
     "app.profilePage.errors.sepaApprovalValidator": "Please accept the SEPA terms.",
     "app.profilePage.errors.firstName": "Enter your first name.",

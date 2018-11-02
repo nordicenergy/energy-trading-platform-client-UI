@@ -59,7 +59,7 @@ export class Overview extends contractStatusMixin(AppPage) {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 

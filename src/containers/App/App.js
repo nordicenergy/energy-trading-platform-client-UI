@@ -21,6 +21,8 @@ import contractStatusMixin from '../__shared__/mixins/contractStatus';
 
 import './App.css';
 
+const APP_ID = Symbol('app-id');
+
 export class App extends contractStatusMixin(React.PureComponent) {
     static mapStateToProps({ Users, App, Contracts }) {
         return {
@@ -46,6 +48,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
     constructor(props, context) {
         super(props, context);
         this.state = { isConfirmVisible: false, isMenuBarOpen: false, isConfigSideBarOpen: false };
+        this.appId = APP_ID;
     }
 
     componentDidMount() {
@@ -83,7 +86,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.appId, loading);
         }
     }
 

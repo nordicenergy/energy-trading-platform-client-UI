@@ -31,13 +31,14 @@ describe('Users action performers', () => {
     });
 
     it('should call dispatch method for setting loader visibility', () => {
-        performSetupLoaderVisibility(true);
+        const pageId = Symbol('pageId');
+        performSetupLoaderVisibility(pageId, true);
 
         const [firstCall] = dispatcher.dispatchAction.mock.calls;
         const [type, payload] = firstCall;
         expect(dispatcher.dispatchAction).toHaveBeenCalledTimes(1);
         expect(type).toEqual('SETUP_LOADER_VISIBILITY');
-        expect(payload).toEqual(true);
+        expect(payload).toEqual({ id: pageId, waiting: true });
     });
 
     it('should call dispatch method for get localization content', () => {

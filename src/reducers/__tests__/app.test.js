@@ -18,7 +18,8 @@ describe('App reducer:', () => {
     describe('Loader:', () => {
         it('should handle SETUP_LOADER_VISIBILITY', () => {
             const result = appReducer(initialState, ACTIONS.setupLoaderVisibility);
-            expect(result.loader.data).toEqual(ACTIONS.setupLoaderVisibility.payload);
+            const { payload } = ACTIONS.setupLoaderVisibility;
+            expect(result.loader.data).toEqual({ [payload.id]: payload.waiting });
         });
     });
 
@@ -137,7 +138,7 @@ function fixtures() {
         },
         setupLoaderVisibility: {
             type: 'SETUP_LOADER_VISIBILITY',
-            payload: true
+            payload: { id: 'PAGE_NAME', waiting: true }
         },
         resetBreadcrumbs: {
             type: 'SETUP_BREADCRUMBS',

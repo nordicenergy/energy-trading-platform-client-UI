@@ -59,7 +59,7 @@ export class MyDocuments extends AppPage {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 

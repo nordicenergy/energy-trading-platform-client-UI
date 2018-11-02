@@ -100,7 +100,7 @@ export class DirectTrading extends AppPage {
         const isNewTransactionPerformed = performedTransaction !== prevProps.performedTransaction;
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
 
         if (isLedgerStatusChanged) {

@@ -65,7 +65,7 @@ export class Profile extends AppPage {
         }
 
         if (loading !== this.props.loading) {
-            performSetupLoaderVisibility(this.props.loading);
+            performSetupLoaderVisibility(this.pageId, this.props.loading);
         }
     }
 

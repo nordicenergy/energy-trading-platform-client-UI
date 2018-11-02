@@ -308,11 +308,10 @@ describe('Main <App /> Component', () => {
         const app = renderComponent();
 
         app.setProps({ loading: true });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         app.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 
     it('should calls contracts action performers when receive new user data', () => {

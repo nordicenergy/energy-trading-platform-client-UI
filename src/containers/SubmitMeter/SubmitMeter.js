@@ -28,13 +28,15 @@ export class SubmitMeter extends AppPage {
 
     static mapStateToProps(state) {
         return {
+            user: state.Users.profile.data.user,
             meterReadingsHistory: state.Consumption.meterReadingsHistory.data,
             meterNumber: state.Consumption.meterNumber.data.meterNumber,
             submittedMeterReading: state.Consumption.submittedMeterReading,
             loading:
                 state.Consumption.meterReadingsHistory.loading ||
                 state.Consumption.submittedMeterReading.loading ||
-                state.Consumption.meterNumber.loading,
+                state.Consumption.meterNumber.loading ||
+                state.Users.profile.loading,
             errorLoading: state.Consumption.meterReadingsHistory.error || state.Consumption.meterNumber.error,
             errorSubmit: state.Consumption.submittedMeterReading.error
         };
@@ -47,7 +49,12 @@ export class SubmitMeter extends AppPage {
 
     componentDidUpdate(prevProps) {
         const { formatMessage } = this.context.intl;
-        const { loading, errorLoading, errorSubmit, submittedMeterReading } = this.props;
+        const { loading, user, errorLoading, errorSubmit, submittedMeterReading } = this.props;
+
+        if (!loading && user && user.id && user !== prevProps.user) {
+            performGetMeterReadingsHistory();
+            performGetMeterNumber();
+        }
 
         if (
             !loading &&
@@ -70,7 +77,7 @@ export class SubmitMeter extends AppPage {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 
@@ -169,6 +176,7 @@ SubmitMeter.propTypes = {
         isSeriesBasedOnLiveData: PropTypes.bool
     }).isRequired,
     loading: PropTypes.bool,
+    user: PropTypes.object,
     meterNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     submittedMeterReading: PropTypes.shape({
         data: PropTypes.object,

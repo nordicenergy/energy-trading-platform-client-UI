@@ -3,6 +3,7 @@ import breadcrumbsMixin from './mixins/breadcrumbs';
 import scrollBottomHandlingMixin from './mixins/scroll';
 import labelsMixin from './mixins/labels';
 
+const PAGE_ID = Symbol('page-id');
 const Base = labelsMixin(scrollBottomHandlingMixin(breadcrumbsMixin(React.PureComponent)));
 
 class AppPage extends Base {
@@ -10,6 +11,7 @@ class AppPage extends Base {
     constructor(props, context, breadcrumbs) {
         super(props, context, breadcrumbs);
         this.setupBreadcrumbs();
+        this.pageId = PAGE_ID;
     }
 
     componentWillUnmount() {

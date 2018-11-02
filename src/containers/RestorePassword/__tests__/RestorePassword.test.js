@@ -73,7 +73,7 @@ describe('<RestorePassword /> Container', () => {
         component.setProps({
             loading: true
         });
-        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(true);
+        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
 
         component.setProps({
             loading: false,
