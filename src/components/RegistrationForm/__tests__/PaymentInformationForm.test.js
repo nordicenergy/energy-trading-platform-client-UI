@@ -25,7 +25,7 @@ describe('<PaymentInformationForm /> component', () => {
     it('should render with optional fields', () => {
         const paymentInformationForm = renderComponent();
 
-        paymentInformationForm.setProps({ formData: { paymentMethod: 'remittance' } });
+        paymentInformationForm.setProps({ formData: { paymentMethod: 'transfer' } });
         paymentInformationForm.update();
 
         expect(paymentInformationForm.find('TextField[name="iban"]')).toHaveLength(0);
@@ -51,10 +51,10 @@ describe('<PaymentInformationForm /> component', () => {
             .at(1)
             .props()
             .onChange({
-                target: { name: 'paymentMethod', value: 'remittance' }
+                target: { name: 'paymentMethod', value: 'transfer' }
             });
         expect(setFormData).toHaveBeenCalledWith({
-            paymentMethod: 'remittance',
+            paymentMethod: 'transfer',
             iban: '',
             alternativeAccountHolder: '',
             sepaApproval: false
@@ -90,7 +90,7 @@ describe('<PaymentInformationForm /> component', () => {
             .onNextButtonClick();
         expect(paymentInformationForm.state().errors).toEqual({});
 
-        paymentInformationForm.setProps({ formData: { paymentMethod: 'remittance' } });
+        paymentInformationForm.setProps({ formData: { paymentMethod: 'transfer' } });
         paymentInformationForm.update();
         paymentInformationForm
             .find('form')
