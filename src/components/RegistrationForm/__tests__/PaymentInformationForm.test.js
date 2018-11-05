@@ -16,7 +16,7 @@ describe('<PaymentInformationForm /> component', () => {
     it('should render with necessary elements', () => {
         const paymentInformationForm = renderComponent();
 
-        expect(paymentInformationForm.find('RadioButton[name="paymentMethod"]')).toHaveLength(3);
+        expect(paymentInformationForm.find('RadioButton[name="paymentMethod"]')).toHaveLength(2);
         expect(paymentInformationForm.find('IBANField[name="iban"]')).toHaveLength(1);
         expect(paymentInformationForm.find('TextField[name="alternativeAccountHolder"]')).toHaveLength(1);
         expect(paymentInformationForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(1);
