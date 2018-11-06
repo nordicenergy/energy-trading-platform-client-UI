@@ -26,7 +26,6 @@ const dummyProfile = {
         birthday: 1535587200,
         email: 'max@example.com',
     }
-
 };
 
 function renderComponent(props = {}, mountFn = shallow) {
@@ -37,6 +36,7 @@ describe('<ProfileForm /> component', () => {
     it('should renders with necessary components', () => {
         const profileForm = renderComponent();
 
+        /* Customer data */
         expect(profileForm.find('.profile-form-tab-list')).toHaveLength(1);
         expect(profileForm.find('.profile-form-tab-list > button')).toHaveLength(2);
         expect(profileForm.find('.profile-form-tab-panel')).toHaveLength(2);
@@ -50,6 +50,21 @@ describe('<ProfileForm /> component', () => {
         expect(profileForm.find('TextField[name="oldPassword"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="newPassword"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="confirmNewPassword"]')).toHaveLength(1);
+
+        /* Contract data */
+        expect(profileForm.find('TextField[name="contractContractNumber"]')).toHaveLength(1);
+        expect(profileForm.find('DateField[name="contractStartDate"]')).toHaveLength(1);
+        expect(profileForm.find('DateField[name="contractEndDate"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractFirstName"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractLastName"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractStreet"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractHouseNumber"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractPostcode"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractCity"]')).toHaveLength(1);
+        expect(profileForm.find('DateField[name="contractBirthday"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractEmail"]')).toHaveLength(1);
+
+        /* Payment */
         expect(profileForm.find('RadioButton[name="paymentMethod"]')).toHaveLength(3);
         expect(profileForm.find('IBANField[name="IBAN"]')).toHaveLength(1);
         expect(profileForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(1);
