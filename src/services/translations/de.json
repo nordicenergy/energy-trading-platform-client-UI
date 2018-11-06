@@ -207,7 +207,21 @@
 
     "app.profilePage.header": "Profil",
     "app.profilePage.labels.personalDataTab": "Kundendaten",
-    "app.profilePage.labels.paymentDataTab": "Zahlungsweise",
+
+    "app.profilePage.labels.paymentDataTab": "TODO: update to contract data -> Zahlungsweise",
+
+    "app.profilePage.labels.contract.contractNumber": "DE Contract Number",
+    "app.profilePage.labels.contract.startDate": "DE Start Date",
+    "app.profilePage.labels.contract.endDate": "DE End Date",
+    "app.profilePage.labels.contract.firstName": "Vorname",
+    "app.profilePage.labels.contract.lastName": "Nachname",
+    "app.profilePage.labels.contract.street": "Straße",
+    "app.profilePage.labels.contract.houseNumber": "Hausnummer",
+    "app.profilePage.labels.contract.postcode": "Postleitzahl",
+    "app.profilePage.labels.contract.city": "Ort",
+    "app.profilePage.labels.contract.birthday": "Geburtsdatum",
+    "app.profilePage.labels.contract.email": "E-Mail",
+
     "app.profilePage.errors.sepaApprovalValidator": "Bitte der SEPA-Einzugsermächtigung zustimmen.",
     "app.profilePage.errors.firstName": "Vorname eingeben.",
     "app.profilePage.errors.lastName": "Nachname eingeben.",
