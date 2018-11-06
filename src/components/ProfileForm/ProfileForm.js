@@ -288,6 +288,100 @@ class ProfileForm extends React.PureComponent {
                     tabIndex={-1}
                     aria-describedby="paymentDataTab"
                 >
+                    <TextField
+                        disabled
+                        label={labels.contractContractNumber}
+                        name="contractContractNumber"
+                        value={formData.contract.id}
+                        error={errors.contractContractNumber}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <DateField
+                        disabled
+                        locale={locale}
+                        name="contractStartDate"
+                        helperText={labels.birthdayHelperText}
+                        label={labels.contractStartDate}
+                        value={formData.contract.startDate}
+                        error={errors.contractStartDate}
+                        onChange={e => this.handleDateFieldChange(e)}
+                    />
+                    <DateField
+                        disabled
+                        locale={locale}
+                        name="contractEndDate"
+                        helperText={labels.birthdayHelperText}
+                        label={labels.contractEndDate}
+                        value={formData.contract.endDate}
+                        error={errors.contractEndDate}
+                        onChange={e => this.handleDateFieldChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractFirstName}
+                        name="contractFirstName"
+                        value={formData.contract.firstName}
+                        error={errors.contractFirstName}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractLastName}
+                        name="contractLastName"
+                        value={formData.contract.lastName}
+                        error={errors.contractLastName}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractStreet}
+                        name="contractStreet"
+                        value={formData.contract.street}
+                        error={errors.contractStreet}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractHouseNumber}
+                        name="contractHouseNumber"
+                        value={formData.contract.houseNumber}
+                        error={errors.contractHouseNumber}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractPostcode}
+                        name="contractPostcode"
+                        value={formData.contract.postcode}
+                        error={errors.contractPostcode}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractCity}
+                        name="contractCity"
+                        value={formData.contract.city}
+                        error={errors.contractCity}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <DateField
+                        disabled
+                        locale={locale}
+                        name="contractBirthday"
+                        helperText={labels.birthdayHelperText}
+                        label={labels.contractBirthday}
+                        value={formData.contract.birthday}
+                        error={errors.contractBirthday}
+                        onChange={e => this.handleDateFieldChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractEmail}
+                        name="contractEmail"
+                        value={formData.contract.email}
+                        error={errors.contractEmail}
+                        onChange={e => this.handleChange(e)}
+                    />
                     <div className="profile-form-payment-method">
                         <strong>{labels.paymentMethod}</strong>
                         <ul>
@@ -361,6 +455,20 @@ class ProfileForm extends React.PureComponent {
     }
 }
 
+const commonContractPropTypes = {
+    id: PropTypes.string,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    street: PropTypes.string,
+    houseNumber: PropTypes.string,
+    postcode: PropTypes.string,
+    city: PropTypes.string,
+    birthday: PropTypes.string,
+    email: PropTypes.string
+};
+
 const commonProfilePropTypes = {
     email: PropTypes.string,
     firstName: PropTypes.string,
@@ -381,6 +489,17 @@ const commonProfilePropTypes = {
 ProfileForm.propTypes = {
     labels: PropTypes.shape({
         ...commonProfilePropTypes,
+        contractContractNumber: PropTypes.string,
+        contractStartDate: PropTypes.string,
+        contractEndDate: PropTypes.string,
+        contractFirstName: PropTypes.string,
+        contractLastName: PropTypes.string,
+        contractStreet: PropTypes.string,
+        contractHouseNumber: PropTypes.string,
+        contractPostcode: PropTypes.string,
+        contractCity: PropTypes.string,
+        contractBirthday: PropTypes.string,
+        contractEmail: PropTypes.string,
         paymentMethod: PropTypes.string,
         paymentMethodDebitOption: PropTypes.string,
         paymentMethodTransferOption: PropTypes.string,
@@ -393,6 +512,7 @@ ProfileForm.propTypes = {
     }),
     profile: PropTypes.shape({
         ...commonProfilePropTypes,
+        contract: PropTypes.shape(...commonContractPropTypes),
         allowPasswordChange: PropTypes.bool,
         birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     }),
@@ -402,7 +522,7 @@ ProfileForm.propTypes = {
 ProfileForm.defaultProps = {
     labels: {
         personalDataTab: 'Customer Data',
-        paymentDataTab: 'Payment',
+        paymentDataTab: 'Contract Data',
         firstName: 'First Name',
         lastName: 'Last Name',
         birthday: 'Date of birth',
@@ -416,6 +536,17 @@ ProfileForm.defaultProps = {
         oldPassword: 'Old password',
         newPassword: 'New password',
         confirmNewPassword: 'Repeat new password',
+        contractContractNumber: 'Contract Number',
+        contractStartDate: 'Start Date',
+        contractEndDate: 'End Date',
+        contractFirstName: 'First Name',
+        contractLastName: 'Last Name',
+        contractStreet: 'Street',
+        contractHouseNumber: 'House Number',
+        contractPostcode: 'Postcode',
+        contractCity: 'City',
+        contractBirthday: 'Date of birth',
+        contractEmail: 'Email',
         paymentMethod: 'Payment options',
         paymentMethodDebitOption: 'Debit',
         paymentMethodTransferOption: 'Transfer',
@@ -438,7 +569,20 @@ ProfileForm.defaultProps = {
         city: '',
         street: '',
         streetNumber: '',
-        IBAN: ''
+        IBAN: '',
+        contract: {
+            id: '',
+            startDate: '',
+            endDate: '',
+            firstName: '',
+            lastName: '',
+            street: '',
+            houseNumber: '',
+            postcode: '',
+            city: '',
+            birthday: '',
+            email: ''
+        }
     },
     errors: {},
     onSubmit: () => {}
