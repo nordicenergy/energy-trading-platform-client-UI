@@ -204,7 +204,20 @@
 
     "app.profilePage.header": "Profile",
     "app.profilePage.labels.personalDataTab": "Customer Data",
-    "app.profilePage.labels.paymentDataTab": "Payment",
+    "app.profilePage.labels.paymentDataTab": "Contract Data",
+
+    "app.profilePage.labels.contract.contractNumber": "Contract Number",
+    "app.profilePage.labels.contract.startDate": "Start Date",
+    "app.profilePage.labels.contract.endDate": "End Date",
+    "app.profilePage.labels.contract.firstName": "First name",
+    "app.profilePage.labels.contract.lastName": "Last name",
+    "app.profilePage.labels.contract.street": "Street",
+    "app.profilePage.labels.contract.houseNumber": "Street Number",
+    "app.profilePage.labels.contract.postcode": "Postcode",
+    "app.profilePage.labels.contract.city": "City",
+    "app.profilePage.labels.contract.birthday": "Date of birth",
+    "app.profilePage.labels.contract.email": "Email",
+
     "app.profilePage.errors.sepaApprovalValidator": "Please accept the SEPA terms.",
     "app.profilePage.errors.firstName": "Enter your first name.",
     "app.profilePage.errors.lastName": "Enter your last name.",
