@@ -6,6 +6,9 @@
     <div style={{ marginRight: 24 }}>
         <RadioButton name="demo" label="Female" required />
     </div>
+    <div style={{ marginRight: 24 }}>
+        <RadioButton name="demo" label="Female" required disabled />
+    </div>
 </div>
 ```
 

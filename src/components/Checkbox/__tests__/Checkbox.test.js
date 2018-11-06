@@ -14,6 +14,7 @@ describe('<Checkbox /> component', () => {
         expect(checkbox.find('input[type="checkbox"].checkbox-native-control')).toHaveLength(1);
         expect(checkbox.find('.checkbox-control')).toHaveLength(1);
         expect(checkbox.contains(<span className="checkbox-label">Test</span>)).toBeTruthy();
+        expect(checkbox.find('input.checkbox-native-control').props().disabled).toBeFalsy();
     });
 
     it('should render with help text', () => {
@@ -38,6 +39,14 @@ describe('<Checkbox /> component', () => {
         const checkbox = renderComponent({ label: 'Required', required: true });
 
         expect(checkbox.hasClass('checkbox--required')).toBeTruthy();
+    });
+
+    it('should render with necessary class if checkbox is disabled', () => {
+        const checkbox = renderComponent({ label: 'Disabled', required: true, disabled: true });
+
+        expect(checkbox.hasClass('checkbox--disabled')).toBeTruthy();
+        expect(checkbox.hasClass('checkbox--required')).toBeFalsy();
+        expect(checkbox.find('input.checkbox-native-control').props().disabled).toBeTruthy();
     });
 
     it('should not throw an error if `onFocus` property is not given', () => {

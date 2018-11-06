@@ -33,12 +33,13 @@ class RadioButton extends Component {
     }
 
     render() {
-        const { className, name, value, error, label, required, helpText } = this.props;
+        const { className, name, value, error, label, required, disabled, helpText } = this.props;
         const { hasFocus, checked } = this.getState();
         const classes = classNames(
             'radio-button',
-            hasFocus && 'radio-button--has-focus',
-            required && 'radio-button--required',
+            hasFocus && !disabled && 'radio-button--has-focus',
+            required && !disabled && 'radio-button--required',
+            disabled && 'radio-button--disabled',
             className
         );
 
@@ -51,6 +52,7 @@ class RadioButton extends Component {
                         name={name}
                         type="radio"
                         value={value}
+                        disabled={disabled}
                         checked={checked}
                         onFocus={event => this.handleFocus(event)}
                         onBlur={event => this.handleBlur(event)}
@@ -76,9 +78,11 @@ RadioButton.propTypes = {
     error: PropTypes.node,
     helpText: PropTypes.node,
     required: PropTypes.bool,
+    disabled: PropTypes.bool,
     onChange: PropTypes.func
 };
 RadioButton.defaultProps = {
+    disabled: false,
     checkedDefault: false,
     onFocus: () => {},
     onBlur: () => {},
