@@ -12,7 +12,21 @@ const dummyProfile = {
     street: 'test-street',
     streetNumber: '5a',
     birthday: 1535587200,
-    IBAN: 'DE89370400440532013000'
+    IBAN: 'DE89370400440532013000',
+    contract: {
+        id: '1000087',
+        startDate: 339984000,
+        endDate: 339984000,
+        firstName: 'Max',
+        lastName: 'Mustermann',
+        street: 'Treskowstr.',
+        houseNumber: '10',
+        postcode: '13089',
+        city: 'Berlin',
+        birthday: 1535587200,
+        email: 'max@example.com',
+    }
+
 };
 
 function renderComponent(props = {}, mountFn = shallow) {

@@ -457,15 +457,15 @@ class ProfileForm extends React.PureComponent {
 
 const commonContractPropTypes = {
     id: PropTypes.string,
-    startDate: PropTypes.string,
-    endDate: PropTypes.string,
+    startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     street: PropTypes.string,
     houseNumber: PropTypes.string,
     postcode: PropTypes.string,
     city: PropTypes.string,
-    birthday: PropTypes.string,
+    birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     email: PropTypes.string
 };
 
@@ -512,7 +512,9 @@ ProfileForm.propTypes = {
     }),
     profile: PropTypes.shape({
         ...commonProfilePropTypes,
-        contract: PropTypes.shape(...commonContractPropTypes),
+        contract: PropTypes.shape({
+            ...commonContractPropTypes
+        }),
         allowPasswordChange: PropTypes.bool,
         birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     }),
