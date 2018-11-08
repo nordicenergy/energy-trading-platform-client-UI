@@ -9,8 +9,9 @@ const profile = {
     street: 'justice-league',
     streetNumber: '5',
     birthday: 1535587200,
-    IBAN: 'DE89370400440532013000',
     contract: {
+        IBAN:'DE89370400440532013000',
+        paymentMethod: 'debit',
         id: '1000087',
         startDate: 339984000,
         endDate: 339984000,
