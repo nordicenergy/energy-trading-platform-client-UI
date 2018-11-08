@@ -208,11 +208,11 @@
     "app.profilePage.header": "Profil",
     "app.profilePage.labels.personalDataTab": "Kundendaten",
 
-    "app.profilePage.labels.paymentDataTab": "TODO: update to contract data -> Zahlungsweise",
+    "app.profilePage.labels.paymentDataTab": "Vertragsdaten",
 
-    "app.profilePage.labels.contract.contractNumber": "DE Contract Number",
-    "app.profilePage.labels.contract.startDate": "DE Start Date",
-    "app.profilePage.labels.contract.endDate": "DE End Date",
+    "app.profilePage.labels.contract.contractNumber": "Vertragsnummer",
+    "app.profilePage.labels.contract.startDate": "Vertragsbeginn",
+    "app.profilePage.labels.contract.endDate": "Vertragsende",
     "app.profilePage.labels.contract.firstName": "Vorname",
     "app.profilePage.labels.contract.lastName": "Nachname",
     "app.profilePage.labels.contract.street": "Straße",
