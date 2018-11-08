@@ -21,7 +21,7 @@ describe('Higher-Order Component "availableWithValidContract"', () => {
         const component = renderComponent();
         expect(component.find('div').text()).toBe('Hi! Bruce');
         expect(routerStub.history.push).toHaveBeenCalledTimes(0);
-        component.setProps({ user: { statusCode: CONTRACT_STATUSES.waiting } });
+        component.setProps({ user: { contract: { statusCode: CONTRACT_STATUSES.waiting }}});
         expect(routerStub.history.push).toHaveBeenCalledTimes(1);
     });
 });
