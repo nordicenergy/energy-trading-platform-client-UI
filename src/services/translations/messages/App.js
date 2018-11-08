@@ -75,7 +75,8 @@ const messages = defineMessages({
     },
     noContractMessage: {
         id: 'app.contractModal.noContractMessage',
-        defaultMessage: 'There are no contracts available, please contact administrator to resolve the issue.'
+        defaultMessage:
+            'At present, no contract data can be displayed. Please contact the administrator or try again later.'
     },
     selectContractMessage: {
         id: 'app.contractModal.selectContractMessage',

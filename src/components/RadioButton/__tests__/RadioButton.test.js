@@ -14,6 +14,7 @@ describe('<RadioButton /> component', () => {
         expect(radioButton.find('input[type="radio"].radio-button-native-control')).toHaveLength(1);
         expect(radioButton.find('.radio-button-control')).toHaveLength(1);
         expect(radioButton.contains(<span className="radio-button-label">Test</span>)).toBeTruthy();
+        expect(radioButton.find('input.radio-button-native-control').props().disabled).toBeFalsy();
     });
 
     it('should render with help text', () => {
@@ -32,6 +33,14 @@ describe('<RadioButton /> component', () => {
         const radioButton = renderComponent({ label: 'Required', required: true });
 
         expect(radioButton.hasClass('radio-button--required')).toBeTruthy();
+    });
+
+    it('should render with necessary class if radio button is disabled', () => {
+        const checkbox = renderComponent({ label: 'Disabled', required: true, disabled: true });
+
+        expect(checkbox.hasClass('radio-button--disabled')).toBeTruthy();
+        expect(checkbox.hasClass('radio-button--required')).toBeFalsy();
+        expect(checkbox.find('input.radio-button-native-control').props().disabled).toBeTruthy();
     });
 
     it('should not throw an error if `onFocus` property is not given', () => {

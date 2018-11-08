@@ -67,7 +67,7 @@
 
     "app.contractModal.contractMessage": "Um fortzufahren, wähle bitte einen Auftrag aus.",
     "app.contractModal.noContractMessage":
-        "Es sind keine Aufträge vorhanden. Bitte wende dich an den Administrator, um das Problem zu beheben.",
+        "Zur Zeit können keine Vertragsaten abgebildet werden. Bitte wende dich an den Administrator, oder versuche es später erneut.",
     "app.contractModal.selectContractMessage": "Wähle einen Auftrag aus",
 
     "app.header.selectLocaleMessage": "Wählen Sie das Gebietsschema",

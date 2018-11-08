@@ -185,7 +185,7 @@
 
     "app.contractModal.contractMessage": "To continue, please select a contract.",
     "app.contractModal.noContractMessage":
-        "There are no contracts available, please contact administrator to resolve the issue.",
+        "At present, no contract data can be displayed. Please contact the administrator or try again later.",
     "app.contractModal.selectContractMessage": "Select contract",
 
     "app.header.selectLocaleMessage": "Select locale",

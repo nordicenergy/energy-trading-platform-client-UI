@@ -9,6 +9,9 @@
     <div style={{ marginRight: 24 }}>
         <Checkbox name="feature" label="Claws" required />
     </div>
+    <div style={{ marginRight: 24 }}>
+        <Checkbox name="feature" label="Claws" required disabled />
+    </div>
 </div>
 ```
 

@@ -79,6 +79,15 @@
     line-height: 1;
 }
 
+.radio-button--disabled .radio-button-label {
+    color: var(--label-color);
+}
+
+.radio-button--disabled .radio-button-native-control:checked + .radio-button-control::after,
+.radio-button--disabled .radio-button-control::before {
+    background: var(--label-color);
+}
+
 .radio-button--required .radio-button-label {
     padding-right: 0.25em;
 }

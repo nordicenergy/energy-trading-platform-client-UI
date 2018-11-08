@@ -33,12 +33,13 @@ class Checkbox extends Component {
     }
 
     render() {
-        const { className, name, value, error, label, required, helpText } = this.props;
+        const { className, name, value, error, label, required, disabled, helpText } = this.props;
         const { checked, hasFocus } = this.getState();
         const classes = classNames(
             'checkbox',
-            hasFocus && 'checkbox--has-focus',
-            required && 'checkbox--required',
+            hasFocus && !disabled && 'checkbox--has-focus',
+            required && !disabled && 'checkbox--required',
+            disabled && 'checkbox--disabled',
             className
         );
 
@@ -50,6 +51,7 @@ class Checkbox extends Component {
                         name={name}
                         type="checkbox"
                         value={value}
+                        disabled={disabled}
                         checked={checked}
                         onFocus={event => this.handleFocus(event)}
                         onBlur={event => this.handleBlur(event)}
@@ -80,11 +82,13 @@ Checkbox.propTypes = {
     error: PropTypes.node,
     helpText: PropTypes.node,
     required: PropTypes.bool,
+    disabled: PropTypes.bool,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onChange: PropTypes.func
 };
 Checkbox.defaultProps = {
+    disabled: false,
     checkedDefault: false,
     onFocus: () => {},
     onBlur: () => {},
