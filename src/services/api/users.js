@@ -19,20 +19,26 @@ export function getUserData() {
     return Axios.get(`${SESSION_API_URL}/user/getUserData`).then(response => {
         const { data = {} } = response;
         const { user = {} } = data;
-        const { contract: { startDate: contractStartDate = '', endDate: contractEndDate = '' } = {} } = user;
+        const {
+            contract: {
+                startDate: contractStartDate = '',
+                endDate: contractEndDate = '',
+                birthday: contractBirthday = ''
+            } = {}
+        } = user;
         const birthdayData = user.birthday || '';
         const [year, month, day] = birthdayData.split('-');
         const formattedBirthdayData = new Date(`${year}-${month}-${day}`);
         return {
             data: {
                 user: {
-                    ...user.contract, // TODO @aliaksandr.stashkevich: please remove this workaround  after contract data tab completion
                     ...user,
                     birthday: moment(formattedBirthdayData).unix(), // convert to unix time stamp
                     contract: {
                         ...data.user.contract,
                         startDate: moment(contractStartDate).unix(), // convert to unix time stamp
-                        endDate: moment(contractEndDate).unix() // convert to unix time stamp
+                        endDate: moment(contractEndDate).unix(), // convert to unix time stamp
+                        birthday: moment(contractBirthday).unix() // convert to unix time stamp
                     }
                 }
             }
