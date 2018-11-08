@@ -140,7 +140,8 @@ describe('Main <App /> Component', () => {
         expect(component.find('ContractModal').props().show).toEqual(true);
         expect(component.find('ContractModal').props().labels).toEqual({
             contractMessage: 'To continue, please select a contract.',
-            noContractMessage: 'There are no contracts available, please contact administrator to resolve the issue.',
+            noContractMessage:
+                'At present, no contract data can be displayed. Please contact the administrator or try again later.',
             selectLabel: 'Select contract'
         });
 

@@ -185,7 +185,7 @@
 
     "app.contractModal.contractMessage": "To continue, please select a contract.",
     "app.contractModal.noContractMessage":
-        "There are no contracts available, please contact administrator to resolve the issue.",
+        "At present, no contract data can be displayed. Please contact the administrator or try again later.",
     "app.contractModal.selectContractMessage": "Select contract",
 
     "app.header.selectLocaleMessage": "Select locale",
@@ -412,8 +412,6 @@
     "app.registrationPage.options.sepaApproval.0": "Approval",
     "app.registrationPage.helps.sepaApproval":
         "The account holder named above grants Lition Energie GmbH the permission to withdraw amounts due by direct debits from the account. In addition, the account holder named above authorizes his or her bank to redeem the direct debits issued. Note: Direct debits can be revoked within eight weeks starting at the time of debit. The terms and conditions of the bank apply.",
-    "app.registrationPage.messages.bitcoinMessage":
-        "Mit Lition kannst du deine Stromrechnung in Bitcoin oder Bitcoin Cash bezahlen. Sobald dein monatlicher Abschlag ansteht erhältst du von uns eine E-Mail mit den Zahlungsdetails zum jeweils dann gültigen Bitcoin-Euro Kurs.",
     "app.registrationPage.errors.ibanRequired": "Enter IBAN.",
     "app.registrationPage.errors.ibanValidator": "IBAN is invalid.",
     "app.registrationPage.errors.sepaApprovalValidator": "Please accept the SEPA terms.",

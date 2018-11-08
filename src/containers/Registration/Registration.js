@@ -130,7 +130,6 @@ export class Registration extends AppPage {
             'customerNumber',
             'counterNumber',
             'message',
-            'paymentMethod',
             'googleReCaptchaResponse'
         ];
         const dateProperties = ['birthday', 'desiredData', 'terminationDate', 'relocationDate'];

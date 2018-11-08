@@ -50,7 +50,8 @@ export class Overview extends contractStatusMixin(AppPage) {
         const { formatMessage } = this.context.intl;
         const { user, loading, error } = this.props;
 
-        if (user !== prevProps.user) {
+        if (!loading && user !== prevProps.user) {
+            this.stopTransactionsUpdating();
             this.startTransactionsUpdating();
         }
 
@@ -74,7 +75,6 @@ export class Overview extends contractStatusMixin(AppPage) {
             performGetRecentTransactions(user.id);
         }
 
-        this.stopTransactionsUpdating();
         this.intervalId = setInterval(() => {
             performGetRecentTransactions(user.id);
         }, UPDATE_INTERVAL);
@@ -83,6 +83,7 @@ export class Overview extends contractStatusMixin(AppPage) {
     stopTransactionsUpdating() {
         if (this.intervalId) {
             clearInterval(this.intervalId);
+            this.intervalId = null;
         }
     }
 

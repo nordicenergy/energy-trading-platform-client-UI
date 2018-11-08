@@ -97,6 +97,15 @@
     line-height: 1;
 }
 
+.checkbox--disabled .checkbox-label {
+    color: var(--label-color);
+}
+
+.checkbox--disabled .checkbox-native-control:checked + .checkbox-control::after,
+.checkbox--disabled .checkbox-control::before {
+    background: var(--label-color);
+}
+
 .checkbox--required .checkbox-label {
     padding-right: 0.25em;
 }
