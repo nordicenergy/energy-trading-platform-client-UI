@@ -37,7 +37,7 @@ describe('Users reducer:', () => {
             const result = usersReducer(initialState, ACTIONS.getUserData.pending);
             expect(result.profile.loading).toEqual(true);
             expect(result.profile.error).toEqual(null);
-            expect(result.profile.data).toEqual({ user: {} });
+            expect(result.profile.data).toEqual({ user: { contract: {} } });
         });
 
         it('should handle UPDATE_USER_DATA', () => {
@@ -97,7 +97,7 @@ describe('Users reducer:', () => {
             const result = usersReducer(initialState, ACTIONS.getUserData.fail);
             expect(result.profile.loading).toEqual(false);
             expect(result.profile.error).toEqual('Error Message');
-            expect(result.profile.data).toEqual({ user: {} });
+            expect(result.profile.data).toEqual({ user: { contract: {} } });
         });
 
         it('should handle UPDATE_USER_DATA', () => {

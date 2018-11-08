@@ -12,8 +12,13 @@ const dummyProfile = {
     street: 'test-street',
     streetNumber: '5a',
     birthday: 1535587200,
-    IBAN: 'DE89370400440532013000',
     contract: {
+        IBAN: 'DE89370400440532013000',
+        BIC: 'COBADEFFXXX',
+        status: 'active',
+        statusCode: 5000,
+        statusCodeTitle: 'In Belieferung',
+        paymentMethod: 'powercloud',
         id: '1000087',
         startDate: 339984000,
         endDate: 339984000,
@@ -24,7 +29,7 @@ const dummyProfile = {
         postcode: '13089',
         city: 'Berlin',
         birthday: 1535587200,
-        email: 'max@example.com',
+        email: 'max@example.com'
     }
 };
 
@@ -228,20 +233,23 @@ describe('<ProfileForm /> component', () => {
 
     it('should update form data when `profile` property is changed', () => {
         const profileForm = renderComponent();
-        const profileWithoutIBAN = { ...dummyProfile };
+        const profileWithoutIBAN = { ...dummyProfile, contract: { ...dummyProfile.contract, IBAN: '' } };
 
-        profileWithoutIBAN.IBAN = '';
         profileForm.setState({ oldPassword: 'test1234', newPassword: 'qwerty123', confirmNewPassword: 'qwerty1234' });
         profileForm.setProps({ profile: profileWithoutIBAN });
 
-        expect(profileForm.state().formData).toEqual({
+        const profileFormData = profileForm.state().formData;
+
+        const profileWithoutIBANMock = {
             ...profileWithoutIBAN,
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod: 'transfer',
-            sepaApproval: false
-        });
+            sepaApproval: false,
+            contract: { ...profileWithoutIBAN.contract, paymentMethod: 'transfer' }
+        };
+
+        expect(profileFormData).toEqual(profileWithoutIBANMock);
     });
 
     it('should not throw an error if `onSubmit` is not given', () => {
@@ -278,7 +286,7 @@ describe('<ProfileForm /> component', () => {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod: 'debit',
+            contract: { ...dummyProfile.contract, paymentMethod: 'debit' },
             sepaApproval: false
         });
     });
@@ -297,7 +305,7 @@ describe('<ProfileForm /> component', () => {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod: 'debit',
+            contract: { ...dummyProfile.contract, paymentMethod: 'debit' },
             sepaApproval: true
         });
     });
