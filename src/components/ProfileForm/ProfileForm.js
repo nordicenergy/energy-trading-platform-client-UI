@@ -24,13 +24,16 @@ class ProfileForm extends React.PureComponent {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod:
-                profile.paymentMethod === PAYMENT_METHODS.bitcoin
-                    ? PAYMENT_METHODS.bitcoin
-                    : profile.IBAN ? PAYMENT_METHODS.debit : PAYMENT_METHODS.transfer,
-            sepaApproval: Boolean(profile.IBAN),
             ...ProfileForm.defaultProps.profile,
-            ...pick(profile, Object.keys(ProfileForm.defaultProps.profile))
+            ...pick(profile, Object.keys(ProfileForm.defaultProps.profile)),
+            contract: {
+                ...profile.contract,
+                paymentMethod:
+                    profile.contract.paymentMethod === PAYMENT_METHODS.bitcoin
+                        ? PAYMENT_METHODS.bitcoin
+                        : profile.contract.IBAN ? PAYMENT_METHODS.debit : PAYMENT_METHODS.transfer
+            },
+            sepaApproval: Boolean(profile.contract.IBAN)
         };
     }
 
@@ -104,8 +107,11 @@ class ProfileForm extends React.PureComponent {
             dirty: true,
             formData: {
                 ...formData,
-                [name]: value,
-                IBAN: '',
+                contract: {
+                    ...formData.contract,
+                    IBAN: '',
+                    [name]: value
+                },
                 sepaApproval: false
             }
         });
@@ -118,7 +124,7 @@ class ProfileForm extends React.PureComponent {
     personalDataTabHasErrors() {
         const { errors } = this.props;
         return !!Object.keys(errors)
-            .filter(key => key !== 'IBAN' && key !== 'sepaApproval')
+            .filter(key => key !== 'contract.IBAN' && key !== 'sepaApproval')
             .map(key => errors[key])
             .filter(error => !!error).length;
     }
@@ -390,7 +396,7 @@ class ProfileForm extends React.PureComponent {
                                     label={labels.paymentMethodDebitOption}
                                     name="paymentMethod"
                                     value={PAYMENT_METHODS.debit}
-                                    checked={formData.paymentMethod === PAYMENT_METHODS.debit}
+                                    checked={formData.contract.paymentMethod === PAYMENT_METHODS.debit}
                                     onChange={e => this.handlePaymentMethodChange(e)}
                                 />
                             </li>
@@ -398,7 +404,7 @@ class ProfileForm extends React.PureComponent {
                                 <RadioButton
                                     name="paymentMethod"
                                     value={PAYMENT_METHODS.transfer}
-                                    checked={formData.paymentMethod === PAYMENT_METHODS.transfer}
+                                    checked={formData.contract.paymentMethod === PAYMENT_METHODS.transfer}
                                     label={labels.paymentMethodTransferOption}
                                     onChange={e => this.handlePaymentMethodChange(e)}
                                 />
@@ -407,22 +413,22 @@ class ProfileForm extends React.PureComponent {
                                 <RadioButton
                                     name="paymentMethod"
                                     value={PAYMENT_METHODS.bitcoin}
-                                    checked={formData.paymentMethod === PAYMENT_METHODS.bitcoin}
+                                    checked={formData.contract.paymentMethod === PAYMENT_METHODS.bitcoin}
                                     label={labels.paymentMethodBitcoinOption}
                                     onChange={e => this.handlePaymentMethodChange(e)}
                                 />
                             </li>
                         </ul>
                     </div>
-                    {formData.paymentMethod === PAYMENT_METHODS.debit && (
+                    {formData.contract.paymentMethod === PAYMENT_METHODS.debit && (
                         <React.Fragment>
                             <IBANField
                                 label={labels.IBAN}
                                 name="IBAN"
-                                value={formData.IBAN}
-                                error={errors.IBAN}
+                                value={formData.contract.IBAN}
+                                error={errors['contract.IBAN']}
                                 required
-                                onChange={e => this.handleChange(e)}
+                                onChange={e => this.handlePaymentMethodChange(e)}
                             />
                             <div className="profile-form-sepa-approval">
                                 <strong>{labels.sepaApproval}</strong>
@@ -439,7 +445,7 @@ class ProfileForm extends React.PureComponent {
                             </div>
                         </React.Fragment>
                     )}
-                    {formData.paymentMethod === PAYMENT_METHODS.bitcoin && (
+                    {formData.contract.paymentMethod === PAYMENT_METHODS.bitcoin && (
                         <div className="profile-form-bitcoin-message">
                             <strong>{labels.bitcoinMessage}</strong>
                         </div>
@@ -456,6 +462,7 @@ class ProfileForm extends React.PureComponent {
 }
 
 const commonContractPropTypes = {
+    IBAN: PropTypes.string,
     id: PropTypes.string,
     startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -479,7 +486,6 @@ const commonProfilePropTypes = {
     city: PropTypes.string,
     street: PropTypes.string,
     streetNumber: PropTypes.string,
-    IBAN: PropTypes.string,
     sepaApproval: PropTypes.string,
     oldPassword: PropTypes.string,
     newPassword: PropTypes.string,
@@ -571,8 +577,8 @@ ProfileForm.defaultProps = {
         city: '',
         street: '',
         streetNumber: '',
-        IBAN: '',
         contract: {
+            IBAN: '',
             id: '',
             startDate: '',
             endDate: '',
