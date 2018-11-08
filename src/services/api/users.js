@@ -25,6 +25,7 @@ export function getUserData() {
         return {
             data: {
                 user: {
+                    ...user.contract, // TODO @aliaksandr.stashkevich: please remove this workaround  after contract data tab completion
                     ...user,
                     birthday: moment(formattedBirthdayData).unix() // convert to unix time stamp
                 }
