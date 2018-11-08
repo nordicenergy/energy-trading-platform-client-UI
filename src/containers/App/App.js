@@ -181,7 +181,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
                 active: headRoute === PATHS.buyEnergy.id || headRoute === PATHS.producer.id,
                 path: PATHS.buyEnergy.path,
                 subItemActive: headRoute === PATHS.buyEnergy.id && subRoute === PATHS.producer.id,
-                disabled: !this.validateContractStatus(user.statusCode)
+                disabled: !this.validateContractStatus(user.contract.statusCode)
             },
             {
                 id: PATHS.directTrading.id,
