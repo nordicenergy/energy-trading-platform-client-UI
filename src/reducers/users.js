@@ -4,7 +4,7 @@ export const initialState = {
     registration: { data: {}, error: null, loading: false },
     login: { data: {}, error: null, loading: false },
     logout: { data: {}, error: null, loading: false },
-    profile: { data: { user: {} }, error: null, loading: false },
+    profile: { data: { user: { contract: {} } }, error: null, loading: false },
     updatedProfile: { data: { user: {} }, error: null, loading: false },
     resetPassword: { data: {}, error: null, loading: false },
     createdPasswordToken: { data: {}, error: null, loading: false },
