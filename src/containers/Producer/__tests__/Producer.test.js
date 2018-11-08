@@ -26,8 +26,10 @@ const store = mockStore({
                     lastBillDate: 'December;',
                     userStatus: 'string',
                     workingPrice: 2.3,
-                    statusCode: CONTRACT_STATUSES.active,
-                    statusCodeTitle: 'In Belieferung'
+                    contract: {
+                        statusCode: CONTRACT_STATUSES.active,
+                        statusCodeTitle: 'In Belieferung'
+                    }
                 }
             }
         }
@@ -89,7 +91,7 @@ const props = {
         name: 'test',
         status: 'active'
     },
-    user: { id: 1, statusCode: CONTRACT_STATUSES.active },
+    user: { id: 1, contract: { statusCode: CONTRACT_STATUSES.active } },
     selectedProducer: {},
     error: null
 };

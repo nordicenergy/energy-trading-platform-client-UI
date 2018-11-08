@@ -11,10 +11,11 @@ const context = {
     intl: { formatMessage: jest.fn() },
     router: {
         history: { push: jest.fn() }
-    }
+    },
+    user: { contract: {} }
 };
 
-function renderComponent(props = {}) {
+function renderComponent(props = { user: { contract: {} } }) {
     return shallowWithIntl(<App {...props} />);
 }
 
@@ -72,7 +73,7 @@ describe('Main <App /> Component', () => {
             Users: {
                 profile: {
                     data: {
-                        user: { id: 1 }
+                        user: { id: 1, contract: {} }
                     }
                 },
                 login: {},
@@ -107,7 +108,7 @@ describe('Main <App /> Component', () => {
             loggingOut: false,
             sessionContract: { id: 'testContractId' },
             updatedSessionContract: { id: 'testContractId' },
-            user: { id: 1 }
+            user: { id: 1, contract: {} }
         });
     });
 
@@ -145,7 +146,11 @@ describe('Main <App /> Component', () => {
             selectLabel: 'Select contract'
         });
 
-        component.setProps({ contracts: [{ id: '100020' }], sessionContract: null, user: { id: 'testId' } });
+        component.setProps({
+            contracts: [{ id: '100020' }],
+            sessionContract: null,
+            user: { id: 'testId', contract: {} }
+        });
         expect(component.find('ContractModal').props().show).toEqual(true);
         component
             .find('ContractModal')
@@ -322,7 +327,7 @@ describe('Main <App /> Component', () => {
         expect(contractsActions.performGetContracts).toHaveBeenCalledTimes(0);
         expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
 
-        app.setProps({ user: { id: 'testId' } });
+        app.setProps({ user: { id: 'testId', contract: {} } });
         expect(contractsActions.performGetSessionContract).toHaveBeenCalledWith('testId');
         expect(contractsActions.performGetContracts).toHaveBeenCalledWith('testId');
         expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
@@ -347,7 +352,7 @@ describe('Main <App /> Component', () => {
         app.setProps({ updatedSessionContract: { id: '0124' } });
         expect(usersActions.performGetUserData).toHaveBeenCalledTimes(2);
 
-        app.setProps({ user: { id: 'testId', statusCode: 5000 } });
+        app.setProps({ user: { id: 'testId', contract: { statusCode: 5000 } } });
         expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(2);
     });
 

@@ -299,7 +299,7 @@ const props = {
             }
         ]
     },
-    user: { id: 'testId', contract: {statusCode: CONTRACT_STATUSES.active}},
+    user: { id: 'testId', contract: { statusCode: CONTRACT_STATUSES.active } },
     loading: false,
     error: null
 };
@@ -444,7 +444,7 @@ describe('<Overview /> Component', () => {
     it("should show alert if user's contract has waiting status", () => {
         const propsWithPendingContractStatus = {
             ...props,
-            user: { ...props.user, contract: {statusCode: CONTRACT_STATUSES.waiting }}
+            user: { ...props.user, contract: { statusCode: CONTRACT_STATUSES.waiting } }
         };
         const component = shallowWithIntl(<Overview {...propsWithPendingContractStatus} />, context);
 
@@ -458,7 +458,7 @@ describe('<Overview /> Component', () => {
     it("should show alert if user's contract has not active status", () => {
         const propsWithPendingContractStatus = {
             ...props,
-            user: { ...props.user, contract: {statusCode: 3001, statusCodeTitle: 'success' }}
+            user: { ...props.user, contract: { statusCode: 3001, statusCodeTitle: 'success' } }
         };
         const component = shallowWithIntl(<Overview {...propsWithPendingContractStatus} />, context);
 
@@ -512,7 +512,7 @@ describe('<Overview /> Component', () => {
         const [[userId]] = txActions.performGetRecentTransactions.mock.calls;
         expect(userId).toEqual(10);
 
-        component.setProps({ user: { id: 11, contract: {}  } });
+        component.setProps({ user: { id: 11, contract: {} } });
         expect(setInterval).toHaveBeenCalledTimes(2);
         expect(clearInterval).toHaveBeenCalledTimes(1);
         expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 1000 * 60);
@@ -530,7 +530,7 @@ describe('<Overview /> Component', () => {
     it('should clear interval functions on unmount step', () => {
         const component = renderComponent();
         expect(clearInterval).toHaveBeenCalledTimes(0);
-        component.setProps({ user: { id: 10, contract: {}} });
+        component.setProps({ user: { id: 10, contract: {} } });
         component.unmount();
         expect(clearInterval).toHaveBeenCalledTimes(1);
     });
