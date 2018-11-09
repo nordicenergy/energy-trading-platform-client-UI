@@ -125,16 +125,11 @@ export class SubmitMeter extends AppPage {
         const { formatMessage, locale } = this.context.intl;
         const labels = this.prepareLabels(messages);
         const {
-            props: {
-                loading,
-                meterNumber,
-                submittedMeterReading,
-                meterReadingsHistory: { isSeriesBasedOnLiveData, consumptions, consumptionUnitLabel }
-            },
+            props: { loading, meterNumber, submittedMeterReading, meterReadingsHistory },
             state: { errors }
         } = this;
 
-        const historyData = isSeriesBasedOnLiveData ? consumptions : [];
+        const historyData = meterReadingsHistory.data || [];
         const isMeterReadingSuccessfullySubmit = !submittedMeterReading.loading && !submittedMeterReading.error;
 
         return (
@@ -154,7 +149,6 @@ export class SubmitMeter extends AppPage {
                     <MeterReadingsHistory
                         data={historyData}
                         title={labels.historyCaption}
-                        consumptionUnitLabel={consumptionUnitLabel}
                         noDataMessage={labels.noData}
                     />
                 </aside>
@@ -171,9 +165,8 @@ SubmitMeter.contextTypes = {
 
 SubmitMeter.propTypes = {
     meterReadingsHistory: PropTypes.shape({
-        consumptionUnitLabel: PropTypes.string,
-        consumptions: PropTypes.arrayOf(PropTypes.object),
-        isSeriesBasedOnLiveData: PropTypes.bool
+        data: PropTypes.arrayOf(PropTypes.object),
+        count: PropTypes.number
     }).isRequired,
     loading: PropTypes.bool,
     user: PropTypes.object,

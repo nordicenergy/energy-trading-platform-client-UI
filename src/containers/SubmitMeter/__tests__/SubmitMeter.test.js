@@ -8,22 +8,19 @@ import * as notificationsActionPerformers from '../../../action_performers/notif
 import * as appActions from '../../../action_performers/app';
 
 const MOCK_METER_READINGS_HISTORY = {
-    consumptionUnitLabel: 'kWh',
-    consumptions: [
+    count: 4,
+    data: [
         {
-            consumption: 123,
-            date: 1531144080000
+            id: '17007',
+            date: '2018-09-30',
+            value: '123456.0000'
         },
         {
-            consumption: 123.234234,
-            date: 1531144080000
-        },
-        {
-            consumption: 0,
-            date: 1531244080000
+            id: '17008',
+            date: '2018-09-30',
+            value: '123456.0000'
         }
-    ],
-    isSeriesBasedOnLiveData: true
+    ]
 };
 
 const DEFAULT_PROPS = {
@@ -187,26 +184,8 @@ describe('<SubmitMeter /> Component', () => {
 
         const meterReadingsHistory = component.find(MeterReadingsHistory).at(0);
         expect(meterReadingsHistory).toHaveLength(1);
-        expect(meterReadingsHistory.props().data).toEqual(MOCK_METER_READINGS_HISTORY.consumptions);
+        expect(meterReadingsHistory.props().data).toEqual(MOCK_METER_READINGS_HISTORY.data);
         expect(meterReadingsHistory.props().title).toEqual('History');
-        expect(meterReadingsHistory.props().consumptionUnitLabel).toEqual(
-            MOCK_METER_READINGS_HISTORY.consumptionUnitLabel
-        );
-        expect(meterReadingsHistory.props().noDataMessage).toEqual('Sorry, not live metering data available for you…');
-    });
-
-    it('should render MeterReadingsHistory with empty array data when "isSeriesBasedOnLiveData" is false', () => {
-        const component = renderComponent({
-            meterReadingsHistory: { ...MOCK_METER_READINGS_HISTORY, isSeriesBasedOnLiveData: false }
-        });
-
-        const meterReadingsHistory = component.find(MeterReadingsHistory).at(0);
-        expect(meterReadingsHistory).toHaveLength(1);
-        expect(meterReadingsHistory.props().data).toEqual([]);
-        expect(meterReadingsHistory.props().title).toEqual('History');
-        expect(meterReadingsHistory.props().consumptionUnitLabel).toEqual(
-            MOCK_METER_READINGS_HISTORY.consumptionUnitLabel
-        );
         expect(meterReadingsHistory.props().noDataMessage).toEqual('Sorry, not live metering data available for you…');
     });
 

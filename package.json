@@ -63,12 +63,23 @@
         "react-test-renderer": "16.2.0",
         "redux-mock-store": "1.5.1"
     },
-    "pre-commit": ["format", "test"],
+    "pre-commit": [
+        "format",
+        "test"
+    ],
     "repository": {
         "type": "git",
         "url": "git@bitbucket.org:lition/frontend.git"
     },
-    "keywords": ["lition", "energy", "exchange", "blockchain", "tading platform", "client side", "front-end"],
+    "keywords": [
+        "lition",
+        "energy",
+        "exchange",
+        "blockchain",
+        "tading platform",
+        "client side",
+        "front-end"
+    ],
     "author": "Lition Tech Team",
     "license": "ISC",
     "engines": {

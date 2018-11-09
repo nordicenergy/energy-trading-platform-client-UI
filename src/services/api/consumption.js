@@ -3,12 +3,110 @@ import moment from 'moment/moment';
 import { SESSION_API_URL } from '../../constants';
 
 export function getMeterReadingsHistory() {
-    const todayDate = moment.utc().startOf('day');
-    const tomorrowDate = todayDate.add(1, 'days').unix();
-    const monthAgo = todayDate.subtract(1, 'month').unix();
-
-    return Axios.get(`${SESSION_API_URL}/consumption/liveMetering`, {
-        params: { startDate: monthAgo, endDate: tomorrowDate }
+    // TODO
+    // const todayDate = moment.utc().startOf('day');
+    // const tomorrowDate = todayDate.add(1, 'days').unix();
+    // const monthAgo = todayDate.subtract(1, 'month').unix();
+    //
+    // return Axios.get(`${SESSION_API_URL}/consumption/liveMetering`, {
+    //     params: { startDate: monthAgo, endDate: tomorrowDate }
+    // });
+    return Promise.resolve({
+        data: {
+            count: 4,
+            data: [
+                {
+                    id: '17007',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17008',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17007',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17008',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17007',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17008',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17007',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17008',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17007',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17008',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17007',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17008',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17007',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17008',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17007',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17008',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17007',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                },
+                {
+                    id: '17008',
+                    date: '2018-09-30',
+                    value: '123456.0000'
+                }
+            ]
+        }
     });
 }
 
