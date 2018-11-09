@@ -12,7 +12,25 @@ const dummyProfile = {
     street: 'test-street',
     streetNumber: '5a',
     birthday: 1535587200,
-    IBAN: 'DE89370400440532013000'
+    contract: {
+        IBAN: 'DE89370400440532013000',
+        BIC: 'COBADEFFXXX',
+        status: 'active',
+        statusCode: 5000,
+        statusCodeTitle: 'In Belieferung',
+        paymentMethod: 'powercloud',
+        id: '1000087',
+        startDate: 339984000,
+        endDate: 339984000,
+        firstName: 'Max',
+        lastName: 'Mustermann',
+        street: 'Treskowstr.',
+        houseNumber: '10',
+        postcode: '13089',
+        city: 'Berlin',
+        birthday: 1535587200,
+        email: 'max@example.com'
+    }
 };
 
 function renderComponent(props = {}, mountFn = shallow) {
@@ -23,6 +41,7 @@ describe('<ProfileForm /> component', () => {
     it('should renders with necessary components', () => {
         const profileForm = renderComponent();
 
+        /* Customer data */
         expect(profileForm.find('.profile-form-tab-list')).toHaveLength(1);
         expect(profileForm.find('.profile-form-tab-list > button')).toHaveLength(2);
         expect(profileForm.find('.profile-form-tab-panel')).toHaveLength(2);
@@ -36,6 +55,21 @@ describe('<ProfileForm /> component', () => {
         expect(profileForm.find('TextField[name="oldPassword"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="newPassword"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="confirmNewPassword"]')).toHaveLength(1);
+
+        /* Contract data */
+        expect(profileForm.find('TextField[name="contractContractNumber"]')).toHaveLength(1);
+        expect(profileForm.find('DateField[name="contractStartDate"]')).toHaveLength(1);
+        expect(profileForm.find('DateField[name="contractEndDate"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractFirstName"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractLastName"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractStreet"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractHouseNumber"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractPostcode"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractCity"]')).toHaveLength(1);
+        expect(profileForm.find('DateField[name="contractBirthday"]')).toHaveLength(1);
+        expect(profileForm.find('TextField[name="contractEmail"]')).toHaveLength(1);
+
+        /* Payment */
         expect(profileForm.find('RadioButton[name="paymentMethod"]')).toHaveLength(3);
         expect(profileForm.find('IBANField[name="IBAN"]')).toHaveLength(1);
         expect(profileForm.find('Checkbox[name="sepaApproval"]')).toHaveLength(1);
@@ -199,20 +233,23 @@ describe('<ProfileForm /> component', () => {
 
     it('should update form data when `profile` property is changed', () => {
         const profileForm = renderComponent();
-        const profileWithoutIBAN = { ...dummyProfile };
+        const profileWithoutIBAN = { ...dummyProfile, contract: { ...dummyProfile.contract, IBAN: '' } };
 
-        profileWithoutIBAN.IBAN = '';
         profileForm.setState({ oldPassword: 'test1234', newPassword: 'qwerty123', confirmNewPassword: 'qwerty1234' });
         profileForm.setProps({ profile: profileWithoutIBAN });
 
-        expect(profileForm.state().formData).toEqual({
+        const profileFormData = profileForm.state().formData;
+
+        const profileWithoutIBANMock = {
             ...profileWithoutIBAN,
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod: 'transfer',
-            sepaApproval: false
-        });
+            sepaApproval: false,
+            contract: { ...profileWithoutIBAN.contract, paymentMethod: 'transfer' }
+        };
+
+        expect(profileFormData).toEqual(profileWithoutIBANMock);
     });
 
     it('should not throw an error if `onSubmit` is not given', () => {
@@ -249,7 +286,7 @@ describe('<ProfileForm /> component', () => {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod: 'debit',
+            contract: { ...dummyProfile.contract, paymentMethod: 'debit' },
             sepaApproval: false
         });
     });
@@ -268,7 +305,7 @@ describe('<ProfileForm /> component', () => {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod: 'debit',
+            contract: { ...dummyProfile.contract, paymentMethod: 'debit' },
             sepaApproval: true
         });
     });

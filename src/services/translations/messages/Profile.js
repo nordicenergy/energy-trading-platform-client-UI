@@ -69,6 +69,50 @@ const messages = defineMessages({
         id: 'app.profilePage.labels.confirmNewPassword',
         defaultMessage: 'Repeat new password'
     },
+    contractContractNumber: {
+        id: 'app.profilePage.labels.contract.contractNumber',
+        defaultMessage: 'Contract Number'
+    },
+    contractStartDate: {
+        id: 'app.profilePage.labels.contract.startDate',
+        defaultMessage: 'Start Date'
+    },
+    contractEndDate: {
+        id: 'app.profilePage.labels.contract.endDate',
+        defaultMessage: 'End Date'
+    },
+    contractFirstName: {
+        id: 'app.profilePage.labels.contract.firstName',
+        defaultMessage: 'First Name'
+    },
+    contractLastName: {
+        id: 'app.profilePage.labels.contract.lastName',
+        defaultMessage: 'Last Name'
+    },
+    contractStreet: {
+        id: 'app.profilePage.labels.contract.street',
+        defaultMessage: 'Street'
+    },
+    contractHouseNumber: {
+        id: 'app.profilePage.labels.contract.houseNumber',
+        defaultMessage: 'House Number'
+    },
+    contractPostcode: {
+        id: 'app.profilePage.labels.contract.postcode',
+        defaultMessage: 'Postcode'
+    },
+    contractCity: {
+        id: 'app.profilePage.labels.contract.city',
+        defaultMessage: 'City'
+    },
+    contractBirthday: {
+        id: 'app.profilePage.labels.contract.birthday',
+        defaultMessage: 'Date of birth'
+    },
+    contractEmail: {
+        id: 'app.profilePage.labels.contract.email',
+        defaultMessage: 'Email'
+    },
     paymentMethod: {
         id: 'app.profilePage.labels.paymentMethod',
         defaultMessage: 'Payment options'
