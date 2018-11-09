@@ -10,6 +10,7 @@ import {
     verifyResetPasswordToken
 } from '../users';
 import pick from 'lodash.pick';
+import moment from 'moment/moment';
 
 const userMockResponse = {
     birthday: '1980-10-10',
@@ -43,6 +44,8 @@ const userMockResponse = {
     currentProducerId: 18,
     ledger: 'ethereumRopsten'
 };
+
+const convertDateToUnix = date => moment(date).unix();
 
 describe('Users API Service', () => {
     beforeAll(() => {
@@ -188,11 +191,11 @@ describe('Users API Service', () => {
             expect(user).toEqual({
                 data: {
                     user: {
-                        birthday: 339984000,
+                        birthday: convertDateToUnix(onlyDatesFieldsFromUserMock.birthday),
                         contract: {
-                            birthday: 1538341200,
-                            endDate: 1538341200,
-                            startDate: 1538341200
+                            birthday: convertDateToUnix(onlyDatesFieldsFromUserMock.contract.birthday),
+                            endDate: convertDateToUnix(onlyDatesFieldsFromUserMock.contract.endDate),
+                            startDate: convertDateToUnix(onlyDatesFieldsFromUserMock.contract.startDate)
                         }
                     }
                 }

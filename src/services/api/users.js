@@ -26,13 +26,11 @@ export function getUserData() {
             birthday: contractBirthday = ''
         } = contract;
         const birthdayData = user.birthday || '';
-        const [year, month, day] = birthdayData.split('-');
-        const formattedBirthdayData = new Date(`${year}-${month}-${day}`);
         return {
             data: {
                 user: {
                     ...user,
-                    birthday: moment(formattedBirthdayData).unix(), // convert to unix time stamp
+                    birthday: moment(birthdayData).unix(), // convert to unix time stamp
                     contract: {
                         ...contract,
                         startDate: moment(contractStartDate).unix(), // convert to unix time stamp
