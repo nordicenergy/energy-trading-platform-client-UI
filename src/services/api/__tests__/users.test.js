@@ -9,6 +9,40 @@ import {
     createResetPasswordToken,
     verifyResetPasswordToken
 } from '../users';
+import pick from 'lodash.pick';
+
+const userMockResponse = {
+    birthday: '1980-10-10',
+    basePrice: 49.08,
+    workingPrice: 24.19,
+    country: 'Germany',
+    lastBillAvailable: true,
+    lastBillAmount: '35,60',
+    lastBillDate: 'April',
+    showSoldOutPowerPlants: true,
+    allowPasswordChange: true,
+    contract: {
+        IBAN: null,
+        BIC: 'BELADEBEXXX',
+        status: 'active',
+        statusCode: 5000,
+        statusCodeTitle: 'In Belieferung',
+        paymentMethod: 'bitcoin',
+        id: '1000086',
+        startDate: '2018-10-01',
+        endDate: '2018-10-01',
+        firstName: 'Max',
+        lastName: 'Mustermann',
+        street: 'Arendsweg',
+        houseNumber: '351',
+        postcode: '10629',
+        city: 'Berlin',
+        birthday: '2018-10-01',
+        email: 'archik@instinctools.ru'
+    },
+    currentProducerId: 18,
+    ledger: 'ethereumRopsten'
+};
 
 describe('Users API Service', () => {
     beforeAll(() => {
@@ -135,5 +169,58 @@ describe('Users API Service', () => {
         expect(Axios.get).toHaveBeenCalledWith('/api/user/resetPasswordToken/testToken', {
             headers: { 'Cache-Control': 'no-cache' }
         });
+    });
+
+    describe('getUserData', () => {
+        it('should convert all date fields from string to the unix format, ' + 'if we will get user data', async () => {
+            const onlyDatesFieldsFromUserMock = {
+                ...pick(userMockResponse, ['birthday']),
+                contract: {
+                    ...pick(userMockResponse.contract, ['startDate', 'endDate', 'birthday'])
+                }
+            };
+
+            Axios.get.mockReturnValueOnce(Promise.resolve({ data: { user: onlyDatesFieldsFromUserMock } }));
+
+            const user = await getUserData();
+
+            expect(Axios.get).toHaveBeenCalledWith('/api/user/getUserData');
+            expect(user).toEqual({
+                data: {
+                    user: {
+                        birthday: 339984000,
+                        contract: {
+                            birthday: 1538341200,
+                            endDate: 1538341200,
+                            startDate: 1538341200
+                        }
+                    }
+                }
+            });
+        });
+
+        it(
+            'should return a default value for the date fields,' +
+                'if we do not get user data (or some part of user data)',
+            async () => {
+                Axios.get.mockReturnValueOnce(Promise.resolve({}));
+
+                const user = await getUserData();
+
+                expect(Axios.get).toHaveBeenCalledWith('/api/user/getUserData');
+                expect(user).toEqual({
+                    data: {
+                        user: {
+                            birthday: NaN,
+                            contract: {
+                                birthday: NaN,
+                                endDate: NaN,
+                                startDate: NaN
+                            }
+                        }
+                    }
+                });
+            }
+        );
     });
 });

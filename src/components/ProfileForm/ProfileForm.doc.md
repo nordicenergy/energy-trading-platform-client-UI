@@ -22,7 +22,7 @@ const profile = {
         postcode: '13089',
         city: 'Berlin',
         birthday: 339984000,
-        email: 'max@example.com',
+        email: 'max@example.com'
     }
 };
 <ProfileForm profile={profile} onSubmit={formData => console.log(formData)} />;

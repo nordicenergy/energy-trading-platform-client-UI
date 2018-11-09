@@ -19,13 +19,12 @@ export function getUserData() {
     return Axios.get(`${SESSION_API_URL}/user/getUserData`).then(response => {
         const { data = {} } = response;
         const { user = {} } = data;
+        const { contract = {} } = user;
         const {
-            contract: {
-                startDate: contractStartDate = '',
-                endDate: contractEndDate = '',
-                birthday: contractBirthday = ''
-            } = {}
-        } = user;
+            startDate: contractStartDate = '',
+            endDate: contractEndDate = '',
+            birthday: contractBirthday = ''
+        } = contract;
         const birthdayData = user.birthday || '';
         const [year, month, day] = birthdayData.split('-');
         const formattedBirthdayData = new Date(`${year}-${month}-${day}`);
@@ -35,7 +34,7 @@ export function getUserData() {
                     ...user,
                     birthday: moment(formattedBirthdayData).unix(), // convert to unix time stamp
                     contract: {
-                        ...data.user.contract,
+                        ...contract,
                         startDate: moment(contractStartDate).unix(), // convert to unix time stamp
                         endDate: moment(contractEndDate).unix(), // convert to unix time stamp
                         birthday: moment(contractBirthday).unix() // convert to unix time stamp
