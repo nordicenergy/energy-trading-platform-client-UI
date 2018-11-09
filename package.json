@@ -35,9 +35,9 @@
         "web3": "1.0.0-beta.34"
     },
     "scripts": {
-        "postcss": "node ./scripts/postcss.js",
+        "postbuild": "node ./scripts/postcss.js && node ./scripts/generateHtAccess.js",
         "start": "react-scripts start",
-        "build": "react-scripts build && npm run postcss",
+        "build": "react-scripts build && npm run postbuild",
         "test": "react-scripts test --no-cache --env=jsdom --coverage src/setupTests.js src/**/*",
         "e2e:desktop": "VIEWPORT=desktop jest --no-cache e2e/**/*",
         "e2e:tv": "VIEWPORT=tv jest --no-cache e2e/**/*",
