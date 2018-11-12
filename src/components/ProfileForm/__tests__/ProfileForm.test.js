@@ -28,7 +28,6 @@ const dummyProfile = {
         houseNumber: '10',
         postcode: '13089',
         city: 'Berlin',
-        birthday: 1535587200,
         email: 'max@example.com'
     }
 };
@@ -66,7 +65,6 @@ describe('<ProfileForm /> component', () => {
         expect(profileForm.find('TextField[name="contractHouseNumber"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="contractPostcode"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="contractCity"]')).toHaveLength(1);
-        expect(profileForm.find('DateField[name="contractBirthday"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="contractEmail"]')).toHaveLength(1);
 
         /* Payment */
