@@ -38,7 +38,6 @@ const userMockResponse = {
         houseNumber: '351',
         postcode: '10629',
         city: 'Berlin',
-        birthday: '2018-10-01',
         email: 'archik@instinctools.ru'
     },
     currentProducerId: 18,
@@ -179,7 +178,7 @@ describe('Users API Service', () => {
             const onlyDatesFieldsFromUserMock = {
                 ...pick(userMockResponse, ['birthday']),
                 contract: {
-                    ...pick(userMockResponse.contract, ['startDate', 'endDate', 'birthday'])
+                    ...pick(userMockResponse.contract, ['startDate', 'endDate'])
                 }
             };
 
@@ -193,7 +192,6 @@ describe('Users API Service', () => {
                     user: {
                         birthday: convertDateToUnix(onlyDatesFieldsFromUserMock.birthday),
                         contract: {
-                            birthday: convertDateToUnix(onlyDatesFieldsFromUserMock.contract.birthday),
                             endDate: convertDateToUnix(onlyDatesFieldsFromUserMock.contract.endDate),
                             startDate: convertDateToUnix(onlyDatesFieldsFromUserMock.contract.startDate)
                         }
@@ -213,7 +211,6 @@ describe('Users API Service', () => {
                     user: {
                         birthday: NaN,
                         contract: {
-                            birthday: NaN,
                             endDate: NaN,
                             startDate: NaN
                         }

@@ -105,10 +105,6 @@ const messages = defineMessages({
         id: 'app.profilePage.labels.contract.city',
         defaultMessage: 'City'
     },
-    contractBirthday: {
-        id: 'app.profilePage.labels.contract.birthday',
-        defaultMessage: 'Date of birth'
-    },
     paymentMethod: {
         id: 'app.profilePage.labels.paymentMethod',
         defaultMessage: 'Payment options'

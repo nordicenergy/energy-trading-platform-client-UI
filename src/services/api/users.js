@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import moment from 'moment';
 import { SESSION_API_URL } from '../../constants';
+import { AxiosPromise } from 'axios/index';
 
 export function create(userData) {
     const lang = document.documentElement.getAttribute('lang') || 'en';
@@ -20,11 +21,7 @@ export function getUserData() {
         const { data = {} } = response;
         const { user = {} } = data;
         const { contract = {} } = user;
-        const {
-            startDate: contractStartDate = '',
-            endDate: contractEndDate = '',
-            birthday: contractBirthday = ''
-        } = contract;
+        const { startDate: contractStartDate = '', endDate: contractEndDate = '' } = contract;
         const birthdayData = user.birthday || '';
         return {
             data: {
@@ -34,8 +31,7 @@ export function getUserData() {
                     contract: {
                         ...contract,
                         startDate: moment(contractStartDate).unix(), // convert to unix time stamp
-                        endDate: moment(contractEndDate).unix(), // convert to unix time stamp
-                        birthday: moment(contractBirthday).unix() // convert to unix time stamp
+                        endDate: moment(contractEndDate).unix() // convert to unix time stamp
                     }
                 }
             }
