@@ -370,16 +370,6 @@ class ProfileForm extends React.PureComponent {
                         error={errors.contractCity}
                         onChange={e => this.handleChange(e)}
                     />
-                    <DateField
-                        disabled
-                        locale={locale}
-                        name="contractBirthday"
-                        helperText={labels.birthdayHelperText}
-                        label={labels.contractBirthday}
-                        value={formData.contract.birthday}
-                        error={errors.contractBirthday}
-                        onChange={e => this.handleDateFieldChange(e)}
-                    />
                     <TextField
                         disabled
                         label={labels.contractEmail}
@@ -472,7 +462,6 @@ const commonContractPropTypes = {
     houseNumber: PropTypes.string,
     postcode: PropTypes.string,
     city: PropTypes.string,
-    birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     email: PropTypes.string
 };
 
@@ -504,7 +493,6 @@ ProfileForm.propTypes = {
         contractHouseNumber: PropTypes.string,
         contractPostcode: PropTypes.string,
         contractCity: PropTypes.string,
-        contractBirthday: PropTypes.string,
         contractEmail: PropTypes.string,
         paymentMethod: PropTypes.string,
         paymentMethodDebitOption: PropTypes.string,
@@ -553,7 +541,6 @@ ProfileForm.defaultProps = {
         contractHouseNumber: 'House Number',
         contractPostcode: 'Postcode',
         contractCity: 'City',
-        contractBirthday: 'Date of birth',
         contractEmail: 'Email',
         paymentMethod: 'Payment options',
         paymentMethodDebitOption: 'Debit',
@@ -588,7 +575,6 @@ ProfileForm.defaultProps = {
             houseNumber: '',
             postcode: '',
             city: '',
-            birthday: '',
             email: ''
         }
     },
