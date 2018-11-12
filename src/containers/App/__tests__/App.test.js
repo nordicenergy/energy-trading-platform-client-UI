@@ -37,7 +37,7 @@ describe('Main <App /> Component', () => {
         appActions.performSetupLocale.mockClear();
     });
 
-    fit(`should contains following controls:
+    it(`should contains following controls:
         - <div> with class "app";
         - <Header> component";
         - <Footer> component";
@@ -114,7 +114,7 @@ describe('Main <App /> Component', () => {
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {
-        const component = renderComponent(context);
+        const component = renderComponent({ ...context, contracts: [{ id: '100020' }] });
         component.setContext(context);
 
         const header = component.find(Header).at(0);
@@ -163,7 +163,7 @@ describe('Main <App /> Component', () => {
         expect(component.find('ContractModal').props().show).toEqual(false);
     });
 
-    /*it('should not block header functionality when working contracts are absent', () => {
+    it('should not show logout confirm window when working contracts are absent and user clicks logout', () => {
         const component = renderComponent({ ...context, contracts: [], sessionContract: { id: '100020' } });
         component.setContext(context);
         expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
@@ -176,11 +176,22 @@ describe('Main <App /> Component', () => {
             selectLabel: 'Select contract'
         });
 
+        expect(component.state().isConfirmVisible).toEqual(false);
+        component
+            .find(Header)
+            .at(0)
+            .props()
+            .onLogoutClick();
+        expect(component.state().isConfirmVisible).toEqual(false);
 
-        console.log(component.find('.app .content .menu-container ContractModal'));
+        component.setProps({ loggingOut: true });
+        component.setProps({ loggingOut: false });
 
-        expect(component.find('.app .content .menu-container ContractModal')).toHaveLength(1);
-    });*/
+        expect(context.router.history.push.mock.calls.length).toEqual(1);
+        expect(usersActions.performLogout.mock.calls.length).toEqual(1);
+        const [[route]] = context.router.history.push.mock.calls;
+        expect(route).toEqual('/login');
+    });
 
     it('should setup correct callbacks and handle related events for MenuSideBar', () => {
         const component = renderComponent(context);
@@ -243,7 +254,7 @@ describe('Main <App /> Component', () => {
     });
 
     it('should not perform logout if user click cancel', () => {
-        const component = renderComponent(context);
+        const component = renderComponent({ ...context, contracts: [{ id: '100020' }] });
         component.setContext(context);
 
         const header = component.find(Header).at(0);

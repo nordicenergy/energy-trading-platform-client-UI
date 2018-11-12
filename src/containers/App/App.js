@@ -91,9 +91,17 @@ export class App extends contractStatusMixin(React.PureComponent) {
     }
 
     logout() {
-        this.setState(() => ({
-            isConfirmVisible: true
-        }));
+        const { contracts } = this.props;
+
+        if (contracts.length === 0) {
+            performLogout();
+        }
+
+        if (contracts.length > 0) {
+            this.setState(() => ({
+                isConfirmVisible: true
+            }));
+        }
     }
 
     handleLogoutCancel() {
