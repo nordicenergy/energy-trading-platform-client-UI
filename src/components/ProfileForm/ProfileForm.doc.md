@@ -20,8 +20,7 @@ const profile = {
         street: 'Treskowstr.',
         houseNumber: '10',
         postcode: '13089',
-        city: 'Berlin',
-        email: 'max@example.com'
+        city: 'Berlin'
     }
 };
 <ProfileForm profile={profile} onSubmit={formData => console.log(formData)} />;
