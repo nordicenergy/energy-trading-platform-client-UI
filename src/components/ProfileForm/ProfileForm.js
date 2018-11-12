@@ -24,13 +24,16 @@ class ProfileForm extends React.PureComponent {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod:
-                profile.paymentMethod === PAYMENT_METHODS.bitcoin
-                    ? PAYMENT_METHODS.bitcoin
-                    : profile.IBAN ? PAYMENT_METHODS.debit : PAYMENT_METHODS.transfer,
-            sepaApproval: Boolean(profile.IBAN),
             ...ProfileForm.defaultProps.profile,
-            ...pick(profile, Object.keys(ProfileForm.defaultProps.profile))
+            ...pick(profile, Object.keys(ProfileForm.defaultProps.profile)),
+            contract: {
+                ...profile.contract,
+                paymentMethod:
+                    profile.contract.paymentMethod === PAYMENT_METHODS.bitcoin
+                        ? PAYMENT_METHODS.bitcoin
+                        : profile.contract.IBAN ? PAYMENT_METHODS.debit : PAYMENT_METHODS.transfer
+            },
+            sepaApproval: Boolean(profile.contract.IBAN)
         };
     }
 
@@ -104,8 +107,11 @@ class ProfileForm extends React.PureComponent {
             dirty: true,
             formData: {
                 ...formData,
-                [name]: value,
-                IBAN: '',
+                contract: {
+                    ...formData.contract,
+                    IBAN: '',
+                    [name]: value
+                },
                 sepaApproval: false
             }
         });
@@ -118,7 +124,7 @@ class ProfileForm extends React.PureComponent {
     personalDataTabHasErrors() {
         const { errors } = this.props;
         return !!Object.keys(errors)
-            .filter(key => key !== 'IBAN' && key !== 'sepaApproval')
+            .filter(key => key !== 'contract.IBAN' && key !== 'sepaApproval')
             .map(key => errors[key])
             .filter(error => !!error).length;
     }
@@ -288,6 +294,100 @@ class ProfileForm extends React.PureComponent {
                     tabIndex={-1}
                     aria-describedby="paymentDataTab"
                 >
+                    <TextField
+                        disabled
+                        label={labels.contractContractNumber}
+                        name="contractContractNumber"
+                        value={formData.contract.id}
+                        error={errors.contractContractNumber}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <DateField
+                        disabled
+                        locale={locale}
+                        name="contractStartDate"
+                        helperText={labels.birthdayHelperText}
+                        label={labels.contractStartDate}
+                        value={formData.contract.startDate}
+                        error={errors.contractStartDate}
+                        onChange={e => this.handleDateFieldChange(e)}
+                    />
+                    <DateField
+                        disabled
+                        locale={locale}
+                        name="contractEndDate"
+                        helperText={labels.birthdayHelperText}
+                        label={labels.contractEndDate}
+                        value={formData.contract.endDate}
+                        error={errors.contractEndDate}
+                        onChange={e => this.handleDateFieldChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractFirstName}
+                        name="contractFirstName"
+                        value={formData.contract.firstName}
+                        error={errors.contractFirstName}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractLastName}
+                        name="contractLastName"
+                        value={formData.contract.lastName}
+                        error={errors.contractLastName}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractStreet}
+                        name="contractStreet"
+                        value={formData.contract.street}
+                        error={errors.contractStreet}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractHouseNumber}
+                        name="contractHouseNumber"
+                        value={formData.contract.houseNumber}
+                        error={errors.contractHouseNumber}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractPostcode}
+                        name="contractPostcode"
+                        value={formData.contract.postcode}
+                        error={errors.contractPostcode}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractCity}
+                        name="contractCity"
+                        value={formData.contract.city}
+                        error={errors.contractCity}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <DateField
+                        disabled
+                        locale={locale}
+                        name="contractBirthday"
+                        helperText={labels.birthdayHelperText}
+                        label={labels.contractBirthday}
+                        value={formData.contract.birthday}
+                        error={errors.contractBirthday}
+                        onChange={e => this.handleDateFieldChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractEmail}
+                        name="contractEmail"
+                        value={formData.contract.email}
+                        error={errors.contractEmail}
+                        onChange={e => this.handleChange(e)}
+                    />
                     <div className="profile-form-payment-method">
                         <strong>{labels.paymentMethod}</strong>
                         <ul>
@@ -296,7 +396,7 @@ class ProfileForm extends React.PureComponent {
                                     label={labels.paymentMethodDebitOption}
                                     name="paymentMethod"
                                     value={PAYMENT_METHODS.debit}
-                                    checked={formData.paymentMethod === PAYMENT_METHODS.debit}
+                                    checked={formData.contract.paymentMethod === PAYMENT_METHODS.debit}
                                     onChange={e => this.handlePaymentMethodChange(e)}
                                 />
                             </li>
@@ -304,7 +404,7 @@ class ProfileForm extends React.PureComponent {
                                 <RadioButton
                                     name="paymentMethod"
                                     value={PAYMENT_METHODS.transfer}
-                                    checked={formData.paymentMethod === PAYMENT_METHODS.transfer}
+                                    checked={formData.contract.paymentMethod === PAYMENT_METHODS.transfer}
                                     label={labels.paymentMethodTransferOption}
                                     onChange={e => this.handlePaymentMethodChange(e)}
                                 />
@@ -313,22 +413,22 @@ class ProfileForm extends React.PureComponent {
                                 <RadioButton
                                     name="paymentMethod"
                                     value={PAYMENT_METHODS.bitcoin}
-                                    checked={formData.paymentMethod === PAYMENT_METHODS.bitcoin}
+                                    checked={formData.contract.paymentMethod === PAYMENT_METHODS.bitcoin}
                                     label={labels.paymentMethodBitcoinOption}
                                     onChange={e => this.handlePaymentMethodChange(e)}
                                 />
                             </li>
                         </ul>
                     </div>
-                    {formData.paymentMethod === PAYMENT_METHODS.debit && (
+                    {formData.contract.paymentMethod === PAYMENT_METHODS.debit && (
                         <React.Fragment>
                             <IBANField
                                 label={labels.IBAN}
                                 name="IBAN"
-                                value={formData.IBAN}
-                                error={errors.IBAN}
+                                value={formData.contract.IBAN}
+                                error={errors['contract.IBAN']}
                                 required
-                                onChange={e => this.handleChange(e)}
+                                onChange={e => this.handlePaymentMethodChange(e)}
                             />
                             <div className="profile-form-sepa-approval">
                                 <strong>{labels.sepaApproval}</strong>
@@ -345,7 +445,7 @@ class ProfileForm extends React.PureComponent {
                             </div>
                         </React.Fragment>
                     )}
-                    {formData.paymentMethod === PAYMENT_METHODS.bitcoin && (
+                    {formData.contract.paymentMethod === PAYMENT_METHODS.bitcoin && (
                         <div className="profile-form-bitcoin-message">
                             <strong>{labels.bitcoinMessage}</strong>
                         </div>
@@ -361,6 +461,21 @@ class ProfileForm extends React.PureComponent {
     }
 }
 
+const commonContractPropTypes = {
+    IBAN: PropTypes.string,
+    id: PropTypes.string,
+    startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    street: PropTypes.string,
+    houseNumber: PropTypes.string,
+    postcode: PropTypes.string,
+    city: PropTypes.string,
+    birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    email: PropTypes.string
+};
+
 const commonProfilePropTypes = {
     email: PropTypes.string,
     firstName: PropTypes.string,
@@ -371,7 +486,6 @@ const commonProfilePropTypes = {
     city: PropTypes.string,
     street: PropTypes.string,
     streetNumber: PropTypes.string,
-    IBAN: PropTypes.string,
     sepaApproval: PropTypes.string,
     oldPassword: PropTypes.string,
     newPassword: PropTypes.string,
@@ -381,6 +495,17 @@ const commonProfilePropTypes = {
 ProfileForm.propTypes = {
     labels: PropTypes.shape({
         ...commonProfilePropTypes,
+        contractContractNumber: PropTypes.string,
+        contractStartDate: PropTypes.string,
+        contractEndDate: PropTypes.string,
+        contractFirstName: PropTypes.string,
+        contractLastName: PropTypes.string,
+        contractStreet: PropTypes.string,
+        contractHouseNumber: PropTypes.string,
+        contractPostcode: PropTypes.string,
+        contractCity: PropTypes.string,
+        contractBirthday: PropTypes.string,
+        contractEmail: PropTypes.string,
         paymentMethod: PropTypes.string,
         paymentMethodDebitOption: PropTypes.string,
         paymentMethodTransferOption: PropTypes.string,
@@ -393,6 +518,9 @@ ProfileForm.propTypes = {
     }),
     profile: PropTypes.shape({
         ...commonProfilePropTypes,
+        contract: PropTypes.shape({
+            ...commonContractPropTypes
+        }),
         allowPasswordChange: PropTypes.bool,
         birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     }),
@@ -402,7 +530,7 @@ ProfileForm.propTypes = {
 ProfileForm.defaultProps = {
     labels: {
         personalDataTab: 'Customer Data',
-        paymentDataTab: 'Payment',
+        paymentDataTab: 'Contract Data',
         firstName: 'First Name',
         lastName: 'Last Name',
         birthday: 'Date of birth',
@@ -416,6 +544,17 @@ ProfileForm.defaultProps = {
         oldPassword: 'Old password',
         newPassword: 'New password',
         confirmNewPassword: 'Repeat new password',
+        contractContractNumber: 'Contract Number',
+        contractStartDate: 'Start Date',
+        contractEndDate: 'End Date',
+        contractFirstName: 'First Name',
+        contractLastName: 'Last Name',
+        contractStreet: 'Street',
+        contractHouseNumber: 'House Number',
+        contractPostcode: 'Postcode',
+        contractCity: 'City',
+        contractBirthday: 'Date of birth',
+        contractEmail: 'Email',
         paymentMethod: 'Payment options',
         paymentMethodDebitOption: 'Debit',
         paymentMethodTransferOption: 'Transfer',
@@ -438,7 +577,20 @@ ProfileForm.defaultProps = {
         city: '',
         street: '',
         streetNumber: '',
-        IBAN: ''
+        contract: {
+            IBAN: '',
+            id: '',
+            startDate: '',
+            endDate: '',
+            firstName: '',
+            lastName: '',
+            street: '',
+            houseNumber: '',
+            postcode: '',
+            city: '',
+            birthday: '',
+            email: ''
+        }
     },
     errors: {},
     onSubmit: () => {}

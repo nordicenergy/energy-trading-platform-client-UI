@@ -97,6 +97,11 @@
     line-height: 1;
 }
 
+.checkbox--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
 .checkbox--disabled .checkbox-label {
     color: var(--label-color);
 }

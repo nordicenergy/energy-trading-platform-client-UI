@@ -63,9 +63,10 @@
     outline: none;
 }
 
-.profile-form-tab-panel > * + .text-field,
-.profile-form-tab-panel > * + .iban-field,
-.profile-form-tab-panel > * + .date-field {
+.profile-form * + .text-field,
+.profile-form * + .date-field,
+.profile-form * + .iban-field,
+.profile-form * + .profile-form-payment-method {
     margin-top: 3.5em;
 }
 

@@ -79,6 +79,11 @@
     line-height: 1;
 }
 
+.radio-button--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
 .radio-button--disabled .radio-button-label {
     color: var(--label-color);
 }

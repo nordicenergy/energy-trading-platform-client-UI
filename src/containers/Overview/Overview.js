@@ -50,7 +50,8 @@ export class Overview extends contractStatusMixin(AppPage) {
         const { formatMessage } = this.context.intl;
         const { user, loading, error } = this.props;
 
-        if (user !== prevProps.user) {
+        if (!loading && user !== prevProps.user) {
+            this.stopTransactionsUpdating();
             this.startTransactionsUpdating();
         }
 
@@ -74,7 +75,6 @@ export class Overview extends contractStatusMixin(AppPage) {
             performGetRecentTransactions(user.id);
         }
 
-        this.stopTransactionsUpdating();
         this.intervalId = setInterval(() => {
             performGetRecentTransactions(user.id);
         }, UPDATE_INTERVAL);
@@ -83,6 +83,7 @@ export class Overview extends contractStatusMixin(AppPage) {
     stopTransactionsUpdating() {
         if (this.intervalId) {
             clearInterval(this.intervalId);
+            this.intervalId = null;
         }
     }
 
@@ -97,11 +98,11 @@ export class Overview extends contractStatusMixin(AppPage) {
     renderAlert(contractHasValidStatus, labels) {
         const user = this.props.user;
 
-        if (!user.statusCode || contractHasValidStatus) {
+        if (!user.contract.statusCode || contractHasValidStatus) {
             return null;
         }
 
-        if (user.statusCode === CONTRACT_STATUSES.waiting) {
+        if (user.contract.statusCode === CONTRACT_STATUSES.waiting) {
             return <Alert className="alert--overview">{labels.contractWaitingStatusCode}</Alert>;
         }
 
@@ -111,7 +112,7 @@ export class Overview extends contractStatusMixin(AppPage) {
     render() {
         const { user, recentTransactions: { transactions = [], currentBalance = 0 }, loading } = this.props;
         const { formatMessage } = this.context.intl;
-        const labels = this.prepareLabels(messages, { statusCodeTitle: user.statusCodeTitle });
+        const labels = this.prepareLabels(messages, { statusCodeTitle: user.contract.statusCodeTitle });
         const formattedTransactions = transactions.map(tx => ({
             ...tx,
             description: `${labels.recentTransactionsDescriptionBought} ${formatFloat(tx.energyAmount)} kWh ${
@@ -122,7 +123,7 @@ export class Overview extends contractStatusMixin(AppPage) {
                 status: formatMessage(convertTransactionStatus(tx.details && tx.details.status))
             }
         }));
-        const contractHasValidStatus = this.validateContractStatus(user.statusCode);
+        const contractHasValidStatus = this.validateContractStatus(user.contract.statusCode);
         const navigationCards = [
             {
                 type: PATHS.myProducer.id,
