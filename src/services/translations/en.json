@@ -215,7 +215,6 @@
     "app.profilePage.labels.contract.houseNumber": "Street Number",
     "app.profilePage.labels.contract.postcode": "Postcode",
     "app.profilePage.labels.contract.city": "City",
-    "app.profilePage.labels.contract.birthday": "Date of birth",
     "app.profilePage.labels.contract.email": "Email",
 
     "app.profilePage.errors.sepaApprovalValidator": "Please accept the SEPA terms.",
