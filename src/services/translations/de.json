@@ -219,7 +219,6 @@
     "app.profilePage.labels.contract.houseNumber": "Hausnummer",
     "app.profilePage.labels.contract.postcode": "Postleitzahl",
     "app.profilePage.labels.contract.city": "Ort",
-    "app.profilePage.labels.contract.birthday": "Geburtsdatum",
     "app.profilePage.labels.contract.email": "E-Mail",
 
     "app.profilePage.errors.sepaApprovalValidator": "Bitte der SEPA-Einzugsermächtigung zustimmen.",
