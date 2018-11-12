@@ -87,7 +87,7 @@ describe('<SubmitMeter /> Component', () => {
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
             submitButton: 'Submit',
-            submitErrorMessage: 'An error occurred while sending meter readings.',
+            submitErrorMessage: 'An error occurred while sending meter readings',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -119,7 +119,7 @@ describe('<SubmitMeter /> Component', () => {
             meterReadingsField: 'Meter readings',
             noData: 'Sorry, not live metering data available for you…',
             submitButton: 'Submit',
-            submitErrorMessage: 'An error occurred while sending meter readings.',
+            submitErrorMessage: 'An error occurred while sending meter readings',
             successMessage: 'Meter reading value was successfully saved'
         });
         expect(meterReadingForm.props().locale).toEqual('en');
@@ -212,6 +212,14 @@ describe('<SubmitMeter /> Component', () => {
 
     it('should map state properties', () => {
         const stateMock = {
+            Users: {
+                profile: {
+                    data: {
+                        user: { id: 1 }
+                    },
+                    loading: false
+                }
+            },
             Consumption: {
                 meterReadingsHistory: {
                     data: MOCK_METER_READINGS_HISTORY,
@@ -235,7 +243,8 @@ describe('<SubmitMeter /> Component', () => {
         expect(props.loading).toEqual(
             stateMock.Consumption.meterReadingsHistory.loading ||
                 stateMock.Consumption.submittedMeterReading.loading ||
-                stateMock.Consumption.meterNumber.loading
+                stateMock.Consumption.meterNumber.loading ||
+                stateMock.Users.profile.loading
         );
         expect(props.errorLoading).toEqual(
             stateMock.Consumption.meterReadingsHistory.error || stateMock.Consumption.meterNumber.error
@@ -245,6 +254,7 @@ describe('<SubmitMeter /> Component', () => {
         expect(props.meterReadingsHistory).toEqual(stateMock.Consumption.meterReadingsHistory.data);
         expect(props.meterNumber).toEqual(stateMock.Consumption.meterNumber.data.meterNumber);
         expect(props.submittedMeterReading).toEqual(stateMock.Consumption.submittedMeterReading);
+        expect(props.user).toEqual(stateMock.Users.profile.data.user);
     });
 
     it('should shows server error if smth is failed', () => {
@@ -268,10 +278,26 @@ describe('<SubmitMeter /> Component', () => {
         const component = renderComponent();
 
         component.setProps({ loading: true });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         component.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
+    });
+
+    it('should shows server error if authentication is failed', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        const component = renderComponent();
+
+        component.setProps({
+            loading: false,
+            errorSubmit: { message: 'Error message' }
+        });
+
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'An error occurred while sending meter readings: [Error message]'
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
     });
 });

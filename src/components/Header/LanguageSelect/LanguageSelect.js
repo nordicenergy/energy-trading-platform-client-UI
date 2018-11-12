@@ -36,6 +36,7 @@ class LanguageSelect extends Component {
         return (
             <div className={classes}>
                 <SelectField
+                    assistiveLabel="Select application locale"
                     className="select-field--language"
                     options={locales.map(LanguageSelect.getSelectOption)}
                     value={value}

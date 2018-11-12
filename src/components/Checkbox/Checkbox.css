@@ -1,12 +1,11 @@
 .checkbox,
 .checkbox-wrapper {
     position: relative;
-    display: inline-flex;
-    flex-wrap: wrap;
     font-size: 1rem;
 }
 
 .checkbox-wrapper {
+    display: inline-flex;
     cursor: pointer;
 }
 
@@ -91,12 +90,25 @@
 
 .checkbox-label {
     box-sizing: border-box;
-    width: calc(100% - 0.889em);
     padding: 0.1em 0 0 0.889em;
     color: var(--general-dark-text-color);
     font-size: 1.125em;
     font-weight: 600;
     line-height: 1;
+}
+
+.checkbox--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.checkbox--disabled .checkbox-label {
+    color: var(--label-color);
+}
+
+.checkbox--disabled .checkbox-native-control:checked + .checkbox-control::after,
+.checkbox--disabled .checkbox-control::before {
+    background: var(--label-color);
 }
 
 .checkbox--required .checkbox-label {

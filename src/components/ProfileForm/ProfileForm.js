@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/fontawesome-free-solid';
 import pick from 'lodash.pick';
@@ -10,10 +11,6 @@ import './ProfileForm.css';
 class ProfileForm extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleDateFieldChange = this.handleDateFieldChange.bind(this);
-        this.handlePaymentMethodChange = this.handlePaymentMethodChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.tabs = ['personalData', 'paymentData'];
         this.state = {
             dirty: false,
@@ -27,10 +24,16 @@ class ProfileForm extends React.PureComponent {
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
-            paymentMethod: profile.IBAN ? PAYMENT_METHODS.debit : PAYMENT_METHODS.transfer,
-            sepaApproval: Boolean(profile.IBAN),
             ...ProfileForm.defaultProps.profile,
-            ...pick(profile, Object.keys(ProfileForm.defaultProps.profile))
+            ...pick(profile, Object.keys(ProfileForm.defaultProps.profile)),
+            contract: {
+                ...profile.contract,
+                paymentMethod:
+                    profile.contract.paymentMethod === PAYMENT_METHODS.bitcoin
+                        ? PAYMENT_METHODS.bitcoin
+                        : profile.contract.IBAN ? PAYMENT_METHODS.debit : PAYMENT_METHODS.transfer
+            },
+            sepaApproval: Boolean(profile.contract.IBAN)
         };
     }
 
@@ -104,8 +107,11 @@ class ProfileForm extends React.PureComponent {
             dirty: true,
             formData: {
                 ...formData,
-                [name]: value,
-                IBAN: '',
+                contract: {
+                    ...formData.contract,
+                    IBAN: '',
+                    [name]: value
+                },
                 sepaApproval: false
             }
         });
@@ -118,7 +124,7 @@ class ProfileForm extends React.PureComponent {
     personalDataTabHasErrors() {
         const { errors } = this.props;
         return !!Object.keys(errors)
-            .filter(key => key !== 'IBAN' && key !== 'sepaApproval')
+            .filter(key => key !== 'contract.IBAN' && key !== 'sepaApproval')
             .map(key => errors[key])
             .filter(error => !!error).length;
     }
@@ -128,9 +134,13 @@ class ProfileForm extends React.PureComponent {
         return !!errors.IBAN || !!errors.sepaApproval;
     }
 
-    renderTabErrorFeedback(id) {
+    renderTabErrorFeedback(id, show) {
+        const classes = classNames(
+            'profile-form-tab-errors-feedback',
+            !show && 'profile-form-tab-errors-feedback--hide'
+        );
         return (
-            <span id={id} className="profile-form-tab-errors-feedback" aria-label="Tab has errors" aria-live="polite">
+            <span id={id} className={classes} aria-label="Tab has errors" aria-live="polite">
                 <FontAwesomeIcon icon={faExclamationTriangle} />
             </span>
         );
@@ -140,6 +150,8 @@ class ProfileForm extends React.PureComponent {
         const { locale, labels, errors } = this.props;
         const { formData } = this.state;
         const selectedTab = this.tabs[this.state.selectedTabIndex];
+        const isPersonalDataTabHasErrors = this.personalDataTabHasErrors();
+        const isPaymentDataTabHasErrors = this.paymentDataTabHasErrors();
 
         return (
             <div className="profile-form">
@@ -154,7 +166,7 @@ class ProfileForm extends React.PureComponent {
                         onClick={() => this.toggleTab(0)}
                     >
                         {labels.personalDataTab}
-                        {this.personalDataTabHasErrors() && this.renderTabErrorFeedback('personalDataTabErrors')}
+                        {this.renderTabErrorFeedback('personalDataTabErrors', isPersonalDataTabHasErrors)}
                     </button>
                     <button
                         id="paymentDataTab"
@@ -166,7 +178,7 @@ class ProfileForm extends React.PureComponent {
                         onClick={() => this.toggleTab(1)}
                     >
                         {labels.paymentDataTab}
-                        {this.paymentDataTabHasErrors() && this.renderTabErrorFeedback('paymentDataTabErrors')}
+                        {this.renderTabErrorFeedback('paymentDataTabErrors', isPaymentDataTabHasErrors)}
                     </button>
                 </div>
                 <div
@@ -184,7 +196,7 @@ class ProfileForm extends React.PureComponent {
                         name="firstName"
                         value={formData.firstName}
                         error={errors.firstName}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                     <TextField
                         disabled
@@ -193,7 +205,7 @@ class ProfileForm extends React.PureComponent {
                         name="lastName"
                         value={formData.lastName}
                         error={errors.lastName}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                     <DateField
                         disabled
@@ -203,7 +215,7 @@ class ProfileForm extends React.PureComponent {
                         label={labels.birthday}
                         value={formData.birthday}
                         error={errors.birthday}
-                        onChange={this.handleDateFieldChange}
+                        onChange={e => this.handleDateFieldChange(e)}
                     />
                     <TextField
                         disabled
@@ -211,7 +223,7 @@ class ProfileForm extends React.PureComponent {
                         name="city"
                         value={formData.city}
                         error={errors.city}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                     <TextField
                         disabled
@@ -219,7 +231,7 @@ class ProfileForm extends React.PureComponent {
                         name="street"
                         value={formData.street}
                         error={errors.street}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                     <TextField
                         disabled
@@ -227,7 +239,7 @@ class ProfileForm extends React.PureComponent {
                         name="streetNumber"
                         value={formData.streetNumber}
                         error={errors.streetNumber}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                     <TextField
                         disabled
@@ -235,7 +247,7 @@ class ProfileForm extends React.PureComponent {
                         name="postcode"
                         value={formData.postcode}
                         error={errors.postcode}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                     <TextField
                         required
@@ -244,7 +256,7 @@ class ProfileForm extends React.PureComponent {
                         type="email"
                         value={formData.email}
                         error={errors.email}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                     <TextField
                         disabled={!this.props.profile.allowPasswordChange || !this.state.dirty}
@@ -253,7 +265,7 @@ class ProfileForm extends React.PureComponent {
                         type="password"
                         value={formData.oldPassword}
                         error={errors.oldPassword}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                     <TextField
                         disabled={!this.props.profile.allowPasswordChange}
@@ -262,7 +274,7 @@ class ProfileForm extends React.PureComponent {
                         type="password"
                         value={formData.newPassword}
                         error={errors.newPassword}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                     <TextField
                         disabled={!this.props.profile.allowPasswordChange}
@@ -271,7 +283,7 @@ class ProfileForm extends React.PureComponent {
                         type="password"
                         value={formData.confirmNewPassword}
                         error={errors.confirmNewPassword}
-                        onChange={this.handleChange}
+                        onChange={e => this.handleChange(e)}
                     />
                 </div>
                 <div
@@ -282,6 +294,100 @@ class ProfileForm extends React.PureComponent {
                     tabIndex={-1}
                     aria-describedby="paymentDataTab"
                 >
+                    <TextField
+                        disabled
+                        label={labels.contractContractNumber}
+                        name="contractContractNumber"
+                        value={formData.contract.id}
+                        error={errors.contractContractNumber}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <DateField
+                        disabled
+                        locale={locale}
+                        name="contractStartDate"
+                        helperText={labels.birthdayHelperText}
+                        label={labels.contractStartDate}
+                        value={formData.contract.startDate}
+                        error={errors.contractStartDate}
+                        onChange={e => this.handleDateFieldChange(e)}
+                    />
+                    <DateField
+                        disabled
+                        locale={locale}
+                        name="contractEndDate"
+                        helperText={labels.birthdayHelperText}
+                        label={labels.contractEndDate}
+                        value={formData.contract.endDate}
+                        error={errors.contractEndDate}
+                        onChange={e => this.handleDateFieldChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractFirstName}
+                        name="contractFirstName"
+                        value={formData.contract.firstName}
+                        error={errors.contractFirstName}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractLastName}
+                        name="contractLastName"
+                        value={formData.contract.lastName}
+                        error={errors.contractLastName}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractStreet}
+                        name="contractStreet"
+                        value={formData.contract.street}
+                        error={errors.contractStreet}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractHouseNumber}
+                        name="contractHouseNumber"
+                        value={formData.contract.houseNumber}
+                        error={errors.contractHouseNumber}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractPostcode}
+                        name="contractPostcode"
+                        value={formData.contract.postcode}
+                        error={errors.contractPostcode}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractCity}
+                        name="contractCity"
+                        value={formData.contract.city}
+                        error={errors.contractCity}
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <DateField
+                        disabled
+                        locale={locale}
+                        name="contractBirthday"
+                        helperText={labels.birthdayHelperText}
+                        label={labels.contractBirthday}
+                        value={formData.contract.birthday}
+                        error={errors.contractBirthday}
+                        onChange={e => this.handleDateFieldChange(e)}
+                    />
+                    <TextField
+                        disabled
+                        label={labels.contractEmail}
+                        name="contractEmail"
+                        value={formData.contract.email}
+                        error={errors.contractEmail}
+                        onChange={e => this.handleChange(e)}
+                    />
                     <div className="profile-form-payment-method">
                         <strong>{labels.paymentMethod}</strong>
                         <ul>
@@ -289,31 +395,40 @@ class ProfileForm extends React.PureComponent {
                                 <RadioButton
                                     label={labels.paymentMethodDebitOption}
                                     name="paymentMethod"
-                                    value="debit"
-                                    checked={formData.paymentMethod === 'debit'}
-                                    onChange={this.handlePaymentMethodChange}
+                                    value={PAYMENT_METHODS.debit}
+                                    checked={formData.contract.paymentMethod === PAYMENT_METHODS.debit}
+                                    onChange={e => this.handlePaymentMethodChange(e)}
                                 />
                             </li>
                             <li>
                                 <RadioButton
                                     name="paymentMethod"
-                                    value="transfer"
-                                    checked={formData.paymentMethod === 'transfer'}
+                                    value={PAYMENT_METHODS.transfer}
+                                    checked={formData.contract.paymentMethod === PAYMENT_METHODS.transfer}
                                     label={labels.paymentMethodTransferOption}
-                                    onChange={this.handlePaymentMethodChange}
+                                    onChange={e => this.handlePaymentMethodChange(e)}
+                                />
+                            </li>
+                            <li>
+                                <RadioButton
+                                    name="paymentMethod"
+                                    value={PAYMENT_METHODS.bitcoin}
+                                    checked={formData.contract.paymentMethod === PAYMENT_METHODS.bitcoin}
+                                    label={labels.paymentMethodBitcoinOption}
+                                    onChange={e => this.handlePaymentMethodChange(e)}
                                 />
                             </li>
                         </ul>
                     </div>
-                    {formData.paymentMethod === PAYMENT_METHODS.debit && (
+                    {formData.contract.paymentMethod === PAYMENT_METHODS.debit && (
                         <React.Fragment>
                             <IBANField
                                 label={labels.IBAN}
                                 name="IBAN"
-                                value={formData.IBAN}
-                                error={errors.IBAN}
+                                value={formData.contract.IBAN}
+                                error={errors['contract.IBAN']}
                                 required
-                                onChange={this.handleChange}
+                                onChange={e => this.handlePaymentMethodChange(e)}
                             />
                             <div className="profile-form-sepa-approval">
                                 <strong>{labels.sepaApproval}</strong>
@@ -323,16 +438,21 @@ class ProfileForm extends React.PureComponent {
                                     name="sepaApproval"
                                     checked={formData.sepaApproval}
                                     error={errors.sepaApproval}
-                                    onChange={this.handleChange}
+                                    onChange={e => this.handleChange(e)}
                                 />
 
                                 <small>{labels.sepaApprovalHelp}</small>
                             </div>
                         </React.Fragment>
                     )}
+                    {formData.contract.paymentMethod === PAYMENT_METHODS.bitcoin && (
+                        <div className="profile-form-bitcoin-message">
+                            <strong>{labels.bitcoinMessage}</strong>
+                        </div>
+                    )}
                 </div>
                 <div className="profile-form-actions">
-                    <Button disabled={!this.state.dirty} onClick={this.handleSubmit}>
+                    <Button disabled={!this.state.dirty} onClick={() => this.handleSubmit()}>
                         {labels.submitButton}
                     </Button>
                 </div>
@@ -340,6 +460,21 @@ class ProfileForm extends React.PureComponent {
         );
     }
 }
+
+const commonContractPropTypes = {
+    IBAN: PropTypes.string,
+    id: PropTypes.string,
+    startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    street: PropTypes.string,
+    houseNumber: PropTypes.string,
+    postcode: PropTypes.string,
+    city: PropTypes.string,
+    birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    email: PropTypes.string
+};
 
 const commonProfilePropTypes = {
     email: PropTypes.string,
@@ -351,7 +486,6 @@ const commonProfilePropTypes = {
     city: PropTypes.string,
     street: PropTypes.string,
     streetNumber: PropTypes.string,
-    IBAN: PropTypes.string,
     sepaApproval: PropTypes.string,
     oldPassword: PropTypes.string,
     newPassword: PropTypes.string,
@@ -361,16 +495,32 @@ const commonProfilePropTypes = {
 ProfileForm.propTypes = {
     labels: PropTypes.shape({
         ...commonProfilePropTypes,
+        contractContractNumber: PropTypes.string,
+        contractStartDate: PropTypes.string,
+        contractEndDate: PropTypes.string,
+        contractFirstName: PropTypes.string,
+        contractLastName: PropTypes.string,
+        contractStreet: PropTypes.string,
+        contractHouseNumber: PropTypes.string,
+        contractPostcode: PropTypes.string,
+        contractCity: PropTypes.string,
+        contractBirthday: PropTypes.string,
+        contractEmail: PropTypes.string,
         paymentMethod: PropTypes.string,
         paymentMethodDebitOption: PropTypes.string,
         paymentMethodTransferOption: PropTypes.string,
+        paymentMethodBitcoinOption: PropTypes.string,
         sepaApproval: PropTypes.string,
         sepaApprovalOption: PropTypes.string,
         sepaApprovalHelp: PropTypes.string,
+        bitcoinMessage: PropTypes.string,
         submitButton: PropTypes.string
     }),
     profile: PropTypes.shape({
         ...commonProfilePropTypes,
+        contract: PropTypes.shape({
+            ...commonContractPropTypes
+        }),
         allowPasswordChange: PropTypes.bool,
         birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     }),
@@ -379,8 +529,8 @@ ProfileForm.propTypes = {
 };
 ProfileForm.defaultProps = {
     labels: {
-        personalDataTab: 'Personal Data',
-        paymentDataTab: 'Payment',
+        personalDataTab: 'Customer Data',
+        paymentDataTab: 'Contract Data',
         firstName: 'First Name',
         lastName: 'Last Name',
         birthday: 'Date of birth',
@@ -394,13 +544,27 @@ ProfileForm.defaultProps = {
         oldPassword: 'Old password',
         newPassword: 'New password',
         confirmNewPassword: 'Repeat new password',
+        contractContractNumber: 'Contract Number',
+        contractStartDate: 'Start Date',
+        contractEndDate: 'End Date',
+        contractFirstName: 'First Name',
+        contractLastName: 'Last Name',
+        contractStreet: 'Street',
+        contractHouseNumber: 'House Number',
+        contractPostcode: 'Postcode',
+        contractCity: 'City',
+        contractBirthday: 'Date of birth',
+        contractEmail: 'Email',
         paymentMethod: 'Payment options',
         paymentMethodDebitOption: 'Debit',
         paymentMethodTransferOption: 'Transfer',
+        paymentMethodBitcoinOption: 'Bitcoin',
         sepaApproval: 'Issuing SEPA-Mandate',
         sepaApprovalOption: 'I agree to terms',
         sepaApprovalHelp:
             'The named account holder authorizes the Lition Energie GmbH to collect payments from his account by direct debit. At the same time, said account holder instructs its credit institution to redeem the direct debits drawn by the supplier into its account. Note: Within eight weeks, starting with the debit date, the reimbursement of the debited amount can be reclaimed. The conditions agreed with the bank apply.',
+        bitcoinMessage:
+            'Lition accepts your Monthly payments in Bitcoin. Whenever your monthly installment is due, we will send you a link with instructions how to pay your Energy in Bitcoin or Bitcoin Cash, using the then current Bitcoin-Euro Exchange rate.',
         submitButton: 'Save'
     },
     profile: {
@@ -413,7 +577,20 @@ ProfileForm.defaultProps = {
         city: '',
         street: '',
         streetNumber: '',
-        IBAN: ''
+        contract: {
+            IBAN: '',
+            id: '',
+            startDate: '',
+            endDate: '',
+            firstName: '',
+            lastName: '',
+            street: '',
+            houseNumber: '',
+            postcode: '',
+            city: '',
+            birthday: '',
+            email: ''
+        }
     },
     errors: {},
     onSubmit: () => {}

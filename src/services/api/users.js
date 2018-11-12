@@ -17,19 +17,26 @@ export function logout() {
 
 export function getUserData() {
     return Axios.get(`${SESSION_API_URL}/user/getUserData`).then(response => {
-        // TODO: remove after date format will be unix timestamp
         const { data = {} } = response;
         const { user = {} } = data;
+        const { contract = {} } = user;
+        const {
+            startDate: contractStartDate = '',
+            endDate: contractEndDate = '',
+            birthday: contractBirthday = ''
+        } = contract;
         const birthdayData = user.birthday || '';
-        const [year, month, day] = birthdayData.split('-');
-        const formattedBirthdayData = new Date(`${year}-${month}-${day}`);
         return {
             data: {
                 user: {
                     ...user,
-                    // TODO: need to remove in Monday (05.11.2018) or revert commit.
-                    statusCode: 5000,
-                    birthday: moment(formattedBirthdayData).unix()
+                    birthday: moment(birthdayData).unix(), // convert to unix time stamp
+                    contract: {
+                        ...contract,
+                        startDate: moment(contractStartDate).unix(), // convert to unix time stamp
+                        endDate: moment(contractEndDate).unix(), // convert to unix time stamp
+                        birthday: moment(contractBirthday).unix() // convert to unix time stamp
+                    }
                 }
             }
         };

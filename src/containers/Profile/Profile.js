@@ -4,16 +4,19 @@ import { connect } from 'react-redux';
 import Validator from 'async-validator';
 import IBAN from 'iban';
 import pick from 'lodash.pick';
+
+import { ProfileForm } from '../../components';
+import { Profile as messages } from '../../services/translations/messages';
 import { PAYMENT_METHODS } from '../../constants';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
 import { performGetUserData, performUpdateUserData } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { Profile as messages } from '../../services/translations/messages';
-import { ProfileForm } from '../../components';
+
+import AppPage from '../__shared__/AppPage';
+
 import './Profile.css';
 
-export class Profile extends AbstractContainer {
+export class Profile extends AppPage {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -62,7 +65,7 @@ export class Profile extends AbstractContainer {
         }
 
         if (loading !== this.props.loading) {
-            performSetupLoaderVisibility(this.props.loading);
+            performSetupLoaderVisibility(this.pageId, this.props.loading);
         }
     }
 
@@ -79,22 +82,27 @@ export class Profile extends AbstractContainer {
             email: [{ required: true, message: messages.emptyEmail }, { type: 'email', message: messages.invalidEmail }]
         };
 
-        if (formData.paymentMethod === PAYMENT_METHODS.debit) {
-            validationSchema.IBAN = [
-                { required: true, message: messages.emptyIban },
-                {
-                    validator(rule, value, callback) {
-                        const errors = [];
+        if (formData.contract.paymentMethod === PAYMENT_METHODS.debit) {
+            validationSchema.contract = {
+                type: 'object',
+                fields: {
+                    IBAN: [
+                        { required: true, message: messages.emptyIban },
+                        {
+                            validator(rule, value, callback) {
+                                const errors = [];
 
-                        if (value && !IBAN.isValid(value)) {
-                            errors.push(new Error(`Invalid IBAN value: ${value}`));
+                                if (value && !IBAN.isValid(value)) {
+                                    errors.push(new Error(`Invalid IBAN value: ${value}`));
+                                }
+
+                                callback(errors);
+                            },
+                            message: messages.invalidIban
                         }
-
-                        callback(errors);
-                    },
-                    message: messages.invalidIban
+                    ]
                 }
-            ];
+            };
             validationSchema.sepaApproval = {
                 validator(rule, value, callback) {
                     const errors = [];
@@ -137,7 +145,7 @@ export class Profile extends AbstractContainer {
     }
 
     updateProfile(formData) {
-        const allowedProperties = [
+        const allowedUserProperties = [
             'email',
             'firstName',
             'lastName',
@@ -147,9 +155,11 @@ export class Profile extends AbstractContainer {
             'city',
             'street',
             'streetNumber',
-            'IBAN',
             'oldPassword'
         ];
+
+        const allowedContractProperties = ['paymentMethod', 'IBAN'];
+
         const validator = this.prepareValidator(formData);
 
         validator.validate(formData, errors => {
@@ -165,10 +175,12 @@ export class Profile extends AbstractContainer {
                 });
             } else {
                 if (formData.newPassword) {
-                    allowedProperties.push('newPassword');
+                    allowedUserProperties.push('newPassword');
                 }
-
-                performUpdateUserData(pick(formData, allowedProperties));
+                performUpdateUserData({
+                    ...pick(formData, allowedUserProperties),
+                    ...pick(formData.contract, allowedContractProperties)
+                });
                 this.setState({ errors: {} });
             }
         });

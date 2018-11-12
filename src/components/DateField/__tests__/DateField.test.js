@@ -264,4 +264,29 @@ describe('<DateField /> component', () => {
             value: `${parseInt(new Date('03.12.2019').getTime() / 1000, 10)}`
         });
     });
+
+    it('should correctly handle null input', () => {
+        const onChangeStub = jest.fn();
+        const dateField = renderComponent({ onChange: onChangeStub, value: null });
+
+        dateField.find('TextField').simulate('click');
+        dateField
+            .find('TextField')
+            .props()
+            .onFocus();
+        dateField
+            .find('TextField')
+            .props()
+            .onKeyDown({ key: KEYBOARD_KEY_VALUES.Q });
+        dateField
+            .find('TextField')
+            .props()
+            .onKeyDown({ key: KEYBOARD_KEY_VALUES.ENTER });
+        dateField.update();
+
+        expect(onChangeStub).toHaveBeenCalledWith({
+            name: 'test',
+            value: ''
+        });
+    });
 });

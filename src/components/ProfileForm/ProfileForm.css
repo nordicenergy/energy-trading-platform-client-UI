@@ -63,9 +63,10 @@
     outline: none;
 }
 
-.profile-form-tab-panel > * + .text-field,
-.profile-form-tab-panel > * + .iban-field,
-.profile-form-tab-panel > * + .date-field {
+.profile-form * + .text-field,
+.profile-form * + .date-field,
+.profile-form * + .iban-field,
+.profile-form * + .profile-form-payment-method {
     margin-top: 3.5em;
 }
 
@@ -100,6 +101,14 @@
     padding: 1em 0 0 2.833em;
     color: var(--label-color);
     font-size: 0.75em;
+}
+
+.profile-form-bitcoin-message > strong {
+    display: block;
+    padding: 2em 0 0 2.833em;
+    color: var(--label-color);
+    font-size: 0.75em;
+    font-weight: normal;
 }
 
 .profile-form-actions {

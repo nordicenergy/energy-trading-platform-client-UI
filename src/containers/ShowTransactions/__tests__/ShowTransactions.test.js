@@ -457,8 +457,8 @@ describe('<ShowTransactions /> Component', () => {
     it('should perform related actions on did mount step', () => {
         renderContainer();
 
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
-        const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
+        const [, [bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
             { icon: 'faHome', id: '', label: 'Overview', path: '/' },
             { id: 'show_transactions', label: 'Show Transactions', path: '/show_transactions' }
@@ -489,11 +489,10 @@ describe('<ShowTransactions /> Component', () => {
         const showTransactions = renderComponent();
 
         showTransactions.setProps({ loading: true });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         showTransactions.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 
     it('should call scroll handler of the container', () => {
@@ -517,12 +516,12 @@ describe('<ShowTransactions /> Component', () => {
     it('should setup translated breadcrumbs when locale changed', () => {
         const showTransactions = renderComponent();
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
 
         showTransactions.setProps({
             locale: 'de'
         });
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(3);
     });
 });

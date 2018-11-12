@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CONTRACT_STATUSES } from '../../constants';
+
 import { Alert, NavigationCardsPanel, EmptyRecentTransactions, RecentTransactions } from '../../components';
+import { PATHS, CONTRACT_STATUSES } from '../../constants';
+import { Overview as messages, Breadcrumbs as breadcrumbs } from '../../services/translations/messages';
+import { formatFloat } from '../../services/formatter';
+import { convertTransactionStatus } from '../../services/translations/enums';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import { performGetUserData } from '../../action_performers/users';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { PATHS } from '../../services/routes';
-import { Overview as messages } from '../../services/translations/messages';
-import { formatFloat } from '../../services/formatter';
 
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import AppPage from '../__shared__/AppPage';
+import contractStatusMixin from '../__shared__/mixins/contractStatus';
 
 import './Overview.css';
-import { convertTransactionStatus } from '../../services/translations/enums';
 
 const UPDATE_INTERVAL = 1000 * 60; // 1m
 
-export class Overview extends AbstractContainer {
+export class Overview extends contractStatusMixin(AppPage) {
     static mapStateToProps(state) {
         return {
             loading: state.Users.profile.loading,
@@ -38,7 +39,8 @@ export class Overview extends AbstractContainer {
         this.setupBreadcrumbs([
             {
                 ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
+                icon: 'faHome',
+                label: formatMessage(breadcrumbs.overview)
             }
         ]);
         performGetUserData();
@@ -48,7 +50,8 @@ export class Overview extends AbstractContainer {
         const { formatMessage } = this.context.intl;
         const { user, loading, error } = this.props;
 
-        if (user !== prevProps.user) {
+        if (!loading && user !== prevProps.user) {
+            this.stopTransactionsUpdating();
             this.startTransactionsUpdating();
         }
 
@@ -57,7 +60,7 @@ export class Overview extends AbstractContainer {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 
@@ -72,7 +75,6 @@ export class Overview extends AbstractContainer {
             performGetRecentTransactions(user.id);
         }
 
-        this.stopTransactionsUpdating();
         this.intervalId = setInterval(() => {
             performGetRecentTransactions(user.id);
         }, UPDATE_INTERVAL);
@@ -81,6 +83,7 @@ export class Overview extends AbstractContainer {
     stopTransactionsUpdating() {
         if (this.intervalId) {
             clearInterval(this.intervalId);
+            this.intervalId = null;
         }
     }
 
@@ -92,15 +95,15 @@ export class Overview extends AbstractContainer {
         this.navigateTo(PATHS.showTransactions.path);
     }
 
-    renderAlert(labels) {
+    renderAlert(contractHasValidStatus, labels) {
         const user = this.props.user;
 
-        if (!user.statusCode || user.statusCode === CONTRACT_STATUSES.success) {
+        if (!user.contract.statusCode || contractHasValidStatus) {
             return null;
         }
 
-        if (user.statusCode === CONTRACT_STATUSES.pending) {
-            return <Alert className="alert--overview">{labels.contractPendingStatusCode}</Alert>;
+        if (user.contract.statusCode === CONTRACT_STATUSES.waiting) {
+            return <Alert className="alert--overview">{labels.contractWaitingStatusCode}</Alert>;
         }
 
         return <Alert className="alert--overview">{labels.contractOthersStatusCodes}</Alert>;
@@ -109,7 +112,7 @@ export class Overview extends AbstractContainer {
     render() {
         const { user, recentTransactions: { transactions = [], currentBalance = 0 }, loading } = this.props;
         const { formatMessage } = this.context.intl;
-        const labels = this.prepareLabels(messages, { statusCodeTitle: user.statusCodeTitle });
+        const labels = this.prepareLabels(messages, { statusCodeTitle: user.contract.statusCodeTitle });
         const formattedTransactions = transactions.map(tx => ({
             ...tx,
             description: `${labels.recentTransactionsDescriptionBought} ${formatFloat(tx.energyAmount)} kWh ${
@@ -120,18 +123,19 @@ export class Overview extends AbstractContainer {
                 status: formatMessage(convertTransactionStatus(tx.details && tx.details.status))
             }
         }));
+        const contractHasValidStatus = this.validateContractStatus(user.contract.statusCode);
         const navigationCards = [
             {
                 type: PATHS.myProducer.id,
                 title: labels.myProducer,
                 path: PATHS.myProducer.path,
-                disabled: user.statusCode !== CONTRACT_STATUSES.success
+                disabled: !contractHasValidStatus
             },
             {
                 type: PATHS.buyEnergy.id,
                 title: labels.buyEnergy,
                 path: PATHS.buyEnergy.path,
-                disabled: user.statusCode !== CONTRACT_STATUSES.success
+                disabled: !contractHasValidStatus
             },
             {
                 type: PATHS.sellEnergy.id,
@@ -143,14 +147,14 @@ export class Overview extends AbstractContainer {
 
         return (
             <section className="overview-page" aria-busy={loading}>
-                {this.renderAlert(labels)}
+                {this.renderAlert(contractHasValidStatus, labels)}
                 <NavigationCardsPanel
                     navigationCards={navigationCards}
                     onCardClick={route => this.navigateTo(route)}
                     labels={labels}
                 />
                 <div className="overview-content-container">
-                    {user.statusCode === CONTRACT_STATUSES.success ? (
+                    {contractHasValidStatus ? (
                         <RecentTransactions
                             transactions={formattedTransactions}
                             currentBalance={currentBalance}

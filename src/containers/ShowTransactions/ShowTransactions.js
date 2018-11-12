@@ -1,24 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { RecentTransactions, BackLink } from '../../components';
+import { PATHS } from '../../constants';
+import { formatFloat } from '../../services/formatter';
+import { convertTransactionStatus } from '../../services/translations/enums';
+import { ShowTransactions as messages, Breadcrumbs as breadcrumbs } from '../../services/translations/messages';
 import { performGetUserData } from '../../action_performers/users';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import { PATHS } from '../../services/routes';
-import { formatFloat } from '../../services/formatter';
-import { convertTransactionStatus } from '../../services/translations/enums';
-import { ShowTransactions as messages } from '../../services/translations/messages';
 
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import AppPage from '../__shared__/AppPage';
+import availableWithValidContract from '../__shared__/decorators/availableWithValidContract';
 
 import './ShowTransactions.css';
 
-export class ShowTransactions extends AbstractContainer {
+export class ShowTransactions extends AppPage {
     constructor(props, context) {
         super(props, context);
-
+        this.identifier = Symbol('ShowTransactions');
         this.state = { page: 0 };
     }
 
@@ -69,7 +71,7 @@ export class ShowTransactions extends AbstractContainer {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 
@@ -78,11 +80,12 @@ export class ShowTransactions extends AbstractContainer {
         this.setupBreadcrumbs([
             {
                 ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
+                icon: 'faHome',
+                label: formatMessage(breadcrumbs.overview)
             },
             {
                 ...PATHS.showTransactions,
-                label: formatMessage(PATHS.showTransactions.label)
+                label: formatMessage(breadcrumbs.showTransactions)
             }
         ]);
     }
@@ -161,4 +164,4 @@ ShowTransactions.defaultProps = {
     error: null
 };
 
-export default connect(ShowTransactions.mapStateToProps)(ShowTransactions);
+export default connect(ShowTransactions.mapStateToProps)(availableWithValidContract(ShowTransactions));

@@ -302,22 +302,21 @@ describe('<SellEnergy /> container', () => {
         const sellEnergy = renderComponent();
 
         sellEnergy.setProps({ loading: true });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         sellEnergy.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 
     it('should setup translated breadcrumbs when locale changed', () => {
         const sellEnergy = renderComponent();
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
 
         sellEnergy.setProps({
             locale: 'de'
         });
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(3);
     });
 });

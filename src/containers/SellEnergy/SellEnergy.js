@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { PATHS } from '../../services/routes';
-import { SellEnergy as messages } from '../../services/translations/messages';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import Validator from 'async-validator';
+
 import { OfferForm, OffersSlider, BackLink } from '../../components';
+import { PATHS } from '../../constants';
+import { SellEnergy as messages, Breadcrumbs as breadcrumbs } from '../../services/translations/messages';
 import { performGetUserData } from '../../action_performers/users';
 import {
     performGetOwnedProducerOffer,
@@ -12,12 +13,15 @@ import {
     performGetOwnedProducerOffersHistory,
     performGetCurrentMarketPrice
 } from '../../action_performers/producers';
-import './SellEnergy.css';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
-import Validator from 'async-validator';
 
-export class SellEnergy extends AbstractContainer {
+import AppPage from '../__shared__/AppPage';
+import availableWithValidContract from '../__shared__/decorators/availableWithValidContract';
+
+import './SellEnergy.css';
+
+export class SellEnergy extends AppPage {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -88,7 +92,7 @@ export class SellEnergy extends AbstractContainer {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 
@@ -143,11 +147,11 @@ export class SellEnergy extends AbstractContainer {
         this.setupBreadcrumbs([
             {
                 ...PATHS.overview,
-                label: formatMessage(PATHS.overview.label)
+                label: formatMessage(breadcrumbs.overview)
             },
             {
                 ...PATHS.sellEnergy,
-                label: formatMessage(PATHS.sellEnergy.label)
+                label: formatMessage(breadcrumbs.sellEnergy)
             }
         ]);
     }
@@ -246,4 +250,4 @@ SellEnergy.propTypes = {
     locale: PropTypes.string
 };
 
-export default connect(SellEnergy.mapStateToProps)(SellEnergy);
+export default connect(SellEnergy.mapStateToProps)(availableWithValidContract(SellEnergy));

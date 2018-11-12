@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { CONTRACT_STATUSES } from '../../../constants';
-import { PATHS } from '../../../services/routes';
 import MyProducerContainer, { MyProducer } from '../MyProducer';
 import { ProducerInfo, Button } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
@@ -28,7 +27,7 @@ const store = mockStore({
                     userStatus: 'string',
                     workingPrice: 2.3,
                     status: 'delivery_net',
-                    statusCode: CONTRACT_STATUSES.success,
+                    statusCode: CONTRACT_STATUSES.active,
                     statusCodeTitle: 'In Belieferung'
                 }
             }
@@ -104,11 +103,9 @@ const props = {
         name: 'test'
     },
     producerHistory: [{ date: 'test', value: 'test' }],
-    profile: {
-        user: {
-            id: 1,
-            currentProducerId: 1
-        }
+    user: {
+        id: 1,
+        currentProducerId: 1
     },
     error: null
 };
@@ -201,7 +198,7 @@ describe('<MyProducer /> Component', () => {
             },
             Users: {
                 profile: {
-                    data: 'user_data',
+                    data: { user: 'user_data' },
                     error: null,
                     loading: false
                 }
@@ -219,23 +216,14 @@ describe('<MyProducer /> Component', () => {
             locale: 'en',
             producer: 'producer_data',
             producerHistory: 'history_data',
-            profile: 'user_data',
+            user: 'user_data',
             error: 'test_error',
             loading: 'test_loading'
         });
     });
 
-    it("should redirect to overview page if user's contract has not success status", () => {
-        const component = renderComponent();
-
-        component.setProps({
-            profile: { user: { currentProducerId: 2, id: 2 } }
-        });
-        component.setProps({
-            profile: { user: { currentProducerId: 2, id: 1, statusCode: CONTRACT_STATUSES.success } }
-        });
-
-        expect(context.router.history.push).toHaveBeenCalledWith(PATHS.overview.path);
+    it('should be rendered only with valid contract status', () => {
+        renderContainer();
     });
 
     it('should perform related actions on did mount step', () => {
@@ -246,27 +234,27 @@ describe('<MyProducer /> Component', () => {
         const [[arg1]] = producersActions.performGetProducer.mock.calls;
         expect(arg1).toEqual(1);
 
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
-        const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
+        const [, [bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
             { icon: 'faHome', id: '', label: 'Overview', path: '/' },
             { id: 'my_producer', label: 'My Producer', path: '/my_producer' }
         ]);
 
         const component = renderComponent();
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(4);
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(2);
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(2);
         component.setProps({
-            profile: { user: { currentProducerId: 2, id: 1, statusCode: CONTRACT_STATUSES.success } }
+            user: { currentProducerId: 2, id: 1, statusCode: CONTRACT_STATUSES.active }
         });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(3);
         component.setProps({
-            profile: { user: { currentProducerId: 2, id: 2, statusCode: CONTRACT_STATUSES.success } }
+            user: { currentProducerId: 2, id: 2, statusCode: CONTRACT_STATUSES.active }
         });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(3);
         component.setProps({
-            profile: { user: { currentProducerId: 1, id: 2, statusCode: CONTRACT_STATUSES.success } }
+            user: { currentProducerId: 1, id: 2, statusCode: CONTRACT_STATUSES.active }
         });
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(4);
 
@@ -299,22 +287,21 @@ describe('<MyProducer /> Component', () => {
         const myProducer = renderComponent();
 
         myProducer.setProps({ loading: true });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         myProducer.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 
     it('should setup translated breadcrumbs when locale changed', () => {
         const myProducer = renderComponent();
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
 
         myProducer.setProps({
             locale: 'de'
         });
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(3);
     });
 });

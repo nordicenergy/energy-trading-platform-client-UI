@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Validator from 'async-validator';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+
 import { MetaMaskAlert, ConfigurationForm, TradePositionsList, Confirm } from '../../components';
+import { META_MASK_DOWNLOAD_LINKS, META_MASK_LINK, BLOCKCHAIN_NETWORKS, TRADE_POSITIONS_LIMIT } from '../../constants';
 import web3Service from '../../services/web3';
 import { DirectTrading as messages } from '../../services/translations/messages';
 import {
@@ -16,7 +17,9 @@ import {
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { performGetUserData } from '../../action_performers/users';
-import { META_MASK_DOWNLOAD_LINKS, META_MASK_LINK, BLOCKCHAIN_NETWORKS, TRADE_POSITIONS_LIMIT } from '../../constants';
+
+import AppPage from '../__shared__/AppPage';
+
 import './DirectTrading.css';
 
 const [ethereumNetwork, ledgerNetwork] = BLOCKCHAIN_NETWORKS;
@@ -36,7 +39,7 @@ const BLOCKCHAIN_NETWORKS_OPTIONS = [
 
 const SUCCESS_LEDGER_STATUS = 'success';
 
-export class DirectTrading extends AbstractContainer {
+export class DirectTrading extends AppPage {
     constructor(props, context, breadcrumbs) {
         super(props, context, breadcrumbs);
 
@@ -97,7 +100,7 @@ export class DirectTrading extends AbstractContainer {
         const isNewTransactionPerformed = performedTransaction !== prevProps.performedTransaction;
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
 
         if (isLedgerStatusChanged) {

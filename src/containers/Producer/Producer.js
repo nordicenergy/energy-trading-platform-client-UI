@@ -1,23 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { PRODUCER_STATUSES, CONTRACT_STATUSES } from '../../constants';
-import { ProducerInfo, Button, BackLink, HelpIcon } from '../../components';
-import { Producer as messages } from '../../services/translations/messages';
-import { convertProducerStatus } from '../../services/translations/enums';
-import { prepareProducerInfoProps } from './.';
 
+import { ProducerInfo, Button, BackLink, HelpIcon } from '../../components';
+import { PATHS, PRODUCER_STATUSES } from '../../constants';
+import { Producer as messages, Breadcrumbs as breadcrumbs } from '../../services/translations/messages';
+import { convertProducerStatus } from '../../services/translations/enums';
 import { performGetProducer, performSelectProducer } from '../../action_performers/producers';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 import { performGetUserData } from '../../action_performers/users';
-import { PATHS } from '../../services/routes';
 
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import AppPage from '../__shared__/AppPage';
+import availableWithValidContract from '../__shared__/decorators/availableWithValidContract';
+import { prepareProducerInfoProps } from './.';
 
 import './Producer.css';
 
-export class Producer extends AbstractContainer {
+export class Producer extends AppPage {
     static mapStateToProps(state) {
         return {
             loading:
@@ -25,7 +25,7 @@ export class Producer extends AbstractContainer {
                 state.Users.profile.loading ||
                 state.Producers.selectedProducer.loading,
             producer: state.Producers.producer.data,
-            profile: state.Users.profile.data,
+            user: state.Users.profile.data.user,
             selectedProducer: state.Producers.selectedProducer.data,
             error: state.Producers.producer.error || state.Users.profile.error,
             errorSelect: state.Producers.selectedProducer.error,
@@ -34,12 +34,7 @@ export class Producer extends AbstractContainer {
     }
 
     componentDidMount() {
-        const { profile: { user = {} }, match: { params } = {} } = this.props;
-
-        if (user.statusCode !== CONTRACT_STATUSES.success) {
-            this.context.router.history.push(PATHS.overview.path);
-            return;
-        }
+        const { match: { params } = {} } = this.props;
 
         performGetProducer(params.producerId);
         performGetUserData();
@@ -69,7 +64,7 @@ export class Producer extends AbstractContainer {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 
@@ -80,7 +75,8 @@ export class Producer extends AbstractContainer {
             this.setupBreadcrumbs([
                 {
                     ...PATHS.buyEnergy,
-                    label: formatMessage(PATHS.buyEnergy.label)
+                    icon: 'faShoppingCart',
+                    label: formatMessage(breadcrumbs.buyEnergy)
                 },
                 {
                     ...PATHS.producer,
@@ -109,7 +105,7 @@ export class Producer extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { loading, producer = {}, profile: { user } = {} } = this.props;
+        const { loading, producer = {}, user = {} } = this.props;
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer, user);
         const isSoldOut = producer.status === PRODUCER_STATUSES.soldOut;
 
@@ -165,9 +161,8 @@ Producer.propTypes = {
         })
     }),
     loading: PropTypes.bool,
-    user: PropTypes.object,
     producer: PropTypes.object,
-    profile: PropTypes.object,
+    user: PropTypes.object,
     error: PropTypes.object,
     errorSelect: PropTypes.object,
     locale: PropTypes.string
@@ -178,7 +173,7 @@ Producer.defaultProps = {
     producer: {},
     error: null,
     errorSelect: null,
-    profile: {}
+    user: {}
 };
 
-export default connect(Producer.mapStateToProps)(Producer);
+export default connect(Producer.mapStateToProps)(availableWithValidContract(Producer));

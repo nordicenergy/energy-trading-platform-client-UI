@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import { CONTRACT_STATUSES } from '../../../constants';
-import { PATHS } from '../../../services/routes';
 import { BuyEnergy } from '../BuyEnergy';
 import { ProducerCardsPanel, BackLink, ProducersFilter, OptionLinks } from '../../../components';
 import * as producersActionPerformers from '../../../action_performers/producers';
@@ -28,7 +27,7 @@ const userDummy = {
     IBAN: 'DE91100000000123456789',
     BIC: 'MARKDEF1100',
     status: 'delivery_net',
-    statusCode: CONTRACT_STATUSES.success,
+    statusCode: CONTRACT_STATUSES.active,
     statusCodeTitle: 'In Belieferung',
     showSoldOutPowerPlants: true,
     allowPasswordChange: false,
@@ -111,7 +110,7 @@ describe('<BuyEnergy /> container', () => {
         - <ProducerCardsPanel> element;
         - don\'t show <OptionLinks> element;`, () => {
         const buyEnergy = renderComponent({
-            currentProducerLoading: true,
+            loading: true,
             producersLoading: true
         });
         const handleScrollMock = buyEnergy.instance().scrollHandler;
@@ -143,12 +142,6 @@ describe('<BuyEnergy /> container', () => {
         expect(mainContainerElement.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);
     });
 
-    it("should redirect to overview page if user's contract has not success status", () => {
-        renderComponent({ user: { ...userDummy, statusCode: CONTRACT_STATUSES.pending } });
-
-        expect(routerStub.history.push).toHaveBeenCalledWith(PATHS.overview.path);
-    });
-
     it('should return correct props', () => {
         const stateMock = {
             Producers: {
@@ -177,7 +170,8 @@ describe('<BuyEnergy /> container', () => {
                 profile: {
                     data: {
                         user: { id: 1 }
-                    }
+                    },
+                    loading: false
                 }
             }
         };
@@ -187,7 +181,7 @@ describe('<BuyEnergy /> container', () => {
             user: { id: 1 },
             locale: 'en',
             error: null,
-            currentProducerLoading: false,
+            loading: false,
             currentProducer: producersDummy[1],
             producersLoading: false,
             producers: producersDummy,
@@ -209,7 +203,7 @@ describe('<BuyEnergy /> container', () => {
 
     it('should calls performGetProducers when page increase', () => {
         const buyEnergy = renderComponent({
-            currentProducerLoading: true,
+            loading: true,
             producersLoading: true
         });
 
@@ -219,7 +213,7 @@ describe('<BuyEnergy /> container', () => {
 
     it('should calls performGetProducers with selected filter and first page', () => {
         const buyEnergy = renderComponent({
-            currentProducerLoading: true,
+            loading: true,
             producersLoading: true
         });
 
@@ -238,12 +232,11 @@ describe('<BuyEnergy /> container', () => {
     it('should calls performSetupLoaderVisibility when receive new loading property', () => {
         const buyEnergy = renderComponent();
 
-        buyEnergy.setProps({ currentProducerLoading: true, producersLoading: true });
-        buyEnergy.setProps({ currentProducerLoading: false, producersLoading: false });
+        buyEnergy.setProps({ loading: true, producersLoading: true });
+        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
+        buyEnergy.setProps({ loading: false, producersLoading: false });
+        expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActionPerformers.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActionPerformers.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 
     it('should call performPushNotification if error has occurred', () => {
@@ -306,12 +299,12 @@ describe('<BuyEnergy /> container', () => {
     it('should setup translated breadcrumbs when locale changed', () => {
         const buyEnergy = renderComponent();
 
-        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
 
         buyEnergy.setProps({
             locale: 'de'
         });
 
-        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
+        expect(appActionPerformers.performSetupBreadcrumbs).toHaveBeenCalledTimes(3);
     });
 });

@@ -9,7 +9,9 @@
         "@fortawesome/react-fontawesome": "0.0.18",
         "async-validator": "1.8.2",
         "axios": "0.18.0",
+        "babel-polyfill": "6.26.0",
         "classnames": "2.2.5",
+        "focus-manager": "0.4.1",
         "history": "4.7.2",
         "iban": "0.0.11",
         "lodash.once": "4.1.1",
@@ -33,9 +35,9 @@
         "web3": "1.0.0-beta.34"
     },
     "scripts": {
-        "postcss": "node ./scripts/postcss.js",
+        "postbuild": "node ./scripts/postcss.js && node ./scripts/generateHtAccess.js",
         "start": "react-scripts start",
-        "build": "react-scripts build && npm run postcss",
+        "build": "react-scripts build && npm run postbuild",
         "test": "react-scripts test --no-cache --env=jsdom --coverage src/setupTests.js src/**/*",
         "e2e:desktop": "VIEWPORT=desktop jest --no-cache e2e/**/*",
         "e2e:tv": "VIEWPORT=tv jest --no-cache e2e/**/*",
@@ -61,23 +63,12 @@
         "react-test-renderer": "16.2.0",
         "redux-mock-store": "1.5.1"
     },
-    "pre-commit": [
-        "format",
-        "test"
-    ],
+    "pre-commit": ["format", "test"],
     "repository": {
         "type": "git",
         "url": "git@bitbucket.org:lition/frontend.git"
     },
-    "keywords": [
-        "lition",
-        "energy",
-        "exchange",
-        "blockchain",
-        "tading platform",
-        "client side",
-        "front-end"
-    ],
+    "keywords": ["lition", "energy", "exchange", "blockchain", "tading platform", "client side", "front-end"],
     "author": "Lition Tech Team",
     "license": "ISC",
     "engines": {

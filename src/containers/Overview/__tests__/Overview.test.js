@@ -28,8 +28,10 @@ const store = mockStore({
             data: {
                 user: {
                     id: 1,
-                    statusCode: CONTRACT_STATUSES.success,
-                    statusCodeTitle: 'success'
+                    contract: {
+                        statusCode: CONTRACT_STATUSES.active,
+                        statusCodeTitle: 'success'
+                    }
                 }
             }
         }
@@ -297,7 +299,7 @@ const props = {
             }
         ]
     },
-    user: { id: 'testId', statusCode: CONTRACT_STATUSES.success },
+    user: { id: 'testId', contract: { statusCode: CONTRACT_STATUSES.active } },
     loading: false,
     error: null
 };
@@ -344,7 +346,7 @@ describe('<Overview /> Component', () => {
         expect(tableProps).toEqual({
             currentBalance: { ...props.recentTransactions.currentBalance },
             labels: {
-                contractPendingStatusCode:
+                contractWaitingStatusCode:
                     'Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the "Documents" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.',
                 contractOthersStatusCodes:
                     'You currently do are not supplied by Lition with Energy, further details are available in the "Documents" section (success). Feel free to contact us if you have further questions.',
@@ -381,7 +383,7 @@ describe('<Overview /> Component', () => {
         delete cardsProps.onCardClick;
         expect(cards.props()).toEqual({
             labels: {
-                contractPendingStatusCode:
+                contractWaitingStatusCode:
                     'Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the "Documents" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.',
                 contractOthersStatusCodes:
                     'You currently do are not supplied by Lition with Energy, further details are available in the "Documents" section (success). Feel free to contact us if you have further questions.',
@@ -439,10 +441,10 @@ describe('<Overview /> Component', () => {
         });
     });
 
-    it("should show alert if user's contract has pending status", () => {
+    it("should show alert if user's contract has waiting status", () => {
         const propsWithPendingContractStatus = {
             ...props,
-            user: { ...props.user, statusCode: CONTRACT_STATUSES.pending }
+            user: { ...props.user, contract: { statusCode: CONTRACT_STATUSES.waiting } }
         };
         const component = shallowWithIntl(<Overview {...propsWithPendingContractStatus} />, context);
 
@@ -453,10 +455,10 @@ describe('<Overview /> Component', () => {
         expect(component.find('EmptyRecentTransactions')).toHaveLength(1);
     });
 
-    it("should show alert if user's contract has not success status", () => {
+    it("should show alert if user's contract has not active status", () => {
         const propsWithPendingContractStatus = {
             ...props,
-            user: { ...props.user, statusCode: 3001, statusCodeTitle: 'success' }
+            user: { ...props.user, contract: { statusCode: 3001, statusCodeTitle: 'success' } }
         };
         const component = shallowWithIntl(<Overview {...propsWithPendingContractStatus} />, context);
 
@@ -504,13 +506,13 @@ describe('<Overview /> Component', () => {
         expect(setInterval).toHaveBeenCalledTimes(0);
         expect(clearInterval).toHaveBeenCalledTimes(0);
 
-        component.setProps({ user: { id: 10 } });
+        component.setProps({ user: { id: 10, contract: {} } });
 
         expect(txActions.performGetRecentTransactions.mock.calls.length).toEqual(1);
         const [[userId]] = txActions.performGetRecentTransactions.mock.calls;
         expect(userId).toEqual(10);
 
-        component.setProps({ user: { id: 11 } });
+        component.setProps({ user: { id: 11, contract: {} } });
         expect(setInterval).toHaveBeenCalledTimes(2);
         expect(clearInterval).toHaveBeenCalledTimes(1);
         expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 1000 * 60);
@@ -528,7 +530,7 @@ describe('<Overview /> Component', () => {
     it('should clear interval functions on unmount step', () => {
         const component = renderComponent();
         expect(clearInterval).toHaveBeenCalledTimes(0);
-        component.setProps({ user: { id: 10 } });
+        component.setProps({ user: { id: 10, contract: {} } });
         component.unmount();
         expect(clearInterval).toHaveBeenCalledTimes(1);
     });
@@ -537,10 +539,9 @@ describe('<Overview /> Component', () => {
         const overview = renderComponent();
 
         overview.setProps({ loading: true });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         overview.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 });

@@ -64,7 +64,7 @@ class SelectField extends Component {
     }
 
     getSelectedOption() {
-        const { options } = this.props;
+        const { options, supportEmptyValue } = this.props;
         const { value } = this.getState();
         const [selectedOption = {}] = options;
 
@@ -73,6 +73,10 @@ class SelectField extends Component {
             if (value === option.value || value === option) {
                 return option;
             }
+        }
+
+        if (supportEmptyValue) {
+            return '';
         }
 
         return selectedOption;
@@ -110,7 +114,7 @@ class SelectField extends Component {
                     onClick={onClick}
                     tabIndex={0}
                     role="option"
-                    aria-selected="true"
+                    aria-selected={isSelected}
                     onKeyUp={event => this.handleOptionEnterPress(event, value)}
                 >
                     {label}
@@ -130,7 +134,7 @@ class SelectField extends Component {
     }
 
     render() {
-        const { id, className, label, disabled, required, error } = this.props;
+        const { id = Date.now(), className, label, assistiveLabel, disabled, required, error } = this.props;
         const { isFocused } = this.getState();
         const listBoxId = `listbox-${id}`;
         const classes = classNames(
@@ -139,6 +143,7 @@ class SelectField extends Component {
             disabled && 'select-field--disabled',
             className
         );
+        const listboxClass = classNames('options-list', !isFocused && 'options-list-item--hide');
         const selectedOption = this.getSelectedOption();
         const labelContent = required ? (
             <Fragment>
@@ -159,11 +164,11 @@ class SelectField extends Component {
                     {label && <label className="select-field-label">{labelContent}</label>}
                     <div
                         className="select-field-input"
-                        role="combobox"
+                        aria-label={label || assistiveLabel}
                         aria-expanded={isFocused}
                         aria-controls={listBoxId}
                     >
-                        <div role="button" className="select-control">
+                        <div role="button" className="select-control" aria-label="Show select options">
                             <strong className="select-control-text">
                                 {typeof selectedOption === 'string'
                                     ? selectedOption
@@ -171,11 +176,9 @@ class SelectField extends Component {
                             </strong>
                             <FontAwesomeIcon className="select-control-icon" icon={faChevronDown} />
                         </div>
-                        {isFocused && (
-                            <ul id={listBoxId} className="options-list" role="listbox">
-                                {this.renderOptions(selectedOption)}
-                            </ul>
-                        )}
+                        <ul id={listBoxId} className={listboxClass} role="listbox">
+                            {this.renderOptions(selectedOption)}
+                        </ul>
                     </div>
                 </div>
                 {error && (
@@ -193,18 +196,21 @@ SelectField.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
     label: PropTypes.string,
+    assistiveLabel: PropTypes.string,
     options: PropTypes.arrayOf(OptionPropType),
     defaultValue: OptionPropType,
     value: OptionPropType,
     required: PropTypes.bool,
     error: PropTypes.string,
     onChange: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    supportEmptyValue: PropTypes.bool
 };
 SelectField.defaultProps = {
-    id: Date.now(),
+    assistiveLabel: 'Select control',
     options: [],
-    defaultValue: ''
+    defaultValue: '',
+    supportEmptyValue: false
 };
 
 export default SelectField;

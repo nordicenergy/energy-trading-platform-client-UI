@@ -70,8 +70,10 @@ describe('<Profile /> Container', () => {
             newPassword: '',
             confirmNewPassword: '',
             oldPassword: '',
-            paymentMethod: 'debit',
-            IBAN: ''
+            contract: {
+                paymentMethod: 'debit',
+                IBAN: ''
+            }
         };
         // Disable console warning for the test.
         jest.spyOn(console, 'warn').mockImplementation(jest.fn());
@@ -89,7 +91,10 @@ describe('<Profile /> Container', () => {
         expect(component.state().errors).toHaveProperty('postcode');
         expect(component.state().errors).toHaveProperty('city');
         expect(component.state().errors).toHaveProperty('streetNumber');
-        expect(component.state().errors).toHaveProperty('IBAN');
+        expect(component.state().errors['contract.IBAN']).toEqual({
+            defaultMessage: 'Enter your IBAN.',
+            id: 'app.profilePage.errors.iban'
+        });
         expect(component.state().errors).toHaveProperty('sepaApproval');
         expect(component.state().errors).not.toHaveProperty('confirmNewPassword');
         expect(component.state().errors).not.toHaveProperty('newPassword');
@@ -146,7 +151,10 @@ describe('<Profile /> Container', () => {
             newPassword: 'aa',
             confirmNewPassword: 'asd',
             oldPassword: '',
-            paymentMethod: 'transfer'
+            contract: {
+                paymentMethod: 'transfer',
+                IBAN: ''
+            }
         };
         // Disable console warning for the test.
         jest.spyOn(console, 'warn').mockImplementation(jest.fn());
@@ -210,8 +218,10 @@ describe('<Profile /> Container', () => {
             newPassword: 'password',
             confirmNewPassword: 'password',
             oldPassword: 'oldPassword',
-            paymentMethod: 'debit',
-            IBAN: 'DE78100500000890139229',
+            contract: {
+                paymentMethod: 'debit',
+                IBAN: 'DE78100500000890139229'
+            },
             sepaApproval: true
         };
         jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
@@ -233,9 +243,12 @@ describe('<Profile /> Container', () => {
             .onSubmit(dataMock);
 
         delete dataMock.confirmNewPassword;
-        delete dataMock.paymentMethod;
         delete dataMock.sepaApproval;
-        expect(userActionPerformers.performUpdateUserData).toHaveBeenCalledWith(dataMock);
+        expect(userActionPerformers.performUpdateUserData).toHaveBeenCalledWith({
+            ...dataMock,
+            ...dataMock.contract,
+            contract: undefined
+        });
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'success',
             message: 'Profile successfully updated'
@@ -247,10 +260,9 @@ describe('<Profile /> Container', () => {
         const profile = renderComponent();
 
         profile.setProps({ loading: true });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         profile.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 });

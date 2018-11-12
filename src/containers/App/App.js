@@ -2,40 +2,91 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { LOCALES, DEFAULT_LOCALE, CONTRACT_STATUSES } from '../../constants';
-import { PATHS } from '../../services/routes';
-import { performSetupLocale, performSetupLoaderVisibility } from '../../action_performers/app';
-import { performLogout } from '../../action_performers/users';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/fontawesome-free-solid';
+
+import { MenuSideBar, Header, Footer, Confirm, ContractModal, SelectField, Button } from '../../components';
+import { PATHS, LOCALES, DEFAULT_LOCALE } from '../../constants';
 import { App as messages } from '../../services/translations/messages';
-import { MenuSideBar, Header, Footer, Confirm } from '../../components';
+import { performSetupLocale, performSetupLoaderVisibility } from '../../action_performers/app';
+import { performPushNotification } from '../../action_performers/notifications';
+import {
+    performGetSessionContract,
+    performSetSessionContract,
+    performGetContracts
+} from '../../action_performers/contracts';
+import { performLogout, performGetUserData } from '../../action_performers/users';
+
+import contractStatusMixin from '../__shared__/mixins/contractStatus';
+
 import './App.css';
 
-export class App extends React.PureComponent {
-    static mapStateToProps({ Users, App }) {
+const APP_ID = Symbol('app-id');
+
+export class App extends contractStatusMixin(React.PureComponent) {
+    static mapStateToProps({ Users, App, Contracts }) {
         return {
             loggingOut: Users.logout.loading,
             user: Users.profile.data.user,
             breadCrumbs: App.breadCrumbs.data,
-            loading: App.localization.loading.faq || App.localization.loading.aboutUs,
-            locale: App.localization.data.locale
+            loading:
+                App.localization.loading.faq ||
+                App.localization.loading.aboutUs ||
+                Users.profile.loading ||
+                Contracts.contracts.loading ||
+                Contracts.sessionContract.loading ||
+                Contracts.updatedSessionContract.loading,
+            locale: App.localization.data.locale,
+            contracts: Contracts.contracts.data,
+            sessionContract: Contracts.sessionContract.data,
+            updatedSessionContract: Contracts.updatedSessionContract.data,
+            errorContracts: Users.profile.error || Contracts.contracts.error || Contracts.sessionContract.error,
+            errorSetContract: Contracts.updatedSessionContract.error
         };
     }
 
     constructor(props, context) {
         super(props, context);
-        this.state = { isConfirmVisible: false, isMenuBarOpen: false };
+        this.state = { isConfirmVisible: false, isMenuBarOpen: false, isConfigSideBarOpen: false };
+        this.appId = APP_ID;
+    }
+
+    componentDidMount() {
+        performGetUserData();
     }
 
     componentDidUpdate(prevProps) {
-        const { loggingOut, loading } = this.props;
+        const { formatMessage } = this.context.intl;
+        const { loggingOut, loading, user, updatedSessionContract, errorContracts, errorSetContract } = this.props;
         const loggedOut = prevProps.loggingOut !== loggingOut && !loggingOut;
 
         if (loggedOut) {
             this.navigateTo('/login');
         }
 
+        if (
+            prevProps.updatedSessionContract !== updatedSessionContract &&
+            updatedSessionContract &&
+            updatedSessionContract.id
+        ) {
+            performGetUserData(user.id);
+        }
+
+        if (prevProps.user !== user && user && user.id) {
+            performGetContracts(user.id);
+            performGetSessionContract(user.id);
+        }
+
+        if (errorContracts && errorContracts !== prevProps.errorContracts) {
+            performPushNotification({ message: formatMessage(messages.loadingContractsErrorMessage), type: 'error' });
+        }
+
+        if (errorSetContract && errorSetContract !== prevProps.errorSetContract) {
+            performPushNotification({ message: formatMessage(messages.setContractErrorMessage), type: 'error' });
+        }
+
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.appId, loading);
         }
     }
 
@@ -52,8 +103,14 @@ export class App extends React.PureComponent {
     }
 
     handleDeEmphasizedContentClick(target) {
-        if (this.state.isMenuBarOpen && target.classList && target.classList.contains('content--de-emphasized')) {
+        const { isMenuBarOpen, isConfigSideBarOpen } = this.state;
+        const isContentDeEmphasized = target.classList && target.classList.contains('content--de-emphasized');
+        if (isMenuBarOpen && isContentDeEmphasized) {
             this.setState({ isMenuBarOpen: false });
+        }
+
+        if (isConfigSideBarOpen && isContentDeEmphasized) {
+            this.setState({ isConfigSideBarOpen: false });
         }
     }
 
@@ -61,9 +118,18 @@ export class App extends React.PureComponent {
         this.context.router.history.push(route);
     }
 
+    setupContract(contractId) {
+        const { sessionContract, user } = this.props;
+        const userId = user && user.id;
+        const newContractSelected = !sessionContract || contractId !== sessionContract.id;
+        if (userId && newContractSelected) {
+            performSetSessionContract(userId, contractId);
+        }
+    }
+
     render() {
-        const { locale } = this.props;
-        const { isConfirmVisible } = this.state;
+        const { locale, contracts, sessionContract, loading, user } = this.props;
+        const { isConfirmVisible, isConfigSideBarOpen, isMenuBarOpen } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
         const [, headRoute = '', subRoute] = pathname.split('/');
@@ -115,7 +181,7 @@ export class App extends React.PureComponent {
                 active: headRoute === PATHS.buyEnergy.id || headRoute === PATHS.producer.id,
                 path: PATHS.buyEnergy.path,
                 subItemActive: headRoute === PATHS.buyEnergy.id && subRoute === PATHS.producer.id,
-                disabled: this.props.user.statusCode !== CONTRACT_STATUSES.success
+                disabled: !this.validateContractStatus(user.contract.statusCode)
             },
             {
                 id: PATHS.directTrading.id,
@@ -152,8 +218,20 @@ export class App extends React.PureComponent {
             }
         ];
 
+        const haveNoWorkingContracts = !contracts.length || !sessionContract || !sessionContract.id;
+
         return (
             <div className="app">
+                <ContractModal
+                    labels={{
+                        contractMessage: formatMessage(messages.contractMessage),
+                        noContractMessage: formatMessage(messages.noContractMessage),
+                        selectLabel: formatMessage(messages.selectContractMessage)
+                    }}
+                    contracts={contracts}
+                    onSelect={({ value }) => this.setupContract(value)}
+                    show={!loading && haveNoWorkingContracts}
+                />
                 <Confirm
                     labels={{
                         message: formatMessage(messages.logoutConfirmMessage),
@@ -167,20 +245,35 @@ export class App extends React.PureComponent {
                 <Header
                     logoutLabel={formatMessage(messages.logoutLabel)}
                     onLogoutClick={() => this.logout(formatMessage(messages.logoutConfirm))}
-                    menuBarIcon={this.state.isMenuBarOpen ? 'faArrowRight' : 'faBars'}
+                    menuBarIcon={isMenuBarOpen ? 'faTimes' : 'faBars'}
                     menuBarLabel={formatMessage(messages.menuBarLabel)}
-                    onToggleMenuBar={() => this.setState(state => ({ isMenuBarOpen: !state.isMenuBarOpen }))}
+                    onToggleMenuBar={() => this.setState({ isMenuBarOpen: !isMenuBarOpen, isConfigSideBarOpen: false })}
                     breadCrumbs={this.props.breadCrumbs}
                     onBreadCrumbsClick={route => this.navigateTo(route)}
                     onLogoClick={() => this.navigateTo(PATHS.overview.path)}
                     locales={LOCALES}
                     locale={locale || DEFAULT_LOCALE}
                     onLocaleChange={locale => performSetupLocale(locale)}
+                    contracts={contracts}
+                    selectedContractId={(sessionContract && sessionContract.id) || ''}
+                    onContractChange={contractId => this.setupContract(contractId)}
+                    contractLabel={formatMessage(messages.contractLabel)}
+                    noContractsMessage={formatMessage(messages.noContractsMessage)}
+                    configSideBarIcon={isConfigSideBarOpen ? 'faTimes' : 'faEllipsisV'}
+                    configSideLabel={formatMessage(messages.configSideBarLabel)}
+                    onToggleConfigSideBar={() =>
+                        this.setState({
+                            isConfigSideBarOpen: !isConfigSideBarOpen,
+                            isMenuBarOpen: false
+                        })
+                    }
                 />
                 <div
                     className={classNames({
                         content: true,
-                        'content--de-emphasized': this.state.isMenuBarOpen
+                        'covered-by-menu': isMenuBarOpen,
+                        'covered-by-config-sidebar': isConfigSideBarOpen,
+                        'content--de-emphasized': isMenuBarOpen || isConfigSideBarOpen
                     })}
                     onClick={event => this.handleDeEmphasizedContentClick(event.target)}
                 >
@@ -188,7 +281,7 @@ export class App extends React.PureComponent {
                         aria-live="polite"
                         className={classNames({
                             'menu-container': true,
-                            'menu-container--opened': this.state.isMenuBarOpen
+                            'menu-container--opened': isMenuBarOpen
                         })}
                     >
                         <MenuSideBar
@@ -199,13 +292,52 @@ export class App extends React.PureComponent {
                             }}
                         />
                     </div>
-                    <div role="feed" id="main-container">
+                    <div role="article" id="main-container">
                         <main>{this.props.children}</main>
                         <Footer
                             addressLabel={formatMessage(messages.address)}
                             navItems={footerItems}
                             onSelect={href => this.navigateTo(href)}
                         />
+                    </div>
+                    <div
+                        aria-live="polite"
+                        aria-hidden={!isConfigSideBarOpen}
+                        className={classNames({
+                            'right-config-sidebar': true,
+                            'right-config-sidebar--opened': isConfigSideBarOpen
+                        })}
+                    >
+                        <div className="config-items">
+                            <SelectField
+                                className="config-contract-select"
+                                name="current-contract"
+                                label={formatMessage(messages.selectContractMessage)}
+                                options={contracts.map(({ id }) => ({ value: id, label: `#${id}` }))}
+                                value={(sessionContract && sessionContract.id) || ''}
+                                onChange={({ value }) => this.setupContract(value)}
+                                supportEmptyValue
+                            />
+
+                            <SelectField
+                                className="config-contract-select"
+                                name="current-locale"
+                                label={formatMessage(messages.selectLocaleMessage)}
+                                options={LOCALES}
+                                value={locale || DEFAULT_LOCALE}
+                                onChange={({ value }) => performSetupLocale(value)}
+                                supportEmptyValue
+                            />
+                            <div className="config-logout-btn">
+                                <Button
+                                    type="primary"
+                                    onClick={() => this.logout(formatMessage(messages.logoutConfirm))}
+                                >
+                                    <FontAwesomeIcon icon={faSignOutAlt} />
+                                    <span>{formatMessage(messages.logoutLabel)}</span>
+                                </Button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -221,10 +353,19 @@ App.propTypes = {
     loggingOut: PropTypes.bool,
     user: PropTypes.object,
     locale: PropTypes.string,
+    contracts: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string
+        })
+    ),
+    sessionContract: PropTypes.shape({
+        id: PropTypes.string
+    }),
     loading: PropTypes.bool
 };
 App.defaultProps = {
     user: {},
+    contracts: [],
     loading: false
 };
 

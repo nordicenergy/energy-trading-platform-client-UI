@@ -10,10 +10,19 @@ const optionsDummy = [
     { value: 'renewable', label: 'Renewable' }
 ];
 function renderComponent(
-    { id = 'test', name = 'test', label = 'Test label', options = optionsDummy, ...otherProps } = {},
+    { id = 'test', name = 'test', label, assistiveLabel, options = optionsDummy, ...otherProps } = {},
     mountFn = shallow
 ) {
-    return mountFn(<SelectField id={id} name={name} label={label} options={options} {...otherProps} />);
+    return mountFn(
+        <SelectField
+            id={id}
+            name={name}
+            label={label}
+            assistiveLabel={assistiveLabel}
+            options={options}
+            {...otherProps}
+        />
+    );
 }
 
 describe('<SelectField /> component', () => {
@@ -24,7 +33,7 @@ describe('<SelectField /> component', () => {
     });
 
     it('should render with asterisk if select field is required', () => {
-        const selectField = renderComponent({ required: true });
+        const selectField = renderComponent({ required: true, label: 'Test label' });
 
         expect(selectField.find('.select-field-asterisk')).toHaveLength(1);
     });
@@ -47,10 +56,16 @@ describe('<SelectField /> component', () => {
         selectField.update();
         expect(selectField.find('.options-list-item')).toHaveLength(5);
         expect(selectField.find('.options-list-item--selected')).toHaveLength(1);
+        expect(selectField.hasClass('.options-list-item--hide')).toBeFalsy();
 
         document.body.dispatchEvent(eventMock);
         selectField.update();
-        expect(selectField.find('.options-list-item')).toHaveLength(0);
+        expect(selectField.find('.options-list-item')).toHaveLength(5);
+        expect(selectField.find('.options-list-item--hide')).toHaveLength(1);
+
+        selectField.setState({ isFocused: true });
+        expect(selectField.find('.options-list-item')).toHaveLength(5);
+        expect(selectField.find('.options-list-item--hide')).toHaveLength(0);
     });
 
     it('should not select disabled option', () => {
@@ -132,5 +147,22 @@ describe('<SelectField /> component', () => {
         expect(document.body.removeEventListener).toHaveBeenCalledWith('click', handleBodyClick);
 
         document.body.removeEventListener.mockRestore();
+    });
+
+    it('should provide possibility to render select with empty value by default', () => {
+        const selectFieldWithEmptyValue = renderComponent({ value: null, supportEmptyValue: true });
+        expect(selectFieldWithEmptyValue.find('strong.select-control-text').text()).toEqual('');
+
+        const selectField = renderComponent({ value: null, supportEmptyValue: false });
+        expect(selectField.find('strong.select-control-text').text()).toEqual(optionsDummy[0].label);
+    });
+
+    it('should set assistive label to aria attribute', () => {
+        const selectField = renderComponent({ assistiveLabel: 'assistive label' });
+        expect(selectField.find('.select-field-input').prop('aria-label')).toEqual('assistive label');
+
+        selectField.setProps({ label: 'label' });
+
+        expect(selectField.find('.select-field-input').prop('aria-label')).toEqual('label');
     });
 });

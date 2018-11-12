@@ -1,4 +1,3 @@
-import AbstractContainer from './AbstractContainer';
 import Notifications from './Notifications';
 import PageLoader from './PageLoader';
 import App from './App';
@@ -14,16 +13,14 @@ import SellEnergy from './SellEnergy';
 import BuyEnergy from './BuyEnergy';
 import ShowTransactions from './ShowTransactions';
 import Producer from './Producer';
-import Trading from './Trading';
 import DirectTrading from './DirectTrading';
 import MyDocuments from './MyDocuments';
 import SubmitMeter from './SubmitMeter';
 import ResetPassword from './ResetPassword';
 import NotFoundPage from './NotFoundPage';
-export { default as Registration } from './Registration';
+import Registration from './Registration';
 
 export {
-    AbstractContainer,
     Notifications,
     PageLoader,
     App,
@@ -39,10 +36,10 @@ export {
     MyProducer,
     ShowTransactions,
     Producer,
-    Trading,
     DirectTrading,
     MyDocuments,
     SubmitMeter,
     ResetPassword,
-    NotFoundPage
+    NotFoundPage,
+    Registration
 };

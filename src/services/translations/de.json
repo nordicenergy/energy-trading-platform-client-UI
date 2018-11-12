@@ -58,12 +58,25 @@
     "app.resetPasswordPage.errors.invalidResetPasswordToken": "Ungültiger Passwort-Link",
     "app.resetPasswordPage.info.passwordWasUpdated": "Dein Passwort wurde erfolgreich geändert",
 
+    "app.notifications.loadingContractsErrorMessage":
+        "Beim Abrufen der Vertragsdaten ist ein Fehler aufgetreten. Bitte versuche, die Seite später zu aktualisieren oder wende dich an den Administrator.",
+    "app.notifications.setContractErrorMessage":
+        "Bei der Vertragsauswahl ist ein Fehler aufgetreten. Bitte versuche, den Vertrag später auszuwählen oder wende dich an den Administrator.",
     "app.notifications.defaultErrorMessage":
         "Interner Fehler des Web-Servers. Bitte aktualisiere die Seite oder kontaktiere den Kundendienst.",
 
+    "app.contractModal.contractMessage": "Um fortzufahren, wähle bitte einen Auftrag aus.",
+    "app.contractModal.noContractMessage":
+        "Zur Zeit können keine Vertragsaten abgebildet werden. Bitte wende dich an den Administrator, oder versuche es später erneut.",
+    "app.contractModal.selectContractMessage": "Wähle einen Auftrag aus",
+
+    "app.header.selectLocaleMessage": "Wählen Sie das Gebietsschema",
     "app.header.logoutConfirm": "Bist Du sicher, dass Du dich vom Portal abmelden möchtest?",
     "app.header.logoutLabel": "Logout",
+    "app.header.contractLabel": "Vertrag",
+    "app.header.noContractsMessage": "Keine Verträge",
     "app.header.menuBarLabel": "Sidebar-Menü umschalten",
+    "app.header.configSideBarLabel": "Sidebar-Config umschalten",
 
     "app.menuBar.overview": "Überblick",
     "app.menuBar.documents": "Meine Dokumente",
@@ -83,7 +96,7 @@
     "app.navigationCardsPanel.buyEnergy": "Energie kaufen",
     "app.navigationCardsPanel.sellEnergy": "Energie verkaufen",
 
-    "app.overviewPage.contractPendingStatusCode":
+    "app.overviewPage.contractWaitingStatusCode":
         "Dein Vertrag ist erfolgreich abgeschlossen worden. Ab deinem Wechseltermin, den du im Bereich \"Dokumente\" entnehmen kannst, beliefern wir dich mit Energie. Dann kannst Du dich auch für einen Erzeuger deiner Wahl entscheiden.",
     "app.overviewPage.contractOthersStatusCodes":
         "Du erhältst derzeit keine Energie von Lition, weitere Hintergründe kannst du den Schreiben in der Sektion \"Dokumente\" entnehmen ({statusCodeTitle}). Bei weiteren Fragen wende dich gerne an uns.",
@@ -193,8 +206,22 @@
     "app.termsAndConditionsPage.error": "Die Seite konnte nicht geladen werden",
 
     "app.profilePage.header": "Profil",
-    "app.profilePage.labels.personalDataTab": "Weitere Angaben",
-    "app.profilePage.labels.paymentDataTab": "Zahlungsweise",
+    "app.profilePage.labels.personalDataTab": "Kundendaten",
+
+    "app.profilePage.labels.paymentDataTab": "Vertragsdaten",
+
+    "app.profilePage.labels.contract.contractNumber": "Vertragsnummer",
+    "app.profilePage.labels.contract.startDate": "Vertragsbeginn",
+    "app.profilePage.labels.contract.endDate": "Vertragsende",
+    "app.profilePage.labels.contract.firstName": "Vorname",
+    "app.profilePage.labels.contract.lastName": "Nachname",
+    "app.profilePage.labels.contract.street": "Straße",
+    "app.profilePage.labels.contract.houseNumber": "Hausnummer",
+    "app.profilePage.labels.contract.postcode": "Postleitzahl",
+    "app.profilePage.labels.contract.city": "Ort",
+    "app.profilePage.labels.contract.birthday": "Geburtsdatum",
+    "app.profilePage.labels.contract.email": "E-Mail",
+
     "app.profilePage.errors.sepaApprovalValidator": "Bitte der SEPA-Einzugsermächtigung zustimmen.",
     "app.profilePage.errors.firstName": "Vorname eingeben.",
     "app.profilePage.errors.lastName": "Nachname eingeben.",
@@ -231,10 +258,13 @@
     "app.profilePage.labels.paymentMethod": "Zahlungsweise",
     "app.profilePage.labels.paymentMethodDebitOption": "Lastschrift",
     "app.profilePage.labels.paymentMethodTransferOption": "Überweisung",
+    "app.profilePage.labels.paymentMethodBitcoinOption": "Bitcoin",
     "app.profilePage.labels.sepaApproval": "Erteilung SEPA-Mandat",
     "app.profilePage.labels.sepaApprovalOption": "Zustimmung",
     "app.profilePage.labels.sepaApprovalHelp":
         "Der genannte Kontoinhaber ermächtigt die Lition Energie GmbH, Zahlungen von seinem Konto mittels Lastschrift einzuziehen. Zugleich weist der genannte Kontoinhaber sein Kreditinstitut an, die von dem Lieferanten auf sein Konto gezogenen Lastschriften einzulösen. Hinweis: Innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, kann die Erstattung des belasteten Betrages zurückverlangt werden. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.",
+    "app.profilePage.labels.bitcoinMessage":
+        "Mit Lition kannst du deine Stromrechnung in Bitcoin oder Bitcoin Cash bezahlen. Sobald dein monatlicher Abschlag ansteht erhältst du von uns eine E-Mail mit den Zahlungsdetails zum jeweils dann gültigen Bitcoin-Euro Kurs.",
     "app.profilePage.errors.profileUpdatedErrorMessage": "Beim Aktualisieren deines Profils ist ein Fehler aufgetreten",
     "app.profilePage.errors.profileLoadingErrorMessage":
         "Profildaten konnten nicht vom Lition-Server geladen werden. Bitte kontaktiere den Kundendienst.",
@@ -287,7 +317,7 @@
     "app.submitMeterReadingsPage.errors.loadingErrorMessage":
         "Zählerstände konnten nicht vom Lition-Server geladen werden. Bitte kontaktiere den Kundendienst.",
     "app.submitMeterReadingsPage.errors.submitErrorMessage":
-        "Beim Speichern der Zählerstände ist ein Fehler aufgetreten.",
+        "Beim Speichern der Zählerstände ist ein Fehler aufgetreten",
 
     "app.registrationPage.successfulRegistration": "Registration erfolgreich abgeschlossen.",
     "app.registrationPage.copyright": "Lition Energie GmbH. Alle Rechte vorbehalten.",

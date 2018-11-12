@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import './About.css';
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
-import { About as messages } from '../../services/translations/messages';
 import PropTypes from 'prop-types';
+
+import { About as messages } from '../../services/translations/messages';
 import { performPushNotification } from '../../action_performers/notifications';
 
-export class About extends AbstractContainer {
+import AppPage from '../__shared__/AppPage';
+
+import './About.css';
+
+export class About extends AppPage {
     static mapStateToProps(state) {
         return {
             paragraphs: state.App.localization.data.aboutUs,

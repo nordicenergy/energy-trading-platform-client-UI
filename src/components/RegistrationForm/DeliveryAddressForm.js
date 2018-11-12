@@ -205,6 +205,7 @@ class DeliveryAddressForm extends AbstractForm {
         const { formData, labels, labels: { fields } } = this.props;
         const { errors } = this.state;
 
+        // TODO: remove disable attribute from business radio button after implementing BS-361
         return (
             <Wizard.Content
                 className="wizard-content--with-shadow"
@@ -227,6 +228,7 @@ class DeliveryAddressForm extends AbstractForm {
                         </div>
                         <div>
                             <RadioButton
+                                disabled
                                 label={fields.businessOptions[1]}
                                 name="business"
                                 value="yes"

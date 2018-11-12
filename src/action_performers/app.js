@@ -5,8 +5,8 @@ export function performSetupBreadcrumbs(breadcrumbs) {
     dispatcher.dispatchAction('SETUP_BREADCRUMBS', breadcrumbs);
 }
 
-export function performSetupLoaderVisibility(isVisible) {
-    dispatcher.dispatchAction('SETUP_LOADER_VISIBILITY', isVisible);
+export function performSetupLoaderVisibility(id, waiting) {
+    dispatcher.dispatchAction('SETUP_LOADER_VISIBILITY', { id, waiting });
 }
 
 export function performSetupLocale(locale) {

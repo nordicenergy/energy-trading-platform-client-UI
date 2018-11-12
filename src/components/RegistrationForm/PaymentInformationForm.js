@@ -1,19 +1,21 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import IBAN from 'iban';
+import Validator from 'async-validator';
+
+import { PAYMENT_METHODS } from '../../constants';
 import AbstractForm from './AbstractForm';
 import Wizard from '../Wizard';
 import TextField from '../TextField';
 import IBANField from '../IBANField';
 import RadioButton from '../RadioButton';
 import Checkbox from '../Checkbox';
-import Validator from 'async-validator';
 
 class PaymentInformationForm extends AbstractForm {
     prepareValidator(field) {
         const { formData: { paymentMethod }, labels } = this.props;
         const validationScheme =
-            paymentMethod === 'debit'
+            paymentMethod === PAYMENT_METHODS.debit
                 ? {
                       iban: [
                           { required: true, message: labels.errors.ibanRequired },
@@ -51,7 +53,7 @@ class PaymentInformationForm extends AbstractForm {
         const { value } = event.target;
         const formData = { paymentMethod: value };
 
-        if (value !== 'debit') {
+        if (value !== PAYMENT_METHODS.debit) {
             formData.iban = '';
             formData.alternativeAccountHolder = '';
             formData.sepaApproval = false;
@@ -111,6 +113,7 @@ class PaymentInformationForm extends AbstractForm {
 
     render() {
         const { formData, labels, labels: { fields }, onCancel } = this.props;
+        const [debitLabel, transferLabel] = fields.paymentMethodOptions;
 
         return (
             <Wizard.Content
@@ -129,24 +132,24 @@ class PaymentInformationForm extends AbstractForm {
                         <legend className="registration-form-label">{fields.paymentMethod}</legend>
                         <div>
                             <RadioButton
-                                label={fields.paymentMethodOptions[0]}
+                                label={debitLabel}
                                 name="paymentMethod"
-                                value="debit"
-                                checked={formData.paymentMethod === 'debit'}
+                                value={PAYMENT_METHODS.debit}
+                                checked={formData.paymentMethod === PAYMENT_METHODS.debit}
                                 onChange={event => this.handlePaymentMethodChange(event)}
                             />
                         </div>
                         <div>
                             <RadioButton
-                                label={fields.paymentMethodOptions[1]}
+                                label={transferLabel}
                                 name="paymentMethod"
-                                value="remittance"
-                                checked={formData.paymentMethod === 'remittance'}
+                                value={PAYMENT_METHODS.transfer}
+                                checked={formData.paymentMethod === PAYMENT_METHODS.transfer}
                                 onChange={event => this.handlePaymentMethodChange(event)}
                             />
                         </div>
                     </fieldset>
-                    {formData.paymentMethod === 'debit' && this.renderDebitFields()}
+                    {formData.paymentMethod === PAYMENT_METHODS.debit && this.renderDebitFields()}
                     <input type="submit" hidden aria-hidden />
                 </form>
             </Wizard.Content>
@@ -157,7 +160,7 @@ class PaymentInformationForm extends AbstractForm {
 PaymentInformationForm.propTypes = {
     ...AbstractForm.propTypes,
     formData: PropTypes.shape({
-        paymentMethod: PropTypes.oneOf(['debit', 'remittance']),
+        paymentMethod: PropTypes.oneOf([PAYMENT_METHODS.debit, PAYMENT_METHODS.transfer]),
         iban: PropTypes.string,
         alternativeAccountHolder: PropTypes.string,
         sepaApproval: PropTypes.bool
@@ -186,7 +189,7 @@ PaymentInformationForm.propTypes = {
 PaymentInformationForm.defaultProps = {
     ...AbstractForm.defaultProps,
     formData: {
-        paymentMethod: 'debit',
+        paymentMethod: PAYMENT_METHODS.debit,
         iban: '',
         alternativeAccountHolder: '',
         sepaApproval: false

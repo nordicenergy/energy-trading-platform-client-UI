@@ -5,6 +5,7 @@ import Breadcrumbs from './Breadcrumbs';
 import LanguageSelect from './LanguageSelect';
 import HeaderButton from './HeaderButton';
 import './Header.css';
+import ContractSelect from './ContractSelect/ContractSelect';
 
 const Header = ({
     breadCrumbs,
@@ -14,12 +15,22 @@ const Header = ({
     menuBarLabel,
     onToggleMenuBar,
 
+    configSideBarIcon,
+    configSideBarLabel,
+    onToggleConfigSideBar,
+
     logoutLabel,
     onLogoutClick,
 
     locales,
     locale,
     onLocaleChange,
+
+    contractLabel,
+    noContractsMessage,
+    contracts,
+    selectedContractId,
+    onContractChange,
 
     onLogoClick
 }) => {
@@ -34,10 +45,24 @@ const Header = ({
             <nav className="main-header-container">
                 <Breadcrumbs items={breadCrumbs} onClick={onBreadCrumbsClick} />
                 <div className="header-buttons">
+                    <ContractSelect
+                        label={contractLabel}
+                        noContractsMessage={noContractsMessage}
+                        contracts={contracts}
+                        selectedContractId={selectedContractId}
+                        onChange={onContractChange}
+                    />
                     <LanguageSelect locales={locales} value={locale} onChange={onLocaleChange} />
                     <HeaderButton label={logoutLabel} icon="faSignOutAlt" onClickHandler={() => onLogoutClick()} />
                 </div>
             </nav>
+            <div aria-live="polite" className="header-config-button">
+                <HeaderButton
+                    label={configSideBarLabel}
+                    icon={configSideBarIcon}
+                    onClickHandler={() => onToggleConfigSideBar()}
+                />
+            </div>
         </header>
     );
 };
@@ -57,6 +82,16 @@ Header.propTypes = {
     locale: PropTypes.string.isRequired,
     onLocaleChange: PropTypes.func,
 
+    contractLabel: PropTypes.string,
+    noContractsMessage: PropTypes.string,
+    contracts: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string
+        })
+    ).isRequired,
+    selectedContractId: PropTypes.string,
+    onContractChange: PropTypes.func,
+
     onLogoClick: PropTypes.func
 };
 
@@ -68,12 +103,21 @@ Header.defaultProps = {
     menuBarLabel: 'Toggle Menu Bar',
     onToggleMenuBar: f => f,
 
+    configSideBarIcon: 'faEllipsisV',
+    configSideBarLabel: 'Configuration Side Bar',
+    onToggleConfigSideBar: f => f,
+
     breadCrumbs: [],
     onBreadCrumbsClick: f => f,
 
     onLocaleChange: f => f,
     locales: ['EN', 'DE'],
     locale: 'EN',
+
+    contractLabel: 'Contract',
+    noContractsMessage: 'No contract',
+    onContractChange: f => f,
+    contracts: [],
 
     onLogoClick: f => f
 };

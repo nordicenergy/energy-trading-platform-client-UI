@@ -1,28 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CONTRACT_STATUSES } from '../../constants';
-import { PATHS } from '../../services/routes';
+
 import { ProducerInfo, Button, BackLink } from '../../components';
-import { Producer as messages } from '../../services/translations/messages';
-import { prepareProducerInfoProps } from '../Producer';
+import { PATHS } from '../../constants';
+import { Producer as messages, Breadcrumbs as breadcrumbs } from '../../services/translations/messages';
 import { performGetUserData } from '../../action_performers/users';
 import { performGetProducer, performGetProducerHistory } from '../../action_performers/producers';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
 
-import AbstractContainer from '../AbstractContainer/AbstractContainer';
+import AppPage from '../__shared__/AppPage';
+import availableWithValidContract from '../__shared__/decorators/availableWithValidContract';
+import { prepareProducerInfoProps } from '../Producer';
 
 import './MyProducer.css';
 
-export class MyProducer extends AbstractContainer {
+export class MyProducer extends AppPage {
     static mapStateToProps(state) {
         return {
             loading:
                 state.Producers.producer.loading ||
                 state.Users.profile.loading ||
                 state.Producers.producerHistory.loading,
-            profile: state.Users.profile.data,
+            user: state.Users.profile.data.user,
             producer: state.Producers.producer.data,
             producerHistory: state.Producers.producerHistory.data,
             error: state.Producers.producer.error || state.Users.profile.error || state.Producers.producerHistory.error,
@@ -38,13 +39,8 @@ export class MyProducer extends AbstractContainer {
 
     componentDidUpdate(prevProps) {
         const { formatMessage } = this.context.intl;
-        const { profile: { user: prevUser = {} } = {}, error: oldError } = prevProps;
-        const { profile: { user = {} } = {}, loading, error, locale } = this.props;
-
-        if (prevUser !== user && user.statusCode !== CONTRACT_STATUSES.success) {
-            this.context.router.history.push(PATHS.overview.path);
-            return;
-        }
+        const { user: prevUser = {}, error: oldError } = prevProps;
+        const { user = {}, loading, error, locale } = this.props;
 
         if (user.currentProducerId !== prevUser.currentProducerId) {
             this.fetchProducer();
@@ -59,12 +55,12 @@ export class MyProducer extends AbstractContainer {
         }
 
         if (prevProps.loading !== loading) {
-            performSetupLoaderVisibility(loading);
+            performSetupLoaderVisibility(this.pageId, loading);
         }
     }
 
     fetchProducer() {
-        const { profile: { user } = {} } = this.props;
+        const { user = {} } = this.props;
         if (user && user.currentProducerId) {
             performGetProducer(user.currentProducerId);
             performGetProducerHistory(user.currentProducerId);
@@ -74,10 +70,10 @@ export class MyProducer extends AbstractContainer {
     setupMyProducerBreadcrumbs() {
         const { formatMessage } = this.context.intl;
         this.setupBreadcrumbs([
-            { ...PATHS.overview, label: formatMessage(PATHS.overview.label) },
+            { ...PATHS.overview, icon: 'faHome', label: formatMessage(breadcrumbs.overview) },
             {
                 ...PATHS.myProducer,
-                label: formatMessage(PATHS.myProducer.label)
+                label: formatMessage(breadcrumbs.myProducer)
             }
         ]);
     }
@@ -95,7 +91,7 @@ export class MyProducer extends AbstractContainer {
 
     render() {
         const { formatMessage } = this.context.intl;
-        const { loading, producer = {}, profile: { user } = {} } = this.props;
+        const { loading, producer = {}, user = {} } = this.props;
 
         const producerInfoProps = prepareProducerInfoProps(formatMessage, producer, user);
 
@@ -131,7 +127,7 @@ MyProducer.propTypes = {
     loading: PropTypes.bool,
     producer: PropTypes.object,
     producerHistory: PropTypes.array,
-    profile: PropTypes.object,
+    user: PropTypes.object,
     error: PropTypes.object,
     locale: PropTypes.string
 };
@@ -140,8 +136,8 @@ MyProducer.defaultProps = {
     loading: false,
     producer: {},
     producerHistory: [],
-    profile: {},
+    user: {},
     error: null
 };
 
-export default connect(MyProducer.mapStateToProps)(MyProducer);
+export default connect(MyProducer.mapStateToProps)(availableWithValidContract(MyProducer));

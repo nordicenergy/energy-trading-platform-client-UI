@@ -9,7 +9,6 @@ import * as appActions from '../../../action_performers/app';
 import * as notificationActions from '../../../action_performers/notifications';
 import * as usersActions from '../../../action_performers/users';
 import { CONTRACT_STATUSES } from '../../../constants';
-import { PATHS } from '../../../services/routes';
 
 const mockStore = configureMockStore();
 const store = mockStore({
@@ -27,8 +26,10 @@ const store = mockStore({
                     lastBillDate: 'December;',
                     userStatus: 'string',
                     workingPrice: 2.3,
-                    statusCode: CONTRACT_STATUSES.success,
-                    statusCodeTitle: 'In Belieferung'
+                    contract: {
+                        statusCode: CONTRACT_STATUSES.active,
+                        statusCodeTitle: 'In Belieferung'
+                    }
                 }
             }
         }
@@ -90,7 +91,7 @@ const props = {
         name: 'test',
         status: 'active'
     },
-    profile: { user: { id: 1, statusCode: CONTRACT_STATUSES.success } },
+    user: { id: 1, contract: { statusCode: CONTRACT_STATUSES.active } },
     selectedProducer: {},
     error: null
 };
@@ -133,19 +134,6 @@ describe('<Producer /> Component', () => {
         expect(component.find(Button)).toHaveLength(2);
         expect(component.find(HelpIcon)).toHaveLength(0);
         expect(component.find('strong[aria-label="Producer Status"]')).toHaveLength(0);
-    });
-
-    it("should redirect to overview page if user's contract has not success status", () => {
-        const propsWithWrongContractStatus = {
-            ...props,
-            profile: {
-                user: { id: 1 }
-            }
-        };
-
-        shallowWithIntl(<Producer {...commonProps} {...propsWithWrongContractStatus} />, { context });
-
-        expect(context.router.history.push).toHaveBeenCalledWith(PATHS.overview.path);
     });
 
     it('should disable "Select Producer" button if producer has "sold out" status', () => {
@@ -217,7 +205,7 @@ describe('<Producer /> Component', () => {
             },
             Users: {
                 profile: {
-                    data: 'user_data',
+                    data: { user: 'user_data' },
                     error: null,
                     loading: false
                 }
@@ -237,7 +225,7 @@ describe('<Producer /> Component', () => {
             loading: 'test_loading',
             locale: 'en',
             producer: 'test_producer_data',
-            profile: 'user_data',
+            user: 'user_data',
             selectedProducer: 'test_selected_data'
         });
     });
@@ -249,8 +237,8 @@ describe('<Producer /> Component', () => {
         expect(producersActions.performGetProducer.mock.calls.length).toEqual(1);
         const [[arg1]] = producersActions.performGetProducer.mock.calls;
         expect(arg1).toEqual('1');
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(1);
-        const [[bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
+        const [, [bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
             { icon: 'faShoppingCart', id: 'buy_energy', label: 'Buy Energy', path: '/buy_energy' },
             { id: 'producer', label: 'Peter Producer', path: '/buy_energy/producer/1' }
@@ -258,12 +246,12 @@ describe('<Producer /> Component', () => {
 
         const component = renderComponent();
         expect(usersActions.performGetUserData.mock.calls.length).toEqual(2);
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(4);
         component.setProps({ producer: { id: 1, name: 'Test' } });
         component.setProps({ producer: { id: 2, name: 'Test' } });
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(4);
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(6);
         component.setProps({ producer: { id: 2, name: 'Test' } });
-        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(4);
+        expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(6);
     });
 
     it('should provide possibility navigate to producers list', () => {
@@ -316,22 +304,21 @@ describe('<Producer /> Component', () => {
         const producer = renderComponent();
 
         producer.setProps({ loading: true });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), true);
         producer.setProps({ loading: false });
+        expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledWith(expect.anything(), false);
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
-        const [[firstCallArg], [secondCallArg]] = appActions.performSetupLoaderVisibility.mock.calls;
-        expect(firstCallArg).toBeTruthy();
-        expect(secondCallArg).toBeFalsy();
     });
 
     it('should setup translated breadcrumbs when locale changed', () => {
         const producer = renderComponent();
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(1);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
 
         producer.setProps({
             locale: 'de'
         });
 
-        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
+        expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(3);
     });
 });

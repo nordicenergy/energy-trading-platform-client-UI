@@ -1,6 +1,6 @@
 export const initialState = {
     breadCrumbs: { data: [] },
-    loader: { data: false },
+    loader: { data: {} },
     localization: {
         data: {
             locale: localStorage.getItem('locale'),
@@ -31,13 +31,18 @@ export function appReducer(state = initialState, action) {
                     data: newBreadcrumbs
                 }
             };
-        case 'SETUP_LOADER_VISIBILITY':
+        case 'SETUP_LOADER_VISIBILITY': {
+            const { id = 'unknown', waiting = false } = action.payload || {};
             return {
                 ...state,
                 loader: {
-                    data: action.payload
+                    data: {
+                        ...state.loader.data,
+                        [id]: waiting
+                    }
                 }
             };
+        }
         case 'GET_FAQ':
             const faqData = action && action.payload;
             return {

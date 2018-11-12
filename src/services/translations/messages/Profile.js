@@ -7,7 +7,7 @@ const messages = defineMessages({
     },
     personalDataTab: {
         id: 'app.profilePage.labels.personalDataTab',
-        defineMessage: 'Personal Data'
+        defineMessage: 'Customer Data'
     },
     paymentDataTab: {
         id: 'app.profilePage.labels.paymentDataTab',
@@ -69,6 +69,50 @@ const messages = defineMessages({
         id: 'app.profilePage.labels.confirmNewPassword',
         defaultMessage: 'Repeat new password'
     },
+    contractContractNumber: {
+        id: 'app.profilePage.labels.contract.contractNumber',
+        defaultMessage: 'Contract Number'
+    },
+    contractStartDate: {
+        id: 'app.profilePage.labels.contract.startDate',
+        defaultMessage: 'Start Date'
+    },
+    contractEndDate: {
+        id: 'app.profilePage.labels.contract.endDate',
+        defaultMessage: 'End Date'
+    },
+    contractFirstName: {
+        id: 'app.profilePage.labels.contract.firstName',
+        defaultMessage: 'First Name'
+    },
+    contractLastName: {
+        id: 'app.profilePage.labels.contract.lastName',
+        defaultMessage: 'Last Name'
+    },
+    contractStreet: {
+        id: 'app.profilePage.labels.contract.street',
+        defaultMessage: 'Street'
+    },
+    contractHouseNumber: {
+        id: 'app.profilePage.labels.contract.houseNumber',
+        defaultMessage: 'House Number'
+    },
+    contractPostcode: {
+        id: 'app.profilePage.labels.contract.postcode',
+        defaultMessage: 'Postcode'
+    },
+    contractCity: {
+        id: 'app.profilePage.labels.contract.city',
+        defaultMessage: 'City'
+    },
+    contractBirthday: {
+        id: 'app.profilePage.labels.contract.birthday',
+        defaultMessage: 'Date of birth'
+    },
+    contractEmail: {
+        id: 'app.profilePage.labels.contract.email',
+        defaultMessage: 'Email'
+    },
     paymentMethod: {
         id: 'app.profilePage.labels.paymentMethod',
         defaultMessage: 'Payment options'
@@ -80,6 +124,10 @@ const messages = defineMessages({
     paymentMethodTransferOption: {
         id: 'app.profilePage.labels.paymentMethodTransferOption',
         defaultMessage: 'Transfer'
+    },
+    paymentMethodBitcoinOption: {
+        id: 'app.profilePage.labels.paymentMethodBitcoinOption',
+        defaultMessage: 'Bitcoin'
     },
     sepaApproval: {
         id: 'app.profilePage.labels.sepaApproval',
@@ -93,6 +141,11 @@ const messages = defineMessages({
         id: 'app.profilePage.labels.sepaApprovalHelp',
         defaultMessage:
             'The named account holder authorizes the Lition Energie GmbH to collect payments from his account by direct debit. At the same time, said account holder instructs its credit institution to redeem the direct debits drawn by the supplier into its account. Note: Within eight weeks, starting with the debit date, the reimbursement of the debited amount can be reclaimed. The conditions agreed with the bank apply.'
+    },
+    bitcoinMessage: {
+        id: 'app.profilePage.labels.bitcoinMessage',
+        defaultMessage:
+            'Lition accepts your Monthly payments in Bitcoin. Whenever your monthly installment is due, we will send you a link with instructions how to pay your Energy in Bitcoin or Bitcoin Cash, using the then current Bitcoin-Euro Exchange rate.'
     },
     sepaApprovalValidator: {
         id: 'app.profilePage.errors.sepaApprovalValidator',

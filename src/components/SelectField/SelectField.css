@@ -110,7 +110,8 @@
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: 0.125rem 1.5rem 0;
+    word-break: break-all;
+    padding: 1em;
     height: 3.5rem;
     border-bottom: var(--border-width) solid var(--input-border-color);
     background: white;
@@ -126,6 +127,14 @@
 
 .options-list-item--selected {
     color: var(--label-color);
+}
+
+.options-list-item--hide {
+    display: none;
+}
+
+.profile-form-tab-errors-feedback--hide {
+    display: none;
 }
 
 .options-list-item--disabled {
