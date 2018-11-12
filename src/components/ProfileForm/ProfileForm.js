@@ -380,14 +380,6 @@ class ProfileForm extends React.PureComponent {
                         error={errors.contractBirthday}
                         onChange={e => this.handleDateFieldChange(e)}
                     />
-                    <TextField
-                        disabled
-                        label={labels.contractEmail}
-                        name="contractEmail"
-                        value={formData.contract.email}
-                        error={errors.contractEmail}
-                        onChange={e => this.handleChange(e)}
-                    />
                     <div className="profile-form-payment-method">
                         <strong>{labels.paymentMethod}</strong>
                         <ul>
@@ -472,8 +464,7 @@ const commonContractPropTypes = {
     houseNumber: PropTypes.string,
     postcode: PropTypes.string,
     city: PropTypes.string,
-    birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    email: PropTypes.string
+    birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 const commonProfilePropTypes = {
@@ -505,7 +496,6 @@ ProfileForm.propTypes = {
         contractPostcode: PropTypes.string,
         contractCity: PropTypes.string,
         contractBirthday: PropTypes.string,
-        contractEmail: PropTypes.string,
         paymentMethod: PropTypes.string,
         paymentMethodDebitOption: PropTypes.string,
         paymentMethodTransferOption: PropTypes.string,
@@ -554,7 +544,6 @@ ProfileForm.defaultProps = {
         contractPostcode: 'Postcode',
         contractCity: 'City',
         contractBirthday: 'Date of birth',
-        contractEmail: 'Email',
         paymentMethod: 'Payment options',
         paymentMethodDebitOption: 'Debit',
         paymentMethodTransferOption: 'Transfer',
@@ -588,8 +577,7 @@ ProfileForm.defaultProps = {
             houseNumber: '',
             postcode: '',
             city: '',
-            birthday: '',
-            email: ''
+            birthday: ''
         }
     },
     errors: {},
