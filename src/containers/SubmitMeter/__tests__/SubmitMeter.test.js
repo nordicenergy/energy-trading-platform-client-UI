@@ -257,8 +257,8 @@ describe('<SubmitMeter /> Component', () => {
 
         expect(props.loading).toEqual(
             stateMock.Consumption.submittedMeterReading.loading ||
-            stateMock.Consumption.meterNumber.loading ||
-            stateMock.Users.profile.loading
+                stateMock.Consumption.meterNumber.loading ||
+                stateMock.Users.profile.loading
         );
         expect(props.error).toEqual(
             stateMock.Consumption.meterReadingsHistory.error || stateMock.Consumption.meterNumber.error
@@ -282,7 +282,8 @@ describe('<SubmitMeter /> Component', () => {
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
-            message: 'Can\'t load meter readings data from Lition web server. Please contact administrator to resolve the error.'
+            message:
+                "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error."
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

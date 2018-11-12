@@ -15,11 +15,11 @@ export function consumptionReducer(state = initialState, action) {
                 meterReadingsHistory: {
                     data: payload
                         ? {
-                            ...payload,
-                            readings: page
-                                ? [...state.meterReadingsHistory.data.readings, ...payload.readings]
-                                : payload.readings
-                        }
+                              ...payload,
+                              readings: page
+                                  ? [...state.meterReadingsHistory.data.readings, ...payload.readings]
+                                  : payload.readings
+                          }
                         : state.meterReadingsHistory.data,
                     loading: action.loading,
                     error: action.error

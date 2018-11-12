@@ -13,16 +13,16 @@ const MeterReadingsHistory = ({ title, data, noDataMessage, loading }) => {
             <table className="meter-readings-history">
                 <caption>{title}</caption>
                 <tbody>
-                {data.map((item, index) => {
-                    const isConsumptionValid = item.value != null && isFinite(item.value);
-                    const value = isConsumptionValid ? formatFloat(item.value) : '-';
-                    return (
-                        <tr key={`${Date.now()}${index}`}>
-                            <td>{item.date ? moment.utc(item.date).format(MONTH_DAY_DATE_FORMAT)  : '-'}</td>
-                            <td>{`${value} kWh`}</td>
-                        </tr>
-                    );
-                })}
+                    {data.map((item, index) => {
+                        const isConsumptionValid = item.value != null && isFinite(item.value);
+                        const value = isConsumptionValid ? formatFloat(item.value) : '-';
+                        return (
+                            <tr key={`${Date.now()}${index}`}>
+                                <td>{item.date ? moment.utc(item.date).format(MONTH_DAY_DATE_FORMAT) : '-'}</td>
+                                <td>{`${value} kWh`}</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
             {loading && (

@@ -293,11 +293,13 @@ export class App extends contractStatusMixin(React.PureComponent) {
                         />
                     </div>
                     <div role="article" id="main-container">
-                        <main className={classNames({
-                            '--fixed-height': headRoute === PATHS.submit_meter.id
-                        })}>
+                        <main
+                            className={classNames({
+                                '--fixed-height': headRoute === PATHS.submit_meter.id
+                            })}
+                        >
                             {this.props.children}
-                            </main>
+                        </main>
                         <Footer
                             addressLabel={formatMessage(messages.address)}
                             navItems={footerItems}

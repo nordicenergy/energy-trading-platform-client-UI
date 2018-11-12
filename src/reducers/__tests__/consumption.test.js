@@ -79,15 +79,18 @@ function fixtures() {
             success: {
                 type: 'GET_METER_READINGS_HISTORY',
                 payload: {
-                    readings: [{
-                        id: '17007',
-                        date: '2018-09-30',
-                        value: '123456.0000'
-                    }, {
+                    readings: [
+                        {
+                            id: '17007',
+                            date: '2018-09-30',
+                            value: '123456.0000'
+                        },
+                        {
                             id: '17008',
                             date: '2018-09-27',
                             value: '123456.0000'
-                    }],
+                        }
+                    ],
                     count: 7
                 },
                 error: null,
@@ -107,7 +110,7 @@ function fixtures() {
                 error: null,
                 loading: true,
                 meta: [1]
-            },
+            }
         },
         getMeterNumber: {
             success: {

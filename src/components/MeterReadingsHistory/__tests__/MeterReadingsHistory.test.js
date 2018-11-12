@@ -70,8 +70,12 @@ describe('<MeterReadingsHistory /> Component', () => {
         const trs = component.find('tr');
         let count = 0;
 
-        expect(trs.at(count++).text()).toEqual(`${moment.utc('2018-09-30').format(MONTH_DAY_DATE_FORMAT)}${formatFloat(123456.0)} kWh`);
-        expect(trs.at(count).text()).toEqual(`${moment.utc('2018-09-27').format(MONTH_DAY_DATE_FORMAT)}${formatFloat(123456.0)} kWh`);
+        expect(trs.at(count++).text()).toEqual(
+            `${moment.utc('2018-09-30').format(MONTH_DAY_DATE_FORMAT)}${formatFloat(123456.0)} kWh`
+        );
+        expect(trs.at(count).text()).toEqual(
+            `${moment.utc('2018-09-27').format(MONTH_DAY_DATE_FORMAT)}${formatFloat(123456.0)} kWh`
+        );
     });
 
     it('should render message when data is empty array', () => {

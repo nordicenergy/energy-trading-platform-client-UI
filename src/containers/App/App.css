@@ -26,7 +26,7 @@
     flex-direction: column;
 }
 
-main.--fixed-height{
+main.--fixed-height {
     height: calc(100% - var(--menu-icon-size) - var(--footer-nav-height));
 }
 

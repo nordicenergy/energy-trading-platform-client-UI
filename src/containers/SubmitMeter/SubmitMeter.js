@@ -23,7 +23,7 @@ export class SubmitMeter extends AppPage {
 
         this.state = {
             errors: {},
-            page: 0,
+            page: 0
         };
     }
 
@@ -75,12 +75,7 @@ export class SubmitMeter extends AppPage {
             performGetMeterReadingsHistory(this.state.page);
         }
 
-        if (
-            !loading &&
-            !error &&
-            !errorSubmit &&
-            submittedMeterReading.data !== prevProps.submittedMeterReading.data
-        ) {
+        if (!loading && !error && !errorSubmit && submittedMeterReading.data !== prevProps.submittedMeterReading.data) {
             performPushNotification({ message: formatMessage(messages.successMessage), type: 'success' });
         }
 
