@@ -222,16 +222,6 @@ export class App extends contractStatusMixin(React.PureComponent) {
 
         return (
             <div className="app">
-                <ContractModal
-                    labels={{
-                        contractMessage: formatMessage(messages.contractMessage),
-                        noContractMessage: formatMessage(messages.noContractMessage),
-                        selectLabel: formatMessage(messages.selectContractMessage)
-                    }}
-                    contracts={contracts}
-                    onSelect={({ value }) => this.setupContract(value)}
-                    show={!loading && haveNoWorkingContracts}
-                />
                 <Confirm
                     labels={{
                         message: formatMessage(messages.logoutConfirmMessage),
@@ -284,6 +274,16 @@ export class App extends contractStatusMixin(React.PureComponent) {
                             'menu-container--opened': isMenuBarOpen
                         })}
                     >
+                        <ContractModal
+                            labels={{
+                                contractMessage: formatMessage(messages.contractMessage),
+                                noContractMessage: formatMessage(messages.noContractMessage),
+                                selectLabel: formatMessage(messages.selectContractMessage)
+                            }}
+                            contracts={contracts}
+                            onSelect={({ value }) => this.setupContract(value)}
+                            show={!loading && haveNoWorkingContracts}
+                        />
                         <MenuSideBar
                             items={menuItems}
                             onSelect={id => {

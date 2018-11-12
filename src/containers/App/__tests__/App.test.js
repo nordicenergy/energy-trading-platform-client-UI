@@ -1,6 +1,6 @@
 import React from 'react';
 import { App } from '../App';
-import { Header, MenuSideBar, Footer } from '../../../components';
+import { Header, MenuSideBar, Footer, ContractModal } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
 import * as appActions from '../../../action_performers/app';
 import * as contractsActions from '../../../action_performers/contracts';
@@ -37,7 +37,7 @@ describe('Main <App /> Component', () => {
         appActions.performSetupLocale.mockClear();
     });
 
-    it(`should contains following controls:
+    fit(`should contains following controls:
         - <div> with class "app";
         - <Header> component";
         - <Footer> component";
@@ -49,6 +49,7 @@ describe('Main <App /> Component', () => {
         expect(component.find(Header)).toHaveLength(1);
         expect(component.find(Footer)).toHaveLength(1);
         expect(component.find(MenuSideBar)).toHaveLength(1);
+        expect(component.find('.app .content .menu-container ContractModal')).toHaveLength(1);
     });
 
     it('should returns correct props', () => {
@@ -161,6 +162,25 @@ describe('Main <App /> Component', () => {
         component.setProps({ contracts: [{ id: '100020' }], sessionContract: { id: '100020' } });
         expect(component.find('ContractModal').props().show).toEqual(false);
     });
+
+    /*it('should not block header functionality when working contracts are absent', () => {
+        const component = renderComponent({ ...context, contracts: [], sessionContract: { id: '100020' } });
+        component.setContext(context);
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        expect(component.find('ContractModal').props().show).toEqual(true);
+        expect(component.find('ContractModal').props().labels).toEqual({
+            contractMessage: 'To continue, please select a contract.',
+            noContractMessage:
+                'At present, no contract data can be displayed. Please contact the administrator or try again later.',
+            selectLabel: 'Select contract'
+        });
+
+
+        console.log(component.find('.app .content .menu-container ContractModal'));
+
+        expect(component.find('.app .content .menu-container ContractModal')).toHaveLength(1);
+    });*/
 
     it('should setup correct callbacks and handle related events for MenuSideBar', () => {
         const component = renderComponent(context);
