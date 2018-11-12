@@ -26,6 +26,10 @@
     flex-direction: column;
 }
 
+main.--fixed-height{
+    height: calc(100% - var(--menu-icon-size) - var(--footer-nav-height));
+}
+
 .menu-container {
     z-index: 8;
     width: auto;

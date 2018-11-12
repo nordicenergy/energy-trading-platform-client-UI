@@ -1,5 +1,5 @@
 export const initialState = {
-    meterReadingsHistory: { data: {}, error: null, loading: false },
+    meterReadingsHistory: { data: { readings: [], count: 0 }, error: null, loading: false },
     meterNumber: { data: {}, error: null, loading: false },
     submittedMeterReading: { data: {}, error: null, loading: false }
 };
@@ -7,12 +7,20 @@ export const initialState = {
 export function consumptionReducer(state = initialState, action) {
     switch (action.type) {
         case 'GET_METER_READINGS_HISTORY': {
-            const { payload } = action;
+            const { payload, meta } = action;
+            const [page] = meta;
 
             return {
                 ...state,
                 meterReadingsHistory: {
-                    data: payload ? payload : state.meterReadingsHistory.data,
+                    data: payload
+                        ? {
+                            ...payload,
+                            readings: page
+                                ? [...state.meterReadingsHistory.data.readings, ...payload.readings]
+                                : payload.readings
+                        }
+                        : state.meterReadingsHistory.data,
                     loading: action.loading,
                     error: action.error
                 }

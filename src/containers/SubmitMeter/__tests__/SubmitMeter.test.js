@@ -9,7 +9,7 @@ import * as appActions from '../../../action_performers/app';
 
 const MOCK_METER_READINGS_HISTORY = {
     count: 4,
-    data: [
+    readings: [
         {
             id: '17007',
             date: '2018-09-30',
@@ -17,7 +17,7 @@ const MOCK_METER_READINGS_HISTORY = {
         },
         {
             id: '17008',
-            date: '2018-09-30',
+            date: '2018-09-27',
             value: '123456.0000'
         }
     ]
@@ -25,9 +25,14 @@ const MOCK_METER_READINGS_HISTORY = {
 
 const DEFAULT_PROPS = {
     meterReadingsHistory: {},
+    user: {},
     loading: false,
     meterNumber: null,
-    submittedMeterReading: {}
+    submittedMeterReading: {},
+    meterReadingsHistoryLoading: false,
+    hasNextReadingsHistory: false,
+    error: null,
+    errorSubmit: null
 };
 
 function renderComponent(props = {}, mountFn = shallowWithIntl) {
@@ -35,6 +40,9 @@ function renderComponent(props = {}, mountFn = shallowWithIntl) {
 }
 
 describe('<SubmitMeter /> Component', () => {
+    jest.useFakeTimers();
+    const mainContainerMock = document.createElement('div');
+
     beforeAll(() => {
         // Prevent displaying async-validator warn messages
         jest.spyOn(console, 'warn').mockImplementation(jest.fn());
@@ -45,19 +53,46 @@ describe('<SubmitMeter /> Component', () => {
         consumptionActions.performGetMeterNumber = jest.fn();
         consumptionActions.performSubmitMeterReading = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
+
+        jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerMock);
+        jest.spyOn(mainContainerMock, 'addEventListener');
+        jest.spyOn(mainContainerMock, 'removeEventListener');
     });
 
     it('should render SubmitMeter with specific components', () => {
         const component = renderComponent();
-
-        expect(consumptionActions.performGetMeterReadingsHistory).toHaveBeenCalledTimes(1);
-        expect(consumptionActions.performGetMeterNumber).toHaveBeenCalledTimes(1);
 
         expect(component.find(MeterReadingsHistory)).toHaveLength(1);
         expect(component.find(MeterReadingForm)).toHaveLength(1);
         expect(component.find('section')).toHaveLength(2);
         expect(component.find('aside')).toHaveLength(1);
         expect(component.find('h1')).toHaveLength(1);
+    });
+
+    it('should call specific actions when component did mount', () => {
+        renderComponent();
+
+        expect(consumptionActions.performGetMeterReadingsHistory).toHaveBeenCalledTimes(1);
+        const [[page]] = consumptionActions.performGetMeterReadingsHistory.mock.calls;
+        expect(page).toBe(0);
+        expect(consumptionActions.performGetMeterNumber).toHaveBeenCalledTimes(1);
+    });
+
+    it('should handler scroll event', () => {
+        const component = renderComponent();
+        const handleScrollMock = component.instance().scrollHandler;
+
+        expect(mainContainerMock.addEventListener).toHaveBeenCalledWith('scroll', component.instance().scrollHandler);
+
+        component.unmount();
+        expect(mainContainerMock.removeEventListener).toHaveBeenCalledWith('scroll', handleScrollMock);
+    });
+
+    it('should set correct scroll container id', () => {
+        const component = renderComponent();
+        const scrollContainer = component.instance().scrollContainer;
+
+        expect(scrollContainer).toBe('reading-history-scroll-container');
     });
 
     it('should render MeterReadingForm with specific properties', () => {
@@ -182,11 +217,12 @@ describe('<SubmitMeter /> Component', () => {
             meterReadingsHistory: MOCK_METER_READINGS_HISTORY
         });
 
-        const meterReadingsHistory = component.find(MeterReadingsHistory).at(0);
+        const meterReadingsHistory = component.find(MeterReadingsHistory);
         expect(meterReadingsHistory).toHaveLength(1);
-        expect(meterReadingsHistory.props().data).toEqual(MOCK_METER_READINGS_HISTORY.data);
+        expect(meterReadingsHistory.props().data).toEqual(MOCK_METER_READINGS_HISTORY.readings);
         expect(meterReadingsHistory.props().title).toEqual('History');
         expect(meterReadingsHistory.props().noDataMessage).toEqual('Sorry, not live metering data available for you…');
+        expect(meterReadingsHistory.props().loading).toEqual(false);
     });
 
     it('should map state properties', () => {
@@ -220,12 +256,11 @@ describe('<SubmitMeter /> Component', () => {
         const props = SubmitMeter.mapStateToProps(stateMock);
 
         expect(props.loading).toEqual(
-            stateMock.Consumption.meterReadingsHistory.loading ||
-                stateMock.Consumption.submittedMeterReading.loading ||
-                stateMock.Consumption.meterNumber.loading ||
-                stateMock.Users.profile.loading
+            stateMock.Consumption.submittedMeterReading.loading ||
+            stateMock.Consumption.meterNumber.loading ||
+            stateMock.Users.profile.loading
         );
-        expect(props.errorLoading).toEqual(
+        expect(props.error).toEqual(
             stateMock.Consumption.meterReadingsHistory.error || stateMock.Consumption.meterNumber.error
         );
 
@@ -246,8 +281,8 @@ describe('<SubmitMeter /> Component', () => {
         });
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
-            type: 'success',
-            message: 'Meter reading value was successfully saved'
+            type: 'error',
+            message: 'Can\'t load meter readings data from Lition web server. Please contact administrator to resolve the error.'
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();
@@ -278,5 +313,36 @@ describe('<SubmitMeter /> Component', () => {
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();
+    });
+
+    it('should call scroll handler of the container', () => {
+        const component = renderComponent();
+        const dummyEvent = {
+            target: {
+                scrollTop: 10,
+                clientHeight: 10,
+                scrollHeight: 10
+            }
+        };
+        component.setProps({
+            hasNextReadingsHistory: true,
+            meterReadingsHistoryLoading: false
+        });
+        component.instance().scrollHandler(dummyEvent);
+        jest.runAllTimers();
+        expect(component.state('page')).toBe(1);
+    });
+
+    it('should call performGetMeterReadingsHistory when page changed', () => {
+        const component = renderComponent();
+        expect(consumptionActions.performGetMeterReadingsHistory).toHaveBeenCalledTimes(1);
+        const [[page]] = consumptionActions.performGetMeterReadingsHistory.mock.calls;
+        expect(page).toBe(0);
+
+        component.setState({ page: 1 });
+
+        expect(consumptionActions.performGetMeterReadingsHistory).toHaveBeenCalledTimes(2);
+        const [, [updatedPage]] = consumptionActions.performGetMeterReadingsHistory.mock.calls;
+        expect(updatedPage).toBe(1);
     });
 });

@@ -1,4 +1,4 @@
-.meter-readings-history {
+.meter-readings-history{
     width: 100%;
     background: white;
     text-align: left;
@@ -36,4 +36,9 @@
 .meter-readings-history tr td:last-child {
     color: var(--table-text-color);
     font-weight: bold;
+}
+
+.meter-readings-loader {
+    text-align: center;
+    padding: 1em;
 }

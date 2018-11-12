@@ -52,3 +52,7 @@
         font-size: 1.375em;
     }
 }
+
+#reading-history-scroll-container {
+    overflow-y: auto;
+}

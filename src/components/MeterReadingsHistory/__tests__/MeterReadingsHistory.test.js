@@ -2,6 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import MeterReadingsHistory from '../MeterReadingsHistory';
 import { formatFloat } from '../../../services/formatter';
+import { MONTH_DAY_DATE_FORMAT } from '../../../constants';
+import moment from 'moment/moment';
+import Spinner from '../../Loader/Spinner';
 
 const MOCK_DATA = {
     count: 4,
@@ -13,7 +16,7 @@ const MOCK_DATA = {
         },
         {
             id: '17008',
-            date: '2018-09-30',
+            date: '2018-09-27',
             value: '123456.0000'
         }
     ]
@@ -31,7 +34,7 @@ function renderComponent(props = {}, renderer = shallow) {
 }
 
 describe('<MeterReadingsHistory /> Component', () => {
-    it(`should contains following elements: 
+    it(`should contain following elements: 
         - <table /> element;
         - <caption /> element;
         - <tbody /> element;
@@ -47,6 +50,7 @@ describe('<MeterReadingsHistory /> Component', () => {
         expect(component.find('tbody')).toHaveLength(1);
         expect(component.find('tr')).toHaveLength(2);
         expect(component.find('td')).toHaveLength(4);
+        expect(component.find(Spinner)).toHaveLength(0);
     });
 
     it('should render caption with specific title', () => {
@@ -66,8 +70,8 @@ describe('<MeterReadingsHistory /> Component', () => {
         const trs = component.find('tr');
         let count = 0;
 
-        expect(trs.at(count++).text()).toEqual(`2018-09-30 ${formatFloat(123456.0)} kWh`);
-        expect(trs.at(count++).text()).toEqual(`2018-09-30 ${formatFloat(123456.0)} kWh`);
+        expect(trs.at(count++).text()).toEqual(`${moment.utc('2018-09-30').format(MONTH_DAY_DATE_FORMAT)}${formatFloat(123456.0)} kWh`);
+        expect(trs.at(count).text()).toEqual(`${moment.utc('2018-09-27').format(MONTH_DAY_DATE_FORMAT)}${formatFloat(123456.0)} kWh`);
     });
 
     it('should render message when data is empty array', () => {
@@ -87,5 +91,15 @@ describe('<MeterReadingsHistory /> Component', () => {
                 .at(0)
                 .text()
         ).toEqual('Sorry, not live metering data available for you…');
+    });
+
+    it('should render Spinner when loading', () => {
+        const component = renderComponent({
+            data: [],
+            noDataMessage: 'Sorry, not live metering data available for you…'
+        });
+        const extendedComponent = renderComponent({ loading: true });
+
+        expect(extendedComponent.find(Spinner)).toHaveLength(1);
     });
 });

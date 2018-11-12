@@ -175,6 +175,7 @@
 
     /* Common sizes */
     --menu-icon-size: 4.5rem;
+    --footer-nav-height: 5.5em;
     --border-width: 0.06rem;
     --page-paddings: 1.5rem 2rem 2rem;
     --main-boxes-shadow: 0 0.25rem 1rem 0 var(--geyser-color);

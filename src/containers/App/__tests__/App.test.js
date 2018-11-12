@@ -383,4 +383,20 @@ describe('Main <App /> Component', () => {
             .onLogoClick();
         expect(context.router.history.push).toHaveBeenCalledWith('/');
     });
+
+    // TODO
+    xit('should set class to main element for fix height when is meter reading page', () => {
+        const app = renderComponent(context);
+        app.setContext(context);
+
+        expect(app.find('main').hasClass('--fix-height')).toBeFalsy();
+
+        Object.defineProperty(window.location, 'pathname', {
+            writable: true,
+            value: '/submit_meter'
+        });
+        window.location.pathname = '/submit_meter';
+        console.log(2, window.location.pathname);
+        expect(app.find('main').hasClass('--fix-height')).toBeTruthy();
+    });
 });

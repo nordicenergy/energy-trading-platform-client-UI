@@ -22,50 +22,69 @@ export class SubmitMeter extends AppPage {
         super(props, context);
 
         this.state = {
-            errors: {}
+            errors: {},
+            page: 0,
         };
     }
 
     static mapStateToProps(state) {
+        const { data: readingsData } = state.Consumption.meterReadingsHistory;
+
         return {
             user: state.Users.profile.data.user,
-            meterReadingsHistory: state.Consumption.meterReadingsHistory.data,
+            meterReadingsHistory: readingsData,
+            meterReadingsHistoryLoading: state.Consumption.meterReadingsHistory.loading,
+            hasNextReadingsHistory: readingsData.count > readingsData.readings.length,
             meterNumber: state.Consumption.meterNumber.data.meterNumber,
             submittedMeterReading: state.Consumption.submittedMeterReading,
             loading:
-                state.Consumption.meterReadingsHistory.loading ||
                 state.Consumption.submittedMeterReading.loading ||
                 state.Consumption.meterNumber.loading ||
                 state.Users.profile.loading,
-            errorLoading: state.Consumption.meterReadingsHistory.error || state.Consumption.meterNumber.error,
+            error: state.Consumption.meterReadingsHistory.error || state.Consumption.meterNumber.error,
             errorSubmit: state.Consumption.submittedMeterReading.error
         };
     }
 
     componentDidMount() {
-        performGetMeterReadingsHistory();
+        performGetMeterReadingsHistory(this.state.page);
         performGetMeterNumber();
+
+        const loadCondition = () => {
+            const { hasNextReadingsHistory, meterReadingsHistoryLoading } = this.props;
+            return hasNextReadingsHistory && !meterReadingsHistoryLoading;
+        };
+        const loadCallback = () => {
+            this.setState(state => ({ page: state.page + 1 }));
+        };
+
+        this.setScrollContainer('reading-history-scroll-container');
+        this.setupScrollHandler(loadCondition, loadCallback);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         const { formatMessage } = this.context.intl;
-        const { loading, user, errorLoading, errorSubmit, submittedMeterReading } = this.props;
+        const { loading, user, error, errorSubmit, submittedMeterReading } = this.props;
+        const isUserChanged = !loading && user && user.id && user !== prevProps.user;
 
-        if (!loading && user && user.id && user !== prevProps.user) {
-            performGetMeterReadingsHistory();
+        if (isUserChanged) {
             performGetMeterNumber();
+        }
+
+        if (isUserChanged || prevState.page !== this.state.page) {
+            performGetMeterReadingsHistory(this.state.page);
         }
 
         if (
             !loading &&
-            !errorLoading &&
+            !error &&
             !errorSubmit &&
             submittedMeterReading.data !== prevProps.submittedMeterReading.data
         ) {
             performPushNotification({ message: formatMessage(messages.successMessage), type: 'success' });
         }
 
-        if (!loading && errorLoading && errorLoading !== prevProps.errorLoading) {
+        if (!loading && error && error !== prevProps.error) {
             performPushNotification({ message: formatMessage(messages.loadingErrorMessage), type: 'error' });
         }
 
@@ -79,6 +98,10 @@ export class SubmitMeter extends AppPage {
         if (prevProps.loading !== loading) {
             performSetupLoaderVisibility(this.pageId, loading);
         }
+    }
+
+    componentWillUnmount() {
+        this.removeScrollHandler();
     }
 
     prepareValidator() {
@@ -125,11 +148,11 @@ export class SubmitMeter extends AppPage {
         const { formatMessage, locale } = this.context.intl;
         const labels = this.prepareLabels(messages);
         const {
-            props: { loading, meterNumber, submittedMeterReading, meterReadingsHistory },
+            props: { loading, meterReadingsHistoryLoading, meterNumber, submittedMeterReading, meterReadingsHistory },
             state: { errors }
         } = this;
 
-        const historyData = meterReadingsHistory.data || [];
+        const historyData = meterReadingsHistory.readings || [];
         const isMeterReadingSuccessfullySubmit = !submittedMeterReading.loading && !submittedMeterReading.error;
 
         return (
@@ -145,11 +168,12 @@ export class SubmitMeter extends AppPage {
                         onSubmit={meterReading => this.submitMeterReading(meterReading)}
                     />
                 </section>
-                <aside>
+                <aside id="reading-history-scroll-container">
                     <MeterReadingsHistory
                         data={historyData}
                         title={labels.historyCaption}
                         noDataMessage={labels.noData}
+                        loading={meterReadingsHistoryLoading}
                     />
                 </aside>
             </section>
@@ -176,7 +200,9 @@ SubmitMeter.propTypes = {
         loading: PropTypes.bool,
         error: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
     }).isRequired,
-    errorLoading: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    meterReadingsHistoryLoading: PropTypes.bool,
+    hasNextReadingsHistory: PropTypes.bool,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     errorSubmit: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 

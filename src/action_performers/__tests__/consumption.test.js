@@ -8,9 +8,10 @@ describe('Consumption action performers', () => {
     });
 
     it('should call dispatch method for getting meter readings history', () => {
-        performGetMeterReadingsHistory();
+        performGetMeterReadingsHistory(1);
 
-        const [[method, type, loadingFunc]] = dispatcher.dispatchPromise.mock.calls;
+        const [firstCall] = dispatcher.dispatchPromise.mock.calls;
+        const [method, type, loadingFunc, meta] = firstCall;
         const loading = loadingFunc({
             Consumption: { meterReadingsHistory: { loading: 'TEST' } }
         });
@@ -19,6 +20,7 @@ describe('Consumption action performers', () => {
         expect(method.name).toEqual('getMeterReadingsHistory');
         expect(type).toEqual('GET_METER_READINGS_HISTORY');
         expect(loading).toEqual('TEST');
+        expect(meta).toEqual([1]);
     });
 
     it('should call dispatch method for getting meter number', () => {
