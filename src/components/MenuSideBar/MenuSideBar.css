@@ -5,6 +5,7 @@
     background: transparent linear-gradient(to right, var(--bar-color), var(--bar-color)) no-repeat;
     background-size: var(--menu-icon-size) 100%;
     border-right: var(--border-width) solid var(--border-on-light-color);
+    z-index: 8;
 }
 
 .menu-side-bar .menu-item-label {
