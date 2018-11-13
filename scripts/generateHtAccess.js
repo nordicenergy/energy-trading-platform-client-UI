@@ -44,43 +44,22 @@ async function generateHtAccessFile() {
         ...getLinkHeaders(PATH_NAMES.media, mediaFileNames)
     ];
     const htAccessContent = `
-<IfModule mod_headers.c>
-    # Serve gzip compressed CSS files if they exist 
-    # and the client accepts gzip.
-    RewriteCond "%{HTTP:Accept-encoding}" "gzip"
-    RewriteCond "%{REQUEST_FILENAME}\\.gz" -s
-    RewriteRule "^(.*)\\.css" "$1\\.css\\.gz" [QSA]
+# compress text, html, javascript, css, xml:
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
 
-    # Serve gzip compressed JS files if they exist 
-    # and the client accepts gzip.
-    RewriteCond "%{HTTP:Accept-encoding}" "gzip"
-    RewriteCond "%{REQUEST_FILENAME}\\.gz" -s
-    RewriteRule "^(.*)\\.js" "$1\\.js\\.gz" [QSA]
+# Or, compress certain file types by extension:
+<files *.html>
+SetOutputFilter DEFLATE
+</files>
 
-
-    # Serve correct content types, and prevent mod_deflate double gzip.
-    RewriteRule "\\.css\\.gz$" "-" [T=text/css,E=no-gzip:1]
-    RewriteRule "\\.js\\.gz$" "-" [T=text/javascript,E=no-gzip:1]
-
-
-    <FilesMatch "(\\.js\\.gz|\\.css\\.gz)$">
-      # Serve correct encoding type.
-      Header append Content-Encoding gzip
-
-      # Force proxies to cache gzipped & 
-      # non-gzipped css/js files separately.
-      Header append Vary Accept-Encoding
-    </FilesMatch>
-</IfModule>
-<ifModule mod_gzip.c>
-    mod_gzip_on Yes
-    mod_gzip_dechunk Yes
-    mod_gzip_item_include file .(html?|txt|css|js)$
-    mod_gzip_item_include mime ^text/.*
-    mod_gzip_item_include mime ^application/x-javascript.*
-    mod_gzip_item_exclude mime ^image/.*
-    mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
-</ifModule>
 <ifModule http2_module>
     <FilesMatch index.html>
         ${headers.map(header => `        ${header}`).join('\n')}
