@@ -44,6 +44,14 @@ async function generateHtAccessFile() {
         ...getLinkHeaders(PATH_NAMES.media, mediaFileNames)
     ];
     const htAccessContent = `
+<filesMatch ".(jpg|jpeg|png|gif|ico|svg|otf)$">
+Header set Cache-Control "max-age=2628000, public"
+</filesMatch>
+
+<filesMatch ".(html|css|js)$">
+Header set Cache-Control "max-age=86400, public"
+</filesMatch>
+
 # compress text, html, javascript, css, xml:
 AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/html

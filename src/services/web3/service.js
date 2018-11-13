@@ -1,4 +1,5 @@
-import Web3 from 'web3';
+// TODO temporary web3 was excluded to reduce size of js bundle, after enabling direct trading we can add web3 again
+/** import Web3 from 'web3'; **/
 import moment from 'moment';
 import { BUY_ENERGY_METHOD, GAS_PRICE, GAS, LEDGERS, TIMEOUT, NETWORK_ERROR, TIMEOUT_ERROR } from './constants';
 
@@ -15,7 +16,7 @@ class Web3Service {
         // eslint-disable-next-line
         if (typeof web3 !== 'undefined') {
             // eslint-disable-next-line
-            this.web3 = new Web3(web3.currentProvider);
+            this.web3 = // TODO new Web3(web3.currentProvider);
             this.isMetaMaskPluginInstalled = true;
         } else {
             // TODO TBD: implement logic for custom provider
