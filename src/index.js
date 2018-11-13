@@ -8,6 +8,7 @@ import { LocalizationProvider } from './providers';
 import history from './services/history';
 import { Routes } from './services/routes';
 import configureAxios from './services/axios';
+import { unregister } from './services/registerServiceWorker';
 import './index.css';
 
 function bootstrap() {
@@ -24,3 +25,4 @@ function bootstrap() {
 }
 configureAxios();
 bootstrap();
+unregister();
