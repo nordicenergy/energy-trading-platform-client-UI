@@ -10,8 +10,7 @@ describe('Consumption action performers', () => {
     it('should call dispatch method for getting meter readings history', () => {
         performGetMeterReadingsHistory(1);
 
-        const [firstCall] = dispatcher.dispatchPromise.mock.calls;
-        const [method, type, loadingFunc, meta] = firstCall;
+        const [[method, type, loadingFunc, meta]] = dispatcher.dispatchPromise.mock.calls;
         const loading = loadingFunc({
             Consumption: { meterReadingsHistory: { loading: 'TEST' } }
         });

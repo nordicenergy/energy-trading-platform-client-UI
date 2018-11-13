@@ -92,7 +92,7 @@ describe('<SubmitMeter /> Component', () => {
         const component = renderComponent();
         const scrollContainer = component.instance().scrollContainer;
 
-        expect(scrollContainer).toBe('reading-history-scroll-container');
+        expect(scrollContainer).toBe('reading-history-container');
     });
 
     it('should render MeterReadingForm with specific properties', () => {

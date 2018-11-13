@@ -119,6 +119,10 @@ main.--fixed-height {
         padding: 0;
     }
 
+    main.--fixed-height {
+        height: inherit;
+    }
+
     .menu-container {
         width: 0;
     }

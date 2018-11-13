@@ -58,7 +58,7 @@ export class SubmitMeter extends AppPage {
             this.setState(state => ({ page: state.page + 1 }));
         };
 
-        this.setScrollContainer('reading-history-scroll-container');
+        this.setScrollContainer('reading-history-container');
         this.setupScrollHandler(loadCondition, loadCallback);
     }
 
@@ -163,7 +163,7 @@ export class SubmitMeter extends AppPage {
                         onSubmit={meterReading => this.submitMeterReading(meterReading)}
                     />
                 </section>
-                <aside id="reading-history-scroll-container">
+                <aside id="reading-history-container">
                     <MeterReadingsHistory
                         data={historyData}
                         title={labels.historyCaption}
