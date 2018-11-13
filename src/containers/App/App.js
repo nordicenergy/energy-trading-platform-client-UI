@@ -47,7 +47,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
 
     constructor(props, context) {
         super(props, context);
-        this.state = { isConfirmVisible: false, isMenuBarOpen: false, isConfigSideBarOpen: false };
+        this.state = { isLogoutConfirmVisible: false, isMenuBarOpen: false, isConfigSideBarOpen: false };
         this.appId = APP_ID;
     }
 
@@ -98,13 +98,13 @@ export class App extends contractStatusMixin(React.PureComponent) {
         }
 
         this.setState(() => ({
-            isConfirmVisible: true
+            isLogoutConfirmVisible: true
         }));
     }
 
     handleLogoutCancel() {
         this.setState(() => ({
-            isConfirmVisible: false
+            isLogoutConfirmVisible: false
         }));
     }
 
@@ -135,7 +135,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
 
     render() {
         const { locale, contracts, sessionContract, loading, user } = this.props;
-        const { isConfirmVisible, isConfigSideBarOpen, isMenuBarOpen } = this.state;
+        const { isLogoutConfirmVisible, isConfigSideBarOpen, isMenuBarOpen } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
         const [, headRoute = '', subRoute] = pathname.split('/');
@@ -234,7 +234,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
                         confirmButton: formatMessage(messages.logoutConfirmButton),
                         cancelButton: formatMessage(messages.logoutCancelButton)
                     }}
-                    show={isConfirmVisible}
+                    show={isLogoutConfirmVisible}
                     onConfirm={() => performLogout()}
                     onCancel={() => this.handleLogoutCancel()}
                 />

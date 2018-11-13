@@ -120,9 +120,9 @@ describe('Main <App /> Component', () => {
         const header = component.find(Header).at(0);
         const confirm = component.find('Confirm');
 
-        expect(component.state().isConfirmVisible).toEqual(false);
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
         header.props().onLogoutClick();
-        expect(component.state().isConfirmVisible).toEqual(true);
+        expect(component.state().isLogoutConfirmVisible).toEqual(true);
         confirm.props().onConfirm();
 
         component.setProps({ loggingOut: true });
@@ -176,13 +176,13 @@ describe('Main <App /> Component', () => {
             selectLabel: 'Select contract'
         });
 
-        expect(component.state().isConfirmVisible).toEqual(false);
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
         component
             .find(Header)
             .at(0)
             .props()
             .onLogoutClick();
-        expect(component.state().isConfirmVisible).toEqual(false);
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
 
         component.setProps({ loggingOut: true });
         component.setProps({ loggingOut: false });
@@ -260,11 +260,11 @@ describe('Main <App /> Component', () => {
         const header = component.find(Header).at(0);
         const confirm = component.find('Confirm');
 
-        expect(component.state().isConfirmVisible).toEqual(false);
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
         header.props().onLogoutClick();
-        expect(component.state().isConfirmVisible).toEqual(true);
+        expect(component.state().isLogoutConfirmVisible).toEqual(true);
         confirm.props().onCancel();
-        expect(component.state().isConfirmVisible).toEqual(false);
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
 
         expect(context.router.history.push).not.toHaveBeenCalled();
         expect(usersActions.performLogout).not.toHaveBeenCalled();
