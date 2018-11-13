@@ -37,11 +37,12 @@ describe('Main <App /> Component', () => {
         appActions.performSetupLocale.mockClear();
     });
 
-    it(`should contains following controls:
+    it(`should contain following controls:
         - <div> with class "app";
         - <Header> component";
         - <Footer> component";
-        - <MenuSideBar> component";`, () => {
+        - <MenuSideBar> component"
+        - <ContractModal> component";`, () => {
         const component = renderComponent(context);
         const text = component.debug();
 
@@ -49,10 +50,10 @@ describe('Main <App /> Component', () => {
         expect(component.find(Header)).toHaveLength(1);
         expect(component.find(Footer)).toHaveLength(1);
         expect(component.find(MenuSideBar)).toHaveLength(1);
-        expect(component.find('.app .content .menu-container ContractModal')).toHaveLength(1);
+        expect(component.find(ContractModal)).toHaveLength(1);
     });
 
-    it('should returns correct props', () => {
+    it('should return correct props', () => {
         const stateMock = {
             Contracts: {
                 contracts: {
@@ -280,7 +281,7 @@ describe('Main <App /> Component', () => {
         expect(context.router.history.push).toHaveBeenCalledWith('/test');
     });
 
-    it('should calls performSetupLocale when locale was changed', () => {
+    it('should call performSetupLocale when locale was changed', () => {
         const app = renderComponent();
 
         app
@@ -341,7 +342,7 @@ describe('Main <App /> Component', () => {
         expect(component.update().find('.content--de-emphasized')).toHaveLength(0);
     });
 
-    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+    it('should call performSetupLoaderVisibility when receive new loading property', () => {
         const app = renderComponent();
 
         app.setProps({ loading: true });
@@ -351,7 +352,7 @@ describe('Main <App /> Component', () => {
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
     });
 
-    it('should calls contracts action performers when receive new user data', () => {
+    it('should call contracts action performers when receive new user data', () => {
         const app = renderComponent();
         expect(usersActions.performGetUserData).toHaveBeenCalledTimes(1);
         expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(0);
