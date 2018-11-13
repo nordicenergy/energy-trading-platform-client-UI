@@ -370,24 +370,6 @@ class ProfileForm extends React.PureComponent {
                         error={errors.contractCity}
                         onChange={e => this.handleChange(e)}
                     />
-                    <DateField
-                        disabled
-                        locale={locale}
-                        name="contractBirthday"
-                        helperText={labels.birthdayHelperText}
-                        label={labels.contractBirthday}
-                        value={formData.contract.birthday}
-                        error={errors.contractBirthday}
-                        onChange={e => this.handleDateFieldChange(e)}
-                    />
-                    <TextField
-                        disabled
-                        label={labels.contractEmail}
-                        name="contractEmail"
-                        value={formData.contract.email}
-                        error={errors.contractEmail}
-                        onChange={e => this.handleChange(e)}
-                    />
                     <div className="profile-form-payment-method">
                         <strong>{labels.paymentMethod}</strong>
                         <ul>
@@ -471,9 +453,7 @@ const commonContractPropTypes = {
     street: PropTypes.string,
     houseNumber: PropTypes.string,
     postcode: PropTypes.string,
-    city: PropTypes.string,
-    birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    email: PropTypes.string
+    city: PropTypes.string
 };
 
 const commonProfilePropTypes = {
@@ -504,8 +484,6 @@ ProfileForm.propTypes = {
         contractHouseNumber: PropTypes.string,
         contractPostcode: PropTypes.string,
         contractCity: PropTypes.string,
-        contractBirthday: PropTypes.string,
-        contractEmail: PropTypes.string,
         paymentMethod: PropTypes.string,
         paymentMethodDebitOption: PropTypes.string,
         paymentMethodTransferOption: PropTypes.string,
@@ -553,8 +531,6 @@ ProfileForm.defaultProps = {
         contractHouseNumber: 'House Number',
         contractPostcode: 'Postcode',
         contractCity: 'City',
-        contractBirthday: 'Date of birth',
-        contractEmail: 'Email',
         paymentMethod: 'Payment options',
         paymentMethodDebitOption: 'Debit',
         paymentMethodTransferOption: 'Transfer',
@@ -587,9 +563,7 @@ ProfileForm.defaultProps = {
             street: '',
             houseNumber: '',
             postcode: '',
-            city: '',
-            birthday: '',
-            email: ''
+            city: ''
         }
     },
     errors: {},
