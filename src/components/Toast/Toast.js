@@ -22,7 +22,7 @@ const Toast = props => {
         <div role="alertdialog" className={classes}>
             {icon}
             <h2 className="toast-message">{message}</h2>
-            <button className="toast-close-button" onClick={onCloseClick}>
+            <button aria-label="Close notification alert" className="toast-close-button" onClick={onCloseClick}>
                 <FontAwesomeIcon icon={faTimes} />
             </button>
         </div>

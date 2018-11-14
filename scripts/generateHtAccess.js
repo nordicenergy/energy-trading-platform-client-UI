@@ -34,6 +34,14 @@ function getLinkHeaders(pathname, fileNames) {
         );
 }
 
+function getPushResources(pathname, fileNames) {
+    return fileNames
+        .filter(filename => !/.map$/.test(filename))
+        .map(
+            filename => `H2PushResource ${pathname}/${filename}`
+        );
+}
+
 async function generateHtAccessFile() {
     const jsFileNames = await util.promisify(fs.readdir)(path.join(BUILD_DIR, PATH_NAMES.js));
     const cssFileNames = await util.promisify(fs.readdir)(path.join(BUILD_DIR, PATH_NAMES.css));
@@ -43,11 +51,44 @@ async function generateHtAccessFile() {
         ...getLinkHeaders(PATH_NAMES.css, cssFileNames),
         ...getLinkHeaders(PATH_NAMES.media, mediaFileNames)
     ];
-    const htAccessContent = `<ifModule http2_module>
-    <filesMatch index.html>
-${headers.map(header => `        ${header}`).join('\n')}
-    </filesMatch>
-</ifModule>`;
+    const resources = [
+        ...getPushResources(PATH_NAMES.js, jsFileNames),
+        ...getPushResources(PATH_NAMES.css, cssFileNames),
+        ...getPushResources(PATH_NAMES.media, mediaFileNames)
+    ];
+
+    const htAccessContent = `
+<filesMatch ".(jpg|jpeg|png|gif|ico|svg|otf)$">
+Header set Cache-Control "max-age=2628000, public"
+</filesMatch>
+
+<filesMatch ".(html|css|js)$">
+Header set Cache-Control "max-age=86400, public"
+</filesMatch>
+
+# compress text, html, javascript, css, xml:
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+# Or, compress certain file types by extension:
+<files *.html>
+SetOutputFilter DEFLATE
+</files>
+
+<ifModule http2_module>
+    <FilesMatch index.html>
+        ${headers.map(header => `  ${header}`).join('\n')}
+        ${resources.map(resource => `  ${resource}`).join('\n')}
+    </FilesMatch>
+</ifModule>
+`;
 
     await util.promisify(fs.writeFile)(path.join(BUILD_DIR, '.htaccess'), htAccessContent);
 }
