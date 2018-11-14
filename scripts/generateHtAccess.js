@@ -34,6 +34,14 @@ function getLinkHeaders(pathname, fileNames) {
         );
 }
 
+function getPushResources(pathname, fileNames) {
+    return fileNames
+        .filter(filename => !/.map$/.test(filename))
+        .map(
+            filename => `H2PushResource ${pathname}/${filename}`
+        );
+}
+
 async function generateHtAccessFile() {
     const jsFileNames = await util.promisify(fs.readdir)(path.join(BUILD_DIR, PATH_NAMES.js));
     const cssFileNames = await util.promisify(fs.readdir)(path.join(BUILD_DIR, PATH_NAMES.css));
@@ -43,6 +51,12 @@ async function generateHtAccessFile() {
         ...getLinkHeaders(PATH_NAMES.css, cssFileNames),
         ...getLinkHeaders(PATH_NAMES.media, mediaFileNames)
     ];
+    const resources = [
+        ...getPushResources(PATH_NAMES.js, jsFileNames),
+        ...getPushResources(PATH_NAMES.css, cssFileNames),
+        ...getPushResources(PATH_NAMES.media, mediaFileNames)
+    ];
+
     const htAccessContent = `
 <filesMatch ".(jpg|jpeg|png|gif|ico|svg|otf)$">
 Header set Cache-Control "max-age=2628000, public"
@@ -70,7 +84,8 @@ SetOutputFilter DEFLATE
 
 <ifModule http2_module>
     <FilesMatch index.html>
-        ${headers.map(header => `        ${header}`).join('\n')}
+        ${headers.map(header => `  ${header}`).join('\n')}
+        ${resources.map(resource => `  ${resource}`).join('\n')}
     </FilesMatch>
 </ifModule>
 `;
