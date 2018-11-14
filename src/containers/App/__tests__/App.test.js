@@ -1,6 +1,6 @@
 import React from 'react';
 import { App } from '../App';
-import { Header, MenuSideBar, Footer } from '../../../components';
+import { Header, MenuSideBar, Footer, ContractModal } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
 import * as appActions from '../../../action_performers/app';
 import * as contractsActions from '../../../action_performers/contracts';
@@ -37,11 +37,12 @@ describe('Main <App /> Component', () => {
         appActions.performSetupLocale.mockClear();
     });
 
-    it(`should contains following controls:
+    it(`should contain following controls:
         - <div> with class "app";
         - <Header> component";
         - <Footer> component";
-        - <MenuSideBar> component";`, () => {
+        - <MenuSideBar> component"
+        - <ContractModal> component";`, () => {
         const component = renderComponent(context);
         const text = component.debug();
 
@@ -49,9 +50,10 @@ describe('Main <App /> Component', () => {
         expect(component.find(Header)).toHaveLength(1);
         expect(component.find(Footer)).toHaveLength(1);
         expect(component.find(MenuSideBar)).toHaveLength(1);
+        expect(component.find(ContractModal)).toHaveLength(1);
     });
 
-    it('should returns correct props', () => {
+    it('should return correct props', () => {
         const stateMock = {
             Contracts: {
                 contracts: {
@@ -113,15 +115,15 @@ describe('Main <App /> Component', () => {
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {
-        const component = renderComponent(context);
+        const component = renderComponent({ ...context, contracts: [{ id: '100020' }] });
         component.setContext(context);
 
         const header = component.find(Header).at(0);
         const confirm = component.find('Confirm');
 
-        expect(component.state().isConfirmVisible).toEqual(false);
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
         header.props().onLogoutClick();
-        expect(component.state().isConfirmVisible).toEqual(true);
+        expect(component.state().isLogoutConfirmVisible).toEqual(true);
         confirm.props().onConfirm();
 
         component.setProps({ loggingOut: true });
@@ -160,6 +162,36 @@ describe('Main <App /> Component', () => {
 
         component.setProps({ contracts: [{ id: '100020' }], sessionContract: { id: '100020' } });
         expect(component.find('ContractModal').props().show).toEqual(false);
+    });
+
+    it('should not show logout confirm window when working contracts are absent and user clicks logout', () => {
+        const component = renderComponent({ ...context, contracts: [], sessionContract: { id: '100020' } });
+        component.setContext(context);
+        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
+
+        expect(component.find('ContractModal').props().show).toEqual(true);
+        expect(component.find('ContractModal').props().labels).toEqual({
+            contractMessage: 'To continue, please select a contract.',
+            noContractMessage:
+                'At present, no contract data can be displayed. Please contact the administrator or try again later.',
+            selectLabel: 'Select contract'
+        });
+
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
+        component
+            .find(Header)
+            .at(0)
+            .props()
+            .onLogoutClick();
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
+
+        component.setProps({ loggingOut: true });
+        component.setProps({ loggingOut: false });
+
+        expect(context.router.history.push.mock.calls.length).toEqual(1);
+        expect(usersActions.performLogout.mock.calls.length).toEqual(1);
+        const [[route]] = context.router.history.push.mock.calls;
+        expect(route).toEqual('/login');
     });
 
     it('should setup correct callbacks and handle related events for MenuSideBar', () => {
@@ -223,17 +255,17 @@ describe('Main <App /> Component', () => {
     });
 
     it('should not perform logout if user click cancel', () => {
-        const component = renderComponent(context);
+        const component = renderComponent({ ...context, contracts: [{ id: '100020' }] });
         component.setContext(context);
 
         const header = component.find(Header).at(0);
         const confirm = component.find('Confirm');
 
-        expect(component.state().isConfirmVisible).toEqual(false);
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
         header.props().onLogoutClick();
-        expect(component.state().isConfirmVisible).toEqual(true);
+        expect(component.state().isLogoutConfirmVisible).toEqual(true);
         confirm.props().onCancel();
-        expect(component.state().isConfirmVisible).toEqual(false);
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
 
         expect(context.router.history.push).not.toHaveBeenCalled();
         expect(usersActions.performLogout).not.toHaveBeenCalled();
@@ -249,7 +281,7 @@ describe('Main <App /> Component', () => {
         expect(context.router.history.push).toHaveBeenCalledWith('/test');
     });
 
-    it('should calls performSetupLocale when locale was changed', () => {
+    it('should call performSetupLocale when locale was changed', () => {
         const app = renderComponent();
 
         app
@@ -310,7 +342,7 @@ describe('Main <App /> Component', () => {
         expect(component.update().find('.content--de-emphasized')).toHaveLength(0);
     });
 
-    it('should calls performSetupLoaderVisibility when receive new loading property', () => {
+    it('should call performSetupLoaderVisibility when receive new loading property', () => {
         const app = renderComponent();
 
         app.setProps({ loading: true });
@@ -320,7 +352,7 @@ describe('Main <App /> Component', () => {
         expect(appActions.performSetupLoaderVisibility).toHaveBeenCalledTimes(2);
     });
 
-    it('should calls contracts action performers when receive new user data', () => {
+    it('should call contracts action performers when receive new user data', () => {
         const app = renderComponent();
         expect(usersActions.performGetUserData).toHaveBeenCalledTimes(1);
         expect(contractsActions.performGetSessionContract).toHaveBeenCalledTimes(0);
