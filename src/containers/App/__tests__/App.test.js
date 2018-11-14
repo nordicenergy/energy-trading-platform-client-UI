@@ -185,7 +185,7 @@ describe('Main <App /> Component', () => {
         expect(route).toEqual('/login');
     });
 
-    it.only(`should correctly show 'No contracts message' on mobile view when working contracts are absent`, () => {
+    it(`should correctly show 'No contracts message' on mobile view when working contracts are absent`, () => {
         const componentWithContracts = renderComponent({ ...context, contracts: [{ id: '100020' }] });
         componentWithContracts.setContext(context);
         expect(componentWithContracts.find('.config-contract-select')).toHaveLength(2);
