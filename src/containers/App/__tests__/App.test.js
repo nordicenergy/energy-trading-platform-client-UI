@@ -115,7 +115,11 @@ describe('Main <App /> Component', () => {
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {
-        const component = renderComponent({ ...context, contracts: [{ id: '100020' }] });
+        const component = renderComponent({
+            ...context,
+            contracts: [{ id: '100020' }],
+            sessionContract: { id: '100020' }
+        });
         component.setContext(context);
 
         const header = component.find(Header).at(0);
@@ -135,7 +139,7 @@ describe('Main <App /> Component', () => {
         expect(route).toEqual('/login');
     });
 
-    it('should correctly handle cases when working contracts is absent', () => {
+    it('should correctly handle cases when working contracts are absent', () => {
         const component = renderComponent({ ...context, contracts: [], sessionContract: { id: '100020' } });
         component.setContext(context);
         expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
@@ -164,8 +168,29 @@ describe('Main <App /> Component', () => {
         expect(component.find('ContractModal').props().show).toEqual(false);
     });
 
-    it('should not show logout confirm window when working contracts are absent and user clicks logout', () => {
+    it('should correctly handle logout cases when working contracts are absent', () => {
         const component = renderComponent({ ...context, contracts: [], sessionContract: { id: '100020' } });
+        component.setContext(context);
+
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
+        component
+            .find(Header)
+            .at(0)
+            .props()
+            .onLogoutClick();
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
+
+        component.setProps({ loggingOut: true });
+        component.setProps({ loggingOut: false });
+
+        expect(context.router.history.push.mock.calls.length).toEqual(1);
+        expect(usersActions.performLogout.mock.calls.length).toEqual(1);
+        const [[route]] = context.router.history.push.mock.calls;
+        expect(route).toEqual('/login');
+    });
+
+    it('should correctly handle logout cases when session contract is absent', () => {
+        const component = renderComponent({ ...context, contracts: [{ id: '100020' }], sessionContract: null });
         component.setContext(context);
 
         expect(component.state().isLogoutConfirmVisible).toEqual(false);
@@ -261,7 +286,11 @@ describe('Main <App /> Component', () => {
     });
 
     it('should not perform logout if user click cancel', () => {
-        const component = renderComponent({ ...context, contracts: [{ id: '100020' }] });
+        const component = renderComponent({
+            ...context,
+            contracts: [{ id: '100020' }],
+            sessionContract: { id: '100020' }
+        });
         component.setContext(context);
 
         const header = component.find(Header).at(0);

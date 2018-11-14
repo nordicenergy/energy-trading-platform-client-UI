@@ -91,9 +91,9 @@ export class App extends contractStatusMixin(React.PureComponent) {
     }
 
     logout() {
-        const { contracts } = this.props;
+        const { contracts, sessionContract } = this.props;
 
-        if (!contracts.length) {
+        if (!contracts.length || !sessionContract) {
             return performLogout();
         }
 
@@ -135,6 +135,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
 
     render() {
         const { locale, contracts, sessionContract, loading, user } = this.props;
+
         const { isLogoutConfirmVisible, isConfigSideBarOpen, isMenuBarOpen } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
