@@ -16,8 +16,7 @@ class Web3Service {
         // eslint-disable-next-line
         if (typeof web3 !== 'undefined') {
             // eslint-disable-next-line
-            this.web3 = // TODO new Web3(web3.currentProvider);
-            this.isMetaMaskPluginInstalled = true;
+            this.web3 = this.isMetaMaskPluginInstalled = true; // TODO new Web3(web3.currentProvider);
         } else {
             // TODO TBD: implement logic for custom provider
             // web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
