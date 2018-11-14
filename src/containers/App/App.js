@@ -135,7 +135,6 @@ export class App extends contractStatusMixin(React.PureComponent) {
 
     render() {
         const { locale, contracts, sessionContract, loading, user } = this.props;
-
         const { isLogoutConfirmVisible, isConfigSideBarOpen, isMenuBarOpen } = this.state;
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
