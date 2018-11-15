@@ -91,9 +91,9 @@ export class App extends contractStatusMixin(React.PureComponent) {
     }
 
     logout() {
-        const { contracts } = this.props;
+        const { contracts, sessionContract } = this.props;
 
-        if (!contracts.length) {
+        if (!contracts.length || !sessionContract) {
             return performLogout();
         }
 
@@ -315,16 +315,21 @@ export class App extends contractStatusMixin(React.PureComponent) {
                         })}
                     >
                         <div className="config-items">
-                            <SelectField
-                                className="config-contract-select"
-                                name="current-contract"
-                                label={formatMessage(messages.selectContractMessage)}
-                                options={contracts.map(({ id }) => ({ value: id, label: `#${id}` }))}
-                                value={(sessionContract && sessionContract.id) || ''}
-                                onChange={({ value }) => this.setupContract(value)}
-                                supportEmptyValue
-                            />
-
+                            {!!contracts.length ? (
+                                <SelectField
+                                    className="config-contract-select"
+                                    name="current-contract"
+                                    label={formatMessage(messages.selectContractMessage)}
+                                    options={contracts.map(({ id }) => ({ value: id, label: `#${id}` }))}
+                                    value={(sessionContract && sessionContract.id) || ''}
+                                    onChange={({ value }) => this.setupContract(value)}
+                                    supportEmptyValue
+                                />
+                            ) : (
+                                <p className="contract-config-select-no-contracts-alert">
+                                    {formatMessage(messages.noContractsMessage)}
+                                </p>
+                            )}
                             <SelectField
                                 className="config-contract-select"
                                 name="current-locale"

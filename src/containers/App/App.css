@@ -57,7 +57,8 @@
     width: var(--side-bar-width);
 }
 
-.right-config-sidebar .config-contract-select {
+.right-config-sidebar .config-contract-select,
+.contract-config-select-no-contracts-alert {
     padding: 2em;
     width: auto;
 }
@@ -71,6 +72,10 @@
 
 .right-config-sidebar .config-logout-btn span {
     margin-left: 0.5em;
+}
+
+.contract-config-select-no-contracts-alert {
+    color: var(--error-text-color);
 }
 
 .content--de-emphasized::before {

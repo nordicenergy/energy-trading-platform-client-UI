@@ -115,7 +115,11 @@ describe('Main <App /> Component', () => {
     });
 
     it('should setup correct callbacks and handle related events for Header', () => {
-        const component = renderComponent({ ...context, contracts: [{ id: '100020' }] });
+        const component = renderComponent({
+            ...context,
+            contracts: [{ id: '100020' }],
+            sessionContract: { id: '100020' }
+        });
         component.setContext(context);
 
         const header = component.find(Header).at(0);
@@ -135,7 +139,7 @@ describe('Main <App /> Component', () => {
         expect(route).toEqual('/login');
     });
 
-    it('should correctly handle cases when working contracts is absent', () => {
+    it('should correctly handle cases when working contracts are absent', () => {
         const component = renderComponent({ ...context, contracts: [], sessionContract: { id: '100020' } });
         component.setContext(context);
         expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
@@ -164,18 +168,9 @@ describe('Main <App /> Component', () => {
         expect(component.find('ContractModal').props().show).toEqual(false);
     });
 
-    it('should not show logout confirm window when working contracts are absent and user clicks logout', () => {
+    it('should correctly handle logout cases when working contracts are absent', () => {
         const component = renderComponent({ ...context, contracts: [], sessionContract: { id: '100020' } });
         component.setContext(context);
-        expect(contractsActions.performSetSessionContract).toHaveBeenCalledTimes(0);
-
-        expect(component.find('ContractModal').props().show).toEqual(true);
-        expect(component.find('ContractModal').props().labels).toEqual({
-            contractMessage: 'To continue, please select a contract.',
-            noContractMessage:
-                'At present, no contract data can be displayed. Please contact the administrator or try again later.',
-            selectLabel: 'Select contract'
-        });
 
         expect(component.state().isLogoutConfirmVisible).toEqual(false);
         component
@@ -192,6 +187,42 @@ describe('Main <App /> Component', () => {
         expect(usersActions.performLogout.mock.calls.length).toEqual(1);
         const [[route]] = context.router.history.push.mock.calls;
         expect(route).toEqual('/login');
+    });
+
+    it('should correctly handle logout cases when session contract is absent', () => {
+        const component = renderComponent({ ...context, contracts: [{ id: '100020' }], sessionContract: null });
+        component.setContext(context);
+
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
+        component
+            .find(Header)
+            .at(0)
+            .props()
+            .onLogoutClick();
+        expect(component.state().isLogoutConfirmVisible).toEqual(false);
+
+        component.setProps({ loggingOut: true });
+        component.setProps({ loggingOut: false });
+
+        expect(context.router.history.push.mock.calls.length).toEqual(1);
+        expect(usersActions.performLogout.mock.calls.length).toEqual(1);
+        const [[route]] = context.router.history.push.mock.calls;
+        expect(route).toEqual('/login');
+    });
+
+    it(`should correctly show 'No contracts message' on mobile view when working contracts are absent`, () => {
+        const componentWithContracts = renderComponent({ ...context, contracts: [{ id: '100020' }] });
+        componentWithContracts.setContext(context);
+        expect(componentWithContracts.find('.config-contract-select')).toHaveLength(2);
+        expect(componentWithContracts.find('.contract-config-select-no-contracts-alert')).toHaveLength(0);
+
+        const componentWithoutContracts = renderComponent({ ...context, contracts: [] });
+        componentWithoutContracts.setContext(context);
+        expect(componentWithoutContracts.find('.config-contract-select')).toHaveLength(1);
+        expect(componentWithoutContracts.find('.contract-config-select-no-contracts-alert')).toHaveLength(1);
+        expect(componentWithoutContracts.find('.contract-config-select-no-contracts-alert').text()).toEqual(
+            'No contracts'
+        );
     });
 
     it('should setup correct callbacks and handle related events for MenuSideBar', () => {
@@ -255,7 +286,11 @@ describe('Main <App /> Component', () => {
     });
 
     it('should not perform logout if user click cancel', () => {
-        const component = renderComponent({ ...context, contracts: [{ id: '100020' }] });
+        const component = renderComponent({
+            ...context,
+            contracts: [{ id: '100020' }],
+            sessionContract: { id: '100020' }
+        });
         component.setContext(context);
 
         const header = component.find(Header).at(0);

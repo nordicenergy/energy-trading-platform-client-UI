@@ -24,6 +24,7 @@ class ContractSelect extends Component {
                         value={selectedContractId}
                         onChange={data => this.handleChange(data)}
                         supportEmptyValue
+                        disabled={!selectedContractId}
                     />
                 ) : (
                     <p className="contract-select-no-contracts-alert">{noContractsMessage}</p>
