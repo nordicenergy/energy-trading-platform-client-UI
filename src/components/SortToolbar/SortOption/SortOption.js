@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faSortAmountDown, faSortAmountUp } from '@fortawesome/fontawesome-free-solid';
+import faSortAmountUp from '@fortawesome/fontawesome-free-solid/faSortAmountUp';
+import faSortAmountDown from '@fortawesome/fontawesome-free-solid/faSortAmountDown';
 import './SortOption.css';
 
 export const ORDER_DESC = 'desc';

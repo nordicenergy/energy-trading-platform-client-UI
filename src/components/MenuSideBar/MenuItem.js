@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import icons from '@fortawesome/fontawesome-free-solid';
 
 import './MenuItem.css';
 
@@ -28,7 +27,7 @@ const MenuItem = props => {
             }}
         >
             <div className="menu-item-icon">
-                <FontAwesomeIcon icon={icons[icon]} />
+                <FontAwesomeIcon icon={icon} />
             </div>
             <div className="menu-item-label">
                 <span>{label}</span>
@@ -38,7 +37,7 @@ const MenuItem = props => {
 };
 
 MenuItem.propTypes = {
-    icon: PropTypes.string,
+    icon: PropTypes.any,
     label: PropTypes.string,
     active: PropTypes.bool,
     subItemActive: PropTypes.bool,

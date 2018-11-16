@@ -1,4 +1,10 @@
 import React from 'react';
+import faHome from '@fortawesome/fontawesome-free-solid/faHome';
+import faBook from '@fortawesome/fontawesome-free-solid/faBook';
+import faSuitcase from '@fortawesome/fontawesome-free-solid/faSuitcase';
+import faCalculator from '@fortawesome/fontawesome-free-solid/faCalculator';
+import faUser from '@fortawesome/fontawesome-free-solid/faUser';
+import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart';
 import { App } from '../App';
 import { Header, MenuSideBar, Footer, ContractModal } from '../../../components';
 import * as usersActions from '../../../action_performers/users';
@@ -206,11 +212,11 @@ describe('Main <App /> Component', () => {
         expect(route).toEqual('/item1');
 
         expect(menu.props().items).toEqual([
-            { active: true, icon: 'faHome', id: '', label: 'Overview', path: '/', subItemActive: false },
-            { active: false, icon: 'faBook', id: 'documents', label: 'My Documents', path: '/documents' },
+            { active: true, icon: faHome, id: '', label: 'Overview', path: '/', subItemActive: false },
+            { active: false, icon: faBook, id: 'documents', label: 'My Documents', path: '/documents' },
             {
                 active: false,
-                icon: 'faCalculator',
+                icon: faCalculator,
                 id: 'submit_meter',
                 label: 'Submit Meter Readings',
                 path: '/submit_meter'
@@ -218,7 +224,7 @@ describe('Main <App /> Component', () => {
             {
                 active: false,
                 subItemActive: false,
-                icon: 'faShoppingCart',
+                icon: faShoppingCart,
                 id: 'buy_energy',
                 label: 'Buy energy',
                 path: '/buy_energy',
@@ -226,13 +232,13 @@ describe('Main <App /> Component', () => {
             },
             {
                 active: false,
-                icon: 'faSuitcase',
+                icon: faSuitcase,
                 id: 'direct_trading',
                 label: 'Direct Trading',
                 path: '/direct_trading',
                 disabled: true
             },
-            { active: false, icon: 'faUser', id: 'profile', label: 'Profile', path: '/profile' }
+            { active: false, icon: faUser, id: 'profile', label: 'Profile', path: '/profile' }
         ]);
     });
 

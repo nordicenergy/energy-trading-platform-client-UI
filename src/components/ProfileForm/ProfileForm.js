@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/fontawesome-free-solid';
+import faExclamationTriangle from '@fortawesome/fontawesome-free-solid/faExclamationTriangle';
 import pick from 'lodash.pick';
 import { KEYBOARD_KEY_VALUES, PAYMENT_METHODS } from '../../constants';
 import { TextField, Button, DateField, IBANField, RadioButton, Checkbox } from '../index';

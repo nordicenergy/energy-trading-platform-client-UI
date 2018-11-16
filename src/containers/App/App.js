@@ -2,8 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/fontawesome-free-solid';
+import faSignOutAlt from '@fortawesome/fontawesome-free-solid/faSignOutAlt';
+import faEllipsisV from '@fortawesome/fontawesome-free-solid/faEllipsisV';
+import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
+import faHome from '@fortawesome/fontawesome-free-solid/faHome';
+import faBook from '@fortawesome/fontawesome-free-solid/faBook';
+import faBars from '@fortawesome/fontawesome-free-solid/faBars';
+import faSuitcase from '@fortawesome/fontawesome-free-solid/faSuitcase';
+import faCalculator from '@fortawesome/fontawesome-free-solid/faCalculator';
+import faUser from '@fortawesome/fontawesome-free-solid/faUser';
+import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart';
 
 import { MenuSideBar, Header, Footer, Confirm, ContractModal, SelectField, Button } from '../../components';
 import { PATHS, LOCALES, DEFAULT_LOCALE } from '../../constants';
@@ -141,13 +151,12 @@ export class App extends contractStatusMixin(React.PureComponent) {
         const [, headRoute = '', subRoute] = pathname.split('/');
 
         const icons = {
-            '': 'faHome',
-            documents: 'faBook',
-            submit_meter: 'faCalculator',
-            trading: 'faChartBar',
-            buyEnergy: 'faShoppingCart',
-            directTrading: 'faSuitcase',
-            profile: 'faUser'
+            '': faHome,
+            documents: faBook,
+            submit_meter: faCalculator,
+            buyEnergy: faShoppingCart,
+            directTrading: faSuitcase,
+            profile: faUser
         };
 
         const menuItems = [
@@ -251,7 +260,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
                 <Header
                     logoutLabel={formatMessage(messages.logoutLabel)}
                     onLogoutClick={() => this.logout(formatMessage(messages.logoutConfirm))}
-                    menuBarIcon={isMenuBarOpen ? 'faTimes' : 'faBars'}
+                    menuBarIcon={isMenuBarOpen ? faTimes : faBars}
                     menuBarLabel={formatMessage(messages.menuBarLabel)}
                     onToggleMenuBar={() => this.setState({ isMenuBarOpen: !isMenuBarOpen, isConfigSideBarOpen: false })}
                     breadCrumbs={this.props.breadCrumbs}
@@ -265,7 +274,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
                     onContractChange={contractId => this.setupContract(contractId)}
                     contractLabel={formatMessage(messages.contractLabel)}
                     noContractsMessage={formatMessage(messages.noContractsMessage)}
-                    configSideBarIcon={isConfigSideBarOpen ? 'faTimes' : 'faEllipsisV'}
+                    configSideBarIcon={isConfigSideBarOpen ? faTimes : faEllipsisV}
                     configSideLabel={formatMessage(messages.configSideBarLabel)}
                     onToggleConfigSideBar={() =>
                         this.setState({

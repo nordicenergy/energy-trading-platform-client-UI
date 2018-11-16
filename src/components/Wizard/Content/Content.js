@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faReply } from '@fortawesome/fontawesome-free-solid';
+import faReply from '@fortawesome/fontawesome-free-solid/faReply';
 import Button from '../../Button';
 import './Content.css';
 

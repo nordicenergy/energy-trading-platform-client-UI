@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import faHome from '@fortawesome/fontawesome-free-solid/faHome';
 import { CONTRACT_STATUSES } from '../../../constants';
 import MyProducerContainer, { MyProducer } from '../MyProducer';
 import { ProducerInfo, Button } from '../../../components';
@@ -237,7 +238,7 @@ describe('<MyProducer /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
         const [, [bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
-            { icon: 'faHome', id: '', label: 'Overview', path: '/' },
+            { icon: faHome, id: '', label: 'Overview', path: '/' },
             { id: 'my_producer', label: 'My Producer', path: '/my_producer' }
         ]);
 

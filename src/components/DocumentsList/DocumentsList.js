@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import icons from '@fortawesome/fontawesome-free-solid';
+import faDownload from '@fortawesome/fontawesome-free-solid/faDownload';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import Spinner from '../Loader/Spinner';
@@ -28,7 +28,7 @@ class DocumentsList extends React.Component {
                     <td>
                         <a onClick={() => downloadDocument()}>
                             <div className="document-download-icon">
-                                <FontAwesomeIcon icon={icons.faDownload} />
+                                <FontAwesomeIcon icon={faDownload} />
                             </div>
                         </a>
                     </td>

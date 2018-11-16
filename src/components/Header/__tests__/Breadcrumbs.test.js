@@ -1,6 +1,7 @@
 import React from 'react';
 import Breadcrumbs from '../Breadcrumbs';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faHome, faBook, faCalculator, faChartBar, faUser } from '@fortawesome/fontawesome-free-solid';
 import { mount } from 'enzyme';
 
 function renderComponent({
@@ -17,11 +18,11 @@ function renderComponent({
         }
     ],
     iconsTypes = {
-        '': 'faHome',
-        documents: 'faBook',
-        submit_meter: 'faCalculator',
-        trading: 'faChartBar',
-        profile: 'faUser'
+        '': faHome,
+        documents: faBook,
+        submit_meter: faCalculator,
+        trading: faChartBar,
+        profile: faUser
     },
     onClick = () => {}
 }) {
@@ -96,13 +97,13 @@ describe('<Breadcrumbs /> Component', () => {
                     id: 'trading',
                     label: 'Trading',
                     path: 'trading',
-                    icon: 'faChartBar'
+                    icon: faChartBar
                 },
                 {
                     id: 'wattcoin',
                     label: 'Wattcoin',
                     path: 'trading/wattcoin',
-                    icon: 'faBook'
+                    icon: faBook
                 },
                 {
                     id: 'test1',

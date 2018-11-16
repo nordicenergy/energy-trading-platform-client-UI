@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart';
 
 import { ProducerInfo, Button, BackLink, HelpIcon } from '../../components';
 import { PATHS, PRODUCER_STATUSES } from '../../constants';
@@ -75,7 +76,7 @@ export class Producer extends AppPage {
             this.setupBreadcrumbs([
                 {
                     ...PATHS.buyEnergy,
-                    icon: 'faShoppingCart',
+                    icon: faShoppingCart,
                     label: formatMessage(breadcrumbs.buyEnergy)
                 },
                 {

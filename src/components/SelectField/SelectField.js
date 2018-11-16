@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import pick from 'lodash.pick';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/fontawesome-free-solid';
+import faChevronDown from '@fortawesome/fontawesome-free-solid/faChevronDown';
 import { KEYBOARD_KEY_VALUES } from '../../constants';
 import './SelectField.css';
 

@@ -2,8 +2,9 @@ import React from 'react';
 import HeaderButton from '../HeaderButton';
 import { mount } from 'enzyme';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faBell from '@fortawesome/fontawesome-free-solid/faBell';
 
-function renderComponent({ icon = 'faBell', hasIndicator = false, onClickHandler = () => {} }) {
+function renderComponent({ icon = faBell, hasIndicator = false, onClickHandler = () => {} }) {
     return mount(<HeaderButton icon={icon} hasIndicator={hasIndicator} onClickHandler={onClickHandler} />);
 }
 
@@ -12,9 +13,7 @@ describe('<HeaderButton /> Component', () => {
         - <div> with class "header-button-container";
         - <button> with class "header-button";
         - <span> with class "header-button-icon-container" and icon passed through props;`, () => {
-        const component = renderComponent({
-            icon: 'faBell'
-        });
+        const component = renderComponent({ icon: faBell });
         expect(component.find('div.header-button-container').length).toBe(1);
         expect(component.find('button.header-button').length).toBe(1);
         expect(component.find('span.header-button-icon-container').length).toBe(1);

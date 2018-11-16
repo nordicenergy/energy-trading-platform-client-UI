@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/fontawesome-free-solid';
+import faCheck from '@fortawesome/fontawesome-free-solid/faCheck';
 import Step from '../Step';
 
 function renderComponent({ number = 1, title = 'Step 1', ...otherProps } = {}, mountFn = shallow) {

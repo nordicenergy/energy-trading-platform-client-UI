@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment/moment';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faCalendarAlt } from '@fortawesome/fontawesome-free-solid';
+import faCalendarAlt from '@fortawesome/fontawesome-free-solid/faCalendarAlt';
 
 import TextField from '../TextField';
 import mixDatePicker from './mixins/mixDatePicker';

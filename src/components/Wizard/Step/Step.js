@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/fontawesome-free-solid';
+import faCheck from '@fortawesome/fontawesome-free-solid/faCheck';
 import classNames from 'classnames';
 import './Step.css';
 
