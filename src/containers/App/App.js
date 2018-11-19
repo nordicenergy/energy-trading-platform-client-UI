@@ -293,12 +293,12 @@ export class App extends contractStatusMixin(React.PureComponent) {
                             }}
                         />
                     </div>
-                    <div role="article"
-                         id="main-container"
-                         className={classNames({ 'main-container--fixed-height': isSubmitMeterPageOpen })}>
-                        <main>
-                            {this.props.children}
-                        </main>
+                    <div
+                        role="article"
+                        id="main-container"
+                        className={classNames({ 'main-container--fixed-height': isSubmitMeterPageOpen })}
+                    >
+                        <main>{this.props.children}</main>
                         <Footer
                             addressLabel={formatMessage(messages.address)}
                             navItems={footerItems}
