@@ -26,7 +26,7 @@
     flex-direction: column;
 }
 
-main.main-container--fixed-height {
+.main-container--fixed-height main {
     height: calc(100% - var(--menu-icon-size) - var(--footer-nav-height));
 }
 
@@ -119,7 +119,7 @@ main.main-container--fixed-height {
         padding: 0;
     }
 
-    main.main-container--fixed-height {
+    .main-container--fixed-height main {
         height: inherit;
     }
 
