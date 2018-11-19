@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import faHome from '@fortawesome/fontawesome-free-solid/faHome';
 
 import { Alert, NavigationCardsPanel, EmptyRecentTransactions, RecentTransactions } from '../../components';
 import { PATHS, CONTRACT_STATUSES } from '../../constants';
@@ -39,7 +40,7 @@ export class Overview extends contractStatusMixin(AppPage) {
         this.setupBreadcrumbs([
             {
                 ...PATHS.overview,
-                icon: 'faHome',
+                icon: faHome,
                 label: formatMessage(breadcrumbs.overview)
             }
         ]);

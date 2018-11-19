@@ -1,53 +1,54 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import Swiper from 'swiper/dist/js/swiper'; // full import for fix build error
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/fontawesome-free-solid';
+import classNames from 'classnames'; // full import for fix build error
+//TODO uncomment after enabling 'Sell energy page'
+/* import Swiper from 'swiper/dist/js/swiper'; */ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faChevronLeft from '@fortawesome/fontawesome-free-solid/faChevronLeft';
+import faChevronRight from '@fortawesome/fontawesome-free-solid/faChevronRight';
 import OfferCard, { OfferPropType } from '../OfferCard';
 import './OffersSlider.css';
 
 class OffersSlider extends Component {
-    componentDidMount() {
-        this.slider = new Swiper(this.sliderContainerRef, {
-            autoHeight: true,
-            grabCursor: true,
-            watchOverflow: true,
-            observer: true,
-            containerModifierClass: 'offers-slider-container-',
-            slideClass: 'offers-slider-slide',
-            wrapperClass: 'offers-slider-wrapper',
-            navigation: {
-                nextEl: this.sliderNextRef,
-                prevEl: this.sliderPrevRef,
-                disabledClass: 'offers-slider-control--disabled',
-                hiddenClass: 'offers-slider-control--hidden'
-            },
-            pagination: {
-                el: this.sliderPaginationRef,
-                clickable: true,
-                bulletClass: 'offers-slider-bullet',
-                bulletActiveClass: 'offers-slider-bullet--active',
-                modifierClass: 'offers-slider-pagination-',
-                clickableClass: 'offers-slider-pagination--clickable'
-            },
-            slidesPerView: 5,
-            breakpoints: {
-                1920: {
-                    slidesPerView: 4
-                },
-                1600: {
-                    slidesPerView: 3
-                },
-                1280: {
-                    slidesPerView: 2
-                },
-                640: {
-                    slidesPerView: 1
-                }
-            }
-        });
-    }
+    // componentDidMount() {
+    //     this.slider = new Swiper(this.sliderContainerRef, {
+    //         autoHeight: true,
+    //         grabCursor: true,
+    //         watchOverflow: true,
+    //         observer: true,
+    //         containerModifierClass: 'offers-slider-container-',
+    //         slideClass: 'offers-slider-slide',
+    //         wrapperClass: 'offers-slider-wrapper',
+    //         navigation: {
+    //             nextEl: this.sliderNextRef,
+    //             prevEl: this.sliderPrevRef,
+    //             disabledClass: 'offers-slider-control--disabled',
+    //             hiddenClass: 'offers-slider-control--hidden'
+    //         },
+    //         pagination: {
+    //             el: this.sliderPaginationRef,
+    //             clickable: true,
+    //             bulletClass: 'offers-slider-bullet',
+    //             bulletActiveClass: 'offers-slider-bullet--active',
+    //             modifierClass: 'offers-slider-pagination-',
+    //             clickableClass: 'offers-slider-pagination--clickable'
+    //         },
+    //         slidesPerView: 5,
+    //         breakpoints: {
+    //             1920: {
+    //                 slidesPerView: 4
+    //             },
+    //             1600: {
+    //                 slidesPerView: 3
+    //             },
+    //             1280: {
+    //                 slidesPerView: 2
+    //             },
+    //             640: {
+    //                 slidesPerView: 1
+    //             }
+    //         }
+    //     });
+    // }
 
     componentWillUnmount() {
         this.slider.destroy();

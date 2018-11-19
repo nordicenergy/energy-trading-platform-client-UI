@@ -1,5 +1,6 @@
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/fontawesome-free-solid';
 import MenuItem from '../MenuItem';
 import { mount } from 'enzyme';
 
@@ -13,7 +14,7 @@ describe('<MenuItem /> Component', () => {
         - <FontAwesomeIcon>;
         - element '.menu-item-icon'
         - element '.menu-item-label';`, () => {
-        const props = { icon: 'faCoffee', label: 'Item' };
+        const props = { icon: faCoffee, label: 'Item' };
         const component = renderComponent(props);
         const text = component.debug();
 
@@ -24,13 +25,13 @@ describe('<MenuItem /> Component', () => {
     });
 
     it('should change style when active', () => {
-        const props = { icon: 'faCoffee', label: 'Item', active: true };
+        const props = { icon: faCoffee, label: 'Item', active: true };
         const component = renderComponent(props);
         expect(component.find('a.menu-item--active').length).toEqual(1);
     });
 
     it('should handle on click event', () => {
-        const props = { icon: 'faCoffee', label: 'Item', onClick: jest.fn() };
+        const props = { icon: faCoffee, label: 'Item', onClick: jest.fn() };
         const component = renderComponent(props);
         component
             .find('.menu-item')
@@ -40,7 +41,7 @@ describe('<MenuItem /> Component', () => {
     });
 
     it('should provide possibility self disabling', () => {
-        const props = { icon: 'faCoffee', label: 'Item', onClick: jest.fn(), disabled: true };
+        const props = { icon: faCoffee, label: 'Item', onClick: jest.fn(), disabled: true };
         const component = renderComponent(props);
 
         expect(component.find('a.menu-item--disabled').length).toEqual(1);
@@ -52,7 +53,7 @@ describe('<MenuItem /> Component', () => {
     });
 
     it('should set default values at missing props and should not throw an error', () => {
-        const props = { icon: 'faCoffee', label: 'Item' };
+        const props = { icon: faCoffee, label: 'Item' };
         const component = renderComponent(props);
 
         component

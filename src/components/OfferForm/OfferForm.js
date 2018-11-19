@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import pick from 'lodash.pick';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/fontawesome-free-solid';
+import faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import { PLANT_TYPES } from '../../constants';
 import TextField from '../TextField';
 import DeltaField from '../DeltaField';

@@ -1,4 +1,5 @@
 import React from 'react';
+import { faHome, faBook, faCalculator, faChartBar, faUser } from '@fortawesome/fontawesome-free-solid';
 import MenuItem from '../MenuItem';
 import MenuSideBar from '../MenuSideBar';
 import { mount } from 'enzyme';
@@ -12,11 +13,11 @@ describe('<MenuSideBar /> Component', () => {
         - <MenuItem>;
         - element 'nav';`, () => {
         const items = [
-            { icon: 'faHome', label: 'Item 1' },
-            { icon: 'faBook', label: 'Item 2' },
-            { icon: 'faCalculator', label: 'Item 3' },
-            { icon: 'faChartBar', label: 'Item 4' },
-            { icon: 'faUser', label: 'Item 5' }
+            { icon: faHome, label: 'Item 1' },
+            { icon: faBook, label: 'Item 2' },
+            { icon: faCalculator, label: 'Item 3' },
+            { icon: faChartBar, label: 'Item 4' },
+            { icon: faUser, label: 'Item 5' }
         ];
         const props = { items };
         const component = renderComponent(props);
@@ -28,11 +29,11 @@ describe('<MenuSideBar /> Component', () => {
 
     it('should correctly handle on click event', () => {
         const items = [
-            { icon: 'faHome', label: 'Item 1' },
-            { icon: 'faBook', label: 'Item 2' },
-            { icon: 'faCalculator', label: 'Item 3' },
-            { icon: 'faChartBar', label: 'Item 4', path: '/testpath' },
-            { icon: 'faUser', label: 'Item 5' }
+            { icon: faHome, label: 'Item 1' },
+            { icon: faBook, label: 'Item 2' },
+            { icon: faCalculator, label: 'Item 3' },
+            { icon: faChartBar, label: 'Item 4', path: '/testpath' },
+            { icon: faUser, label: 'Item 5' }
         ];
         const props = { items, onSelect: jest.fn() };
         const component = renderComponent(props);
@@ -47,11 +48,11 @@ describe('<MenuSideBar /> Component', () => {
 
     it('should set default values at missing props and should not throw an error', () => {
         const items = [
-            { icon: 'faHome', label: 'Item 1' },
-            { icon: 'faBook', label: 'Item 2' },
-            { icon: 'faCalculator', label: 'Item 3' },
-            { icon: 'faChartBar', label: 'Item 4', path: '/testpath' },
-            { icon: 'faUser', label: 'Item 5' }
+            { icon: faHome, label: 'Item 1' },
+            { icon: faBook, label: 'Item 2' },
+            { icon: faCalculator, label: 'Item 3' },
+            { icon: faChartBar, label: 'Item 4', path: '/testpath' },
+            { icon: faUser, label: 'Item 5' }
         ];
         const component = renderComponent({ items });
         component

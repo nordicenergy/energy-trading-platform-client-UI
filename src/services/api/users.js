@@ -1,7 +1,6 @@
 import Axios from 'axios';
 import moment from 'moment';
 import { SESSION_API_URL } from '../../constants';
-import { AxiosPromise } from 'axios/index';
 
 export function create(userData) {
     const lang = document.documentElement.getAttribute('lang') || 'en';

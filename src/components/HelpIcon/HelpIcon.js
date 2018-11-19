@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import icons from '@fortawesome/fontawesome-free-solid';
+import faQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCircle';
 
 import './HelpIcon.css';
 
@@ -14,7 +14,7 @@ const HelpIcon = props => {
             <div id={tooltipId} role="tooltip" aria-live="assertive" className="help-tooltip">
                 {text}
             </div>
-            <FontAwesomeIcon icon={icons.faQuestionCircle} aria-label="help icon" aria-describedby={tooltipId} />
+            <FontAwesomeIcon icon={faQuestionCircle} aria-label="help icon" aria-describedby={tooltipId} />
         </span>
     );
 };

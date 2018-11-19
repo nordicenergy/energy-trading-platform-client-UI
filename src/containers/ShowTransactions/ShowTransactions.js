@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import faHome from '@fortawesome/fontawesome-free-solid/faHome';
 
 import { RecentTransactions, BackLink } from '../../components';
 import { PATHS } from '../../constants';
@@ -80,7 +81,7 @@ export class ShowTransactions extends AppPage {
         this.setupBreadcrumbs([
             {
                 ...PATHS.overview,
-                icon: 'faHome',
+                icon: faHome,
                 label: formatMessage(breadcrumbs.overview)
             },
             {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { faTimes } from '@fortawesome/fontawesome-free-solid';
 import Header from '../Header';
 import HeaderButton from '../HeaderButton';
 import Logo from '../../Logo';
@@ -23,7 +24,7 @@ function renderComponent(
         locale = localeDummy,
         onLocaleChange = localeChangeStub,
         onToggleMenuBar = menuBarToggleStub,
-        configSideBarIcon = 'faTimes',
+        configSideBarIcon = faTimes,
         configSideBarLabel = 'Test Sidebar Label',
         onToggleConfigSideBar = configSideBarToggleStub,
         ...otherProps

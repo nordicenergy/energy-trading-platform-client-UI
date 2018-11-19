@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment/moment';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faHistory from '@fortawesome/fontawesome-free-solid/faHistory';
 import { DisclosureArrow, Button } from '../.';
 import Spinner from '../Loader/Spinner';
 import RecentTransactionDetails from './RecentTransactionDetails';
 import { DATE_FORMAT, KEYBOARD_KEY_VALUES } from '../../constants';
 import { formatCurrency } from '../../services/formatter';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import icons from '@fortawesome/fontawesome-free-solid';
 
 import './RecentTransactions.css';
 
@@ -41,7 +41,7 @@ class RecentTransactions extends React.Component {
     renderIcon() {
         return (
             <span className="future-transaction-icon">
-                <FontAwesomeIcon icon={icons.faHistory} />
+                <FontAwesomeIcon icon={faHistory} />
             </span>
         );
     }

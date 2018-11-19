@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import icons from '@fortawesome/fontawesome-free-solid';
+import faAngleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
 import classNames from 'classnames';
 import './Breadcrumbs.css';
 import { KEYBOARD_KEY_VALUES } from '../../constants';
@@ -17,7 +17,7 @@ class Breadcrumbs extends React.Component {
         const { items, onClick } = this.props;
         const [rootBreadCrumb = {}, ...breadCrumbs] = items;
         const rootBreadcrumbLabel = rootBreadCrumb.icon ? (
-            <FontAwesomeIcon icon={icons[rootBreadCrumb.icon]} />
+            <FontAwesomeIcon icon={rootBreadCrumb.icon} />
         ) : (
             rootBreadCrumb.label
         );
@@ -35,13 +35,13 @@ class Breadcrumbs extends React.Component {
                     {rootBreadcrumbLabel}
                 </a>
                 <div className="breadcrumb-arrow">
-                    <FontAwesomeIcon icon={icons.faAngleRight} />
+                    <FontAwesomeIcon icon={faAngleRight} />
                 </div>
             </div>
         );
         const breadCrumbElements = breadCrumbs.map((item, index) => {
             const isLastItem = index === breadCrumbs.length - 1;
-            const breadcrumbLabel = item.icon ? <FontAwesomeIcon icon={icons[item.icon]} /> : item.label;
+            const breadcrumbLabel = item.icon ? <FontAwesomeIcon icon={item.icon} /> : item.label;
             return (
                 <div
                     className={classNames('breadcrumb-item', {
@@ -60,7 +60,7 @@ class Breadcrumbs extends React.Component {
                     </a>
                     {!isLastItem && (
                         <div className="breadcrumb-arrow">
-                            <FontAwesomeIcon icon={icons.faAngleRight} />
+                            <FontAwesomeIcon icon={faAngleRight} />
                         </div>
                     )}
                 </div>
