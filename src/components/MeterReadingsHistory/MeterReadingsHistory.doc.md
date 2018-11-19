@@ -2,32 +2,31 @@ Example with data:
 ```jsx
 const props = {
     title: 'History',
-    consumptionUnitLabel: 'kWh',
     noDataMessage: 'message',
     data: [
         {
             date: 1521911833,
-            consumption: 9950.3
+            value: 9950.3
         },
         {
-            date: 1522911833,
-            consumption: 9600.7
+            date: '2018-10-22',
+            value: 9600.7
         },
         {
-            date: 1623911833,
-            consumption: 9600.6   
+            date: '2018-09-30',
+            value: 9600.6   
          },
          {
             date: 1724911833,
-            consumption: 0
+            value: 0
          },
          {
             date: '',
-            consumption: null
+            value: null
          },
          {
             date: undefined,
-            consumption: undefined
+            value: undefined
          }
     ]
 };
@@ -48,4 +47,44 @@ const props = {
 <div style={{ backgroundColor: 'white', padding: '10px', 'maxWidth': '356px' }}>
     <MeterReadingsHistory {...props} />
 </div>;
+```
+
+Example (extended, with pagination):
+```jsx
+const props = {
+    title: 'History',
+    noDataMessage: 'message',
+    loading: true,
+    data: [
+        {
+            date: 1521911833,
+            value: 9950.3
+        },
+        {
+            date: '2018-10-22',
+            value: 9600.7
+        },
+        {
+            date: '2018-09-30',
+            value: 9600.6   
+         },
+         {
+            date: 1724911833,
+            value: 0
+         },
+         {
+            date: '',
+            value: null
+         },
+         {
+            date: undefined,
+            value: undefined
+         }
+    ]
+};
+
+<div style={{ backgroundColor: 'white', padding: '10px', 'maxWidth': '356px' }}>
+    <MeterReadingsHistory {...props} />
+</div>;
+```
 ```

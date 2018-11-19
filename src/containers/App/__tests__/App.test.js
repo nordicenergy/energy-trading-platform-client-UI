@@ -450,4 +450,16 @@ describe('Main <App /> Component', () => {
             .onLogoClick();
         expect(context.router.history.push).toHaveBeenCalledWith('/');
     });
+
+    it('should set class to main element for fix height when is meter reading page', () => {
+        Object.defineProperty(window.location, 'pathname', {
+            writable: true,
+            value: '/submit_meter'
+        });
+
+        const app = renderComponent(context);
+        app.setContext(context);
+
+        expect(app.find('#main-container').hasClass('main-container--fixed-height')).toBeTruthy();
+    });
 });

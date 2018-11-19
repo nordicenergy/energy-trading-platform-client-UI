@@ -8,7 +8,10 @@ describe('Consumption reducer:', () => {
             const result = consumptionReducer(initialState, ACTIONS.getMeterReadingsHistory.pending);
             expect(result.meterReadingsHistory.loading).toBeTruthy();
             expect(result.meterReadingsHistory.error).toBeNull();
-            expect(result.meterReadingsHistory.data).toEqual(initialState.meterReadingsHistory.data);
+            expect(result.meterReadingsHistory.data).toEqual({
+                readings: [],
+                count: 0
+            });
         });
         it('should handle GET_METER_NUMBER', () => {
             const result = consumptionReducer(initialState, ACTIONS.getMeterNumber.pending);
@@ -29,7 +32,10 @@ describe('Consumption reducer:', () => {
             const result = consumptionReducer(initialState, ACTIONS.getMeterReadingsHistory.fail);
             expect(result.meterReadingsHistory.loading).toBeFalsy();
             expect(result.meterReadingsHistory.error).toEqual(ACTIONS.getMeterReadingsHistory.fail.error);
-            expect(result.meterReadingsHistory.data).toEqual(initialState.meterReadingsHistory.data);
+            expect(result.meterReadingsHistory.data).toEqual({
+                readings: [],
+                count: 0
+            });
         });
         it('should handle GET_METER_NUMBER', () => {
             const result = consumptionReducer(initialState, ACTIONS.getMeterNumber.fail);
@@ -73,33 +79,37 @@ function fixtures() {
             success: {
                 type: 'GET_METER_READINGS_HISTORY',
                 payload: {
-                    consumptionUnitLabel: 'kWh',
-                    consumptions: [
+                    readings: [
                         {
-                            consumption: 123,
-                            date: 1531144080000
+                            id: '17007',
+                            date: '2018-09-30',
+                            value: '123456.0000'
                         },
                         {
-                            consumption: 0,
-                            date: 1531244080000
+                            id: '17008',
+                            date: '2018-09-27',
+                            value: '123456.0000'
                         }
                     ],
-                    isSeriesBasedOnLiveData: true
+                    count: 7
                 },
                 error: null,
-                loading: false
+                loading: false,
+                meta: [1]
             },
             fail: {
                 type: 'GET_METER_READINGS_HISTORY',
                 payload: null,
                 error: { message: 'Response error' },
-                loading: false
+                loading: false,
+                meta: [1]
             },
             pending: {
                 type: 'GET_METER_READINGS_HISTORY',
                 payload: null,
                 error: null,
-                loading: true
+                loading: true,
+                meta: [1]
             }
         },
         getMeterNumber: {

@@ -51,4 +51,12 @@
     .submit-meter-readings-page > h1 {
         font-size: 1.375em;
     }
+
+    #reading-history-container {
+        height: 20em;
+    }
+}
+
+#reading-history-container {
+    overflow-y: auto;
 }
