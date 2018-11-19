@@ -133,6 +133,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
         const { pathname } = window.location;
         const { formatMessage } = this.context.intl;
         const [, headRoute = '', subRoute] = pathname.split('/');
+        const isSubmitMeterPageOpen = headRoute === PATHS.submit_meter.id;
 
         const icons = {
             '': 'faHome',
@@ -171,7 +172,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
                 id: PATHS.submit_meter.id,
                 icon: icons.submit_meter,
                 label: formatMessage(messages.submitMeter),
-                active: headRoute === PATHS.submit_meter.id,
+                active: isSubmitMeterPageOpen,
                 path: PATHS.submit_meter.path
             },
             {
@@ -295,7 +296,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
                     <div role="article" id="main-container">
                         <main
                             className={classNames({
-                                '--fixed-height': headRoute === PATHS.submit_meter.id
+                                'main-container--fixed-height': isSubmitMeterPageOpen
                             })}
                         >
                             {this.props.children}

@@ -393,6 +393,6 @@ describe('Main <App /> Component', () => {
         const app = renderComponent(context);
         app.setContext(context);
 
-        expect(app.find('main').hasClass('--fixed-height')).toBeTruthy();
+        expect(app.find('main').hasClass('main-container--fixed-height')).toBeTruthy();
     });
 });
