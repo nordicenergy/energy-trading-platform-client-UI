@@ -1,32 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatDate } from '../../services/formatter';
-import { MONTH_DAY_DATE_FORMAT } from '../../constants';
+import moment from 'moment';
 import { formatFloat } from '../../services/formatter';
+import { MONTH_DAY_DATE_FORMAT } from '../../constants';
+import Spinner from '../Loader/Spinner';
 
 import './MeterReadingsHistory.css';
 
-const MeterReadingsHistory = ({ title, data, consumptionUnitLabel, noDataMessage }) => {
+const MeterReadingsHistory = ({ title, data, noDataMessage, loading }) => {
     return (
         <div>
             <table className="meter-readings-history">
                 <caption>{title}</caption>
                 <tbody>
                     {data.map((item, index) => {
-                        const isConsumptionValid = item.consumption != null && isFinite(item.consumption);
-                        const value = isConsumptionValid ? formatFloat(item.consumption) : '-';
+                        const isConsumptionValid = item.value != null && isFinite(item.value);
+                        const value = isConsumptionValid ? formatFloat(item.value) : '-';
                         return (
-                            <tr key={`${item.date}${index}`}>
-                                <td>{item.date ? formatDate(item.date, MONTH_DAY_DATE_FORMAT) : '-'} </td>
-                                <td>
-                                    {value} {consumptionUnitLabel || '-'}
-                                </td>
+                            <tr key={`${Date.now()}${index}`}>
+                                <td>{item.date ? moment.utc(item.date).format(MONTH_DAY_DATE_FORMAT) : '-'}</td>
+                                <td>{`${value} kWh`}</td>
                             </tr>
                         );
                     })}
                 </tbody>
             </table>
-            <p>{!data.length && noDataMessage}</p>
+            {loading && (
+                <div role="progressbar" aria-hidden={!loading} className="meter-readings-loader">
+                    <Spinner size="sm" color="#30acc1" />
+                </div>
+            )}
+            {!data.length ? <p>{noDataMessage}</p> : null}
         </div>
     );
 };
@@ -34,15 +38,15 @@ const MeterReadingsHistory = ({ title, data, consumptionUnitLabel, noDataMessage
 MeterReadingsHistory.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
     title: PropTypes.string,
-    consumptionUnitLabel: PropTypes.string,
-    noDataMessage: PropTypes.string
+    noDataMessage: PropTypes.string,
+    loading: PropTypes.bool
 };
 
 MeterReadingsHistory.defaultProps = {
     data: [],
     title: '-',
-    consumptionUnitLabel: '-',
-    noDataMessage: '-'
+    noDataMessage: '-',
+    loading: false
 };
 
 export default MeterReadingsHistory;

@@ -10,10 +10,15 @@ const scrollBottomHandlingMixin = Base =>
             this.scrollHandler = f => f;
             this.scrollTimeout = null;
             this.lastScrollTop = 0;
+            this.scrollContainer = MAIN_CONTAINER_SELECTOR;
+        }
+
+        setScrollContainer(id) {
+            this.scrollContainer = id;
         }
 
         scrollToTop() {
-            const container = document.getElementById(MAIN_CONTAINER_SELECTOR);
+            const container = document.getElementById(this.scrollContainer);
             if (container) {
                 container.scrollTop = 0;
             }
@@ -39,11 +44,11 @@ const scrollBottomHandlingMixin = Base =>
         // Do not forget remove all scroll handlers on unmount step of your container (#removeScrollHandler())
         setupScrollHandler(condition, callback) {
             this.scrollHandler = event => this.handleScroll(event, condition, callback);
-            document.getElementById(MAIN_CONTAINER_SELECTOR).addEventListener('scroll', this.scrollHandler);
+            document.getElementById(this.scrollContainer).addEventListener('scroll', this.scrollHandler);
         }
 
         removeScrollHandler() {
-            document.getElementById(MAIN_CONTAINER_SELECTOR).removeEventListener('scroll', this.scrollHandler);
+            document.getElementById(this.scrollContainer).removeEventListener('scroll', this.scrollHandler);
         }
     };
 

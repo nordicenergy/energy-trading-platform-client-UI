@@ -1,20 +1,20 @@
 import Axios from 'axios';
 import { getMeterReadingsHistory, getMeterNumber, submitMeterReading } from '../consumption';
-import moment from 'moment/moment';
 
 const MOCK_METER_READINGS_HISTORY = {
-    consumptionUnitLabel: 'kWh',
-    consumptions: [
+    count: 4,
+    data: [
         {
-            consumption: 123,
-            date: 1531144080000
+            id: '17007',
+            date: '2018-09-30',
+            value: '123456.0000'
         },
         {
-            consumption: 0,
-            date: 1531244080000
+            id: '17008',
+            date: '2018-09-30',
+            value: '123456.0000'
         }
-    ],
-    isSeriesBasedOnLiveData: true
+    ]
 };
 
 const MOCK_METER_NUMBER = {
@@ -38,18 +38,15 @@ describe('Consumption API Service', () => {
     });
 
     it('should provide method for getting meter readings history', async () => {
-        Axios.get.mockReturnValueOnce(Promise.resolve({ data: MOCK_METER_READINGS_HISTORY }));
+        Axios.get.mockReturnValueOnce(Promise.resolve({ data: MOCK_METER_READINGS_HISTORY.data }));
 
-        const data = await getMeterReadingsHistory();
+        const data = await getMeterReadingsHistory(2);
 
-        const todayDate = moment.utc().startOf('day');
-        const tomorrowDate = todayDate.add(1, 'days').unix();
-        const monthAgo = todayDate.subtract(1, 'month').unix();
-        expect(Axios.get).toHaveBeenCalledWith('/api/consumption/liveMetering', {
-            params: { startDate: monthAgo, endDate: tomorrowDate }
+        expect(Axios.get).toHaveBeenCalledWith('/api/consumption/meterReadings', {
+            params: { limit: 15, offset: 30 }
         });
 
-        expect(data).toEqual({ data: MOCK_METER_READINGS_HISTORY });
+        expect(data).toEqual({ data: MOCK_METER_READINGS_HISTORY.data });
     });
 
     it('should provide method for getting meter number', async () => {

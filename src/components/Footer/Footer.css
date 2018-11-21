@@ -30,7 +30,7 @@
 .app-footer nav {
     display: flex;
     justify-content: stretch;
-    height: 5.5em;
+    height: var(--footer-nav-height);
 }
 
 .app-footer nav a {

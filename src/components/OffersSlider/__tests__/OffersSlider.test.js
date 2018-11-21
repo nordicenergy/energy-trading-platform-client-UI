@@ -52,8 +52,8 @@ const offersMock = [
 function renderComponent({ offers = offersMock, ...otherProps } = {}, mountFn = shallow) {
     return mountFn(<OffersSlider offers={offers} {...otherProps} />);
 }
-
-describe('<OffersSlider /> component', () => {
+// TODO unskip after enabling component
+describe.skip('<OffersSlider /> component', () => {
     it('should renders without errors', () => {
         const offersSlider = renderComponent();
 

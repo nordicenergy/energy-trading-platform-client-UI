@@ -1,14 +1,9 @@
 import Axios from 'axios';
-import moment from 'moment/moment';
-import { SESSION_API_URL } from '../../constants';
+import { LIMIT, SESSION_API_URL } from '../../constants';
 
-export function getMeterReadingsHistory() {
-    const todayDate = moment.utc().startOf('day');
-    const tomorrowDate = todayDate.add(1, 'days').unix();
-    const monthAgo = todayDate.subtract(1, 'month').unix();
-
-    return Axios.get(`${SESSION_API_URL}/consumption/liveMetering`, {
-        params: { startDate: monthAgo, endDate: tomorrowDate }
+export function getMeterReadingsHistory(page) {
+    return Axios.get(`${SESSION_API_URL}/consumption/meterReadings`, {
+        params: { limit: LIMIT, offset: page * LIMIT }
     });
 }
 

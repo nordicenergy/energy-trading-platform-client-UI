@@ -1,4 +1,5 @@
 import React from 'react';
+import { faHome } from '@fortawesome/fontawesome-free-solid';
 import { Provider } from 'react-redux';
 import ShowTransactionsContainer, { ShowTransactions } from '../ShowTransactions';
 import { BackLink, Loader, RecentTransactions } from '../../../components';
@@ -460,7 +461,7 @@ describe('<ShowTransactions /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
         const [, [bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
-            { icon: 'faHome', id: '', label: 'Overview', path: '/' },
+            { icon: faHome, id: '', label: 'Overview', path: '/' },
             { id: 'show_transactions', label: 'Show Transactions', path: '/show_transactions' }
         ]);
 

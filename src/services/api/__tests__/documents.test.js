@@ -47,7 +47,7 @@ describe('Documents API Service', () => {
 
         const documents = await getDocuments(2);
 
-        expect(Axios.get).toHaveBeenCalledWith('/api/documents', { params: { limit: 10, offset: 20 } });
+        expect(Axios.get).toHaveBeenCalledWith('/api/documents', { params: { limit: 15, offset: 30 } });
 
         expect(documents).toEqual({
             data: {

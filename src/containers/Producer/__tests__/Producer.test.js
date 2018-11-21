@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import faShoppingCart from '@fortawesome/fontawesome-free-solid/faShoppingCart';
 import ProducerContainer, { Producer } from '../Producer';
 import { ProducerInfo, Button, HelpIcon } from '../../../components';
 import { mountWithIntl, shallowWithIntl } from '../../../services/intlTestHelper';
@@ -240,7 +241,7 @@ describe('<Producer /> Component', () => {
         expect(appActions.performSetupBreadcrumbs.mock.calls.length).toEqual(2);
         const [, [bArg1]] = appActions.performSetupBreadcrumbs.mock.calls;
         expect(bArg1).toEqual([
-            { icon: 'faShoppingCart', id: 'buy_energy', label: 'Buy Energy', path: '/buy_energy' },
+            { icon: faShoppingCart, id: 'buy_energy', label: 'Buy Energy', path: '/buy_energy' },
             { id: 'producer', label: 'Peter Producer', path: '/buy_energy/producer/1' }
         ]);
 

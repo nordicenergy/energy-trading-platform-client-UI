@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './HeaderButton.css';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import icons from '@fortawesome/fontawesome-free-solid';
 import classNames from 'classnames';
 
 const HeaderButton = ({ children, hasIndicator, onClickHandler, icon, label }) => (
@@ -13,7 +12,7 @@ const HeaderButton = ({ children, hasIndicator, onClickHandler, icon, label }) =
                     'has-indicator': hasIndicator
                 })}
             >
-                <FontAwesomeIcon icon={icons[icon]} />
+                <FontAwesomeIcon icon={icon} />
             </span>
         </button>
         {children}

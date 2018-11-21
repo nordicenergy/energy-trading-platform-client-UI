@@ -228,7 +228,6 @@ class DeliveryAddressForm extends AbstractForm {
                         </div>
                         <div>
                             <RadioButton
-                                disabled
                                 label={fields.businessOptions[1]}
                                 name="business"
                                 value="yes"

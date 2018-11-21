@@ -26,6 +26,10 @@
     flex-direction: column;
 }
 
+.main-container--fixed-height main {
+    height: calc(100% - var(--menu-icon-size) - var(--footer-nav-height));
+}
+
 .menu-container {
     z-index: 8;
     width: auto;
@@ -57,7 +61,8 @@
     width: var(--side-bar-width);
 }
 
-.right-config-sidebar .config-contract-select {
+.right-config-sidebar .config-contract-select,
+.contract-config-select-no-contracts-alert {
     padding: 2em;
     width: auto;
 }
@@ -71,6 +76,10 @@
 
 .right-config-sidebar .config-logout-btn span {
     margin-left: 0.5em;
+}
+
+.contract-config-select-no-contracts-alert {
+    color: var(--error-text-color);
 }
 
 .content--de-emphasized::before {
@@ -113,6 +122,10 @@
 @media screen and (max-width: 767px) {
     #main-container {
         padding: 0;
+    }
+
+    .main-container--fixed-height main {
+        height: inherit;
     }
 
     .menu-container {

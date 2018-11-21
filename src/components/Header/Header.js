@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import faEllipsisV from '@fortawesome/fontawesome-free-solid/faEllipsisV';
+import faBars from '@fortawesome/fontawesome-free-solid/faBars';
+import faSignOutAlt from '@fortawesome/fontawesome-free-solid/faSignOutAlt';
 import Logo from '../Logo';
 import Breadcrumbs from './Breadcrumbs';
 import LanguageSelect from './LanguageSelect';
@@ -53,7 +56,7 @@ const Header = ({
                         onChange={onContractChange}
                     />
                     <LanguageSelect locales={locales} value={locale} onChange={onLocaleChange} />
-                    <HeaderButton label={logoutLabel} icon="faSignOutAlt" onClickHandler={() => onLogoutClick()} />
+                    <HeaderButton label={logoutLabel} icon={faSignOutAlt} onClickHandler={() => onLogoutClick()} />
                 </div>
             </nav>
             <div aria-live="polite" className="header-config-button">
@@ -68,9 +71,13 @@ const Header = ({
 };
 
 Header.propTypes = {
-    menuBarIcon: PropTypes.string,
+    menuBarIcon: PropTypes.any,
     menuBarLabel: PropTypes.string,
     onToggleMenuBar: PropTypes.func,
+
+    configSideBarIcon: PropTypes.any,
+    configSideBarLabel: PropTypes.string,
+    onToggleConfigSideBar: PropTypes.func,
 
     logoutLabel: PropTypes.string,
     onLogoutClick: PropTypes.func,
@@ -99,11 +106,11 @@ Header.defaultProps = {
     logoutLabel: 'Logout',
     onLogoutClick: f => f,
 
-    menuBarIcon: 'faBars',
+    menuBarIcon: faBars,
     menuBarLabel: 'Toggle Menu Bar',
     onToggleMenuBar: f => f,
 
-    configSideBarIcon: 'faEllipsisV',
+    configSideBarIcon: faEllipsisV,
     configSideBarLabel: 'Configuration Side Bar',
     onToggleConfigSideBar: f => f,
 

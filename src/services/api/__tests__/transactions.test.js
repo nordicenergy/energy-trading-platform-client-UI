@@ -51,7 +51,7 @@ describe('Transactions API Service', () => {
 
         expect(balanceUrl).toEqual('/api/user/testId/transactions/getBalance');
         expect(historyUrl).toEqual('/api/user/testId/transactions/getHistory');
-        expect(historyParams).toEqual({ params: { limit: 10, offset: 10 } });
+        expect(historyParams).toEqual({ params: { limit: 15, offset: 15 } });
         expect(response.data).toEqual({
             currentBalance: { balance: 20, date: 12345678 },
             transactions: [

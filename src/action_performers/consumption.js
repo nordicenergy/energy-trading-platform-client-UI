@@ -2,11 +2,12 @@ import { getMeterReadingsHistory, getMeterNumber, submitMeterReading } from '../
 
 import { dispatcher } from '../store';
 
-export function performGetMeterReadingsHistory() {
+export function performGetMeterReadingsHistory(page) {
     dispatcher.dispatchPromise(
         getMeterReadingsHistory,
         'GET_METER_READINGS_HISTORY',
-        state => state.Consumption.meterReadingsHistory.loading
+        state => state.Consumption.meterReadingsHistory.loading,
+        [page]
     );
 }
 

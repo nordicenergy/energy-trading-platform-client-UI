@@ -13,6 +13,6 @@ describe('<Illustration /> component', () => {
 
     it('should renders with custom class', () => {
         const component = renderComponent({ className: 'test' });
-        expect(component.hasClass('test')).toBeTruthy();
+        expect(component.find('img').hasClass('test')).toBeTruthy();
     });
 });

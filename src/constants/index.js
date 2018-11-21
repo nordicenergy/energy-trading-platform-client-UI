@@ -107,7 +107,7 @@ export const PRODUCER_STATUSES = {
     active: 'active'
 };
 
-export const LIMIT = 10;
+export const LIMIT = 15;
 
 export const TRANSACTION_STATUSES = {
     success: 'success',

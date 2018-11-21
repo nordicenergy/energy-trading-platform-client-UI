@@ -55,4 +55,10 @@ describe('<ContractSelect /> component', () => {
         expect(selectField.props().value).toEqual('10022');
         expect(selectField.props().assistiveLabel).toEqual('assistive label');
     });
+
+    it('should be disabled if there is no session contract', () => {
+        const select = renderComponent({ selectedContractId: null });
+        const selectField = select.find('SelectField');
+        expect(selectField.props().disabled).toEqual(true);
+    });
 });

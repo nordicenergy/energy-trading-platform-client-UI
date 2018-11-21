@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faExclamationTriangle, faTimes } from '@fortawesome/fontawesome-free-solid';
+import faCheckCircle from '@fortawesome/fontawesome-free-solid/faCheckCircle';
+import faExclamationTriangle from '@fortawesome/fontawesome-free-solid/faExclamationTriangle';
+import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 import './Toast.css';
 
 const Toast = props => {

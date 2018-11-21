@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import faHome from '@fortawesome/fontawesome-free-solid/faHome';
 
 import { ProducerInfo, Button, BackLink } from '../../components';
 import { PATHS } from '../../constants';
@@ -70,7 +71,7 @@ export class MyProducer extends AppPage {
     setupMyProducerBreadcrumbs() {
         const { formatMessage } = this.context.intl;
         this.setupBreadcrumbs([
-            { ...PATHS.overview, icon: 'faHome', label: formatMessage(breadcrumbs.overview) },
+            { ...PATHS.overview, icon: faHome, label: formatMessage(breadcrumbs.overview) },
             {
                 ...PATHS.myProducer,
                 label: formatMessage(breadcrumbs.myProducer)

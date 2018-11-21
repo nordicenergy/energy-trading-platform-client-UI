@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faFilter } from '@fortawesome/fontawesome-free-solid';
-import { faTimesCircle } from '@fortawesome/fontawesome-free-regular';
+import faFilter from '@fortawesome/fontawesome-free-solid/faFilter';
+import faTimesCircle from '@fortawesome/fontawesome-free-regular/faTimesCircle';
 import FilterCheckbox from './FilterCheckbox';
 import './ProducersFilter.css';
 

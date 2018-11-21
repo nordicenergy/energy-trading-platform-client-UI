@@ -37,3 +37,8 @@
     color: var(--table-text-color);
     font-weight: bold;
 }
+
+.meter-readings-loader {
+    text-align: center;
+    padding: 1em;
+}
