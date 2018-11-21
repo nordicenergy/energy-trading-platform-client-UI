@@ -13,11 +13,11 @@ describe('<Logo /> component', () => {
 
     it('should renders with custom class', () => {
         const component = renderComponent({ className: 'test' });
-        expect(component.hasClass('test')).toBeTruthy();
+        expect(component.find('img').hasClass('test')).toBeTruthy();
     });
 
     it('should render small logo', () => {
         const component = renderComponent({ size: 'small' });
-        expect(component.hasClass('logo-small')).toBeTruthy();
+        expect(component.find('img').hasClass('logo-small')).toBeTruthy();
     });
 });

@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import logo from './logo.png';
+import logoPng from './logo.png';
+import logoWebp from './logo.webp';
 import './Logo.css';
 
 const Logo = ({ size, className, ...other }) => {
     const classes = classNames('logo', `logo-${size}`, className);
-    return <img className={classes} src={logo} alt="Lition logo" width={174} height={36} {...other} />;
+
+    return (
+        <picture>
+            <source srcSet={logoWebp} type="image/webp" />
+            <img className={classes} src={logoPng} alt="Lition logo" width={174} height={36} {...other} />
+        </picture>
+    );
 };
 
 Logo.propTypes = {
