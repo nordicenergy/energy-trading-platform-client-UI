@@ -70,8 +70,8 @@ describe('<MeterReadingsHistory /> Component', () => {
         expect(component.find('table')).toHaveLength(1);
         expect(component.find('caption')).toHaveLength(1);
         expect(component.find('tbody')).toHaveLength(1);
-        expect(component.find('tr')).toHaveLength(2);
-        expect(component.find('td')).toHaveLength(4);
+        expect(component.find('tr')).toHaveLength(8);
+        expect(component.find('td')).toHaveLength(16);
         expect(component.find(Spinner)).toHaveLength(0);
     });
 
@@ -83,7 +83,7 @@ describe('<MeterReadingsHistory /> Component', () => {
         expect(component.find('caption').text()).toEqual('History');
     });
 
-    it.only('should render td with specific data', () => {
+    it('should render td with specific data', () => {
         const component = renderComponent({
             consumptionUnitLabel: 'kWh',
             data: MOCK_DATA.data
