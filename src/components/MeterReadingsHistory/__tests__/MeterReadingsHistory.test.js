@@ -92,21 +92,11 @@ describe('<MeterReadingsHistory /> Component', () => {
         const trs = component.find('tr');
         let count = 0;
 
-        expect(trs.at(count++).text()).toEqual(
-            `${moment.utc('2018-09-30').format(MONTH_DAY_DATE_FORMAT)}123456.000`
-        );
-        expect(trs.at(count++).text()).toEqual(
-            `${moment.utc(1521911833).format(MONTH_DAY_DATE_FORMAT)}9950.300`
-        );
-        expect(trs.at(count++).text()).toEqual(
-            `${moment.utc('2018-10-22').format(MONTH_DAY_DATE_FORMAT)}1.000`
-        );
-        expect(trs.at(count++).text()).toEqual(
-            `${moment.utc('2018-09-29').format(MONTH_DAY_DATE_FORMAT)}-9600.600`
-        );
-        expect(trs.at(count++).text()).toEqual(
-            `${moment.utc(1724911833).format(MONTH_DAY_DATE_FORMAT)}0.000`
-        );
+        expect(trs.at(count++).text()).toEqual(`${moment.utc('2018-09-30').format(MONTH_DAY_DATE_FORMAT)}123456.000`);
+        expect(trs.at(count++).text()).toEqual(`${moment.utc(1521911833).format(MONTH_DAY_DATE_FORMAT)}9950.300`);
+        expect(trs.at(count++).text()).toEqual(`${moment.utc('2018-10-22').format(MONTH_DAY_DATE_FORMAT)}1.000`);
+        expect(trs.at(count++).text()).toEqual(`${moment.utc('2018-09-29').format(MONTH_DAY_DATE_FORMAT)}-9600.600`);
+        expect(trs.at(count++).text()).toEqual(`${moment.utc(1724911833).format(MONTH_DAY_DATE_FORMAT)}0.000`);
         expect(trs.at(count++).text()).toEqual('--');
         expect(trs.at(count++).text()).toEqual('--');
         expect(trs.at(count).text()).toEqual('--');
