@@ -191,7 +191,6 @@ class ProfileForm extends React.PureComponent {
                 >
                     <TextField
                         disabled
-                        required
                         label={labels.firstName}
                         name="firstName"
                         value={formData.firstName}
@@ -200,7 +199,6 @@ class ProfileForm extends React.PureComponent {
                     />
                     <TextField
                         disabled
-                        required
                         label={labels.lastName}
                         name="lastName"
                         value={formData.lastName}
