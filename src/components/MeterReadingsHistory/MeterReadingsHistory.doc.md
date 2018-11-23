@@ -15,19 +15,23 @@ const props = {
         {
             date: '2018-09-30',
             value: 9600.6   
-         },
-         {
+        },
+        {
             date: 1724911833,
             value: 0
-         },
-         {
+        },
+        {
             date: '',
             value: null
-         },
-         {
+        },
+        {
             date: undefined,
             value: undefined
-         }
+        },
+        {
+            date: undefined,
+            value: 'string'
+        }
     ]
 };
 
@@ -67,19 +71,19 @@ const props = {
         {
             date: '2018-09-30',
             value: 9600.6   
-         },
-         {
+        },
+        {
             date: 1724911833,
             value: 0
-         },
-         {
+        },
+        {
             date: '',
             value: null
-         },
-         {
+        },
+        {
             date: undefined,
             value: undefined
-         }
+        }
     ]
 };
 
