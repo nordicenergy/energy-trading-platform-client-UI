@@ -15,7 +15,7 @@ const MOCK_DATA = {
         },
         {
             date: 1521911833,
-            value: 9950.30
+            value: 9950.3
         },
         {
             date: '2018-10-22',
