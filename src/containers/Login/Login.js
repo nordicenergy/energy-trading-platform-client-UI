@@ -106,7 +106,7 @@ export class Login extends AppPage {
         const username = router.getQueryParam('username');
 
         return (
-            <main className="login-container" aria-busy={loading}>
+            <div role="main" className="login-container" aria-busy={loading}>
                 <div className="login-container-layout">
                     <div className="login-container-hero">
                         <Illustration className="illustration--login" />
@@ -126,7 +126,7 @@ export class Login extends AppPage {
                         />
                     </div>
                 </div>
-            </main>
+            </div>
         );
     }
 }
