@@ -303,7 +303,7 @@
     "app.submitMeterReadingsPage.labels.meterNumberTitle": "Number of meter",
     "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "Number of meter is still not defined.",
     "app.submitMeterReadingsPage.labels.historyCaption": "History",
-    "app.submitMeterReadingsPage.messages.noData": "Sorry, not live metering data available for you…",
+    "app.submitMeterReadingsPage.messages.noData": "There are no meter readings available.",
     "app.submitMeterReadingsPage.messages.success": "Meter reading value was successfully saved",
     "app.submitMeterReadingsPage.errors.meterReadingNumber": "Meter readings is not a number",
     "app.submitMeterReadingsPage.errors.dateRequired": "Date is required",
