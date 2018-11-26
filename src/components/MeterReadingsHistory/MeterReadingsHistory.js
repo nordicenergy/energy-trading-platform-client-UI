@@ -14,7 +14,7 @@ const MeterReadingsHistory = ({ title, data, noDataMessage, loading }) => {
                 <tbody>
                     {data.map((item, index) => {
                         const isValidNumber = item.value != null && isFinite(item.value);
-                        const value = isValidNumber ? parseFloat(item.value).toFixed(3) : '-';
+                        const value = isValidNumber ? parseFloat(item.value) : '-';
                         return (
                             <tr key={`${Date.now()}${index}`}>
                                 <td>{item.date ? moment.utc(item.date).format(MONTH_DAY_DATE_FORMAT) : '-'}</td>
