@@ -6,15 +6,15 @@ const props = {
     data: [
         {
             date: 1521911833,
-            value: 9950.3
+            value: 9950.30
         },
         {
             date: '2018-10-22',
-            value: 9600.7
+            value: 96.707
         },
         {
             date: '2018-09-30',
-            value: 9600.6   
+            value: 23   
         },
         {
             date: 1724911833,
