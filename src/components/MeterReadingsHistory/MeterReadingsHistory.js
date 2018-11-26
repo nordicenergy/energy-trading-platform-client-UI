@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { formatFloat } from '../../services/formatter';
 import { MONTH_DAY_DATE_FORMAT } from '../../constants';
 import Spinner from '../Loader/Spinner';
 
@@ -14,12 +13,12 @@ const MeterReadingsHistory = ({ title, data, noDataMessage, loading }) => {
                 <caption>{title}</caption>
                 <tbody>
                     {data.map((item, index) => {
-                        const isConsumptionValid = item.value != null && isFinite(item.value);
-                        const value = isConsumptionValid ? formatFloat(item.value) : '-';
+                        const isValidNumber = item.value != null && isFinite(item.value);
+                        const value = isValidNumber ? parseFloat(item.value).toFixed(3) : '-';
                         return (
                             <tr key={`${Date.now()}${index}`}>
                                 <td>{item.date ? moment.utc(item.date).format(MONTH_DAY_DATE_FORMAT) : '-'}</td>
-                                <td>{`${value} kWh`}</td>
+                                <td>{value}</td>
                             </tr>
                         );
                     })}

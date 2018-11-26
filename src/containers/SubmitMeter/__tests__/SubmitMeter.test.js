@@ -111,13 +111,12 @@ describe('<SubmitMeter /> Component', () => {
             dateRequired: 'Date is required',
             header: 'Submit Meter readings',
             historyCaption: 'History',
-            loadingErrorMessage:
-                "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
+            loadingErrorMessage: `Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.`,
             meterNumberTitle: 'Number of meter',
             incorrectMeterNumber: 'Number of meter is still not defined.',
             meterReadingNumber: 'Meter readings is not a number',
             meterReadingsField: 'Meter readings',
-            noData: 'Sorry, not live metering data available for you…',
+            noData: 'There are no meter readings available.',
             submitButton: 'Submit',
             submitErrorMessage: 'An error occurred while sending meter readings',
             successMessage: 'Meter reading value was successfully saved'
@@ -143,13 +142,12 @@ describe('<SubmitMeter /> Component', () => {
             dateRequired: 'Date is required',
             header: 'Submit Meter readings',
             historyCaption: 'History',
-            loadingErrorMessage:
-                "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.",
+            loadingErrorMessage: `Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.`,
             meterNumberTitle: 'Number of meter',
             incorrectMeterNumber: 'Number of meter is still not defined.',
             meterReadingNumber: 'Meter readings is not a number',
             meterReadingsField: 'Meter readings',
-            noData: 'Sorry, not live metering data available for you…',
+            noData: 'There are no meter readings available.',
             submitButton: 'Submit',
             submitErrorMessage: 'An error occurred while sending meter readings',
             successMessage: 'Meter reading value was successfully saved'
@@ -221,7 +219,7 @@ describe('<SubmitMeter /> Component', () => {
         expect(meterReadingsHistory).toHaveLength(1);
         expect(meterReadingsHistory.props().data).toEqual(MOCK_METER_READINGS_HISTORY.readings);
         expect(meterReadingsHistory.props().title).toEqual('History');
-        expect(meterReadingsHistory.props().noDataMessage).toEqual('Sorry, not live metering data available for you…');
+        expect(meterReadingsHistory.props().noDataMessage).toEqual('There are no meter readings available.');
         expect(meterReadingsHistory.props().loading).toEqual(false);
     });
 

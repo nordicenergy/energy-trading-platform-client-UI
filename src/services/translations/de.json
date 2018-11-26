@@ -308,7 +308,7 @@
     "app.submitMeterReadingsPage.labels.meterNumberTitle": "Zählernummer",
     "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "Zählernummer ungültig.",
     "app.submitMeterReadingsPage.labels.historyCaption": "Verlauf",
-    "app.submitMeterReadingsPage.messages.noData": "Wir haben leider keine Echtzeit-Zählerdaten für dich.",
+    "app.submitMeterReadingsPage.messages.noData": "Es sind keine Zählerstände verfügbar.",
     "app.submitMeterReadingsPage.messages.success": "Zählerstand erfolgreich gespeichert",
     "app.submitMeterReadingsPage.errors.meterReadingNumber": "Zählerstand ist keine Zahl",
     "app.submitMeterReadingsPage.errors.dateRequired": "Datum erforderlich",
