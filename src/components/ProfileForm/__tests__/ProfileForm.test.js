@@ -36,15 +36,34 @@ function renderComponent(props = {}, mountFn = shallow) {
 }
 
 describe('<ProfileForm /> component', () => {
-    it('should renders with necessary components', () => {
+    it('should renders with necessary components with specific properties', () => {
         const profileForm = renderComponent();
 
         /* Customer data */
         expect(profileForm.find('.profile-form-tab-list')).toHaveLength(1);
         expect(profileForm.find('.profile-form-tab-list > button')).toHaveLength(2);
         expect(profileForm.find('.profile-form-tab-panel')).toHaveLength(2);
-        expect(profileForm.find('TextField[name="firstName"]')).toHaveLength(1);
-        expect(profileForm.find('TextField[name="lastName"]')).toHaveLength(1);
+
+        const firstNameTextField = profileForm.find('TextField[name="firstName"]');
+        expect(firstNameTextField).toHaveLength(1);
+        expect(firstNameTextField.props().required).toBeFalsy();
+        expect(firstNameTextField.props().disabled).toBeTruthy();
+        expect(firstNameTextField.props().label).toBe('First Name');
+        expect(firstNameTextField.props().name).toBe('firstName');
+        expect(firstNameTextField.props().value).toBe('John');
+        expect(firstNameTextField.props().error).toBeFalsy();
+        expect(firstNameTextField.props().onChange).toEqual(expect.any(Function));
+
+        const lastNameTextField = profileForm.find('TextField[name="lastName"]');
+        expect(lastNameTextField).toHaveLength(1);
+        expect(lastNameTextField.props().required).toBeFalsy();
+        expect(lastNameTextField.props().disabled).toBeTruthy();
+        expect(lastNameTextField.props().label).toBe('Last Name');
+        expect(lastNameTextField.props().name).toBe('lastName');
+        expect(lastNameTextField.props().value).toBe('Doe');
+        expect(lastNameTextField.props().error).toBeFalsy();
+        expect(lastNameTextField.props().onChange).toEqual(expect.any(Function));
+
         expect(profileForm.find('DateField[name="birthday"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="city"]')).toHaveLength(1);
         expect(profileForm.find('TextField[name="street"]')).toHaveLength(1);
