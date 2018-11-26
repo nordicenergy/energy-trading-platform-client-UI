@@ -9,7 +9,7 @@ const messages = defineMessages({
     contractOthersStatusCodes: {
         id: 'app.overviewPage.contractOthersStatusCodes',
         defaultMessage:
-            'You currently do are not supplied by Lition with Energy, further details are available in the "Documents" section ({statusCodeTitle}). Feel free to contact us if you have further questions.'
+            'You are currently not supplied by Lition ({statusCodeTitle}). Details you can find in section "My Documents". Feel free to contact us if you have further questions.'
     },
     myProducer: {
         id: 'app.navigationCardsPanel.myProducer',

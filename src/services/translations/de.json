@@ -99,7 +99,7 @@
     "app.overviewPage.contractWaitingStatusCode":
         "Dein Vertrag ist erfolgreich abgeschlossen worden. Ab deinem Wechseltermin, den du im Bereich \"Dokumente\" entnehmen kannst, beliefern wir dich mit Energie. Dann kannst Du dich auch für einen Erzeuger deiner Wahl entscheiden.",
     "app.overviewPage.contractOthersStatusCodes":
-        "Du erhältst derzeit keine Energie von Lition, weitere Hintergründe kannst du den Schreiben in der Sektion \"Dokumente\" entnehmen ({statusCodeTitle}). Bei weiteren Fragen wende dich gerne an uns.",
+        "Du erhältst derzeit keinen Strom von Lition ({statusCodeTitle}). Hintergründe findest du in den Schreiben in der Sektion \"Meine Dokumente\". Bei weiteren Fragen kannst du dich gern an uns wenden.",
     "app.recentTransactions.title": "Aktuelle Transaktionen",
     "app.recentTransactions.emptyMessage": "No transaction information",
     "app.recentTransactions.headerDate": "Datum",
