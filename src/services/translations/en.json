@@ -91,7 +91,7 @@
     "app.overviewPage.contractWaitingStatusCode":
         "Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the \"Documents\" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.",
     "app.overviewPage.contractOthersStatusCodes":
-        "You currently do are not supplied by Lition with Energy, further details are available in the \"Documents\" section ({statusCodeTitle}). Feel free to contact us if you have further questions.",
+        "You are currently not supplied by Lition ({statusCodeTitle}). Details you can find in section \"My Documents\". Feel free to contact us if you have further questions.",
     "app.recentTransactions.title": "Most Recent Transactions",
     "app.recentTransactions.emptyMessage": "No transaction information",
     "app.recentTransactions.headerDate": "Date",
