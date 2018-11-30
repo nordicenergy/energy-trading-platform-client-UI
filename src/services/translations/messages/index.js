@@ -21,3 +21,4 @@ export { default as ResetPassword } from './ResetPassword';
 export { default as ProducerStatus } from './ProducerStatus';
 export { default as Registration } from './Registration';
 export { default as NotFoundPage } from './NotFoundPage';
+export { default as ContractStatuses } from './ContractStatuses';
