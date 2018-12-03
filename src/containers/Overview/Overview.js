@@ -5,7 +5,11 @@ import faHome from '@fortawesome/fontawesome-free-solid/faHome';
 
 import { Alert, NavigationCardsPanel, EmptyRecentTransactions, RecentTransactions } from '../../components';
 import { PATHS, CONTRACT_STATUSES } from '../../constants';
-import { Overview as messages, Breadcrumbs as breadcrumbs } from '../../services/translations/messages';
+import {
+    Overview as messages,
+    Breadcrumbs as breadcrumbs,
+    ContractStatuses as contractStatuses
+} from '../../services/translations/messages';
 import { formatFloat } from '../../services/formatter';
 import { convertTransactionStatus } from '../../services/translations/enums';
 import { performGetRecentTransactions } from '../../action_performers/transactions';
@@ -113,7 +117,10 @@ export class Overview extends contractStatusMixin(AppPage) {
     render() {
         const { user, recentTransactions: { transactions = [], currentBalance = 0 }, loading } = this.props;
         const { formatMessage } = this.context.intl;
-        const labels = this.prepareLabels(messages, { statusCodeTitle: user.contract.statusCodeTitle });
+        const statusMessageId = contractStatuses[`status${user.contract.statusCode}`];
+        const labels = this.prepareLabels(messages, {
+            statusCodeTitle: statusMessageId ? formatMessage(statusMessageId) : '?'
+        });
         const formattedTransactions = transactions.map(tx => ({
             ...tx,
             description: `${labels.recentTransactionsDescriptionBought} ${formatFloat(tx.energyAmount)} kWh ${
