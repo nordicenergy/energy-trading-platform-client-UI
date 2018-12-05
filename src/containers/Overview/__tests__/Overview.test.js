@@ -349,7 +349,7 @@ describe('<Overview /> Component', () => {
                 contractWaitingStatusCode:
                     'Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the "Documents" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.',
                 contractOthersStatusCodes:
-                    'You are currently not supplied by Lition (success). Details you can find in section "My Documents". Feel free to contact us if you have further questions.',
+                    'You are currently not supplied by Lition (Active). Feel free to contact us if you need more detail.',
                 recentTransactionsEmptyMessage: 'No transaction information',
                 buyEnergy: 'Buy Energy',
                 myProducer: 'My Producer',
@@ -386,7 +386,7 @@ describe('<Overview /> Component', () => {
                 contractWaitingStatusCode:
                     'Your contract with Lition was successfull, now we are waiting until the switch from your previous supplier is completed. Further details are available in the "Documents" section. After the switch, Lition is supplying you with Energy and you can choose a producer of your choice.',
                 contractOthersStatusCodes:
-                    'You are currently not supplied by Lition (success). Details you can find in section "My Documents". Feel free to contact us if you have further questions.',
+                    'You are currently not supplied by Lition (Active). Feel free to contact us if you need more detail.',
                 recentTransactionsEmptyMessage: 'No transaction information',
                 buyEnergy: 'Buy Energy',
                 myProducer: 'My Producer',
@@ -464,7 +464,7 @@ describe('<Overview /> Component', () => {
 
         expect(component.find('Alert')).toHaveLength(1);
         expect(component.find('Alert').props().children).toBe(
-            'You are currently not supplied by Lition (success). Details you can find in section "My Documents". Feel free to contact us if you have further questions.'
+            'You are currently not supplied by Lition (Start of delivery sent). Feel free to contact us if you need more detail.'
         );
         expect(component.find('EmptyRecentTransactions')).toHaveLength(1);
     });
@@ -506,13 +506,13 @@ describe('<Overview /> Component', () => {
         expect(setInterval).toHaveBeenCalledTimes(0);
         expect(clearInterval).toHaveBeenCalledTimes(0);
 
-        component.setProps({ user: { id: 10, contract: {} } });
+        component.setProps({ user: { id: 10, contract: { statusCode: 3000 } } });
 
         expect(txActions.performGetRecentTransactions.mock.calls.length).toEqual(1);
         const [[userId]] = txActions.performGetRecentTransactions.mock.calls;
         expect(userId).toEqual(10);
 
-        component.setProps({ user: { id: 11, contract: {} } });
+        component.setProps({ user: { id: 11, contract: { statusCode: 3000 } } });
         expect(setInterval).toHaveBeenCalledTimes(2);
         expect(clearInterval).toHaveBeenCalledTimes(1);
         expect(setInterval).toHaveBeenLastCalledWith(expect.any(Function), 1000 * 60);
@@ -530,7 +530,7 @@ describe('<Overview /> Component', () => {
     it('should clear interval functions on unmount step', () => {
         const component = renderComponent();
         expect(clearInterval).toHaveBeenCalledTimes(0);
-        component.setProps({ user: { id: 10, contract: {} } });
+        component.setProps({ user: { id: 10, contract: { statusCode: 3000 } } });
         component.unmount();
         expect(clearInterval).toHaveBeenCalledTimes(1);
     });
