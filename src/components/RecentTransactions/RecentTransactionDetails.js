@@ -32,9 +32,13 @@ const RecentTransactionDetails = ({ labels, isExpanded, status, hash, price, amo
             <div className="recent-transactions-details-hash" role="row">
                 <div role="columnheader">{labels.hash}</div>
                 <div role="cell">
-                    <a rel="external noopener noreferrer" tabIndex={isExpanded ? 0 : -1} target="_blank" href={url}>
-                        {hash}
-                    </a>
+                    {!!hash ? (
+                        <a rel="external noopener noreferrer" tabIndex={isExpanded ? 0 : -1} target="_blank" href={url}>
+                            {hash}
+                        </a>
+                    ) : (
+                        '--'
+                    )}
                 </div>
             </div>
         </div>

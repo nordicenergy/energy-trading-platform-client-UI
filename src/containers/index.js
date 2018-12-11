@@ -9,7 +9,6 @@ import About from './About';
 import TermsAndConditions from './TermsAndConditions';
 import FAQ from './FAQ';
 import MyProducer from './MyProducer';
-import SellEnergy from './SellEnergy';
 import BuyEnergy from './BuyEnergy';
 import ShowTransactions from './ShowTransactions';
 import Producer from './Producer';
@@ -32,7 +31,6 @@ export {
     About,
     TermsAndConditions,
     BuyEnergy,
-    SellEnergy,
     MyProducer,
     ShowTransactions,
     Producer,
