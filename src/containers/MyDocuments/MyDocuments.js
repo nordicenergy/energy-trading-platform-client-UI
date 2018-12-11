@@ -6,12 +6,12 @@ import { DocumentsList } from '../../components';
 import { Documents as messages } from '../../services/translations/messages';
 import { performSetupLoaderVisibility } from '../../action_performers/app';
 import { performPushNotification } from '../../action_performers/notifications';
+import { performGetUserData } from '../../action_performers/users';
 import { performGetDocuments, performDownloadDocument } from '../../action_performers/documents';
 
 import AppPage from '../__shared__/AppPage';
 
 import './MyDocuments.css';
-import { performGetUserData } from '../../action_performers/users';
 
 export class MyDocuments extends AppPage {
     constructor(props, context) {

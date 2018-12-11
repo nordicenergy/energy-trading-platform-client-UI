@@ -7,6 +7,7 @@ import { DocumentsList } from '../../../components';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
 import * as appActions from '../../../action_performers/app';
 import * as documentsActions from '../../../action_performers/documents';
+import * as usersActions from '../../../action_performers/users';
 
 const DOCUMENTS_MOCKS = [
     { id: 1, type: 'invoice', date: 1521911833, name: 'Invoice.pdf', description: 'Annual bill' },
@@ -31,6 +32,7 @@ describe('<MyDocuments /> Component', () => {
         documentsActions.performGetDocuments = jest.fn();
         appActions.performSetupLoaderVisibility = jest.fn();
         documentsActions.performDownloadDocument = jest.fn();
+        usersActions.performGetUserData = jest.fn();
 
         jest.spyOn(document, 'getElementById').mockReturnValue(mainContainerMock);
         jest.spyOn(mainContainerMock, 'addEventListener');
@@ -117,6 +119,7 @@ describe('<MyDocuments /> Component', () => {
 
     it('should calls performGetDocuments when we have new page number', () => {
         const component = renderComponent();
+        expect(usersActions.performGetUserData).toHaveBeenCalledTimes(1);
         expect(documentsActions.performGetDocuments).toHaveBeenCalledTimes(1);
         expect(documentsActions.performGetDocuments).toHaveBeenCalledWith(0);
         component.setState({ page: 1 });
