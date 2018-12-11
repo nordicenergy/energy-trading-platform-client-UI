@@ -76,7 +76,7 @@ caption .recent-transactions-caption-content > div:last-child {
 }
 
 /*.recent-transactions-container .recent-transactions-row:focus:not(:focus-visible) {*/
-    /*outline: none;*/
+/*outline: none;*/
 /*}*/
 
 .recent-transactions-container .recent-transactions-row--expand td {

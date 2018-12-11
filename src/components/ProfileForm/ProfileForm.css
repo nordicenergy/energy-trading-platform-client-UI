@@ -43,7 +43,7 @@
 }
 
 /*.profile-form-tab-list > button:focus:not(:focus-visible) {*/
-    /*outline: none;*/
+/*outline: none;*/
 /*}*/
 
 .profile-form-tab-list > button + button {

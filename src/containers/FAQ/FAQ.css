@@ -49,7 +49,7 @@
 }
 
 /*.faq-page .question-container .title:focus:not(:focus-visible) {*/
-    /*outline: none;*/
+/*outline: none;*/
 /*}*/
 
 .faq-page .question-container.question-container--expanded .title,
@@ -91,7 +91,7 @@
 }
 
 /*.faq-page .answer-container a:focus:not(:focus-visible) {*/
-    /*outline: none;*/
+/*outline: none;*/
 /*}*/
 
 .faq-page .question-container.question-container--expanded .answer-container {

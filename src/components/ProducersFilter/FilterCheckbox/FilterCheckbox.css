@@ -63,7 +63,7 @@
 }
 
 /*.filter-checkbox:focus:not(:focus-visible) .filter-checkbox-label {*/
-    /*outline: none;*/
+/*outline: none;*/
 /*}*/
 
 .filter-checkbox .filter-checkbox-label:hover > .filter-checkbox-icon {

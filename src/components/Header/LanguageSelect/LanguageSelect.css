@@ -45,7 +45,7 @@
 }
 
 /*.select-field--language .select-field-layout:focus:not(:focus-visible) {*/
-    /*outline: none;*/
+/*outline: none;*/
 /*}*/
 
 .select-field--language.select-field--focused .select-control-text {
