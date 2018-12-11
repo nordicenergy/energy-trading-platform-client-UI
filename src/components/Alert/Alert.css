@@ -37,6 +37,6 @@
     outline: var(--focused-control-outline);
 }
 
-.alert-content a:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.alert-content a:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/

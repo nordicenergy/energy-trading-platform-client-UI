@@ -42,9 +42,9 @@
     outline: var(--focused-control-outline);
 }
 
-.profile-form-tab-list > button:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.profile-form-tab-list > button:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/
 
 .profile-form-tab-list > button + button {
     margin-left: 2.5em;

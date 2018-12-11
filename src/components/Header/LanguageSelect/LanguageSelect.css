@@ -44,9 +44,9 @@
     outline: var(--focused-control-outline);
 }
 
-.select-field--language .select-field-layout:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.select-field--language .select-field-layout:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/
 
 .select-field--language.select-field--focused .select-control-text {
     color: var(--label-color);

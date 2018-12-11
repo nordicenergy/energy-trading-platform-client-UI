@@ -35,9 +35,9 @@
     outline: var(--focused-control-outline);
 }
 
-.offer-card .edit-button:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.offer-card .edit-button:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/
 
 .offer-card .offer-id {
     position: relative;
@@ -74,9 +74,9 @@
     outline: var(--focused-control-outline);
 }
 
-.offer-card .period-info a:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.offer-card .period-info a:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/
 
 .offer-card .edit-button:hover,
 .offer-card .period-info a:hover {

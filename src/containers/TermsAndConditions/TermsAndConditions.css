@@ -44,9 +44,9 @@
     outline: var(--focused-control-outline);
 }
 
-.terms-and-conditions-page p a:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.terms-and-conditions-page p a:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/
 
 @media (max-width: 1279px) {
     .terms-and-conditions-info-container {
