@@ -14,9 +14,9 @@
     outline: var(--focused-control-outline);
 }
 
-.nav-card-container:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.nav-card-container:focus:not(:focus-visible) {*/
+    /*outline: none;*/
+/*}*/
 
 .nav-card-container:hover {
     color: white;

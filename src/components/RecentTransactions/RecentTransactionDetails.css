@@ -21,9 +21,9 @@
     outline: var(--focused-control-outline);
 }
 
-.recent-transactions-details a:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.recent-transactions-details a:focus:not(:focus-visible) {*/
+    /*outline: none;*/
+/*}*/
 
 .recent-transactions-details a:hover {
     color: var(--button-primary-hov-color);

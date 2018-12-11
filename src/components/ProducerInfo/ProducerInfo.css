@@ -61,9 +61,9 @@ span.producer-information-value a:focus {
     outline: var(--focused-control-outline);
 }
 
-span.producer-information-value a:focus:not(:focus-visible) {
-    outline: none;
-}
+/*span.producer-information-value a:focus:not(:focus-visible) {*/
+    /*outline: none;*/
+/*}*/
 
 span.producer-information-value a:hover {
     color: var(--general-text-color);

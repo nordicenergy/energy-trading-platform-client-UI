@@ -48,9 +48,9 @@
     outline: var(--focused-control-outline);
 }
 
-.faq-page .question-container .title:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.faq-page .question-container .title:focus:not(:focus-visible) {*/
+    /*outline: none;*/
+/*}*/
 
 .faq-page .question-container.question-container--expanded .title,
 .faq-page .question-container.question-container--expanded .title:hover {
@@ -90,9 +90,9 @@
     outline: var(--focused-control-outline);
 }
 
-.faq-page .answer-container a:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.faq-page .answer-container a:focus:not(:focus-visible) {*/
+    /*outline: none;*/
+/*}*/
 
 .faq-page .question-container.question-container--expanded .answer-container {
     pointer-events: auto;

@@ -83,9 +83,9 @@
     outline: var(--focused-control-outline);
 }
 
-.confirm-dialog-actions > *:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.confirm-dialog-actions > *:focus:not(:focus-visible) {*/
+    /*outline: none;*/
+/*}*/
 
 .confirm-dialog-actions > *:hover {
     background: var(--button-hover-color);

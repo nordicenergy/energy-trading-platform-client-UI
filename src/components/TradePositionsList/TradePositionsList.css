@@ -56,9 +56,9 @@
     outline: var(--focused-control-outline);
 }
 
-.trade-position-data a:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.trade-position-data a:focus:not(:focus-visible) {*/
+    /*outline: none;*/
+/*}*/
 
 .trade-positions > * {
     margin-bottom: 0.5em;

@@ -147,9 +147,9 @@
     outline: var(--focused-control-outline);
 }
 
-.options-list-item:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.options-list-item:focus:not(:focus-visible) {*/
+    /*outline: none;*/
+/*}*/
 
 .options-list-item:hover {
     background: var(--select-option-hov-bg-color);

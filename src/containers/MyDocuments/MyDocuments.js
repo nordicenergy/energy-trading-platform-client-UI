@@ -11,6 +11,7 @@ import { performGetDocuments, performDownloadDocument } from '../../action_perfo
 import AppPage from '../__shared__/AppPage';
 
 import './MyDocuments.css';
+import { performGetUserData } from '../../action_performers/users';
 
 export class MyDocuments extends AppPage {
     constructor(props, context) {
@@ -23,7 +24,11 @@ export class MyDocuments extends AppPage {
         const { data: docData } = state.Documents.documentsList;
 
         return {
-            loading: state.Documents.documentsList.loading || state.Documents.download.loading,
+            loading:
+                state.Documents.documentsList.loading ||
+                state.Documents.download.loading ||
+                state.Users.profile.loading,
+            user: state.Users.profile.data.user,
             documentsLoading: state.Documents.documentsList.loading,
             hasNextDocuments: docData.numberOfDocuments > docData.documents.length,
             documents: docData.documents,
@@ -32,6 +37,7 @@ export class MyDocuments extends AppPage {
     }
 
     componentDidMount() {
+        performGetUserData();
         performGetDocuments(this.state.page);
 
         const loadCondition = () => {
@@ -48,7 +54,15 @@ export class MyDocuments extends AppPage {
 
     componentDidUpdate(prevProps, prevState) {
         const { formatMessage } = this.context.intl;
-        const { loading, error } = this.props;
+        const { loading, error, user } = this.props;
+
+        if (prevProps.user !== user) {
+            if (this.state.page === 0) {
+                performGetDocuments(this.state.page);
+            } else {
+                this.setState({ page: 0 });
+            }
+        }
 
         if (prevState.page !== this.state.page) {
             performGetDocuments(this.state.page);

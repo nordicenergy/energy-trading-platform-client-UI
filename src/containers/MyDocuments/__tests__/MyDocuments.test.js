@@ -40,6 +40,7 @@ describe('<MyDocuments /> Component', () => {
     it('should DocumentsList component with correct props', () => {
         const component = renderComponent({
             documents: DOCUMENTS_MOCKS,
+            user: {},
             hasNextDocuments: false,
             documentsLoading: false
         });
@@ -54,7 +55,7 @@ describe('<MyDocuments /> Component', () => {
     });
 
     it('should call "performDownloadDocument" action when click download document', () => {
-        const component = renderComponent({ documents: DOCUMENTS_MOCKS });
+        const component = renderComponent({ documents: DOCUMENTS_MOCKS, user: {} });
 
         component
             .find(DocumentsList)
@@ -71,17 +72,19 @@ describe('<MyDocuments /> Component', () => {
                     data: { documents: DOCUMENTS_MOCKS, numberOfDocuments: 9 },
                     error: 'Error message'
                 }
-            }
+            },
+            Users: { profile: { data: { user: 'test_user' }, loading: false } }
         };
         const props = MyDocuments.mapStateToProps(stateMock);
 
-        expect(props.loading).toEqual(stateMock.Documents.documentsList.loading);
+        expect(props.loading).toEqual(stateMock.Documents.documentsList.loading || stateMock.Users.profile.loading);
         expect(props.documentsLoading).toEqual(stateMock.Documents.documentsList.loading);
         expect(props.hasNextDocuments).toEqual(
             stateMock.Documents.documentsList.data.numberOfDocuments >
                 stateMock.Documents.documentsList.data.documents.length
         );
         expect(props.documents).toEqual(stateMock.Documents.documentsList.data.documents);
+        expect(props.user).toEqual(stateMock.Users.profile.data.user);
         expect(props.error).toEqual(stateMock.Documents.documentsList.error);
     });
 
@@ -114,10 +117,22 @@ describe('<MyDocuments /> Component', () => {
 
     it('should calls performGetDocuments when we have new page number', () => {
         const component = renderComponent();
-
+        expect(documentsActions.performGetDocuments).toHaveBeenCalledTimes(1);
         expect(documentsActions.performGetDocuments).toHaveBeenCalledWith(0);
         component.setState({ page: 1 });
+        component.update();
+        expect(documentsActions.performGetDocuments).toHaveBeenCalledTimes(2);
         expect(documentsActions.performGetDocuments).toHaveBeenCalledWith(1);
+
+        component.setProps({ user: {} });
+        component.update();
+        expect(documentsActions.performGetDocuments).toHaveBeenCalledTimes(3);
+        expect(documentsActions.performGetDocuments).toHaveBeenCalledWith(0);
+
+        component.setProps({ user: {} });
+        component.update();
+        expect(documentsActions.performGetDocuments).toHaveBeenCalledTimes(4);
+        expect(documentsActions.performGetDocuments).toHaveBeenCalledWith(0);
     });
 
     it('should handler scroll event', () => {
