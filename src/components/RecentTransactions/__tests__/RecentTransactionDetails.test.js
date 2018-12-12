@@ -72,6 +72,15 @@ describe('<RecentTransactionDetails /> Component', () => {
         expect(cells.at(2).text()).toEqual(`${formatFloat(detailsDummy.amount)} kWh`);
         expect(cells.at(3).text()).toEqual(`${formatFloat(detailsDummy.price)} ct`);
         expect(cells.at(4).text()).toEqual(detailsDummy.hash);
+
+        component.setProps({ hash: null });
+        component.update();
+        expect(
+            component
+                .find('div[role="cell"]')
+                .at(4)
+                .text()
+        ).toEqual('--');
     });
 
     it('should change tab index for links when data is expanded', () => {
