@@ -3,7 +3,7 @@ import moment from 'moment';
 import { shallowWithIntl } from '../../../services/intlTestHelper';
 import { CONTRACT_STATUSES } from '../../../constants';
 import { BuyEnergy } from '../BuyEnergy';
-import { ProducerCardsPanel, BackLink, ProducersFilter, OptionLinks } from '../../../components';
+import { ProducerCardsPanel, BackLink, ProducersFilter } from '../../../components';
 import * as producersActionPerformers from '../../../action_performers/producers';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
 import * as appActionPerformers from '../../../action_performers/app';
@@ -107,8 +107,7 @@ describe('<BuyEnergy /> container', () => {
         - <h2> element;
         - <BackLink> element;
         - <ProducersFilter> element;
-        - <ProducerCardsPanel> element;
-        - don\'t show <OptionLinks> element;`, () => {
+        - <ProducerCardsPanel> element;`, () => {
         const buyEnergy = renderComponent({
             loading: true,
             producersLoading: true
@@ -127,7 +126,6 @@ describe('<BuyEnergy /> container', () => {
         expect(buyEnergy.find(BackLink)).toHaveLength(1);
         expect(buyEnergy.find(ProducerCardsPanel)).toHaveLength(1);
         expect(buyEnergy.find(ProducersFilter)).toHaveLength(1);
-        expect(buyEnergy.find(OptionLinks)).toHaveLength(0);
 
         expect(buyEnergy.find(ProducerCardsPanel).props().producers).toEqual([
             { id: 0, name: 'John Doe', plantType: 'Default', price: 2.9, status: null },

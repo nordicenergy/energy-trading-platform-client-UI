@@ -22,9 +22,9 @@
     outline: var(--focused-control-outline);
 }
 
-.header-button:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.header-button:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/
 
 .header-button-icon-container {
     position: relative;

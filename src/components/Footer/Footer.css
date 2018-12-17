@@ -55,9 +55,9 @@
     outline: var(--focused-control-outline);
 }
 
-.app-footer nav a:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.app-footer nav a:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/
 
 .app-footer nav a:hover {
     outline: none;

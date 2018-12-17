@@ -19,10 +19,11 @@ export function getRecentTransactions(userId, page = 0) {
         .then(response => {
             response.data.currentBalance = currentBalance;
             const { transactions = [] } = response.data;
+            // TODO: for current moment on client side we display 'success' status for all cases but show hash url only for real success tx`s
             transactions.forEach(tx => {
                 tx.details = {
-                    hash: tx.transactionHash || '--',
-                    status: tx.blockchainStatus || '--',
+                    hash: tx.blockchainStatus === 'success' ? tx.transactionHash : null,
+                    status: 'success',
                     price: tx.price || 0,
                     amount: tx.energyAmount || 0,
                     from: tx.producerName || '--',
