@@ -46,7 +46,7 @@ export class Confirm extends React.Component {
         const classes = classNames('confirm', show && 'confirm--show', className);
 
         return (
-            <div aria-hidden={!show} className={classes} ref={modal => (this.modal = modal)}>
+            <div aria-hidden={!!show ? undefined : true} className={classes} ref={modal => (this.modal = modal)}>
                 <dialog className="confirm-dialog" open={show}>
                     <strong className="confirm-dialog-message">{labels.message}</strong>
                     <div className="confirm-dialog-actions">

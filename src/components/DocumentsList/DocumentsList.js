@@ -46,7 +46,7 @@ class DocumentsList extends React.Component {
                     <tbody>{this.renderTableRows(documents)}</tbody>
                 </table>
                 {pagination && (
-                    <div role="progressbar" aria-hidden={!loading} className="document-list-loader">
+                    <div role="progressbar" aria-hidden={!!loading ? undefined : true} className="document-list-loader">
                         {loading && <Spinner size="sm" color="#30acc1" />}
                     </div>
                 )}

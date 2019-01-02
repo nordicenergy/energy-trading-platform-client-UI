@@ -12,7 +12,13 @@ const MetaMaskAlert = props => {
     });
 
     return (
-        <div className={classes} role="alertdialog" aria-hidden={!active} aria-live="assertive" {...others}>
+        <div
+            className={classes}
+            role="alertdialog"
+            aria-hidden={!!active ? undefined : true}
+            aria-live="assertive"
+            {...others}
+        >
             <dialog className="meta-mask-alert-dialog" open={active}>
                 <strong className="meta-mask-alert-message">
                     {labels.messageStart}{' '}

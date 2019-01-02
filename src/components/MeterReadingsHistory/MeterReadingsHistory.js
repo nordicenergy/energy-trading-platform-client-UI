@@ -25,7 +25,7 @@ const MeterReadingsHistory = ({ title, data, noDataMessage, loading }) => {
                 </tbody>
             </table>
             {loading && (
-                <div role="progressbar" aria-hidden={!loading} className="meter-readings-loader">
+                <div role="progressbar" aria-hidden={!!loading ? undefined : true} className="meter-readings-loader">
                     <Spinner size="sm" color="#30acc1" />
                 </div>
             )}
