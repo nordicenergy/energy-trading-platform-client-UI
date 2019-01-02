@@ -81,7 +81,7 @@ export class FAQ extends AppPage {
                     const renderDangerouslyHTMLAnswer = () => (
                         <div
                             id={`${id}-${index}`}
-                            aria-hidden={!isExpanded}
+                            aria-hidden={!!isExpanded ? undefined : true}
                             className="answer-container"
                             dangerouslySetInnerHTML={{ __html: answer }}
                         />
@@ -96,7 +96,7 @@ export class FAQ extends AppPage {
                             <div className="title-container">
                                 <div
                                     aria-controls={`${id}-${index}`}
-                                    aria-expanded={isExpanded}
+                                    aria-expanded={!!isExpanded ? true : undefined}
                                     tabIndex={0}
                                     className="title"
                                     onClick={() => this.toggleExpandQuestion(id)}

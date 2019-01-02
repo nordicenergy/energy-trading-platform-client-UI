@@ -22,7 +22,7 @@ const ProducerCardsPanel = ({ className, loading, producers, selectedProducerId,
                     </li>
                 ))}
             </ul>
-            <div role="progressbar" aria-hidden={!loading} className="producer-cards-panel-loader">
+            <div role="progressbar" aria-hidden={!!loading ? undefined : true} className="producer-cards-panel-loader">
                 {loading && <Spinner size="sm" color="#30acc1" />}
             </div>
         </div>

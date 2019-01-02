@@ -165,7 +165,7 @@ class SelectField extends Component {
                     <div
                         className="select-field-input"
                         aria-label={label || assistiveLabel}
-                        aria-expanded={isFocused}
+                        aria-expanded={!!isFocused ? true : undefined}
                         aria-controls={listBoxId}
                     >
                         <div role="button" className="select-control" aria-label="Show select options">

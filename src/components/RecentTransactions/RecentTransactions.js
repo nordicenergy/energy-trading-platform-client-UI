@@ -161,7 +161,11 @@ class RecentTransactions extends React.Component {
                     </div>
                 )}
                 {pagination && (
-                    <div role="progressbar" aria-hidden={!loading} className="recent-transactions-loader">
+                    <div
+                        role="progressbar"
+                        aria-hidden={!!loading ? undefined : true}
+                        className="recent-transactions-loader"
+                    >
                         {loading && <Spinner size="sm" color="#30acc1" />}
                     </div>
                 )}
