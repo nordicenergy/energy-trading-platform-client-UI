@@ -322,7 +322,7 @@ export class App extends contractStatusMixin(React.PureComponent) {
                     </div>
                     <div
                         aria-live="polite"
-                        aria-hidden={!isConfigSideBarOpen}
+                        aria-hidden={!!isConfigSideBarOpen ? undefined : true}
                         className={classNames({
                             'right-config-sidebar': true,
                             'right-config-sidebar--opened': isConfigSideBarOpen
