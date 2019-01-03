@@ -59,10 +59,6 @@ export const PATHS = {
         id: 'login',
         path: '/login'
     },
-    signUp: {
-        id: 'sign_up',
-        path: '/sign-up'
-    },
     resetPassword: {
         id: 'reset_password',
         path: '/:resetToken/reset-password'
