@@ -149,8 +149,6 @@ export const PAYMENT_METHODS = {
     bitcoin: 'bitcoin'
 };
 
-export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';
-
 // TODO: TBD clarify and setup unknown contract statuses (which have null value)
 export const CONTRACT_STATUSES = {
     open: 1000,
