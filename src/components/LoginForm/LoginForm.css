@@ -21,9 +21,9 @@
     outline: var(--focused-control-outline);
 }
 
-.reset-password-link:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.reset-password-link:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/
 
 .reset-password-link:hover {
     color: white;

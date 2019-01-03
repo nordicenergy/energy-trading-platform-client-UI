@@ -35,9 +35,9 @@
     outline: var(--focused-control-outline);
 }
 
-.button:focus:not(:focus-visible) {
-    outline: none;
-}
+/*.button:focus:not(:focus-visible) {*/
+/*outline: none;*/
+/*}*/
 
 .button:hover {
     background: var(--button-hover-color);

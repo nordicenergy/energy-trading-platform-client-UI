@@ -27,7 +27,12 @@ export class ContractModal extends React.Component {
         const hasContracts = !!contracts.length;
 
         return (
-            <div aria-hidden={!show} className={classes} ref={modal => (this.modal = modal)} {...other}>
+            <div
+                aria-hidden={!!show ? undefined : true}
+                className={classes}
+                ref={modal => (this.modal = modal)}
+                {...other}
+            >
                 <dialog className="contract-modal" open={show}>
                     <strong className="contract-modal-message">
                         {hasContracts ? labels.contractMessage : labels.noContractMessage}
