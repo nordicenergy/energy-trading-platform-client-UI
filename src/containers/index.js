@@ -17,7 +17,6 @@ import MyDocuments from './MyDocuments';
 import SubmitMeter from './SubmitMeter';
 import ResetPassword from './ResetPassword';
 import NotFoundPage from './NotFoundPage';
-import Registration from './Registration';
 
 export {
     Notifications,
@@ -38,6 +37,5 @@ export {
     MyDocuments,
     SubmitMeter,
     ResetPassword,
-    NotFoundPage,
-    Registration
+    NotFoundPage
 };

@@ -59,10 +59,6 @@ export const PATHS = {
         id: 'login',
         path: '/login'
     },
-    signUp: {
-        id: 'sign_up',
-        path: '/sign-up'
-    },
     resetPassword: {
         id: 'reset_password',
         path: '/:resetToken/reset-password'
@@ -148,8 +144,6 @@ export const PAYMENT_METHODS = {
     transfer: 'transfer',
     bitcoin: 'bitcoin'
 };
-
-export const GOOGLE_RECAPTCHA_API = 'https://www.google.com/recaptcha/api.js';
 
 // TODO: TBD clarify and setup unknown contract statuses (which have null value)
 export const CONTRACT_STATUSES = {
