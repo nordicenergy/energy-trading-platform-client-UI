@@ -98,10 +98,11 @@ export class SubmitMeter extends contractStatusMixin(AppPage) {
             performSetupLoaderVisibility(this.pageId, loading);
         }
 
-        const isContractStatusValid = this.validateContractStatusKeyForSaveMeterReadings(
-            sessionContract && sessionContract.status
-        );
-        if (sessionContract && !isContractStatusValid) {
+        if (
+            sessionContract &&
+            prevProps.sessionContract !== sessionContract &&
+            !this.validateContractStatusKeyForSaveMeterReadings(sessionContract.status)
+        ) {
             performPushNotification({
                 type: 'error',
                 message: formatMessage(messages.incorrectContractStatus)
