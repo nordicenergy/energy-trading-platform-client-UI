@@ -302,7 +302,8 @@
     "app.submitMeterReadingsPage.labels.submitButton": "Submit",
     "app.submitMeterReadingsPage.labels.meterNumberTitle": "Number of meter",
     "app.submitMeterReadingsPage.labels.incorrectMeterNumber": "Number of meter is still not defined.",
-    "app.submitMeterReadingsPage.labels.incorrectContractStatus": "Submission of meter readings will be enabled with the start of delivery.",
+    "app.submitMeterReadingsPage.labels.incorrectContractStatus":
+        "Submission of meter readings will be enabled with the start of delivery.",
     "app.submitMeterReadingsPage.labels.historyCaption": "History",
     "app.submitMeterReadingsPage.messages.noData": "There are no meter readings available.",
     "app.submitMeterReadingsPage.messages.success": "Meter reading value was successfully saved",

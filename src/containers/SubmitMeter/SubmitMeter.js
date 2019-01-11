@@ -98,7 +98,9 @@ export class SubmitMeter extends contractStatusMixin(AppPage) {
             performSetupLoaderVisibility(this.pageId, loading);
         }
 
-        const isContractStatusValid = this.validateContractStatusKeyForSaveMeterReadings(sessionContract && sessionContract.status);
+        const isContractStatusValid = this.validateContractStatusKeyForSaveMeterReadings(
+            sessionContract && sessionContract.status
+        );
         if (sessionContract && !isContractStatusValid) {
             performPushNotification({
                 type: 'error',
@@ -155,13 +157,21 @@ export class SubmitMeter extends contractStatusMixin(AppPage) {
         const { formatMessage, locale } = this.context.intl;
         const labels = this.prepareLabels(messages);
         const {
-            props: { loading, meterReadingsHistoryLoading, meterNumber, submittedMeterReading, meterReadingsHistory, sessionContract },
+            props: {
+                loading,
+                meterReadingsHistoryLoading,
+                meterNumber,
+                submittedMeterReading,
+                meterReadingsHistory,
+                sessionContract
+            },
             state: { errors }
         } = this;
 
         const historyData = meterReadingsHistory.readings || [];
         const isMeterReadingSuccessfullySubmit = !submittedMeterReading.loading && !submittedMeterReading.error;
-        const isContractStatusValid = sessionContract && this.validateContractStatusKeyForSaveMeterReadings(sessionContract.status);
+        const isContractStatusValid =
+            sessionContract && this.validateContractStatusKeyForSaveMeterReadings(sessionContract.status);
 
         return (
             <section className="submit-meter-readings-page" aria-busy={loading}>
