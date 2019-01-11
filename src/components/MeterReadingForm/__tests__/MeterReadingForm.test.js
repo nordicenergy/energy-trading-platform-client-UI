@@ -60,6 +60,7 @@ describe('<MeterReadingForm /> Component', () => {
         expect(meterReadingTextField.props().label).toEqual('Meter reading');
         expect(meterReadingTextField.props().value).toEqual('123');
         expect(meterReadingTextField.props().addon).toEqual('kWh');
+        expect(meterReadingTextField.props().disabled).toBe(false);
         expect(typeof meterReadingTextField.props().onChange).toBe('function');
         expect(meterReadingTextField.props().error).toEqual('Meter readings is not a number');
         expect(
@@ -75,6 +76,7 @@ describe('<MeterReadingForm /> Component', () => {
         expect(dateField.props().label).toEqual('Date of readings');
         expect(dateField.props().value).toEqual('1535543065');
         expect(dateField.props().locale).toEqual('en');
+        expect(dateField.props().disabled).toBe(false);
         expect(dateField.props().error).toEqual('Date is required');
         expect(typeof dateField.props().onChange).toBe('function');
 
@@ -170,5 +172,23 @@ describe('<MeterReadingForm /> Component', () => {
 
         expect(component.state().meterReadings).toEqual(INIT_METER_READING.meterReadings);
         expect(component.state().date).toEqual(INIT_METER_READING.date);
+    });
+
+    it('should render with disabled elements', () => {
+        const component = renderComponent({ disabled: true });
+        component.setState(MOCK_FORM_DATA);
+
+        const textFields = component.find(TextField);
+        const dateFields = component.find(DateField);
+        const buttons = component.find(Button);
+
+        const meterReadingTextField = textFields.at(0);
+        expect(meterReadingTextField.props().disabled).toBe(true);
+
+        const dateField = dateFields.at(0);
+        expect(dateField.props().disabled).toBe(true);
+
+        const submitButton = buttons.at(0);
+        expect(submitButton.props().disabled).toEqual(true);
     });
 });

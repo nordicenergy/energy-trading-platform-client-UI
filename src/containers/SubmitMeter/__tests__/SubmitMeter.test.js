@@ -1,7 +1,7 @@
 import React from 'react';
 import { SubmitMeter } from '../SubmitMeter';
 
-import { shallowWithIntl } from '../../../services/intlTestHelper';
+import { shallowWithIntl, mountWithIntl } from '../../../services/intlTestHelper';
 import { MeterReadingsHistory, MeterReadingForm } from '../../../components';
 import * as consumptionActions from '../../../action_performers/consumption';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
@@ -29,6 +29,7 @@ const DEFAULT_PROPS = {
     loading: false,
     meterNumber: null,
     submittedMeterReading: {},
+    sessionContract: null,
     meterReadingsHistoryLoading: false,
     hasNextReadingsHistory: false,
     error: null,
@@ -98,13 +99,15 @@ describe('<SubmitMeter /> Component', () => {
     it('should render MeterReadingForm with specific properties', () => {
         const component = renderComponent({
             meterNumber: 123,
-            submittedMeterReading: { loading: true, error: null, data: {} }
+            submittedMeterReading: { loading: true, error: null, data: {} },
+            sessionContract: { status: 'active' }
         });
 
         const meterReadingForm = component.find(MeterReadingForm).at(0);
         expect(meterReadingForm).toHaveLength(1);
         expect(meterReadingForm.props().isSuccessfullySubmitted).toEqual(false);
         expect(meterReadingForm.props().errors).toEqual({});
+        expect(meterReadingForm.props().disabled).toBe(false);
         expect(meterReadingForm.props().labels).toEqual({
             dateField: 'Date of reading',
             dateHelperText: 'Editing format dd.mm.yyyy',
@@ -114,6 +117,7 @@ describe('<SubmitMeter /> Component', () => {
             loadingErrorMessage: `Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.`,
             meterNumberTitle: 'Number of meter',
             incorrectMeterNumber: 'Number of meter is still not defined.',
+            incorrectContractStatus: 'Submission of meter readings will be enabled with the start of delivery.',
             meterReadingNumber: 'Meter readings is not a number',
             meterReadingsField: 'Meter readings',
             noData: 'There are no meter readings available.',
@@ -145,6 +149,7 @@ describe('<SubmitMeter /> Component', () => {
             loadingErrorMessage: `Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.`,
             meterNumberTitle: 'Number of meter',
             incorrectMeterNumber: 'Number of meter is still not defined.',
+            incorrectContractStatus: 'Submission of meter readings will be enabled with the start of delivery.',
             meterReadingNumber: 'Meter readings is not a number',
             meterReadingsField: 'Meter readings',
             noData: 'There are no meter readings available.',
@@ -249,6 +254,11 @@ describe('<SubmitMeter /> Component', () => {
                     error: 'Error message 3',
                     loading: false
                 }
+            },
+            Contracts: {
+                sessionContract: {
+                    data: null
+                }
             }
         };
         const props = SubmitMeter.mapStateToProps(stateMock);
@@ -266,6 +276,7 @@ describe('<SubmitMeter /> Component', () => {
         expect(props.meterReadingsHistory).toEqual(stateMock.Consumption.meterReadingsHistory.data);
         expect(props.meterNumber).toEqual(stateMock.Consumption.meterNumber.data.meterNumber);
         expect(props.submittedMeterReading).toEqual(stateMock.Consumption.submittedMeterReading);
+        expect(props.sessionContract).toEqual(stateMock.Contracts.sessionContract.data);
         expect(props.user).toEqual(stateMock.Users.profile.data.user);
     });
 
@@ -312,6 +323,40 @@ describe('<SubmitMeter /> Component', () => {
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();
+    });
+
+    it('should shows error when contract status is changed and incorrect', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        const component = renderComponent();
+
+        component.setProps({ sessionContract: { status: 'incorrect' } });
+
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'Submission of meter readings will be enabled with the start of delivery.'
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
+    });
+
+    it('should shows error when contract status is incorrect when component did mount', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        renderComponent({ sessionContract: { status: 'incorrect' } }, mountWithIntl);
+
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'Submission of meter readings will be enabled with the start of delivery.'
+        });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
+    });
+
+    it('should render disabled MeterReadingForm when contract status is incorrect', () => {
+        const component = renderComponent({ sessionContract: { status: 'incorrect' } });
+
+        const meterReadingForm = component.find(MeterReadingForm).at(0);
+        expect(meterReadingForm).toHaveLength(1);
+        expect(meterReadingForm.props().disabled).toBe(true);
     });
 
     it('should call scroll handler of the container', () => {

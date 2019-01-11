@@ -29,6 +29,10 @@ const messages = defineMessages({
         id: 'app.submitMeterReadingsPage.labels.incorrectMeterNumber',
         defaultMessage: 'Number of meter is still not defined.'
     },
+    incorrectContractStatus: {
+        id: 'app.submitMeterReadingsPage.labels.incorrectContractStatus',
+        defaultMessage: 'Submission of meter readings will be enabled with the start of delivery.'
+    },
     noData: {
         id: 'app.submitMeterReadingsPage.messages.noData',
         defaultMessage: 'There are no meter readings available.'

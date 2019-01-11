@@ -42,7 +42,7 @@ class MeterReadingForm extends React.PureComponent {
     }
 
     render() {
-        const { props: { labels, errors, numberOfMeter, locale }, state: { meterReadings, date } } = this;
+        const { props: { labels, errors, numberOfMeter, locale, disabled }, state: { meterReadings, date } } = this;
         const helperText = numberOfMeter ? (
             <span>
                 {labels.meterNumberTitle}: <span className="meter-reading-form-field-helper-text">{numberOfMeter}</span>
@@ -59,6 +59,7 @@ class MeterReadingForm extends React.PureComponent {
                             name="meterReadings"
                             label={labels.meterReadingsField}
                             value={meterReadings}
+                            disabled={disabled}
                             addon="kWh"
                             onChange={({ target }) => this.handleChange(target)}
                             error={errors.meterReadings}
@@ -69,6 +70,7 @@ class MeterReadingForm extends React.PureComponent {
                         <DateField
                             name="date"
                             locale={locale}
+                            disabled={disabled}
                             label={labels.dateField}
                             helperText={labels.dateHelperText}
                             value={date}
@@ -78,7 +80,7 @@ class MeterReadingForm extends React.PureComponent {
                     </div>
                 </div>
                 <div className="meter-reading-form-actions">
-                    <Button disabled={!numberOfMeter} type="primary">
+                    <Button disabled={!numberOfMeter || disabled} type="primary">
                         {labels.submitButton}
                     </Button>
                 </div>
@@ -95,6 +97,7 @@ MeterReadingForm.propTypes = {
         submitButton: PropTypes.string
     }),
     onSubmit: PropTypes.func,
+    disabled: PropTypes.bool,
     numberOfMeter: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     locale: PropTypes.string,
     isSuccessfullySubmitted: PropTypes.bool,
@@ -116,6 +119,7 @@ MeterReadingForm.defaultProps = {
     numberOfMeter: null,
     locale: 'en',
     isSuccessfullySubmitted: false,
+    disabled: false,
     errors: {}
 };
 
