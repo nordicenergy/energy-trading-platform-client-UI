@@ -169,3 +169,19 @@ export const CONTRACT_STATUSES = {
     done: null,
     cancelled: null
 };
+
+export const CONTRACT_STATUS_KEYS_FOR_SAVE_METERING = [
+    'active',
+    'terminated',
+    'terminated_reasonable_from_customer',
+    'terminated_unreasonable_from_customer',
+    'terminated_move_with_contract',
+    'terminated_reasonable_from_provider',
+    'terminated_unreasonable_from_provider',
+    'terminated_close_down_from_network_carrier',
+    'terminated_move_out_from_netwrok_carrier',
+    'terminated_competing_delivery_from_network_carrier',
+    'terminated_reasonable_from_evu',
+    'terminated_unreasonable_from_evu',
+    'terminated_bad_payer_from_evu'
+];
