@@ -1,7 +1,7 @@
 import React from 'react';
 import { SubmitMeter } from '../SubmitMeter';
 
-import { shallowWithIntl } from '../../../services/intlTestHelper';
+import { shallowWithIntl, mountWithIntl } from '../../../services/intlTestHelper';
 import { MeterReadingsHistory, MeterReadingForm } from '../../../components';
 import * as consumptionActions from '../../../action_performers/consumption';
 import * as notificationsActionPerformers from '../../../action_performers/notifications';
@@ -325,14 +325,23 @@ describe('<SubmitMeter /> Component', () => {
         notificationsActionPerformers.performPushNotification.mockRestore();
     });
 
-    it('should shows error when contract status is incorrect', () => {
+    it('should shows error when contract status is changed and incorrect', () => {
         jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         const component = renderComponent();
 
-        component.setProps({
-            loading: false,
-            sessionContract: { status: 'incorrect' }
+        component.setProps({ sessionContract: { status: 'incorrect' } });
+
+        expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
+            type: 'error',
+            message: 'Submission of meter readings will be enabled with the start of delivery.'
         });
+
+        notificationsActionPerformers.performPushNotification.mockRestore();
+    });
+
+    it('should shows error when contract status is incorrect when component did mount', () => {
+        jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
+        renderComponent({ sessionContract: { status: 'incorrect' } }, mountWithIntl);
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',

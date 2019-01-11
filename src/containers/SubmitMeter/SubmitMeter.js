@@ -64,6 +64,8 @@ export class SubmitMeter extends contractStatusMixin(AppPage) {
 
         this.setScrollContainer('reading-history-container');
         this.setupScrollHandler(loadCondition, loadCallback);
+
+        this.handleIncorrectContractStatus();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -98,15 +100,8 @@ export class SubmitMeter extends contractStatusMixin(AppPage) {
             performSetupLoaderVisibility(this.pageId, loading);
         }
 
-        if (
-            sessionContract &&
-            prevProps.sessionContract !== sessionContract &&
-            !this.validateContractStatusKeyForSaveMeterReadings(sessionContract.status)
-        ) {
-            performPushNotification({
-                type: 'error',
-                message: formatMessage(messages.incorrectContractStatus)
-            });
+        if (prevProps.sessionContract !== sessionContract) {
+            this.handleIncorrectContractStatus();
         }
     }
 
@@ -132,6 +127,18 @@ export class SubmitMeter extends contractStatusMixin(AppPage) {
         };
 
         return new Validator(validationSchema);
+    }
+
+    handleIncorrectContractStatus() {
+        const { formatMessage } = this.context.intl;
+        const { sessionContract } = this.props;
+
+        if (sessionContract && !this.validateContractStatusKeyForSaveMeterReadings(sessionContract.status)) {
+            performPushNotification({
+                type: 'error',
+                message: formatMessage(messages.incorrectContractStatus)
+            });
+        }
     }
 
     submitMeterReading(meterReading) {
