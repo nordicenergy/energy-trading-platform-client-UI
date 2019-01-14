@@ -1,14 +1,16 @@
-# Lition Frontend (client-side app)
+# Lition Frontend
+## Introduction
+[Lition](https://prod.lition.io) is the first platform in the world that unites the idea of selling green energy and paying for it with blockchain. The Frontend part of its trading platform is built with modern JavaScript, HTML and CSS, but there are some helpers: [React](https://reactjs.org/) as a framework, [Jest](https://jestjs.io/en/) as a testing tool and [Styleguidist](https://react-styleguidist.js.org/) as a source of documentation.
 
-This is the Frontend website that connects to the Lition backend API as specified in `https://lition.atlassian.net/wiki/spaces/LIT/pages/6160385/Application+Backend+API+Specification+Version+0.1`
+There are several articles written by Lition Tech-Lead which describe the chosen approaches of development in full. Links to them can be found below:
+  1. [React architecture and approach](https://medium.com/lition-blog/lition-and-react-js-devblog-90843c9f1d10)
+  2. [Layout](https://medium.com/lition-blog/layout-of-trading-platform-devblog-aab5a61bdbf3)
+  3. [Testing](https://medium.com/lition-blog/tests-docs-for-lition-front-end-devblog-242b33a69df5)
+  
+Besides, Lition has its own UI-kit which is currently under development state, but also based on React and Styleguidist.
 
-After every commit to the master branch the latest version is pushed to the testing server, reachable at `https://prod.lition.io`
-
-Deployments to the production server are done manually by Richard
-
-## Start Project :rocket:
-
-First step is install all application dependencies:
+## Installation and start
+First step is to install all application dependencies:
 ```
 $ npm install
 ```
@@ -24,12 +26,54 @@ $ npm run build
 
 After that check `./build` folder.
 
-## Developing :books:
+## Configuration
+The idea of this project is to keep everything simple and use as little dependencies as possible. So in the beginning the initial app structure was created with [create-react-app](https://github.com/facebook/create-react-app). 
 
-Please, check this url for detailed information about our code rules, main technologies and external libraries: 
-`https://lition.atlassian.net/wiki/spaces/LIT/pages/4685825/Front-End+Development+client-side+app`
+Still there are some additional necessary tools used for this project development:
+1. [Redux](https://redux.js.org/) for state management.
+2. [React-router](https://github.com/ReactTraining/react-router) for navigation and app-routing.
+3. [Axios](https://github.com/axios/axios) for handling AJAX requests.
+4. [React-intl](https://github.com/yahoo/react-intl) and [moment.js](https://momentjs.com/) for i18n.
 
-## Testing :bar_chart:
+To start development, there are several requirements that must be met first:
+1. React version >= 16.0.
+2. All variables should be declared under _:root_ section.
+3. Every CSS file should be imported in a related component file.
+4. All necessary states of a component should be added to styleguidist.  
+
+## Development
+On this project there are several sets of development rules that are highly recommended to be followed.
+
+The first one concerns `application layers`:
+1. Follow the [DRY principle](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) (this applies to all levels - JavaScript, CSS).
+2. Build your solution across [redux philosophy](https://redux.js.org/basics/basic-tutorial) and [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).
+3. Do not use promises or async calls, all solutions based on [unidirectional dataflow](https://en.wikipedia.org/wiki/Dataflow_programming).
+4. For each domain entity and related CRUD you should create scripts with the same name.
+
+The second is about the way in which `React components` should be written:
+1. Use everywhere classic function declaration.
+2. Lambda/arrow function only for callbacks (through const is optional).
+3. Do not bind class methods, use lambda _onClick="() => this.classMethod()"_.
+4. Cover all path via unit and integration tests, because a test coverage of 80% minimum is expected and needed in order to be able to commit any changes. 
+5. Use prettier for single code style (configure your IDE).
+6. Make components independent from i18n messages and store, implement this kind of logic in containers
+7. Do not use middlewares
+
+And the third one is about writing `HTML and CSS`:
+1. Use semantic tags (like header, footer, section and other), it can be verified [here](https://validator.w3.org/nu).
+2. You can wrap a React component by a semantic element, not only by div.
+3. Use aria-attributes and https://www.w3.org/WAI/standards-guidelines.
+4. Work only with modern CSS, do not use any preprocessor (SASS or LESS).
+5. Setup font-size in rem and other properties in em units.
+6. Setup line-height in a number.
+7. Setup normalization, base and common variables in index.css file.
+8. Order your CSS properties by [this way](https://css-tricks.com/poll-results-how-do-you-order-your-css-properties).
+9. Setup state classes with following names _.menu-item--active_ (as modifier in BEM), for other cases try to use classic w3c selectors, do not use classes everywhere because it makes HTMl untidy and difficult to read.
+10. Setup all colors under :root section. 
+11. Create new color variables, always use postfix _-color_, for background use infix _-bg-_, use standard pure color names (red, black) directly in component styles.
+12. All class names should use prefix _ltn-_
+
+## Testing
 
 Start unit and system tests using following command:
 ```
