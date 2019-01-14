@@ -3,6 +3,7 @@
 [Lition](https://prod.lition.io) is the first platform in the world that unites the idea of selling green energy and paying for it with blockchain. The Frontend part of its trading platform is built with modern JavaScript, HTML and CSS, but there are some helpers: [React](https://reactjs.org/) as a framework, [Jest](https://jestjs.io/en/) as a testing tool and [Styleguidist](https://react-styleguidist.js.org/) as a source of documentation.
 
 There are several articles written by Lition Tech-Lead which describe the chosen approaches of development in full. Links to them can be found below:
+
   1. [React architecture and approach](https://medium.com/lition-blog/lition-and-react-js-devblog-90843c9f1d10)
   2. [Layout](https://medium.com/lition-blog/layout-of-trading-platform-devblog-aab5a61bdbf3)
   3. [Testing](https://medium.com/lition-blog/tests-docs-for-lition-front-end-devblog-242b33a69df5)
@@ -30,12 +31,14 @@ After that check `./build` folder.
 The idea of this project is to keep everything simple and use as little dependencies as possible. So in the beginning the initial app structure was created with [create-react-app](https://github.com/facebook/create-react-app). 
 
 Still there are some additional necessary tools used for this project development:
+
 1. [Redux](https://redux.js.org/) for state management.
 2. [React-router](https://github.com/ReactTraining/react-router) for navigation and app-routing.
 3. [Axios](https://github.com/axios/axios) for handling AJAX requests.
 4. [React-intl](https://github.com/yahoo/react-intl) and [moment.js](https://momentjs.com/) for i18n.
 
 To start development, there are several requirements that must be met first:
+
 1. React version >= 16.0.
 2. All variables should be declared under _:root_ section.
 3. Every CSS file should be imported in a related component file.
@@ -45,12 +48,14 @@ To start development, there are several requirements that must be met first:
 On this project there are several sets of development rules that are highly recommended to be followed.
 
 The first one concerns `application layers`:
+
 1. Follow the [DRY principle](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) (this applies to all levels - JavaScript, CSS).
 2. Build your solution across [redux philosophy](https://redux.js.org/basics/basic-tutorial) and [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).
 3. Do not use promises or async calls, all solutions based on [unidirectional dataflow](https://en.wikipedia.org/wiki/Dataflow_programming).
 4. For each domain entity and related CRUD you should create scripts with the same name.
 
 The second is about the way in which `React components` should be written:
+
 1. Use everywhere classic function declaration.
 2. Lambda/arrow function only for callbacks (through const is optional).
 3. Do not bind class methods, use lambda _onClick="() => this.classMethod()"_.
@@ -60,6 +65,7 @@ The second is about the way in which `React components` should be written:
 7. Do not use middlewares
 
 And the third one is about writing `HTML and CSS`:
+
 1. Use semantic tags (like header, footer, section and other), it can be verified [here](https://validator.w3.org/nu).
 2. You can wrap a React component by a semantic element, not only by div.
 3. Use aria-attributes and https://www.w3.org/WAI/standards-guidelines.
