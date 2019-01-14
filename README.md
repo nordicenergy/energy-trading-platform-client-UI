@@ -52,7 +52,8 @@ The first one concerns `application layers`:
 1. Follow the [DRY principle](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) (this applies to all levels - JavaScript, CSS).
 2. Build your solution across [redux philosophy](https://redux.js.org/basics/basic-tutorial) and [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).
 3. Do not use promises or async calls, all solutions based on [unidirectional dataflow](https://en.wikipedia.org/wiki/Dataflow_programming).
-4. For each domain entity and related CRUD you should create scripts with the same name.
+4. For each domain entity and related CRUD you should create scripts with the same name, as follows:
+
 ```
 /services/api/producers.js
 /services/api/__tests__/producers.test.js
