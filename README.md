@@ -53,6 +53,14 @@ The first one concerns `application layers`:
 2. Build your solution across [redux philosophy](https://redux.js.org/basics/basic-tutorial) and [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).
 3. Do not use promises or async calls, all solutions based on [unidirectional dataflow](https://en.wikipedia.org/wiki/Dataflow_programming).
 4. For each domain entity and related CRUD you should create scripts with the same name.
+```
+/services/api/producers.js
+/services/api/__tests__/producers.test.js
+/reducers/producers.js
+/reducers/__tests__/producers.test.js
+/action_performers/producers.test.js
+/action_performers/__tests__/producers.test.js
+```
 
 The second is about the way in which `React components` should be written:
 
@@ -86,7 +94,7 @@ Start unit and system tests using following command:
 $ npm run test
 ```
 
-![Tests Screen](/media/tests.jpg)
+![Tests Screen](./media/tests.jpg)
 
 After test completion you can check coverage report here: `./coverage/lcov-report/index.html`
 
