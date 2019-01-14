@@ -15,9 +15,11 @@ import { performPushNotification } from '../../action_performers/notifications';
 
 import AppPage from '../__shared__/AppPage';
 
+import contractStatusMixin from '../__shared__/mixins/contractStatus';
+
 import './SubmitMeter.css';
 
-export class SubmitMeter extends AppPage {
+export class SubmitMeter extends contractStatusMixin(AppPage) {
     constructor(props, context) {
         super(props, context);
 
@@ -37,9 +39,11 @@ export class SubmitMeter extends AppPage {
             hasNextReadingsHistory: readingsData.count > readingsData.readings.length,
             meterNumber: state.Consumption.meterNumber.data.meterNumber,
             submittedMeterReading: state.Consumption.submittedMeterReading,
+            sessionContract: state.Contracts.sessionContract.data,
             loading:
                 state.Consumption.submittedMeterReading.loading ||
                 state.Consumption.meterNumber.loading ||
+                state.Contracts.sessionContract.loading ||
                 state.Users.profile.loading,
             error: state.Consumption.meterReadingsHistory.error || state.Consumption.meterNumber.error,
             errorSubmit: state.Consumption.submittedMeterReading.error
@@ -60,11 +64,13 @@ export class SubmitMeter extends AppPage {
 
         this.setScrollContainer('reading-history-container');
         this.setupScrollHandler(loadCondition, loadCallback);
+
+        this.handleIncorrectContractStatus();
     }
 
     componentDidUpdate(prevProps, prevState) {
         const { formatMessage } = this.context.intl;
-        const { loading, user, error, errorSubmit, submittedMeterReading } = this.props;
+        const { loading, user, error, errorSubmit, submittedMeterReading, sessionContract } = this.props;
         const isUserChanged = !loading && user && user.id && user !== prevProps.user;
 
         if (isUserChanged) {
@@ -93,6 +99,10 @@ export class SubmitMeter extends AppPage {
         if (prevProps.loading !== loading) {
             performSetupLoaderVisibility(this.pageId, loading);
         }
+
+        if (prevProps.sessionContract !== sessionContract) {
+            this.handleIncorrectContractStatus();
+        }
     }
 
     componentWillUnmount() {
@@ -119,6 +129,18 @@ export class SubmitMeter extends AppPage {
         return new Validator(validationSchema);
     }
 
+    handleIncorrectContractStatus() {
+        const { formatMessage } = this.context.intl;
+        const { sessionContract } = this.props;
+
+        if (sessionContract && !this.validateContractStatusKeyForSaveMeterReadings(sessionContract.status)) {
+            performPushNotification({
+                type: 'error',
+                message: formatMessage(messages.incorrectContractStatus)
+            });
+        }
+    }
+
     submitMeterReading(meterReading) {
         const validator = this.prepareValidator();
 
@@ -143,12 +165,21 @@ export class SubmitMeter extends AppPage {
         const { formatMessage, locale } = this.context.intl;
         const labels = this.prepareLabels(messages);
         const {
-            props: { loading, meterReadingsHistoryLoading, meterNumber, submittedMeterReading, meterReadingsHistory },
+            props: {
+                loading,
+                meterReadingsHistoryLoading,
+                meterNumber,
+                submittedMeterReading,
+                meterReadingsHistory,
+                sessionContract
+            },
             state: { errors }
         } = this;
 
         const historyData = meterReadingsHistory.readings || [];
         const isMeterReadingSuccessfullySubmit = !submittedMeterReading.loading && !submittedMeterReading.error;
+        const isContractStatusValid =
+            sessionContract && this.validateContractStatusKeyForSaveMeterReadings(sessionContract.status);
 
         return (
             <section className="submit-meter-readings-page" aria-busy={loading}>
@@ -159,6 +190,7 @@ export class SubmitMeter extends AppPage {
                         errors={errors}
                         labels={labels}
                         locale={locale}
+                        disabled={!isContractStatusValid}
                         numberOfMeter={meterNumber}
                         onSubmit={meterReading => this.submitMeterReading(meterReading)}
                     />
@@ -189,6 +221,7 @@ SubmitMeter.propTypes = {
     }).isRequired,
     loading: PropTypes.bool,
     user: PropTypes.object,
+    sessionContract: PropTypes.object,
     meterNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     submittedMeterReading: PropTypes.shape({
         data: PropTypes.object,
