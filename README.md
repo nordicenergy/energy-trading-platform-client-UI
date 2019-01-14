@@ -4,9 +4,11 @@
 
 There are several articles written by Lition Tech-Lead which describe the chosen approaches of development in full. Links to them can be found below:
 
-  1. [React architecture and approach](https://medium.com/lition-blog/lition-and-react-js-devblog-90843c9f1d10)
-  2. [Layout](https://medium.com/lition-blog/layout-of-trading-platform-devblog-aab5a61bdbf3)
-  3. [Testing](https://medium.com/lition-blog/tests-docs-for-lition-front-end-devblog-242b33a69df5)
+1. [React architecture and approach](https://medium.com/lition-blog/lition-and-react-js-devblog-90843c9f1d10)
+
+2. [Layout](https://medium.com/lition-blog/layout-of-trading-platform-devblog-aab5a61bdbf3)
+
+3. [Testing](https://medium.com/lition-blog/tests-docs-for-lition-front-end-devblog-242b33a69df5)
   
 Besides, Lition has its own UI-kit which is currently under development state, but also based on React and Styleguidist.
 
@@ -33,15 +35,21 @@ The idea of this project is to keep everything simple and use as little dependen
 Still there are some additional necessary tools used for this project development:
 
 1. [Redux](https://redux.js.org/) for state management.
+
 2. [React-router](https://github.com/ReactTraining/react-router) for navigation and app-routing.
+
 3. [Axios](https://github.com/axios/axios) for handling AJAX requests.
+
 4. [React-intl](https://github.com/yahoo/react-intl) and [moment.js](https://momentjs.com/) for i18n.
 
 To start development, there are several requirements that must be met first:
 
 1. React version >= 16.0.
+
 2. All variables should be declared under _:root_ section.
+
 3. Every CSS file should be imported in a related component file.
+
 4. All necessary states of a component should be added to styleguidist.  
 
 ## Development
