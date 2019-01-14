@@ -86,9 +86,9 @@ After test completion you can check coverage report here: `./coverage/lcov-repor
 
 ![Coverage Screen](./media/coverage.jpg)
 
-## Documenting :art:
+## Documenting
 
-All application web components described through interactive documentation.
+All application web components must be described through interactive documentation.
 
 Run standalone documentation via following command (by default `http://localhost:6060`):
 ```
