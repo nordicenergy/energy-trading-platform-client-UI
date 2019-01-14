@@ -1,6 +1,6 @@
 # Lition Frontend
 ## Introduction
-[Lition](https://prod.lition.io) is the first platform in the world that unites the idea of selling green energy and paying for it with blockchain. The Frontend part of its trading platform is built with modern JavaScript, HTML and CSS, but there are some helpers: [React](https://reactjs.org/) as a framework, [Jest](https://jestjs.io/en/) as a testing tool and [Styleguidist](https://react-styleguidist.js.org/) as a source of documentation.
+[Lition](https://kundenportal.lition.de) is the first platform in the world that unites the idea of selling green energy and paying for it with blockchain. The Frontend part of its trading platform is built with modern JavaScript, HTML and CSS, but there are some helpers: [React](https://reactjs.org/) as a framework, [Jest](https://jestjs.io/en/) as a testing tool and [Styleguidist](https://react-styleguidist.js.org/) as a source of documentation.
 
 There are several articles written by Lition Tech-Lead which describe the chosen approaches of development in full. Links to them can be found below:
 
@@ -26,6 +26,8 @@ $ npm run build
 ```
 
 After that check `./build` folder.
+
+![App Screen](./media/app.png)
 
 ## Configuration
 The idea of this project is to keep everything simple and use as little dependencies as possible. So in the beginning the initial app structure was created with [create-react-app](https://github.com/facebook/create-react-app). 
@@ -95,11 +97,11 @@ Start unit and system tests using following command:
 $ npm run test
 ```
 
-![Tests Screen](./media/tests.jpg)
+![Tests Screen](./media/tests.png)
 
 After test completion you can check coverage report here: `./coverage/lcov-report/index.html`
 
-![Coverage Screen](./media/coverage.jpg)
+![Coverage Screen](./media/coverage.png)
 
 ## Documenting
 
@@ -115,4 +117,4 @@ or build static files:
 $ npm run styleguide:build
 ``` 
 
-![Docs Screen](./media/docs.jpg)
+![Docs Screen](./media/docs.png)
