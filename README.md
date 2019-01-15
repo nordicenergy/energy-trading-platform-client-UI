@@ -1,7 +1,7 @@
-# Lition Frontend
+# Lition Energy Use Case Frontend
 
 <p align="center">
-   <a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License: Apache-2.0"></a>
+   <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
    <a href="https://codecov.io/gh/archik408/trading-platform-client"><img src="https://codecov.io/gh/archik408/trading-platform-client/branch/master/graph/badge.svg" alt="Codecov Badge"></a>
    <a href="https://codecov.io/gh/archik408/trading-platform-client"><img src="https://img.shields.io/badge/coverage-98-green.svg" alt="Test Coverage Badge"></a>
    <a href="https://bitbucket.org/lition/frontend/addon/pipelines/home#!/results/411"><img src="https://img.shields.io/badge/build-success-lightgreen.svg" alt="Test Coverage Badge"></a>
@@ -11,7 +11,9 @@
 </p>
 
 ## Introduction
-[Lition](https://kundenportal.lition.de) is the first platform in the world that unites the idea of selling green energy and paying for it with blockchain. The Frontend part of its trading platform is built with modern JavaScript, HTML and CSS, but there are some helpers: [React](https://reactjs.org/) as a framework, [Jest](https://jestjs.io/en/) as a testing tool and [Styleguidist](https://react-styleguidist.js.org/) as a source of documentation.
+[Lition](https://www.lition.io) is developing the only scalable public-private blockchain with deletable data features, made for commercial products. Designed with Lition's live P2P trading use case, and co-innovated with SAP.
+
+This repository shows the frontend for the energy use case, which is the world's first peer to peer energy trading plattform commercially available to a mass market. You can test it at https://demo.lition.io with the credentials demo / demo1234. The Frontend part of its trading platform is built with modern JavaScript, HTML and CSS, but there are some helpers: [React](https://reactjs.org/) as a framework, [Jest](https://jestjs.io/en/) as a testing tool and [Styleguidist](https://react-styleguidist.js.org/) as a source of documentation.
 
 There are several articles written by Lition Tech-Lead which describe the chosen approaches of development in full. Links to them can be found below:
 
