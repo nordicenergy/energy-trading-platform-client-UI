@@ -13,7 +13,7 @@
 ## Introduction
 [Lition](https://www.lition.io) is developing the only scalable public-private blockchain with deletable data features, made for commercial products. Designed with Lition's live P2P trading use case, and co-innovated with SAP.
 
-This repository shows the frontend for the energy use case, which is the world's first peer to peer energy trading plattform commercially available to a mass market. You can test it at https://demo.lition.io with the credentials demo / demo1234. The Frontend part of its trading platform is built with modern JavaScript, HTML and CSS, but there are some helpers: [React](https://reactjs.org/) as a framework, [Jest](https://jestjs.io/en/) as a testing tool and [Styleguidist](https://react-styleguidist.js.org/) as a source of documentation.
+This repository shows the frontend for the energy use case, which is the world's first peer to peer energy trading plattform commercially available to a mass market. You can test it at https://demo.lition.de with the credentials demo / demo1234. The Frontend part of its trading platform is built with modern JavaScript, HTML and CSS, but there are some helpers: [React](https://reactjs.org/) as a framework, [Jest](https://jestjs.io/en/) as a testing tool and [Styleguidist](https://react-styleguidist.js.org/) as a source of documentation.
 
 There are several articles written by Lition Tech-Lead which describe the chosen approaches of development in full. Links to them can be found below:
 
