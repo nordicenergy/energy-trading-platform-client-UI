@@ -1,12 +1,12 @@
 # Lition Energy Use Case Frontend
 
-<p align="center">
+<p align="left">
    <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br /><br />
    <a href="https://codecov.io/gh/archik408/trading-platform-client"><img src="https://codecov.io/gh/archik408/trading-platform-client/branch/master/graph/badge.svg" alt="Codecov Badge"></a>
    <a href="https://codecov.io/gh/archik408/trading-platform-client"><img src="https://img.shields.io/badge/coverage-98-green.svg" alt="Test Coverage Badge"></a>
    <a href="https://bitbucket.org/lition/frontend/addon/pipelines/home#!/results/411"><img src="https://img.shields.io/badge/build-success-lightgreen.svg" alt="Test Coverage Badge"></a>
 </p>
-<p align="center">
+<p align="left">
     <a href="https://twitter.com/intent/follow?screen_name=Lition_Block"><img src="https://img.shields.io/twitter/follow/Lition_Block.svg?style=social&label=Follow%20@Lition_Block" alt="Follow on Twitter"></a>  
 </p>
 
