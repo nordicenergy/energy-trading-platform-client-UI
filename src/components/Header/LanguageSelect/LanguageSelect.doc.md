@@ -1,5 +1,5 @@
 ```jsx
-<div style={{ background: '#051a2d' }}>
+<div style={{ background: '#383838' }}>
     <LanguageSelect defaultValue="en" locales={['en', 'de']} />
 </div>
 ```

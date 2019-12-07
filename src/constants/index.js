@@ -119,7 +119,7 @@ export const DATETIME_FORMAT = 'MMM DD, YYYY hh:mm';
 export const LOCALES = ['en', 'de'];
 export const [, DEFAULT_LOCALE] = LOCALES;
 
-export const LITION_STANDARD_PLANT_ID = 1;
+export const POWERCHAIN_STANDARD_PLANT_ID = 1;
 
 export const META_MASK_LINK = 'https://metamask.io';
 
@@ -161,7 +161,7 @@ export const CONTRACT_STATUSES = {
     terminated_reasonable_from_provider: 6021,
     terminated_unreasonable_from_provider: 6022,
     terminated_close_down_from_network_carrier: 6031,
-    terminated_move_out_from_netwrok_carrier: 6032,
+    terminated_move_out_from_network_carrier: 6032,
     terminated_competing_delivery_from_network_carrier: 6033,
     terminated_reasonable_from_evu: 6041,
     terminated_unreasonable_from_evu: 6042,
@@ -179,7 +179,7 @@ export const CONTRACT_STATUS_KEYS_FOR_SAVE_METERING = [
     'terminated_reasonable_from_provider',
     'terminated_unreasonable_from_provider',
     'terminated_close_down_from_network_carrier',
-    'terminated_move_out_from_netwrok_carrier',
+    'terminated_move_out_from_network_carrier',
     'terminated_competing_delivery_from_network_carrier',
     'terminated_reasonable_from_evu',
     'terminated_unreasonable_from_evu',

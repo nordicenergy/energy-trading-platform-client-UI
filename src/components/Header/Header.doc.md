@@ -15,8 +15,8 @@ const breadCrumbs = [
          path: '#breadcrumbs'
     },
     {
-        id: 'wattcoin',
-        label: 'Wattcoin',
+        id: 'powerchain',
+        label: 'PowerChain',
         path: '#breadcrumbs'
     }
 ];

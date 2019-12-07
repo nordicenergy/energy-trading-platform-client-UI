@@ -101,7 +101,7 @@ ConfigurationForm.defaultProps = {
         blockChainField: 'Blockchain',
         addressField: 'Contract Address',
         button: 'Add Contract Address',
-        helperText: 'Assign contract address to your Lition account'
+        helperText: 'Assign contract address to your PowerChain account'
     },
     disabled: false,
     formData: {},

@@ -536,9 +536,9 @@ ProfileForm.defaultProps = {
         sepaApproval: 'Issuing SEPA-Mandate',
         sepaApprovalOption: 'I agree to terms',
         sepaApprovalHelp:
-            'The named account holder authorizes the Lition Energie GmbH to collect payments from his account by direct debit. At the same time, said account holder instructs its credit institution to redeem the direct debits drawn by the supplier into its account. Note: Within eight weeks, starting with the debit date, the reimbursement of the debited amount can be reclaimed. The conditions agreed with the bank apply.',
+            'The named account holder authorizes the Nordic Energy Ltd. to collect payments from his account by direct debit. At the same time, said account holder instructs its credit institution to redeem the direct debits drawn by the supplier into its account. Note: Within eight weeks, starting with the debit date, the reimbursement of the debited amount can be reclaimed. The conditions agreed with the bank apply.',
         bitcoinMessage:
-            'Lition accepts your Monthly payments in Bitcoin. Whenever your monthly installment is due, we will send you a link with instructions how to pay your Energy in Bitcoin or Bitcoin Cash, using the then current Bitcoin-Euro Exchange rate.',
+            'Nordic Energy accepts your Monthly payments in Bitcoin. Whenever your monthly installment is due, we will send you a link with instructions how to pay your Energy in PowerChain, Bitcoin or Bitcoin Cash, using the then current Bitcoin-Euro Exchange rate.',
         submitButton: 'Save'
     },
     profile: {

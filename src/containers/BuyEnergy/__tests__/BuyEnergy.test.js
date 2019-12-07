@@ -243,7 +243,7 @@ describe('<BuyEnergy /> container', () => {
         buyEnergy.setProps({ error: { message: 'TEST' } });
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             message:
-                "Can't load producers data from Lition web server. Please contact administrator to resolve the error.",
+                "Can't load producers data from PowerChain web server. Please contact administrator to resolve the error.",
             type: 'error'
         });
     });

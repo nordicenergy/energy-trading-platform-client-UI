@@ -29,11 +29,11 @@ describe('Transactions API Service', () => {
                                 date: 1524873600,
                                 blockchainStatus: 'success',
                                 description:
-                                    'Bought 7.13 kWh from "Bio-Erdgas-Anlage in der ehemaligen Schultheiss-Brauerei"',
+                                    'Bought 7.13 kWh from "Bio natural gas plant in the former Schultheiss Brewery"',
                                 detailsLink:
                                     'https://ropsten.etherscan.io/tx/0x4c6c11de80fa544341fc97fd4fb6755adbe6006a424f5a1029b632b7ce81ed25',
                                 energyAmount: 7.13,
-                                from: '0x0101f8cdf2c5ed1d775120a99a701bab5418add8',
+                                from: '0x4f80f1254B8783dDd8f81d996605fe85780BfcB4',
                                 id: 99,
                                 price: 2.7,
                                 producerID: 9,

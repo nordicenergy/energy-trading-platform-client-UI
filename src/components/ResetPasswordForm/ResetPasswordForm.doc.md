@@ -2,7 +2,7 @@
 
 ```jsx
 const wrapperStyles = {
-    background: '#051a2d',
+    background: '#383838',
     padding: '1rem 2rem'
 };
 const labels = {
@@ -26,7 +26,7 @@ const labels = {
 
 ```jsx
 const wrapperStyles = {
-    background: '#051a2d',
+    background: '#383838',
     padding: '1rem 2rem'
 };
 const labels = {

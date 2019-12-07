@@ -497,7 +497,7 @@ function fixtures() {
                 payload: {
                     id: 3,
                     name: 'John Doe',
-                    picture: '/plantImg/peter_producer.jpg',
+                    picture: '/plantImg/producer.jpg',
                     price: 3.5,
                     plantType: 'other',
                     annualProduction: 'annualProduction test',

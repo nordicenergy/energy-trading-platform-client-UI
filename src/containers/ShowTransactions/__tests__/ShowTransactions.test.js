@@ -400,7 +400,7 @@ describe('<ShowTransactions /> Component', () => {
                 recentTransactionsDescriptionFrom: 'from',
                 sellCoinsButton: 'Sell Coins',
                 loadingErrorMessage:
-                    "Can't load transactions data from Lition web server. Please contact administrator to resolve the error."
+                    "Can't load transactions data from PowerChain web server. Please contact administrator to resolve the error."
             },
             loading: false,
             pagination: true,
@@ -481,7 +481,7 @@ describe('<ShowTransactions /> Component', () => {
         const [[error]] = notificationActions.performPushNotification.mock.calls;
         expect(error).toEqual({
             message:
-                "Can't load transactions data from Lition web server. Please contact administrator to resolve the error.",
+                "Can't load transactions data from PowerChain web server. Please contact administrator to resolve the error.",
             type: 'error'
         });
     });

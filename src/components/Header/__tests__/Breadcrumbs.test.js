@@ -12,9 +12,9 @@ function renderComponent({
             path: 'trading'
         },
         {
-            id: 'wattcoin',
-            label: 'Wattcoin',
-            path: 'trading/wattcoin'
+            id: 'powerchain',
+            label: 'PowerChain',
+            path: 'trading/powerchain'
         }
     ],
     iconsTypes = {
@@ -52,7 +52,7 @@ describe('<Breadcrumbs /> Component', () => {
             .at(1)
             .simulate('click');
         expect(onClick).toHaveBeenCalledTimes(1);
-        expect(onClick).toHaveBeenCalledWith('trading/wattcoin');
+        expect(onClick).toHaveBeenCalledWith('trading/powerchain');
         component
             .find('a')
             .at(0)
@@ -82,7 +82,7 @@ describe('<Breadcrumbs /> Component', () => {
             .at(1)
             .simulate('keyUp', { key: 'Enter' });
         expect(onClick).toHaveBeenCalledTimes(1);
-        expect(onClick).toHaveBeenCalledWith('trading/wattcoin');
+        expect(onClick).toHaveBeenCalledWith('trading/powerchain');
         component
             .find('a')
             .at(1)
@@ -100,9 +100,9 @@ describe('<Breadcrumbs /> Component', () => {
                     icon: faChartBar
                 },
                 {
-                    id: 'wattcoin',
-                    label: 'Wattcoin',
-                    path: 'trading/wattcoin',
+                    id: 'powerchain',
+                    label: 'PowerChain',
+                    path: 'trading/powerchain',
                     icon: faBook
                 },
                 {

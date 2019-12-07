@@ -1,6 +1,6 @@
 {
-    "name": "lition-client",
-    "version": "0.1.0",
+    "name": "powerchain-client",
+    "version": "2.0.0",
     "private": true,
     "dependencies": {
         "@fortawesome/fontawesome": "1.1.5",
@@ -71,19 +71,19 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/lition-blockchain/trading-platform-client"
+        "url": "https://github.com/nordicenergy/powerchain-platform/energy-trading-client-ui"
     },
     "keywords": [
-        "lition",
+        "powerchain",
         "energy",
         "exchange",
         "blockchain",
-        "tading platform",
+        "trading platform",
         "client side",
-        "front-end"
+        "frontend"
     ],
-    "author": "Lition Tech Team",
-    "license": "Apache-2.0",
+    "author": "Nordic Energy Tech Team",
+    "license": "CC BY-NC-ND 4.0",
     "engines": {
         "node": ">=6.6.0",
         "npm": ">=3.10.8"
@@ -100,7 +100,7 @@
     },
     "proxy": {
         "/api": {
-            "target": "http://fe.staging.lition.io",
+            "target": "https://fe.staging.nordicenergy.co",
             "changeOrigin": true
         }
     }

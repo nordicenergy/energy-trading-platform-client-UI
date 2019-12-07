@@ -159,7 +159,7 @@ function fixtures() {
                         {
                             id: 3,
                             date: 1523707200,
-                            description: 'Bought 23 kWh from Peter',
+                            description: 'Bought 23 kWh from Nordic Energy',
                             amount: 0.81
                         }
                     ],

@@ -67,8 +67,8 @@ describe('<RestorePassword /> Container', () => {
         component
             .find('RestorePasswordForm')
             .props()
-            .onSubmit('user@example.com');
-        expect(userActionPerformers.performCreateResetPasswordToken).toHaveBeenCalledWith('user@example.com');
+            .onSubmit('info@nordicenergy.io');
+        expect(userActionPerformers.performCreateResetPasswordToken).toHaveBeenCalledWith('info@nordicenergy.io');
 
         component.setProps({
             loading: true
@@ -117,7 +117,7 @@ describe('<RestorePassword /> Container', () => {
             .props()
             .onSubmit();
         expect(historyMock.push).not.toHaveBeenCalled();
-        expect(component.state().errors).toHaveProperty('email');
+        expect(component.state().errors).toHaveProperty('info@nordicenergy.io');
 
         consoleWarnSpy.mockRestore();
     });

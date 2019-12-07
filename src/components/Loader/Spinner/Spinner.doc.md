@@ -12,8 +12,8 @@
 
 ```jsx
 <div>
-    <Spinner size="sm" color="violet" />
-    <Spinner size="md" color="violet" />
-    <Spinner size="lg" color="violet" />
+    <Spinner size="sm" color="orange" />
+    <Spinner size="md" color="orange" />
+    <Spinner size="lg" color="orange" />
 </div>
 ```

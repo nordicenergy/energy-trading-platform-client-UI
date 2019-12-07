@@ -15,23 +15,23 @@ const billProps = {
         location: 'Location'
     },
     details: {
-        name: 'Peter Producer',
+        name: 'Nordic Energy',
         price: 2.4,
-        marketPrice: 2.5,
-        energyType: 'Wind',
+        marketPrice: 2.4,
+        energyType: 'Solar',
         annualProduction: 3000,
         purchased: 1300,
         capacity: 8,
         selectedSince: 'Sep 12 - Feb 22',
-        ethereumAddress: '0x3E7e5d1810F825a2B27C6BEC5fCB32F3eaCd192e',
-        location: 'Lippendorf, Neukieritzsch'
+        ethereumAddress: '0x1383b6EFe917e2BB5d80a55a8B1A81f360eD06bd',
+        location: 'Vaasa, Finland'
     },
-    description: `LTN Supply & Trading is a leading European energy
-                  trading house and the interface between the LTN Group's
+    description: `Nordic Energy is a European energy
+                  trading corporation and the blockchain based interface between the Group's
                   operating companies and global wholesale markets for
                   energy and energy-related raw materials in both their
                   physical and/or derivative forms.`,
-    picture: 'https://upload.wikimedia.org/wikipedia/en/7/76/Darth_Vader.jpg'
+    picture: 'https://upload.wikimedia.org/wikipedia/en/5/87/Nordic_Energy.jpg'
 };
 
 <div style={{ backgroundColor: 'white', padding: '10px' }}>
@@ -55,7 +55,7 @@ const billProps = {
         location: 'Location'
     },
     details: {
-        name: 'Peter Producer',
+        name: 'Producer',
         price: 2.4,
         marketPrice: 2.5,
         energyType: 'Wind',
@@ -92,7 +92,7 @@ const lukeProps = {
         location: 'Location'
     },
     details: {
-        name: 'Bernd Ottovordemgentschen',
+        name: 'Vaasan Sahko',
         price: 2.4,
         energyType: 'Wind',
         annualProduction: 3000,
@@ -100,14 +100,14 @@ const lukeProps = {
         capacity: 8,
         status: 'standard',
         selectedSince: 'Sep 12 - Feb 22',
-        location: 'Neuer Hafen 10, Schwedt, DE 16303'
+        location: 'Kirkkopuistikko 0, Vaasa, FI 65100'
     },
-    description: `LTN Supply & Trading is a leading European energy
-                  trading house and the interface between the LTN Group's
+    description: `Vaasan Sahko is a Finish energy
+                  distributor and the interface between the Energy Group's
                   operating companies and global wholesale markets for
                   energy and energy-related raw materials in both their
                   physical and/or derivative forms.`,
-    picture: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Luke_Skywalker.png'
+    picture: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Vaasan-Sahko.png'
 };
 
 <div style={{ backgroundColor: 'white', padding: '10px' }}>

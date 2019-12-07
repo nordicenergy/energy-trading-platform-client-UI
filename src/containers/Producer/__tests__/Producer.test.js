@@ -29,7 +29,7 @@ const store = mockStore({
                     workingPrice: 2.3,
                     contract: {
                         statusCode: CONTRACT_STATUSES.active,
-                        statusCodeTitle: 'In Belieferung'
+                        statusCodeTitle: 'In Supply'
                     }
                 }
             }
@@ -38,7 +38,7 @@ const store = mockStore({
     Producers: {
         producer: {
             data: {
-                name: 'Peter Producer',
+                name: 'Producer',
                 price: 2.4,
                 annualProduction: 3000,
                 purchased: 1300,
@@ -166,7 +166,7 @@ describe('<Producer /> Component', () => {
                 capacity: 8,
                 energyType: 'Solar',
                 location: 'Lippendorf, Neukieritzsch',
-                name: 'Peter Producer',
+                name: 'Producer',
                 price: 2.4,
                 purchased: 1300,
                 selectedSince: 'Sep 12 - Feb 22',
@@ -317,7 +317,7 @@ describe('<Producer /> Component', () => {
         expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(2);
 
         producer.setProps({
-            locale: 'de'
+            locale: 'en'
         });
 
         expect(appActions.performSetupBreadcrumbs).toHaveBeenCalledTimes(3);

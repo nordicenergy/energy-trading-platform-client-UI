@@ -101,7 +101,7 @@ describe('<MyDocuments /> Component', () => {
 
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
-            message: "Can't load documents from Lition web server. Please contact administrator to resolve the error."
+            message: "Can't load documents from PowerChain web server. Please contact administrator to resolve the error."
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

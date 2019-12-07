@@ -185,7 +185,7 @@ describe('<Profile /> Container', () => {
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
             message:
-                "Can't load profile data from Lition web server. Please contact administrator to resolve the error."
+                "Can't load profile data from PowerChain web server. Please contact administrator to resolve the error."
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

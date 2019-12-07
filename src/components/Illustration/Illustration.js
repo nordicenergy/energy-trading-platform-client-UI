@@ -15,7 +15,7 @@ const Illustration = ({ className }) => {
                 src={illustrationPng}
                 width={632}
                 height={536}
-                alt="Welcome application illustration. Delivery energy through device to your home"
+                alt="Welcome PowerChain application. Delivery energy through device to your home"
             />
         </picture>
     );

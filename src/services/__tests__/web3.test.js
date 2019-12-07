@@ -5,8 +5,8 @@ import ropstenContract from '../web3/contracts/ropsten';
 import liveContract from '../web3/contracts/live';
 import moment from 'moment';
 
-const ropstenAddresses = ['0xa705D64d383349F5c198afed7C3292d24EaBa48d'];
-const liveAddresses = ['0x3f3c80ceA2d44419fBDA23Be3575fd403c5b4481'];
+const ropstenAddresses = ['0x4f80f1254B8783dDd8f81d996605fe85780BfcB4'];
+const liveAddresses = ['0x1383b6EFe917e2BB5d80a55a8B1A81f360eD06bd'];
 
 describe('Web3 Service', () => {
     beforeEach(() => {
@@ -214,7 +214,7 @@ describe('Web3 Service', () => {
             web3Service.performTransaction(tradePositionDummy, contractAddressDummy, 'live', ledgerAddressDummy)
         ).rejects.toEqual({
             response: {
-                data: new Error('Network with no Lition smart contracts')
+                data: new Error('Network with no PowerChain smart contracts')
             }
         });
         await expect(

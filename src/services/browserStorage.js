@@ -1,4 +1,4 @@
-const TOKEN_KEY = 'lition_auth_token';
+const TOKEN_KEY = 'powerchain_auth_token';
 
 export function getToken() {
     return sessionStorage.getItem(TOKEN_KEY);

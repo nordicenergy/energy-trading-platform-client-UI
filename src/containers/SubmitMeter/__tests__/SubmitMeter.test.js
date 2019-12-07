@@ -12,12 +12,12 @@ const MOCK_METER_READINGS_HISTORY = {
     readings: [
         {
             id: '17007',
-            date: '2018-09-30',
+            date: '2019-09-30',
             value: '123456.0000'
         },
         {
             id: '17008',
-            date: '2018-09-27',
+            date: '2019-09-27',
             value: '123456.0000'
         }
     ]
@@ -114,7 +114,7 @@ describe('<SubmitMeter /> Component', () => {
             dateRequired: 'Date is required',
             header: 'Submit Meter readings',
             historyCaption: 'History',
-            loadingErrorMessage: `Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.`,
+            loadingErrorMessage: `Can't load meter readings data from Nordic Energy´s PowerChain web server. Please contact administrator to resolve the error.`,
             meterNumberTitle: 'Number of meter',
             incorrectMeterNumber: 'Number of meter is still not defined.',
             incorrectContractStatus: 'Submission of meter readings will be enabled with the start of delivery.',
@@ -146,7 +146,7 @@ describe('<SubmitMeter /> Component', () => {
             dateRequired: 'Date is required',
             header: 'Submit Meter readings',
             historyCaption: 'History',
-            loadingErrorMessage: `Can't load meter readings data from Lition web server. Please contact administrator to resolve the error.`,
+            loadingErrorMessage: `Can't load meter readings data from PowerChain web server. Please contact administrator to resolve the error.`,
             meterNumberTitle: 'Number of meter',
             incorrectMeterNumber: 'Number of meter is still not defined.',
             incorrectContractStatus: 'Submission of meter readings will be enabled with the start of delivery.',
@@ -280,7 +280,7 @@ describe('<SubmitMeter /> Component', () => {
         expect(props.user).toEqual(stateMock.Users.profile.data.user);
     });
 
-    it('should shows server error if smth is failed', () => {
+    it('should shows server error if submit is failed', () => {
         jest.spyOn(notificationsActionPerformers, 'performPushNotification').mockImplementation(jest.fn());
         const component = renderComponent();
 
@@ -292,7 +292,7 @@ describe('<SubmitMeter /> Component', () => {
         expect(notificationsActionPerformers.performPushNotification).toHaveBeenCalledWith({
             type: 'error',
             message:
-                "Can't load meter readings data from Lition web server. Please contact administrator to resolve the error."
+                "Can't load meter readings data from Nordic Energy´s PowerChain web server. Please contact administrator to resolve the error."
         });
 
         notificationsActionPerformers.performPushNotification.mockRestore();

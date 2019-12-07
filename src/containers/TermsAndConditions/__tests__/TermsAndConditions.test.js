@@ -16,7 +16,7 @@ const store = mockStore({
     App: {
         localization: {
             data: {
-                termsAndConditions: ['test1', 'test2']
+                termsAndConditions: ['Terms & Conditions', 'Privacy Policy']
             },
             loading: {
                 termsAndConditions: false
@@ -29,7 +29,7 @@ const store = mockStore({
 });
 
 const defaultProps = {
-    paragraphs: ['p1', 'text <a href="link" target="_blank">link</a> text2'],
+    paragraphs: ['p1', 'text <a href="link" target="https://powerchain.nordicenergy.co/energy-trading/terms-and-conditions.pdf">link</a> Terms & Conditions'],
     error: null,
     loading: false
 };

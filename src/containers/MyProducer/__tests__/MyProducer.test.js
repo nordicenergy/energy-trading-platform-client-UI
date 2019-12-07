@@ -29,7 +29,7 @@ const store = mockStore({
                     workingPrice: 2.3,
                     status: 'delivery_net',
                     statusCode: CONTRACT_STATUSES.active,
-                    statusCodeTitle: 'In Belieferung'
+                    statusCodeTitle: 'In Supply'
                 }
             }
         }
@@ -37,7 +37,7 @@ const store = mockStore({
     Producers: {
         producer: {
             data: {
-                name: 'Peter Producer',
+                name: 'Producer',
                 price: 2.4,
                 annualProduction: 3000,
                 purchased: 1300,

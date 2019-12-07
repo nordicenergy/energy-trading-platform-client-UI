@@ -12,7 +12,7 @@ describe('<Logo /> component', () => {
     });
 
     it('should renders with custom class', () => {
-        const component = renderComponent({ className: 'test' });
+        const component = renderComponent({ className: 'PowerChain test' });
         expect(component.find('img').hasClass('test')).toBeTruthy();
     });
 

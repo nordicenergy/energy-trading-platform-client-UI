@@ -57,7 +57,7 @@ const wrapperStyles = { padding: '1rem 2rem' };
         label="Meter readings"
         helperText={
             <span>
-                Number of meter: <strong style={{ color: '#757e85' }}>1225678936</strong>
+                Number of meter: <strong style={{ color: '#828282' }}>1225678936</strong>
             </span>
         }
     />
@@ -78,7 +78,7 @@ const wrapperStyles = {
         label="Meter readings"
         helperText={
             <span>
-                Number of meter: <strong style={{ color: '#e3e6e8' }}>1225678936</strong>
+                Number of meter: <strong style={{ color: '#e3e3e3' }}>1225678936</strong>
             </span>
         }
     />
@@ -96,7 +96,7 @@ const wrapperStyles = { padding: '1rem 2rem' };
         addon="kWh"
         helperText={
             <span>
-                Number of meter: <strong style={{ color: '#757e85' }}>1225678936</strong>
+                Number of meter: <strong style={{ color: '#828282' }}>1225678936</strong>
             </span>
         }
     />
@@ -118,7 +118,7 @@ const wrapperStyles = {
         addon="kWh"
         helperText={
             <span>
-                Number of meter: <strong style={{ color: '#e3e6e8' }}>1225678936</strong>
+                Number of meter: <strong style={{ color: '#828282' }}>1225678936</strong>
             </span>
         }
     />

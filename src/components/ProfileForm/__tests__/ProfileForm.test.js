@@ -17,8 +17,8 @@ const dummyProfile = {
         BIC: 'COBADEFFXXX',
         status: 'active',
         statusCode: 5000,
-        statusCodeTitle: 'In Belieferung',
-        paymentMethod: 'powercloud',
+        statusCodeTitle: 'In Supplier',
+        paymentMethod: 'powerchain',
         id: '1000087',
         startDate: 339984000,
         endDate: 339984000,
@@ -250,7 +250,7 @@ describe('<ProfileForm /> component', () => {
         const profileForm = renderComponent();
         const profileWithoutIBAN = { ...dummyProfile, contract: { ...dummyProfile.contract, IBAN: '' } };
 
-        profileForm.setState({ oldPassword: 'test1234', newPassword: 'qwerty123', confirmNewPassword: 'qwerty1234' });
+        profileForm.setState({ oldPassword: 'powerchain123', newPassword: 'powerchain1234', confirmNewPassword: 'powerchain1234' });
         profileForm.setProps({ profile: profileWithoutIBAN });
 
         const profileFormData = profileForm.state().formData;

@@ -28,8 +28,8 @@ describe('<LanguageSelect /> component', () => {
         languageSelect
             .find('SelectField')
             .props()
-            .onChange({ value: 'de', name: '' });
-        expect(onChangeStub).toHaveBeenCalledWith('de');
+            .onChange({ value: 'en', name: '' });
+        expect(onChangeStub).toHaveBeenCalledWith('en');
     });
 
     it('should not calls onChange callback if onChange is not a function', () => {
@@ -38,7 +38,7 @@ describe('<LanguageSelect /> component', () => {
         languageSelect
             .find('SelectField')
             .props()
-            .onChange({ value: 'de', name: '' });
+            .onChange({ value: 'en', name: '' });
     });
 
     it('should provide property to select field in original case', () => {

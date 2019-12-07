@@ -9,36 +9,36 @@ const messages = defineMessages({
         id: 'app.tradingPage.graphTitle',
         defaultMessage: 'Amount of energy'
     },
-    wattcoinTableHeader: {
-        id: 'app.tradingPage.wattcoinTable.header',
-        defaultMessage: 'Wattcoin'
+    powerchainTableHeader: {
+        id: 'app.tradingPage.powerchainTable.header',
+        defaultMessage: 'PowerChain'
     },
-    wattcoinTableMore: {
-        id: 'app.tradingPage.wattcoinTable.moreButton',
+    powerchainTableMore: {
+        id: 'app.tradingPage.powerchainTable.moreButton',
         defaultMessage: 'More'
     },
-    wattcoinTableTrx: {
-        id: 'app.tradingPage.wattcoinTable.trx',
+    powerchainTableTrx: {
+        id: 'app.tradingPage.powerchainTable.trx',
         defaultMessage: 'Transaction'
     },
-    wattcoinTableSent: {
-        id: 'app.tradingPage.wattcoinTable.sent',
+    powerchainTableSent: {
+        id: 'app.tradingPage.powerchainTable.sent',
         defaultMessage: 'Sent'
     },
-    wattcoinTableReceived: {
-        id: 'app.tradingPage.wattcoinTable.received',
+    powerchainTableReceived: {
+        id: 'app.tradingPage.powerchainTable.received',
         defaultMessage: 'Received'
     },
-    wattcoinTableTotal: {
-        id: 'app.tradingPage.wattcoinTable.total',
+    powerchainTableTotal: {
+        id: 'app.tradingPage.powerchainTable.total',
         defaultMessage: 'Total'
     },
-    wattcoinTableProducer: {
-        id: 'app.tradingPage.wattcoinTable.producer',
+    powerchainTableProducer: {
+        id: 'app.tradingPage.powerchainTable.producer',
         defaultMessage: 'Producer'
     },
-    wattcoinTableEnergyType: {
-        id: 'app.tradingPage.wattcoinTable.energyType',
+    powerchainTableEnergyType: {
+        id: 'app.tradingPage.powerchainTable.energyType',
         defaultMessage: 'Type of energy'
     },
     myProducer: {
