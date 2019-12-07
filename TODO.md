@@ -3,6 +3,7 @@
 
 - Login fix
 - Testnet/mainnet
+- API
 - Token integration/smart contract developments
 - Application developments
 - PowerChain Token (PWC) development
