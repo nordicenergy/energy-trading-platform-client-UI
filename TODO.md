@@ -2,6 +2,7 @@
 # Develooments
 
 - Login fix
+- Testnet/mainnet
 - Token integration/smart contract developments
 - Application developments
 - PowerChain Token (PWC) development
