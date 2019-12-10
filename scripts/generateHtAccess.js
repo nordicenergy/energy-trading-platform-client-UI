@@ -61,11 +61,9 @@ async function generateHtAccessFile() {
 <filesMatch ".(jpg|jpeg|png|gif|ico|svg|otf)$">
 Header set Cache-Control "max-age=2628000, public"
 </filesMatch>
-
 <filesMatch ".(html|css|js)$">
 Header set Cache-Control "max-age=86400, public"
 </filesMatch>
-
 # compress text, html, javascript, css, xml:
 AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/html
@@ -76,12 +74,10 @@ AddOutputFilterByType DEFLATE application/xhtml+xml
 AddOutputFilterByType DEFLATE application/rss+xml
 AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/x-javascript
-
 # Or, compress certain file types by extension:
 <files *.html>
 SetOutputFilter DEFLATE
 </files>
-
 <ifModule http2_module>
     <FilesMatch index.html>
         ${headers.map(header => `  ${header}`).join('\n')}
