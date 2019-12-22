@@ -1,7 +1,8 @@
 
-# Nordic Energy - Energy Trading Platform
+# Nordic Energy - Energy Exchange
 
-### PowerChain Blockchain based energy trading frontend
+### PowerChain blockchain-based energy trading client frontend
+
 
 
 <p align="left">
@@ -15,7 +16,11 @@
 </p>
 
 ## Introduction
-[Nordic Energy](https://www.nordicenergy.co) is developing the only scalable public-private Blockchain with deletable data features, made for commercial products. Designed with Nordic Energy's P2P energy trading use case, and co-innovated with SAP.
+[Nordic Energy](https://www.nordicenergy.co) is developing the scalable public-private blockchain with deletable data features, made for commercial products. Designed with peer-to-peer energy trading use case, and co-innovated with SAP.
+
+## How it Works?
+
+<img src="/docs/how-it-works.png" alt="How it Works"/>
 
 This repository shows the frontend for the energy use case, which is the world's first peer to peer energy trading platform commercially available to a mass market. You can test it at https://powerchain.nordicenergy.co with the credentials demo / demo1234. The Frontend part of its trading platform is built with modern JavaScript, HTML and CSS, but there are some helpers: [React](https://reactjs.org/) as a framework, [Jest](https://jestjs.io/en/) as a testing tool and [Styleguidist](https://react-styleguidist.js.org/) as a source of documentation.
 
@@ -33,10 +38,15 @@ First step is to install all application dependencies:
 ```
 $ npm install
 ```
+npm install error fix 
+```
+$ curl -L https://www.npmjs.com/install.sh | sh
+
 
 You have possibility to start standalone front-and app with local proxy server (by default `http://localhost:3000`):
 ```
 $ npm run start
+
 ```
 or build static sources for production env via following command:
 ```
